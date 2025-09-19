@@ -1,120 +1,174 @@
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building } from "lucide-react";
 
-// Company logos
-import jengaiLogo from "@/assets/logos/companies/jengai.png";
-import gamyteLogo from "@/assets/logos/companies/gamyte.png";
-import ercLogo from "@/assets/logos/companies/erc.png";
-import dataselLogo from "@/assets/logos/companies/datasel.png";
-import fonetLogo from "@/assets/logos/companies/fonet.png";
-import haliciLogo from "@/assets/logos/companies/halici.png";
+// Define interfaces for the data structure
+interface Technology {
+  name: string;
+  type: string;
+}
+
+interface Project {
+  name: string;
+  title: string;
+}
+
+interface Domain {
+  name: string;
+  title: string;
+  value: number;
+  iconCss: string;
+}
+
+interface Position {
+  id: number;
+  title: string;
+  startDate: string;
+  endDate: string | null;
+  summary: string;
+  domains?: Domain[];
+  projects?: Project[];
+  technologies: Technology[];
+}
+
+interface Experience {
+  id: number;
+  orderIndex: number;
+  icon: string;
+  companyCode: string;
+  companyName: string;
+  positions: Position[];
+}
+
+interface ExperiencesData {
+  general: {
+    title: string;
+    summary: string;
+    total_years: number;
+    prop_subitems: string;
+  };
+  items: Experience[];
+}
 
 const ExperienceSection = () => {
-  const experiences = [
-    {
-      company: "Gamyte",
-      position: "Director of Technology & Senior Software Architect",
-      duration: "Sep 2019 - Present",
-      years: "6+ years",
-      location: "Turkey",
-      type: "Full-time",
-      logo: gamyteLogo,
-      description: [
-        "Leading technology strategy and architecture decisions for enterprise gaming solutions",
-        "Managing cross-functional development teams and R&D initiatives",
-        "Architecting scalable, high-performance gaming platforms",
-        "Driving digital transformation and innovation across the organization"
-      ],
-      technologies: ["C#", ".NET Core", "Microservices", "Azure", "React", "TypeScript"],
-      current: true
-    },
-    {
-      company: "ERC Group Engineering, Consultancy, R&D",
-      position: "Senior Software Architect and Group Leader",
-      duration: "May 2013 - Sep 2019",
-      years: "6.3 years",
-      location: "Turkey",
-      type: "Full-time",
-      logo: ercLogo,
-      description: [
-        "Led the architecture and development of enterprise-grade engineering solutions",
-        "Managed multiple development teams across different product lines",
-        "Designed and implemented scalable R&D management systems",
-        "Collaborated with international clients on multi-million dollar projects"
-      ],
-      technologies: ["Java", "Spring", ".NET", "Oracle", "Angular", "JavaScript"],
-      current: false
-    },
-    {
-      company: "DataSel Information Systems Co.",
-      position: "Senior Software Architect and Group Leader",
-      duration: "Jan 2012 - May 2013",
-      years: "1.8 years",
-      location: "Turkey",
-      type: "Full-time",
-      logo: dataselLogo,
-      description: [
-        "Architected enterprise information management systems",
-        "Led development teams in building data-driven applications",
-        "Implemented performance optimization strategies for large-scale systems",
-        "Mentored junior developers and established coding standards"
-      ],
-      technologies: ["C#", ".NET", "SQL Server", "WPF", "Silverlight", "WCF"],
-      current: false
-    },
-    {
-      company: "Fonet Software Co.",
-      position: "Research & Development Director",
-      duration: "Jan 2010 - Aug 2011",
-      years: "1.9 years",
-      location: "Turkey",
-      type: "Full-time",
-      logo: fonetLogo,
-      description: [
-        "Directed R&D initiatives for next-generation software products",
-        "Established development methodologies and best practices",
-        "Led innovation projects and proof-of-concept developments",
-        "Managed technical roadmap and technology stack decisions"
-      ],
-      technologies: ["Java", "C#", ".NET", "Web Services", "MySQL", "JavaScript"],
-      current: false
-    },
-    {
-      company: "Gendarmerie Training Command",
-      position: "Lieutenant",
-      duration: "Sep 2008 - Sep 2009",
-      years: "1 year",
-      location: "Turkey",
-      type: "Military Service",
-      logo: jengaiLogo, // Will need to add proper logo
-      description: [
-        "Served as a Lieutenant in the Turkish Gendarmerie Training Command",
-        "Led training programs and educational initiatives",
-        "Managed personnel and administrative responsibilities",
-        "Completed mandatory military service with leadership role"
-      ],
-      technologies: ["Leadership", "Training", "Administration", "Project Management"],
-      current: false
-    },
-    {
-      company: "Halıcı Informatics & Software Co.",
-      position: "Software Production and Planning Director",
-      duration: "Jan 2007 - Sep 2008",
-      years: "4.7 years total",
-      location: "Turkey",
-      type: "Full-time",
-      logo: haliciLogo,
-      description: [
-        "Oversaw software production lifecycle and project planning (2007-2008)",
-        "Served as Project Manager and System Analyst (2005-2007)",
-        "Worked as .NET Application Developer (2004-2005)",
-        "Progressed through multiple roles showing career advancement"
-      ],
-      technologies: ["C#", ".NET", "ASP.NET", "SQL Server", "VB.NET", "Web Services"],
-      current: false
+  const [experiencesData, setExperiencesData] = useState<ExperiencesData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load experiences data from JSON file
+  useEffect(() => {
+    const loadExperiencesData = async () => {
+      try {
+        const response = await fetch('/src/data/data_new/experiences.json');
+        const data: ExperiencesData = await response.json();
+        setExperiencesData(data);
+      } catch (error) {
+        console.error('Failed to load experiences data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadExperiencesData();
+  }, []);
+
+  // Helper function to format date ranges and calculate duration
+  const formatDateRange = (startDate: string, endDate: string | null) => {
+    const start = new Date(startDate.split('.').reverse().join('-'));
+    const end = endDate ? new Date(endDate.split('.').reverse().join('-')) : new Date();
+    
+    const startMonth = start.toLocaleString('en', { month: 'short' });
+    const startYear = start.getFullYear();
+    
+    if (!endDate) {
+      return {
+        range: `${startMonth} ${startYear} - Present`,
+        duration: `${Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 365))}+ years`,
+        current: true
+      };
     }
-  ];
+    
+    const endMonth = end.toLocaleString('en', { month: 'short' });
+    const endYear = end.getFullYear();
+    
+    const years = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 365));
+    const months = Math.floor(((end.getTime() - start.getTime()) % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+    
+    let duration = '';
+    if (years > 0) duration += `${years} year${years > 1 ? 's' : ''}`;
+    if (months > 0) duration += `${duration ? ' ' : ''}${months} month${months > 1 ? 's' : ''}`;
+    
+    return {
+      range: `${startMonth} ${startYear} - ${endMonth} ${endYear}`,
+      duration: duration || '< 1 month',
+      current: false
+    };
+  };
+
+  // Process experiences to flatten positions into individual experience entries
+  const getProcessedExperiences = () => {
+    if (!experiencesData) return [];
+
+    interface ProcessedExperience {
+      company: string;
+      position: string;
+      duration: string;
+      years: string;
+      location: string;
+      type: string;
+      logo: string;
+      description: string[];
+      technologies: string[];
+      current: boolean;
+    }
+
+    const processedExperiences: ProcessedExperience[] = [];
+    
+    experiencesData.items.forEach(company => {
+      company.positions.forEach(position => {
+        const dateInfo = formatDateRange(position.startDate, position.endDate);
+        
+        // Process description - handle both HTML and plain text
+        let description: string[] = [];
+        if (position.summary.includes('<br/>')) {
+          description = position.summary.split('<br/>').map(item => item.trim()).filter(item => item);
+        } else {
+          description = [position.summary];
+        }
+        
+        processedExperiences.push({
+          company: company.companyName,
+          position: position.title,
+          duration: dateInfo.range,
+          years: dateInfo.duration,
+          location: "Turkey", // Default location from original data
+          type: dateInfo.current ? "Current" : "Full-time",
+          logo: `/src/assets/logos/companies/${company.icon}`,
+          description: description,
+          technologies: position.technologies.slice(0, 6).map(tech => tech.name), // Limit to first 6 technologies
+          current: dateInfo.current
+        });
+      });
+    });
+
+    return processedExperiences.sort((a, b) => new Date(b.duration.split(' - ')[0]).getTime() - new Date(a.duration.split(' - ')[0]).getTime());
+  };
+
+  if (isLoading || !experiencesData) {
+    return (
+      <section id="experience" className="py-20 gradient-bg">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center">
+              <div className="animate-pulse">Loading experiences...</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const experiences = getProcessedExperiences();
 
   return (
     <section id="experience" className="py-20 gradient-bg">
