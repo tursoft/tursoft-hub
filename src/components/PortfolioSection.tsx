@@ -183,7 +183,7 @@ const PortfolioSection = () => {
             Portfolio & Projects
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A showcase of {projects.length}+ enterprise projects spanning healthcare, education, gaming, and research domains
+            A showcase of projects that I architected and contributed spanning healthcare, education, gaming, and research domains
           </p>
         </div>
 
@@ -221,18 +221,18 @@ const PortfolioSection = () => {
           {filteredProjects.map((project, index) => (
             <Card 
               key={project.id} 
-              className="github-card group copilot-shimmer animate-fade-in"
+              className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3 flex-1">
                     {project.companyLogo && (
-                      <div className="w-10 h-10 rounded-lg overflow-hidden bg-white/5 p-1 flex-shrink-0">
+                      <div className="w-10 h-10 rounded-lg overflow-hidden bg-white/5 p-1 flex-shrink-0 hover:bg-primary/10 hover:scale-105 transition-all duration-300 cursor-pointer">
                         <img 
                           src={project.companyLogo} 
                           alt={`${project.title} logo`}
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-contain hover:brightness-110 transition-all duration-300"
                         />
                       </div>
                     )}
@@ -255,13 +255,12 @@ const PortfolioSection = () => {
                     {project.techIcons.map((icon, iconIndex) => (
                       <div 
                         key={iconIndex}
-                        className="w-6 h-6 rounded bg-white/10 p-1 floating-box"
-                        style={{ animationDelay: `${iconIndex * 200}ms` }}
+                        className="w-6 h-6 rounded bg-white/10 p-1 hover:scale-110 hover:bg-primary/20 transition-all duration-300 cursor-pointer"
                       >
                         <img 
                           src={icon} 
                           alt="Technology"
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-contain hover:brightness-110 transition-all duration-300"
                         />
                       </div>
                     ))}

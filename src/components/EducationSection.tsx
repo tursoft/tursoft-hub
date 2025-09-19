@@ -79,7 +79,7 @@ const EducationSection = () => {
                   {/* Timeline Dot */}
                   <div className="hidden lg:block absolute top-8 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background z-10" />
 
-                  <Card className={`gradient-card border-border card-hover ${
+                  <Card className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border ${
                     index % 2 === 0 ? 'lg:mr-8' : 'lg:ml-8'
                   }`}>
                     <CardHeader className="pb-4">
@@ -140,7 +140,7 @@ const EducationSection = () => {
 
           {/* Additional Info */}
           <div className="mt-16 text-center animate-fade-in">
-            <Card className="gradient-card border-border max-w-2xl mx-auto">
+            <Card className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border max-w-2xl mx-auto">
               <CardContent className="p-8">
                 <GraduationCap className="h-12 w-12 text-primary mx-auto mb-4" />
                 <h3 className="text-2xl font-bold mb-4 text-foreground">

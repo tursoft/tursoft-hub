@@ -107,10 +107,9 @@ const ExperienceSection = () => {
             {experiences.map((exp, index) => (
               <Card 
                 key={index} 
-                className={`gradient-card border-l-4 border-l-primary card-hover animate-slide-in ${
+                className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-l-4 border-l-primary ${
                   exp.current ? 'ring-2 ring-primary/20' : ''
                 }`}
-                style={{ animationDelay: `${index * 0.2}s` }}
               >
                 <CardHeader className="pb-4">
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">

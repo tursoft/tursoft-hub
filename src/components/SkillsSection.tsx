@@ -97,7 +97,7 @@ const SkillsSection = () => {
               <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Technologies</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Comprehensive expertise across the full technology stack with 17+ years of hands-on experience
+              Comprehensive expertise across the full technology stack with 20+ years of hands-on experience
             </p>
           </div>
 
@@ -106,7 +106,7 @@ const SkillsSection = () => {
             {skillCategories.map((category, index) => (
               <Card 
                 key={index} 
-                className="gradient-card border-border card-hover animate-scale-in"
+                className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border animate-scale-in"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 <CardHeader className="pb-4">
@@ -139,7 +139,7 @@ const SkillsSection = () => {
 
           {/* Tools & Technologies */}
           <div className="animate-fade-in">
-            <Card className="gradient-card border-border">
+            <Card className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border">
               <CardHeader>
                 <h3 className="text-2xl font-bold text-center text-foreground mb-4">
                   Tools & Technologies I Work With
@@ -185,7 +185,7 @@ const SkillsSection = () => {
             ].map((item, index) => (
               <Card 
                 key={index} 
-                className="gradient-card border-border card-hover text-center animate-scale-in"
+                className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border text-center animate-scale-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className="p-6">
