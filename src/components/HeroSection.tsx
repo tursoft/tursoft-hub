@@ -47,9 +47,7 @@ const HeroSection = () => {
           <p className="text-xl lg:text-2xl text-muted-foreground mb-4 font-light">
             Senior Software Architect
           </p>
-          <p className="text-lg lg:text-xl text-muted-foreground mb-8">
-            .NET, Java, Web and Mobile Development
-          </p>
+          <p className="text-lg text-muted-foreground mb-8 lg:text-xl">.NET, Java, Web and Mobile Development</p>
 
           {/* Description */}
           <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
