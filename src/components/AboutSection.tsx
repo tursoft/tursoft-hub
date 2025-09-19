@@ -63,8 +63,7 @@ const AboutSection = () => {
                 </p>
                 <p>
                   My mission is to lead both <span className="text-primary font-semibold">research and development</span> teams to produce <span className="text-primary font-semibold">world-class innovative systems</span> in terms of both functional and technical quality. 
-                  I bring a unique combination of <span className="text-primary font-semibold">technical expertise</span> and <span className="text-primary font-semibold">leadership experience</span> 
-                  to every project.
+                  I bring a unique combination of <span className="text-primary font-semibold">technical expertise</span> and <span className="text-primary font-semibold">leadership experience</span> to every project.
                 </p>
                 <p>
                   Currently serving as <span className="text-primary font-semibold">Director of Technology</span> & <span className="text-primary font-semibold">Senior Software Architect</span> at Gamyte,

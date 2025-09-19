@@ -1,16 +1,14 @@
+import React, { useState, useRef } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Code, Database, Cloud, Smartphone, Layers, Globe } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Code, Database, Cloud, Smartphone, Layers, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 
 const SkillsSection = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   const skillCategories = [
     {
       icon: Code,
@@ -174,6 +172,62 @@ const SkillsSection = () => {
     }
   };
 
+  // Coverflow navigation functions
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? skillCategories.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === skillCategories.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  // Calculate transform and scale for each card based on position
+  const getCardTransform = (index: number) => {
+    const diff = index - currentIndex;
+    const absIndex = Math.abs(diff);
+    
+    if (absIndex === 0) {
+      // Center card
+      return {
+        transform: 'translateX(0) translateZ(0) rotateY(0deg) scale(1)',
+        zIndex: 10,
+        opacity: 1,
+      };
+    } else if (absIndex === 1) {
+      // Adjacent cards
+      const direction = diff > 0 ? 1 : -1;
+      return {
+        transform: `translateX(${direction * 280}px) translateZ(-100px) rotateY(${-direction * 35}deg) scale(0.85)`,
+        zIndex: 5,
+        opacity: 0.8,
+      };
+    } else if (absIndex === 2) {
+      // Second level cards
+      const direction = diff > 0 ? 1 : -1;
+      return {
+        transform: `translateX(${direction * 480}px) translateZ(-200px) rotateY(${-direction * 55}deg) scale(0.7)`,
+        zIndex: 3,
+        opacity: 0.5,
+      };
+    } else {
+      // Hidden cards
+      const direction = diff > 0 ? 1 : -1;
+      return {
+        transform: `translateX(${direction * 600}px) translateZ(-300px) rotateY(${-direction * 75}deg) scale(0.5)`,
+        zIndex: 1,
+        opacity: 0.2,
+      };
+    }
+  };
+
   return (
     <section id="skills" className="py-20 gradient-bg">
       <div className="container mx-auto px-6">
@@ -190,50 +244,97 @@ const SkillsSection = () => {
             </p>
           </div>
 
-          {/* Skills Carousel */}
+          {/* Skills Coverflow */}
           <div className="mb-16">
-            <Carousel
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              className="w-full max-w-5xl mx-auto"
-            >
-              <CarouselContent className="-ml-2 md:-ml-4">
-                {skillCategories.map((category, index) => (
-                  <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
-                    <Card className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border h-full">
-                      <CardHeader className="pb-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                            <category.icon className="h-5 w-5 text-primary" />
-                          </div>
-                          <h3 className="text-xl font-bold text-foreground">{category.title}</h3>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          {category.skills.map((skill, skillIndex) => (
-                            <div key={skillIndex} className="space-y-2">
-                              <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-foreground">{skill.name}</span>
-                                <div className="text-right">
-                                  <span className="text-xs text-primary font-medium">{skill.level}%</span>
-                                  <div className="text-xs text-muted-foreground">{skill.years}</div>
-                                </div>
-                              </div>
-                              <Progress value={skill.level} className="h-2" />
+            <div className="relative w-full max-w-6xl mx-auto">
+              {/* Coverflow Container */}
+              <div 
+                ref={containerRef}
+                className="relative h-[500px] flex items-center justify-center overflow-hidden"
+                style={{
+                  perspective: '1200px',
+                  perspectiveOrigin: 'center center'
+                }}
+              >
+                {skillCategories.map((category, index) => {
+                  const cardStyle = getCardTransform(index);
+                  return (
+                    <div
+                      key={index}
+                      className="absolute cursor-pointer transition-all duration-700 ease-out"
+                      style={{
+                        ...cardStyle,
+                        transformStyle: 'preserve-3d',
+                        width: '320px',
+                        height: '400px'
+                      }}
+                      onClick={() => goToSlide(index)}
+                    >
+                      <Card className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border h-full hover:shadow-2xl transition-shadow duration-300">
+                        <CardHeader className="pb-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                              <category.icon className="h-6 w-6 text-primary" />
                             </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
+                            <h3 className="text-xl font-bold text-foreground">{category.title}</h3>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-4">
+                            {category.skills.map((skill, skillIndex) => (
+                              <div key={skillIndex} className="space-y-2">
+                                <div className="flex justify-between items-center">
+                                  <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                                  <div className="text-right">
+                                    <span className="text-xs text-primary font-medium">{skill.level}%</span>
+                                    <div className="text-xs text-muted-foreground">{skill.years}</div>
+                                  </div>
+                                </div>
+                                <Progress value={skill.level} className="h-2" />
+                              </div>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Navigation Buttons */}
+              <Button
+                variant="outline"
+                size="icon"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-background/80 backdrop-blur-sm border-border hover:bg-primary hover:text-primary-foreground"
+                onClick={goToPrevious}
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </Button>
+              
+              <Button
+                variant="outline"
+                size="icon"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-background/80 backdrop-blur-sm border-border hover:bg-primary hover:text-primary-foreground"
+                onClick={goToNext}
+              >
+                <ChevronRight className="h-5 w-5" />
+              </Button>
+
+              {/* Dots Indicator */}
+              <div className="flex justify-center space-x-2 mt-8">
+                {skillCategories.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentIndex 
+                        ? 'bg-primary scale-125' 
+                        : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                    }`}
+                    onClick={() => goToSlide(index)}
+                  />
                 ))}
-              </CarouselContent>
-              <CarouselPrevious className="hidden md:flex" />
-              <CarouselNext className="hidden md:flex" />
-            </Carousel>
+              </div>
+            </div>
           </div>
 
           {/* Tools & Technologies */}
