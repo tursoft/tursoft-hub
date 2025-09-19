@@ -5,10 +5,10 @@ import { CalendarDays, MapPin, Building } from "lucide-react";
 const ExperienceSection = () => {
   const experiences = [
     {
-      company: "Gamyte",
+      company: "Jengai",
       position: "Director of Technology & Senior Software Architect",
-      duration: "04.09.2019 - Present",
-      years: "6 years",
+      duration: "Dec 2023 - Present",
+      years: "2+ years",
       location: "Turkey",
       type: "Full-time",
       description: [
@@ -21,10 +21,26 @@ const ExperienceSection = () => {
       current: true
     },
     {
+      company: "Gamyte",
+      position: "Director of Technology & Senior Software Architect",
+      duration: "Sep 2019 - Dec 2023",
+      years: "4 years",
+      location: "Turkey",
+      type: "Full-time",
+      description: [
+        "Leading technology strategy and architecture decisions for enterprise gaming solutions",
+        "Managing cross-functional development teams and R&D initiatives",
+        "Architecting scalable, high-performance gaming platforms",
+        "Driving digital transformation and innovation across the organization"
+      ],
+      technologies: ["C#", ".NET Core", "Microservices", "Azure", "React", "TypeScript"],
+      current: false
+    },
+    {
       company: "ERC Group Engineering, Consultancy, R&D",
       position: "Senior Software Architect and Group Leader",
-      duration: "20.05.2013 - 03.09.2019",
-      years: "6.3 years",
+      duration: "May 2013 - Sep 2019",
+      years: "6 years",
       location: "Turkey",
       type: "Full-time",
       description: [
@@ -39,8 +55,8 @@ const ExperienceSection = () => {
     {
       company: "DataSel Information Systems Co.",
       position: "Senior Software Architect and Group Leader",
-      duration: "01.01.2012 - 20.05.2013",
-      years: "1.8 years",
+      duration: "Jan 2012 - May 2013",
+      years: "2 years",
       location: "Turkey",
       type: "Full-time",
       description: [
@@ -55,8 +71,8 @@ const ExperienceSection = () => {
     {
       company: "Fonet Software Co.",
       position: "Research & Development Director",
-      duration: "01.01.2010 - 13.08.2011",
-      years: "1.9 years",
+      duration: "Jan 2010 - Aug 2011",
+      years: "2 years",
       location: "Turkey",
       type: "Full-time",
       description: [
@@ -71,8 +87,8 @@ const ExperienceSection = () => {
     {
       company: "Halıcı Informatics & Software Co.",
       position: "Software Production and Planning Director",
-      duration: "01.01.2007 - 01.09.2008",
-      years: "4.7 years",
+      duration: "Jan 2007 - Sep 2008",
+      years: "2 years",
       location: "Turkey",
       type: "Full-time",
       description: [
@@ -116,7 +132,7 @@ const ExperienceSection = () => {
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
                         <Building className="h-5 w-5 text-primary" />
-                        <h3 className="text-xl font-bold text-foreground">{exp.company}</h3>
+                        <h3 className="text-xl font-bold text-foreground uppercase">{exp.company}</h3>
                         {exp.current && (
                           <Badge variant="default" className="bg-primary text-primary-foreground">
                             Current
