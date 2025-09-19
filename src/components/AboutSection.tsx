@@ -84,7 +84,7 @@ const AboutSection = () => {
 
             {/* Right Column - Leadership Roles */}
             <div className="animate-scale-in">
-              <h3 className="text-2xl font-semibold mb-6 text-foreground">Leadership Experience</h3>
+              <h3 className="text-2xl font-semibold mb-6 text-foreground">Positions</h3>
               <div className="space-y-4">
                 {roles.map((role, index) => (
                   <div key={index} className="flex items-center p-4 gradient-card rounded-lg border border-border card-hover">
