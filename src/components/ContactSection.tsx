@@ -68,7 +68,7 @@ const ContactSection = () => {
             <Badge variant="outline" className="mb-4">Get In Touch</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Let's Work
-              <span className="text-primary block lg:inline lg:ml-4">Together</span>
+              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Together</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               I'm always interested in discussing new opportunities, innovative projects, 
@@ -156,7 +156,7 @@ const ContactSection = () => {
 
                     <div className="pt-6 space-y-4">
                       <Button 
-                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground glow-on-hover"
+                        className="w-full bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] hover:scale-105 text-primary-foreground glow-on-hover transition-all duration-300"
                         onClick={() => window.location.href = 'mailto:tursoft@gmail.com?subject=Project Inquiry'}
                       >
                         <Mail className="mr-2 h-4 w-4" />

@@ -94,7 +94,7 @@ const SkillsSection = () => {
             <Badge variant="outline" className="mb-4">Technical Expertise</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Skills &
-              <span className="text-primary block lg:inline lg:ml-4">Technologies</span>
+              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Technologies</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Comprehensive expertise across the full technology stack with 17+ years of hands-on experience

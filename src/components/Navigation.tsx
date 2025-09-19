@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import tursoftLogo from "@/assets/tursoft-logo.png";
 
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("hero");
@@ -54,8 +55,12 @@ const Navigation = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="text-2xl font-bold">
-            <span className="text-primary">TURSOFT</span>
+          <div className="flex items-center">
+            <img 
+              src={tursoftLogo} 
+              alt="TURSOFT" 
+              className="h-10 w-auto"
+            />
           </div>
 
           {/* Desktop Navigation */}

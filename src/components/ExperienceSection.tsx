@@ -95,7 +95,7 @@ const ExperienceSection = () => {
             <Badge variant="outline" className="mb-4">Professional Experience</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Building Tomorrow's
-              <span className="text-primary block lg:inline lg:ml-4">Technology Today</span>
+              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Technology Today</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               A journey through enterprise software development, team leadership, and architectural excellence

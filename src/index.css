@@ -19,11 +19,13 @@
     --popover: 222 84% 6%;
     --popover-foreground: 210 40% 98%;
 
-    /* Brand Colors - Tech Blue/Teal */
-    --primary: 187 100% 42%;
-    --primary-foreground: 222 84% 4.9%;
-    --primary-glow: 187 100% 60%;
-    --primary-variant: 187 85% 35%;
+    /* Brand Colors - TURSOFT Logo Scheme */
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 195 85% 60%;
+    --primary-variant: 230 85% 35%;
+    --primary-light: 185 70% 55%;
+    --navy-deep: 230 45% 25%;
 
     /* Secondary Colors */
     --secondary: 217 32.6% 17.5%;
@@ -53,11 +55,12 @@
     /* Layout */
     --radius: 0.75rem;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-variant)));
+    /* Gradients - TURSOFT Brand */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--navy-deep)), hsl(var(--primary)), hsl(var(--primary-light)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%);
     --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--card-hover)));
     --gradient-accent: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--accent-glow)));
+    --gradient-logo: linear-gradient(135deg, hsl(var(--navy-deep)) 0%, hsl(var(--primary)) 50%, hsl(var(--primary-light)) 100%);
 
     /* Shadows */
     --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.3);

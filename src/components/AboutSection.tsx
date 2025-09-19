@@ -43,7 +43,7 @@ const AboutSection = () => {
             <Badge variant="outline" className="mb-4">About Me</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Transforming Ideas Into 
-              <span className="text-primary block lg:inline lg:ml-4">Digital Reality</span>
+              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Digital Reality</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               I specialize in developing huge sector-leader enterprise systems characterized by 

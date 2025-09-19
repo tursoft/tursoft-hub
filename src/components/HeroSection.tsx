@@ -36,7 +36,7 @@ const HeroSection = () => {
           {/* Main Heading */}
           <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
             <span className="block text-foreground">MUHAMMET</span>
-            <span className="block text-primary animate-glow">TÜRŞAK</span>
+            <span className="block bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent animate-glow">TÜRŞAK</span>
           </h1>
 
           {/* Subtitle */}
@@ -58,7 +58,7 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg glow-on-hover"
+              className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] hover:scale-105 text-primary-foreground px-8 py-3 text-lg glow-on-hover transition-all duration-300"
               onClick={() => document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" })}
             >
               View My Work
@@ -67,7 +67,7 @@ const HeroSection = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-3 text-lg"
+              className="border-2 border-primary text-primary hover:bg-gradient-to-r hover:from-[hsl(var(--navy-deep))] hover:via-[hsl(var(--primary))] hover:to-[hsl(var(--primary-light))] hover:text-primary-foreground px-8 py-3 text-lg transition-all duration-300"
               onClick={() => window.open("#", "_blank")}
             >
               <Download className="mr-2 h-5 w-5" />
