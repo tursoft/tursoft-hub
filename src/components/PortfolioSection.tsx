@@ -5,45 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ExternalLink, Filter } from "lucide-react";
 
-// Import company logos (actual logos from tursoft.net)
-import gamyteLogo from "@/assets/logos/companies/gamyte.png";
-import avicennaLogo from "@/assets/logos/companies/avicenna.png";
-import ercLogo from "@/assets/logos/companies/erc.png";
-import dataselLogo from "@/assets/logos/companies/datasel.png";
-import fonetLogo from "@/assets/logos/companies/fonet.png";
-import haliciLogo from "@/assets/logos/companies/halici.png";
-import labrisLogo from "@/assets/logos/companies/labris.png";
-import metuLogo from "@/assets/logos/companies/metu.png";
-import unhcrLogo from "@/assets/logos/companies/unhcr.png";
-
-// Import technology icons (actual icons from tursoft.net)
-import dotnetIcon from "@/assets/logos/technologies/dotnet.png";
-import dotnetCoreIcon from "@/assets/logos/technologies/dotnetcore.png";
-import angularIcon from "@/assets/logos/technologies/angular.png";
-import reactIcon from "@/assets/logos/technologies/react.png";
-import dockerIcon from "@/assets/logos/technologies/docker.png";
-import javaIcon from "@/assets/logos/technologies/java.png";
-import nodejsIcon from "@/assets/logos/technologies/nodejs.png";
-import typescriptIcon from "@/assets/logos/technologies/typescript.png";
-import ionicIcon from "@/assets/logos/technologies/ionic.png";
-import csharpIcon from "@/assets/logos/technologies/csharp.png";
-import mysqlIcon from "@/assets/logos/technologies/mysql.png";
-
-// Technology icon name mapping
-const techIconNames: { [key: string]: string } = {
-  [dotnetIcon]: ".NET Framework",
-  [dotnetCoreIcon]: ".NET Core",
-  [angularIcon]: "Angular",
-  [reactIcon]: "React",
-  [dockerIcon]: "Docker",
-  [javaIcon]: "Java",
-  [nodejsIcon]: "Node.js",
-  [typescriptIcon]: "TypeScript",
-  [ionicIcon]: "Ionic",
-  [csharpIcon]: "C#",
-  [mysqlIcon]: "MySQL"
-};
-
+// Define interfaces for type safety
 interface Project {
   id: number;
   title: string;
@@ -56,192 +18,13 @@ interface Project {
   techIcons?: string[];
 }
 
-const projects: Project[] = [
-  // Recent Gamyte Projects (2019-Present)
-  {
-    id: 373,
-    title: "Gamyte Gaming Platform",
-    category: "Game",
-    description: "Enterprise gaming platform with multiplayer capabilities, real-time analytics, and social features for competitive gaming.",
-    technologies: [".NET Core", "Angular", "SignalR", "Docker", "Azure"],
-    year: "2024",
-    companyLogo: gamyteLogo,
-    techIcons: [dotnetCoreIcon, angularIcon, dockerIcon]
-  },
-  {
-    id: 372,
-    title: "Gamyte Mobile SDK",
-    category: "Framework",
-    description: "Cross-platform mobile SDK for game developers with comprehensive analytics and monetization tools.",
-    technologies: ["Xamarin", "Unity", "C#", "Azure", "Mobile"],
-    year: "2023",
-    companyLogo: gamyteLogo,
-    techIcons: [csharpIcon, dotnetCoreIcon]
-  },
-
-  // ERC Group Projects (2013-2019)
-  {
-    id: 301,
-    title: "ERC Enterprise Resource Planning",
-    category: "Framework",
-    description: "Comprehensive ERP solution for engineering firms with project management, resource allocation, and financial tracking.",
-    technologies: [".NET Framework", "Oracle", "WPF", "WCF", "Silverlight"],
-    year: "2018",
-    companyLogo: ercLogo,
-    techIcons: [dotnetIcon, csharpIcon]
-  },
-  {
-    id: 307,
-    title: "ERC Project Management Suite",
-    category: "Project Management",
-    description: "Advanced project management system for multi-million dollar engineering projects with timeline and resource optimization.",
-    technologies: ["ASP.NET MVC", "Entity Framework", "jQuery", "SQL Server"],
-    year: "2017",
-    companyLogo: ercLogo,
-    techIcons: [dotnetIcon, mysqlIcon]
-  },
-  {
-    id: 311,
-    title: "ERC Research & Development Portal",
-    category: "Research Framework",
-    description: "Research management platform for tracking R&D initiatives, patent applications, and innovation projects.",
-    technologies: [".NET Framework", "Angular", "Oracle", "Web Services"],
-    year: "2016",
-    companyLogo: ercLogo,
-    techIcons: [dotnetIcon, angularIcon]
-  },
-
-  // DataSel Projects (2012-2013)
-  {
-    id: 322,
-    title: "DataSel Information Management System",
-    category: "Framework",
-    description: "Enterprise information management platform with document workflow, version control, and collaboration tools.",
-    technologies: [".NET Framework", "WPF", "Silverlight", "WCF", "SQL Server"],
-    year: "2013",
-    companyLogo: dataselLogo,
-    techIcons: [dotnetIcon, csharpIcon]
-  },
-
-  // Fonet Software Projects (2010-2011)
-  {
-    id: 327,
-    title: "Fonet Hospital Information System",
-    category: "HIS",
-    description: "Complete hospital management system with patient records, medical imaging integration, and billing modules.",
-    technologies: [".NET Framework", "WCF", "SQL Server", "Crystal Reports"],
-    year: "2011",
-    companyLogo: fonetLogo,
-    techIcons: [dotnetIcon, mysqlIcon]
-  },
-  {
-    id: 330,
-    title: "Fonet Telemedicine Platform",
-    category: "Telemedicine",
-    description: "Remote healthcare platform with video consultations, patient monitoring, and electronic prescriptions.",
-    technologies: ["ASP.NET", "Silverlight", "Web Services", "MySQL"],
-    year: "2010",
-    companyLogo: fonetLogo,
-    techIcons: [dotnetIcon, mysqlIcon]
-  },
-
-  // Halıcı Projects (2004-2008)
-  {
-    id: 310,
-    title: "Halıcı ERP & CRM Suite",
-    category: "Framework",
-    description: "Integrated enterprise resource planning and customer relationship management solution for SMEs.",
-    technologies: [".NET Framework", "ASP.NET", "VB.NET", "SQL Server"],
-    year: "2008",
-    companyLogo: haliciLogo,
-    techIcons: [dotnetIcon, csharpIcon]
-  },
-  {
-    id: 337,
-    title: "Halıcı Learning Management System",
-    category: "LMS",
-    description: "Corporate training and e-learning platform with SCORM compliance and assessment tools.",
-    technologies: ["ASP.NET", "JavaScript", "MySQL", "Adobe Flash"],
-    year: "2007",
-    companyLogo: haliciLogo,
-    techIcons: [dotnetIcon, mysqlIcon]
-  },
-
-  // METU & Academic Projects (2001-2004)
-  {
-    id: 344,
-    title: "METU Distance Learning Portal",
-    category: "LMS",
-    description: "University-wide distance learning platform with video lectures, online exams, and student collaboration tools.",
-    technologies: ["ASP", "VBScript", "Access", "HTML", "JavaScript"],
-    year: "2004",
-    companyLogo: metuLogo,
-    techIcons: [mysqlIcon]
-  },
-  {
-    id: 345,
-    title: "METU Informatics Research Framework",
-    category: "Research Framework",
-    description: "Research collaboration platform for academic projects with publication management and data sharing.",
-    technologies: ["PHP", "MySQL", "JavaScript", "CSS"],
-    year: "2003",
-    companyLogo: metuLogo,
-    techIcons: [mysqlIcon]
-  },
-
-  // Social Responsibility & Community Projects
-  {
-    id: 350,
-    title: "Digital Inclusion Initiative",
-    category: "Social Responsibility",
-    description: "Non-profit project providing digital literacy training and technology access to underserved communities.",
-    technologies: ["Web Technologies", "Mobile Apps", "Cloud Services"],
-    year: "2019",
-    techIcons: [angularIcon, nodejsIcon]
-  },
-  {
-    id: 351,
-    title: "Open Source Contributions",
-    category: "Social Responsibility",
-    description: "Active contributions to open source projects including .NET libraries, Angular components, and DevOps tools.",
-    technologies: ["Open Source", "GitHub", "Community"],
-    year: "2020",
-    techIcons: [dotnetCoreIcon, angularIcon]
-  },
-
-  // Game & Interactive Projects
-  {
-    id: 360,
-    title: "Educational Gaming Suite",
-    category: "Game",
-    description: "Collection of educational games for children focusing on math, science, and language learning.",
-    technologies: ["Unity", "C#", "Mobile", "3D Graphics"],
-    year: "2015",
-    techIcons: [csharpIcon]
-  },
-
-  // Miscellaneous & Innovation Projects
-  {
-    id: 370,
-    title: "AI-Powered Code Assistant",
-    category: "Misc",
-    description: "Intelligent code completion and refactoring tool using machine learning for .NET and Java developers.",
-    technologies: ["AI/ML", "Python", ".NET Core", "VS Code Extension"],
-    year: "2021",
-    techIcons: [dotnetCoreIcon, typescriptIcon]
-  },
-  {
-    id: 371,
-    title: "Blockchain Supply Chain Tracker",
-    category: "Misc",
-    description: "Proof-of-concept blockchain application for supply chain transparency and product authentication.",
-    technologies: ["Blockchain", "Smart Contracts", "Web3", "React"],
-    year: "2020",
-    techIcons: [reactIcon, typescriptIcon]
-  }
-];
-
-const categories = ["All", "Research Framework", "Framework", "HIS", "Telemedicine", "LMS", "Social Responsibility", "Project Management", "Game", "Misc"];
+interface ProjectData {
+  projects: Project[];
+  categories: string[];
+  companyLogos: { [key: string]: string };
+  techIcons: { [key: string]: string };
+  techIconNames: { [key: string]: string };
+}
 
 // Animated Counter Component
 const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: string; isVisible?: boolean }> = ({ 
@@ -300,17 +83,53 @@ const PortfolioSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [showFilters, setShowFilters] = useState(false);
   const [statsVisible, setStatsVisible] = useState(false);
+  const [projectData, setProjectData] = useState<ProjectData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [companyLogoMap, setCompanyLogoMap] = useState<{ [key: string]: string }>({});
+  const [techIconMap, setTechIconMap] = useState<{ [key: string]: string }>({});
   const statsRef = useRef<HTMLDivElement>(null);
 
-  const filteredProjects = useMemo(() => {
-    if (selectedCategory === "All") return projects;
-    return projects.filter(project => project.category === selectedCategory);
-  }, [selectedCategory]);
+  // Load project data from JSON file
+  useEffect(() => {
+    const loadProjectData = async () => {
+      try {
+        const response = await fetch('/src/data/projects.json');
+        const data: ProjectData = await response.json();
+        setProjectData(data);
 
-  const getCategoryCount = (category: string) => {
-    if (category === "All") return projects.length;
-    return projects.filter(project => project.category === category).length;
-  };
+        // Load company logos dynamically
+        const companyLogos: { [key: string]: string } = {};
+        for (const [key, path] of Object.entries(data.companyLogos)) {
+          try {
+            const logoModule = await import(/* @vite-ignore */ path);
+            companyLogos[key] = logoModule.default;
+          } catch (error) {
+            console.warn(`Failed to load company logo: ${path}`, error);
+          }
+        }
+        setCompanyLogoMap(companyLogos);
+
+        // Load tech icons dynamically
+        const techIcons: { [key: string]: string } = {};
+        for (const [key, path] of Object.entries(data.techIcons)) {
+          try {
+            const iconModule = await import(/* @vite-ignore */ path);
+            techIcons[key] = iconModule.default;
+          } catch (error) {
+            console.warn(`Failed to load tech icon: ${path}`, error);
+          }
+        }
+        setTechIconMap(techIcons);
+
+      } catch (error) {
+        console.error('Failed to load project data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadProjectData();
+  }, []);
 
   // Intersection observer for stats animation
   useEffect(() => {
@@ -334,6 +153,86 @@ const PortfolioSection = () => {
       }
     };
   }, [statsVisible]);
+
+  // Memoized computed values
+  const filteredProjects = useMemo(() => {
+    if (!projectData) return [];
+    if (selectedCategory === "All") return projectData.projects;
+    return projectData.projects.filter(project => project.category === selectedCategory);
+  }, [selectedCategory, projectData]);
+
+  const getCategoryCount = (category: string) => {
+    if (!projectData) return 0;
+    if (category === "All") return projectData.projects.length;
+    return projectData.projects.filter(project => project.category === category).length;
+  };
+
+  if (isLoading || !projectData) {
+    return (
+      <section id="portfolio" className="py-20 bg-background/50">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <p className="text-muted-foreground">Loading projects...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const { projects, categories, techIconNames } = projectData;
+
+// Animated Counter Component
+const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: string; isVisible?: boolean }> = ({ 
+  end, 
+  duration = 2000, 
+  suffix = '', 
+  isVisible = false 
+}) => {
+  const [count, setCount] = useState(0);
+  const countRef = useRef(0);
+  const startTimeRef = useRef<number | null>(null);
+  const animationRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const animate = (timestamp: number) => {
+      if (!startTimeRef.current) {
+        startTimeRef.current = timestamp;
+      }
+
+      const elapsed = timestamp - startTimeRef.current;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = Math.floor(easeOutQuart * end);
+
+      if (currentCount !== countRef.current) {
+        countRef.current = currentCount;
+        setCount(currentCount);
+      }
+
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    // Reset and start animation
+    setCount(0);
+    countRef.current = 0;
+    startTimeRef.current = null;
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [end, duration, isVisible]);
+
+  return <span>{count}{suffix}</span>;
+};
 
   return (
     <section id="portfolio" className="py-20 bg-background/50">
@@ -395,10 +294,10 @@ const PortfolioSection = () => {
                     </CardTitle>
                   </div>
                   <div className="flex items-center gap-3">
-                    {project.companyLogo && (
+                    {project.companyLogo && companyLogoMap[project.companyLogo] && (
                       <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
                         <img 
-                          src={project.companyLogo} 
+                          src={companyLogoMap[project.companyLogo]} 
                           alt={`${project.title} logo`}
                           className="max-w-full max-h-full object-contain hover:brightness-110 transition-all duration-300"
                         />
@@ -413,22 +312,24 @@ const PortfolioSection = () => {
                 {project.techIcons && (
                   <div className="flex items-center gap-2 mb-2">
                     <TooltipProvider>
-                      {project.techIcons.map((icon, iconIndex) => (
-                        <Tooltip key={iconIndex}>
-                          <TooltipTrigger asChild>
-                            <div className="w-6 h-6 rounded bg-white/10 p-1 hover:scale-110 hover:bg-primary/20 transition-all duration-300 cursor-pointer">
-                              <img 
-                                src={icon} 
-                                alt={techIconNames[icon] || "Technology"}
-                                className="w-full h-full object-contain hover:brightness-110 transition-all duration-300"
-                              />
-                            </div>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>{techIconNames[icon] || "Technology"}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      ))}
+                      {project.techIcons.map((iconKey, iconIndex) => 
+                        techIconMap[iconKey] ? (
+                          <Tooltip key={iconIndex}>
+                            <TooltipTrigger asChild>
+                              <div className="w-6 h-6 rounded bg-white/10 p-1 hover:scale-110 hover:bg-primary/20 transition-all duration-300 cursor-pointer">
+                                <img 
+                                  src={techIconMap[iconKey]} 
+                                  alt={techIconNames[iconKey] || "Technology"}
+                                  className="w-full h-full object-contain hover:brightness-110 transition-all duration-300"
+                                />
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>{techIconNames[iconKey] || "Technology"}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        ) : null
+                      )}
                     </TooltipProvider>
                   </div>
                 )}

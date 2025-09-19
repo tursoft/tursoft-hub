@@ -1,0 +1,207 @@
+{
+  "projects": [
+    {
+      "id": 373,
+      "title": "Gamyte Gaming Platform",
+      "category": "Game",
+      "description": "Enterprise gaming platform with multiplayer capabilities, real-time analytics, and social features for competitive gaming.",
+      "technologies": [".NET Core", "Angular", "SignalR", "Docker", "Azure"],
+      "year": "2024",
+      "companyLogo": "gamyte",
+      "techIcons": ["dotnetcore", "angular", "docker"]
+    },
+    {
+      "id": 372,
+      "title": "Gamyte Mobile SDK",
+      "category": "Framework",
+      "description": "Cross-platform mobile SDK for game developers with comprehensive analytics and monetization tools.",
+      "technologies": ["Xamarin", "Unity", "C#", "Azure", "Mobile"],
+      "year": "2023",
+      "companyLogo": "gamyte",
+      "techIcons": ["csharp", "dotnetcore"]
+    },
+    {
+      "id": 301,
+      "title": "ERC Enterprise Resource Planning",
+      "category": "Framework",
+      "description": "Comprehensive ERP solution for engineering firms with project management, resource allocation, and financial tracking.",
+      "technologies": [".NET Framework", "Oracle", "WPF", "WCF", "Silverlight"],
+      "year": "2018",
+      "companyLogo": "erc",
+      "techIcons": ["dotnet", "csharp"]
+    },
+    {
+      "id": 307,
+      "title": "ERC Project Management Suite",
+      "category": "Project Management",
+      "description": "Advanced project management system for multi-million dollar engineering projects with timeline and resource optimization.",
+      "technologies": ["ASP.NET MVC", "Entity Framework", "jQuery", "SQL Server"],
+      "year": "2017",
+      "companyLogo": "erc",
+      "techIcons": ["dotnet", "mysql"]
+    },
+    {
+      "id": 311,
+      "title": "ERC Research & Development Portal",
+      "category": "Research Framework",
+      "description": "Research management platform for tracking R&D initiatives, patent applications, and innovation projects.",
+      "technologies": [".NET Framework", "Angular", "Oracle", "Web Services"],
+      "year": "2016",
+      "companyLogo": "erc",
+      "techIcons": ["dotnet", "angular"]
+    },
+    {
+      "id": 322,
+      "title": "DataSel Information Management System",
+      "category": "Framework",
+      "description": "Enterprise information management platform with document workflow, version control, and collaboration tools.",
+      "technologies": [".NET Framework", "WPF", "Silverlight", "WCF", "SQL Server"],
+      "year": "2013",
+      "companyLogo": "datasel",
+      "techIcons": ["dotnet", "csharp"]
+    },
+    {
+      "id": 327,
+      "title": "Fonet Hospital Information System",
+      "category": "HIS",
+      "description": "Complete hospital management system with patient records, medical imaging integration, and billing modules.",
+      "technologies": [".NET Framework", "WCF", "SQL Server", "Crystal Reports"],
+      "year": "2011",
+      "companyLogo": "fonet",
+      "techIcons": ["dotnet", "mysql"]
+    },
+    {
+      "id": 330,
+      "title": "Fonet Telemedicine Platform",
+      "category": "Telemedicine",
+      "description": "Remote healthcare platform with video consultations, patient monitoring, and electronic prescriptions.",
+      "technologies": ["ASP.NET", "Silverlight", "Web Services", "MySQL"],
+      "year": "2010",
+      "companyLogo": "fonet",
+      "techIcons": ["dotnet", "mysql"]
+    },
+    {
+      "id": 310,
+      "title": "Halıcı ERP & CRM Suite",
+      "category": "Framework",
+      "description": "Integrated enterprise resource planning and customer relationship management solution for SMEs.",
+      "technologies": [".NET Framework", "ASP.NET", "VB.NET", "SQL Server"],
+      "year": "2008",
+      "companyLogo": "halici",
+      "techIcons": ["dotnet", "csharp"]
+    },
+    {
+      "id": 337,
+      "title": "Halıcı Learning Management System",
+      "category": "LMS",
+      "description": "Corporate training and e-learning platform with SCORM compliance and assessment tools.",
+      "technologies": ["ASP.NET", "JavaScript", "MySQL", "Adobe Flash"],
+      "year": "2007",
+      "companyLogo": "halici",
+      "techIcons": ["dotnet", "mysql"]
+    },
+    {
+      "id": 344,
+      "title": "METU Distance Learning Portal",
+      "category": "LMS",
+      "description": "University-wide distance learning platform with video lectures, online exams, and student collaboration tools.",
+      "technologies": ["ASP", "VBScript", "Access", "HTML", "JavaScript"],
+      "year": "2004",
+      "companyLogo": "metu",
+      "techIcons": ["mysql"]
+    },
+    {
+      "id": 345,
+      "title": "METU Informatics Research Framework",
+      "category": "Research Framework",
+      "description": "Research collaboration platform for academic projects with publication management and data sharing.",
+      "technologies": ["PHP", "MySQL", "JavaScript", "CSS"],
+      "year": "2003",
+      "companyLogo": "metu",
+      "techIcons": ["mysql"]
+    },
+    {
+      "id": 350,
+      "title": "Digital Inclusion Initiative",
+      "category": "Social Responsibility",
+      "description": "Non-profit project providing digital literacy training and technology access to underserved communities.",
+      "technologies": ["Web Technologies", "Mobile Apps", "Cloud Services"],
+      "year": "2019",
+      "techIcons": ["angular", "nodejs"]
+    },
+    {
+      "id": 351,
+      "title": "Open Source Contributions",
+      "category": "Social Responsibility",
+      "description": "Active contributions to open source projects including .NET libraries, Angular components, and DevOps tools.",
+      "technologies": ["Open Source", "GitHub", "Community"],
+      "year": "2020",
+      "techIcons": ["dotnetcore", "angular"]
+    },
+    {
+      "id": 360,
+      "title": "Educational Gaming Suite",
+      "category": "Game",
+      "description": "Collection of educational games for children focusing on math, science, and language learning.",
+      "technologies": ["Unity", "C#", "Mobile", "3D Graphics"],
+      "year": "2015",
+      "techIcons": ["csharp"]
+    },
+    {
+      "id": 370,
+      "title": "AI-Powered Code Assistant",
+      "category": "Misc",
+      "description": "Intelligent code completion and refactoring tool using machine learning for .NET and Java developers.",
+      "technologies": ["AI/ML", "Python", ".NET Core", "VS Code Extension"],
+      "year": "2021",
+      "techIcons": ["dotnetcore", "typescript"]
+    },
+    {
+      "id": 371,
+      "title": "Blockchain Supply Chain Tracker",
+      "category": "Misc",
+      "description": "Proof-of-concept blockchain application for supply chain transparency and product authentication.",
+      "technologies": ["Blockchain", "Smart Contracts", "Web3", "React"],
+      "year": "2020",
+      "techIcons": ["react", "typescript"]
+    }
+  ],
+  "categories": ["All", "Research Framework", "Framework", "HIS", "Telemedicine", "LMS", "Social Responsibility", "Project Management", "Game", "Misc"],
+  "companyLogos": {
+    "gamyte": "@/assets/logos/companies/gamyte.png",
+    "avicenna": "@/assets/logos/companies/avicenna.png",
+    "erc": "@/assets/logos/companies/erc.png",
+    "datasel": "@/assets/logos/companies/datasel.png",
+    "fonet": "@/assets/logos/companies/fonet.png",
+    "halici": "@/assets/logos/companies/halici.png",
+    "labris": "@/assets/logos/companies/labris.png",
+    "metu": "@/assets/logos/companies/metu.png",
+    "unhcr": "@/assets/logos/companies/unhcr.png"
+  },
+  "techIcons": {
+    "dotnet": "@/assets/logos/technologies/dotnet.png",
+    "dotnetcore": "@/assets/logos/technologies/dotnetcore.png",
+    "angular": "@/assets/logos/technologies/angular.png",
+    "react": "@/assets/logos/technologies/react.png",
+    "docker": "@/assets/logos/technologies/docker.png",
+    "java": "@/assets/logos/technologies/java.png",
+    "nodejs": "@/assets/logos/technologies/nodejs.png",
+    "typescript": "@/assets/logos/technologies/typescript.png",
+    "ionic": "@/assets/logos/technologies/ionic.png",
+    "csharp": "@/assets/logos/technologies/csharp.png",
+    "mysql": "@/assets/logos/technologies/mysql.png"
+  },
+  "techIconNames": {
+    "dotnet": ".NET Framework",
+    "dotnetcore": ".NET Core",
+    "angular": "Angular",
+    "react": "React",
+    "docker": "Docker",
+    "java": "Java",
+    "nodejs": "Node.js",
+    "typescript": "TypeScript",
+    "ionic": "Ionic",
+    "csharp": "C#",
+    "mysql": "MySQL"
+  }
+}
