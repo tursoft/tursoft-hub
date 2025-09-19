@@ -19,12 +19,12 @@
     --popover: 222 84% 6%;
     --popover-foreground: 210 40% 98%;
 
-    /* Brand Colors - TURSOFT Logo Scheme */
-    --primary: 210 100% 50%;
+    /* Brand Colors - TURSOFT Logo Scheme - Azure Tones */
+    --primary: 200 100% 45%;
     --primary-foreground: 0 0% 98%;
-    --primary-glow: 195 85% 60%;
-    --primary-variant: 230 85% 35%;
-    --primary-light: 185 70% 55%;
+    --primary-glow: 190 85% 55%;
+    --primary-variant: 210 80% 40%;
+    --primary-light: 180 75% 50%;
     --navy-deep: 230 45% 25%;
 
     /* Secondary Colors */
@@ -36,10 +36,10 @@
     --muted: 217 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    /* Accent Colors */
-    --accent: 45 100% 60%;
+    /* Accent Colors - Azure Theme */
+    --accent: 195 100% 55%;
     --accent-foreground: 222 84% 4.9%;
-    --accent-glow: 45 100% 70%;
+    --accent-glow: 185 90% 65%;
 
     /* Status Colors */
     --destructive: 0 62.8% 50%;
