@@ -58,20 +58,17 @@ const AboutSection = () => {
               <h3 className="text-2xl font-semibold mb-6 text-foreground">My Journey</h3>
               <div className="space-y-6 text-muted-foreground leading-relaxed">
                 <p>
-                  Throughout my professional career, I have taken the leadership of various 
-                  enterprise projects within software companies that are significant players 
-                  in their sectors. As part of international companies, we have completed 
-                  multi-million dollar software projects all over the world.
+                  Throughout my professional career, I have taken the <span className="text-primary font-semibold">leadership</span> of various <span className="text-primary font-semibold">enterprise projects</span> within software companies that are significant players 
+                  in their sectors. As part of <span className="text-primary font-semibold">international companies</span>, we have completed <span className="text-primary font-semibold">multi-million dollar</span> software projects all over the world.
                 </p>
                 <p>
-                  My mission is to lead both research and development teams to produce 
-                  world-class innovative systems in terms of both functional and technical quality. 
-                  I bring a unique combination of technical expertise and leadership experience 
+                  My mission is to lead both <span className="text-primary font-semibold">research and development</span> teams to produce <span className="text-primary font-semibold">world-class innovative systems</span> in terms of both functional and technical quality. 
+                  I bring a unique combination of <span className="text-primary font-semibold">technical expertise</span> and <span className="text-primary font-semibold">leadership experience</span> 
                   to every project.
                 </p>
                 <p>
-                  Currently serving as Director of Technology & Senior Software Architect at Jengai,
-                  I continue to push the boundaries of what's possible in enterprise software development.
+                  Currently serving as <span className="text-primary font-semibold">Director of Technology</span> & <span className="text-primary font-semibold">Senior Software Architect</span> at Jengai,
+                  I continue to push the boundaries of what's possible in <span className="text-primary font-semibold">enterprise software development</span>.
                 </p>
               </div>
 

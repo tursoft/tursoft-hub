@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -161,9 +161,64 @@ const projects: Project[] = [
 
 const categories = ["All", "Research", "Framework", "HIS", "Telemedicine", "LMS", "Social Responsibility", "Project Management", "Game", "Misc"];
 
+// Animated Counter Component
+const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: string; isVisible?: boolean }> = ({ 
+  end, 
+  duration = 2000, 
+  suffix = '', 
+  isVisible = false 
+}) => {
+  const [count, setCount] = useState(0);
+  const countRef = useRef(0);
+  const startTimeRef = useRef<number | null>(null);
+  const animationRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const animate = (timestamp: number) => {
+      if (!startTimeRef.current) {
+        startTimeRef.current = timestamp;
+      }
+
+      const elapsed = timestamp - startTimeRef.current;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = Math.floor(easeOutQuart * end);
+
+      if (currentCount !== countRef.current) {
+        countRef.current = currentCount;
+        setCount(currentCount);
+      }
+
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    // Reset and start animation
+    setCount(0);
+    countRef.current = 0;
+    startTimeRef.current = null;
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [end, duration, isVisible]);
+
+  return <span>{count}{suffix}</span>;
+};
+
 const PortfolioSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [showFilters, setShowFilters] = useState(false);
+  const [statsVisible, setStatsVisible] = useState(false);
+  const statsRef = useRef<HTMLDivElement>(null);
 
   const filteredProjects = useMemo(() => {
     if (selectedCategory === "All") return projects;
@@ -174,6 +229,29 @@ const PortfolioSection = () => {
     if (category === "All") return projects.length;
     return projects.filter(project => project.category === category).length;
   };
+
+  // Intersection observer for stats animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !statsVisible) {
+          setStatsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    const currentRef = statsRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [statsVisible]);
 
   return (
     <section id="portfolio" className="py-20 bg-background/50">
@@ -294,21 +372,29 @@ const PortfolioSection = () => {
         )}
 
         {/* Stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center" ref={statsRef}>
           <div className="p-6 rounded-lg bg-card border border-border/50">
-            <div className="text-3xl font-bold text-primary mb-2">{projects.length}+</div>
+            <div className="text-3xl font-bold text-primary mb-2">
+              <AnimatedCounter end={projects.length} isVisible={statsVisible} suffix="+" />
+            </div>
             <div className="text-sm text-muted-foreground">Total Projects</div>
           </div>
           <div className="p-6 rounded-lg bg-card border border-border/50">
-            <div className="text-3xl font-bold text-primary mb-2">20+</div>
+            <div className="text-3xl font-bold text-primary mb-2">
+              <AnimatedCounter end={20} isVisible={statsVisible} suffix="+" />
+            </div>
             <div className="text-sm text-muted-foreground">Years Experience</div>
           </div>
           <div className="p-6 rounded-lg bg-card border border-border/50">
-            <div className="text-3xl font-bold text-primary mb-2">{categories.length - 1}</div>
+            <div className="text-3xl font-bold text-primary mb-2">
+              <AnimatedCounter end={categories.length - 1} isVisible={statsVisible} />
+            </div>
             <div className="text-sm text-muted-foreground">Categories</div>
           </div>
           <div className="p-6 rounded-lg bg-card border border-border/50">
-            <div className="text-3xl font-bold text-primary mb-2">50+</div>
+            <div className="text-3xl font-bold text-primary mb-2">
+              <AnimatedCounter end={50} isVisible={statsVisible} suffix="+" />
+            </div>
             <div className="text-sm text-muted-foreground">Technologies</div>
           </div>
         </div>
