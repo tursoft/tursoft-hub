@@ -36,7 +36,7 @@ const HeroSection = () => {
           {/* Main Heading */}
           <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
             <span className="block text-foreground">MUHAMMET</span>
-            <span className="block bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent animate-glow">TÜRŞAK</span>
+            <span className="block bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent animate-glow">TURŞAK</span>
           </h1>
 
           {/* Subtitle */}
