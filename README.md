@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# Welcome to Muhammet Turşak's Website
 
 ## Project info
 

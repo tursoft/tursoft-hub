@@ -2,19 +2,20 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import tursoftLogo from "@/assets/tursoft-logo.png";
 
+const navItems = [
+  { id: "hero", label: "Home" },
+  { id: "about", label: "About Me" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
+  { id: "portfolio", label: "Portfolio" },
+  { id: "skills", label: "Skills" },
+  { id: "references", label: "References" },
+  { id: "contact", label: "Contact" }
+];
+
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
-
-  const navItems = [
-    { id: "hero", label: "Home" },
-    { id: "about", label: "About Me" },
-    { id: "experience", label: "Experience" },
-    { id: "education", label: "Education" },
-    { id: "portfolio", label: "Portfolio" },
-    { id: "skills", label: "Skills" },
-    { id: "contact", label: "Contact" }
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
