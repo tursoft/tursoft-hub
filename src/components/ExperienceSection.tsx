@@ -107,28 +107,34 @@ const ExperienceSection = () => {
     };
   };
 
-  // Process experiences to flatten positions into individual experience entries
+  // Process experiences to group positions by company
   const getProcessedExperiences = () => {
     if (!experiencesData) return [];
 
-    interface ProcessedExperience {
-      company: string;
-      position: string;
+    interface ProcessedPosition {
+      title: string;
       duration: string;
       years: string;
-      location: string;
-      type: string;
-      logo: string;
       description: string[];
       technologies: string[];
       current: boolean;
+      startDate: string;
+    }
+
+    interface ProcessedExperience {
+      company: string;
+      logo: string;
       websiteUrl?: string;
       linkedinUrl?: string;
+      positions: ProcessedPosition[];
+      location: string;
     }
 
     const processedExperiences: ProcessedExperience[] = [];
     
     experiencesData.items.forEach(company => {
+      const positions: ProcessedPosition[] = [];
+      
       company.positions.forEach(position => {
         const dateInfo = formatDateRange(position.startDate, position.endDate);
         
@@ -140,24 +146,36 @@ const ExperienceSection = () => {
           description = [position.summary];
         }
         
-        processedExperiences.push({
-          company: company.companyName,
-          position: position.title,
+        positions.push({
+          title: position.title,
           duration: dateInfo.range,
           years: dateInfo.duration,
-          location: "Turkey", // Default location from original data
-          type: dateInfo.current ? "Current" : "Full-time",
-          logo: `/src/assets/logos/companies/${company.icon}`,
           description: description,
-          technologies: position.technologies.slice(0, 6).map(tech => tech.name), // Limit to first 6 technologies
+          technologies: position.technologies.slice(0, 6).map(tech => tech.name),
           current: dateInfo.current,
-          websiteUrl: company.websiteUrl,
-          linkedinUrl: company.linkedinUrl
+          startDate: position.startDate
         });
+      });
+
+      // Sort positions by start date (most recent first)
+      positions.sort((a, b) => new Date(b.startDate.split('.').reverse().join('-')).getTime() - new Date(a.startDate.split('.').reverse().join('-')).getTime());
+      
+      processedExperiences.push({
+        company: company.companyName,
+        logo: `/src/assets/logos/companies/${company.icon}`,
+        websiteUrl: company.websiteUrl,
+        linkedinUrl: company.linkedinUrl,
+        positions: positions,
+        location: "Turkey" // Default location from original data
       });
     });
 
-    return processedExperiences.sort((a, b) => new Date(b.duration.split(' - ')[0]).getTime() - new Date(a.duration.split(' - ')[0]).getTime());
+    // Sort companies by the most recent position's start date
+    return processedExperiences.sort((a, b) => {
+      const aLatest = new Date(a.positions[0].startDate.split('.').reverse().join('-'));
+      const bLatest = new Date(b.positions[0].startDate.split('.').reverse().join('-'));
+      return bLatest.getTime() - aLatest.getTime();
+    });
   };
 
   if (isLoading || !experiencesData) {
@@ -194,115 +212,117 @@ const ExperienceSection = () => {
 
           {/* Experience Timeline */}
           <div className="space-y-8 pl-6">
-            {experiences.map((exp, index) => (
-              <Card 
-                key={index} 
-                className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card hover:border-l-4 hover:border-l-primary transition-all duration-200 ${
-                  exp.current ? 'ring-2 ring-primary/20' : ''
-                }`}
-              >
-                <CardHeader className="pb-4">
-                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                    <div className="flex-1 lg:max-w-[calc(100%-200px)]">
-                      <div className="flex items-center gap-3 mb-2">
-                        <Building className="h-5 w-5 text-primary" />
-                        <h3 className="text-xl font-bold text-foreground uppercase">{exp.company}</h3>
-                        {exp.current && (
-                          <Badge variant="default" className="bg-primary text-primary-foreground">
-                            Current
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="text-lg font-semibold text-primary">{exp.position}</h4>
-                        <Badge variant="secondary" className="text-xs lg:hidden">
-                          {exp.years}
-                        </Badge>
-                      </div>
-                      
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
-                        <div className="flex items-center gap-1">
-                          <CalendarDays className="h-4 w-4" />
-                          <span>{exp.duration}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4" />
-                          <span>{exp.location}</span>
-                        </div>
-                      </div>
-
-                      {/* Description - Only in left column */}
-                      <div className="mb-4">
-                        <div className="space-y-2">
-                          {exp.description.map((item, i) => (
-                            <p key={i} className="text-muted-foreground text-sm">
-                              {item}
-                            </p>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Technologies - Only in left column */}
-                      <div>
-                        <div className="flex flex-wrap gap-2">
-                          {exp.technologies.map((tech, i) => (
-                            <Badge key={i} variant="outline" className="text-xs">
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
+            {experiences.map((exp, index) => {
+              const hasCurrent = exp.positions.some(pos => pos.current);
+              return (
+                <Card 
+                  key={index} 
+                  className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card hover:border-l-4 hover:border-l-primary transition-all duration-200 relative ${
+                    hasCurrent ? 'ring-2 ring-primary/20' : ''
+                  }`}
+                >
+                  {/* Company Logo and Links - Top Right Corner */}
+                  <div className="absolute top-4 right-4 flex flex-col items-center">
+                    <div className="w-16 h-16 flex items-center justify-center p-1 mb-2">
+                      <img 
+                        src={exp.logo} 
+                        alt={`${exp.company} logo`}
+                        className="max-w-full max-h-full object-contain"
+                      />
                     </div>
                     
-                    {/* Company Logo with Years and Links - Right column with no content below */}
-                    <div className="flex-shrink-0 flex flex-col items-center w-48 lg:w-52">
-                      {/* Years Badge - Hidden on mobile, shown on desktop */}
-                      <Badge variant="secondary" className="text-xs mb-2 hidden lg:block">
-                        {exp.years}
-                      </Badge>
-                      
-                      {/* Company Logo */}
-                      <div className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center p-2">
-                        <img 
-                          src={exp.logo} 
-                          alt={`${exp.company} logo`}
-                          className="max-w-full max-h-full object-contain"
-                        />
+                    {/* Company Links */}
+                    {(exp.websiteUrl || exp.linkedinUrl) && (
+                      <div className="flex items-center gap-1">
+                        {exp.websiteUrl && (
+                          <a 
+                            href={exp.websiteUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-muted-foreground hover:text-primary transition-colors"
+                            title="Visit Website"
+                          >
+                            <ExternalLink className="h-3 w-3" />
+                          </a>
+                        )}
+                        {exp.linkedinUrl && (
+                          <a 
+                            href={exp.linkedinUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-muted-foreground hover:text-primary transition-colors"
+                            title="Visit LinkedIn"
+                          >
+                            <Linkedin className="h-3 w-3" />
+                          </a>
+                        )}
                       </div>
-                      
-                      {/* Company Links */}
-                      {(exp.websiteUrl || exp.linkedinUrl) && (
-                        <div className="flex items-center gap-2 mt-2">
-                          {exp.websiteUrl && (
-                            <a 
-                              href={exp.websiteUrl} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-muted-foreground hover:text-primary transition-colors"
-                              title="Visit Website"
-                            >
-                              <ExternalLink className="h-4 w-4" />
-                            </a>
-                          )}
-                          {exp.linkedinUrl && (
-                            <a 
-                              href={exp.linkedinUrl} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-muted-foreground hover:text-primary transition-colors"
-                              title="Visit LinkedIn"
-                            >
-                              <Linkedin className="h-4 w-4" />
-                            </a>
-                          )}
-                        </div>
+                    )}
+                  </div>
+
+                  <CardHeader className="pb-4 pr-24">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Building className="h-5 w-5 text-primary" />
+                      <h3 className="text-xl font-bold text-foreground uppercase">{exp.company}</h3>
+                      {hasCurrent && (
+                        <Badge variant="default" className="bg-primary text-primary-foreground">
+                          Current
+                        </Badge>
                       )}
                     </div>
-                  </div>
-                </CardHeader>
-              </Card>
-            ))}
+                    
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                      <div className="flex items-center gap-1">
+                        <MapPin className="h-4 w-4" />
+                        <span>{exp.location}</span>
+                      </div>
+                    </div>
+
+                    {/* Multiple Positions */}
+                    <div className="space-y-6">
+                      {exp.positions.map((position, posIndex) => (
+                        <div key={posIndex} className={`${posIndex > 0 ? 'pt-6 border-t border-border/50' : ''}`}>
+                          <div className="flex items-start justify-between mb-3">
+                            <h4 className="text-lg font-semibold text-primary flex-1">{position.title}</h4>
+                            <div className="flex flex-col items-end gap-1 ml-4">
+                              <Badge variant="secondary" className="text-xs">
+                                {position.years}
+                              </Badge>
+                              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                                <CalendarDays className="h-3 w-3" />
+                                <span>{position.duration}</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Description */}
+                          <div className="mb-4">
+                            <div className="space-y-2">
+                              {position.description.map((item, i) => (
+                                <p key={i} className="text-muted-foreground text-sm">
+                                  {item}
+                                </p>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Technologies */}
+                          <div>
+                            <div className="flex flex-wrap gap-2">
+                              {position.technologies.map((tech, i) => (
+                                <Badge key={i} variant="outline" className="text-xs">
+                                  {tech}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardHeader>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </div>
