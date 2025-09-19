@@ -511,3 +511,19 @@
     pointer-events: none;
   }
 }
+
+/* Tag cloud animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.tag-cloud-item {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.tag-cloud-item:hover {
+  animation-play-state: paused;
+  transform: translateY(-3px);
+}

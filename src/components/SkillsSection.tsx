@@ -112,6 +112,68 @@ const SkillsSection = () => {
     { name: "Babel", icon: "🔄" }
   ];
 
+  // Add frequency to existing tools based on usage patterns
+  const toolsWithFrequency = tools.map(tool => {
+    // Define frequency based on most commonly used technologies
+    const highFrequencyTools = ["Visual Studio", ".NET Core", "ASP.NET MVC", "Entity Framework", "SQL Server", "Git", "Angular", "JavaScript", "Azure", "Oracle", "Java", "Spring Framework", "HTML5", "CSS3"];
+    const mediumHighFrequencyTools = ["TypeScript", "Docker", "MySQL", "jQuery", "Bootstrap", "WPF", "WCF", "LINQ", "Node.js", "React", "Hibernate", "Jenkins", "Kubernetes", "VS Code", "Ionic"];
+    const mediumFrequencyTools = ["AWS", "MongoDB", "Redis", "Xamarin", "AngularJS", "Silverlight", "Eclipse", "IntelliJ IDEA", "Maven", "NPM", "NuGet", "GitLab", "GitHub", "TFS", "JSON", "XML", "Express.js", "VB.NET", "Hangfire", "Jasper Reports", "Ubuntu", "VMware"];
+    
+    let frequency = 1; // Default for specialized/legacy tools
+    
+    if (highFrequencyTools.includes(tool.name)) {
+      frequency = 5;
+    } else if (mediumHighFrequencyTools.includes(tool.name)) {
+      frequency = 4;
+    } else if (mediumFrequencyTools.includes(tool.name)) {
+      frequency = 3;
+    } else {
+      // Check if it's occasionally used (level 2)
+      const occasionalTools = ["PostgreSQL", "Redis", "Mercurial", "SourceTree", "TortoiseHG"];
+      if (occasionalTools.includes(tool.name)) {
+        frequency = 2;
+      }
+    }
+    
+    return { ...tool, frequency };
+  });
+
+  // Function to get font size based on frequency
+  const getFontSize = (frequency: number) => {
+    switch (frequency) {
+      case 5: return "text-2xl lg:text-3xl"; // Largest
+      case 4: return "text-xl lg:text-2xl";  // Large
+      case 3: return "text-lg lg:text-xl";   // Medium
+      case 2: return "text-base lg:text-lg"; // Small
+      case 1: return "text-sm lg:text-base"; // Smallest
+      default: return "text-base";
+    }
+  };
+
+  // Function to get color intensity based on frequency
+  const getColorIntensity = (frequency: number) => {
+    switch (frequency) {
+      case 5: return "text-primary font-bold";
+      case 4: return "text-primary font-semibold";
+      case 3: return "text-primary font-medium";
+      case 2: return "text-muted-foreground font-medium";
+      case 1: return "text-muted-foreground/70 font-normal";
+      default: return "text-muted-foreground";
+    }
+  };
+
+  // Function to get hover scale based on frequency
+  const getHoverScale = (frequency: number) => {
+    switch (frequency) {
+      case 5: return "hover:scale-125";
+      case 4: return "hover:scale-120";
+      case 3: return "hover:scale-115";
+      case 2: return "hover:scale-110";
+      case 1: return "hover:scale-105";
+      default: return "hover:scale-110";
+    }
+  };
+
   return (
     <section id="skills" className="py-20 gradient-bg">
       <div className="container mx-auto px-6">
@@ -179,24 +241,56 @@ const SkillsSection = () => {
             <Card className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border">
               <CardHeader>
                 <h3 className="text-2xl font-bold text-center text-foreground mb-4">
-                  Tools & Technologies I Work With
+                  Technology Cloud
                 </h3>
                 <p className="text-center text-muted-foreground">
-                  A comprehensive toolkit for modern software development
+                  Technologies sized by frequency of use - larger means more commonly used in projects
                 </p>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-wrap gap-3 justify-center">
-                  {tools.map((tool, index) => (
-                    <Badge 
+                <div className="flex flex-wrap gap-4 justify-center items-center">
+                  {toolsWithFrequency.map((tool, index) => (
+                    <div 
                       key={index} 
-                      variant="outline" 
-                      className="px-3 py-1 hover:bg-primary hover:text-primary-foreground transition-colors duration-200 flex items-center gap-2"
+                      className={`
+                        cursor-pointer transition-all duration-300 tag-cloud-item
+                        ${getFontSize(tool.frequency)} 
+                        ${getColorIntensity(tool.frequency)}
+                        ${getHoverScale(tool.frequency)}
+                        hover:brightness-110 flex items-center gap-2 px-2 py-1 rounded-md
+                        hover:bg-primary/10 hover:shadow-md
+                      `}
+                      style={{ '--delay': `${(index * 0.1) % 3}s` } as React.CSSProperties}
+                      title={`${tool.name} - Experience Level: ${tool.frequency}/5`}
                     >
-                      <span>{tool.icon}</span>
+                      <span className={`${getFontSize(tool.frequency)} opacity-80`}>{tool.icon}</span>
                       <span>{tool.name}</span>
-                    </Badge>
+                    </div>
                   ))}
+                </div>
+                
+                {/* Legend */}
+                <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs text-muted-foreground border-t pt-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-primary rounded-full"></div>
+                    <span>Most Used</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 bg-primary/70 rounded-full"></div>
+                    <span>Frequently Used</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-primary/50 rounded-full"></div>
+                    <span>Regularly Used</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 bg-muted-foreground rounded-full"></div>
+                    <span>Occasionally Used</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-muted-foreground/70 rounded-full"></div>
+                    <span>Specialized</span>
+                  </div>
                 </div>
               </CardContent>
             </Card>

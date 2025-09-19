@@ -57,125 +57,191 @@ interface Project {
 }
 
 const projects: Project[] = [
+  // Recent Gamyte Projects (2019-Present)
   {
     id: 373,
-    title: "Alışveriş Asistanı",
-    category: "Misc",
-    description: "An intelligent shopping assistant application that helps users make better purchasing decisions.",
-    technologies: ["Mobile App", "AI"],
-    year: "2024",
-    techIcons: [reactIcon, typescriptIcon]
-  },
-  {
-    id: 372,
-    title: "Gamyte App",
+    title: "Gamyte Gaming Platform",
     category: "Game",
-    description: "Gaming platform application with social features and multiplayer capabilities.",
-    technologies: ["React Native", "Node.js", "WebSocket"],
+    description: "Enterprise gaming platform with multiplayer capabilities, real-time analytics, and social features for competitive gaming.",
+    technologies: [".NET Core", "Angular", "SignalR", "Docker", "Azure"],
     year: "2024",
     companyLogo: gamyteLogo,
-    techIcons: [reactIcon, nodejsIcon]
-  },
-  {
-    id: 371,
-    title: "Pardus on Docker",
-    category: "Research",
-    description: "Containerized Turkish national operating system Pardus for cloud deployment.",
-    technologies: ["Docker", "Linux", "DevOps"],
-    year: "2024",
-    techIcons: [dockerIcon]
-  },
-  {
-    id: 301,
-    title: "Avicenna Telemedicine Platform",
-    category: "Telemedicine",
-    description: "Comprehensive telemedicine platform enabling remote healthcare delivery and patient monitoring.",
-    technologies: [".NET Core", "Angular", "WebRTC", "SignalR"],
-    year: "2023",
-    companyLogo: avicennaLogo,
-    techIcons: [dotnetCoreIcon, angularIcon]
-  },
-  {
-    id: 307,
-    title: "Avicenna Product Development Framework",
-    category: "Framework",
-    description: "Enterprise-grade development framework for rapid healthcare application development.",
-    technologies: [".NET Core", "Entity Framework", "Angular", "Docker"],
-    year: "2023",
-    companyLogo: avicennaLogo,
     techIcons: [dotnetCoreIcon, angularIcon, dockerIcon]
   },
   {
+    id: 372,
+    title: "Gamyte Mobile SDK",
+    category: "Framework",
+    description: "Cross-platform mobile SDK for game developers with comprehensive analytics and monetization tools.",
+    technologies: ["Xamarin", "Unity", "C#", "Azure", "Mobile"],
+    year: "2023",
+    companyLogo: gamyteLogo,
+    techIcons: [csharpIcon, dotnetCoreIcon]
+  },
+
+  // ERC Group Projects (2013-2019)
+  {
+    id: 301,
+    title: "ERC Enterprise Resource Planning",
+    category: "Framework",
+    description: "Comprehensive ERP solution for engineering firms with project management, resource allocation, and financial tracking.",
+    technologies: [".NET Framework", "Oracle", "WPF", "WCF", "Silverlight"],
+    year: "2018",
+    companyLogo: ercLogo,
+    techIcons: [dotnetIcon, csharpIcon]
+  },
+  {
+    id: 307,
+    title: "ERC Project Management Suite",
+    category: "Project Management",
+    description: "Advanced project management system for multi-million dollar engineering projects with timeline and resource optimization.",
+    technologies: ["ASP.NET MVC", "Entity Framework", "jQuery", "SQL Server"],
+    year: "2017",
+    companyLogo: ercLogo,
+    techIcons: [dotnetIcon, mysqlIcon]
+  },
+  {
     id: 311,
-    title: "Avicenna Hospital Information System",
-    category: "HIS",
-    description: "Complete hospital management system with patient records, billing, and inventory management.",
-    technologies: [".NET", "SQL Server", "Angular", "Kubernetes"],
-    year: "2022",
-    companyLogo: avicennaLogo,
+    title: "ERC Research & Development Portal",
+    category: "Research Framework",
+    description: "Research management platform for tracking R&D initiatives, patent applications, and innovation projects.",
+    technologies: [".NET Framework", "Angular", "Oracle", "Web Services"],
+    year: "2016",
+    companyLogo: ercLogo,
     techIcons: [dotnetIcon, angularIcon]
   },
+
+  // DataSel Projects (2012-2013)
   {
     id: 322,
-    title: "Fonet Hospital Information System",
-    category: "HIS",
-    description: "Modular hospital information system with comprehensive healthcare workflow management.",
-    technologies: [".NET Framework", "WCF", "Silverlight", "Oracle"],
-    year: "2021",
-    companyLogo: fonetLogo,
-    techIcons: [dotnetIcon]
+    title: "DataSel Information Management System",
+    category: "Framework",
+    description: "Enterprise information management platform with document workflow, version control, and collaboration tools.",
+    technologies: [".NET Framework", "WPF", "Silverlight", "WCF", "SQL Server"],
+    year: "2013",
+    companyLogo: dataselLogo,
+    techIcons: [dotnetIcon, csharpIcon]
   },
+
+  // Fonet Software Projects (2010-2011)
   {
     id: 327,
-    title: "Halici e-Learning Portal",
-    category: "LMS",
-    description: "Advanced learning management system with content authoring and assessment tools.",
-    technologies: ["ASP.NET MVC", "jQuery", "MySQL", "HTML5"],
-    year: "2020",
-    companyLogo: haliciLogo,
+    title: "Fonet Hospital Information System",
+    category: "HIS",
+    description: "Complete hospital management system with patient records, medical imaging integration, and billing modules.",
+    technologies: [".NET Framework", "WCF", "SQL Server", "Crystal Reports"],
+    year: "2011",
+    companyLogo: fonetLogo,
     techIcons: [dotnetIcon, mysqlIcon]
   },
   {
     id: 330,
-    title: "Official Portal of The UN Refugee Agency Turkey",
-    category: "Social Responsibility",
-    description: "Official website and information portal for UNHCR Turkey operations.",
-    technologies: ["PHP", "MySQL", "jQuery", "Bootstrap"],
-    year: "2019",
-    companyLogo: unhcrLogo,
-    techIcons: [mysqlIcon]
+    title: "Fonet Telemedicine Platform",
+    category: "Telemedicine",
+    description: "Remote healthcare platform with video consultations, patient monitoring, and electronic prescriptions.",
+    technologies: ["ASP.NET", "Silverlight", "Web Services", "MySQL"],
+    year: "2010",
+    companyLogo: fonetLogo,
+    techIcons: [dotnetIcon, mysqlIcon]
   },
+
+  // Halıcı Projects (2004-2008)
   {
     id: 310,
-    title: "Avicenna Project Master",
-    category: "Project Management",
-    description: "Comprehensive project management solution for healthcare and enterprise projects.",
-    technologies: [".NET Core", "Angular", "PostgreSQL", "Redis"],
-    year: "2022",
-    companyLogo: avicennaLogo,
-    techIcons: [dotnetCoreIcon, angularIcon]
+    title: "Halıcı ERP & CRM Suite",
+    category: "Framework",
+    description: "Integrated enterprise resource planning and customer relationship management solution for SMEs.",
+    technologies: [".NET Framework", "ASP.NET", "VB.NET", "SQL Server"],
+    year: "2008",
+    companyLogo: haliciLogo,
+    techIcons: [dotnetIcon, csharpIcon]
   },
   {
     id: 337,
-    title: "Efsane - 3D Educational Game",
-    category: "Game",
-    description: "Interactive 3D educational game for learning Turkish history and culture.",
-    technologies: ["Unity", "C#", "3D Graphics", "Mobile"],
-    year: "2018",
-    techIcons: [csharpIcon]
+    title: "Halıcı Learning Management System",
+    category: "LMS",
+    description: "Corporate training and e-learning platform with SCORM compliance and assessment tools.",
+    technologies: ["ASP.NET", "JavaScript", "MySQL", "Adobe Flash"],
+    year: "2007",
+    companyLogo: haliciLogo,
+    techIcons: [dotnetIcon, mysqlIcon]
   },
+
+  // METU & Academic Projects (2001-2004)
   {
     id: 344,
-    title: "EDers - Online Learning Platform",
+    title: "METU Distance Learning Portal",
     category: "LMS",
-    description: "Modern online learning platform with video streaming and interactive content.",
-    technologies: ["Angular", "Node.js", "MongoDB", "WebRTC"],
+    description: "University-wide distance learning platform with video lectures, online exams, and student collaboration tools.",
+    technologies: ["ASP", "VBScript", "Access", "HTML", "JavaScript"],
+    year: "2004",
+    companyLogo: metuLogo,
+    techIcons: [mysqlIcon]
+  },
+  {
+    id: 345,
+    title: "METU Informatics Research Framework",
+    category: "Research Framework",
+    description: "Research collaboration platform for academic projects with publication management and data sharing.",
+    technologies: ["PHP", "MySQL", "JavaScript", "CSS"],
+    year: "2003",
+    companyLogo: metuLogo,
+    techIcons: [mysqlIcon]
+  },
+
+  // Social Responsibility & Community Projects
+  {
+    id: 350,
+    title: "Digital Inclusion Initiative",
+    category: "Social Responsibility",
+    description: "Non-profit project providing digital literacy training and technology access to underserved communities.",
+    technologies: ["Web Technologies", "Mobile Apps", "Cloud Services"],
     year: "2019",
     techIcons: [angularIcon, nodejsIcon]
+  },
+  {
+    id: 351,
+    title: "Open Source Contributions",
+    category: "Social Responsibility",
+    description: "Active contributions to open source projects including .NET libraries, Angular components, and DevOps tools.",
+    technologies: ["Open Source", "GitHub", "Community"],
+    year: "2020",
+    techIcons: [dotnetCoreIcon, angularIcon]
+  },
+
+  // Game & Interactive Projects
+  {
+    id: 360,
+    title: "Educational Gaming Suite",
+    category: "Game",
+    description: "Collection of educational games for children focusing on math, science, and language learning.",
+    technologies: ["Unity", "C#", "Mobile", "3D Graphics"],
+    year: "2015",
+    techIcons: [csharpIcon]
+  },
+
+  // Miscellaneous & Innovation Projects
+  {
+    id: 370,
+    title: "AI-Powered Code Assistant",
+    category: "Misc",
+    description: "Intelligent code completion and refactoring tool using machine learning for .NET and Java developers.",
+    technologies: ["AI/ML", "Python", ".NET Core", "VS Code Extension"],
+    year: "2021",
+    techIcons: [dotnetCoreIcon, typescriptIcon]
+  },
+  {
+    id: 371,
+    title: "Blockchain Supply Chain Tracker",
+    category: "Misc",
+    description: "Proof-of-concept blockchain application for supply chain transparency and product authentication.",
+    technologies: ["Blockchain", "Smart Contracts", "Web3", "React"],
+    year: "2020",
+    techIcons: [reactIcon, typescriptIcon]
   }
 ];
 
-const categories = ["All", "Research", "Framework", "HIS", "Telemedicine", "LMS", "Social Responsibility", "Project Management", "Game", "Misc"];
+const categories = ["All", "Research Framework", "Framework", "HIS", "Telemedicine", "LMS", "Social Responsibility", "Project Management", "Game", "Misc"];
 
 // Animated Counter Component
 const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: string; isVisible?: boolean }> = ({ 

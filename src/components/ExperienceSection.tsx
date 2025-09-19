@@ -13,27 +13,10 @@ import haliciLogo from "@/assets/logos/companies/halici.png";
 const ExperienceSection = () => {
   const experiences = [
     {
-      company: "Jengai",
-      position: "Director of Technology & Senior Software Architect",
-      duration: "Dec 2023 - Present",
-      years: "2+ years",
-      location: "Turkey",
-      type: "Full-time",
-      logo: jengaiLogo,
-      description: [
-        "Leading technology strategy and architecture decisions for enterprise gaming solutions",
-        "Managing cross-functional development teams and R&D initiatives",
-        "Architecting scalable, high-performance gaming platforms",
-        "Driving digital transformation and innovation across the organization"
-      ],
-      technologies: ["C#", ".NET Core", "Microservices", "Azure", "React", "TypeScript"],
-      current: true
-    },
-    {
       company: "Gamyte",
       position: "Director of Technology & Senior Software Architect",
-      duration: "Sep 2019 - Dec 2023",
-      years: "4 years",
+      duration: "Sep 2019 - Present",
+      years: "6+ years",
       location: "Turkey",
       type: "Full-time",
       logo: gamyteLogo,
@@ -44,13 +27,13 @@ const ExperienceSection = () => {
         "Driving digital transformation and innovation across the organization"
       ],
       technologies: ["C#", ".NET Core", "Microservices", "Azure", "React", "TypeScript"],
-      current: false
+      current: true
     },
     {
       company: "ERC Group Engineering, Consultancy, R&D",
       position: "Senior Software Architect and Group Leader",
       duration: "May 2013 - Sep 2019",
-      years: "6 years",
+      years: "6.3 years",
       location: "Turkey",
       type: "Full-time",
       logo: ercLogo,
@@ -67,7 +50,7 @@ const ExperienceSection = () => {
       company: "DataSel Information Systems Co.",
       position: "Senior Software Architect and Group Leader",
       duration: "Jan 2012 - May 2013",
-      years: "2 years",
+      years: "1.8 years",
       location: "Turkey",
       type: "Full-time",
       logo: dataselLogo,
@@ -84,7 +67,7 @@ const ExperienceSection = () => {
       company: "Fonet Software Co.",
       position: "Research & Development Director",
       duration: "Jan 2010 - Aug 2011",
-      years: "2 years",
+      years: "1.9 years",
       location: "Turkey",
       type: "Full-time",
       logo: fonetLogo,
@@ -98,18 +81,35 @@ const ExperienceSection = () => {
       current: false
     },
     {
+      company: "Gendarmerie Training Command",
+      position: "Lieutenant",
+      duration: "Sep 2008 - Sep 2009",
+      years: "1 year",
+      location: "Turkey",
+      type: "Military Service",
+      logo: jengaiLogo, // Will need to add proper logo
+      description: [
+        "Served as a Lieutenant in the Turkish Gendarmerie Training Command",
+        "Led training programs and educational initiatives",
+        "Managed personnel and administrative responsibilities",
+        "Completed mandatory military service with leadership role"
+      ],
+      technologies: ["Leadership", "Training", "Administration", "Project Management"],
+      current: false
+    },
+    {
       company: "Halıcı Informatics & Software Co.",
       position: "Software Production and Planning Director",
       duration: "Jan 2007 - Sep 2008",
-      years: "2 years",
+      years: "4.7 years total",
       location: "Turkey",
       type: "Full-time",
       logo: haliciLogo,
       description: [
-        "Oversaw software production lifecycle and project planning",
-        "Managed development teams and resource allocation",
-        "Implemented quality assurance processes and methodologies",
-        "Coordinated with stakeholders on project deliverables and timelines"
+        "Oversaw software production lifecycle and project planning (2007-2008)",
+        "Served as Project Manager and System Analyst (2005-2007)",
+        "Worked as .NET Application Developer (2004-2005)",
+        "Progressed through multiple roles showing career advancement"
       ],
       technologies: ["C#", ".NET", "ASP.NET", "SQL Server", "VB.NET", "Web Services"],
       current: false

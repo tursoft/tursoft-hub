@@ -44,14 +44,13 @@ const HeroSection = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl lg:text-2xl text-muted-foreground mb-4 font-light">
-            Senior Software Architect
+          <p className="text-xl lg:text-2xl text-muted-foreground mb-8 font-light">
+            Senior Software Architect / .NET, Java, Web and Mobile
           </p>
-          <p className="text-lg text-muted-foreground mb-8 lg:text-xl">.NET, Java, Web and Mobile Development</p>
 
           {/* Description */}
           <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            With more than 20 years of professional experience, I lead the development of 
+            With more than 25 years of professional experience, I lead the development of 
             world-class enterprise systems characterized by exceptional functionality, 
             performance, scalability, and security.
           </p>
@@ -64,7 +63,7 @@ const HeroSection = () => {
               View My Work
               <ExternalLink className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-gradient-to-r hover:from-[hsl(var(--navy-deep))] hover:via-[hsl(var(--primary))] hover:to-[hsl(var(--primary-light))] hover:text-primary-foreground px-8 py-3 text-lg transition-all duration-300" onClick={() => window.open("#", "_blank")}>
+            <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-gradient-to-r hover:from-[hsl(var(--navy-deep))] hover:via-[hsl(var(--primary))] hover:to-[hsl(var(--primary-light))] hover:text-primary-foreground px-8 py-3 text-lg transition-all duration-300" onClick={() => window.open("https://tursoft.net/assets/files/downloads/CV/CV_MuhammetTursak_v52.20200304.pdf", "_blank")}>
               <Download className="mr-2 h-5 w-5" />
               Download CV
             </Button>
