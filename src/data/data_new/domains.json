@@ -1,10 +1,10 @@
 {
     "items": [
-       { "id": 1, "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" },
-       { "id": 2, "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" },
-       { "id": 3, "name": "ecommerce", "title": "E-Commerce", "value":100, "iconCss": "" },
-       { "id": 4, "name": "video", "title": "Video Streaming", "value":100, "iconCss": "" },
-       { "id": 5, "name": "cms", "title": "Content Management Systems", "value":100, "iconCss": "" },
-       { "id": 6, "name": "gaming", "title": "Game Development", "value":100, "iconCss": "" }
+       { "id": 1, "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "Heart" },
+       { "id": 2, "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "GraduationCap" },
+       { "id": 3, "name": "ecommerce", "title": "E-Commerce", "value":100, "iconCss": "ShoppingCart" },
+       { "id": 4, "name": "video", "title": "Video Streaming", "value":100, "iconCss": "Play" },
+       { "id": 5, "name": "cms", "title": "Content Management Systems", "value":100, "iconCss": "FileText" },
+       { "id": 6, "name": "gaming", "title": "Game Development", "value":100, "iconCss": "Gamepad2" }
    ]
 }
