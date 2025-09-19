@@ -1,0 +1,106 @@
+{
+  "experiences": [
+    {
+      "company": "Gamyte",
+      "position": "Director of Technology & Senior Software Architect",
+      "duration": "Sep 2019 - Present",
+      "years": "6+ years",
+      "location": "Turkey",
+      "type": "Full-time",
+      "logo": "/src/assets/logos/companies/gamyte.png",
+      "description": [
+        "Leading technology strategy and architecture decisions for enterprise gaming solutions",
+        "Managing cross-functional development teams and R&D initiatives",
+        "Architecting scalable, high-performance gaming platforms",
+        "Driving digital transformation and innovation across the organization"
+      ],
+      "technologies": ["C#", ".NET Core", "Microservices", "Azure", "React", "TypeScript"],
+      "current": true
+    },
+    {
+      "company": "ERC Group Engineering, Consultancy, R&D",
+      "position": "Senior Software Architect and Group Leader",
+      "duration": "May 2013 - Sep 2019",
+      "years": "6.3 years",
+      "location": "Turkey",
+      "type": "Full-time",
+      "logo": "/src/assets/logos/companies/erc.png",
+      "description": [
+        "Led the architecture and development of enterprise-grade engineering solutions",
+        "Managed multiple development teams across different product lines",
+        "Designed and implemented scalable R&D management systems",
+        "Collaborated with international clients on multi-million dollar projects"
+      ],
+      "technologies": ["Java", "Spring", ".NET", "Oracle", "Angular", "JavaScript"],
+      "current": false
+    },
+    {
+      "company": "DataSel Information Systems Co.",
+      "position": "Senior Software Architect and Group Leader",
+      "duration": "Jan 2012 - May 2013",
+      "years": "1.8 years",
+      "location": "Turkey",
+      "type": "Full-time",
+      "logo": "/src/assets/logos/companies/datasel.png",
+      "description": [
+        "Architected enterprise information management systems",
+        "Led development teams in building data-driven applications",
+        "Implemented performance optimization strategies for large-scale systems",
+        "Mentored junior developers and established coding standards"
+      ],
+      "technologies": ["C#", ".NET", "SQL Server", "WPF", "Silverlight", "WCF"],
+      "current": false
+    },
+    {
+      "company": "Fonet Software Co.",
+      "position": "Research & Development Director",
+      "duration": "Jan 2010 - Aug 2011",
+      "years": "1.9 years",
+      "location": "Turkey",
+      "type": "Full-time",
+      "logo": "/src/assets/logos/companies/fonet.png",
+      "description": [
+        "Directed R&D initiatives for next-generation software products",
+        "Established development methodologies and best practices",
+        "Led innovation projects and proof-of-concept developments",
+        "Managed technical roadmap and technology stack decisions"
+      ],
+      "technologies": ["Java", "C#", ".NET", "Web Services", "MySQL", "JavaScript"],
+      "current": false
+    },
+    {
+      "company": "Gendarmerie Training Command",
+      "position": "Lieutenant",
+      "duration": "Sep 2008 - Sep 2009",
+      "years": "1 year",
+      "location": "Turkey",
+      "type": "Military Service",
+      "logo": "/src/assets/logos/companies/jengai.png",
+      "description": [
+        "Served as a Lieutenant in the Turkish Gendarmerie Training Command",
+        "Led training programs and educational initiatives",
+        "Managed personnel and administrative responsibilities",
+        "Completed mandatory military service with leadership role"
+      ],
+      "technologies": ["Leadership", "Training", "Administration", "Project Management"],
+      "current": false
+    },
+    {
+      "company": "Halıcı Informatics & Software Co.",
+      "position": "Software Production and Planning Director",
+      "duration": "Jan 2007 - Sep 2008",
+      "years": "4.7 years total",
+      "location": "Turkey",
+      "type": "Full-time",
+      "logo": "/src/assets/logos/companies/halici.png",
+      "description": [
+        "Oversaw software production lifecycle and project planning (2007-2008)",
+        "Served as Project Manager and System Analyst (2005-2007)",
+        "Worked as .NET Application Developer (2004-2005)",
+        "Progressed through multiple roles showing career advancement"
+      ],
+      "technologies": ["C#", ".NET", "ASP.NET", "SQL Server", "VB.NET", "Web Services"],
+      "current": false
+    }
+  ]
+}
