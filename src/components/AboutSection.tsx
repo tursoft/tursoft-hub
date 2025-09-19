@@ -27,11 +27,10 @@ const AboutSection = () => {
   ];
 
   const roles = [
-    "Software Group Director (5 years)",
-    "Research & Development Director (5 years)",
-    "Project Manager (5+ years)",
-    "Software Architect (6 years)",
-    "Software Team Leader (5+ years)"
+    "Software Group Director",
+    "Research & Development Director",
+    "Software Architect",
+    "Software Team Leader"
   ];
 
   return (
@@ -71,7 +70,7 @@ const AboutSection = () => {
                   to every project.
                 </p>
                 <p>
-                  Currently serving as Director of Technology & Senior Software Architect at Gamyte,
+                  Currently serving as Director of Technology & Senior Software Architect at Jengai,
                   I continue to push the boundaries of what's possible in enterprise software development.
                 </p>
               </div>
