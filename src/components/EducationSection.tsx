@@ -12,7 +12,8 @@ const EducationSection = () => {
       graduation: "February 2013",
       type: "Master's Program",
       description: "Advanced software management methodologies, project leadership, and enterprise architecture principles",
-      focus: ["Software Project Management", "Enterprise Architecture", "Team Leadership", "Quality Assurance"]
+      focus: ["Software Project Management", "Enterprise Architecture", "Team Leadership", "Quality Assurance"],
+      logo: "/src/assets/logos/companies/metu.png"
     },
     {
       degree: "Graduate School Computer Education and Instructional Technologies Department",
@@ -22,7 +23,8 @@ const EducationSection = () => {
       graduation: "September 2007",
       type: "Master's Degree",
       description: "Computer education methodologies, instructional technology design, and educational software development",
-      focus: ["Educational Technology", "Software Development", "Human-Computer Interaction", "E-Learning Systems"]
+      focus: ["Educational Technology", "Software Development", "Human-Computer Interaction", "E-Learning Systems"],
+      logo: "/src/assets/logos/companies/metu.png"
     },
     {
       degree: "Undergraduate School Computer Education and Instructional Technologies Department",
@@ -32,7 +34,8 @@ const EducationSection = () => {
       graduation: "June 2004",
       type: "Bachelor's Degree",
       description: "Foundation in computer science, programming, and educational technology applications",
-      focus: ["Computer Programming", "Database Systems", "Web Development", "Software Engineering"]
+      focus: ["Computer Programming", "Database Systems", "Web Development", "Software Engineering"],
+      logo: "/src/assets/logos/companies/metu.png"
     },
     {
       degree: "High School Computer Programming Branch",
@@ -42,7 +45,8 @@ const EducationSection = () => {
       graduation: "June 1999",
       type: "Technical High School",
       description: "Technical foundation in computer programming and software development fundamentals",
-      focus: ["Programming Fundamentals", "Computer Systems", "Technical Mathematics", "Logic Design"]
+      focus: ["Programming Fundamentals", "Computer Systems", "Technical Mathematics", "Logic Design"],
+      logo: "/src/assets/logos/companies/meb.png"
     }
   ];
 
@@ -113,6 +117,15 @@ const EducationSection = () => {
                             Graduated: {edu.graduation}
                           </div>
                         </div>
+                        {edu.logo && (
+                          <div className="flex-shrink-0">
+                            <img 
+                              src={edu.logo} 
+                              alt={`${edu.institution} logo`}
+                              className="w-16 h-16 object-contain"
+                            />
+                          </div>
+                        )}
                       </div>
                     </CardHeader>
 
@@ -122,7 +135,6 @@ const EducationSection = () => {
                       </p>
 
                       <div>
-                        <h5 className="text-sm font-semibold text-foreground mb-2">Key Focus Areas:</h5>
                         <div className="flex flex-wrap gap-2">
                           {edu.focus.map((area, i) => (
                             <Badge key={i} variant="outline" className="text-xs">
