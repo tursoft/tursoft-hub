@@ -1,0 +1,2271 @@
+{
+    "general": {
+      "title": "Portfolio",
+      "summary": "Throughout 15 years of my professional career, I have completed managed various projects with more than million dolars.",
+      
+      "groups": [
+          { "name": "RD", "title": "Research", "value":100, "iconCss": "" },        
+          { "name": "Framework", "title": "Framework", "value":100, "iconCss": "" },   
+          { "name": "HIS", "title": "HIS", "value":100, "iconCss": "" },        
+          { "name": "Telemedicine", "title": "Telemedicine", "value":100, "iconCss": "" },                
+          { "name": "LMS", "title": "LMS", "value":100, "iconCss": "" },     
+          { "name": "Social Responsibility", "title": "Social Responsibility", "value":100, "iconCss": "" },                   
+          { "name": "PM", "title": "Project Management", "value":100, "iconCss": "" },          
+          { "name": "Game", "title": "Game", "value":100, "iconCss": "" },        
+          { "name": "Misc", "title": "Misc", "value":100, "iconCss": "" }
+      ]
+    },
+    
+    "items": [   
+
+      { "id": 373, "name": "ALISVERISASISTANI", "title": "Alışveriş Asistanı", "group":"Misc", "company": "Tursoft", "value":900, "icon": "alisveris.asistani.png",
+        "summary": "Online alışveriş sitelerinde incelediğiniz ürünüm en ucuz fiyatlı alternatifini bulmanıza yardımcı olan bir eklenti",
+        "fulltext": [
+          "<a href='https://chrome.google.com/webstore/detail/alisveris-asistani/jgamhhjngkopjmipdlicjipfanfgmeil' target='_blank'><img src='/assets/images/misc/ChromeWebStore_BadgeWBorder_v2_206x58.png' style='width: 206px'></a>",
+          "<br/>",
+          "<br/>",
+          "Bu bir Google Chrome™ eklentisidir. Alışveriş ve fiyat araştırmalarınızda size zaman ve paradan tasarruf etmenizi sağlayacak, doğru kararları daha hızlı şekilde almanıza yardımcı olacak. <br>",
+          "<br/>",
+          "Size sunduğu başlıca özellikler: <br>",
+          "* Aktif sayfadaki ürünün ismini, resmini, fiyatını ve diğer detaylarını otomatik algılama <br/>",
+          "* Diğer alışveriş sitelerinde ürünle ilgili arama yapıp size sunma <br/>",
+          "* Diğer alternatiflere tık tıklama ile ulaşabilme <br/>",
+          "* Fiyatlarına göre sıralama yapabilme <br/>",
+          "* Diğer alternatiflerin isimini, resmini, fiyatını, fiyat farkını (+/-) görebilme<br/>",
+          "<br/>",
+          "<p>Desteklenen alışveriş site listesi:</p>",
+          "<ul style='list-style-type: square;'>",
+          "    <li style='list-style: square inside none; font-size: 11px'><a href='http://www.n11.com' target='_blank' style='color: blue;'>n11.com</a></li>",
+          "    <li style='list-style: square inside none; font-size: 11px'><a href='http://www.gittigidiyor.com' target='_blank' style='color: blue;'>gittigidiyor.com</a></li>",
+          "    <li style='list-style: square inside none; font-size: 11px'><a href='http://www.hepsiburada.com' target='_blank' style='color: blue;'>hepsiburada.com</a></li>",
+          "    <li style='list-style: square inside none; font-size: 11px'><a href='http://www.trendyol.com' target='_blank' style='color: blue;'>trendyol.com</a></li>",
+          "    <li style='list-style: square inside none; font-size: 11px'><a href='http://www.amazon.com.tr' target='_blank' style='color: blue;'>amazon.com.tr</a></li>",
+          "</ul>",
+          "<br/>",
+          "Not: Şuan sadece Türkiye'deki bazı alışveriş siteleri desteklenmektedir. O nedenle de dil olarak sadece Türkçe desteklenmektedir.<br/>",
+          "<br/>",
+          "<br/>",
+          "<p><strong>İlgili Sayfalar:</strong></p>",
+          "<ul style='list-style-type: square;'>",
+          "    <li style='list-style: square inside none; font-size: 11px'><a href='373/privacypolicy-tr' style='color: blue;'>Gizlilik Sözleşmesi</a></li>",
+          "</ul>",
+          "<br/>"
+        ],
+
+        "datePeriod": { "startDate": "20.12.2019", "endDate": null },
+        
+        "props": [
+          { "name":"platforms", "title": "Chrome Extensions" }          
+        ],
+
+        "domains": [
+          { "name": "shopping", "title": "Shopping", "value":100, "iconCss": "" }
+        ], 
+        
+        "team": [ 
+          { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" }
+        ],
+
+        "modules": [],
+
+        "customers":[],
+
+        "partners":[],
+
+        "technologies":[
+          { "name":  "VS Code Insiders", "type": "IDE" },
+          { "name":  "Azure DevOps", "type": "Cloud" },
+          { "name":  "npm", "type": "Dependency Management" },
+          { "name":  "Angular", "type": "Web Framework" },
+          { "name":  "MVVM", "type": "Design Pattern" },          
+          { "name":  "HTML5", "type": "Web" },
+          { "name":  "JS", "type": "Web" },
+          { "name":  "CSS", "type": "Web" },
+          { "name":  "Photoshop", "type": "Graphics Design" },
+          { "name":  "Json", "type": "File Format" }
+        ]
+      },
+
+      { "id": 372, "name": "GAMYTEAPP", "title": "Gamyte App", "group":"Misc", "company": "Gamyte", "value":900, "icon": "gamyte.app.png",
+        "summary": "Web platform for Gamyte",
+        "fulltext": "",
+        "datePeriod": { "startDate": "04.09.2019", "endDate": null },
+        
+        "props": [
+          { "name":"platforms", "title": "Web Platform" }          
+        ],
+
+        "domains": [
+          { "name": "construction", "title": "Construction", "value":100, "iconCss": "" }
+        ], 
+        
+        "team": [ 
+          { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" }
+        ],
+
+        "modules": [],
+
+        "customers":[],
+
+        "partners":[],
+
+        "technologies":[                        
+          { "name":  ".NET", "type": "Framework" },
+          { "name":  ".NETCore", "type": "Framework" },
+          { "name":  "C#", "type": "Programming Language" },
+
+          { "name":  "Visual Studio", "type": "IDE" },
+          { "name":  "VS Code", "type": "IDE" },
+          { "name":  "VS Code Insiders", "type": "IDE" },
+
+          { "name":  "Azure", "type": "Cloud" },
+          { "name":  "Azure DevOps", "type": "Cloud" },
+
+          { "name":  "EntityFramework", "type": "ORM" },
+          { "name":  "LINQ", "type": "Database" },                   
+
+          { "name":  "Source Tree", "type": "Source Control" },
+          { "name":  "npm", "type": "Dependency Management" },
+          
+          { "name":  "ASP.NET", "type": "Web" },
+          { "name":  "ASP.NET Core", "type": "Web" },
+          { "name":  "ASP.NET WebAPI", "type": "Web" },
+
+          { "name":  "Angular", "type": "Web Framework" },
+          { "name":  "MVVM", "type": "Design Pattern" },
+          
+          { "name":  "MS SQL", "type": "Database" },
+          
+          { "name":  "HTML5", "type": "Web" },
+          { "name":  "JS", "type": "Web" },
+          { "name":  "CSS", "type": "Web" },
+
+          { "name":  "Photoshop", "type": "Graphics Design" },
+
+          { "name":  "OAuth", "type": "Security" },
+          { "name":  "JWT", "type": "Security" },
+
+          { "name":  "Json", "type": "File Format" },
+          
+          { "name":  "Google Analytics", "type": "Monitoring" }
+
+        ]
+    },
+
+    { "id": 371, "name": "PARDUSDOCKER", "title": "Pardus on Docker", "group":"Social Responsibility", "company": "Tursoft", "value":100, "icon": "PARDUSDOCKER.png",
+          "summary": "Docker için Base-Pardus Image'leri",
+          "fulltext": "Bu proje, yerli işletim sistemimizi destek olmak ve docker tabanlı projelerde de kullanımının artmasına katkıda bulunmak amacı ile hazırlanmıştır. <br/> Github: <a href='https://github.com/tursoft/pardus-images' target='_blank'>https://github.com/tursoft/pardus-images</a> <br/> Dockerhub: <a href='https://cloud.docker.com/repository/docker/tursoft/pardus' target='_blank'>https://cloud.docker.com/repository/docker/tursoft/pardus</a>",
+          "datePeriod": { "startDate": "27.02.2019", "endDate": null },
+          
+          "props": [
+            { "name":"platforms", "title": "Docker" }          
+          ],
+
+          "domains": [            
+          ], 
+          
+          "team": [ 
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" }
+          ],            
+
+          "modules": [
+            "Pardus Base Docker Image",
+            "Populer Docker Images on Pardus Base Image"
+          ],
+
+          "customers":[],
+
+          "partners":[],
+
+          "technologies":[
+          ]
+      },
+
+        { "id": 301, "name": "ATTP", "title": "Avicenna Telemedicine Platform", "group":"Telemedicine", "company": "ERC", "value":100, "icon": "ATTP.png",
+            "summary": "Project is a international project with multiple partners from various countries (Turkey, USA, Switzerland, Israel,Macedonia). This ERP Project consists of multiple sub-systems: Avicenna ATTP, Telemedicine System (Jasmine), Microsoft Dynamic NAV with CRM module and 3rd Party Call-Center solutions. ATTP is the one of the core system of the whole architecture that we have developed.",
+            "fulltext": "ATTP was the major system that has the integrations with other sub-systems and some extra external services like Cargo, SMS, VPOS etc.",
+            "datePeriod": { "startDate": "24.02.2016", "endDate": "10.04.2017" },
+            
+            "props": [
+              { "name":"platforms", "title": "Web" },
+              { "name":"integration", "title": "VPOS Integration" }
+            ],
+
+            "domains": [
+                { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+            ], 
+            
+            "team": [ 
+              { "position": "Software Architect and Group Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+              { "position": "Software Developer", "name": "Ertem Yazıcı", "contactNo": "1" },
+              { "position": "IT Manager", "name": "Ekrem Yıldız", "contactNo": "1" }             
+            ],            
+
+            "modules": [
+              "Integrations (telemedicine system, microsoft NAV, VPOS, cargo etc.)",
+              "Order Management",
+              "Medical Report Delivery",
+              "Stock Management",
+              "Reporting",
+              "Security Management"
+            ],
+
+            "customers":[
+              "Lifewatch Türkiye"
+            ],
+
+            "partners":[],
+
+            "technologies":[
+              { "name":  "PDFW", "type": "Framework" },
+              { "name":  ".NETCore", "type": "Framework" },
+              { "name":  "C#", "type": "Language" },
+              { "name":  "Hangfire", "type": "Scheduled Tasks" },
+              
+              { "name":  "MS SQL", "type": "Database" },
+              { "name":  "Entity Framework Core", "type": "ORM" },
+              { "name":  "LINQ", "type": "Database" },
+              
+              { "name":  "AngularJS", "type": "Frontend" },
+              { "name":  "JS", "type": "Frontend" },
+              { "name":  "HTML5", "type": "Frontend" },
+              { "name":  "CSS3", "type": "Frontend" },
+
+              { "name":  "Jenkins", "type": "DevOps" },
+              { "name":  "TFS", "type": "Source Control" },
+
+              { "name":  "Microsoft Dynamics NAV", "type": "ERP" },
+              { "name":  "Redmine", "type": "Project Management" },              
+              { "name":  "MS Project", "type": "Project Management" }
+            ]
+        },
+
+        { "id": 307, "name": "PDFW", "title": "Avicenna Product Development Framework", "group":"Framework", "company": "ERC", "value":100, "icon": "PDFW.png", "datePeriod": { "startDate": "01.03.2011", "endDate": null },
+          "summary": "Enterprise Level Web-based Rapid Application Development Framework",
+        
+          "props": [
+            { "name":"category", "title": "Framework" }
+          ],
+
+          "technologies":[
+            { "name":  ".NET", "type": "Framework" },
+            { "name":  "C#", "type": "Language" },
+            { "name":  "Hangfire", "type": "Scheduled Tasks" },
+            
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "Entity Framework Core", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },          
+
+            { "name":  "AngularJS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "CSS3", "type": "Frontend" },
+
+            { "name":  "TFS", "type": "Source Control" },
+            { "name":  "Git", "type": "Source Control" },
+            { "name":  "Gitlab", "type": "Source Control" },
+            { "name":  "Jenkins", "type": "DevOps" },
+
+            { "name":  "npm", "type": "Dependency Management" },
+            { "name":  "NuGet", "type": "Dependency Management" },
+            { "name":  "ProGet", "type": "Dependency Management" },
+            { "name":  "Docker", "type": "Virtualization" }
+          ]
+        },
+
+        { "id": 308, "name": "PDFWCore", "title": "Avicenna Product Development Framework", "group":"Framework", "company": "ERC", "value":100, "icon": "PDFWCore.png", "datePeriod": { "startDate": "01.02.2018", "endDate": null },
+          "summary": "Enterprise Level Web-based Rapid Application Development Framework based on .NET Core",
+
+          "props": [
+            { "name":"category", "title": "Framework" }
+          ],
+
+          "technologies":[
+            { "name":  ".NETCore", "type": "Framework" },
+            { "name":  "C#", "type": "Language" },
+            { "name":  "Hangfire", "type": "Scheduled Tasks" },
+
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "Entity Framework Core", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },
+
+            { "name":  "AngularJS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "CSS3", "type": "Frontend" },
+
+            { "name":  "TFS", "type": "Source Control" },
+            { "name":  "Git", "type": "Source Control" },
+            { "name":  "Gitlab", "type": "Source Control" },
+            
+            { "name":  "npm", "type": "Dependency Management" },
+            { "name":  "NuGet", "type": "Dependency Management" },
+            { "name":  "ProGet", "type": "Dependency Management" },            
+
+            { "name":  "Jenkins", "type": "DevOps" },            
+            { "name":  "Docker", "type": "Virtualization" }            
+          ]          
+        },
+
+        { "id": 355, "name": "PDFWSL", "title": "Avicenna Product Development Framework SL", "group":"Framework", "company": "ERC", "value":100, "icon": "PDFWSL.png", "datePeriod": { "startDate": "01.03.2011", "endDate": "01.03.2014" },
+          "summary": "Ürün Geliştirme Departmanı projelerinin geliştirme süreçlerinin hızlandırılması, ortak ve standart bileşen ve yazılım kütüphanelerini kullanmasına yönelik olarak geliştirilen .NET kütüphanesidir. - Bir çok ortak kütüphaneyi içerir (çeşitli extension'lar, interface'ler, asenkron işlemler için yardımcı kütüphaneler, MVVM yardımcı kütüphaneleri, güvenlik kütüphaneleri vb.), Silverlight, WPF ve WP7 için temel arayüz bileşenleri içerir",
+
+          "props": [
+            { "name":"category", "title": "Framework" }
+          ],
+
+          "technologies": [                        
+            { "name":  ".NET", "type": "Framework" },
+            { "name":  "C#", "type": "Programming Language" },
+
+            { "name":  "Visual Studio", "type": "IDE" },
+
+            { "name":  "EntityFramework", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },
+            { "name":  "MS SQL", "type": "Database" },            
+
+            { "name":  "TFS", "type": "Source Control" },
+            
+            { "name":  "WCF", "type": "Webservices" },
+            { "name":  "Silverlight", "type": "Web" },
+            { "name":  "Telerik UI for Silverlight", "type": "Web" },
+            { "name":  "MVVM", "type": "Design Pattern" },
+            { "name":  "Fiddler", "type": "Sniffing Tool" },
+
+            { "name":  "ASP.NET", "type": "Web" },
+            { "name":  "ASP.NET MVC", "type": "Web" },                      
+            
+            { "name":  "JQuery", "type": "Web" },
+            { "name":  "HTML5", "type": "Web" },
+            { "name":  "JS", "type": "Web" },
+            { "name":  "CSS", "type": "Web" },
+
+            { "name":  "Photoshop", "type": "Graphics Design" },
+            { "name":  "MS Blend", "type": "Graphics Design" }
+          ]          
+        },
+
+        { "id": 306, "name": "ATTPMobile", "title": "Avicenna Telemedicine Platform Mobile", "group":"Telemedicine", "company": "ERC", "value":100, "icon": "ATTPMobile.png", "datePeriod": { "startDate": "01.04.2017", "endDate": "01.11.2017" },
+          "summary": "Mobile Client Application for ATTP Platform. Developed using Ionic and Angular",
+
+          "props": [
+            { "name":"platforms", "title": "Mobile" }
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],   
+          
+          "team": [             
+            { "position": "Software Architect and Group Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,            
+            { "position": "Software Developer", "name": "Ertem Yazıcı", "contactNo": "1" }
+          ],          
+
+          "customers":[
+            "Lifewatch Türkiye"
+          ],          
+
+          "technologies":[
+            { "name":  "Ionic", "type": "Frontend" },            
+            { "name":  "Angular", "type": "Frontend" },
+            { "name":  "Typescript", "type": "Frontend" },
+
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "CSS3", "type": "Frontend" },
+
+            { "name":  "Jenkins", "type": "DevOps" },
+            { "name":  "Gitlab", "type": "Source Control" }
+          ]          
+        },
+
+        { "id": 302, "name": "AvicennaMobile", "title": "Avicenna Mobile", "group":"HIS", "company": "ERC", "value":100, "icon": "HIS2x.png", "datePeriod": { "startDate": "01.05.2018", "endDate": "01.08.2018" },
+          "summary": "Avicenna Mobile is a mobile client for Avicenna HIS. By using Avicenna Mobile, patients can schedule new appointments, check existing appointments, list, view and download lab results, update detail patient details and perform much more actions.",
+          
+          "props": [
+            { "name":"platforms", "title": "Mobile" }
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          "team": [ 
+            { "position": "Software Architect and Group Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Ertem Yazıcı", "contactNo": "1" },              
+            { "position": "Software Developer", "name": "Cankat Abacı", "contactNo": "1" }              
+          ],
+
+          "technologies":[
+            { "name":  "Ionic", "type": "Frontend" },            
+            { "name":  "Angular", "type": "Frontend" },
+            { "name":  "Typescript", "type": "Frontend" },
+
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "CSS3", "type": "Frontend" },
+
+            { "name":  "Jenkins", "type": "DevOps" },
+            { "name":  "Gitlab", "type": "Source Control" }
+          ]        
+        },
+
+        { "id": 303, "name": "EPR", "title": "Avicenna E-Reçete", "group":"HIS", "company": "ERC", "value":100, "icon": "EPR.png", "datePeriod": { "startDate": "01.02.2018", "endDate": "01.08.2018" },
+          "summary": "Avicenna E-Reçete sayesinde İşyeri Hekimleri e-reçetelerini online olarak yönetebilecek, e-imzaları ile kolayca imzayabilecek ve hızlıca Medula'ya gönderebilecekler. <br/>URL: https://erecete.erc-grup.com.tr",
+          
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"servicemode", "title": "SaS" }
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+          
+          "team": [ 
+            { "position": "Software Architect and Group Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Ertem Yazıcı", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Cankat Abacı", "contactNo": "1" }
+          ],
+
+          "technologies":[
+            { "name":  "PDFWCore", "type": "Framework" },
+            { "name":  ".NETCore", "type": "Framework" },
+            { "name":  "C#", "type": "Language" },
+            { "name":  "Hangfire", "type": "Scheduled Tasks" },
+
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "Entity Framework Core", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },            
+
+            { "name":  "AngularJS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "CSS3", "type": "Frontend" },
+
+            { "name":  "Git", "type": "Source Control" },
+            { "name":  "Gitlab", "type": "Source Control" },
+            
+            { "name":  "npm", "type": "Dependency Management" },
+            { "name":  "NuGet", "type": "Dependency Management" },
+            { "name":  "ProGet", "type": "Dependency Management" },            
+            
+            { "name":  "Jenkins", "type": "DevOps" },            
+            { "name":  "Docker", "type": "Virtualization" },
+
+            { "name":  "AWS", "type": "Cloud Hosting" },
+            { "name":  "Azure", "type": "Cloud Hosting" },
+            { "name":  "Google Cloud", "type": "Cloud Hosting" },
+            { "name":  "Alibaba Cloud", "type": "Cloud Hosting" }
+          ]        
+        },
+
+        { "id": 304, "name": "soyagaciniznet", "title": "soyagaciniz.net", "group":"Social Responsibility", "company": "ERC", "value":100, "icon": "soyagaciniznet.png", "datePeriod": { "startDate": "01.02.2018", "endDate": "01.08.2018" },
+          "summary": "Gönüllü olarak geliştirdiğim bu proje sayesinde e-devlet soyağacınızı görselleştirmek artık çok kolay. Teknolojiler: SPA, Angular4, Angular Material, PrimeNg, ChartJS, MomentJS, FontAwesome, Light Gallery, RxJS, JsPdf. <br/>URL: <a href='http://www.soyagaciniz.net' target='_blank'>http://www.soyagaciniz.net</a>. Kaynak Kod: <a href='https://github.com/tursoft/familytree' target='_blank'>https://github.com/tursoft/familytree</a>",
+
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"type", "title": "Social Responsibility Project" }
+          ],
+
+          "technologies":[
+              { "name":  "Github", "type": "Source Control" },
+
+              { "name":  "Angular", "type": "Frontend" },
+              { "name":  "Angular Material", "type": "Frontend" },
+              { "name":  "PrimeNG", "type": "Frontend" },
+
+              { "name":  "JS", "type": "Frontend" },
+              { "name":  "HTML5", "type": "Frontend" },
+              { "name":  "CSS3", "type": "Frontend" },
+              { "name":  "Typescript", "type": "Frontend" },
+              { "name":  "MomentJS", "type": "Frontend" },
+              { "name":  "Fontawesome", "type": "Frontend" },
+              { "name":  "JQuery", "type": "Frontend" },
+              { "name":  "jspdf", "type": "Frontend" },
+              { "name":  "dom-to-image", "type": "Frontend" }              
+            ]        
+        },
+
+        { "id": 305, "name": "FDS", "title": "Avicenna FDS", "group":"HIS", "company": "ERC", "value":100, "icon": "HIS2x.png", "datePeriod": { "startDate": "01.01.2015", "endDate": null },
+          "summary": "Avicenna FDS is one of the major core modules of Avicenna HIS. Avicena FDS provides a free style form design surface for end users to create and edit new forms integrated to most of the HIS modules such as medical forms, medical reports, order forms, quality data collection forms etc. Forms can be authorized to target user groups and target departments. Avicena FDS provides most of the functionalities of modern IDE platforms in the market. Both backend and frontend layers of the module were developed using Java.",
+        
+          "props": [
+            { "name":"platforms", "title": "Desktop" }            
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+          
+          "technologies": [                        
+            { "name":  "Java", "type": "Programming Language" },
+            { "name":  "Eclipse", "type": "IDE" },
+            { "name":  "Hibernate", "type": "ORM" },
+            { "name":  "Spring", "type": "Framework" },
+            { "name":  "Mercurial", "type": "Source Control" },
+            { "name":  "Tortoise Hg", "type": "Source Control" },                        
+            { "name":  "Source Tree", "type": "Source Control" },
+
+            { "name":  "Nexus", "type": "Dependency Management" },
+
+            { "name":  "Apache Ant", "type": "Task Runner" },
+            { "name":  "VMware", "type": "Virtualization" },
+            { "name":  "HyperV", "type": "Virtualization" },
+            { "name":  "Bash Scripting", "type": "Scripting" },
+            { "name":  "ubuntu", "type": "OS" },
+            { "name":  "Oracle", "type": "Database" },
+            { "name":  "DB2", "type": "Database" },
+
+            { "name":  "iReports", "type": "Reporting" },
+            { "name":  "Jasper Reports", "type": "Reporting" },
+            { "name":  "Jasper BI", "type": "Business Intelligence" },
+            { "name":  "Oracle BI", "type": "Business Intelligence" },
+
+            { "name":  "Photoshop", "type": "Graphics Design" },
+
+            { "name":  "Json", "type": "File Format" },
+
+            { "name":  "Redmine", "type": "Project Management" },
+            { "name":  "APM", "type": "Project Management" },
+            { "name":  "MS Project", "type": "Project Management" }
+          ]          
+        },
+
+
+        { "id": 309, "name": "AHR", "title": "Avicenna Human Resources 360", "group":"Misc", "company": "ERC", "value":100, "icon": "AHR.png", "datePeriod": { "startDate": "01.08.2018", "endDate": null },
+          "summary": "360 degree human resources performance measurement and tracking platform for enterprises",
+
+          "props": [
+            { "name":"platforms", "title": "Web" }
+          ],
+
+          "customers":[
+            "Bayındır Healthcare Group / Turkey"
+          ],      
+          
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Cankat Abacı", "contactNo": "1" }
+          ],
+
+          "technologies":[
+            { "name":  "PDFWCore", "type": "Framework" },
+            { "name":  ".NETCore", "type": "Framework" },
+            { "name":  "C#", "type": "Language" },
+            { "name":  "Hangfire", "type": "Scheduled Tasks" },
+
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "Entity Framework Core", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },            
+
+            { "name":  "AngularJS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "CSS3", "type": "Frontend" },
+
+            { "name":  "Git", "type": "Source Control" },
+            { "name":  "Gitlab", "type": "Source Control" },
+            
+            { "name":  "npm", "type": "Dependency Management" },
+            { "name":  "NuGet", "type": "Dependency Management" },
+            { "name":  "ProGet", "type": "Dependency Management" },            
+            
+            { "name":  "Jenkins", "type": "DevOps" },            
+            { "name":  "Docker", "type": "Virtualization" }  
+          ]                      
+        },
+
+        { "id": 316, "name": "AHIN", "title": "Avicenna Health Integration Network", "group":"RD", "company": "Datasel", "value":100, "icon": "AHIN.png", "datePeriod": { "startDate": "01.02.2015", "endDate": null },
+          "summary": "Flexible Integration Platform for Health Data",
+          
+          "props": [
+            { "name":"type", "title": "Tubitak Project" }
+          ],
+
+          "domains": [
+            { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" },
+            { "name": "ecommerce", "title": "E-Commerce", "value":100, "iconCss": "" }
+          ],
+
+          "technologies":[
+            { "name":  "PDFWCore", "type": "Framework" },
+            { "name":  ".NETCore", "type": "Framework" },
+            { "name":  "C#", "type": "Language" },
+            { "name":  "Hangfire", "type": "Scheduled Tasks" },
+
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "Entity Framework Core", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },            
+
+            { "name":  "AngularJS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "CSS3", "type": "Frontend" },
+
+            { "name":  "Git", "type": "Source Control" },
+            { "name":  "Gitlab", "type": "Source Control" },
+            
+            { "name":  "npm", "type": "Dependency Management" },
+            { "name":  "NuGet", "type": "Dependency Management" },
+            { "name":  "ProGet", "type": "Dependency Management" },            
+            
+            { "name":  "Jenkins", "type": "DevOps" },            
+            { "name":  "Docker", "type": "Virtualization" }  
+          ]                      
+        },   
+        
+        { "id": 356, "name": "ProEmpower", "title": "ProEmpower - DM4All", "group":"RD", "company": "ERC", "value":100, "icon": "ProEmpower.png", "datePeriod": { "startDate": "01.03.2018", "endDate": null },
+          "summary": "It is PCP project founded by European Union. The DM4ALL is our solution to solve challenge for innovative ICT for patient empowerment and self-management of type 2 diabetes mellitus procured by the ProEmpower consortium. As an international consortium, we are awarded for first 2 phases of 3-phased project by ProEmpower Project Commitee. Procurer Countries: Turkey, Italy, Spain, Portugal",
+
+          "props": [
+            { "name":"type", "title": "European Union PCP Project" },
+            { "name":"platforms", "title": "Web" },
+            { "name":"lang", "title": "Multi Language Support" },
+            { "name":"db", "title": "Multi Database Support" }
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+          
+          "customers":[
+            "Ministry of Health / Turkey",
+            "Ministry of Health / Italy",
+            "Ministry of Health / Spain",
+            "Ministry of Health / Portugal"
+          ],
+
+          "partners":[
+            "ERC / Turkey",
+            "Gnomon / Greece",
+            "CERTH / Greece",
+            "GPI / Italy",
+            "Promptly / Portugal",
+            "Medisante / Switzerland"
+          ],
+
+          "technologies":[
+            { "name":  "PDFWCore", "type": "Framework" },
+            { "name":  ".NETCore", "type": "Framework" },
+            { "name":  "C#", "type": "Language" },
+            { "name":  "Hangfire", "type": "Scheduled Tasks" },
+
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "Entity Framework Core", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },            
+
+            { "name":  "AngularJS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "CSS3", "type": "Frontend" },
+
+            { "name":  "Git", "type": "Source Control" },
+            { "name":  "Gitlab", "type": "Source Control" },
+            
+            { "name":  "npm", "type": "Dependency Management" },
+            { "name":  "NuGet", "type": "Dependency Management" },
+            { "name":  "ProGet", "type": "Dependency Management" },            
+            
+            { "name":  "Jenkins", "type": "DevOps" },            
+            { "name":  "Docker", "type": "Virtualization" }  
+          ]  
+        },      
+        
+
+        { "id": 310, "name": "APM", "title": "Avicenna Project Master", "group":"PM", "company": "ERC", "value":100, "icon": "APM.png", "datePeriod": { "startDate": "01.06.2013", "endDate": null },
+          "summary": "Specialized Web-based ERP for Softwarehouse Workflows",
+        
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"db", "title": "Multi Database Support" },
+            { "name":"lang", "title": "Multi Language Support (Turkish, English)" }
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Ertem Yazıcı", "contactNo": "1" }
+          ],
+
+          "technologies":[
+            { "name":  "PDFWCore", "type": "Framework" },
+            { "name":  ".NETCore", "type": "Framework" },
+            { "name":  "C#", "type": "Language" },
+            { "name":  "Hangfire", "type": "Scheduled Tasks" },
+
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "Entity Framework Core", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },            
+
+            { "name":  "AngularJS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "CSS3", "type": "Frontend" },
+
+            { "name":  "Git", "type": "Source Control" },
+            { "name":  "Gitlab", "type": "Source Control" },
+            
+            { "name":  "npm", "type": "Dependency Management" },
+            { "name":  "NuGet", "type": "Dependency Management" },
+            { "name":  "ProGet", "type": "Dependency Management" },            
+            
+            { "name":  "Jenkins", "type": "DevOps" },            
+            { "name":  "Docker", "type": "Virtualization" }  
+          ]            
+        },        
+
+        
+        { "id": 311, "name": "HIS2x", "title": "Avicenna Hospital Information System", "group":"HIS", "company": "Datasel", "value":100, "icon": "HIS2x.png", "datePeriod": { "startDate": "01.01.2015", "endDate": null },
+          "summary": "Enterprise Level Hospital Information System having multi-organization support, multiple languages. <br/>It is still used by national level in 2 countries: Kosovo and Palestine.",
+          
+          "props": [
+            { "name":"platforms", "title": "Web, Desktop" },
+            { "name":"db", "title": "Multi Database Support" },
+            { "name":"lang", "title": "Multi Language Support (Turkish, English, Arabic, Albanian)" }
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          "customers":[
+            "SEHA / Palestine",
+            "Red Crescent Hospital / Palestine",
+            "Makassed General Hospital / Palestine",
+            "Ministry of Health / Republic of Kosovo",
+            "University of Ankara - Ibni Sina Hospital / Turkey",
+            "Bayındır Healthcare Group / Turkey"         
+          ],
+          
+          "technologies": [                        
+            { "name":  "Java", "type": "Programming Language" },
+            { "name":  "Eclipse", "type": "IDE" },
+            { "name":  "Hibernate", "type": "ORM" },
+            { "name":  "Spring", "type": "Framework" },
+            { "name":  "Mercurial", "type": "Source Control" },
+            { "name":  "Tortoise Hg", "type": "Source Control" },                        
+            { "name":  "Source Tree", "type": "Source Control" },
+
+            { "name":  "Nexus", "type": "Dependency Management" },
+
+            { "name":  "Apache Ant", "type": "Task Runner" },
+            { "name":  "VMware", "type": "Virtualization" },
+            { "name":  "HyperV", "type": "Virtualization" },
+            { "name":  "Bash Scripting", "type": "Scripting" },
+            { "name":  "ubuntu", "type": "OS" },
+            { "name":  "Oracle", "type": "Database" },
+            { "name":  "DB2", "type": "Database" },
+
+            { "name":  "iReports", "type": "Reporting" },
+            { "name":  "Jasper Reports", "type": "Reporting" },
+            { "name":  "Jasper BI", "type": "Business Intelligence" },
+            { "name":  "Oracle BI", "type": "Business Intelligence" },
+
+            { "name":  "Photoshop", "type": "Graphics Design" },
+
+            { "name":  "Json", "type": "File Format" },
+
+            { "name":  "Redmine", "type": "Project Management" },
+            { "name":  "APM", "type": "Project Management" },
+            { "name":  "MS Project", "type": "Project Management" }
+          ]
+        },
+
+        { "id": 312, "name": "AIS", "title": "Avicenna Ambulance Information System", "group":"HIS", "company": "Datasel", "value":100, "icon": "AIS.png", "datePeriod": { "startDate": "01.04.2014", "endDate": "01.01.2016" },
+          "summary": "Specialized Ambulance Information System having mobile app, web portal and integration APIs. It has been used in Hajj period in KSA.",
+        
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"db", "title": "Multi Database Support" },
+            { "name":"lang", "title": "English" }
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Project Manager", "name": "Mesut Demirer", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Ertem Yazıcı", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Onur Kipel", "contactNo": "1" }
+          ],
+
+          "technologies": [                        
+              { "name":  ".NET", "type": "Framework" },
+              { "name":  "C#", "type": "Programming Language" },
+
+              { "name":  "Visual Studio", "type": "IDE" },
+              { "name":  "EntityFramework", "type": "ORM" },
+              { "name":  "LINQ", "type": "Database" },
+
+              { "name":  "TFS", "type": "Source Control" },
+              
+              { "name":  "WCF", "type": "Webservices" },
+              { "name":  "Silverlight", "type": "Web" },
+              { "name":  "WPF", "type": "Desktop" },
+              { "name":  "XAML", "type": "File Format" },
+              { "name":  "Telerik UI for Silverlight", "type": "Web" },
+              { "name":  "MVVM", "type": "Design Pattern" },
+              { "name":  "Fiddler", "type": "Sniffing Tool" },
+
+              { "name":  "ASP.NET", "type": "Web" },
+              { "name":  "ASP.NET MVC", "type": "Web" },
+              
+              { "name":  "MS SQL", "type": "Database" },
+              
+              { "name":  "JQuery", "type": "Web" },
+              { "name":  "HTML5", "type": "Web" },
+              { "name":  "JS", "type": "Web" },
+              { "name":  "CSS", "type": "Web" },
+
+              { "name":  "Photoshop", "type": "Graphics Design" },
+              { "name":  "MS Blend", "type": "Graphics Design" }
+            ]
+        },
+
+        { "id": 313, "name": "EDIS", "title": "Avicenna Emergency Department Information System", "group":"HIS", "company": "Datasel", "value":100, "icon": "EDIS.png", "datePeriod": { "startDate": "01.03.2013", "endDate": "01.02.2014" },
+          "summary": "It is Canadian Triage Based specialized Emergency Department Information Management System.",
+
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"db", "title": "Multi Database Support" }
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          
+          "team": [
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Project Manager", "name": "Mesut Demirer", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Ertem Yazıcı", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Mehmet Ali Çiçek", "contactNo": "1" },
+            { "position": "Testing Specialist", "name": "Alper Çetinkaya", "contactNo": "1" }
+          ],
+
+          "technologies": [                        
+              { "name":  ".NET", "type": "Framework" },
+              { "name":  "C#", "type": "Programming Language" },
+
+              { "name":  "Visual Studio", "type": "IDE" },
+              { "name":  "EntityFramework", "type": "ORM" },
+              { "name":  "LINQ", "type": "Database" },
+
+              { "name":  "TFS", "type": "Source Control" },
+              
+              { "name":  "WCF", "type": "Webservices" },
+              { "name":  "Silverlight", "type": "Web" },
+              { "name":  "XAML", "type": "File Format" },
+              { "name":  "Telerik UI for Silverlight", "type": "Web" },
+              { "name":  "MVVM", "type": "Design Pattern" },
+              { "name":  "Fiddler", "type": "Sniffing Tool" },
+
+              { "name":  "ASP.NET", "type": "Web" },
+              { "name":  "ASP.NET MVC", "type": "Web" },
+              
+              { "name":  "MS SQL", "type": "Database" },
+              
+              { "name":  "JQuery", "type": "Web" },
+              { "name":  "HTML5", "type": "Web" },
+              { "name":  "JS", "type": "Web" },
+              { "name":  "CSS", "type": "Web" },
+
+              { "name":  "Photoshop", "type": "Graphics Design" },
+              { "name":  "MS Blend", "type": "Graphics Design" }
+            ]
+        },
+
+        { "id": 314, "name": "CMS", "title": "Avicenna Clinic Management System", "group":"HIS", "company": "Datasel", "value":100, "icon": "CMS.png", "datePeriod": { "startDate": "01.04.2012", "endDate": "01.06.2014" },
+          "summary": "Online SaS Clinical Management System",
+        
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"db", "title": "Multi Database Support" },
+            { "name":"lang", "title": "Multi Language Support (Turkish, English)" }
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Project Manager", "name": "Mesut Demirer", "contactNo": "1" },
+            { "position": "Project Manager", "name": "Tolga Aktan", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Davut Gürbüz", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Cankat Abacı", "contactNo": "1" },
+            { "position": "Testing Specialist", "name": "Alper Çetinkaya", "contactNo": "1" }
+          ],
+                    
+          "technologies": [                        
+            { "name":  ".NET", "type": "Framework" },
+            { "name":  "C#", "type": "Programming Language" },
+
+            { "name":  "Visual Studio", "type": "IDE" },
+            { "name":  "EntityFramework", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },
+
+            { "name":  "TFS", "type": "Source Control" },
+            
+            { "name":  "WCF", "type": "Webservices" },
+            { "name":  "Silverlight", "type": "Web" },
+            { "name":  "XAML", "type": "File Format" },
+            { "name":  "Telerik UI for Silverlight", "type": "Web" },
+            { "name":  "MVVM", "type": "Design Pattern" },
+            { "name":  "Fiddler", "type": "Sniffing Tool" },
+
+            { "name":  "ASP.NET", "type": "Web" },
+            { "name":  "ASP.NET MVC", "type": "Web" },
+            
+            { "name":  "MS SQL", "type": "Database" },
+            
+            { "name":  "JQuery", "type": "Web" },
+            { "name":  "HTML5", "type": "Web" },
+            { "name":  "JS", "type": "Web" },
+            { "name":  "CSS", "type": "Web" },
+
+            { "name":  "Photoshop", "type": "Graphics Design" },
+            { "name":  "MS Blend", "type": "Graphics Design" },
+
+            { "name":  "Azure", "type": "Cloud Hosting" }
+          ]
+        },
+
+
+        { "id": 315, "name": "CQRE", "title": "Avicenna Clinical Quality Rule Engine", "group":"RD", "company": "Datasel", "value":100, "icon": "CQRE.png", "datePeriod": { "startDate": "01.06.2015", "endDate": "01.08.2016" },
+          "summary": "Clinical Data Quality Validation System with easy-to-use rule engine",
+
+          "props": [
+            { "name":"type", "title": "Tubitak Project" },
+            { "name":"platforms", "title": "Web" },
+            { "name":"db", "title": "Multi Database Support" },
+            { "name":"lang", "title": "Multi Language Support (Turkish, English)" }
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Project Manager", "name": "Tolga Aktan", "contactNo": "1" },
+            { "position": "Project Manager", "name": "Ertem Yazıcı", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Kemal Birer", "contactNo": "1" }
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          "technologies":[
+            { "name":  "PDFWCore", "type": "Framework" },
+            { "name":  ".NETCore", "type": "Framework" },
+            { "name":  "C#", "type": "Language" },
+            { "name":  "Hangfire", "type": "Scheduled Tasks" },
+
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "Entity Framework Core", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },            
+
+            { "name":  "AngularJS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "CSS3", "type": "Frontend" },
+
+            { "name":  "Git", "type": "Source Control" },
+            { "name":  "Gitlab", "type": "Source Control" },
+            
+            { "name":  "npm", "type": "Dependency Management" },
+            { "name":  "NuGet", "type": "Dependency Management" },
+            { "name":  "ProGet", "type": "Dependency Management" },            
+            
+            { "name":  "Jenkins", "type": "DevOps" },            
+            { "name":  "Docker", "type": "Virtualization" }  
+          ]    
+        },
+
+
+        { "id": 317, "name": "VKBS", "title": "Avicenna Case-Mix Information System", "group":"RD", "company": "Datasel", "value":100, "icon": "VKBS.png", "datePeriod": { "startDate": "01.03.2012", "endDate": "01.01.2013" },
+          "summary": "It is a complete DRG Costing Solution. I designed and implemented the architecture, managed the project, developed reusable advanced components, coordinated and lead the team. Project was also used in about 80 hospitals from all over the Turkey, even biggest ones. We collected and anayzed more than 50 billion clinical and financial records (about 5TB). Eventually, we have calculated the first official DRG costs and weighted DRG values of Turkey.",
+        
+          "props": [
+            { "name":"type", "title": "Tubitak Project" },
+            { "name":"platforms", "title": "Web" },
+            { "name":"db", "title": "Multi Database Support" },
+            { "name":"lang", "title": "Multi Language Support (Turkish, English)" }
+          ],
+          
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Project Manager", "name": "Tolga Aktan", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Esra Ertunç", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Onur Kipel", "contactNo": "1" },
+            { "position": "Domain Specialist", "name": "Gülpembe Ergin", "contactNo": "1" }
+          ],
+
+          "customers":[            
+            "80+ Hospitals in Turkey",
+            "Ministry of Health / Turkey",            
+            "Bayındır Healthcare Group / Turkey"         
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          "technologies": [                        
+              { "name":  ".NET", "type": "Framework" },
+              { "name":  "C#", "type": "Programming Language" },
+
+              { "name":  "Visual Studio", "type": "IDE" },
+              { "name":  "EntityFramework", "type": "ORM" },
+              { "name":  "LINQ", "type": "Database" },
+
+              { "name":  "TFS", "type": "Source Control" },
+              
+              { "name":  "WCF", "type": "Webservices" },
+              { "name":  "Silverlight", "type": "Web" },
+              { "name":  "XAML", "type": "File Format" },
+              { "name":  "Telerik UI for Silverlight", "type": "Web" },
+              { "name":  "MVVM", "type": "Design Pattern" },
+              { "name":  "Fiddler", "type": "Sniffing Tool" },
+
+              { "name":  "ASP.NET", "type": "Web" },
+              { "name":  "ASP.NET MVC", "type": "Web" },
+              
+              { "name":  "MS SQL", "type": "Database" },
+              
+              { "name":  "JQuery", "type": "Web" },
+              { "name":  "HTML5", "type": "Web" },
+              { "name":  "JS", "type": "Web" },
+              { "name":  "CSS", "type": "Web" },
+
+              { "name":  "Photoshop", "type": "Graphics Design" },
+              { "name":  "MS Blend", "type": "Graphics Design" }
+            ]          
+        },
+
+        { "id": 318, "name": "FastEyes", "title": "Avicenna FastEyes", "group":"RD", "company": "Datasel", "value":100, "icon": "FastEyes.png", "datePeriod": { "startDate": "01.11.2011", "endDate": "01.01.2014" },
+          "summary": "Web Based Project Management Platform",
+        
+          "props": [
+            { "name":"platforms", "title": "Web" }    
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Ertem Yazıcı", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Onur Kipel", "contactNo": "1" }
+          ],
+
+          "technologies": [                        
+            { "name":  ".NET", "type": "Framework" },
+            { "name":  "C#", "type": "Programming Language" },
+
+            { "name":  "Visual Studio", "type": "IDE" },
+            { "name":  "TFS", "type": "Source Control" },
+            
+            { "name":  "ASP.NET", "type": "Web" },
+            { "name":  "ASP.NET MVC", "type": "Web" },
+            
+            { "name":  "MS SQL", "type": "Database" },
+            
+            { "name":  "HTML5", "type": "Web" },
+            { "name":  "JS", "type": "Web" },
+            { "name":  "CSS", "type": "Web" },
+
+            { "name":  "Photoshop", "type": "Graphics Design" }
+          ]  
+        },
+
+
+        { "id": 320, "name": "RPMS", "title": "Avicenna Remote Patient Management System", "group":"HIS", "company": "Datasel", "value":100, "icon": "RPMS.png", "datePeriod": { "startDate": "01.01.2014", "endDate": "01.10.2014" },
+          "summary": "Remote Patient Management System having embedded webcast and video streaming module",
+        
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"mode", "title": "Video Streaming" },
+            { "name":"servicemode", "title": "SaS" }     
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Project Manager", "name": "Mesut Demirer", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Davut Gürbüz", "contactNo": "1" }            
+          ],
+
+          "technologies": [                        
+              { "name":  ".NET", "type": "Framework" },
+              { "name":  "C#", "type": "Programming Language" },
+
+              { "name":  "Visual Studio", "type": "IDE" },
+              { "name":  "EntityFramework", "type": "ORM" },
+              { "name":  "LINQ", "type": "Database" },
+
+              { "name":  "TFS", "type": "Source Control" },
+              
+              { "name":  "WCF", "type": "Webservices" },
+              { "name":  "Silverlight", "type": "Web" },
+              { "name":  "XAML", "type": "File Format" },              
+              { "name":  "Telerik UI for Silverlight", "type": "Web" },
+              { "name":  "MVVM", "type": "Design Pattern" },
+              { "name":  "Fiddler", "type": "Sniffing Tool" },
+
+
+              { "name":  "ASP.NET", "type": "Web" },
+              { "name":  "ASP.NET MVC", "type": "Web" },
+              
+              { "name":  "MS SQL", "type": "Database" },
+              
+              { "name":  "JQuery", "type": "Web" },
+              { "name":  "HTML5", "type": "Web" },
+              { "name":  "JS", "type": "Web" },
+              { "name":  "CSS", "type": "Web" },
+
+              { "name":  "Photoshop", "type": "Graphics Design" },
+              { "name":  "MS Blend", "type": "Graphics Design" },
+
+              { "name":  "Azure", "type": "Cloud Hosting" }
+            ] 
+        },
+
+        { "id": 321, "name": "AHBS", "title": "Avicenna AHBS", "group":"HIS", "company": "ERC", "value":100, "icon": "AHBS.png", "datePeriod": { "startDate": "01.08.2011", "endDate": "01.08.2014" },
+          "summary": "An Online Family Practitioner Information System. Project Partner : TTNET.",
+        
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"servicemode", "title": "SaS" }
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Project Manager", "name": "Mesut Demirer", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Duran Türemiş", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Esra Ertunç", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Onur Kipel", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Eser Kalaç", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Ahmet Beşkonaklıoğlu", "contactNo": "1" },
+            { "position": "Testing Specialist", "name": "Alper Çetinkaya", "contactNo": "1" }
+          ],
+
+          "technologies": [                        
+              { "name":  ".NET", "type": "Framework" },
+              { "name":  "C#", "type": "Programming Language" },
+
+              { "name":  "Visual Studio", "type": "IDE" },
+              { "name":  "EntityFramework", "type": "ORM" },
+              { "name":  "LINQ", "type": "Database" },
+
+              { "name":  "TFS", "type": "Source Control" },
+              
+              { "name":  "WCF", "type": "Webservices" },
+              { "name":  "Silverlight", "type": "Web" },
+              { "name":  "XAML", "type": "File Format" },              
+              { "name":  "Telerik UI for Silverlight", "type": "Web" },
+              { "name":  "MVVM", "type": "Design Pattern" },
+              { "name":  "Fiddler", "type": "Sniffing Tool" },
+
+
+              { "name":  "ASP.NET", "type": "Web" },
+              { "name":  "ASP.NET MVC", "type": "Web" },
+              
+              { "name":  "MS SQL", "type": "Database" },
+              
+              { "name":  "JQuery", "type": "Web" },
+              { "name":  "HTML5", "type": "Web" },
+              { "name":  "JS", "type": "Web" },
+              { "name":  "CSS", "type": "Web" },
+
+              { "name":  "Photoshop", "type": "Graphics Design" },
+              { "name":  "MS Blend", "type": "Graphics Design" }
+            ]            
+        },
+                            
+                 
+        { "id": 322, "name": "FonetHBYS", "title": "Fonet Hospital Information System", "group":"HIS", "company": "Fonet", "value":100, "icon": "FonetHBYS.png", "datePeriod": { "startDate": "16.09.2009", "endDate": "01.01.2011" },
+          "summary": "HIS System with various major modules containg both medical and management",
+      
+          "props": [
+            { "name":"platforms", "title": "Desktop" },
+            { "name":"platforms", "title": "Web" }            
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          "customers":[            
+            "80+ Hospitals in Turkey"
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "Oracle", "type": "Database" },
+            { "name":  "SOAP", "type": "Web Services" },            
+            { "name":  "XML", "type": "File Format" }
+          ]   
+        },
+
+        { "id": 323, "name": "FonetFW", "title": "Fonet Framework", "group":"Framework", "company": "Fonet", "value":100, "icon": "FonetFW.png", "datePeriod": { "startDate": "01.03.2010", "endDate": "01.08.2011" },
+          "summary": "Enterprise Level Rapid Application Development Framework",
+      
+          "props": [
+            { "name":"platforms", "title": "Desktop" },
+            { "name":"platforms", "title": "Web" },
+            { "name":"category", "title": "Framework" }
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Mehmet Gören", "contactNo": "1" }
+          ],          
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],          
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "Oracle", "type": "Database" },
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "My SQL", "type": "Database" },
+            { "name":  "SQL Lite", "type": "Database" },
+            { "name":  "XML", "type": "File Format" }
+          ]        
+        },
+
+        { "id": 324, "name": "FonetStudio", "title": "Fonet Studio", "group":"Framework", "company": "Fonet", "value":100, "icon": "FonetStudio.png", "datePeriod": { "startDate": "01.03.2010", "endDate": "01.08.2011" },
+          "summary": "Flexible Form Design and Runtime Module to be used as IDE for end-users",
+      
+          "props": [
+            { "name":"platforms", "title": "Desktop" },
+            { "name":"mode", "title": "IDE" }
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Mehmet Gören", "contactNo": "1" }
+          ],          
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],          
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+
+            { "name":  "Oracle", "type": "Database" },  
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "My SQL", "type": "Database" },
+            { "name":  "SQL Lite", "type": "Database" },
+
+            { "name":  "XML", "type": "File Format" }
+          ]         
+        },
+
+        { "id": 325, "name": "FonetLog", "title": "Fonet Advanced Log Module", "group":"HIS", "company": "Fonet", "value":100, "icon": "FonetLog.png", "datePeriod": { "startDate": "16.09.2009", "endDate": "01.08.2011" },
+          "summary": "Flexible Log Module of Fonet HIS",
+        
+          "props": [
+            { "name":"platforms", "title": "Desktop" }
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Özlem Turşak", "contactNo": "1" }
+          ],          
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "VB.NET", "type": "Backend" },
+            { "name":  "Oracle", "type": "Database" },          
+            { "name":  "SOAP", "type": "Web Services" },
+            { "name":  "XML", "type": "File Format" }
+          ]         
+        },
+
+        { "id": 326, "name": "FonetInventory", "title": "Fonet Inventory Modules", "group":"HIS", "company": "Fonet", "value":100, "icon": "FonetInventory.png", "datePeriod": { "startDate": "01.05.2009", "endDate": "01.01.2011" },
+          "summary": "Inventory Module of Fonet HIS",
+        
+          "props": [
+            { "name":"platforms", "title": "Desktop" }
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Engin Çelik", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Hasan Turunç", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Naser Arab", "contactNo": "1" },
+            { "position": "Software Support Specialist", "name": "Fatih Ekici", "contactNo": "1" }
+          ],
+
+          "domains": [
+              { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+          
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "VB.NET", "type": "Backend" },
+            { "name":  "Oracle", "type": "Database" },          
+            { "name":  "SOAP", "type": "Web Services" },
+            { "name":  "XML", "type": "File Format" }
+          ]        
+        },
+
+        { "id": 327, "name": "HEP", "title": "Halsoft e-Learning Portal", "group":"LMS", "company": "Halıcı", "value":100, "icon": "HEP.png", "datePeriod": { "startDate": "01.03.2004", "endDate": "01.09.2008" },
+          "summary": "Enterprise Level E-Learning Platform with SCORM support",
+
+          "team": [ 
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "M. Mustafa Uysal", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Selcen İyiser", "contactNo": "2" },
+            { "position": "Software Developer", "name": "Uğur Umutluoğlu", "contactNo": "2" },
+            { "position": "Software Developer", "name": "Erhan Dürüst", "contactNo": "2" }
+          ],
+                
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"type", "title": "Tubitak Project" }
+          ],
+
+          "technologies": [
+            { "name":  "Scorm", "type": "E-Learning Standart" },
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "ASP.NET", "type": "Backend" },
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ] 
+        },
+
+        { "id": 328, "name": "HalsoftPortal", "title": "Halsoft Enterprise Portal", "group":"Misc", "company": "Halıcı", "value":100, "icon": "HEP.png", "datePeriod": { "startDate": "01.05.2005", "endDate": "01.09.2008" },
+          "summary": "Enterprise Level Modular Web Content Management Platform",
+        
+          "team": [ 
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Academic Consultant", "name": "Prof. Dr. M. Yaşar Özden", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "M. Mustafa Uysal", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Uğur Umutluoğlu", "contactNo": "2" },
+            { "position": "Software Developer", "name": "Erhan Dürüst", "contactNo": "2" }
+          ],
+
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"integration", "title": "VPOS Integration" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "ASP.NET", "type": "Backend" },
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ] 
+        },
+        
+        { "id": 329, "name": "EDİSA", "title": "EDİSA - ELearning Content Authoring Tool", "group":"LMS", "company": "Halıcı", "value":100, "icon": "EDISA.png", "datePeriod": { "startDate": "01.01.2005", "endDate": "01.01.2007" },
+          "summary": "E-Learning Content Authoring Tool and Packaging",
+        
+          "team": [ 
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "M. Mustafa Uysal", "contactNo": "1" },
+            { "position": "Software Analyst", "name": "Evrim Baran", "contactNo": "1" }
+          ],
+
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"type", "title": "Academic Project" },
+            { "name":"standards", "title": "SCORM" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "Windows Forms", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }
+          ]         
+        },
+
+        { "id": 330, "name": "UNHCR", "title": "Official Portal of The UN Refugee Agency Turkey", "group":"EnterpisePortal", "company": "CEIT", "value":100, "icon": "UNHCR.png", "datePeriod": { "startDate": "01.01.2006", "endDate": "01.01.2007" },
+          "summary": "Official Website of UNHCR Turkey",
+        
+          "team": [ 
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "M. Mustafa Uysal", "contactNo": "1" }
+          ],
+          
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"type", "title": "Academic Project" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "ASP.NET", "type": "Backend" },
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]        
+        },
+                 
+        { "id": 331, "name": "CSC", "title": "Labris Customer Support Center", "group":"Misc", "company": "Labris", "value":100, "icon": "CSC.png", "datePeriod": { "startDate": "01.05.2003", "endDate": "01.01.2004" },
+          "summary": "Customer Support System.",
+        
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"mode", "title": "Video Streaming" },
+            { "name":"type", "title": "Academic Project" }
+          ],
+
+          "technologies": [
+            { "name":  "PHP", "type": "Backend" },
+            { "name":  "MySQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]
+        },
+
+        { "id": 332, "name": "OCMS", "title": "Online Course Management System", "group":"LMS", "company": "CEIT", "value":100, "icon": "OCMS.png", "datePeriod": { "startDate": "01.03.2002", "endDate": "01.06.2003" },
+          "summary": "E-Learning Platform.",
+          
+          "team": [ 
+            { "position": "Project Manager", "name": "Prof. Dr. M. Yaşar Özden", "contactNo": "0" } ,
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "M. Mustafa Uysal", "contactNo": "1" },
+            { "position": "Testing Specialist", "name": "Alper Çetinkaya", "contactNo": "1" }
+          ],
+
+          "props": [
+              { "name":"platforms", "title": "Web" },
+              { "name":"mode", "title": "Video Streaming" },
+              { "name":"type", "title": "Academic Project" }
+            ],
+
+            "technologies": [
+              { "name":  ".NET", "type": "Backend" },
+              { "name":  "VB.NET", "type": "Backend" },
+              { "name":  "ASP.NET", "type": "Backend" },
+              { "name":  "MS SQL", "type": "Database" },
+              { "name":  "HTML5", "type": "Frontend" },         
+              { "name":  "CSS", "type": "Frontend" },
+              { "name":  "JS", "type": "Frontend" },
+              { "name":  "Photoshop", "type": "Graphics Design" }         
+            ]
+        },
+
+        { "id": 333, "name": "OCCM", "title": "Online Course Content Manager", "group":"LMS", "company": "CEIT", "value":100, "icon": "OCCM.png", "datePeriod": { "startDate": "01.04.2001", "endDate": "01.09.2001" },
+          "summary": "E-Learning Platform",
+        
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"mode", "title": "Video Streaming" },
+            { "name":"type", "title": "Academic Project" }
+          ],
+
+          "technologies": [
+            { "name":  "PHP", "type": "Backend" },
+            { "name":  "MySQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]
+        },
+
+        { "id": 334, "name": "EGM", "title": "General Diractorate Of Security / Distance Education Portal", "group":"LMS", "company": "CEIT", "value":100, "icon": "EGM.png", "datePeriod": { "startDate": "01.01.2006", "endDate": "31.12.2007" },
+          "summary": "E-Learning Platform for General Directorate of Security Affairs",
+        
+          "team": [ 
+            { "position": "Project Coordinator", "name": "Prof. Dr. M. Yaşar Özden", "contactNo": "0" } ,
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "M. Mustafa Uysal", "contactNo": "1" }
+          ],
+
+          "customers":[            
+            "General Diractorate Of Security (EGM)",
+            "Planning Organization of State (DPT)"
+          ],
+          
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"mode", "title": "Video Streaming" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "ASP.NET", "type": "Backend" },
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]
+        },
+
+        { "id": 401, "name": "Ankuzem", "title": "Ankara University - Distance Education Center", "group":"LMS", "company": "Halici", "value":100, "icon": "ankuzem.jpg", "datePeriod": { "startDate": "01.01.2007", "endDate": "31.12.2008" },
+          "summary": "E-Learning Platform for Ankara University - Distance Education Center",
+        
+          "team": [ 
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "M. Mustafa Uysal", "contactNo": "1" }
+          ],
+
+          "customers":[            
+            "Ankara University"
+          ],
+          
+          "props": [
+            { "name":"platforms", "title": "Web" }
+          ],
+
+          "technologies": [
+            { "name":  "Scorm", "type": "E-Learning Standart" },
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "ASP.NET", "type": "Backend" },
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]
+        },
+        
+        { "id": 335, "isactive": false, "name": "DSP", "title": "Official Portal of Democratic Left Party", "group":"Misc", "company": "CEIT", "value":100, "icon": "PDFW.png", "datePeriod": { "startDate": "01.01.2005", "endDate": "01.01.2006" },
+          "summary": "Official Website of DSP",
+        
+          "team": [ 
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "M. Mustafa Uysal", "contactNo": "1" }
+          ],
+
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"mode", "title": "Video Streaming" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "ASP.NET", "type": "Backend" },
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]
+        },
+        
+        { "id": 336, "name": "BotebOnline", "title": "BÖTEB Online", "group":"Misc", "company": "CEIT", "value":100, "icon": "BotebOnline.png", "datePeriod": { "startDate": "01.03.2005", "endDate": "01.09.2005" },
+          "summary": "Online Video Streaming Platform",
+                        
+          "team": [ 
+            { "position": "Project Manager", "name": "Prof. Dr. M. Yaşar Özden", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Muhammet Turşak", "contactNo": "0" } 
+          ],
+
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"mode", "title": "Video Streaming" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "ASP.NET", "type": "Backend" },
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]        
+        },
+        
+        { "id": 337, "name": "Efsane", "title": "Efsane - 3D Educational Game", "group":"Game", "company": "CEIT", "value":100, "icon": "Efsane.png", "datePeriod": { "startDate": "01.02.2004", "endDate": "01.06.2005" },
+          "summary": "3D Educational Game",
+
+          "team": [ 
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Tayfun Yüksel", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Ümit Kaya", "contactNo": "2" }
+          ],
+
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"mode", "title": "3D" },
+            { "name":"type", "title": "Academic Project" }
+          ],
+
+          "technologies": [
+            { "name":  "Adobe Atmosphere", "type": "Gaming Engine" },
+            { "name":  "3Ds Max", "type": "3D Modeling Tool" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]        
+        },
+
+        { "id": 338, "name": "358Game", "title": "3-5-8 P2P Card Game", "group":"Game", "company": "CEIT", "value":100, "icon": "The358Game.png", "datePeriod": { "startDate": "01.09.2001", "endDate": "01.01.2002" },
+          "summary": "2D Card Game",
+        
+          "team": [ 
+            { "position": "Software Developer", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Erol Işık", "contactNo": "1" }
+          ],
+
+          "props": [
+            { "name":"platforms", "title": "Desktop" },
+            { "name":"type", "title": "Academic Project" }
+          ],
+
+          "technologies": [
+            { "name":  "Java", "type": "Programming Language" },
+            { "name":  "Photoshop", "type": "Graphics Design" }
+          ]  
+        },
+        
+        { "id": 339, "name": "BenKimim", "title": "BenKimim - Educational Game", "group":"Game", "company": "CEIT", "value":100, "icon": "BenKimim.png", "datePeriod": { "startDate": "01.03.2002", "endDate": "01.06.2002" },
+           "summary": "2D Educational Game targeting kindergarden students",
+           
+           "props": [
+              { "name":"platforms", "title": "Desktop" },
+              { "name":"platforms", "title": "Web" },
+              { "name":"type", "title": "Academic Project" }
+            ],
+
+            "team": [ 
+              { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+              { "position": "Software Developer", "name": "Melih Top", "contactNo": "1" },
+              { "position": "Software Developer", "name": "Erhan Dürüst", "contactNo": "1" },
+              { "position": "Software Developer", "name": "Hasan Başaran", "contactNo": "1" }
+            ],
+
+            "technologies": [
+              { "name":  "Adobe Flash", "type": "Graphics Design" },
+              { "name":  "Photoshop", "type": "Graphics Design" }
+            ]  
+        },
+
+        { "id": 340, "name": "CilginTosba", "title": "Çılgın Tosba - Educational Game", "group":"Game", "company": "CEIT", "value":100, "icon": "CilginTosba.png", "datePeriod": { "startDate": "01.09.2001", "endDate": "01.02.2002" },
+          "summary": "2D Educational interpreter game supporting basic commands to move character turtule and paint drawings. It supports variables and functions.",
+
+          "props": [
+            { "name":"platforms", "title": "Desktop" },
+            { "name":"type", "title": "Academic Project" },
+            { "name":"mode", "title": "Interpreter" }
+          ],
+
+          "domains": [
+            { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" },
+            { "name": "gaming", "title": "Game Development", "value":100, "iconCss": "" }
+          ],
+
+          "technologies": [
+            { "name":  "Visual Basic", "type": "Programming Language" }
+          ]        
+        },
+        
+        { "id": 341, "name": "DarkRoom", "title": "DarkRoom - Educational Game", "group":"Game", "company": "CEIT", "value":100, "icon": "DarkRoom.png", "datePeriod": { "startDate": "01.04.2002", "endDate": "01.06.2003" },
+          "summary": "2D Training game covering photo bathing",
+
+          "props": [
+            { "name":"platforms", "title": "Desktop" },
+            { "name":"platforms", "title": "Web" },
+            { "name":"type", "title": "Academic Project" }
+          ],
+
+          "domains": [
+            { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" },
+            { "name": "gaming", "title": "Game Development", "value":100, "iconCss": "" }
+          ],
+
+          "technologies": [
+            { "name":  "Adobe Flash", "type": "Graphics Design" },
+            { "name":  "Photoshop", "type": "Graphics Design" }
+          ] 
+        },
+
+        { "id": 342, "name": "EgikAtis", "title": "Eğik Atış - Educational Game", "group":"Game", "company": "CEIT", "value":100, "icon": "EgikAtis.png", "datePeriod": { "startDate": "15.09.2001", "endDate": "01.02.2002" },
+           "summary": "2D Educational Console Game covering physics course topics",
+          
+           "props": [
+              { "name":"platforms", "title": "Desktop" },
+              { "name":"platforms", "title": "Web" },
+              { "name":"type", "title": "Academic Project" }
+            ],
+
+            "domains": [
+              { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" },
+              { "name": "gaming", "title": "Game Development", "value":100, "iconCss": "" }
+            ],
+
+            "technologies": [
+              { "name":  "Adobe Flash", "type": "Graphics Design" },
+              { "name":  "Photoshop", "type": "Graphics Design" }
+            ] 
+        },
+
+        { "id": 343, "name": "KriptoTurkiyede", "title": "Kripto Türkiye'de - Educational Game", "group":"Game", "company": "CEIT", "value":100, "icon": "KriptoTurkiyede.png", "datePeriod": { "startDate": "15.09.2005", "endDate": "01.02.2005" },
+          "summary": "3D Educational Game covering some physics course topics",
+        
+          "team": [ 
+            { "position": "Software Developer", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Melih Top", "contactNo": "1" }
+          ],
+
+          "props": [
+            { "name":"platforms", "title": "Desktop" },
+            { "name":"mode", "title": "3D" },
+            { "name":"type", "title": "Academic Project" }
+          ],
+
+          "domains": [
+            { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" },
+            { "name": "gaming", "title": "Game Development", "value":100, "iconCss": "" }
+          ],
+
+          "technologies": [
+            { "name":  "Dark Basic", "type": "Gaming Engine" },
+            { "name":  "3Ds Max", "type": "3D Modeling Tool" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ] 
+        },
+    
+        { "id": 344, "name": "EDers", "title": "EDers - Online Learning Platform", "group":"LMS", "company": "METU II", "value":100, "icon": "Eders.png", "datePeriod": { "startDate": "01.04.2002", "endDate": "01.08.2003" },
+          "summary": "Speacialized e-Learning platform",
+        
+          "team": [ 
+            { "position": "Academic Consultant", "name": "Prof. Dr. Zahide Yıldırım", "contactNo": "1" },
+            { "position": "Project Manager", "name": "Umut Hüseyinoğlu", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Muhammet Turşak", "contactNo": "0" }            
+          ],
+
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"type", "title": "Academic Project" }
+          ],
+
+          "domains": [
+            { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" }
+          ],
+
+          "technologies": [
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]             
+        },
+
+        { "id": 345, "name": "METU_ILT", "title": "Official Website of METU Communication Club", "group":"Social Responsibility", "company": "METU", "value":100, "icon": "METU_ILT.png", "datePeriod": { "startDate": "01.01.2002", "endDate": "01.01.2003" },
+          "summary": "Official website of METU Communication Club",
+        
+          "props": [
+            { "name":"platforms", "title": "Desktop" },
+            { "name":"type", "title": "Social Responsibility Project" }
+          ],
+
+          "technologies": [
+            { "name":  "PHP", "type": "Backend" },
+            { "name":  "MySQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]             
+        },
+
+        { "id": 346, "name": "XMessenger", "title": "XMessenger - P2P Communication Platform", "group":"Misc", "company": "METU", "value":100, "icon": "XMessenger.png", "datePeriod": { "startDate": "01.01.2005", "endDate": "01.06.2006" },
+          "summary": "Peer to Peer Realtime Communication platform containing text messages, smiles and whiteboard features",
+
+          "props": [
+            { "name":"platforms", "title": "Desktop" },
+            { "name":"type", "title": "Academic Project" }
+          ],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "M. Mustafa Uysal", "contactNo": "1" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "WPF", "type": "Frontend" },         
+            { "name":  "XAML", "type": "File Format" },
+            { "name":  "Design Patterns", "type": "Approach" },
+            { "name":  "Photoshop", "type": "Graphics Design" }
+          ] 
+        },
+        
+        { "id": 347, "name": "EditMyTurkish", "title": "EditMyTurkish.com", "group":"Misc", "company": "Tursoft", "value":100, "icon": "EditMyTurkish.png", "datePeriod": { "startDate": "01.01.2014", "endDate": "01.01.2015" },
+          "summary": "Web portal for online academic translation and review services. <br/>Url: <a href='http://www.editmyturkish.com/' target='_blank'>http://www.editmyturkish.com/</a>",
+        
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"integration", "title": "PayPal Integration" }
+          ],
+
+          "domains": [
+            { "name": "ecommerce", "title": "E-Commerce", "value":100, "iconCss": "" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "ASP.NET", "type": "Backend" },
+            { "name":  "ASP.NET MVC", "type": "Backend" },
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "Paypal", "type": "E-Commerce" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Bootstrap", "type": "Frontend" }, 
+            { "name":  "JQuery", "type": "Frontend" }, 
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]           
+        },
+
+        { "id": 348, "name": "Eyedder", "title": "Official Website of Eyedder", "group":"Misc", "company": "Tursoft", "value":100, "icon": "Eyedder.png", "datePeriod": { "startDate": "01.01.2011", "endDate": "01.01.2012" },
+          "summary": "Official website of Eyedder that is a national non-profit organization for education management",
+        
+          "props": [
+            { "name":"platforms", "title": "Web" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "C#", "type": "Backend" },
+            { "name":  "ASP.NET", "type": "Backend" },
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]            
+        },
+
+        { "id": 349, "name": "BiltekOnline", "title": "Official Website of BiltekOnline", "group":"Social Responsibility", "company": "Tursoft", "value":100, "icon": "BiltekOnline.png", "datePeriod": { "startDate": "01.01.2003", "endDate": "01.01.2004" },
+          "summary": "Official website of BiltekOnline that is an online magazine about technology",
+        
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"type", "title": "Social Responsibility Project" }
+          ],
+
+          "technologies": [
+            { "name":  "PHP", "type": "Backend" },
+            { "name":  "MySQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]          
+        },
+        
+        { "id": 350, "name": "BootCamp", "title": "Official Website of BootCamp", "group":"Misc", "company": "Tursoft", "value":100, "icon": "BootCamp.png", "datePeriod": { "startDate": "01.01.2003", "endDate": "01.01.2004" },
+            "summary": "Official website of BootCamp that is a technology training camp",
+        
+            "props": [
+              { "name":"platforms", "title": "Web" }
+            ],
+
+            "technologies": [
+              { "name":  "PHP", "type": "Backend" },
+              { "name":  "MySQL", "type": "Database" },
+              { "name":  "HTML5", "type": "Frontend" },         
+              { "name":  "CSS", "type": "Frontend" },
+              { "name":  "JS", "type": "Frontend" },
+              { "name":  "Photoshop", "type": "Graphics Design" }         
+            ]              
+        },
+
+        { "id": 351, "name": "Btie2004", "title": "Official Website of BTIE 2004", "group":"Misc", "company": "Tursoft", "value":100, "icon": "Btie2004.png", "datePeriod": { "startDate": "01.02.2004", "endDate": "01.06.2004" },
+           "summary": "Official website of BTIE2014 that is a national level tech-conference related with technology and education",
+        
+           "props": [
+              { "name":"platforms", "title": "Web" },
+              { "name":"type", "title": "Social Responsibility Project" }
+            ],
+
+           "technologies": [
+            { "name":  "PHP", "type": "Backend" },
+            { "name":  "MySQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]             
+        },
+
+        { "id": 369, "name": "TeknoparklarZirvesi2004", "title": "Official Website of TechnoParks Summit 2004", "group":"Social Responsibility", "company": "Tursoft", "value":100, "icon": "teknoparklar_zirvesi2004.jpg", "datePeriod": { "startDate": "01.01.2004", "endDate": "01.06.2004" },
+           "summary": "Official website of TechnoParks Summit 2004 that is a national level summit for TechnoParks in Turkey. Summit were organized in the cooperation and support of IEEE METU and Tubitak. Website was maintained during next 3 years up to 2007 and used by at least 3 more summits too. <br/>URL:http://teknozirve.org.tr  (not active anymore)<br/>NOT: Since screehshoots taken nowadays that is 14 years later by using web.archive.org, some sections of design are missing. You can access cached version from following url: https://web.archive.org/web/20071013170339/http://teknozirve.org.tr:80/",
+        
+           "props": [
+              { "name":"platforms", "title": "Web" },
+              { "name":"type", "title": "Social Responsibility Project" }
+            ],
+
+            "customers":[
+              "Tubitak",
+              "IEEE METU"
+            ],
+
+            "team": [             
+              { "position": "Web Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+              { "position": "Web Developer", "name": "Tayfun Yüksel", "contactNo": "1" },
+              { "position": "Web Developer", "name": "Cevahir Turgut", "contactNo": "1" },
+              { "position": "Web Developer", "name": "Ozan Şener", "contactNo": "1" }
+            ],
+
+           "technologies": [
+            { "name":  "PHP", "type": "Backend" },
+            { "name":  "MySQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]             
+        },
+
+        { "id": 352, "name": "DizgiPro", "title": "Dizgi Pro - Photo Composition Tool", "group":"Misc", "company": "Tursoft", "value":100, "icon": "DizgiPro.png", "datePeriod": { "startDate": "01.01.2001", "endDate": "01.01.2002" },
+           "summary": "Photo composition tool to generate school class gradebooks and albums by using batch student photos.",
+
+           "team": [ 
+            { "position": "Software Developer", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Analyst", "name": "Serdar Çiçek", "contactNo": "1" },
+            { "position": "Software Analyst", "name": "Ertuğrul Oral", "contactNo": "1" }
+          ],
+        
+           "props": [
+              { "name":"platforms", "title": "Desktop" }
+            ],
+
+           "technologies": [
+            { "name":  ".NET", "type": "Backend" },
+            { "name":  "VisualBasic.NET", "type": "Programming Language" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]             
+        },
+
+        { "id": 353, "name": "EOkullar", "title": "E-Okullar - Online Schools Portal", "group":"Misc", "company": "Tursoft", "value":100, "icon": "EOkullar.png", "datePeriod": { "startDate": "01.01.2002", "endDate": "01.07.2003" },
+          "summary": "A web platform to manage school websites",
+        
+          "props": [
+            { "name":"platforms", "title": "Web" },
+            { "name":"servicetype", "title": "SaS" }            
+          ],
+
+          "team": [             
+            { "position": "Software Developer", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Analyst", "name": "Serdar Çiçek", "contactNo": "1" }
+          ],
+
+          "technologies": [
+            { "name":  "PHP", "type": "Backend" },
+            { "name":  "MySQL", "type": "Database" },
+            { "name":  "HTML5", "type": "Frontend" },         
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]           
+        },
+
+        { "id": 354, "name": "ProjeNedir", "title": "ProjeNedir.com", "group":"Misc", "company": "Tursoft", "value":100, "icon": "ProjeNedir.png", "datePeriod": { "startDate": "20.09.2004", "endDate": "15.01.2005" },
+          "summary": "A web portal about Project Management",
+        
+          "props": [
+            { "name":"type", "title": "Academic Project" },
+            { "name":"platforms", "title": "Web" }
+          ],
+
+          "technologies": [
+            { "name":  "HTML5", "type": "Frontend" },             
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]           
+        },
+
+        { "id": 357, "name": "JandarmaBYS", "title": "Gendarmerie - Document Management System", "group":"Misc", "company": "Gendarmerie", "value":100, "icon": "JandarmaBYS.png", "datePeriod": { "startDate": "20.09.2008", "endDate": "15.10.2008" },
+          "summary": "Document Management System for Gendarmerie. Developed by MS Access",
+        
+          "props": [
+            { "name":"platforms", "title": "Desktop" }
+          ],
+
+          "technologies": [                                                
+            { "name":  "VB Script", "type": "Programming Language" },                                                
+            { "name":  "MS Access", "type": "Database" },                        
+            { "name":  "Photoshop", "type": "Graphics Design" }
+          ]          
+        },
+
+        { "id": 358, "name": "JandarmaATS", "title": "Gendarmerie Training Command - Student Perforamance Tracking Database", "group":"Misc", "company": "Gendarmerie", "value":100, "icon": "JandarmaATS.png", "datePeriod": { "startDate": "10.02.2009", "endDate": "15.06.2009" },
+          "summary": "Student Perforamance Tracking Database for Gendarmerie Training Command. Developed by MS Access",
+        
+          "props": [
+            { "name":"platforms", "title": "Desktop" }
+          ],
+
+          "technologies": [                                                
+            { "name":  "VB Script", "type": "Programming Language" },                                                
+            { "name":  "MS Access", "type": "Database" },                        
+            { "name":  "Photoshop", "type": "Graphics Design" }
+          ]          
+        },
+
+          
+        { "id": 360, "name": "TursoftStock", "title": "Stock Tracking System", "group":"Misc", "company": "Tursoft", "value":100, "icon": "tursoft.stock.png", "datePeriod": { "startDate": "10.02.1997", "endDate": "15.06.1997" },
+          "summary": "Stock Tracking System Application developed by Pascal",
+        
+          "team": [
+            { "position": "Software Developer", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Ercan Suat", "contactNo": "1" }
+          ],
+
+          "props": [
+            { "name":"platforms", "title": "Desktop" }
+          ],
+
+          "technologies": [                                                
+            { "name":  "Pascal", "type": "Programming Language" }                                               
+          ] 
+        },
+
+        { "id": 359, "name": "TursoftPaint", "title": "Tursoft Paint", "group":"Misc", "company": "Tursoft", "value":100, "icon": "tursoft.paint.jpeg", "datePeriod": { "startDate": "10.07.1997", "endDate": "15.09.1997" },
+          "summary": "Basic Drawing Application developed by Pascal on Graphics Mode",
+        
+          "props": [
+            { "name":"platforms", "title": "Desktop" }
+          ],
+
+          "technologies": [                                                
+            { "name":  "Pascal", "type": "Programming Language" }                                                
+          ] 
+        },        
+
+        { "id": 361, "name": "TursoftAnimMaker", "title": "Tursoft Animation Maker", "group":"Misc", "company": "Tursoft", "value":100, "icon": "tursoft.animmaker.png", "datePeriod": { "startDate": "10.11.1997", "endDate": "15.08.1998" },
+          "summary": "Basic Animation Tool developed by Pascal on Graphics Mode",
+      
+          "props": [
+            { "name":"platforms", "title": "Desktop" }
+          ],
+
+          "technologies": [                                                
+            { "name":  "Pascal", "type": "Programming Language" }                                                
+          ] 
+        },
+
+        { "id": 362, "name": "TursoftTetris", "title": "Tursoft Tetris", "group":"Game", "company": "Tursoft", "value":100, "icon": "tursoft.tetris.jpg", "datePeriod": { "startDate": "10.03.1996", "endDate": "15.05.1996" },
+          "summary": "Tetris Game developed by Pascal on Graphics Mode",
+
+          "props": [
+            { "name":"platforms", "title": "Desktop" }
+          ],
+
+          "domains": [
+            { "name": "gaming", "title": "Game Development", "value":100, "iconCss": "" }
+          ],
+
+          "technologies": [                                                
+            { "name":  "Pascal", "type": "Programming Language" }                                               
+          ] 
+        },
+
+         { "id": 363, "name": "TursoftPackman", "title": "Tursoft Packman", "group":"Game", "company": "Tursoft", "value":100, "icon": "tursoft.packman.png", "datePeriod": { "startDate": "10.07.1996", "endDate": "15.09.1996" },
+           "summary": "Packman Game developed by Pascal on Graphics Mode",
+
+           "props": [
+             { "name":"platforms", "title": "Desktop" }
+           ],
+
+           "domains": [
+            { "name": "gaming", "title": "Game Development", "value":100, "iconCss": "" }
+          ],
+
+           "technologies": [                                                
+            { "name":  "Pascal", "type": "Programming Language" }                                                
+          ] 
+        },
+
+         { "id": 364, "name": "TursoftQuestionBank", "title": "Tursoft QuestionBank", "group":"Misc", "company": "Tursoft", "value":100, "icon": "tursoft.questionbank.png", "datePeriod": { "startDate": "25.09.2001", "endDate": "05.02.2002" },
+         "summary": "Simple Question Bank developed by Visual Basic by using Raw TCP Communication",
+
+         "team": [
+            { "position": "Software Developer", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Neşet Mutlu", "contactNo": "1" }
+          ],
+          
+          "props": [
+            { "name":"platforms", "title": "Desktop" }
+          ],
+
+          "domains": [
+            { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" }
+          ],
+
+          "technologies": [                                                
+            { "name":  "Visual Basic", "type": "Programming Language" },
+            { "name":  "MS SQL", "type": "Database" }
+          ] 
+        },
+
+
+         { "id": 365, "name": "TursoftWebsiteV1", "title": "Tursoft Homepage v1", "group":"Misc", "company": "Tursoft", "value":100, "icon": "tursoft.logo.png", "datePeriod": { "startDate": "25.11.1999", "endDate": "05.06.2000" },
+           "summary": "I have developed my first webpage by using HTML, CSS and Photoshop",
+
+           "props": [
+              { "name":"platforms", "title": "Web" }
+            ],
+
+           "technologies": [
+            { "name":  "HTML5", "type": "Frontend" },             
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]           
+        },
+
+         { "id": 366, "name": "KocaeliValilik", "title": "Websitesi of Governorship of Kocaeli", "group":"Misc", "company": "Tursoft", "value":100, "icon": "kocaeli_valilik.png", "datePeriod": { "startDate": "15.01.2000", "endDate": "15.06.2000" },
+           "summary": "Official Website of Governorship of Kocaeli",
+
+           "team": [
+            { "position": "Software Developer", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Analyst", "name": "Emre Usta", "contactNo": "1" }
+          ],
+
+           "props": [
+              { "name":"platforms", "title": "Web" }
+            ],
+
+           "technologies": [
+            { "name":  "HTML5", "type": "Frontend" },             
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" }         
+          ]
+        },
+
+         { "id": 367, "name": "TursoftWebsite2018", "title": "Tursoft Website 2018", "group":"Misc", "company": "Tursoft", "value":100, "icon": "tursoft.logo.png", "datePeriod": { "startDate": "29.08.2018", "endDate": null },
+          "summary": "New version of my personal website. I think this is 6th version of tursoft.net",
+
+          "props": [
+            { "name":"platforms", "title": "Web" }
+          ],
+
+          "technologies": [
+            { "name":  "AngularJS", "type": "Frontend" },
+            { "name":  "Nodejs", "type": "Backend" },
+            { "name":  "Express", "type": "Backend" },
+
+            { "name":  "EJS", "type": "Backend" },
+            { "name":  "JQuery", "type": "Frontend" },
+            { "name":  "Animate.css", "type": "Frontend" },
+            { "name":  "Bootstrap", "type": "Frontend" },
+            { "name":  "Timelinejs3", "type": "Frontend" },
+
+            { "name":  "CSS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "Photoshop", "type": "Graphics Design" },
+
+            { "name":  "Git", "type": "Source Control" },
+            { "name":  "Gitlab", "type": "Source Control" },
+
+            { "name":  "Heroku", "type": "Cloud Hosting" },
+            { "name":  "Digital Ocean", "type": "Cloud Hosting" },
+            { "name":  "AWS", "type": "Cloud Hosting" }            
+          ]
+        },
+         
+         { "id": 368, "name": "DockerMaster", "title": "Docker Master", "group":"Misc", "company": "Tursoft", "value":100, "icon": "dockermaster.logo.small.png", "datePeriod": { "startDate": "27.09.2017", "endDate": "12.10.2017" },
+            "summary": "A docker image containg a small tool to browse exposed endpoints of a dockerhost node. It is deployed on dockerhub. <br/>URL: https://tursoft.github.io/docker_manager/.",
+          
+            "technologies": [
+              { "name":  "Nodejs", "type": "Backend" },
+              { "name":  "Express", "type": "Backend" },
+              { "name":  "EJS", "type": "Backend" },
+              { "name":  "JQuery", "type": "Frontend" },
+              { "name":  "Animate.css", "type": "Frontend" },
+              { "name":  "Bootstrap", "type": "Frontend" },
+              { "name":  "Timelinejs3", "type": "Frontend" },
+              { "name":  "CSS", "type": "Frontend" },
+              { "name":  "HTML5", "type": "Frontend" },
+              { "name":  "JS", "type": "Frontend" },
+              { "name":  "Photoshop", "type": "Graphics Design" }         
+            ]            
+          },
+
+
+          { "id": 370, "name": "ABI", "title": "Avicenna ABI", "group":"Misc", "company": "ERC", "value":100, "icon": "ABI.png", "datePeriod": { "startDate": "01.10.2018", "endDate": null },
+          "summary": "Avicenna Business Intelligence System ",
+
+          "props": [
+            { "name":"platforms", "title": "Web" }
+          ],
+
+          "customers":[
+            "İbni Sina Hastanesi | Ankara Üniversitesi Tıp Fakültesi / Turkey"
+          ],      
+          
+          "team": [             
+            { "position": "Group Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Software Developer", "name": "Cankat Abacı", "contactNo": "1" }
+          ],
+
+          "technologies":[
+            { "name":  "PDFWCore", "type": "Framework" },
+            { "name":  ".NETCore", "type": "Framework" },
+            { "name":  "C#", "type": "Language" },
+            { "name":  "Hangfire", "type": "Scheduled Tasks" },
+
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "Entity Framework Core", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },            
+
+            { "name":  "AngularJS", "type": "Frontend" },
+            { "name":  "JS", "type": "Frontend" },
+            { "name":  "HTML5", "type": "Frontend" },
+            { "name":  "CSS3", "type": "Frontend" },
+
+            { "name":  "Git", "type": "Source Control" },
+            { "name":  "Gitlab", "type": "Source Control" },
+            
+            { "name":  "npm", "type": "Dependency Management" },
+            { "name":  "NuGet", "type": "Dependency Management" },
+            { "name":  "ProGet", "type": "Dependency Management" },            
+            
+            { "name":  "Jenkins", "type": "DevOps" },   
+            { "name":  "Docker", "type": "Virtualization" }  
+          ]                      
+        }         
+    ]
+}
