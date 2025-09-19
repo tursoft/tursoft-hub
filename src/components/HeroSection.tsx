@@ -40,7 +40,7 @@ const HeroSection = () => {
           {/* Main Heading */}
           <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
             <span className="block text-foreground">MUHAMMET</span>
-            <span className="block bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent animate-glow">TURŞAK</span>
+            <span className="block text-foreground">TURŞAK</span>
           </h1>
 
           {/* Subtitle */}
@@ -51,7 +51,7 @@ const HeroSection = () => {
 
           {/* Description */}
           <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            With more than 17 years of professional experience, I lead the development of 
+            With more than 20 years of professional experience, I lead the development of 
             world-class enterprise systems characterized by exceptional functionality, 
             performance, scalability, and security.
           </p>
