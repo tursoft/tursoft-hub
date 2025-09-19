@@ -1,0 +1,118 @@
+{
+  "skillCategories": [
+    {
+      "icon": "Code",
+      "title": "Programming Languages",
+      "skills": [
+        { "name": "C#", "level": 95, "years": "15+ years" },
+        { "name": "Java", "level": 90, "years": "12+ years" },
+        { "name": "JavaScript", "level": 88, "years": "10+ years" },
+        { "name": "TypeScript", "level": 85, "years": "6+ years" },
+        { "name": "Python", "level": 75, "years": "4+ years" },
+        { "name": "PHP", "level": 80, "years": "8+ years" }
+      ]
+    },
+    {
+      "icon": "Layers",
+      "title": "Frameworks & Libraries",
+      "skills": [
+        { "name": ".NET Core", "level": 95, "years": "8+ years" },
+        { "name": "ASP.NET MVC", "level": 92, "years": "12+ years" },
+        { "name": "Spring Framework", "level": 88, "years": "10+ years" },
+        { "name": "React", "level": 85, "years": "5+ years" },
+        { "name": "Angular", "level": 82, "years": "6+ years" },
+        { "name": "Vue.js", "level": 78, "years": "3+ years" }
+      ]
+    },
+    {
+      "icon": "Database",
+      "title": "Databases & Storage",
+      "skills": [
+        { "name": "SQL Server", "level": 92, "years": "15+ years" },
+        { "name": "Oracle", "level": 88, "years": "12+ years" },
+        { "name": "MySQL", "level": 85, "years": "10+ years" },
+        { "name": "PostgreSQL", "level": 80, "years": "6+ years" },
+        { "name": "MongoDB", "level": 75, "years": "4+ years" },
+        { "name": "Redis", "level": 78, "years": "5+ years" }
+      ]
+    },
+    {
+      "icon": "Cloud",
+      "title": "Cloud & DevOps",
+      "skills": [
+        { "name": "Azure", "level": 85, "years": "6+ years" },
+        { "name": "AWS", "level": 78, "years": "4+ years" },
+        { "name": "Docker", "level": 82, "years": "5+ years" },
+        { "name": "Kubernetes", "level": 75, "years": "3+ years" },
+        { "name": "CI/CD", "level": 88, "years": "8+ years" },
+        { "name": "Microservices", "level": 90, "years": "7+ years" }
+      ]
+    },
+    {
+      "icon": "Smartphone",
+      "title": "Mobile Development",
+      "skills": [
+        { "name": "Xamarin", "level": 85, "years": "6+ years" },
+        { "name": "React Native", "level": 78, "years": "3+ years" },
+        { "name": "Flutter", "level": 70, "years": "2+ years" },
+        { "name": "Ionic", "level": 75, "years": "4+ years" },
+        { "name": "PhoneGap", "level": 80, "years": "5+ years" }
+      ]
+    },
+    {
+      "icon": "Globe",
+      "title": "Web Technologies",
+      "skills": [
+        { "name": "HTML5/CSS3", "level": 92, "years": "15+ years" },
+        { "name": "Sass/SCSS", "level": 88, "years": "8+ years" },
+        { "name": "Bootstrap", "level": 90, "years": "10+ years" },
+        { "name": "Tailwind CSS", "level": 85, "years": "3+ years" },
+        { "name": "REST APIs", "level": 95, "years": "12+ years" },
+        { "name": "GraphQL", "level": 80, "years": "3+ years" }
+      ]
+    }
+  ],
+  "tools": [
+    { "name": "Visual Studio", "icon": "🔧", "frequency": 5 },
+    { "name": "IntelliJ IDEA", "icon": "💡", "frequency": 4 },
+    { "name": "VS Code", "icon": "📝", "frequency": 4 },
+    { "name": "Eclipse", "icon": "🌙", "frequency": 4 },
+    { "name": "Git", "icon": "🔄", "frequency": 5 },
+    { "name": "SVN", "icon": "📋", "frequency": 1 },
+    { "name": "Jira", "icon": "📊", "frequency": 1 },
+    { "name": "Azure DevOps", "icon": "☁️", "frequency": 1 },
+    { "name": "Jenkins", "icon": "🔨", "frequency": 4 },
+    { "name": "Postman", "icon": "📮", "frequency": 1 },
+    { "name": "Swagger", "icon": "📚", "frequency": 1 },
+    { "name": "Docker Desktop", "icon": "🐳", "frequency": 1 },
+    { "name": "Kubernetes", "icon": "⚙️", "frequency": 4 },
+    { "name": "Terraform", "icon": "🏗️", "frequency": 1 },
+    { "name": "Ansible", "icon": "🔧", "frequency": 1 },
+    { "name": "Selenium", "icon": "🤖", "frequency": 1 },
+    { "name": "JUnit", "icon": "✅", "frequency": 1 },
+    { "name": "NUnit", "icon": "🧪", "frequency": 1 },
+    { "name": "Entity Framework", "icon": "🗃️", "frequency": 5 },
+    { "name": "Hibernate", "icon": "💾", "frequency": 4 },
+    { "name": "Node.js", "icon": "🟢", "frequency": 4 },
+    { "name": "Express.js", "icon": "🚀", "frequency": 3 },
+    { "name": "Webpack", "icon": "📦", "frequency": 1 },
+    { "name": "Babel", "icon": "🔄", "frequency": 1 }
+  ],
+  "coreExpertise": [
+    {
+      "title": "Enterprise Architecture",
+      "description": "Designing scalable, secure, and maintainable enterprise systems with performance optimization",
+      "icon": "🏗️"
+    },
+    {
+      "title": "Team Leadership",
+      "description": "Leading cross-functional development teams and establishing best practices across organizations",
+      "icon": "👥"
+    },
+    {
+      "title": "Full-Stack Development",
+      "description": "End-to-end development expertise from database design to responsive user interfaces",
+      "icon": "⚡"
+    }
+  ]
+}

@@ -1,140 +1,87 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Code, Database, Cloud, Smartphone, Layers, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 
+// Define interfaces for type safety
+interface Skill {
+  name: string;
+  level: number;
+  years: string;
+}
+
+interface SkillCategory {
+  icon: string;
+  title: string;
+  skills: Skill[];
+}
+
+interface Tool {
+  name: string;
+  icon: string;
+  frequency: number;
+}
+
+interface CoreExpertise {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface SkillsData {
+  skillCategories: SkillCategory[];
+  tools: Tool[];
+  coreExpertise: CoreExpertise[];
+}
+
 const SkillsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [skillsData, setSkillsData] = useState<SkillsData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  const skillCategories = [
-    {
-      icon: Code,
-      title: "Programming Languages",
-      skills: [
-        { name: "C#", level: 95, years: "15+ years" },
-        { name: "Java", level: 90, years: "12+ years" },
-        { name: "JavaScript", level: 88, years: "10+ years" },
-        { name: "TypeScript", level: 85, years: "6+ years" },
-        { name: "Python", level: 75, years: "4+ years" },
-        { name: "PHP", level: 80, years: "8+ years" }
-      ]
-    },
-    {
-      icon: Layers,
-      title: "Frameworks & Libraries",
-      skills: [
-        { name: ".NET Core", level: 95, years: "8+ years" },
-        { name: "ASP.NET MVC", level: 92, years: "12+ years" },
-        { name: "Spring Framework", level: 88, years: "10+ years" },
-        { name: "React", level: 85, years: "5+ years" },
-        { name: "Angular", level: 82, years: "6+ years" },
-        { name: "Vue.js", level: 78, years: "3+ years" }
-      ]
-    },
-    {
-      icon: Database,
-      title: "Databases & Storage",
-      skills: [
-        { name: "SQL Server", level: 92, years: "15+ years" },
-        { name: "Oracle", level: 88, years: "12+ years" },
-        { name: "MySQL", level: 85, years: "10+ years" },
-        { name: "PostgreSQL", level: 80, years: "6+ years" },
-        { name: "MongoDB", level: 75, years: "4+ years" },
-        { name: "Redis", level: 78, years: "5+ years" }
-      ]
-    },
-    {
-      icon: Cloud,
-      title: "Cloud & DevOps",
-      skills: [
-        { name: "Azure", level: 85, years: "6+ years" },
-        { name: "AWS", level: 78, years: "4+ years" },
-        { name: "Docker", level: 82, years: "5+ years" },
-        { name: "Kubernetes", level: 75, years: "3+ years" },
-        { name: "CI/CD", level: 88, years: "8+ years" },
-        { name: "Microservices", level: 90, years: "7+ years" }
-      ]
-    },
-    {
-      icon: Smartphone,
-      title: "Mobile Development",
-      skills: [
-        { name: "Xamarin", level: 85, years: "6+ years" },
-        { name: "React Native", level: 78, years: "3+ years" },
-        { name: "Flutter", level: 70, years: "2+ years" },
-        { name: "Ionic", level: 75, years: "4+ years" },
-        { name: "PhoneGap", level: 80, years: "5+ years" }
-      ]
-    },
-    {
-      icon: Globe,
-      title: "Web Technologies",
-      skills: [
-        { name: "HTML5/CSS3", level: 92, years: "15+ years" },
-        { name: "Sass/SCSS", level: 88, years: "8+ years" },
-        { name: "Bootstrap", level: 90, years: "10+ years" },
-        { name: "Tailwind CSS", level: 85, years: "3+ years" },
-        { name: "REST APIs", level: 95, years: "12+ years" },
-        { name: "GraphQL", level: 80, years: "3+ years" }
-      ]
-    }
-  ];
 
-  const tools = [
-    { name: "Visual Studio", icon: "🔧" },
-    { name: "IntelliJ IDEA", icon: "💡" },
-    { name: "VS Code", icon: "📝" },
-    { name: "Eclipse", icon: "🌙" },
-    { name: "Git", icon: "🔄" },
-    { name: "SVN", icon: "📋" },
-    { name: "Jira", icon: "📊" },
-    { name: "Azure DevOps", icon: "☁️" },
-    { name: "Jenkins", icon: "🔨" },
-    { name: "Postman", icon: "📮" },
-    { name: "Swagger", icon: "📚" },
-    { name: "Docker Desktop", icon: "🐳" },
-    { name: "Kubernetes", icon: "⚙️" },
-    { name: "Terraform", icon: "🏗️" },
-    { name: "Ansible", icon: "🔧" },
-    { name: "Selenium", icon: "🤖" },
-    { name: "JUnit", icon: "✅" },
-    { name: "NUnit", icon: "🧪" },
-    { name: "Entity Framework", icon: "🗃️" },
-    { name: "Hibernate", icon: "💾" },
-    { name: "Node.js", icon: "🟢" },
-    { name: "Express.js", icon: "🚀" },
-    { name: "Webpack", icon: "📦" },
-    { name: "Babel", icon: "🔄" }
-  ];
+  // Create icon mapping for skill categories
+  const iconMap = {
+    Code,
+    Database,
+    Cloud,
+    Smartphone,
+    Layers,
+    Globe
+  };
 
-  // Add frequency to existing tools based on usage patterns
-  const toolsWithFrequency = tools.map(tool => {
-    // Define frequency based on most commonly used technologies
-    const highFrequencyTools = ["Visual Studio", ".NET Core", "ASP.NET MVC", "Entity Framework", "SQL Server", "Git", "Angular", "JavaScript", "Azure", "Oracle", "Java", "Spring Framework", "HTML5", "CSS3"];
-    const mediumHighFrequencyTools = ["TypeScript", "Docker", "MySQL", "jQuery", "Bootstrap", "WPF", "WCF", "LINQ", "Node.js", "React", "Hibernate", "Jenkins", "Kubernetes", "VS Code", "Ionic"];
-    const mediumFrequencyTools = ["AWS", "MongoDB", "Redis", "Xamarin", "AngularJS", "Silverlight", "Eclipse", "IntelliJ IDEA", "Maven", "NPM", "NuGet", "GitLab", "GitHub", "TFS", "JSON", "XML", "Express.js", "VB.NET", "Hangfire", "Jasper Reports", "Ubuntu", "VMware"];
-    
-    let frequency = 1; // Default for specialized/legacy tools
-    
-    if (highFrequencyTools.includes(tool.name)) {
-      frequency = 5;
-    } else if (mediumHighFrequencyTools.includes(tool.name)) {
-      frequency = 4;
-    } else if (mediumFrequencyTools.includes(tool.name)) {
-      frequency = 3;
-    } else {
-      // Check if it's occasionally used (level 2)
-      const occasionalTools = ["PostgreSQL", "Redis", "Mercurial", "SourceTree", "TortoiseHG"];
-      if (occasionalTools.includes(tool.name)) {
-        frequency = 2;
+  // Load skills data from JSON file
+  useEffect(() => {
+    const loadSkillsData = async () => {
+      try {
+        const response = await fetch('/src/data/skills.json');
+        const data: SkillsData = await response.json();
+        setSkillsData(data);
+      } catch (error) {
+        console.error('Failed to load skills data:', error);
+      } finally {
+        setIsLoading(false);
       }
-    }
-    
-    return { ...tool, frequency };
-  });
+    };
+
+    loadSkillsData();
+  }, []);
+
+  if (isLoading || !skillsData) {
+    return (
+      <section id="skills" className="py-20 gradient-bg">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto text-center">
+            <p className="text-muted-foreground">Loading skills...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const { skillCategories, tools, coreExpertise } = skillsData;
 
   // Function to get font size based on frequency
   const getFontSize = (frequency: number) => {
@@ -274,7 +221,7 @@ const SkillsSection = () => {
                         <CardHeader className="pb-4">
                           <div className="flex items-center gap-3">
                             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                              <category.icon className="h-6 w-6 text-primary" />
+                              {React.createElement(iconMap[category.icon as keyof typeof iconMap], { className: "h-6 w-6 text-primary" })}
                             </div>
                             <h3 className="text-xl font-bold text-foreground">{category.title}</h3>
                           </div>
@@ -350,7 +297,7 @@ const SkillsSection = () => {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-4 justify-center items-center">
-                  {toolsWithFrequency.map((tool, index) => (
+                  {tools.map((tool, index) => (
                     <div 
                       key={index} 
                       className={`
@@ -401,23 +348,7 @@ const SkillsSection = () => {
           <div className="mt-16">
             <h3 className="text-2xl font-bold text-center mb-8 text-foreground">Core Expertise</h3>
             <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: "Enterprise Architecture",
-                  description: "Designing scalable, secure, and maintainable enterprise systems with performance optimization",
-                  icon: "🏗️"
-                },
-                {
-                  title: "Team Leadership",
-                  description: "Leading cross-functional development teams and establishing best practices across organizations",
-                  icon: "👥"
-                },
-                {
-                  title: "Full-Stack Development",
-                  description: "End-to-end development expertise from database design to responsive user interfaces",
-                  icon: "⚡"
-                }
-              ].map((item, index) => (
+              {coreExpertise.map((item, index) => (
                 <Card 
                   key={index} 
                   className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border text-center animate-scale-in"
