@@ -4,6 +4,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Filter } from "lucide-react";
 
+// Import company logos
+import gamyteLogo from "@/assets/logos/companies/gamyte.svg";
+import avicennaLogo from "@/assets/logos/companies/avicenna.svg";
+import fonetLogo from "@/assets/logos/companies/fonet.svg";
+import halsoftLogo from "@/assets/logos/companies/halsoft.svg";
+import unhcrLogo from "@/assets/logos/companies/unhcr.svg";
+
+// Import technology icons
+import dotnetIcon from "@/assets/logos/technologies/dotnet.svg";
+import angularIcon from "@/assets/logos/technologies/angular.svg";
+import reactIcon from "@/assets/logos/technologies/react.svg";
+import dockerIcon from "@/assets/logos/technologies/docker.svg";
+
 interface Project {
   id: number;
   title: string;
@@ -12,6 +25,8 @@ interface Project {
   technologies: string[];
   year: string;
   logo?: string;
+  companyLogo?: string;
+  techIcons?: string[];
 }
 
 const projects: Project[] = [
@@ -21,7 +36,8 @@ const projects: Project[] = [
     category: "Misc",
     description: "An intelligent shopping assistant application that helps users make better purchasing decisions.",
     technologies: ["Mobile App", "AI"],
-    year: "2024"
+    year: "2024",
+    techIcons: [reactIcon]
   },
   {
     id: 372,
@@ -29,7 +45,9 @@ const projects: Project[] = [
     category: "Game",
     description: "Gaming platform application with social features and multiplayer capabilities.",
     technologies: ["React Native", "Node.js", "WebSocket"],
-    year: "2024"
+    year: "2024",
+    companyLogo: gamyteLogo,
+    techIcons: [reactIcon]
   },
   {
     id: 371,
@@ -37,7 +55,8 @@ const projects: Project[] = [
     category: "Research",
     description: "Containerized Turkish national operating system Pardus for cloud deployment.",
     technologies: ["Docker", "Linux", "DevOps"],
-    year: "2024"
+    year: "2024",
+    techIcons: [dockerIcon]
   },
   {
     id: 301,
@@ -45,7 +64,9 @@ const projects: Project[] = [
     category: "Telemedicine",
     description: "Comprehensive telemedicine platform enabling remote healthcare delivery and patient monitoring.",
     technologies: [".NET Core", "Angular", "WebRTC", "SignalR"],
-    year: "2023"
+    year: "2023",
+    companyLogo: avicennaLogo,
+    techIcons: [dotnetIcon, angularIcon]
   },
   {
     id: 307,
@@ -53,7 +74,9 @@ const projects: Project[] = [
     category: "Framework",
     description: "Enterprise-grade development framework for rapid healthcare application development.",
     technologies: [".NET Core", "Entity Framework", "Angular", "Docker"],
-    year: "2023"
+    year: "2023",
+    companyLogo: avicennaLogo,
+    techIcons: [dotnetIcon, angularIcon, dockerIcon]
   },
   {
     id: 311,
@@ -61,7 +84,9 @@ const projects: Project[] = [
     category: "HIS",
     description: "Complete hospital management system with patient records, billing, and inventory management.",
     technologies: [".NET", "SQL Server", "Angular", "Kubernetes"],
-    year: "2022"
+    year: "2022",
+    companyLogo: avicennaLogo,
+    techIcons: [dotnetIcon, angularIcon]
   },
   {
     id: 322,
@@ -69,7 +94,9 @@ const projects: Project[] = [
     category: "HIS",
     description: "Modular hospital information system with comprehensive healthcare workflow management.",
     technologies: [".NET Framework", "WCF", "Silverlight", "Oracle"],
-    year: "2021"
+    year: "2021",
+    companyLogo: fonetLogo,
+    techIcons: [dotnetIcon]
   },
   {
     id: 327,
@@ -77,7 +104,9 @@ const projects: Project[] = [
     category: "LMS",
     description: "Advanced learning management system with content authoring and assessment tools.",
     technologies: ["ASP.NET MVC", "jQuery", "MySQL", "HTML5"],
-    year: "2020"
+    year: "2020",
+    companyLogo: halsoftLogo,
+    techIcons: [dotnetIcon]
   },
   {
     id: 330,
@@ -85,7 +114,8 @@ const projects: Project[] = [
     category: "Social Responsibility",
     description: "Official website and information portal for UNHCR Turkey operations.",
     technologies: ["PHP", "MySQL", "jQuery", "Bootstrap"],
-    year: "2019"
+    year: "2019",
+    companyLogo: unhcrLogo
   },
   {
     id: 310,
@@ -93,7 +123,9 @@ const projects: Project[] = [
     category: "Project Management",
     description: "Comprehensive project management solution for healthcare and enterprise projects.",
     technologies: [".NET Core", "Angular", "PostgreSQL", "Redis"],
-    year: "2022"
+    year: "2022",
+    companyLogo: avicennaLogo,
+    techIcons: [dotnetIcon, angularIcon]
   },
   {
     id: 337,
@@ -101,7 +133,8 @@ const projects: Project[] = [
     category: "Game",
     description: "Interactive 3D educational game for learning Turkish history and culture.",
     technologies: ["Unity", "C#", "3D Graphics", "Mobile"],
-    year: "2018"
+    year: "2018",
+    techIcons: [dotnetIcon]
   },
   {
     id: 344,
@@ -109,7 +142,8 @@ const projects: Project[] = [
     category: "LMS",
     description: "Modern online learning platform with video streaming and interactive content.",
     technologies: ["Angular", "Node.js", "MongoDB", "WebRTC"],
-    year: "2019"
+    year: "2019",
+    techIcons: [angularIcon]
   }
 ];
 
@@ -175,24 +209,52 @@ const PortfolioSection = () => {
           {filteredProjects.map((project, index) => (
             <Card 
               key={project.id} 
-              className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border/50 hover:border-primary/20 animate-fade-in"
+              className="github-card group copilot-shimmer animate-fade-in"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <CardHeader className="pb-3">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <Badge variant="outline" className="mb-2 text-xs">
-                      {project.category}
-                    </Badge>
-                    <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors">
-                      {project.title}
-                    </CardTitle>
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-3 flex-1">
+                    {project.companyLogo && (
+                      <div className="w-10 h-10 rounded-lg overflow-hidden bg-white/5 p-1 flex-shrink-0">
+                        <img 
+                          src={project.companyLogo} 
+                          alt={`${project.title} logo`}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <Badge variant="outline" className="mb-2 text-xs">
+                        {project.category}
+                      </Badge>
+                      <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors">
+                        {project.title}
+                      </CardTitle>
+                    </div>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                  <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
                 </div>
-                <div className="text-sm text-muted-foreground">
+                <div className="text-sm text-muted-foreground mb-3">
                   {project.year}
                 </div>
+                {project.techIcons && (
+                  <div className="flex items-center gap-2 mb-2">
+                    {project.techIcons.map((icon, iconIndex) => (
+                      <div 
+                        key={iconIndex}
+                        className="w-6 h-6 rounded bg-white/10 p-1 floating-box"
+                        style={{ animationDelay: `${iconIndex * 200}ms` }}
+                      >
+                        <img 
+                          src={icon} 
+                          alt="Technology"
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </CardHeader>
               <CardContent className="pt-0">
                 <CardDescription className="mb-4 text-sm leading-relaxed">
