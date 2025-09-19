@@ -6,7 +6,7 @@ const AboutSection = () => {
   const highlights = [
     {
       icon: Briefcase,
-      title: "17+ Years Experience",
+      title: "20+ Years Experience",
       description: "Leading enterprise software development projects worldwide"
     },
     {

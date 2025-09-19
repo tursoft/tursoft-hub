@@ -227,7 +227,7 @@ const PortfolioSection = () => {
             <div className="text-sm text-muted-foreground">Total Projects</div>
           </div>
           <div className="p-6 rounded-lg bg-card border border-border/50">
-            <div className="text-3xl font-bold text-primary mb-2">17+</div>
+            <div className="text-3xl font-bold text-primary mb-2">20+</div>
             <div className="text-sm text-muted-foreground">Years Experience</div>
           </div>
           <div className="p-6 rounded-lg bg-card border border-border/50">
