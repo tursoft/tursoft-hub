@@ -56,11 +56,6 @@ const Navigation = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center">
-            <img 
-              src={tursoftLogo} 
-              alt="TURSOFT" 
-              className="h-10 w-auto"
-            />
           </div>
 
           {/* Desktop Navigation */}
