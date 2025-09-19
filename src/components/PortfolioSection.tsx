@@ -18,6 +18,36 @@ interface Project {
   techIcons?: string[];
 }
 
+// Updated interface for the new projects.json structure
+interface ProjectItem {
+  id: number;
+  name: string;
+  title: string;
+  group: string;
+  company: string;
+  value: number;
+  icon: string;
+  summary: string;
+  fulltext?: string | string[];
+  datePeriod: { startDate: string; endDate: string | null };
+  props: { name: string; title: string }[];
+  domains?: { name: string; title: string; value: number; iconCss: string }[];
+  team: { position: string; name: string; contactNo: string }[];
+  modules?: string[];
+  customers?: string[];
+  partners?: string[];
+  technologies: { name: string; type: string }[];
+}
+
+interface NewProjectData {
+  general: {
+    title: string;
+    summary: string;
+    groups: { name: string; title: string; value: number; iconCss: string }[];
+  };
+  items: ProjectItem[];
+}
+
 interface ProjectData {
   projects: Project[];
   categories: string[];
@@ -83,43 +113,35 @@ const PortfolioSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [showFilters, setShowFilters] = useState(false);
   const [statsVisible, setStatsVisible] = useState(false);
-  const [projectData, setProjectData] = useState<ProjectData | null>(null);
+  const [projectData, setProjectData] = useState<NewProjectData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [companyLogoMap, setCompanyLogoMap] = useState<{ [key: string]: string }>({});
-  const [techIconMap, setTechIconMap] = useState<{ [key: string]: string }>({});
+  const [projectIconMap, setProjectIconMap] = useState<{ [key: string]: string }>({});
   const statsRef = useRef<HTMLDivElement>(null);
 
   // Load project data from JSON file
   useEffect(() => {
     const loadProjectData = async () => {
       try {
-        const response = await fetch('/src/data/projects.json');
-        const data: ProjectData = await response.json();
+        const response = await fetch('/src/data/data_new/projects.json');
+        const data: NewProjectData = await response.json();
         setProjectData(data);
 
-        // Load company logos dynamically
-        const companyLogos: { [key: string]: string } = {};
-        for (const [key, path] of Object.entries(data.companyLogos)) {
-          try {
-            const logoModule = await import(/* @vite-ignore */ path);
-            companyLogos[key] = logoModule.default;
-          } catch (error) {
-            console.warn(`Failed to load company logo: ${path}`, error);
+        // Load project icons dynamically
+        const projectIcons: { [key: string]: string } = {};
+        for (const project of data.items) {
+          if (project.icon) {
+            try {
+              // Try to load the project icon from assets/files/projects/{name}/icon file
+              const iconPath = `/src/assets/files/projects/${project.name}/${project.icon}`;
+              const iconModule = await import(/* @vite-ignore */ iconPath);
+              projectIcons[project.name] = iconModule.default;
+            } catch (error) {
+              // If specific icon fails, try fallback or continue without icon
+              console.warn(`Failed to load project icon: ${project.icon} for ${project.name}`, error);
+            }
           }
         }
-        setCompanyLogoMap(companyLogos);
-
-        // Load tech icons dynamically
-        const techIcons: { [key: string]: string } = {};
-        for (const [key, path] of Object.entries(data.techIcons)) {
-          try {
-            const iconModule = await import(/* @vite-ignore */ path);
-            techIcons[key] = iconModule.default;
-          } catch (error) {
-            console.warn(`Failed to load tech icon: ${path}`, error);
-          }
-        }
-        setTechIconMap(techIcons);
+        setProjectIconMap(projectIcons);
 
       } catch (error) {
         console.error('Failed to load project data:', error);
@@ -157,14 +179,14 @@ const PortfolioSection = () => {
   // Memoized computed values
   const filteredProjects = useMemo(() => {
     if (!projectData) return [];
-    if (selectedCategory === "All") return projectData.projects;
-    return projectData.projects.filter(project => project.category === selectedCategory);
+    if (selectedCategory === "All") return projectData.items;
+    return projectData.items.filter(project => project.group === selectedCategory);
   }, [selectedCategory, projectData]);
 
   const getCategoryCount = (category: string) => {
     if (!projectData) return 0;
-    if (category === "All") return projectData.projects.length;
-    return projectData.projects.filter(project => project.category === category).length;
+    if (category === "All") return projectData.items.length;
+    return projectData.items.filter(project => project.group === category).length;
   };
 
   if (isLoading || !projectData) {
@@ -179,7 +201,8 @@ const PortfolioSection = () => {
     );
   }
 
-  const { projects, categories, techIconNames } = projectData;
+  const { items: projects, general } = projectData;
+  const categories = ["All", ...general.groups.map(group => group.name)];
 
 // Animated Counter Component
 const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: string; isVisible?: boolean }> = ({ 
@@ -287,19 +310,24 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1 min-w-0">
                     <Badge variant="outline" className="mb-2 text-xs">
-                      {project.category}
+                      {project.group}
                     </Badge>
                     <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors">
                       {project.title}
                     </CardTitle>
+                    {project.company && (
+                      <div className="text-sm text-muted-foreground/80 font-medium">
+                        {project.company}
+                      </div>
+                    )}
                   </div>
                   <div className="flex items-center gap-3">
-                    {project.companyLogo && companyLogoMap[project.companyLogo] && (
-                      <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
+                    {project.icon && projectIconMap[project.name] && (
+                      <div className="w-12 h-12 flex items-center justify-center flex-shrink-0 rounded-lg bg-background/50">
                         <img 
-                          src={companyLogoMap[project.companyLogo]} 
-                          alt={`${project.title} logo`}
-                          className="max-w-full max-h-full object-contain hover:brightness-110 transition-all duration-300"
+                          src={projectIconMap[project.name]} 
+                          alt={`${project.title} icon`}
+                          className="max-w-full max-h-full object-contain hover:brightness-110 hover:scale-105 transition-all duration-300"
                         />
                       </div>
                     )}
@@ -307,45 +335,26 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
                   </div>
                 </div>
                 <div className="text-sm text-muted-foreground mb-3">
-                  {project.year}
+                  {project.datePeriod?.startDate && (
+                    <>
+                      {project.datePeriod.startDate}
+                      {project.datePeriod.endDate && ` - ${project.datePeriod.endDate}`}
+                    </>
+                  )}
                 </div>
-                {project.techIcons && (
-                  <div className="flex items-center gap-2 mb-2">
-                    <TooltipProvider>
-                      {project.techIcons.map((iconKey, iconIndex) => 
-                        techIconMap[iconKey] ? (
-                          <Tooltip key={iconIndex}>
-                            <TooltipTrigger asChild>
-                              <div className="w-6 h-6 rounded bg-white/10 p-1 hover:scale-110 hover:bg-primary/20 transition-all duration-300 cursor-pointer">
-                                <img 
-                                  src={techIconMap[iconKey]} 
-                                  alt={techIconNames[iconKey] || "Technology"}
-                                  className="w-full h-full object-contain hover:brightness-110 transition-all duration-300"
-                                />
-                              </div>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>{techIconNames[iconKey] || "Technology"}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        ) : null
-                      )}
-                    </TooltipProvider>
-                  </div>
-                )}
               </CardHeader>
               <CardContent className="pt-0">
                 <CardDescription className="mb-4 text-sm leading-relaxed">
-                  {project.description}
+                  {project.summary}
                 </CardDescription>
                 <div className="flex flex-wrap gap-1">
                   {project.technologies.map((tech) => (
                     <Badge 
-                      key={tech} 
+                      key={tech.name} 
                       variant="secondary" 
                       className="text-xs hover:bg-primary/10 transition-colors"
                     >
-                      {tech}
+                      {tech.name}
                     </Badge>
                   ))}
                 </div>
