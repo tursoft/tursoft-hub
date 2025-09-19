@@ -12,6 +12,16 @@ import alexanderPhoto from "@/assets/references/alexander.berler.jpg";
 import umutPhoto from "@/assets/references/umut.huseyinoglu.jpg";
 import gulpembePhoto from "@/assets/references/gulpembe.ergin.jpg";
 import firatPhoto from "@/assets/references/firat.ozerden.jpg";
+import johanPhoto from "@/assets/references/johan.sellstrom.jpg";
+import aslakPhoto from "@/assets/references/aslak.felin.jpg";
+import uwePhoto from "@/assets/references/uwe.weimer.jpg";
+import mehmetAlpPhoto from "@/assets/references/mehmet.alp.karabas.jpg";
+import eleftheriaPhoto from "@/assets/references/eleftheria.polychronidou.jpg";
+import kostasPhoto from "@/assets/references/kostas.karkaletsis.jpg";
+import veliPhoto from "@/assets/references/veli.bicer.jpg";
+import erolPhoto from "@/assets/references/erol.ozcelik.jpg";
+import mesutPhoto from "@/assets/references/mesut.demirer.jpg";
+import davutPhoto from "@/assets/references/davut.gurbuz.jpg";
 
 const ReferencesSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -169,7 +179,7 @@ const ReferencesSection = () => {
       name: "Alexander Berler",
       photo: alexanderPhoto,
       company: "Gnomon",
-      position: "Head of consulting services at Gnomon, Chair at HL7 Hellas IHE Services Director at IHE-EUROPE",
+      position: "Head of Consulting Services | Chair at HL7 Hellas",
       testimonial: "I have the honor to work together with Muhammet in conjunction with the proempower pcp project as members of the DM4ALL Consortium. Muhammet is an important <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>cornerstone</span> of our project. He is always <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>proactive</span> with an <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>excel experience</span> in health care information exchange integration. It is surely <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>trustful</span> person and a perfect partner with very high professional standards.",
       date: "November 2016",
       contacts: [
@@ -222,7 +232,7 @@ const ReferencesSection = () => {
       name: "Fırat Özerden",
       photo: firatPhoto,
       company: "Mh Handel GmbH",
-      position: "Interims Geschäftsführer, Finanzmanagement, Konfliktmanagement, Business Development",
+      position: "Business Development",
       testimonial: "During 2015 and 2017 I have had the privilege to work with Muhammet Turşak on a major project in Turkey. I have rarely come across such a <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>focused</span> and <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>competent</span> Software-Architect leading a project. He has been a <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>key</span> for the success of the project, being 2 steps ahead of the customer at all times. I would blindly <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>recommend</span> him to any team-lead in his field of expertise.",
       date: "February 2018",
       contacts: [
@@ -230,6 +240,146 @@ const ReferencesSection = () => {
         { code: "email", value: "firatozerden@gmail.com" },
         { code: "skype", value: "firat.oezerden" },
         { code: "linkedin", value: "https://www.linkedin.com/in/firatozerden" }
+      ],
+      rating: 5,
+      isActive: true
+    },
+    {
+      id: 10,
+      name: "Johan Sellström",
+      photo: johanPhoto,
+      company: "Infrion",
+      position: "Entrepreneur",
+      testimonial: "Muhammet is one of the <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>best</span> and most <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>efficient developer</span> I worked with. He puts in whatever it takes to achieve your goals and is very <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>self propelled</span>.",
+      date: "October 2024",
+      contacts: [
+        { code: "linkedin", value: "https://www.linkedin.com/in/johansellstrom" }
+      ],
+      rating: 5,
+      isActive: true
+    },
+    {
+      id: 11,
+      name: "Aslak Felin",
+      photo: aslakPhoto,
+      company: "Infrion",
+      position: "CEO",
+      testimonial: "As the former CEO of Infrion, a health tech start-up, I cannot emphasise enough the <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>exceptional work ethic</span> and <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>commitment</span> Muhammet Tursak brought to the role of Lead Programmer. He consistently demonstrated an ability to deliver <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>high-quality results</span> with impressive speed, often exceeding our timelines without compromising on the integrity or creativity of the solutions. Muhammet's proficiency in multiple frameworks, allowed him to seamlessly navigate complex technical challenges and contribute significantly to our product innovation. He was always willing to discuss and take in new perspectives, ensuring that everyone was aligned and motivated to achieve our shared goals. He took <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>initiative</span>, was always open to delve deeper or make things more efficient with creativity and problem-solving skills.",
+      date: "October 2024",
+      contacts: [
+        { code: "linkedin", value: "https://www.linkedin.com/in/aslakfelin" }
+      ],
+      rating: 5,
+      isActive: true
+    },
+    {
+      id: 12,
+      name: "Uwe Weimer",
+      photo: uwePhoto,
+      company: "Medisanté",
+      position: "Head of Global Sales",
+      testimonial: "Muhammet is one of the <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>best</span> Senior Software Architect and <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>Team Leader</span> I ever met. Always in <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>good mood</span> and keen to support his customers, even they have challenging requests. I belief, if somebody can do this kind of job, then Muhammet is the <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>correct person</span>.",
+      date: "February 2024",
+      contacts: [
+        { code: "linkedin", value: "https://www.linkedin.com/in/uweweimer" }
+      ],
+      rating: 5,
+      isActive: true
+    },
+    {
+      id: 13,
+      name: "Dr. Mehmet Alp Karabas",
+      photo: mehmetAlpPhoto,
+      company: "Hylman Group",
+      position: "Managing Partner-Turkey at the Hylman Group",
+      testimonial: "Muhammet is one of the most <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>intelligent</span>, <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>hardworking</span> and <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>disciplined</span> person I have ever met who is empowered with his kind & polite personality. He is a top professional in his field with creative insights, flexible and on-demand solutions with <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>7/24 service availability</span>. I wish a very bright and successful career in his life.",
+      date: "October 2019",
+      contacts: [
+        { code: "linkedin", value: "https://www.linkedin.com/in/mehmetalpkarabas" }
+      ],
+      rating: 5,
+      isActive: true
+    },
+    {
+      id: 14,
+      name: "Eleftheria Polychronidou",
+      photo: eleftheriaPhoto,
+      company: "Causaly",
+      position: "Staff Data Scientist | Tech Product Owner",
+      testimonial: "<span class='bg-primary/20 text-primary font-semibold px-1 rounded'>Software Architecture expert</span> is the phrase that comes to mind when I think about Muhammet. I had the pleasure of working with Muhammet for two years at the ProEmpower EU project, collaborating on several tasks. Muhammet's ability to <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>handle multiple tasks</span> was unlike any I've seen before and made a significant increase in the productivity level of our consortium. No matter how tense a meeting, Muhammet made sure everyone has a <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>clear view</span> of the project needs and the next steps. As a team member or a leader, Muhammet earns my <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>highest recommendation</span>.",
+      date: "July 2019",
+      contacts: [
+        { code: "linkedin", value: "https://www.linkedin.com/in/eleftheriapolychronidou" }
+      ],
+      rating: 5,
+      isActive: true
+    },
+    {
+      id: 15,
+      name: "Kostas Karkaletsis",
+      photo: kostasPhoto,
+      company: "Gnomon Informatics SA",
+      position: "Chief Technology Officer at Gnomon Informatics SA",
+      testimonial: "Muhammet is a very <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>efficient</span>, <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>collaborative</span> and experienced Senior Software Architect. It's a pleasure to work with him. He has great skills in management, testing and deployment of web applications. We learnt a lot from his experience in <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>docker</span> and <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>container environments</span>. We worked together integrating the DM4All solution in Turkey, Italy, Portugal and Spain.",
+      date: "July 2019",
+      contacts: [
+        { code: "linkedin", value: "https://www.linkedin.com/in/kostaskarkaletsis" }
+      ],
+      rating: 5,
+      isActive: true
+    },
+    {
+      id: 16,
+      name: "Veli Bicer",
+      photo: veliPhoto,
+      company: "A5 Labs",
+      position: "Head Of Engineering at A5 Labs",
+      testimonial: "<span class='bg-primary/20 text-primary font-semibold px-1 rounded'>Ingenious talent</span> in visual arts and <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>excellent analytical skills</span>. He shows all the skills that a <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>complete engineer</span> should have...",
+      date: "July 2014",
+      contacts: [
+        { code: "linkedin", value: "https://www.linkedin.com/in/velibicer" }
+      ],
+      rating: 5,
+      isActive: true
+    },
+    {
+      id: 17,
+      name: "Erol Ozcelik",
+      photo: erolPhoto,
+      company: "University Faculty",
+      position: "Faculty member",
+      testimonial: "Muhammet Turşak has demonstrated <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>excellent programming</span> and <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>analytical skills</span>. He can easily <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>learn latest technical</span> and tools and offer <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>solutions</span> by using his knowledge.",
+      date: "May 2014",
+      contacts: [
+        { code: "linkedin", value: "https://www.linkedin.com/in/erolozcelik" }
+      ],
+      rating: 5,
+      isActive: true
+    },
+    {
+      id: 18,
+      name: "Mesut Demirer PMP, ITIL",
+      photo: mesutPhoto,
+      company: "Infera Teknoloji ve Bilişim Hizmetleri A.Ş.",
+      position: "Senior Project Manager",
+      testimonial: "I worked with Muhammet two year ago in an software projects for his company. Also, he has a good <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>sense of humor</span> that makes him loved by all of his project group and he treats his employees like his <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>friends</span> so that he can get his work done in time and also make sure that his employees enjoy their time while working with him. I recommend him to every employee who wants to work with a <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>friendly</span> and <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>skilled employer</span>.",
+      date: "May 2013",
+      contacts: [
+        { code: "linkedin", value: "https://www.linkedin.com/in/mesutdemirer" }
+      ],
+      rating: 5,
+      isActive: true
+    },
+    {
+      id: 19,
+      name: "Davut Gürbüz",
+      photo: davutPhoto,
+      company: "Cloud Solutions",
+      position: "Healthcare Integrations Manager | AI Operator",
+      testimonial: "Muhammet is a <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>self motivated</span> person. He is very desired on any phase of <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>software development process</span>. Beside this he is an <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>enthusiastic developer</span> for .NET technologies. He shares his know-how & knowledge generously. I feel myself lucky for working with him. You can't find <span class='bg-primary/20 text-primary font-semibold px-1 rounded'>modest, generous and collaborative</span> developers nowadays. So I certainly recommend him.",
+      date: "April 2013",
+      contacts: [
+        { code: "linkedin", value: "https://www.linkedin.com/in/davutgurbuz" }
       ],
       rating: 5,
       isActive: true
