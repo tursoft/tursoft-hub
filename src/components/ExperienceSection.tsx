@@ -197,7 +197,6 @@ const ExperienceSection = () => {
 
                   {/* Technologies */}
                   <div>
-                    <h5 className="text-sm font-semibold text-foreground mb-2">Key Technologies:</h5>
                     <div className="flex flex-wrap gap-2">
                       {exp.technologies.map((tech, i) => (
                         <Badge key={i} variant="outline" className="text-xs">
