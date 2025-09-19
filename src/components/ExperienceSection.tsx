@@ -1,0 +1,179 @@
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { CalendarDays, MapPin, Building } from "lucide-react";
+
+const ExperienceSection = () => {
+  const experiences = [
+    {
+      company: "Gamyte",
+      position: "Director of Technology & Senior Software Architect",
+      duration: "04.09.2019 - Present",
+      years: "6 years",
+      location: "Turkey",
+      type: "Full-time",
+      description: [
+        "Leading technology strategy and architecture decisions for enterprise gaming solutions",
+        "Managing cross-functional development teams and R&D initiatives",
+        "Architecting scalable, high-performance gaming platforms",
+        "Driving digital transformation and innovation across the organization"
+      ],
+      technologies: ["C#", ".NET Core", "Microservices", "Azure", "React", "TypeScript"],
+      current: true
+    },
+    {
+      company: "ERC Group Engineering, Consultancy, R&D",
+      position: "Senior Software Architect and Group Leader",
+      duration: "20.05.2013 - 03.09.2019",
+      years: "6.3 years",
+      location: "Turkey",
+      type: "Full-time",
+      description: [
+        "Led the architecture and development of enterprise-grade engineering solutions",
+        "Managed multiple development teams across different product lines",
+        "Designed and implemented scalable R&D management systems",
+        "Collaborated with international clients on multi-million dollar projects"
+      ],
+      technologies: ["Java", "Spring", ".NET", "Oracle", "Angular", "JavaScript"],
+      current: false
+    },
+    {
+      company: "DataSel Information Systems Co.",
+      position: "Senior Software Architect and Group Leader",
+      duration: "01.01.2012 - 20.05.2013",
+      years: "1.8 years",
+      location: "Turkey",
+      type: "Full-time",
+      description: [
+        "Architected enterprise information management systems",
+        "Led development teams in building data-driven applications",
+        "Implemented performance optimization strategies for large-scale systems",
+        "Mentored junior developers and established coding standards"
+      ],
+      technologies: ["C#", ".NET", "SQL Server", "WPF", "Silverlight", "WCF"],
+      current: false
+    },
+    {
+      company: "Fonet Software Co.",
+      position: "Research & Development Director",
+      duration: "01.01.2010 - 13.08.2011",
+      years: "1.9 years",
+      location: "Turkey",
+      type: "Full-time",
+      description: [
+        "Directed R&D initiatives for next-generation software products",
+        "Established development methodologies and best practices",
+        "Led innovation projects and proof-of-concept developments",
+        "Managed technical roadmap and technology stack decisions"
+      ],
+      technologies: ["Java", "C#", ".NET", "Web Services", "MySQL", "JavaScript"],
+      current: false
+    },
+    {
+      company: "Halıcı Informatics & Software Co.",
+      position: "Software Production and Planning Director",
+      duration: "01.01.2007 - 01.09.2008",
+      years: "4.7 years",
+      location: "Turkey",
+      type: "Full-time",
+      description: [
+        "Oversaw software production lifecycle and project planning",
+        "Managed development teams and resource allocation",
+        "Implemented quality assurance processes and methodologies",
+        "Coordinated with stakeholders on project deliverables and timelines"
+      ],
+      technologies: ["C#", ".NET", "ASP.NET", "SQL Server", "VB.NET", "Web Services"],
+      current: false
+    }
+  ];
+
+  return (
+    <section id="experience" className="py-20 gradient-bg">
+      <div className="container mx-auto px-6">
+        <div className="max-w-6xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16 animate-fade-in">
+            <Badge variant="outline" className="mb-4">Professional Experience</Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Building Tomorrow's
+              <span className="text-primary block lg:inline lg:ml-4">Technology Today</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              A journey through enterprise software development, team leadership, and architectural excellence
+            </p>
+          </div>
+
+          {/* Experience Timeline */}
+          <div className="space-y-8">
+            {experiences.map((exp, index) => (
+              <Card 
+                key={index} 
+                className={`gradient-card border-l-4 border-l-primary card-hover animate-slide-in ${
+                  exp.current ? 'ring-2 ring-primary/20' : ''
+                }`}
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
+                <CardHeader className="pb-4">
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <Building className="h-5 w-5 text-primary" />
+                        <h3 className="text-xl font-bold text-foreground">{exp.company}</h3>
+                        {exp.current && (
+                          <Badge variant="default" className="bg-primary text-primary-foreground">
+                            Current
+                          </Badge>
+                        )}
+                      </div>
+                      <h4 className="text-lg font-semibold text-primary mb-2">{exp.position}</h4>
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          <CalendarDays className="h-4 w-4" />
+                          <span>{exp.duration}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <MapPin className="h-4 w-4" />
+                          <span>{exp.location}</span>
+                        </div>
+                        <Badge variant="secondary" className="text-xs">
+                          {exp.years}
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="pt-0">
+                  {/* Description */}
+                  <div className="mb-6">
+                    <ul className="space-y-2">
+                      {exp.description.map((item, i) => (
+                        <li key={i} className="flex items-start">
+                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-3 flex-shrink-0" />
+                          <span className="text-muted-foreground">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Technologies */}
+                  <div>
+                    <h5 className="text-sm font-semibold text-foreground mb-2">Key Technologies:</h5>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.technologies.map((tech, i) => (
+                        <Badge key={i} variant="outline" className="text-xs">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ExperienceSection;
