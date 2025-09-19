@@ -5,7 +5,50 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Code, Database, Cloud, Smartphone, Layers, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 
-// Define interfaces for type safety
+// Import technology logos
+import angularLogo from "@/assets/logos/technologies/angular.png";
+import csharpLogo from "@/assets/logos/technologies/csharp.png";
+import dockerLogo from "@/assets/logos/technologies/docker.png";
+import dotnetLogo from "@/assets/logos/technologies/dotnet.png";
+import dotnetcoreLogo from "@/assets/logos/technologies/dotnetcore.png";
+import ionicLogo from "@/assets/logos/technologies/ionic.png";
+import javaLogo from "@/assets/logos/technologies/java.png";
+import mysqlLogo from "@/assets/logos/technologies/mysql.png";
+import nodejsLogo from "@/assets/logos/technologies/nodejs.png";
+import reactLogo from "@/assets/logos/technologies/react.png";
+import typescriptLogo from "@/assets/logos/technologies/typescript.png";
+
+// Define interfaces for the new JSON structure
+interface SkillGroup {
+  id: number;
+  name: string;
+  title: string;
+  orderIndex: number;
+}
+
+interface SkillItem {
+  id: number;
+  name: string;
+  title: string;
+  group: string;
+  value: number;
+  iconCss: string;
+  projects: number;
+  jobs: number;
+  isMajor?: boolean;
+  orderIndex?: number;
+}
+
+interface NewSkillsData {
+  general: {
+    title: string;
+    summary: string;
+    groups: SkillGroup[];
+  };
+  items: SkillItem[];
+}
+
+// Legacy interfaces for component compatibility
 interface Skill {
   name: string;
   level: number;
@@ -20,8 +63,9 @@ interface SkillCategory {
 
 interface Tool {
   name: string;
-  icon: string;
+  count: number;
   frequency: number;
+  image?: string;
 }
 
 interface CoreExpertise {
@@ -30,15 +74,132 @@ interface CoreExpertise {
   icon: string;
 }
 
-interface SkillsData {
+interface TransformedSkillsData {
   skillCategories: SkillCategory[];
   tools: Tool[];
   coreExpertise: CoreExpertise[];
 }
 
+// Helper function to convert projects count to frequency
+const getFrequencyFromProjects = (projects: number): number => {
+  if (projects >= 25) return 5;
+  if (projects >= 15) return 4; 
+  if (projects >= 8) return 3;
+  if (projects >= 3) return 2;
+  return 1;
+};
+
+// Map skill names to technology images
+const getTechnologyImage = (skillName: string): string | undefined => {
+  const nameToImage: { [key: string]: string } = {
+    'Angular': angularLogo,
+    'C#': csharpLogo,
+    'Docker': dockerLogo,
+    '.NET': dotnetLogo,
+    '.NET Core': dotnetcoreLogo,
+    'Ionic': ionicLogo,
+    'Java': javaLogo,
+    'MySQL': mysqlLogo,
+    'Node.js': nodejsLogo,
+    'React': reactLogo,
+    'TypeScript': typescriptLogo
+  };
+  
+  return nameToImage[skillName];
+};
+
+// Function to transform new data structure to legacy format
+const transformSkillsData = (newData: NewSkillsData): TransformedSkillsData => {
+  // Group items by their group property
+  const groupedItems: { [key: string]: SkillItem[] } = {};
+  newData.items.forEach(item => {
+    if (!groupedItems[item.group]) {
+      groupedItems[item.group] = [];
+    }
+    groupedItems[item.group].push(item);
+  });
+
+  // Map group names to icons
+  const groupIconMap: { [key: string]: string } = {
+    "Programming Language": "Code",
+    "Framework": "Layers", 
+    "Frontend": "Globe",
+    "Backend": "Database",
+    "Database": "Database",
+    "Cloud Hosting": "Cloud",
+    "Virtualization": "Cloud",
+    "DevOps": "Cloud",
+    "Web": "Globe",
+    "Mobile": "Smartphone"
+  };
+
+  // Create skill categories for all groups, sorted by orderIndex and filtered to only include groups with skills
+  const skillCategories: SkillCategory[] = newData.general.groups
+    .filter(group => groupedItems[group.name] && groupedItems[group.name].length > 0)
+    .sort((a, b) => a.orderIndex - b.orderIndex)
+    .map(group => {
+      const groupName = group.name;
+      const items = groupedItems[groupName];
+      const skills: Skill[] = items
+        .filter(item => item.isMajor || item.projects >= 5)
+        .sort((a, b) => b.projects - a.projects)
+        .slice(0, 6)
+        .map(item => ({
+          name: item.title,
+          level: Math.min(95, Math.max(70, item.projects * 3 + 70)),
+          years: item.projects > 20 ? "15+ years" : 
+                 item.projects > 15 ? "12+ years" : 
+                 item.projects > 10 ? "10+ years" : 
+                 item.projects > 5 ? "5+ years" : "3+ years"
+        }));
+
+      return {
+        icon: groupIconMap[groupName] || "Code",
+        title: groupName,
+        skills
+      };
+    })
+    .filter(category => category.skills.length > 0);
+
+  // Create tools array from all items, with frequency based on projects
+  const tools: Tool[] = newData.items
+    .filter(item => item.projects > 0)
+    .map(item => ({
+      name: item.title,
+      count: item.projects,
+      frequency: getFrequencyFromProjects(item.projects),
+      image: getTechnologyImage(item.title)
+    }));
+
+  // Create core expertise (static for now)
+  const coreExpertise: CoreExpertise[] = [
+    {
+      title: "Enterprise Architecture",
+      description: "Designing scalable, secure, and maintainable enterprise systems with performance optimization",
+      icon: "🏗️"
+    },
+    {
+      title: "Team Leadership", 
+      description: "Leading cross-functional development teams and establishing best practices across organizations",
+      icon: "👥"
+    },
+    {
+      title: "Full-Stack Development",
+      description: "End-to-end development expertise from database design to responsive user interfaces",
+      icon: "⚡"
+    }
+  ];
+
+  return {
+    skillCategories,
+    tools,
+    coreExpertise
+  };
+};
+
 const SkillsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [skillsData, setSkillsData] = useState<SkillsData | null>(null);
+  const [skillsData, setSkillsData] = useState<TransformedSkillsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -52,13 +213,16 @@ const SkillsSection = () => {
     Globe
   };
 
+
+
   // Load skills data from JSON file
   useEffect(() => {
     const loadSkillsData = async () => {
       try {
-        const response = await fetch('/src/data/skills.json');
-        const data: SkillsData = await response.json();
-        setSkillsData(data);
+        const response = await fetch('/src/data/data_new/skills.json');
+        const newData: NewSkillsData = await response.json();
+        const transformedData = transformSkillsData(newData);
+        setSkillsData(transformedData);
       } catch (error) {
         console.error('Failed to load skills data:', error);
       } finally {
@@ -84,9 +248,20 @@ const SkillsSection = () => {
   const { skillCategories, tools, coreExpertise } = skillsData;
 
   // Function to get font size based on frequency
-  const getFontSize = (frequency: number) => {
+  const getImageSize = (frequency: number) => {
     switch (frequency) {
-      case 5: return "text-2xl lg:text-3xl"; // Largest
+      case 5: return "w-12 h-12 lg:w-12 lg:h-12"; // Largest
+      case 4: return "w-9 h-9 lg:w-9 lg:h-9";   // Large
+      case 3: return "w-8 h-8 lg:w-8 lg:h-8";   // Medium
+      case 2: return "w-6 h-6 lg:w-7 lg:h-7";   // Small
+      case 1: return "w-4 h-4 lg:w-6 lg:h-6";   // Smallest
+      default: return "w-2 h-2";
+    }
+  };
+
+  const getTextSize = (frequency: number) => {
+    switch (frequency) {
+      case 5: return "text-3xl lg:text-3xl"; // Largest
       case 4: return "text-xl lg:text-2xl";  // Large
       case 3: return "text-lg lg:text-xl";   // Medium
       case 2: return "text-base lg:text-lg"; // Small
@@ -292,7 +467,7 @@ const SkillsSection = () => {
                   Technology Cloud
                 </h3>
                 <p className="text-center text-muted-foreground">
-                  Technologies sized by frequency of use - larger means more commonly used in projects
+                  Technologies sized by frequency of use
                 </p>
               </CardHeader>
               <CardContent>
@@ -302,43 +477,26 @@ const SkillsSection = () => {
                       key={index} 
                       className={`
                         cursor-pointer transition-all duration-300 tag-cloud-item
-                        ${getFontSize(tool.frequency)} 
                         ${getColorIntensity(tool.frequency)}
                         ${getHoverScale(tool.frequency)}
                         hover:brightness-110 flex items-center gap-2 px-2 py-1 rounded-md
                         hover:bg-primary/10 hover:shadow-md
                       `}
                       style={{ '--delay': `${(index * 0.1) % 3}s` } as React.CSSProperties}
-                      title={`${tool.name} - Experience Level: ${tool.frequency}/5`}
+                      title={`${tool.name} - ${tool.count} Projects`}
                     >
-                      <span className={`${getFontSize(tool.frequency)} opacity-80`}>{tool.icon}</span>
+                      {tool.image ? (
+                        <img 
+                          src={tool.image} 
+                          alt={tool.name}
+                          className={`${getImageSize(tool.frequency)} opacity-80`}
+                        />
+                      ) : (
+                        <span className={`${getTextSize(tool.frequency)} opacity-80 font-medium text-primary`}>●</span>
+                      )}
                       <span>{tool.name}</span>
                     </div>
                   ))}
-                </div>
-                
-                {/* Legend */}
-                <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs text-muted-foreground border-t pt-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-primary rounded-full"></div>
-                    <span>Most Used</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 bg-primary/70 rounded-full"></div>
-                    <span>Frequently Used</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-primary/50 rounded-full"></div>
-                    <span>Regularly Used</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-muted-foreground rounded-full"></div>
-                    <span>Occasionally Used</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-1 h-1 bg-muted-foreground/70 rounded-full"></div>
-                    <span>Specialized</span>
-                  </div>
                 </div>
               </CardContent>
             </Card>
