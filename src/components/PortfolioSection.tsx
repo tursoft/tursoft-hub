@@ -4,18 +4,29 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Filter } from "lucide-react";
 
-// Import company logos
-import gamyteLogo from "@/assets/logos/companies/gamyte.svg";
-import avicennaLogo from "@/assets/logos/companies/avicenna.svg";
-import fonetLogo from "@/assets/logos/companies/fonet.svg";
-import halsoftLogo from "@/assets/logos/companies/halsoft.svg";
-import unhcrLogo from "@/assets/logos/companies/unhcr.svg";
+// Import company logos (actual logos from tursoft.net)
+import gamyteLogo from "@/assets/logos/companies/gamyte.png";
+import avicennaLogo from "@/assets/logos/companies/avicenna.png";
+import ercLogo from "@/assets/logos/companies/erc.png";
+import dataselLogo from "@/assets/logos/companies/datasel.png";
+import fonetLogo from "@/assets/logos/companies/fonet.png";
+import haliciLogo from "@/assets/logos/companies/halici.png";
+import labrisLogo from "@/assets/logos/companies/labris.png";
+import metuLogo from "@/assets/logos/companies/metu.png";
+import unhcrLogo from "@/assets/logos/companies/unhcr.png";
 
-// Import technology icons
-import dotnetIcon from "@/assets/logos/technologies/dotnet.svg";
-import angularIcon from "@/assets/logos/technologies/angular.svg";
-import reactIcon from "@/assets/logos/technologies/react.svg";
-import dockerIcon from "@/assets/logos/technologies/docker.svg";
+// Import technology icons (actual icons from tursoft.net)
+import dotnetIcon from "@/assets/logos/technologies/dotnet.png";
+import dotnetCoreIcon from "@/assets/logos/technologies/dotnetcore.png";
+import angularIcon from "@/assets/logos/technologies/angular.png";
+import reactIcon from "@/assets/logos/technologies/react.png";
+import dockerIcon from "@/assets/logos/technologies/docker.png";
+import javaIcon from "@/assets/logos/technologies/java.png";
+import nodejsIcon from "@/assets/logos/technologies/nodejs.png";
+import typescriptIcon from "@/assets/logos/technologies/typescript.png";
+import ionicIcon from "@/assets/logos/technologies/ionic.png";
+import csharpIcon from "@/assets/logos/technologies/csharp.png";
+import mysqlIcon from "@/assets/logos/technologies/mysql.png";
 
 interface Project {
   id: number;
@@ -37,7 +48,7 @@ const projects: Project[] = [
     description: "An intelligent shopping assistant application that helps users make better purchasing decisions.",
     technologies: ["Mobile App", "AI"],
     year: "2024",
-    techIcons: [reactIcon]
+    techIcons: [reactIcon, typescriptIcon]
   },
   {
     id: 372,
@@ -47,7 +58,7 @@ const projects: Project[] = [
     technologies: ["React Native", "Node.js", "WebSocket"],
     year: "2024",
     companyLogo: gamyteLogo,
-    techIcons: [reactIcon]
+    techIcons: [reactIcon, nodejsIcon]
   },
   {
     id: 371,
@@ -66,7 +77,7 @@ const projects: Project[] = [
     technologies: [".NET Core", "Angular", "WebRTC", "SignalR"],
     year: "2023",
     companyLogo: avicennaLogo,
-    techIcons: [dotnetIcon, angularIcon]
+    techIcons: [dotnetCoreIcon, angularIcon]
   },
   {
     id: 307,
@@ -76,7 +87,7 @@ const projects: Project[] = [
     technologies: [".NET Core", "Entity Framework", "Angular", "Docker"],
     year: "2023",
     companyLogo: avicennaLogo,
-    techIcons: [dotnetIcon, angularIcon, dockerIcon]
+    techIcons: [dotnetCoreIcon, angularIcon, dockerIcon]
   },
   {
     id: 311,
@@ -100,13 +111,13 @@ const projects: Project[] = [
   },
   {
     id: 327,
-    title: "Halsoft e-Learning Portal",
+    title: "Halici e-Learning Portal",
     category: "LMS",
     description: "Advanced learning management system with content authoring and assessment tools.",
     technologies: ["ASP.NET MVC", "jQuery", "MySQL", "HTML5"],
     year: "2020",
-    companyLogo: halsoftLogo,
-    techIcons: [dotnetIcon]
+    companyLogo: haliciLogo,
+    techIcons: [dotnetIcon, mysqlIcon]
   },
   {
     id: 330,
@@ -115,7 +126,8 @@ const projects: Project[] = [
     description: "Official website and information portal for UNHCR Turkey operations.",
     technologies: ["PHP", "MySQL", "jQuery", "Bootstrap"],
     year: "2019",
-    companyLogo: unhcrLogo
+    companyLogo: unhcrLogo,
+    techIcons: [mysqlIcon]
   },
   {
     id: 310,
@@ -125,7 +137,7 @@ const projects: Project[] = [
     technologies: [".NET Core", "Angular", "PostgreSQL", "Redis"],
     year: "2022",
     companyLogo: avicennaLogo,
-    techIcons: [dotnetIcon, angularIcon]
+    techIcons: [dotnetCoreIcon, angularIcon]
   },
   {
     id: 337,
@@ -134,7 +146,7 @@ const projects: Project[] = [
     description: "Interactive 3D educational game for learning Turkish history and culture.",
     technologies: ["Unity", "C#", "3D Graphics", "Mobile"],
     year: "2018",
-    techIcons: [dotnetIcon]
+    techIcons: [csharpIcon]
   },
   {
     id: 344,
@@ -143,7 +155,7 @@ const projects: Project[] = [
     description: "Modern online learning platform with video streaming and interactive content.",
     technologies: ["Angular", "Node.js", "MongoDB", "WebRTC"],
     year: "2019",
-    techIcons: [angularIcon]
+    techIcons: [angularIcon, nodejsIcon]
   }
 ];
 
