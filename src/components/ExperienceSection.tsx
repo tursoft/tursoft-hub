@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CalendarDays, MapPin, Building } from "lucide-react";
+import { CalendarDays, MapPin, Building, ExternalLink, Linkedin } from "lucide-react";
 
 // Define interfaces for the data structure
 interface Technology {
@@ -38,6 +38,8 @@ interface Experience {
   icon: string;
   companyCode: string;
   companyName: string;
+  websiteUrl?: string;
+  linkedinUrl?: string;
   positions: Position[];
 }
 
@@ -120,6 +122,8 @@ const ExperienceSection = () => {
       description: string[];
       technologies: string[];
       current: boolean;
+      websiteUrl?: string;
+      linkedinUrl?: string;
     }
 
     const processedExperiences: ProcessedExperience[] = [];
@@ -146,7 +150,9 @@ const ExperienceSection = () => {
           logo: `/src/assets/logos/companies/${company.icon}`,
           description: description,
           technologies: position.technologies.slice(0, 6).map(tech => tech.name), // Limit to first 6 technologies
-          current: dateInfo.current
+          current: dateInfo.current,
+          websiteUrl: company.websiteUrl,
+          linkedinUrl: company.linkedinUrl
         });
       });
     });
@@ -187,17 +193,17 @@ const ExperienceSection = () => {
           </div>
 
           {/* Experience Timeline */}
-          <div className="space-y-8">
+          <div className="space-y-8 pl-6">
             {experiences.map((exp, index) => (
               <Card 
                 key={index} 
-                className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-l-4 border-l-primary ${
+                className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card hover:border-l-4 hover:border-l-primary transition-all duration-200 ${
                   exp.current ? 'ring-2 ring-primary/20' : ''
                 }`}
               >
                 <CardHeader className="pb-4">
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                    <div className="flex-1">
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                    <div className="flex-1 lg:max-w-[calc(100%-200px)]">
                       <div className="flex items-center gap-3 mb-2">
                         <Building className="h-5 w-5 text-primary" />
                         <h3 className="text-xl font-bold text-foreground uppercase">{exp.company}</h3>
@@ -207,8 +213,15 @@ const ExperienceSection = () => {
                           </Badge>
                         )}
                       </div>
-                      <h4 className="text-lg font-semibold text-primary mb-2">{exp.position}</h4>
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                      
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="text-lg font-semibold text-primary">{exp.position}</h4>
+                        <Badge variant="secondary" className="text-xs lg:hidden">
+                          {exp.years}
+                        </Badge>
+                      </div>
+                      
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
                         <div className="flex items-center gap-1">
                           <CalendarDays className="h-4 w-4" />
                           <span>{exp.duration}</span>
@@ -217,14 +230,39 @@ const ExperienceSection = () => {
                           <MapPin className="h-4 w-4" />
                           <span>{exp.location}</span>
                         </div>
-                        <Badge variant="secondary" className="text-xs">
-                          {exp.years}
-                        </Badge>
+                      </div>
+
+                      {/* Description - Only in left column */}
+                      <div className="mb-4">
+                        <div className="space-y-2">
+                          {exp.description.map((item, i) => (
+                            <p key={i} className="text-muted-foreground text-sm">
+                              {item}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Technologies - Only in left column */}
+                      <div>
+                        <div className="flex flex-wrap gap-2">
+                          {exp.technologies.map((tech, i) => (
+                            <Badge key={i} variant="outline" className="text-xs">
+                              {tech}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                     </div>
                     
-                    {/* Company Logo */}
-                    <div className="flex-shrink-0">
+                    {/* Company Logo with Years and Links - Right column with no content below */}
+                    <div className="flex-shrink-0 flex flex-col items-center w-48 lg:w-52">
+                      {/* Years Badge - Hidden on mobile, shown on desktop */}
+                      <Badge variant="secondary" className="text-xs mb-2 hidden lg:block">
+                        {exp.years}
+                      </Badge>
+                      
+                      {/* Company Logo */}
                       <div className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center p-2">
                         <img 
                           src={exp.logo} 
@@ -232,34 +270,37 @@ const ExperienceSection = () => {
                           className="max-w-full max-h-full object-contain"
                         />
                       </div>
+                      
+                      {/* Company Links */}
+                      {(exp.websiteUrl || exp.linkedinUrl) && (
+                        <div className="flex items-center gap-2 mt-2">
+                          {exp.websiteUrl && (
+                            <a 
+                              href={exp.websiteUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-muted-foreground hover:text-primary transition-colors"
+                              title="Visit Website"
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                            </a>
+                          )}
+                          {exp.linkedinUrl && (
+                            <a 
+                              href={exp.linkedinUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-muted-foreground hover:text-primary transition-colors"
+                              title="Visit LinkedIn"
+                            >
+                              <Linkedin className="h-4 w-4" />
+                            </a>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </CardHeader>
-
-                <CardContent className="pt-0">
-                  {/* Description */}
-                  <div className="mb-6">
-                    <ul className="space-y-2">
-                      {exp.description.map((item, i) => (
-                        <li key={i} className="flex items-start">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 mr-3 flex-shrink-0" />
-                          <span className="text-muted-foreground">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Technologies */}
-                  <div>
-                    <div className="flex flex-wrap gap-2">
-                      {exp.technologies.map((tech, i) => (
-                        <Badge key={i} variant="outline" className="text-xs">
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </CardContent>
               </Card>
             ))}
           </div>

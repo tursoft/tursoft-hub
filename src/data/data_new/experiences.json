@@ -10,6 +10,8 @@
         { 
             "id": 214, "orderIndex":17, "icon": "jengai.png",
             "companyCode": "jengai", "companyName": "Jengai",
+            "websiteUrl": "https://www.jengai.com",
+            "linkedinUrl": "https://www.linkedin.com/company/98084750/",
             "positions": [
                 {
                     "id": 2020,
@@ -71,7 +73,9 @@
         },
         { 
             "id": 202, "orderIndex":16, "icon": "gamyte.png",
-            "companyCode": "gamyte", "companyName": "Gamyte",                         
+            "companyCode": "gamyte", "companyName": "Gamyte",
+            "websiteUrl": "https://www.jengai.com",
+            "linkedinUrl": "https://www.linkedin.com/company/98084750/",                         
             "positions": [
                 {
                     "id": 2019,
@@ -133,7 +137,9 @@
         },
         {
             "id": 201, "orderIndex":15, "icon": "erc.png",
-            "companyCode": "ERC", "companyName": "ERC Group Engineering, Consultancy, R&D",                         
+            "companyCode": "ERC", "companyName": "ERC Group Engineering, Consultancy, R&D",
+            "websiteUrl": "https://www.ercgroup.com.tr",
+            "linkedinUrl": "https://www.linkedin.com/company/erc-group/",                         
             "positions": [
                 {
                     "id": 2011,
@@ -271,7 +277,9 @@
 
         { 
             "id": 202, "orderIndex":14, "icon": "datasel.png",  
-            "companyCode": "DATASEL", "companyName": "DataSel Information Systems Co.",                                                                       
+            "companyCode": "DATASEL", "companyName": "DataSel Information Systems Co.",
+            "websiteUrl": "https://www.datasel.com.tr",
+            "linkedinUrl": "https://www.linkedin.com/company/datasel/",                                                                       
             "positions": [
                 {
                     "id": 2021,
@@ -432,7 +440,9 @@
 
         { 
             "id": 203, "orderIndex":13, "icon": "fonet.png",
-            "companyCode": "FONET", "companyName": "Fonet Software Co.",                         
+            "companyCode": "FONET", "companyName": "Fonet Software Co.",
+            "websiteUrl": "https://www.fonet.com.tr",
+            "linkedinUrl": "https://www.linkedin.com/company/fonet-software/",                         
             "positions": [
                 {
                     "id": 2031,
@@ -529,7 +539,9 @@
 
          { 
             "id": 213, "orderIndex":11, "icon": "jandarma.egitim.png",
-            "companyCode": "JANDARMA", "companyName": "Gendarmerie Training Command", 
+            "companyCode": "JANDARMA", "companyName": "Gendarmerie Training Command",
+            "websiteUrl": "https://www.jandarma.gov.tr",
+            "linkedinUrl": null, 
             "positions": [
                 {
                     "id": 2131,
@@ -553,7 +565,9 @@
 
         { 
             "id": 204, "orderIndex":11, "icon": "halici.png",
-            "companyCode": "HALICI", "companyName": "Halıcı Informatics & Software Co.", 
+            "companyCode": "HALICI", "companyName": "Halıcı Informatics & Software Co.",
+            "websiteUrl": "https://www.halici.com.tr",
+            "linkedinUrl": "https://www.linkedin.com/company/halici-informatics/", 
             "positions": [
                 {
                     "id": 2041,
@@ -689,7 +703,9 @@
 
         { 
             "id": 205, "orderIndex":10, "icon": "metu.ceit.png",
-            "companyCode": "METU.CEIT", "companyName": "METU Computer Education and Instructional Tech. Dep.", 
+            "companyCode": "METU.CEIT", "companyName": "METU Computer Education and Instructional Tech. Dep.",
+            "websiteUrl": "https://www.metu.edu.tr",
+            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/", 
             "positions": [
                 {
                     "id": 2051,
@@ -730,7 +746,9 @@
 
         { 
             "id": 206, "orderIndex":9, "icon": "metu.ii.png",
-            "companyCode": "METU.II", "companyName": "METU Informatics Institute", 
+            "companyCode": "METU.II", "companyName": "METU Informatics Institute",
+            "websiteUrl": "https://www.metu.edu.tr",
+            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/", 
             "positions": [
                 {
                     "id": 2061,
@@ -778,7 +796,9 @@
 
         { 
             "id": 207, "orderIndex":8, "icon": "metu.ii.png",
-            "companyCode": "METU.II", "companyName": "METU Informatics Institute", 
+            "companyCode": "METU.II", "companyName": "METU Informatics Institute",
+            "websiteUrl": "https://www.metu.edu.tr",
+            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/", 
             "positions": [
                 {
                     "id": 2071,
@@ -800,7 +820,9 @@
 
         { 
             "id": 208, "orderIndex":7, "icon": "labris.png",
-            "companyCode": "LABRIS", "companyName": "Labris Technology", 
+            "companyCode": "LABRIS", "companyName": "Labris Technology",
+            "websiteUrl": "https://www.labris.com.tr",
+            "linkedinUrl": "https://www.linkedin.com/company/labris-technology/", 
             "positions": [
                 {
                     "id": 2081,
@@ -826,7 +848,9 @@
 
         { 
             "id": 209, "orderIndex":6, "icon": "metu.ieee.png",
-            "companyCode": "METU.IEEE", "companyName": "IEEE METU Student Club", 
+            "companyCode": "METU.IEEE", "companyName": "IEEE METU Student Club",
+            "websiteUrl": "https://ieee.metu.edu.tr",
+            "linkedinUrl": null, 
             "positions": [
                 {
                     "id": 2091,
@@ -848,7 +872,9 @@
 
         { 
             "id": 210, "orderIndex":5, "icon": "metu.com.png",
-            "companyCode": "METU.COM", "companyName": "METU Communication Club", 
+            "companyCode": "METU.COM", "companyName": "METU Communication Club",
+            "websiteUrl": "https://www.metu.edu.tr",
+            "linkedinUrl": null, 
             "positions": [
                 {
                     "id": 2101,
@@ -870,7 +896,9 @@
 
         { 
             "id": 211, "orderIndex":4, "icon": "netteyim.png",
-            "companyCode": "NETTEYIM", "companyName": "Netteyim.net", 
+            "companyCode": "NETTEYIM", "companyName": "Netteyim.net",
+            "websiteUrl": "https://www.netteyim.net",
+            "linkedinUrl": null, 
             "positions": [
                 {
                     "id": 2111,
@@ -892,7 +920,9 @@
 
         { 
             "id": 212, "orderIndex":3, "icon": "tbd.genc.png",
-            "companyCode": "TBD.GENC", "companyName": "Informatics Association of Turkey / Youth Branch", 
+            "companyCode": "TBD.GENC", "companyName": "Informatics Association of Turkey / Youth Branch",
+            "websiteUrl": "https://www.tbd.org.tr",
+            "linkedinUrl": "https://www.linkedin.com/company/turkey-informatics-association/", 
             "positions": [
                 {
                     "id": 2121,
