@@ -38,9 +38,9 @@ const HeroSection = () => {
           </Badge>
 
           {/* Main Heading */}
-          <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-5xl lg:text-7xl mb-6 leading-tight">
             <span className="block text-foreground">MUHAMMET</span>
-            <span className="block text-foreground">TURŞAK</span>
+            <span className="block text-foreground font-bold">TURŞAK</span>
           </h1>
 
           {/* Subtitle */}
