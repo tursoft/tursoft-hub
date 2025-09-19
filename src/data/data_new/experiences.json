@@ -8,13 +8,75 @@
     
     "items": [
         { 
+            "id": 214, "orderIndex":17, "icon": "jengai.png",
+            "companyCode": "jengai", "companyName": "Jengai",
+            "positions": [
+                {
+                    "id": 2020,
+                    "title": "Director of Technology & Senior Software Architect",                                 
+                    "startDate":"01.12.2023",  "endDate":null,     
+                    "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+
+                    "domains": [
+                        { "name": "construction", "title": "Construction Informatics", "value":100, "iconCss": "" }
+                    ],
+
+                    "projects": [
+                        { "name":  "jengai.app", "title": "Jengai App" }
+                    ],
+
+                    "technologies": [                        
+                        { "name":  ".NET", "type": "Framework" },
+                        { "name":  ".NETCore", "type": "Framework" },
+                        { "name":  "C#", "type": "Programming Language" },
+
+                        { "name":  "Visual Studio", "type": "IDE" },
+                        { "name":  "VS Code", "type": "IDE" },
+                        { "name":  "VS Code Insiders", "type": "IDE" },
+
+                        { "name":  "Azure", "type": "Cloud" },
+                        { "name":  "Azure DevOps", "type": "Cloud" },
+
+                        { "name":  "EntityFramework", "type": "ORM" },
+                        { "name":  "LINQ", "type": "Database" },                   
+
+                        { "name":  "Source Tree", "type": "Source Control" },
+                        { "name":  "npm", "type": "Dependency Management" },
+                        
+                        { "name":  "ASP.NET", "type": "Web" },
+                        { "name":  "ASP.NET Core", "type": "Web" },
+                        { "name":  "ASP.NET WebAPI", "type": "Web" },
+
+                        { "name":  "Angular", "type": "Web Framework" },
+                        { "name":  "MVVM", "type": "Design Pattern" },
+                        
+                        { "name":  "MS SQL", "type": "Database" },
+                        
+                        { "name":  "HTML5", "type": "Web" },
+                        { "name":  "JS", "type": "Web" },
+                        { "name":  "CSS", "type": "Web" },
+
+                        { "name":  "Photoshop", "type": "Graphics Design" },
+
+                        { "name":  "OAuth", "type": "Security" },
+                        { "name":  "JWT", "type": "Security" },
+
+                        { "name":  "Json", "type": "File Format" },
+                        
+                        { "name":  "Google Analytics", "type": "Monitoring" }
+
+                      ]
+                }                            
+            ]
+        },
+        { 
             "id": 202, "orderIndex":16, "icon": "gamyte.png",
             "companyCode": "gamyte", "companyName": "Gamyte",                         
             "positions": [
                 {
                     "id": 2019,
                     "title": "Director of Technology & Senior Software Architect",                                 
-                    "startDate":"04.09.2019",  "endDate":null,     
+                    "startDate":"04.09.2019",  "endDate":"01.12.2023",     
                     "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
 
                     "domains": [
@@ -67,7 +129,7 @@
 
                       ]
                 }                            
-            ]                        
+            ]
         },
         {
             "id": 201, "orderIndex":15, "icon": "erc.png",

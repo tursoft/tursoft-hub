@@ -86,10 +86,76 @@
         ]
       },
 
+      { "id": 374, "name": "JENGAIAPP", "title": "Jengai App", "group":"Misc", "company": "Jengai", "value":900, "icon": "jengai.app.png",
+        "summary": "Web platform for Jengai",
+        "fulltext": "",
+        "datePeriod": { "startDate": "01.12.2023", "endDate": null },
+        
+        "props": [
+          { "name":"platforms", "title": "Web Platform" }          
+        ],
+
+        "domains": [
+          { "name": "construction", "title": "Construction", "value":100, "iconCss": "" }
+        ], 
+        
+        "team": [ 
+          { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" }
+        ],
+
+        "modules": [],
+
+        "customers":[],
+
+        "partners":[],
+
+        "technologies":[                        
+          { "name":  ".NET", "type": "Framework" },
+          { "name":  ".NETCore", "type": "Framework" },
+          { "name":  "C#", "type": "Programming Language" },
+
+          { "name":  "Visual Studio", "type": "IDE" },
+          { "name":  "VS Code", "type": "IDE" },
+          { "name":  "VS Code Insiders", "type": "IDE" },
+
+          { "name":  "Azure", "type": "Cloud" },
+          { "name":  "Azure DevOps", "type": "Cloud" },
+
+          { "name":  "EntityFramework", "type": "ORM" },
+          { "name":  "LINQ", "type": "Database" },                   
+
+          { "name":  "Source Tree", "type": "Source Control" },
+          { "name":  "npm", "type": "Dependency Management" },
+          
+          { "name":  "ASP.NET", "type": "Web" },
+          { "name":  "ASP.NET Core", "type": "Web" },
+          { "name":  "ASP.NET WebAPI", "type": "Web" },
+
+          { "name":  "Angular", "type": "Web Framework" },
+          { "name":  "MVVM", "type": "Design Pattern" },
+          
+          { "name":  "MS SQL", "type": "Database" },
+          
+          { "name":  "HTML5", "type": "Web" },
+          { "name":  "JS", "type": "Web" },
+          { "name":  "CSS", "type": "Web" },
+
+          { "name":  "Photoshop", "type": "Graphics Design" },
+
+          { "name":  "OAuth", "type": "Security" },
+          { "name":  "JWT", "type": "Security" },
+
+          { "name":  "Json", "type": "File Format" },
+          
+          { "name":  "Google Analytics", "type": "Monitoring" }
+
+        ]
+    },
+      
       { "id": 372, "name": "GAMYTEAPP", "title": "Gamyte App", "group":"Misc", "company": "Gamyte", "value":900, "icon": "gamyte.app.png",
         "summary": "Web platform for Gamyte",
         "fulltext": "",
-        "datePeriod": { "startDate": "04.09.2019", "endDate": null },
+        "datePeriod": { "startDate": "04.09.2019", "endDate": "01.12.2023" },
         
         "props": [
           { "name":"platforms", "title": "Web Platform" }          
@@ -487,7 +553,7 @@
             ]        
         },
 
-        { "id": 305, "name": "FDS", "title": "Avicenna FDS", "group":"HIS", "company": "ERC", "value":100, "icon": "HIS2x.png", "datePeriod": { "startDate": "01.01.2015", "endDate": null },
+        { "id": 305, "name": "FDS", "title": "Avicenna FDS", "group":"HIS", "company": "ERC", "value":100, "icon": "FDS.png", "datePeriod": { "startDate": "01.01.2015", "endDate": null },
           "summary": "Avicenna FDS is one of the major core modules of Avicenna HIS. Avicena FDS provides a free style form design surface for end users to create and edit new forms integrated to most of the HIS modules such as medical forms, medical reports, order forms, quality data collection forms etc. Forms can be authorized to target user groups and target departments. Avicena FDS provides most of the functionalities of modern IDE platforms in the market. Both backend and frontend layers of the module were developed using Java.",
         
           "props": [
@@ -1525,7 +1591,7 @@
           ]
         },
 
-        { "id": 401, "name": "Ankuzem", "title": "Ankara University - Distance Education Center", "group":"LMS", "company": "Halici", "value":100, "icon": "ankuzem.jpg", "datePeriod": { "startDate": "01.01.2007", "endDate": "31.12.2008" },
+        { "id": 401, "name": "Ankuzem", "title": "Ankara University - Distance Education Center", "group":"LMS", "company": "Halici", "value":100, "icon": "ankuzem.png", "datePeriod": { "startDate": "01.01.2007", "endDate": "31.12.2008" },
           "summary": "E-Learning Platform for Ankara University - Distance Education Center",
         
           "team": [ 
@@ -1554,7 +1620,7 @@
           ]
         },
         
-        { "id": 335, "isactive": false, "name": "DSP", "title": "Official Portal of Democratic Left Party", "group":"Misc", "company": "CEIT", "value":100, "icon": "PDFW.png", "datePeriod": { "startDate": "01.01.2005", "endDate": "01.01.2006" },
+        { "id": 335, "isactive": false, "name": "DSP", "title": "Official Portal of Democratic Left Party", "group":"Misc", "company": "Halıcı", "value":100, "icon": "dsp.png", "datePeriod": { "startDate": "01.01.2005", "endDate": "01.01.2006" },
           "summary": "Official Website of DSP",
         
           "team": [ 
@@ -2060,7 +2126,7 @@
           ] 
         },
 
-        { "id": 359, "name": "TursoftPaint", "title": "Tursoft Paint", "group":"Misc", "company": "Tursoft", "value":100, "icon": "tursoft.paint.jpeg", "datePeriod": { "startDate": "10.07.1997", "endDate": "15.09.1997" },
+        { "id": 359, "name": "TursoftPaint", "title": "Tursoft Paint", "group":"Misc", "company": "Tursoft", "value":100, "icon": "tursoft.paint.png", "datePeriod": { "startDate": "10.07.1997", "endDate": "15.09.1997" },
           "summary": "Basic Drawing Application developed by Pascal on Graphics Mode",
         
           "props": [

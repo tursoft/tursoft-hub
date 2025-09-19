@@ -118,6 +118,28 @@ const PortfolioSection = () => {
   const [projectIconMap, setProjectIconMap] = useState<{ [key: string]: string }>({});
   const statsRef = useRef<HTMLDivElement>(null);
 
+  // Helper function to format date period to years only
+  const formatDateToYears = (datePeriod: { startDate: string; endDate: string | null }) => {
+    if (!datePeriod?.startDate) return '';
+    
+    // Extract year from date string (format: "dd.mm.yyyy")
+    const startYear = datePeriod.startDate.split('.')[2];
+    
+    if (!datePeriod.endDate) {
+      return startYear; // Only start year if no end date
+    }
+    
+    const endYear = datePeriod.endDate.split('.')[2];
+    
+    // If start and end years are the same, show single year
+    if (startYear === endYear) {
+      return startYear;
+    }
+    
+    // Otherwise show year range
+    return `${startYear} - ${endYear}`;
+  };
+
   // Load project data from JSON file
   useEffect(() => {
     const loadProjectData = async () => {
@@ -126,13 +148,13 @@ const PortfolioSection = () => {
         const data: NewProjectData = await response.json();
         setProjectData(data);
 
-        // Load project icons dynamically
+        // Load project icons dynamically from _logos folder
         const projectIcons: { [key: string]: string } = {};
         for (const project of data.items) {
           if (project.icon) {
             try {
-              // Try to load the project icon from assets/files/projects/{name}/icon file
-              const iconPath = `/src/assets/files/projects/${project.name}/${project.icon}`;
+              // Try to load the project icon from assets/files/projects/_logos/
+              const iconPath = `/src/assets/files/projects/_logos/${project.icon}`;
               const iconModule = await import(/* @vite-ignore */ iconPath);
               projectIcons[project.name] = iconModule.default;
             } catch (error) {
@@ -307,12 +329,26 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <CardHeader className="pb-3">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1 min-w-0">
-                    <Badge variant="outline" className="mb-2 text-xs">
-                      {project.group}
-                    </Badge>
-                    <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors">
+                <div className="flex flex-col items-center text-center mb-3">
+                  {/* Category Badge */}
+                  <Badge variant="outline" className="mb-3 text-xs">
+                    {project.group}
+                  </Badge>
+                  
+                  {/* Project Icon */}
+                  {project.icon && projectIconMap[project.name] && (
+                    <div className="w-36 h-36 flex items-center justify-center mb-3">
+                      <img 
+                        src={projectIconMap[project.name]} 
+                        alt={`${project.title} icon`}
+                        className="w-32 h-32 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300"
+                      />
+                    </div>
+                  )}
+                  
+                  {/* Project Info */}
+                  <div className="w-full">
+                    <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors mb-1">
                       {project.title}
                     </CardTitle>
                     {project.company && (
@@ -321,34 +357,23 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
                       </div>
                     )}
                   </div>
-                  <div className="flex items-center gap-3">
-                    {project.icon && projectIconMap[project.name] && (
-                      <div className="w-12 h-12 flex items-center justify-center flex-shrink-0 rounded-lg bg-background/50">
-                        <img 
-                          src={projectIconMap[project.name]} 
-                          alt={`${project.title} icon`}
-                          className="max-w-full max-h-full object-contain hover:brightness-110 hover:scale-105 transition-all duration-300"
-                        />
-                      </div>
-                    )}
-                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                  
+                  {/* External Link Icon */}
+                  <div className="absolute top-4 right-4">
+                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                   </div>
                 </div>
-                <div className="text-sm text-muted-foreground mb-3">
-                  {project.datePeriod?.startDate && (
-                    <>
-                      {project.datePeriod.startDate}
-                      {project.datePeriod.endDate && ` - ${project.datePeriod.endDate}`}
-                    </>
-                  )}
+                <div className="text-sm text-muted-foreground mb-3 text-center">
+                  {project.datePeriod?.startDate && formatDateToYears(project.datePeriod)}
                 </div>
               </CardHeader>
               <CardContent className="pt-0">
-                <CardDescription className="mb-4 text-sm leading-relaxed">
-                  {project.summary}
-                </CardDescription>
-                <div className="flex flex-wrap gap-1">
-                  {project.technologies.map((tech) => (
+                <CardDescription 
+                  className="mb-4 text-sm leading-relaxed text-center"
+                  dangerouslySetInnerHTML={{ __html: project.summary }}
+                />
+                <div className="flex flex-wrap gap-1 justify-center">
+                  {project.technologies.slice(0, 5).map((tech) => (
                     <Badge 
                       key={tech.name} 
                       variant="secondary" 
@@ -357,6 +382,14 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
                       {tech.name}
                     </Badge>
                   ))}
+                  {project.technologies.length > 5 && (
+                    <Badge 
+                      variant="outline" 
+                      className="text-xs text-muted-foreground border-dashed"
+                    >
+                      +{project.technologies.length - 5} more
+                    </Badge>
+                  )}
                 </div>
               </CardContent>
             </Card>
