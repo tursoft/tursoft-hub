@@ -2,6 +2,14 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building } from "lucide-react";
 
+// Company logos
+import jengaiLogo from "@/assets/logos/companies/jengai.png";
+import gamyteLogo from "@/assets/logos/companies/gamyte.png";
+import ercLogo from "@/assets/logos/companies/erc.png";
+import dataselLogo from "@/assets/logos/companies/datasel.png";
+import fonetLogo from "@/assets/logos/companies/fonet.png";
+import haliciLogo from "@/assets/logos/companies/halici.png";
+
 const ExperienceSection = () => {
   const experiences = [
     {
@@ -11,6 +19,7 @@ const ExperienceSection = () => {
       years: "2+ years",
       location: "Turkey",
       type: "Full-time",
+      logo: jengaiLogo,
       description: [
         "Leading technology strategy and architecture decisions for enterprise gaming solutions",
         "Managing cross-functional development teams and R&D initiatives",
@@ -27,6 +36,7 @@ const ExperienceSection = () => {
       years: "4 years",
       location: "Turkey",
       type: "Full-time",
+      logo: gamyteLogo,
       description: [
         "Leading technology strategy and architecture decisions for enterprise gaming solutions",
         "Managing cross-functional development teams and R&D initiatives",
@@ -43,6 +53,7 @@ const ExperienceSection = () => {
       years: "6 years",
       location: "Turkey",
       type: "Full-time",
+      logo: ercLogo,
       description: [
         "Led the architecture and development of enterprise-grade engineering solutions",
         "Managed multiple development teams across different product lines",
@@ -59,6 +70,7 @@ const ExperienceSection = () => {
       years: "2 years",
       location: "Turkey",
       type: "Full-time",
+      logo: dataselLogo,
       description: [
         "Architected enterprise information management systems",
         "Led development teams in building data-driven applications",
@@ -75,6 +87,7 @@ const ExperienceSection = () => {
       years: "2 years",
       location: "Turkey",
       type: "Full-time",
+      logo: fonetLogo,
       description: [
         "Directed R&D initiatives for next-generation software products",
         "Established development methodologies and best practices",
@@ -91,6 +104,7 @@ const ExperienceSection = () => {
       years: "2 years",
       location: "Turkey",
       type: "Full-time",
+      logo: haliciLogo,
       description: [
         "Oversaw software production lifecycle and project planning",
         "Managed development teams and resource allocation",
@@ -152,6 +166,17 @@ const ExperienceSection = () => {
                         <Badge variant="secondary" className="text-xs">
                           {exp.years}
                         </Badge>
+                      </div>
+                    </div>
+                    
+                    {/* Company Logo */}
+                    <div className="flex-shrink-0">
+                      <div className="w-24 h-24 lg:w-28 lg:h-28 flex items-center justify-center p-2">
+                        <img 
+                          src={exp.logo} 
+                          alt={`${exp.company} logo`}
+                          className="max-w-full max-h-full object-contain"
+                        />
                       </div>
                     </div>
                   </div>

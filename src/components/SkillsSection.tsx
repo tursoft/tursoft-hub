@@ -1,6 +1,13 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { Code, Database, Cloud, Smartphone, Layers, Globe } from "lucide-react";
 
 const SkillsSection = () => {
@@ -79,10 +86,30 @@ const SkillsSection = () => {
   ];
 
   const tools = [
-    "Visual Studio", "IntelliJ IDEA", "VS Code", "Eclipse", "Git", "SVN",
-    "Jira", "Azure DevOps", "Jenkins", "Postman", "Swagger", "Docker Desktop",
-    "Kubernetes", "Terraform", "Ansible", "Selenium", "JUnit", "NUnit",
-    "Entity Framework", "Hibernate", "Node.js", "Express.js", "Webpack", "Babel"
+    { name: "Visual Studio", icon: "🔧" },
+    { name: "IntelliJ IDEA", icon: "💡" },
+    { name: "VS Code", icon: "📝" },
+    { name: "Eclipse", icon: "🌙" },
+    { name: "Git", icon: "🔄" },
+    { name: "SVN", icon: "📋" },
+    { name: "Jira", icon: "📊" },
+    { name: "Azure DevOps", icon: "☁️" },
+    { name: "Jenkins", icon: "🔨" },
+    { name: "Postman", icon: "📮" },
+    { name: "Swagger", icon: "📚" },
+    { name: "Docker Desktop", icon: "🐳" },
+    { name: "Kubernetes", icon: "⚙️" },
+    { name: "Terraform", icon: "🏗️" },
+    { name: "Ansible", icon: "🔧" },
+    { name: "Selenium", icon: "🤖" },
+    { name: "JUnit", icon: "✅" },
+    { name: "NUnit", icon: "🧪" },
+    { name: "Entity Framework", icon: "🗃️" },
+    { name: "Hibernate", icon: "💾" },
+    { name: "Node.js", icon: "🟢" },
+    { name: "Express.js", icon: "🚀" },
+    { name: "Webpack", icon: "📦" },
+    { name: "Babel", icon: "🔄" }
   ];
 
   return (
@@ -101,40 +128,50 @@ const SkillsSection = () => {
             </p>
           </div>
 
-          {/* Skills Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-16">
-            {skillCategories.map((category, index) => (
-              <Card 
-                key={index} 
-                className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border animate-scale-in"
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                <CardHeader className="pb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <category.icon className="h-5 w-5 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground">{category.title}</h3>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {category.skills.map((skill, skillIndex) => (
-                      <div key={skillIndex} className="space-y-2">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium text-foreground">{skill.name}</span>
-                          <div className="text-right">
-                            <span className="text-xs text-primary font-medium">{skill.level}%</span>
-                            <div className="text-xs text-muted-foreground">{skill.years}</div>
+          {/* Skills Carousel */}
+          <div className="mb-16">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full max-w-5xl mx-auto"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {skillCategories.map((category, index) => (
+                  <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
+                    <Card className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border h-full">
+                      <CardHeader className="pb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <category.icon className="h-5 w-5 text-primary" />
                           </div>
+                          <h3 className="text-xl font-bold text-foreground">{category.title}</h3>
                         </div>
-                        <Progress value={skill.level} className="h-2" />
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-4">
+                          {category.skills.map((skill, skillIndex) => (
+                            <div key={skillIndex} className="space-y-2">
+                              <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                                <div className="text-right">
+                                  <span className="text-xs text-primary font-medium">{skill.level}%</span>
+                                  <div className="text-xs text-muted-foreground">{skill.years}</div>
+                                </div>
+                              </div>
+                              <Progress value={skill.level} className="h-2" />
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
           </div>
 
           {/* Tools & Technologies */}
@@ -154,9 +191,10 @@ const SkillsSection = () => {
                     <Badge 
                       key={index} 
                       variant="outline" 
-                      className="px-3 py-1 hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+                      className="px-3 py-1 hover:bg-primary hover:text-primary-foreground transition-colors duration-200 flex items-center gap-2"
                     >
-                      {tool}
+                      <span>{tool.icon}</span>
+                      <span>{tool.name}</span>
                     </Badge>
                   ))}
                 </div>
@@ -164,37 +202,40 @@ const SkillsSection = () => {
             </Card>
           </div>
 
-          {/* Expertise Summary */}
-          <div className="grid md:grid-cols-3 gap-6 mt-16">
-            {[
-              {
-                title: "Enterprise Architecture",
-                description: "Designing scalable, secure, and maintainable enterprise systems with performance optimization",
-                icon: "🏗️"
-              },
-              {
-                title: "Team Leadership",
-                description: "Leading cross-functional development teams and establishing best practices across organizations",
-                icon: "👥"
-              },
-              {
-                title: "Full-Stack Development",
-                description: "End-to-end development expertise from database design to responsive user interfaces",
-                icon: "⚡"
-              }
-            ].map((item, index) => (
-              <Card 
-                key={index} 
-                className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border text-center animate-scale-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <CardContent className="p-6">
-                  <div className="text-4xl mb-4">{item.icon}</div>
-                  <h4 className="text-lg font-semibold mb-3 text-foreground">{item.title}</h4>
-                  <p className="text-sm text-muted-foreground">{item.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+          {/* Core Expertise */}
+          <div className="mt-16">
+            <h3 className="text-2xl font-bold text-center mb-8 text-foreground">Core Expertise</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Enterprise Architecture",
+                  description: "Designing scalable, secure, and maintainable enterprise systems with performance optimization",
+                  icon: "🏗️"
+                },
+                {
+                  title: "Team Leadership",
+                  description: "Leading cross-functional development teams and establishing best practices across organizations",
+                  icon: "👥"
+                },
+                {
+                  title: "Full-Stack Development",
+                  description: "End-to-end development expertise from database design to responsive user interfaces",
+                  icon: "⚡"
+                }
+              ].map((item, index) => (
+                <Card 
+                  key={index} 
+                  className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border text-center animate-scale-in"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <CardContent className="p-6">
+                    <div className="text-4xl mb-4">{item.icon}</div>
+                    <h4 className="text-lg font-semibold mb-3 text-foreground">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </div>

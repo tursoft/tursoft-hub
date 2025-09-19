@@ -20,7 +20,7 @@ const HeroSection = () => {
     href: "tel:+905542007829",
     label: "Phone"
   }];
-  return <section id="hero" className="min-h-screen relative flex items-center justify-center overflow-hidden" style={{
+  return <section id="hero" className="min-h-screen relative flex items-center justify-center overflow-hidden hero-animated-bg" style={{
     backgroundImage: `url(${heroImage})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -30,7 +30,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 hero-overlay" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center">
+      <div className="relative z-20 container mx-auto px-6 text-center">
         <div className="max-w-4xl mx-auto animate-fade-in">
           {/* Badge */}
           <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm font-medium">

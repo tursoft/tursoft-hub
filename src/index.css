@@ -410,7 +410,7 @@
   }
 
   .portfolio-card:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-8px);
     box-shadow: 
       0 25px 50px -12px hsl(var(--primary) / 0.25),
       0 0 0 1px hsl(var(--primary) / 0.1),
@@ -476,5 +476,38 @@
 
   .portfolio-light-streak:hover::after {
     left: 100%;
+  }
+
+  /* Hero Background Animation */
+  @keyframes hero-gradient-shift {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+
+  .hero-animated-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      45deg,
+      hsl(var(--primary) / 0.05),
+      hsl(var(--primary-light) / 0.08),
+      hsl(var(--navy-deep) / 0.06),
+      hsl(var(--primary) / 0.04)
+    );
+    background-size: 400% 400%;
+    animation: hero-gradient-shift 15s ease-in-out infinite;
+    z-index: 1;
+    pointer-events: none;
   }
 }

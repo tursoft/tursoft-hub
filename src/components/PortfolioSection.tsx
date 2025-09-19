@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ExternalLink, Filter } from "lucide-react";
 
 // Import company logos (actual logos from tursoft.net)
@@ -27,6 +28,21 @@ import typescriptIcon from "@/assets/logos/technologies/typescript.png";
 import ionicIcon from "@/assets/logos/technologies/ionic.png";
 import csharpIcon from "@/assets/logos/technologies/csharp.png";
 import mysqlIcon from "@/assets/logos/technologies/mysql.png";
+
+// Technology icon name mapping
+const techIconNames: { [key: string]: string } = {
+  [dotnetIcon]: ".NET Framework",
+  [dotnetCoreIcon]: ".NET Core",
+  [angularIcon]: "Angular",
+  [reactIcon]: "React",
+  [dockerIcon]: "Docker",
+  [javaIcon]: "Java",
+  [nodejsIcon]: "Node.js",
+  [typescriptIcon]: "TypeScript",
+  [ionicIcon]: "Ionic",
+  [csharpIcon]: "C#",
+  [mysqlIcon]: "MySQL"
+};
 
 interface Project {
   id: number;
@@ -304,44 +320,50 @@ const PortfolioSection = () => {
             >
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-3 flex-1">
+                  <div className="flex-1 min-w-0">
+                    <Badge variant="outline" className="mb-2 text-xs">
+                      {project.category}
+                    </Badge>
+                    <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors">
+                      {project.title}
+                    </CardTitle>
+                  </div>
+                  <div className="flex items-center gap-3">
                     {project.companyLogo && (
-                      <div className="w-10 h-10 rounded-lg overflow-hidden bg-white/5 p-1 flex-shrink-0 hover:bg-primary/10 hover:scale-105 transition-all duration-300 cursor-pointer">
+                      <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
                         <img 
                           src={project.companyLogo} 
                           alt={`${project.title} logo`}
-                          className="w-full h-full object-contain hover:brightness-110 transition-all duration-300"
+                          className="max-w-full max-h-full object-contain hover:brightness-110 transition-all duration-300"
                         />
                       </div>
                     )}
-                    <div className="flex-1 min-w-0">
-                      <Badge variant="outline" className="mb-2 text-xs">
-                        {project.category}
-                      </Badge>
-                      <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors">
-                        {project.title}
-                      </CardTitle>
-                    </div>
+                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
                   </div>
-                  <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
                 </div>
                 <div className="text-sm text-muted-foreground mb-3">
                   {project.year}
                 </div>
                 {project.techIcons && (
                   <div className="flex items-center gap-2 mb-2">
-                    {project.techIcons.map((icon, iconIndex) => (
-                      <div 
-                        key={iconIndex}
-                        className="w-6 h-6 rounded bg-white/10 p-1 hover:scale-110 hover:bg-primary/20 transition-all duration-300 cursor-pointer"
-                      >
-                        <img 
-                          src={icon} 
-                          alt="Technology"
-                          className="w-full h-full object-contain hover:brightness-110 transition-all duration-300"
-                        />
-                      </div>
-                    ))}
+                    <TooltipProvider>
+                      {project.techIcons.map((icon, iconIndex) => (
+                        <Tooltip key={iconIndex}>
+                          <TooltipTrigger asChild>
+                            <div className="w-6 h-6 rounded bg-white/10 p-1 hover:scale-110 hover:bg-primary/20 transition-all duration-300 cursor-pointer">
+                              <img 
+                                src={icon} 
+                                alt={techIconNames[icon] || "Technology"}
+                                className="w-full h-full object-contain hover:brightness-110 transition-all duration-300"
+                              />
+                            </div>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{techIconNames[icon] || "Technology"}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      ))}
+                    </TooltipProvider>
                   </div>
                 )}
               </CardHeader>

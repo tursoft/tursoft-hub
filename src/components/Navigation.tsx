@@ -66,7 +66,7 @@ const Navigation = () => {
                 variant="ghost"
                 onClick={() => scrollToSection(item.id)}
                 className={`
-                  px-4 py-2 text-sm font-medium transition-all duration-300 hover:text-primary
+                  px-4 py-2 text-sm font-medium uppercase transition-all duration-300 hover:text-primary
                   ${activeSection === item.id 
                     ? "text-primary bg-primary/10" 
                     : "text-muted-foreground hover:text-foreground"
