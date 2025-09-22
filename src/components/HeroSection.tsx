@@ -45,14 +45,12 @@ const HeroSection = () => {
 
           {/* Subtitle */}
           <p className="text-xl lg:text-2xl text-muted-foreground mb-8 font-light">
-            Senior Software Architect / .NET, Java, Web and Mobile
+            Senior Software Architect / <span className="text-primary font-semibold">.NET</span>, <span className="text-primary font-semibold">Java</span>, <span className="text-primary font-semibold">Web</span> and <span className="text-primary font-semibold">Mobile</span>
           </p>
 
           {/* Description */}
           <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            With more than 25 years of professional experience, I lead the development of 
-            world-class enterprise systems characterized by exceptional functionality, 
-            performance, scalability, and security.
+            With <span className="text-primary font-semibold">25+ years</span> in technology, I've driven the creation of innovative <span className="text-primary font-semibold">cloud based</span> and <span className="text-primary font-semibold">SaaS</span> solutions, blending <span className="text-primary font-semibold">startup</span> <span className="text-primary font-semibold">agility</span> with enterprise-grade functionality and <span className="text-primary font-semibold">scalability</span>.
           </p>
 
           {/* Action Buttons */}
