@@ -116,6 +116,7 @@ const PortfolioSection = () => {
   const [projectData, setProjectData] = useState<NewProjectData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [projectIconMap, setProjectIconMap] = useState<{ [key: string]: string }>({});
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const statsRef = useRef<HTMLDivElement>(null);
 
   // Helper function to format date period to years only
@@ -322,12 +323,16 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project, index) => (
-            <Card 
-              key={project.id} 
-              className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
+          {filteredProjects.map((project, index) => {
+            const isHovered = hoveredCard === project.id;
+            return (
+              <Card 
+                key={project.id} 
+                className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in transition-all duration-300 cursor-pointer"
+                style={{ animationDelay: `${index * 100}ms` }}
+                onMouseEnter={() => setHoveredCard(project.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
               <CardHeader className="pb-3">
                 <div className="flex flex-col items-center text-center mb-3">
                   {/* Category Badge */}
@@ -363,37 +368,51 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
                     <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                   </div>
                 </div>
-                <div className="text-sm text-muted-foreground mb-3 text-center">
+                <div className={`text-sm text-muted-foreground text-center overflow-hidden transition-all duration-300 ${
+                  isHovered ? 'max-h-32 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0'
+                }`}>
                   {project.datePeriod?.startDate && formatDateToYears(project.datePeriod)}
                 </div>
               </CardHeader>
               <CardContent className="pt-0">
-                <CardDescription 
-                  className="mb-4 text-sm leading-relaxed text-center"
-                  dangerouslySetInnerHTML={{ __html: project.summary }}
-                />
-                <div className="flex flex-wrap gap-1 justify-center">
-                  {project.technologies.slice(0, 5).map((tech) => (
-                    <Badge 
-                      key={tech.name} 
-                      variant="secondary" 
-                      className="text-xs hover:bg-primary/10 transition-colors"
-                    >
-                      {tech.name}
-                    </Badge>
-                  ))}
-                  {project.technologies.length > 5 && (
-                    <Badge 
-                      variant="outline" 
-                      className="text-xs text-muted-foreground border-dashed"
-                    >
-                      +{project.technologies.length - 5} more
-                    </Badge>
-                  )}
+                {/* Description - Hidden in compact view */}
+                <div className={`overflow-hidden transition-all duration-300 ${
+                  isHovered ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
+                }`}>
+                  <CardDescription 
+                    className="text-sm leading-relaxed text-center"
+                    dangerouslySetInnerHTML={{ __html: project.summary }}
+                  />
+                </div>
+                
+                {/* Technologies - Hidden in compact view */}
+                <div className={`overflow-hidden transition-all duration-300 ${
+                  isHovered ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
+                }`}>
+                  <div className="flex flex-wrap gap-1 justify-center">
+                    {project.technologies.slice(0, 5).map((tech) => (
+                      <Badge 
+                        key={tech.name} 
+                        variant="secondary" 
+                        className="text-xs hover:bg-primary/10 transition-colors"
+                      >
+                        {tech.name}
+                      </Badge>
+                    ))}
+                    {project.technologies.length > 5 && (
+                      <Badge 
+                        variant="outline" 
+                        className="text-xs text-muted-foreground border-dashed"
+                      >
+                        +{project.technologies.length - 5} more
+                      </Badge>
+                    )}
+                  </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
+            );
+          })}
         </div>
 
         {filteredProjects.length === 0 && (
