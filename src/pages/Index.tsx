@@ -53,10 +53,10 @@ const Index = () => {
         <AboutSection />
         <ExperienceSection />
         <DomainsSection />
-        <EducationSection />
-        <PortfolioSection />
         <SkillsSection />
+        <PortfolioSection />
         <ReferencesSection />
+        <EducationSection />
         <ContactSection />
       </main>
     </div>
