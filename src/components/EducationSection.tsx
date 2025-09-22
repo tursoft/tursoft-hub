@@ -1,8 +1,10 @@
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Calendar, MapPin } from "lucide-react";
 
 const EducationSection = () => {
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const education = [
     {
       degree: "Graduate School Department of Software Management",
@@ -72,20 +74,26 @@ const EducationSection = () => {
             <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-primary/20" />
 
             <div className="space-y-12">
-              {education.map((edu, index) => (
-                <div 
-                  key={index}
-                  className={`relative animate-slide-in ${
-                    index % 2 === 0 ? 'lg:pr-1/2' : 'lg:pl-1/2 lg:ml-auto'
-                  }`}
-                  style={{ animationDelay: `${index * 0.3}s` }}
-                >
+              {education.map((edu, index) => {
+                const isHovered = hoveredCard === index;
+                return (
+                  <div 
+                    key={index}
+                    className={`relative animate-slide-in ${
+                      index % 2 === 0 ? 'lg:pr-1/2' : 'lg:pl-1/2 lg:ml-auto'
+                    }`}
+                    style={{ animationDelay: `${index * 0.3}s` }}
+                  >
                   {/* Timeline Dot */}
                   <div className="hidden lg:block absolute top-8 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background z-10" />
 
-                  <Card className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border ${
-                    index % 2 === 0 ? 'lg:mr-8' : 'lg:ml-8'
-                  }`}>
+                  <Card 
+                    className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border transition-all duration-300 cursor-pointer ${
+                      index % 2 === 0 ? 'lg:mr-8' : 'lg:ml-8'
+                    }`}
+                    onMouseEnter={() => setHoveredCard(index)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                  >
                     <CardHeader className="pb-4">
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -102,7 +110,9 @@ const EducationSection = () => {
                             {edu.institution}
                           </h4>
                           
-                          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
+                          <div className={`flex flex-wrap items-center gap-4 text-sm text-muted-foreground overflow-hidden transition-all duration-300 ${
+                            isHovered ? 'max-h-32 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
+                          }`}>
                             <div className="flex items-center gap-1">
                               <Calendar className="h-4 w-4" />
                               <span>{edu.period}</span>
@@ -113,7 +123,9 @@ const EducationSection = () => {
                             </div>
                           </div>
 
-                          <div className="text-sm text-primary font-medium mb-4">
+                          <div className={`text-sm text-primary font-medium overflow-hidden transition-all duration-300 ${
+                            isHovered ? 'max-h-32 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
+                          }`}>
                             Graduated: {edu.graduation}
                           </div>
                         </div>
@@ -130,11 +142,19 @@ const EducationSection = () => {
                     </CardHeader>
 
                     <CardContent className="pt-0">
-                      <p className="text-muted-foreground mb-4 leading-relaxed">
-                        {edu.description}
-                      </p>
+                      {/* Description - Hidden in compact view */}
+                      <div className={`overflow-hidden transition-all duration-300 ${
+                        isHovered ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
+                      }`}>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {edu.description}
+                        </p>
+                      </div>
 
-                      <div>
+                      {/* Focus Areas - Hidden in compact view */}
+                      <div className={`overflow-hidden transition-all duration-300 ${
+                        isHovered ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
+                      }`}>
                         <div className="flex flex-wrap gap-2">
                           {edu.focus.map((area, i) => (
                             <Badge key={i} variant="outline" className="text-xs">
@@ -146,7 +166,8 @@ const EducationSection = () => {
                     </CardContent>
                   </Card>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
