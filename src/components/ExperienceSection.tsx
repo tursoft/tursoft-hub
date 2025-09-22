@@ -239,13 +239,22 @@ const ExperienceSection = () => {
                   onMouseLeave={() => setHoveredCard(null)}
                 >
                   {/* Company Logo - Horizontally centered based on years/daterange cells */}
-                  <div className="absolute top-4 right-4 w-24 flex justify-center">
-                    <div className="w-16 h-16 flex items-center justify-center p-1">
+                  <div className="absolute top-4 right-4 w-24 flex flex-col items-center">
+                    <div className="w-16 h-16 flex items-center justify-center p-1 mb-2">
                       <img 
                         src={exp.logo} 
                         alt={`${exp.company} logo`}
                         className="max-w-full max-h-full object-contain"
                       />
+                    </div>
+                    
+                    {/* Total Years - Show in compact view, hide in full view */}
+                    <div className={`flex flex-col items-center gap-1 text-xs transition-all duration-300 ${
+                      isHovered ? 'opacity-0 max-h-0' : 'opacity-100 max-h-32'
+                    }`}>
+                      <Badge variant="secondary" className="text-xs px-2 py-1">
+                        {companyDateInfo.duration}
+                      </Badge>
                     </div>
                   </div>
 
