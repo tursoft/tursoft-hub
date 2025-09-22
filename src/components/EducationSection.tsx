@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Calendar, MapPin } from "lucide-react";
+import EducationDetailDialog from './EducationDetailDialog';
 
 // Define interfaces for the data structure
 interface Course {
@@ -50,6 +51,9 @@ const EducationSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [educationData, setEducationData] = useState<EducationData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedEducation, setSelectedEducation] = useState<Education | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [educationIconMap, setEducationIconMap] = useState<{ [key: string]: string }>({});
 
   // Load education data from JSON file
   useEffect(() => {
@@ -58,6 +62,22 @@ const EducationSection = () => {
         const response = await fetch('/src/data/data_new/education.json');
         const data: EducationData = await response.json();
         setEducationData(data);
+
+        // Load education institution icons dynamically
+        const educationIcons: { [key: string]: string } = {};
+        for (const education of data.items) {
+          if (education.icon) {
+            try {
+              const iconPath = `/src/assets/logos/companies/${education.icon}`;
+              const iconModule = await import(/* @vite-ignore */ iconPath);
+              educationIcons[education.code] = iconModule.default;
+            } catch (error) {
+              console.warn(`Failed to load education icon: ${education.icon} for ${education.name}`, error);
+            }
+          }
+        }
+        setEducationIconMap(educationIcons);
+
       } catch (error) {
         console.error('Failed to load education data:', error);
       } finally {
@@ -85,6 +105,18 @@ const EducationSection = () => {
       score: item.graduateScore,
       url: item.url
     }));
+  };
+
+  // Handle education card click
+  const handleEducationClick = (education: Education) => {
+    setSelectedEducation(education);
+    setIsDialogOpen(true);
+  };
+
+  // Handle dialog close
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+    setSelectedEducation(null);
   };
 
   if (isLoading || !educationData) {
@@ -125,11 +157,11 @@ const EducationSection = () => {
             <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-primary/20" />
 
             <div className="space-y-12">
-              {education.map((edu, index) => {
+              {educationData.items.map((edu, index) => {
                 const isHovered = hoveredCard === index;
                 return (
                   <div 
-                    key={index}
+                    key={edu.id}
                     className={`relative animate-slide-in ${
                       index % 2 === 0 ? 'lg:pr-1/2' : 'lg:pl-1/2 lg:ml-auto'
                     }`}
@@ -139,11 +171,12 @@ const EducationSection = () => {
                   <div className="hidden lg:block absolute top-8 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background z-10" />
 
                   <Card 
-                    className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border transition-all duration-300 cursor-pointer ${
+                    className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:shadow-xl ${
                       index % 2 === 0 ? 'lg:mr-8' : 'lg:ml-8'
                     }`}
-                    onMouseEnter={() => setHoveredCard(index)}
+                    onMouseEnter={() => setHoveredCard(edu.id)}
                     onMouseLeave={() => setHoveredCard(null)}
+                    onClick={() => handleEducationClick(edu)}
                   >
                     <CardHeader className="pb-4">
                       <div className="flex items-start gap-4">
@@ -152,13 +185,13 @@ const EducationSection = () => {
                         </div>
                         <div className="flex-1">
                           <Badge variant="secondary" className="mb-2 text-xs">
-                            {edu.type}
+                            {edu.level}
                           </Badge>
                           <h3 className="text-xl font-bold text-foreground mb-2 leading-tight">
-                            {edu.degree}
+                            {edu.department}
                           </h3>
                           <h4 className="text-lg font-semibold text-primary mb-3">
-                            {edu.institution}
+                            {edu.name}
                           </h4>
                           
                           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
@@ -168,19 +201,19 @@ const EducationSection = () => {
                             </div>
                             <div className="flex items-center gap-1">  
                               <MapPin className="h-4 w-4" />
-                              <span>{edu.location}</span>
+                              <span>{edu.city}</span>
                             </div>
                           </div>
 
                           <div className="text-sm text-primary font-medium mb-4">
-                            Graduated: {edu.graduation}
+                            Graduated: {edu.graduateDate} • GPA: {edu.graduateScore}
                           </div>
                         </div>
-                        {edu.logo && (
+                        {educationIconMap[edu.code] && (
                           <div className="flex-shrink-0">
                             <img 
-                              src={edu.logo} 
-                              alt={`${edu.institution} logo`}
+                              src={educationIconMap[edu.code]} 
+                              alt={`${edu.name} logo`}
                               className="w-16 h-16 object-contain"
                             />
                           </div>
@@ -191,23 +224,28 @@ const EducationSection = () => {
                     <CardContent className="pt-0">
                       {/* Description - Hidden in compact view */}
                       <div className={`overflow-hidden transition-all duration-300 ${
-                        isHovered ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
+                        hoveredCard === edu.id ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
                       }`}>
                         <p className="text-muted-foreground leading-relaxed">
-                          {edu.description}
+                          Advanced studies in {edu.department.toLowerCase()}. Focused on modern technologies and methodologies in educational technology and software development.
                         </p>
                       </div>
 
-                      {/* Focus Areas - Hidden in compact view */}
+                      {/* Technologies - Hidden in compact view */}
                       <div className={`overflow-hidden transition-all duration-300 ${
-                        isHovered ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
+                        hoveredCard === edu.id ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
                       }`}>
                         <div className="flex flex-wrap gap-2">
-                          {edu.focus.map((area, i) => (
+                          {edu.technologies?.slice(0, 6).map((tech, i) => (
                             <Badge key={i} variant="outline" className="text-xs">
-                              {area}
+                              {tech.name}
                             </Badge>
                           ))}
+                          {edu.technologies && edu.technologies.length > 6 && (
+                            <Badge variant="outline" className="text-xs border-dashed">
+                              +{edu.technologies.length - 6} more
+                            </Badge>
+                          )}
                         </div>
                       </div>
                     </CardContent>
@@ -237,6 +275,14 @@ const EducationSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Education Detail Dialog */}
+      <EducationDetailDialog 
+        education={selectedEducation}
+        isOpen={isDialogOpen}
+        onClose={handleDialogClose}
+        educationIcon={selectedEducation ? educationIconMap[selectedEducation.code] : undefined}
+      />
     </section>
   );
 };
