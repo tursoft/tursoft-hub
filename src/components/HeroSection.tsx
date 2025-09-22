@@ -33,8 +33,8 @@ const HeroSection = () => {
       <div className="relative z-20 container mx-auto px-6 text-center">
         <div className="max-w-4xl mx-auto animate-fade-in">
           {/* Badge */}
-          <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm font-medium">
-            Available for New Opportunities
+          <Badge className="mb-6 px-4 py-2 text-xs font-semibold bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 text-white border-0 shadow-lg opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300 glow-on-hover">
+            🟢 Available for New Opportunities
           </Badge>
 
           {/* Main Heading */}
@@ -57,7 +57,7 @@ const HeroSection = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] hover:scale-105 text-primary-foreground px-8 py-3 text-lg glow-on-hover transition-all duration-300" onClick={() => document.getElementById("portfolio")?.scrollIntoView({
+            <Button size="lg" className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] hover:scale-105 text-primary-foreground px-8 py-3 text-lg glow-on-hover transition-all duration-300 border-2 border-primary/30 hover:border-primary/60" onClick={() => document.getElementById("portfolio")?.scrollIntoView({
             behavior: "smooth"
           })}>
               View My Work
