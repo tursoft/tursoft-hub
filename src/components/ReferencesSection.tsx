@@ -70,13 +70,18 @@ const ReferencesSection = () => {
 
   useEffect(() => {
     // Load references from JSON and map photos
-    const loadedReferences = referencesData
-      .filter((ref: Reference) => ref.isActive)
-      .map((ref: Reference) => ({
-        ...ref,
-        photo: photoMap[ref.photoPath] || '',
-      }));
-    setReferences(loadedReferences);
+    try {
+      const loadedReferences = referencesData
+        .filter((ref: Reference) => ref.isActive)
+        .map((ref: Reference) => ({
+          ...ref,
+          photo: photoMap[ref.photoPath] || '',
+        }));
+      setReferences(loadedReferences);
+    } catch (error) {
+      console.error('Error loading references:', error);
+      setReferences([]);
+    }
   }, []);
 
   const nextSlide = () => {
