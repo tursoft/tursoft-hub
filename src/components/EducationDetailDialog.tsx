@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -25,7 +25,9 @@ import {
   ExternalLink,
   Clock,
   Trophy,
-  Globe
+  Globe,
+  ChevronDown,
+  ChevronRight
 } from "lucide-react";
 
 interface Course {
@@ -75,6 +77,28 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
   onClose,
   educationIcon
 }) => {
+  // State for expandable technology groups
+  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
+
+  // Initialize expanded state when education changes
+  useEffect(() => {
+    if (education?.technologies) {
+      const groupedTechs = education.technologies.reduce((acc, tech) => {
+        if (!acc[tech.type]) {
+          acc[tech.type] = [];
+        }
+        acc[tech.type].push(tech);
+        return acc;
+      }, {} as Record<string, Technology[]>);
+      
+      const initialExpandedState = Object.keys(groupedTechs).reduce((acc, type) => {
+        acc[type] = true; // Default to expanded
+        return acc;
+      }, {} as Record<string, boolean>);
+      setExpandedGroups(initialExpandedState);
+    }
+  }, [education]);
+
   if (!education) return null;
 
   // Helper function to format date period
@@ -105,6 +129,14 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
     return acc;
   }, {} as Record<string, Technology[]>) || {};
 
+  // Toggle function for expanding/collapsing technology groups
+  const toggleGroup = (groupName: string) => {
+    setExpandedGroups(prev => ({
+      ...prev,
+      [groupName]: !prev[groupName]
+    }));
+  };
+
   // Helper function to get GPA color
   const getGPAColor = (score: string) => {
     if (score.includes('AA') || score.includes('4.00') || parseFloat(score) >= 3.5) {
@@ -125,7 +157,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
+      <DialogContent className="max-w-4xl max-h-[90vh] min-h-[400px] overflow-hidden">
         <DialogHeader className="pb-6">
           <div className="flex items-start gap-4">
             {educationIcon && (
@@ -177,11 +209,24 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
         </DialogHeader>
 
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="courses">Courses</TabsTrigger>
-            <TabsTrigger value="technologies">Technologies</TabsTrigger>
-            <TabsTrigger value="details">Details</TabsTrigger>
+            <TabsTrigger value="courses">
+              <span className="flex items-center gap-2">
+                Courses
+                <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                  {education.courses?.length || 0}
+                </Badge>
+              </span>
+            </TabsTrigger>
+            <TabsTrigger value="technologies">
+              <span className="flex items-center gap-2">
+                Technologies
+                <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                  {education.technologies?.length || 0}
+                </Badge>
+              </span>
+            </TabsTrigger>
           </TabsList>
 
           <div className="max-h-[60vh] overflow-y-auto mt-4">
@@ -259,45 +304,6 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                 </Card>
               )}
 
-              {/* Course Overview */}
-              {education.courses && education.courses.length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Award className="w-5 h-5" />
-                      Course Performance Summary
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                      <div className="p-3 bg-muted/30 rounded-lg">
-                        <div className="text-2xl font-bold text-primary">
-                          {education.courses.length}
-                        </div>
-                        <div className="text-sm text-muted-foreground">Total Courses</div>
-                      </div>
-                      <div className="p-3 bg-muted/30 rounded-lg">
-                        <div className="text-2xl font-bold text-green-600">
-                          {education.courses.filter(c => c.score === 'AA').length}
-                        </div>
-                        <div className="text-sm text-muted-foreground">AA Grades</div>
-                      </div>
-                      <div className="p-3 bg-muted/30 rounded-lg">
-                        <div className="text-2xl font-bold text-yellow-600">
-                          {education.courses.filter(c => c.score === 'BB').length}
-                        </div>
-                        <div className="text-sm text-muted-foreground">BB Grades</div>
-                      </div>
-                      <div className="p-3 bg-muted/30 rounded-lg">
-                        <div className="text-2xl font-bold text-primary">
-                          {((education.courses.filter(c => c.score === 'AA').length / education.courses.length) * 100).toFixed(0)}%
-                        </div>
-                        <div className="text-sm text-muted-foreground">Excellence Rate</div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
             </TabsContent>
 
             <TabsContent value="courses" className="space-y-6">
@@ -339,31 +345,44 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
               )}
             </TabsContent>
 
-            <TabsContent value="technologies" className="space-y-6">
+            <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
               {Object.keys(groupedTechnologies).length > 0 ? (
-                Object.entries(groupedTechnologies).map(([type, techs]) => (
-                  <Card key={type}>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Code className="w-5 h-5" />
-                        {type}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex flex-wrap gap-2">
-                        {techs.map((tech, index) => (
-                          <Badge 
-                            key={index} 
-                            variant="secondary"
-                            className="hover:bg-primary/10 transition-colors"
-                          >
-                            {tech.name}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
+                Object.entries(groupedTechnologies).map(([type, techs]) => {
+                  const isExpanded = expandedGroups[type] ?? true; // Default to expanded
+                  return (
+                    <div key={type} className="px-4 py-1">
+                      <button
+                        onClick={() => toggleGroup(type)}
+                        className="flex items-center gap-2 w-full text-left hover:bg-muted/50 rounded p-1 transition-colors border-t border-b border-border/30"
+                      >
+                        {isExpanded ? (
+                          <ChevronDown className="w-4 h-4" />
+                        ) : (
+                          <ChevronRight className="w-4 h-4" />
+                        )}
+                        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+                          {type}
+                        </h3>
+                        <span className="text-xs text-muted-foreground ml-auto">
+                          ({techs.length})
+                        </span>
+                      </button>
+                      {isExpanded && (
+                        <div className="flex flex-wrap gap-1.5 mt-2 ml-6">
+                          {techs.map((tech, index) => (
+                            <Badge 
+                              key={index} 
+                              variant="secondary"
+                              className="text-xs px-2 py-1 hover:bg-primary/10 transition-colors"
+                            >
+                              {tech.name}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
               ) : (
                 <Card>
                   <CardContent className="p-8 text-center">
@@ -372,103 +391,6 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                   </CardContent>
                 </Card>
               )}
-            </TabsContent>
-
-            <TabsContent value="details" className="space-y-6">
-              {/* Academic Information */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Trophy className="w-5 h-5" />
-                    Academic Information
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <div>
-                        <div className="text-sm font-medium text-muted-foreground">Student ID</div>
-                        <div className="text-lg font-semibold">#{education.id}</div>
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium text-muted-foreground">Institution Code</div>
-                        <div className="text-lg font-semibold">{education.code}</div>
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium text-muted-foreground">Order Index</div>
-                        <div className="text-lg font-semibold">{education.orderIndex}</div>
-                      </div>
-                    </div>
-                    <div className="space-y-4">
-                      <div>
-                        <div className="text-sm font-medium text-muted-foreground">Study Period</div>
-                        <div className="text-lg font-semibold">{education.period}</div>
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium text-muted-foreground">Final Grade</div>
-                        <div className={`text-lg font-semibold ${getGPAColor(education.graduateScore)}`}>
-                          {education.graduateScore}
-                        </div>
-                      </div>
-                      {education.url && (
-                        <div>
-                          <div className="text-sm font-medium text-muted-foreground">Official Website</div>
-                          <a 
-                            href={education.url} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-primary hover:text-primary/80 flex items-center gap-2"
-                          >
-                            <Globe className="w-4 h-4" />
-                            Visit Department Page
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Academic Timeline */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5" />
-                    Academic Timeline
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4 p-3 bg-muted/30 rounded-lg">
-                      <div className="w-3 h-3 bg-primary rounded-full" />
-                      <div>
-                        <div className="font-semibold">Enrollment</div>
-                        <div className="text-sm text-muted-foreground">
-                          {new Date(education.datePeriod.startDate.split('.').reverse().join('-')).toLocaleDateString('en-US', {
-                            month: 'long',
-                            day: 'numeric',
-                            year: 'numeric'
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4 p-3 bg-muted/30 rounded-lg">
-                      <div className="w-3 h-3 bg-green-600 rounded-full" />
-                      <div>
-                        <div className="font-semibold">Graduation</div>
-                        <div className="text-sm text-muted-foreground">
-                          {new Date(education.datePeriod.endDate.split('.').reverse().join('-')).toLocaleDateString('en-US', {
-                            month: 'long',
-                            day: 'numeric',
-                            year: 'numeric'
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </TabsContent>
           </div>
         </Tabs>

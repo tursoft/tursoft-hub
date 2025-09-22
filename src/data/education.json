@@ -20,11 +20,11 @@
                 { "name": "Project Management", "score": "AA", "content": "" }             
             ],
             "technologies": [
-                { "name":  "PMP", "type": "PMP" },
+                { "name":  "PMP", "type": "Project Management" },
                 { "name":  "Project Management", "type": "Project Management" },
-                { "name":  "Time Management", "type": "Time Management" },
-                { "name":  "Cost Management", "type": "Cost Management" },
-                { "name":  "Software Estimation", "type": "Software Estimation" }
+                { "name":  "Time Management", "type": "Project Management" },
+                { "name":  "Cost Management", "type": "Project Management" },
+                { "name":  "Software Estimation", "type": "Project Management" }
             ]
         },
 
