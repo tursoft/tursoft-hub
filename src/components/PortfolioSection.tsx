@@ -2,7 +2,8 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Filter } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Filter, Grid, List, RotateCcw, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import ProjectDetailDialog from './ProjectDetailDialog';
 
 // Define interfaces for type safety
@@ -119,7 +120,11 @@ const PortfolioSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'card' | 'list' | 'carousel'>('card');
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [searchText, setSearchText] = useState("");
   const statsRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   // Helper function to format date period to years only
   const formatDateToYears = (datePeriod: { startDate: string; endDate: string | null }) => {
@@ -204,9 +209,24 @@ const PortfolioSection = () => {
   // Memoized computed values
   const filteredProjects = useMemo(() => {
     if (!projectData) return [];
-    if (selectedCategory === "All") return projectData.items;
-    return projectData.items.filter(project => project.group === selectedCategory);
-  }, [selectedCategory, projectData]);
+    
+    let filtered = selectedCategory === "All" 
+      ? projectData.items 
+      : projectData.items.filter(project => project.group === selectedCategory);
+    
+    // Apply search text filter
+    if (searchText.trim()) {
+      const searchLower = searchText.toLowerCase();
+      filtered = filtered.filter(project => 
+        project.title.toLowerCase().includes(searchLower) ||
+        project.summary.toLowerCase().includes(searchLower) ||
+        project.company?.toLowerCase().includes(searchLower) ||
+        project.technologies.some(tech => tech.name.toLowerCase().includes(searchLower))
+      );
+    }
+    
+    return filtered;
+  }, [selectedCategory, projectData, searchText]);
 
   const getCategoryCount = (category: string) => {
     if (!projectData) return 0;
@@ -226,6 +246,28 @@ const PortfolioSection = () => {
     setSelectedProject(null);
   };
 
+  // Carousel navigation functions
+  const goToPrevious = () => {
+    setCarouselIndex((prevIndex) => 
+      prevIndex === 0 ? filteredProjects.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToNext = () => {
+    setCarouselIndex((prevIndex) => 
+      prevIndex === filteredProjects.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const goToSlide = (index: number) => {
+    setCarouselIndex(index);
+  };
+
+  // Reset carousel index when category or search changes
+  useEffect(() => {
+    setCarouselIndex(0);
+  }, [selectedCategory, searchText]);
+
   if (isLoading || !projectData) {
     return (
       <section id="portfolio" className="py-20 bg-background/50">
@@ -240,6 +282,167 @@ const PortfolioSection = () => {
 
   const { items: projects, general } = projectData;
   const categories = ["All", ...general.groups.map(group => group.name)];
+
+  // Project Card Component
+  const ProjectCard: React.FC<{ 
+    project: ProjectItem; 
+    index: number; 
+    variant?: 'default' | 'list' | 'carousel'; 
+    style?: React.CSSProperties 
+  }> = ({ project, index, variant = 'default', style }) => {
+    const isHovered = hoveredCard === project.id;
+    
+    if (variant === 'list') {
+      return (
+        <div
+          className="group flex items-center gap-4 p-4 bg-card border border-border rounded-lg cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-card/80 animate-fade-in"
+          style={{ animationDelay: `${index * 50}ms`, ...style }}
+          onMouseEnter={() => setHoveredCard(project.id)}
+          onMouseLeave={() => setHoveredCard(null)}
+          onClick={() => handleProjectClick(project)}
+        >
+          {/* Project Icon */}
+          {project.icon && projectIconMap[project.name] && (
+            <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
+              <img 
+                src={projectIconMap[project.name]} 
+                alt={`${project.title} icon`}
+                className="w-14 h-14 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300"
+              />
+            </div>
+          )}
+          
+          {/* Project Info */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <h3 className="font-semibold text-lg text-foreground truncate group-hover:text-primary transition-colors">
+                {project.title}
+              </h3>
+              <Badge variant="outline" className="text-xs flex-shrink-0">
+                {project.group}
+              </Badge>
+            </div>
+            
+            {project.company && (
+              <div className="text-sm text-muted-foreground mb-2">
+                {project.company} • {project.datePeriod?.startDate && formatDateToYears(project.datePeriod)}
+              </div>
+            )}
+            
+            <div 
+              className={`text-sm text-muted-foreground overflow-hidden transition-all duration-300 ${
+                isHovered ? 'line-clamp-none' : 'line-clamp-2'
+              }`}
+              dangerouslySetInnerHTML={{ __html: project.summary }}
+            />
+            
+            <div className={`flex flex-wrap gap-1 mt-2 overflow-hidden transition-all duration-300 ${
+              isHovered ? 'max-h-20 opacity-100' : 'max-h-8 opacity-80'
+            }`}>
+              {(isHovered ? project.technologies : project.technologies.slice(0, 4)).map((tech) => (
+                <Badge 
+                  key={tech.name} 
+                  variant="secondary" 
+                  className="text-xs hover:bg-primary/10 transition-colors"
+                >
+                  {tech.name}
+                </Badge>
+              ))}
+              {!isHovered && project.technologies.length > 4 && (
+                <Badge variant="outline" className="text-xs border-dashed">
+                  +{project.technologies.length - 4} more
+                </Badge>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
+    // Default card view (same as existing)
+    return (
+      <Card 
+        className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:shadow-xl"
+        style={{ animationDelay: `${index * 100}ms`, ...style }}
+        onMouseEnter={() => setHoveredCard(project.id)}
+        onMouseLeave={() => setHoveredCard(null)}
+        onClick={() => handleProjectClick(project)}
+      >
+        <CardHeader className="pb-3">
+          <div className="flex flex-col items-center text-center mb-3">
+            {/* Category Badge */}
+            <Badge variant="outline" className="mb-3 text-xs">
+              {project.group}
+            </Badge>
+            
+            {/* Project Icon */}
+            {project.icon && projectIconMap[project.name] && (
+              <div className="w-36 h-36 flex items-center justify-center mb-3">
+                <img 
+                  src={projectIconMap[project.name]} 
+                  alt={`${project.title} icon`}
+                  className="w-32 h-32 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300"
+                />
+              </div>
+            )}
+            
+            {/* Project Info */}
+            <div className="w-full">
+              <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors mb-1">
+                {project.title}
+              </CardTitle>
+              {project.company && (
+                <div className="text-sm text-muted-foreground/80 font-medium">
+                  {project.company}
+                </div>
+              )}
+            </div>
+          </div>
+          <div className={`text-sm text-muted-foreground text-center overflow-hidden transition-all duration-300 ${
+            isHovered ? 'max-h-32 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0'
+          }`}>
+            {project.datePeriod?.startDate && formatDateToYears(project.datePeriod)}
+          </div>
+        </CardHeader>
+        <CardContent className="pt-0">
+          {/* Description - Hidden in compact view */}
+          <div className={`overflow-hidden transition-all duration-300 ${
+            isHovered ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
+          }`}>
+            <CardDescription 
+              className="text-sm leading-relaxed text-center"
+              dangerouslySetInnerHTML={{ __html: project.summary }}
+            />
+          </div>
+          
+          {/* Technologies - Hidden in compact view */}
+          <div className={`overflow-hidden transition-all duration-300 ${
+            isHovered ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
+          }`}>
+            <div className="flex flex-wrap gap-1 justify-center">
+              {project.technologies.slice(0, 5).map((tech) => (
+                <Badge 
+                  key={tech.name} 
+                  variant="secondary" 
+                  className="text-xs hover:bg-primary/10 transition-colors"
+                >
+                  {tech.name}
+                </Badge>
+              ))}
+              {project.technologies.length > 5 && (
+                <Badge 
+                  variant="outline" 
+                  className="text-xs text-muted-foreground border-dashed"
+                >
+                  +{project.technologies.length - 5} more
+                </Badge>
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
 
 // Animated Counter Component
 const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: string; isVisible?: boolean }> = ({ 
@@ -307,128 +510,236 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
         </div>
 
         {/* Filter Controls */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-8">
-          <Button
-            variant="outline"
-            onClick={() => setShowFilters(!showFilters)}
-            className="lg:hidden"
-          >
-            <Filter className="w-4 h-4 mr-2" />
-            Filters ({getCategoryCount(selectedCategory)})
-          </Button>
+        <div className="space-y-4 mb-8">
+          {/* Mobile Filter Toggle */}
+          <div className="lg:hidden">
+            <Button
+              variant="outline"
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              <Filter className="w-4 h-4 mr-2" />
+              Filters ({getCategoryCount(selectedCategory)})
+            </Button>
+          </div>
           
-          <div className={`flex flex-wrap gap-2 ${showFilters ? 'block' : 'hidden lg:flex'}`}>
-            {categories.map((category) => (
+          {/* Filter Categories */}
+          <div className={`${showFilters ? 'block' : 'hidden lg:block'}`}>
+            <div className="flex flex-wrap gap-2 w-full">
+              {categories.map((category) => (
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedCategory(category)}
+                  className="flex-1 min-w-fit transition-all duration-200 hover:scale-105"
+                >
+                  {category}
+                  <Badge variant="secondary" className="ml-2 text-xs">
+                    {getCategoryCount(category)}
+                  </Badge>
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Search and View Mode Toggle */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-end">
+            {/* Search Input */}
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <Input
+                placeholder="Search projects, technologies, or companies..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                className="pl-10 h-10"
+              />
+            </div>
+            
+            {/* View Mode Toggle */}
+            <div className="flex gap-1 bg-muted/30 p-1 rounded-lg">
               <Button
-                key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
+                variant={viewMode === 'card' ? 'default' : 'ghost'}
                 size="sm"
-                onClick={() => setSelectedCategory(category)}
-                className="transition-all duration-200 hover:scale-105"
+                onClick={() => setViewMode('card')}
+                className="h-8 px-3"
               >
-                {category}
-                <Badge variant="secondary" className="ml-2 text-xs">
-                  {getCategoryCount(category)}
-                </Badge>
+                <Grid className="w-4 h-4" />
+                <span className="hidden sm:inline ml-1">Cards</span>
               </Button>
-            ))}
+              <Button
+                variant={viewMode === 'list' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('list')}
+                className="h-8 px-3"
+              >
+                <List className="w-4 h-4" />
+                <span className="hidden sm:inline ml-1">List</span>
+              </Button>
+              <Button
+                variant={viewMode === 'carousel' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('carousel')}
+                className="h-8 px-3"
+              >
+                <RotateCcw className="w-4 h-4" />
+                <span className="hidden sm:inline ml-1">Carousel</span>
+              </Button>
+            </div>
           </div>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProjects.map((project, index) => {
-            const isHovered = hoveredCard === project.id;
-            return (
-              <Card 
+        {/* Projects Display */}
+        {viewMode === 'card' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredProjects.map((project, index) => (
+              <ProjectCard 
                 key={project.id} 
-                className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:shadow-xl"
-                style={{ animationDelay: `${index * 100}ms` }}
-                onMouseEnter={() => setHoveredCard(project.id)}
-                onMouseLeave={() => setHoveredCard(null)}
-                onClick={() => handleProjectClick(project)}
-              >
-              <CardHeader className="pb-3">
-                <div className="flex flex-col items-center text-center mb-3">
-                  {/* Category Badge */}
-                  <Badge variant="outline" className="mb-3 text-xs">
-                    {project.group}
-                  </Badge>
-                  
-                  {/* Project Icon */}
-                  {project.icon && projectIconMap[project.name] && (
-                    <div className="w-36 h-36 flex items-center justify-center mb-3">
-                      <img 
-                        src={projectIconMap[project.name]} 
-                        alt={`${project.title} icon`}
-                        className="w-32 h-32 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300"
-                      />
-                    </div>
-                  )}
-                  
-                  {/* Project Info */}
-                  <div className="w-full">
-                    <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors mb-1">
-                      {project.title}
-                    </CardTitle>
-                    {project.company && (
-                      <div className="text-sm text-muted-foreground/80 font-medium">
-                        {project.company}
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* External Link Icon */}
-                  <div className="absolute top-4 right-4">
-                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </div>
-                </div>
-                <div className={`text-sm text-muted-foreground text-center overflow-hidden transition-all duration-300 ${
-                  isHovered ? 'max-h-32 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0'
-                }`}>
-                  {project.datePeriod?.startDate && formatDateToYears(project.datePeriod)}
-                </div>
-              </CardHeader>
-              <CardContent className="pt-0">
-                {/* Description - Hidden in compact view */}
-                <div className={`overflow-hidden transition-all duration-300 ${
-                  isHovered ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
-                }`}>
-                  <CardDescription 
-                    className="text-sm leading-relaxed text-center"
-                    dangerouslySetInnerHTML={{ __html: project.summary }}
-                  />
-                </div>
+                project={project} 
+                index={index} 
+                variant="default"
+              />
+            ))}
+          </div>
+        )}
+
+        {viewMode === 'list' && (
+          <div className="space-y-4">
+            {filteredProjects.map((project, index) => (
+              <ProjectCard 
+                key={project.id} 
+                project={project} 
+                index={index} 
+                variant="list"
+                style={{ animationDelay: `${index * 50}ms` }}
+              />
+            ))}
+          </div>
+        )}
+
+        {viewMode === 'carousel' && filteredProjects.length > 0 && (
+          <div className="relative max-w-5xl mx-auto">
+            {/* Carousel Container */}
+            <div 
+              ref={carouselRef}
+              className="relative h-[600px] flex items-center justify-center overflow-hidden"
+              style={{
+                perspective: '1200px',
+                perspectiveOrigin: 'center center'
+              }}
+            >
+              {filteredProjects.map((project, index) => {
+                const diff = index - carouselIndex;
+                const absIndex = Math.abs(diff);
                 
-                {/* Technologies - Hidden in compact view */}
-                <div className={`overflow-hidden transition-all duration-300 ${
-                  isHovered ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
-                }`}>
-                  <div className="flex flex-wrap gap-1 justify-center">
-                    {project.technologies.slice(0, 5).map((tech) => (
-                      <Badge 
-                        key={tech.name} 
-                        variant="secondary" 
-                        className="text-xs hover:bg-primary/10 transition-colors"
-                      >
-                        {tech.name}
-                      </Badge>
-                    ))}
-                    {project.technologies.length > 5 && (
-                      <Badge 
-                        variant="outline" 
-                        className="text-xs text-muted-foreground border-dashed"
-                      >
-                        +{project.technologies.length - 5} more
-                      </Badge>
-                    )}
+                let transform = '';
+                let zIndex = 1;
+                let opacity = 0.3;
+                let scale = 0.6;
+                
+                if (absIndex === 0) {
+                  // Center card
+                  transform = 'translateX(0) translateZ(0) rotateY(0deg) scale(1)';
+                  zIndex = 10;
+                  opacity = 1;
+                  scale = 1;
+                } else if (absIndex === 1) {
+                  // Adjacent cards
+                  const direction = diff > 0 ? 1 : -1;
+                  transform = `translateX(${direction * 350}px) translateZ(-100px) rotateY(${-direction * 25}deg) scale(0.8)`;
+                  zIndex = 5;
+                  opacity = 0.7;
+                  scale = 0.8;
+                } else if (absIndex === 2) {
+                  // Second level cards
+                  const direction = diff > 0 ? 1 : -1;
+                  transform = `translateX(${direction * 600}px) translateZ(-200px) rotateY(${-direction * 45}deg) scale(0.6)`;
+                  zIndex = 3;
+                  opacity = 0.4;
+                  scale = 0.6;
+                } else {
+                  // Hidden cards
+                  const direction = diff > 0 ? 1 : -1;
+                  transform = `translateX(${direction * 800}px) translateZ(-300px) rotateY(${-direction * 60}deg) scale(0.4)`;
+                  zIndex = 1;
+                  opacity = 0.1;
+                  scale = 0.4;
+                }
+                
+                return (
+                  <div
+                    key={project.id}
+                    className="absolute cursor-pointer transition-all duration-700 ease-out"
+                    style={{
+                      transform,
+                      zIndex,
+                      opacity,
+                      transformStyle: 'preserve-3d',
+                      width: '400px',
+                      height: '500px'
+                    }}
+                    onClick={() => {
+                      if (index === carouselIndex) {
+                        handleProjectClick(project);
+                      } else {
+                        goToSlide(index);
+                      }
+                    }}
+                  >
+                    <ProjectCard 
+                      project={project} 
+                      index={index} 
+                      variant="default"
+                      style={{ 
+                        height: '100%',
+                        transform: `scale(${scale})`,
+                        transformOrigin: 'center center'
+                      }}
+                    />
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-            );
-          })}
-        </div>
+                );
+              })}
+            </div>
+
+            {/* Navigation Buttons */}
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-background/80 backdrop-blur-sm border-border hover:bg-primary hover:text-primary-foreground"
+              onClick={goToPrevious}
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </Button>
+            
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-background/80 backdrop-blur-sm border-border hover:bg-primary hover:text-primary-foreground"
+              onClick={goToNext}
+            >
+              <ChevronRight className="h-5 w-5" />
+            </Button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center space-x-2 mt-8">
+              {filteredProjects.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === carouselIndex 
+                      ? 'bg-primary scale-125' 
+                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                  }`}
+                  onClick={() => goToSlide(index)}
+                />
+              ))}
+            </div>
+
+            {/* Project Counter */}
+            <div className="text-center mt-4 text-sm text-muted-foreground">
+              {carouselIndex + 1} of {filteredProjects.length} projects
+            </div>
+          </div>
+        )}
 
         {filteredProjects.length === 0 && (
           <div className="text-center py-12">
