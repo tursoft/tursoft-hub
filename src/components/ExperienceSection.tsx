@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building, ExternalLink, Linkedin } from "lucide-react";
+import ExperienceDetailDialog from './ExperienceDetailDialog';
 
 // Define interfaces for the data structure
 interface Technology {
@@ -57,6 +58,18 @@ const ExperienceSection = () => {
   const [experiencesData, setExperiencesData] = useState<ExperiencesData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleExperienceClick = (experience: Experience) => {
+    setSelectedExperience(experience);
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+    setSelectedExperience(null);
+  };
 
   // Load experiences data from JSON file
   useEffect(() => {
@@ -237,6 +250,7 @@ const ExperienceSection = () => {
                   } cursor-pointer`}
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
+                  onClick={() => handleExperienceClick(experiencesData.items[index])}
                 >
                   {/* Company Logo - Horizontally centered based on years/daterange cells */}
                   <div className="absolute top-4 right-4 w-24 flex flex-col items-center">
@@ -358,6 +372,13 @@ const ExperienceSection = () => {
               );
             })}
           </div>
+
+          {/* Experience Detail Dialog */}
+          <ExperienceDetailDialog
+            experience={selectedExperience}
+            isOpen={isDialogOpen}
+            onClose={handleDialogClose}
+          />
         </div>
       </div>
     </section>
