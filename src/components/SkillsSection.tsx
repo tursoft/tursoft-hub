@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { Code, Database, Cloud, Smartphone, Layers, Globe, ChevronLeft, ChevronRight } from "lucide-react";
+import { Code, Database, Cloud, Smartphone, Layers, Globe, ChevronLeft, ChevronRight, Eye, EyeOff, Grid, List } from "lucide-react";
 
 // Import technology logos
 import angularLogo from "@/assets/logos/technologies/angular.png";
@@ -195,6 +195,190 @@ const transformSkillsData = (newData: NewSkillsData): TransformedSkillsData => {
     tools,
     coreExpertise
   };
+};
+
+// Technology Cloud Component
+interface TechnologyCloudProps {
+  tools: Tool[];
+}
+
+const TechnologyCloud: React.FC<TechnologyCloudProps> = ({ tools }) => {
+  const [showAll, setShowAll] = useState(false);
+  const [viewMode, setViewMode] = useState<'cloud' | 'grid'>('cloud');
+
+  // Function to get font size based on frequency
+  const getImageSize = (frequency: number) => {
+    switch (frequency) {
+      case 5: return showAll ? "w-8 h-8" : "w-12 h-12 lg:w-14 lg:h-14"; // Largest
+      case 4: return showAll ? "w-7 h-7" : "w-9 h-9 lg:w-11 lg:h-11";   // Large
+      case 3: return showAll ? "w-6 h-6" : "w-8 h-8 lg:w-9 lg:h-9";     // Medium
+      case 2: return showAll ? "w-5 h-5" : "w-6 h-6 lg:w-7 lg:h-7";     // Small
+      case 1: return showAll ? "w-4 h-4" : "w-4 h-4 lg:w-5 lg:h-5";     // Smallest
+      default: return "w-4 h-4";
+    }
+  };
+
+  const getTextSize = (frequency: number) => {
+    switch (frequency) {
+      case 5: return showAll ? "text-lg" : "text-2xl lg:text-3xl"; // Largest
+      case 4: return showAll ? "text-base" : "text-xl lg:text-2xl";  // Large
+      case 3: return showAll ? "text-sm" : "text-lg lg:text-xl";   // Medium
+      case 2: return showAll ? "text-sm" : "text-base lg:text-lg"; // Small
+      case 1: return showAll ? "text-xs" : "text-sm lg:text-base"; // Smallest
+      default: return "text-sm";
+    }
+  };
+
+  // Function to get color intensity based on frequency
+  const getColorIntensity = (frequency: number) => {
+    switch (frequency) {
+      case 5: return "text-primary font-bold";
+      case 4: return "text-primary font-semibold";
+      case 3: return "text-primary font-medium";
+      case 2: return "text-muted-foreground font-medium";
+      case 1: return "text-muted-foreground/70 font-normal";
+      default: return "text-muted-foreground";
+    }
+  };
+
+  // Function to get hover scale based on frequency
+  const getHoverScale = (frequency: number) => {
+    if (showAll) return "hover:scale-110";
+    
+    switch (frequency) {
+      case 5: return "hover:scale-125";
+      case 4: return "hover:scale-120";
+      case 3: return "hover:scale-115";
+      case 2: return "hover:scale-110";
+      case 1: return "hover:scale-105";
+      default: return "hover:scale-110";
+    }
+  };
+
+  // Filter tools based on view mode
+  const displayedTools = showAll ? tools : tools.filter(tool => tool.frequency >= 3);
+
+  return (
+    <div className="animate-fade-in">
+      <Card className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border">
+        <CardHeader>
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-center flex-1">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Technology Cloud
+              </h3>
+              <p className="text-muted-foreground">
+                {showAll 
+                  ? `All ${tools.length} technologies sized by experience` 
+                  : `${displayedTools.length} core technologies I use most frequently`
+                }
+              </p>
+            </div>
+            
+            <div className="flex gap-2">
+              {/* View Mode Toggle */}
+              {showAll && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setViewMode(viewMode === 'cloud' ? 'grid' : 'cloud')}
+                  className="flex items-center gap-2"
+                >
+                  {viewMode === 'cloud' ? <Grid className="w-4 h-4" /> : <Cloud className="w-4 h-4" />}
+                  {viewMode === 'cloud' ? 'Grid' : 'Cloud'}
+                </Button>
+              )}
+              
+              {/* Show All Toggle */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowAll(!showAll)}
+                className="flex items-center gap-2"
+              >
+                {showAll ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                {showAll ? 'Show Less' : 'Show All'}
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {viewMode === 'cloud' ? (
+            // Cloud View
+            <div className={`flex flex-wrap gap-3 justify-center items-center ${showAll ? 'gap-2' : 'gap-4'}`}>
+              {displayedTools.map((tool, index) => (
+                <div 
+                  key={index} 
+                  className={`
+                    cursor-pointer transition-all duration-300 tag-cloud-item
+                    ${getColorIntensity(tool.frequency)}
+                    ${getHoverScale(tool.frequency)}
+                    hover:brightness-110 flex items-center gap-2 px-3 py-2 rounded-lg
+                    hover:bg-primary/10 hover:shadow-md border border-transparent hover:border-primary/20
+                    ${showAll ? 'px-2 py-1' : 'px-3 py-2'}
+                  `}
+                  style={{ '--delay': `${(index * 0.1) % 3}s` } as React.CSSProperties}
+                  title={`${tool.name} - ${tool.count} Projects`}
+                >
+                  {tool.image ? (
+                    <img 
+                      src={tool.image} 
+                      alt={tool.name}
+                      className={`${getImageSize(tool.frequency)} opacity-80`}
+                    />
+                  ) : (
+                    <span className={`${getTextSize(tool.frequency)} opacity-80 font-medium text-primary`}>●</span>
+                  )}
+                  <span className={showAll ? 'text-sm' : ''}>{tool.name}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            // Grid View
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+              {displayedTools.map((tool, index) => (
+                <div 
+                  key={index}
+                  className="flex items-center gap-2 p-3 bg-muted/20 rounded-lg hover:bg-primary/10 transition-colors cursor-pointer border border-transparent hover:border-primary/20"
+                  title={`${tool.name} - ${tool.count} Projects`}
+                >
+                  {tool.image ? (
+                    <img 
+                      src={tool.image} 
+                      alt={tool.name}
+                      className="w-6 h-6 opacity-80"
+                    />
+                  ) : (
+                    <span className="w-2 h-2 bg-primary rounded-full opacity-80"></span>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium text-foreground truncate">{tool.name}</div>
+                    <div className="text-xs text-muted-foreground">{tool.count} projects</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          
+          {!showAll && (
+            <div className="text-center mt-6">
+              <p className="text-sm text-muted-foreground mb-3">
+                Showing {displayedTools.length} of {tools.length} technologies
+              </p>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => setShowAll(true)}
+                className="text-primary hover:text-primary/80"
+              >
+                View all {tools.length} technologies →
+              </Button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
 };
 
 const SkillsSection = () => {
@@ -460,47 +644,7 @@ const SkillsSection = () => {
           </div>
 
           {/* Tools & Technologies */}
-          <div className="animate-fade-in">
-            <Card className="portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border">
-              <CardHeader>
-                <h3 className="text-2xl font-bold text-center text-foreground mb-4">
-                  Technology Cloud
-                </h3>
-                <p className="text-center text-muted-foreground">
-                  Technologies sized by frequency of use
-                </p>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-4 justify-center items-center">
-                  {tools.map((tool, index) => (
-                    <div 
-                      key={index} 
-                      className={`
-                        cursor-pointer transition-all duration-300 tag-cloud-item
-                        ${getColorIntensity(tool.frequency)}
-                        ${getHoverScale(tool.frequency)}
-                        hover:brightness-110 flex items-center gap-2 px-2 py-1 rounded-md
-                        hover:bg-primary/10 hover:shadow-md
-                      `}
-                      style={{ '--delay': `${(index * 0.1) % 3}s` } as React.CSSProperties}
-                      title={`${tool.name} - ${tool.count} Projects`}
-                    >
-                      {tool.image ? (
-                        <img 
-                          src={tool.image} 
-                          alt={tool.name}
-                          className={`${getImageSize(tool.frequency)} opacity-80`}
-                        />
-                      ) : (
-                        <span className={`${getTextSize(tool.frequency)} opacity-80 font-medium text-primary`}>●</span>
-                      )}
-                      <span>{tool.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+          <TechnologyCloud tools={tools} />
 
           {/* Core Expertise */}
           <div className="mt-16">
