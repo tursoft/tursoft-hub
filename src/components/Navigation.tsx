@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 import tursoftLogo from "@/assets/tursoft-logo.png";
 
 const navItems = [
@@ -17,6 +18,7 @@ const navItems = [
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,6 +66,7 @@ const Navigation = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+    setIsMobileMenuOpen(false); // Close mobile menu when navigating
   };
 
   return (
@@ -100,13 +103,66 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Download CV Button */}
+          {/* Desktop Download CV Button */}
           <Button 
             className="hidden lg:flex bg-primary hover:bg-primary/90 text-primary-foreground glow-on-hover"
             onClick={() => window.open("#", "_blank")}
           >
             Download CV
           </Button>
+
+          {/* Mobile Hamburger Menu Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="lg:hidden p-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`lg:hidden transition-all duration-300 ${
+        isMobileMenuOpen 
+          ? 'max-h-96 opacity-100' 
+          : 'max-h-0 opacity-0 overflow-hidden'
+      } ${isScrolled 
+          ? "bg-background/95 backdrop-blur-md border-b border-border" 
+          : "bg-background/90 backdrop-blur-md"
+      }`}>
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex flex-col space-y-2">
+            {navItems.map((item) => (
+              <Button
+                key={item.id}
+                variant="ghost"
+                onClick={() => scrollToSection(item.id)}
+                className={`
+                  justify-start px-4 py-3 text-sm font-medium uppercase transition-all duration-300
+                  ${activeSection === item.id 
+                    ? "text-primary bg-primary/10" 
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  }
+                `}
+              >
+                {item.label}
+              </Button>
+            ))}
+            
+            {/* Mobile Download CV Button */}
+            <Button 
+              className="justify-start mt-4 bg-primary hover:bg-primary/90 text-primary-foreground"
+              onClick={() => {
+                window.open("#", "_blank");
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              Download CV
+            </Button>
+          </div>
         </div>
       </div>
     </nav>
