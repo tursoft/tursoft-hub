@@ -2,8 +2,8 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ExternalLink, Filter } from "lucide-react";
+import ProjectDetailDialog from './ProjectDetailDialog';
 
 // Define interfaces for type safety
 interface Project {
@@ -117,6 +117,8 @@ const PortfolioSection = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [projectIconMap, setProjectIconMap] = useState<{ [key: string]: string }>({});
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const statsRef = useRef<HTMLDivElement>(null);
 
   // Helper function to format date period to years only
@@ -210,6 +212,18 @@ const PortfolioSection = () => {
     if (!projectData) return 0;
     if (category === "All") return projectData.items.length;
     return projectData.items.filter(project => project.group === category).length;
+  };
+
+  // Handle project card click
+  const handleProjectClick = (project: ProjectItem) => {
+    setSelectedProject(project);
+    setIsDialogOpen(true);
+  };
+
+  // Handle dialog close
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+    setSelectedProject(null);
   };
 
   if (isLoading || !projectData) {
@@ -328,10 +342,11 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
             return (
               <Card 
                 key={project.id} 
-                className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in transition-all duration-300 cursor-pointer"
+                className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:shadow-xl"
                 style={{ animationDelay: `${index * 100}ms` }}
                 onMouseEnter={() => setHoveredCard(project.id)}
                 onMouseLeave={() => setHoveredCard(null)}
+                onClick={() => handleProjectClick(project)}
               >
               <CardHeader className="pb-3">
                 <div className="flex flex-col items-center text-center mb-3">
@@ -449,6 +464,14 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
           </div>
         </div>
       </div>
+
+      {/* Project Detail Dialog */}
+      <ProjectDetailDialog 
+        project={selectedProject}
+        isOpen={isDialogOpen}
+        onClose={handleDialogClose}
+        projectIcon={selectedProject ? projectIconMap[selectedProject.name] : undefined}
+      />
     </section>
   );
 };
