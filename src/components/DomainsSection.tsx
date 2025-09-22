@@ -34,7 +34,7 @@ const DomainsSection = () => {
   useEffect(() => {
     const loadDomainsData = async () => {
       try {
-        const response = await fetch('/src/data/data_new/domains.json');
+        const response = await fetch('/src/data/domains.json');
         const data: DomainsData = await response.json();
         setDomainsData(data);
       } catch (error) {

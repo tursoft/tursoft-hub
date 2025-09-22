@@ -147,7 +147,7 @@ const PortfolioSection = () => {
   useEffect(() => {
     const loadProjectData = async () => {
       try {
-        const response = await fetch('/src/data/data_new/projects.json');
+        const response = await fetch('/src/data/projects.json');
         const data: NewProjectData = await response.json();
         setProjectData(data);
 

@@ -75,7 +75,7 @@ const ExperienceSection = () => {
   useEffect(() => {
     const loadExperiencesData = async () => {
       try {
-        const response = await fetch('/src/data/data_new/experiences.json');
+        const response = await fetch('/src/data/experiences.json');
         const data: ExperiencesData = await response.json();
         setExperiencesData(data);
       } catch (error) {

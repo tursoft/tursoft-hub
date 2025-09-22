@@ -59,7 +59,7 @@ const EducationSection = () => {
   useEffect(() => {
     const loadEducationData = async () => {
       try {
-        const response = await fetch('/src/data/data_new/education.json');
+        const response = await fetch('/src/data/education.json');
         const data: EducationData = await response.json();
         setEducationData(data);
 
