@@ -1,56 +1,107 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Calendar, MapPin } from "lucide-react";
 
+// Define interfaces for the data structure
+interface Course {
+  name: string;
+  score: string;
+  content: string;
+}
+
+interface Technology {
+  name: string;
+  type: string;
+}
+
+interface DatePeriod {
+  startDate: string;
+  endDate: string;
+}
+
+interface Education {
+  id: number;
+  orderIndex: number;
+  icon: string;
+  url?: string;
+  code: string;
+  name: string;
+  department: string;
+  level: string;
+  period: string;
+  datePeriod: DatePeriod;
+  city: string;
+  graduateDate: string;
+  graduateScore: string;
+  courses?: Course[];
+  technologies?: Technology[];
+}
+
+interface EducationData {
+  general: {
+    title: string;
+    summary: string;
+  };
+  items: Education[];
+}
+
 const EducationSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const education = [
-    {
-      degree: "Graduate School Department of Software Management",
-      institution: "Middle East Technical University",
-      location: "Ankara",
-      period: "01.09.2012 - 01.02.2013",
-      graduation: "February 2013",
-      type: "Master's Program",
-      description: "Advanced software management methodologies, project leadership, and enterprise architecture principles",
-      focus: ["Software Project Management", "Enterprise Architecture", "Team Leadership", "Quality Assurance"],
-      logo: "/src/assets/logos/companies/metu.png"
-    },
-    {
-      degree: "Graduate School Computer Education and Instructional Technologies Department",
-      institution: "Middle East Technical University", 
-      location: "Ankara",
-      period: "15.09.2004 - 15.09.2007",
-      graduation: "September 2007",
-      type: "Master's Degree",
-      description: "Computer education methodologies, instructional technology design, and educational software development",
-      focus: ["Educational Technology", "Software Development", "Human-Computer Interaction", "E-Learning Systems"],
-      logo: "/src/assets/logos/companies/metu.png"
-    },
-    {
-      degree: "Undergraduate School Computer Education and Instructional Technologies Department",
-      institution: "Middle East Technical University",
-      location: "Ankara", 
-      period: "15.09.1999 - 15.06.2004",
-      graduation: "June 2004",
-      type: "Bachelor's Degree",
-      description: "Foundation in computer science, programming, and educational technology applications",
-      focus: ["Computer Programming", "Database Systems", "Web Development", "Software Engineering"],
-      logo: "/src/assets/logos/companies/metu.png"
-    },
-    {
-      degree: "High School Computer Programming Branch",
-      institution: "Kocaeli Technical High School",
-      location: "Kocaeli",
-      period: "15.09.1996 - 15.06.1999", 
-      graduation: "June 1999",
-      type: "Technical High School",
-      description: "Technical foundation in computer programming and software development fundamentals",
-      focus: ["Programming Fundamentals", "Computer Systems", "Technical Mathematics", "Logic Design"],
-      logo: "/src/assets/logos/companies/meb.png"
-    }
-  ];
+  const [educationData, setEducationData] = useState<EducationData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load education data from JSON file
+  useEffect(() => {
+    const loadEducationData = async () => {
+      try {
+        const response = await fetch('/src/data/data_new/education.json');
+        const data: EducationData = await response.json();
+        setEducationData(data);
+      } catch (error) {
+        console.error('Failed to load education data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadEducationData();
+  }, []);
+
+  // Process education data to match the expected format
+  const getProcessedEducation = () => {
+    if (!educationData) return [];
+
+    return educationData.items.map(item => ({
+      degree: `${item.level} ${item.department}`,
+      institution: item.name,
+      location: item.city,
+      period: `${item.datePeriod.startDate} - ${item.datePeriod.endDate}`,
+      graduation: item.graduateDate,
+      type: item.level,
+      description: `Advanced studies in ${item.department.toLowerCase()}${item.graduateScore ? ` with GPA: ${item.graduateScore}` : ''}`,
+      focus: item.technologies?.slice(0, 6).map(tech => tech.name) || [],
+      logo: `/src/assets/logos/companies/${item.icon}`,
+      score: item.graduateScore,
+      url: item.url
+    }));
+  };
+
+  if (isLoading || !educationData) {
+    return (
+      <section id="education" className="py-20 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center">
+              <div className="animate-pulse">Loading education...</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const education = getProcessedEducation();
 
   return (
     <section id="education" className="py-20 bg-background">
@@ -64,7 +115,7 @@ const EducationSection = () => {
               <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Foundation</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Strong academic foundation from one of Turkey's most prestigious technical universities
+              {educationData.general.summary}
             </p>
           </div>
 
@@ -110,9 +161,7 @@ const EducationSection = () => {
                             {edu.institution}
                           </h4>
                           
-                          <div className={`flex flex-wrap items-center gap-4 text-sm text-muted-foreground overflow-hidden transition-all duration-300 ${
-                            isHovered ? 'max-h-32 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
-                          }`}>
+                          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
                             <div className="flex items-center gap-1">
                               <Calendar className="h-4 w-4" />
                               <span>{edu.period}</span>
@@ -123,9 +172,7 @@ const EducationSection = () => {
                             </div>
                           </div>
 
-                          <div className={`text-sm text-primary font-medium overflow-hidden transition-all duration-300 ${
-                            isHovered ? 'max-h-32 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
-                          }`}>
+                          <div className="text-sm text-primary font-medium mb-4">
                             Graduated: {edu.graduation}
                           </div>
                         </div>

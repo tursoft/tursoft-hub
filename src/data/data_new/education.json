@@ -18,7 +18,14 @@
             "graduateScore": "AA",
             "courses": [
                 { "name": "Project Management", "score": "AA", "content": "" }             
-            ]                        
+            ],
+            "technologies": [
+                { "name":  "PMP", "type": "PMP" },
+                { "name":  "Project Management", "type": "Project Management" },
+                { "name":  "Time Management", "type": "Time Management" },
+                { "name":  "Cost Management", "type": "Cost Management" },
+                { "name":  "Software Estimation", "type": "Software Estimation" }
+            ]
         },
 
         { 
@@ -46,6 +53,7 @@
                 { "name":  "C", "type": "Programming Language" },
                 { "name":  "C++", "type": "Programming Language" },
                 { "name":  "Java", "type": "Programming Language" },
+                { "name":  "Web Development", "type": "Web" },
                 { "name":  "HTML5", "type": "Web" },
                 { "name":  "CSS", "type": "Web" },
                 { "name":  "JS", "type": "Web" },
