@@ -56,6 +56,7 @@ interface ExperiencesData {
 const ExperienceSection = () => {
   const [experiencesData, setExperiencesData] = useState<ExperiencesData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   // Load experiences data from JSON file
   useEffect(() => {
@@ -214,6 +215,7 @@ const ExperienceSection = () => {
           <div className="space-y-8 pl-6">
             {experiences.map((exp, index) => {
               const hasCurrent = exp.positions.some(pos => pos.current);
+              const isHovered = hoveredCard === index;
               
               // Calculate total years and date range for the company
               const sortedPositions = [...exp.positions].sort((a, b) => 
@@ -230,9 +232,11 @@ const ExperienceSection = () => {
               return (
                 <Card 
                   key={index} 
-                  className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card hover:border-l-4 hover:border-l-primary transition-all duration-200 relative ${
+                  className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card hover:border-l-4 hover:border-l-primary transition-all duration-300 relative ${
                     hasCurrent ? 'ring-2 ring-primary/20' : ''
-                  }`}
+                  } cursor-pointer`}
+                  onMouseEnter={() => setHoveredCard(index)}
+                  onMouseLeave={() => setHoveredCard(null)}
                 >
                   {/* Company Logo - Horizontally centered based on years/daterange cells */}
                   <div className="absolute top-4 right-4 w-24 flex justify-center">
@@ -296,7 +300,9 @@ const ExperienceSection = () => {
                       {exp.positions.map((position, posIndex) => (
                         <div key={posIndex} className={`${posIndex > 0 ? 'pt-6 border-t border-border/50' : ''} relative`}>
                           {/* Position Duration Box - Vertically centered in position area */}
-                          <div className="absolute -right-28 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1">
+                          <div className={`absolute -right-28 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 transition-all duration-300 ${
+                            isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+                          }`}>
                             <Badge variant="secondary" className="text-xs px-2 py-1">
                               {position.years}
                             </Badge>
@@ -306,12 +312,14 @@ const ExperienceSection = () => {
                             </div>
                           </div>
                           
-                          <div className="mb-3">
+                          <div className={`transition-all duration-300 ${isHovered ? 'mb-3' : 'mb-0'}`}>
                             <h4 className="text-lg font-semibold text-primary">{position.title}</h4>
                           </div>
 
-                          {/* Description */}
-                          <div className="mb-4">
+                          {/* Description - Hidden in compact view */}
+                          <div className={`overflow-hidden transition-all duration-300 ${
+                            isHovered ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
+                          }`}>
                             <div className="space-y-2">
                               {position.description.map((item, i) => (
                                 <p key={i} className="text-muted-foreground text-sm">
@@ -321,8 +329,10 @@ const ExperienceSection = () => {
                             </div>
                           </div>
 
-                          {/* Technologies */}
-                          <div>
+                          {/* Technologies - Hidden in compact view */}
+                          <div className={`overflow-hidden transition-all duration-300 ${
+                            isHovered ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
+                          }`}>
                             <div className="flex flex-wrap gap-2">
                               {position.technologies.map((tech, i) => (
                                 <Badge key={i} variant="outline" className="text-xs">
