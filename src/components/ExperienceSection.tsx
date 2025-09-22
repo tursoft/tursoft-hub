@@ -214,6 +214,19 @@ const ExperienceSection = () => {
           <div className="space-y-8 pl-6">
             {experiences.map((exp, index) => {
               const hasCurrent = exp.positions.some(pos => pos.current);
+              
+              // Calculate total years and date range for the company
+              const sortedPositions = [...exp.positions].sort((a, b) => 
+                new Date(a.startDate.split('.').reverse().join('-')).getTime() - 
+                new Date(b.startDate.split('.').reverse().join('-')).getTime()
+              );
+              const firstPosition = sortedPositions[0];
+              const lastPosition = sortedPositions[sortedPositions.length - 1];
+              
+              const companyStartDate = firstPosition.startDate;
+              const companyEndDate = lastPosition.current ? null : lastPosition.duration.split(' - ')[1];
+              const companyDateInfo = formatDateRange(companyStartDate, companyEndDate);
+              
               return (
                 <Card 
                   key={index} 
@@ -221,46 +234,18 @@ const ExperienceSection = () => {
                     hasCurrent ? 'ring-2 ring-primary/20' : ''
                   }`}
                 >
-                  {/* Company Logo and Links - Top Right Corner */}
-                  <div className="absolute top-4 right-4 flex flex-col items-center">
-                    <div className="w-16 h-16 flex items-center justify-center p-1 mb-2">
+                  {/* Company Logo - Horizontally centered based on years/daterange cells */}
+                  <div className="absolute top-4 right-4 w-24 flex justify-center">
+                    <div className="w-16 h-16 flex items-center justify-center p-1">
                       <img 
                         src={exp.logo} 
                         alt={`${exp.company} logo`}
                         className="max-w-full max-h-full object-contain"
                       />
                     </div>
-                    
-                    {/* Company Links */}
-                    {(exp.websiteUrl || exp.linkedinUrl) && (
-                      <div className="flex items-center gap-1">
-                        {exp.websiteUrl && (
-                          <a 
-                            href={exp.websiteUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-primary transition-colors"
-                            title="Visit Website"
-                          >
-                            <ExternalLink className="h-3 w-3" />
-                          </a>
-                        )}
-                        {exp.linkedinUrl && (
-                          <a 
-                            href={exp.linkedinUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-primary transition-colors"
-                            title="Visit LinkedIn"
-                          >
-                            <Linkedin className="h-3 w-3" />
-                          </a>
-                        )}
-                      </div>
-                    )}
                   </div>
 
-                  <CardHeader className="pb-4 pr-24">
+                  <CardHeader className="pb-4 pr-32">
                     <div className="flex items-center gap-3 mb-4">
                       <Building className="h-5 w-5 text-primary" />
                       <h3 className="text-xl font-bold text-foreground uppercase">{exp.company}</h3>
@@ -276,23 +261,53 @@ const ExperienceSection = () => {
                         <MapPin className="h-4 w-4" />
                         <span>{exp.location}</span>
                       </div>
+                      
+                      {/* Company Links */}
+                      {(exp.websiteUrl || exp.linkedinUrl) && (
+                        <div className="flex items-center gap-2">
+                          {exp.websiteUrl && (
+                            <a 
+                              href={exp.websiteUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-muted-foreground hover:text-primary transition-colors"
+                              title="Visit Website"
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                            </a>
+                          )}
+                          {exp.linkedinUrl && (
+                            <a 
+                              href={exp.linkedinUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-muted-foreground hover:text-primary transition-colors"
+                              title="Visit LinkedIn"
+                            >
+                              <Linkedin className="h-4 w-4" />
+                            </a>
+                          )}
+                        </div>
+                      )}
                     </div>
 
                     {/* Multiple Positions */}
-                    <div className="space-y-6">
+                    <div className="space-y-6 relative">
                       {exp.positions.map((position, posIndex) => (
-                        <div key={posIndex} className={`${posIndex > 0 ? 'pt-6 border-t border-border/50' : ''}`}>
-                          <div className="flex items-start justify-between mb-3">
-                            <h4 className="text-lg font-semibold text-primary flex-1">{position.title}</h4>
-                            <div className="flex flex-col items-end gap-1 ml-4">
-                              <Badge variant="secondary" className="text-xs">
-                                {position.years}
-                              </Badge>
-                              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                <CalendarDays className="h-3 w-3" />
-                                <span>{position.duration}</span>
-                              </div>
+                        <div key={posIndex} className={`${posIndex > 0 ? 'pt-6 border-t border-border/50' : ''} relative`}>
+                          {/* Position Duration Box - Vertically centered in position area */}
+                          <div className="absolute -right-28 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1">
+                            <Badge variant="secondary" className="text-xs px-2 py-1">
+                              {position.years}
+                            </Badge>
+                            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                              <CalendarDays className="h-3 w-3" />
+                              <span className="text-xs leading-tight text-center">{position.duration}</span>
                             </div>
+                          </div>
+                          
+                          <div className="mb-3">
+                            <h4 className="text-lg font-semibold text-primary">{position.title}</h4>
                           </div>
 
                           {/* Description */}
