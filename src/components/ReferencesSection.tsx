@@ -168,7 +168,7 @@ const ReferencesSection = () => {
             Professional References
           </Badge>
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            What Colleagues Say
+            What <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Colleagues</span> Say
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Testimonials from industry leaders and colleagues who have worked closely with me

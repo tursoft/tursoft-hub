@@ -68,9 +68,10 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
   const countRef = useRef(0);
   const startTimeRef = useRef<number | null>(null);
   const animationRef = useRef<number | null>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || hasAnimated) return;
 
     const animate = (timestamp: number) => {
       if (!startTimeRef.current) {
@@ -89,12 +90,14 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
         setCount(currentCount);
       }
 
-      if (progress < 1) {
+      if (progress >= 1) {
+        setHasAnimated(true);
+      } else {
         animationRef.current = requestAnimationFrame(animate);
       }
     };
 
-    // Reset and start animation
+    // Start animation from 0
     setCount(0);
     countRef.current = 0;
     startTimeRef.current = null;
@@ -105,9 +108,12 @@ const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: strin
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [end, duration, isVisible]);
+  }, [end, duration, isVisible, hasAnimated]);
 
-  return <span>{count}{suffix}</span>;
+  // Show final value if not visible or already animated
+  const displayValue = (!isVisible && !hasAnimated) ? end : count;
+
+  return <span>{displayValue}{suffix}</span>;
 };
 
 const PortfolioSection = () => {
@@ -444,65 +450,12 @@ const PortfolioSection = () => {
     );
   };
 
-// Animated Counter Component
-const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: string; isVisible?: boolean }> = ({ 
-  end, 
-  duration = 2000, 
-  suffix = '', 
-  isVisible = false 
-}) => {
-  const [count, setCount] = useState(0);
-  const countRef = useRef(0);
-  const startTimeRef = useRef<number | null>(null);
-  const animationRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const animate = (timestamp: number) => {
-      if (!startTimeRef.current) {
-        startTimeRef.current = timestamp;
-      }
-
-      const elapsed = timestamp - startTimeRef.current;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentCount = Math.floor(easeOutQuart * end);
-
-      if (currentCount !== countRef.current) {
-        countRef.current = currentCount;
-        setCount(currentCount);
-      }
-
-      if (progress < 1) {
-        animationRef.current = requestAnimationFrame(animate);
-      }
-    };
-
-    // Reset and start animation
-    setCount(0);
-    countRef.current = 0;
-    startTimeRef.current = null;
-    animationRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [end, duration, isVisible]);
-
-  return <span>{count}{suffix}</span>;
-};
-
   return (
     <section id="portfolio" className="py-20 bg-background/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-primary via-primary-light to-primary bg-clip-text text-transparent mb-4">
-            Portfolio & Projects
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Portfolio & <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Projects</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A showcase of projects that I architected and contributed spanning healthcare, education, gaming, and research domains
