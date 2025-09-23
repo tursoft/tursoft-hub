@@ -49,35 +49,6 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 })
 
-// Location coordinates mapping
-const locationCoordinates: { [key: string]: { lat: number; lng: number; country: string } } = {
-  // Experience Companies
-  'Cincinnati, Ohio, USA': { lat: 39.1031, lng: -84.5120, country: 'United States' },
-  'New York, NY, USA': { lat: 40.7128, lng: -74.0060, country: 'United States' },
-  'New Hampshire, USA': { lat: 43.1939, lng: -71.5724, country: 'United States' },
-  'Pennsylvania, USA': { lat: 40.2732, lng: -76.8867, country: 'United States' },
-  'Southeast USA': { lat: 33.7490, lng: -84.3880, country: 'United States' }, // Atlanta
-  'Mid-Atlantic USA': { lat: 39.7391, lng: -75.5398, country: 'United States' }, // Philadelphia area
-  'Northeast USA': { lat: 42.3601, lng: -71.0589, country: 'United States' }, // Boston area
-  'Southwest USA': { lat: 33.4484, lng: -112.0740, country: 'United States' }, // Phoenix
-  'Pacific Northwest USA': { lat: 47.6062, lng: -122.3321, country: 'United States' }, // Seattle
-  'South Central USA': { lat: 32.7767, lng: -96.7970, country: 'United States' }, // Dallas
-  'Southern USA': { lat: 33.7490, lng: -84.3880, country: 'United States' }, // Atlanta
-  'Western USA': { lat: 34.0522, lng: -118.2437, country: 'United States' }, // Los Angeles
-  'Eastern USA': { lat: 40.7128, lng: -74.0060, country: 'United States' }, // New York
-  'Ankara, Turkey': { lat: 39.9334, lng: 32.8597, country: 'Turkey' },
-  'Istanbul, Turkey': { lat: 41.0082, lng: 28.9784, country: 'Turkey' },
-  'Kocaeli, Turkey': { lat: 40.8533, lng: 29.8815, country: 'Turkey' },
-  'Neuhausen, Switzerland': { lat: 47.6779, lng: 8.6089, country: 'Switzerland' },
-  'Tashkent, Uzbekistan': { lat: 41.2995, lng: 69.2401, country: 'Uzbekistan' },
-  'Lisbon, Portugal': { lat: 38.7223, lng: -9.1393, country: 'Portugal' },
-  'Ramallah, Palestine': { lat: 31.9073, lng: 35.2044, country: 'Palestine' },
-  'Riyadh, Saudi Arabia': { lat: 24.7136, lng: 46.6753, country: 'Saudi Arabia' },
-  'Abu Dhabi': { lat: 24.4539, lng: 54.3773, country: 'United Arab Emirates' },
-
-  // Add other locations as needed
-  'Remote': { lat: 0, lng: 0, country: 'Global' },
-}
 
 // Create custom icons for different marker types
 const createIcon = (color: string, type: string, logoUrl?: string) => {
@@ -117,7 +88,7 @@ const createIconWithLogo = (type: 'experience' | 'education' | 'customer', logoF
   return createIcon(colors[type], type, logoUrl)
 }
 
-interface MapItem {
+export interface MapItem {
   uid: string
   type: 'education' | 'experience' | 'customer'
   title: string
@@ -142,6 +113,144 @@ interface MapMarker {
   technologies?: string[]
   logo?: string
   data: unknown // Store the full data object for dialog display
+}
+
+// Helper functions to transform data into MapItem objects
+const transformExperienceToMapItem = (company: Record<string, unknown>, index: number): MapItem | null => {
+  const companyName = company.companyName as string
+  const companyCode = company.companyCode as string
+  const companyId = company.id as string
+  const positions = company.positions as Array<Record<string, unknown>>
+  const icon = company.icon as string
+  const uid = company.uid as string
+  const coordinates = company.coordinates as { lat: number; lng: number }
+  const city = company.city as string
+  const country = company.country as string
+
+  // Use coordinates directly from the JSON data
+  if (!coordinates) return null
+
+  const latestPosition = positions?.sort((a, b) => 
+    new Date((b.startDate as string)).getTime() - new Date((a.startDate as string)).getTime()
+  )?.[0]
+
+  const logoUrl = icon && icon.endsWith('.png') 
+    ? `/assets/logos/companies/${icon}` 
+    : undefined
+
+  return {
+    uid: uid || `experience.${companyId}.${companyCode}`,
+    type: 'experience',
+    title: companyName || '',
+    coordinate: coordinates,
+    logoUrl,
+    category: (latestPosition?.title as string) || 'Professional Experience',
+    summarytext: (latestPosition?.summary as string) || '',
+    city,
+    country,
+    daterange: {
+      start: (latestPosition?.startDate as string) || '',
+      end: latestPosition?.endDate as string
+    }
+  }
+}
+
+const transformEducationToMapItem = (school: Record<string, unknown>, index: number): MapItem | null => {
+  const schoolName = school.name as string
+  const schoolCity = school.city as string
+  const schoolCountry = school.country as string
+  const schoolId = school.id as string
+  const schoolCode = school.code as string
+  const schoolLevel = school.level as string
+  const schoolDepartment = school.department as string
+  const schoolPeriod = school.period as string
+  const schoolIcon = school.icon as string
+  const schoolUid = school.uid as string
+  const schoolCoordinates = school.coordinates as { lat: number; lng: number }
+
+  // Use coordinates, city, and country directly from the JSON data
+  if (!schoolCoordinates) return null
+
+  const logoUrl = schoolIcon && schoolIcon.endsWith('.png') 
+    ? `/assets/logos/companies/${schoolIcon}` 
+    : undefined
+
+  return {
+    uid: schoolUid || `education.${schoolId}.${schoolCode}`,
+    type: 'education',
+    title: schoolName || '',
+    coordinate: schoolCoordinates,
+    logoUrl,
+    category: schoolLevel || 'Education',
+    summarytext: schoolDepartment || '',
+    city: schoolCity || '',
+    country: schoolCountry || '',
+    daterange: {
+      start: schoolPeriod?.split(' - ')[0] || '',
+      end: schoolPeriod?.split(' - ')[1]
+    }
+  }
+}
+
+const transformCustomerToMapItem = (customer: Record<string, unknown>, index: number): MapItem | null => {
+  const customerName = customer.name as string
+  const customerTitle = customer.title as string
+  const customerLocation = customer.location as string
+  const customerCity = customer.city as string
+  const customerCountry = customer.country as string
+  const customerIndustry = customer.industry as string
+  const customerDescription = customer.description as string
+  const customerLogoPath = customer.logoPath as string
+  const customerUid = customer.uid as string
+  const customerCoordinates = customer.coordinates as { lat: number; lng: number }
+  const customerPartnership = customer.partnership as { startDate: string; endDate?: string }
+
+  // Use coordinates directly from the JSON data
+  if (!customerCoordinates) return null
+
+  return {
+    uid: customerUid || `customer.${customerName}`,
+    type: 'customer',
+    title: customerTitle || '',
+    coordinate: customerCoordinates,
+    logoUrl: customerLogoPath,
+    category: customerIndustry || 'Client',
+    summarytext: customerDescription || '',
+    city: customerCity || '',
+    country: customerCountry || '',
+    daterange: {
+      start: customerPartnership?.startDate || '',
+      end: customerPartnership?.endDate
+    }
+  }
+}
+
+// Utility function to create all MapItems from data sources
+const createMapItemsFromData = (filters: string[] = ['experience', 'education', 'customer']): MapItem[] => {
+  const result: MapItem[] = []
+
+  if (filters.includes('experience')) {
+    experiencesData.items.forEach((company, index) => {
+      const mapItem = transformExperienceToMapItem(company as Record<string, unknown>, index)
+      if (mapItem) result.push(mapItem)
+    })
+  }
+
+  if (filters.includes('education')) {
+    educationData.items.forEach((school, index) => {
+      const mapItem = transformEducationToMapItem(school as Record<string, unknown>, index)
+      if (mapItem) result.push(mapItem)
+    })
+  }
+
+  if (filters.includes('customer')) {
+    customersData.items.forEach((customer, index) => {
+      const mapItem = transformCustomerToMapItem(customer as Record<string, unknown>, index)
+      if (mapItem) result.push(mapItem)
+    })
+  }
+
+  return result
 }
 
 // Custom Marker component that handles hover and click events
@@ -344,157 +453,79 @@ export default function MapSection() {
     ] as [number, number]
   }
 
-  // Process data to create markers
-  const markers = useMemo(() => {
-    const result: MapMarker[] = []
-    const coordinateCount: { [key: string]: number } = {} // Track how many markers at each coordinate
+  // Generate MapItems from all data sources
+  const mapItems = useMemo(() => {
+    const result: MapItem[] = []
 
-    // Process Experience data
+    // Transform Experience data to MapItems
     if (selectedFilters.includes('experience')) {
-      experiencesData.items.forEach((company, companyIndex) => {
-        // Try to find location from company name or use company location from customers
-        let location = ''
-        let coordinates: { lat: number; lng: number } | undefined
-
-        // Look for company in customers data first
-        const customerMatch = customersData.items.find(customer => 
-          customer.companyCodes?.includes(company.companyCode) || 
-          company.companyName.toLowerCase().includes(customer.name.toLowerCase()) ||
-          customer.title.toLowerCase().includes(company.companyName.toLowerCase())
-        )
-
-        if (customerMatch?.location) {
-          location = customerMatch.location
-          coordinates = locationCoordinates[location]
-        }
-
-        // Fallback locations based on company names
-        if (!coordinates) {
-          if (company.companyName.toLowerCase().includes('jengai') || company.companyName.toLowerCase().includes('gamyte')) {
-            location = 'Cincinnati, Ohio, USA'
-            coordinates = locationCoordinates[location]
-          } else if (company.companyName.toLowerCase().includes('infrion')) {
-            location = 'Remote'
-            coordinates = { lat: 50.0, lng: 10.0 } // Europe center
-          } else if (company.companyName.toLowerCase().includes('erc') || 
-                     company.companyName.toLowerCase().includes('datasel') ||
-                     company.companyName.toLowerCase().includes('fonet') ||
-                     company.companyName.toLowerCase().includes('halıcı')) {
-            location = 'Ankara, Turkey'
-            coordinates = locationCoordinates[location]
-          } else if (company.companyName.toLowerCase().includes('metu')) {
-            location = 'Ankara, Turkey'
-            coordinates = locationCoordinates[location]
-          } else if (company.companyName.toLowerCase().includes('jandarma')) {
-            location = 'Ankara, Turkey'
-            coordinates = locationCoordinates[location]
-          } else if (company.companyName.toLowerCase().includes('labris')) {
-            location = 'Ankara, Turkey'
-            coordinates = locationCoordinates[location]
-          }
-        }
-
-        if (coordinates) {
-          // Get latest position for period info
-          const latestPosition = company.positions.sort((a, b) => 
-            new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
-          )[0]
-
-          // Create coordinate key and count markers at same location
-          const coordKey = `${coordinates.lat}-${coordinates.lng}`
-          const offsetIndex = coordinateCount[coordKey] || 0
-          coordinateCount[coordKey] = offsetIndex + 1
-
-          result.push({
-            id: `exp-${company.companyCode}-${company.id}-${companyIndex}`,
-            position: addOffset(coordinates.lat, coordinates.lng, offsetIndex),
-            type: 'experience',
-            title: company.companyName,
-            subtitle: latestPosition?.title,
-            description: latestPosition?.summary || '',
-            location,
-            period: `${latestPosition?.startDate} - ${latestPosition?.endDate || 'Present'}`,
-            technologies: latestPosition?.technologies?.slice(0, 5).map(t => t.name),
-            logo: company.icon,
-            data: company
-          })
-        }
+      experiencesData.items.forEach((company, index) => {
+        const mapItem = transformExperienceToMapItem(company as Record<string, unknown>, index)
+        if (mapItem) result.push(mapItem)
       })
     }
 
-    // Process Education data
+    // Transform Education data to MapItems
     if (selectedFilters.includes('education')) {
-      educationData.items.forEach((school, schoolIndex) => {
-        let coordinates: { lat: number; lng: number } | undefined
-        let location = school.city || ''
-
-        if (school.name.toLowerCase().includes('metu') || school.name.toLowerCase().includes('middle east')) {
-          location = 'Ankara, Turkey'
-          coordinates = locationCoordinates[location]
-        } else if (school.city) {
-          // Try to find coordinates for the city
-          const cityKey = Object.keys(locationCoordinates).find(key => 
-            key.toLowerCase().includes(school.city!.toLowerCase())
-          )
-          if (cityKey) {
-            coordinates = locationCoordinates[cityKey]
-            location = cityKey
-          }
-        }
-
-        if (coordinates) {
-          // Create coordinate key and count markers at same location
-          const coordKey = `${coordinates.lat}-${coordinates.lng}`
-          const offsetIndex = coordinateCount[coordKey] || 0
-          coordinateCount[coordKey] = offsetIndex + 1
-
-          result.push({
-            id: `edu-${school.code}-${school.id}-${schoolIndex}`,
-            position: addOffset(coordinates.lat, coordinates.lng, offsetIndex),
-            type: 'education',
-            title: school.name,
-            subtitle: school.department,
-            description: school.level,
-            location,
-            period: school.period,
-            technologies: school.technologies?.slice(0, 5).map(t => t.name),
-            logo: school.icon,
-            data: school
-          })
-        }
+      educationData.items.forEach((school, index) => {
+        const mapItem = transformEducationToMapItem(school as Record<string, unknown>, index)
+        if (mapItem) result.push(mapItem)
       })
     }
 
-    // Process Customer data
+    // Transform Customer data to MapItems
     if (selectedFilters.includes('customer')) {
       customersData.items.forEach((customer, index) => {
-        const coordinates = locationCoordinates[customer.location]
-        
-        if (coordinates) {
-          // Create coordinate key and count markers at same location
-          const coordKey = `${coordinates.lat}-${coordinates.lng}`
-          const offsetIndex = coordinateCount[coordKey] || 0
-          coordinateCount[coordKey] = offsetIndex + 1
-
-          result.push({
-            id: `cus-${customer.name}-${index}`,
-            position: addOffset(coordinates.lat, coordinates.lng, offsetIndex),
-            type: 'customer',
-            title: customer.title,
-            subtitle: customer.industry,
-            description: customer.description,
-            location: customer.location,
-            period: `${customer.partnership.startDate} - ${customer.partnership.endDate || 'Present'}`,
-            technologies: customer.technologies?.slice(0, 5),
-            logo: customer.logoPath,
-            data: customer
-          })
-        }
+        const mapItem = transformCustomerToMapItem(customer as Record<string, unknown>, index)
+        if (mapItem) result.push(mapItem)
       })
     }
 
     return result
   }, [selectedFilters])
+
+  // Convert MapItems to MapMarkers for rendering
+  const markers = useMemo(() => {
+    const result: MapMarker[] = []
+    const coordinateCount: { [key: string]: number } = {} // Track how many markers at each coordinate
+
+    mapItems.forEach((mapItem, index) => {
+      // Create coordinate key and count markers at same location
+      const coordKey = `${mapItem.coordinate.lat}-${mapItem.coordinate.lng}`
+      const offsetIndex = coordinateCount[coordKey] || 0
+      coordinateCount[coordKey] = offsetIndex + 1
+
+      // Find original data object for dialogs
+      let originalData: unknown = null
+      if (mapItem.type === 'experience') {
+        originalData = experiencesData.items.find(item => (item as Record<string, unknown>).uid === mapItem.uid)
+      } else if (mapItem.type === 'education') {
+        originalData = educationData.items.find(item => (item as Record<string, unknown>).uid === mapItem.uid)
+      } else if (mapItem.type === 'customer') {
+        originalData = customersData.items.find(item => (item as Record<string, unknown>).uid === mapItem.uid)
+      }
+
+      const period = mapItem.daterange.end 
+        ? `${mapItem.daterange.start} - ${mapItem.daterange.end}`
+        : `${mapItem.daterange.start} - Present`
+
+      result.push({
+        id: mapItem.uid,
+        position: addOffset(mapItem.coordinate.lat, mapItem.coordinate.lng, offsetIndex),
+        type: mapItem.type,
+        title: mapItem.title,
+        subtitle: mapItem.category,
+        description: mapItem.summarytext,
+        location: `${mapItem.city}, ${mapItem.country}`,
+        period,
+        technologies: [], // Technologies would need to be extracted from original data if needed
+        logo: mapItem.logoUrl?.replace('/assets/logos/companies/', ''),
+        data: originalData
+      })
+    })
+
+    return result
+  }, [mapItems])
 
   const toggleFilter = (filter: string) => {
     setSelectedFilters(prev => 
