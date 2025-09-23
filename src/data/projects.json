@@ -2397,10 +2397,10 @@
           ]             
         },
 
-        { "id": 376, "name": "MBYS", "title": "Avicenna MBYS - Clinic Information Management System", "group":"HIS", "company": "Datasel", "value":100, "icon": "mbys.logo.png", 
+        { "id": 376, "name": "MBYS", "title": "Avicenna MBYS - Clinic Management System", "group":"HIS", "company": "Datasel", "value":100, "icon": "mbys.logo.png", 
           "summary": "Avicenna MBYS (Muayenehane Bilgi Yönetim Sistemi) is a 100% web-based clinic application designed to meet all the needs of doctors with private clinics while ensuring secure data transmission to the Turkish Ministry of Health's Sağlık.Net application as required by government regulations.",
           "fulltext": [
-            "Avicenna MBYS (Clinic Information Management System) is a comprehensive web-based healthcare solution specifically designed for private medical clinics and individual practitioners.",
+            "Avicenna MBYS (Clinic Management System) is a comprehensive web-based healthcare solution specifically designed for private medical clinics and individual practitioners.",
             "<br/>",
             "The system provides complete clinic management capabilities while ensuring compliance with Turkish Ministry of Health regulations and data reporting requirements.",
             "<br/>",
@@ -2473,6 +2473,185 @@
             { "name":  "Visual Studio", "type": "IDE" },
             { "name":  "IIS", "type": "Web Server" },
             { "name":  "XML", "type": "Data Format" }
+          ]             
+        },
+
+        { "id": 377, "name": "ATS", "title": "Avicenna Transcription System", "group":"HIS", "company": "Datasel", "value":100, "icon": "ATS.png", 
+          "summary": "Advanced medical transcription and documentation system designed for healthcare organizations and clinical documentation needs.",
+          "fulltext": [
+            "Avicenna Transcription System (ATS) is a specialized platform for managing medical transcription, clinical documentation, and healthcare record conversion processes.",
+            "<br/>",
+            "The system provides comprehensive tools for medical documentation, voice-to-text conversion, and clinical record management.",
+            "<br/>",
+            "<strong>Key Features:</strong>",
+            "<ul>",
+            "<li>Medical voice-to-text transcription</li>",
+            "<li>Clinical documentation management</li>",
+            "<li>Audio recording and playback systems</li>",
+            "<li>Medical terminology recognition</li>",
+            "<li>Multi-user transcription workflow</li>",
+            "<li>Quality assurance and review tools</li>",
+            "</ul>"
+          ],
+          "datePeriod": { "startDate": "01.03.2013", "endDate": "01.08.2015" },
+        
+          "props": [
+            { "name":"platforms", "title": "Web Application" }
+          ],
+          
+          "team": [
+            { "position": "Project Manager", "name": "Muhammet Tursak", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Davut Gürbüz", "contactNo": "1" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Framework" },
+            { "name":  "C#", "type": "Programming Language" },
+            { "name":  "ASP.NET", "type": "Web Technology" },
+            { "name":  "MS SQL Server", "type": "Database" }
+          ]             
+        },
+
+        { "id": 378, "name": "ATHP", "title": "Avicenna Telemedicine Health Platform", "group":"Telemedicine", "company": "Datasel", "value":100, "icon": "ATHP.png", 
+          "summary": "Advanced telemedicine platform enabling remote healthcare delivery and patient monitoring capabilities.",
+          "fulltext": [
+            "Avicenna Telemedicine Health Platform (ATHP) provides comprehensive remote healthcare services and patient monitoring solutions.",
+            "<br/>",
+            "The platform enables healthcare providers to deliver medical services remotely while maintaining high standards of care and patient safety.",
+            "<br/>",
+            "<strong>Key Features:</strong>",
+            "<ul>",
+            "<li>Remote patient consultation and monitoring</li>",
+            "<li>Real-time health data transmission</li>",
+            "<li>Video conferencing integration</li>",
+            "<li>Electronic health record integration</li>",
+            "<li>Medical device connectivity</li>",
+            "<li>Secure communication channels</li>",
+            "</ul>"
+          ],
+          "datePeriod": { "startDate": "01.05.2014", "endDate": "01.12.2016" },
+        
+          "props": [
+            { "name":"platforms", "title": "Web Application, Mobile" }
+          ],
+          
+          "team": [
+            { "position": "Project Manager", "name": "Muhammet Tursak", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Davut Gürbüz", "contactNo": "1" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Framework" },
+            { "name":  "C#", "type": "Programming Language" },
+            { "name":  "Silverlight", "type": "Web Technology" },
+            { "name":  "WCF", "type": "Web Services" },
+            { "name":  "MS SQL Server", "type": "Database" }
+          ]             
+        },
+
+        { "id": 379, "name": "IHBS", "title": "Integrated Hospital Business System", "group":"HIS", "company": "Datasel", "value":100, "icon": "IHBS.png", 
+          "summary": "Comprehensive hospital business management system integrating clinical, financial, and administrative operations.",
+          "fulltext": [
+            "Integrated Hospital Business System (IHBS) provides complete business management solutions for healthcare organizations.",
+            "<br/>",
+            "The system integrates clinical operations with financial management and administrative processes to optimize hospital efficiency.",
+            "<br/>",
+            "<strong>Key Features:</strong>",
+            "<ul>",
+            "<li>Integrated clinical and business operations</li>",
+            "<li>Financial management and billing</li>",
+            "<li>Resource allocation and optimization</li>",
+            "<li>Performance analytics and reporting</li>",
+            "<li>Multi-departmental workflow management</li>",
+            "<li>Regulatory compliance tracking</li>",
+            "</ul>"
+          ],
+          "datePeriod": { "startDate": "01.01.2012", "endDate": "01.06.2015" },
+        
+          "props": [
+            { "name":"platforms", "title": "Desktop Application" }
+          ],
+          
+          "team": [
+            { "position": "Project Manager", "name": "Muhammet Tursak", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Davut Gürbüz", "contactNo": "1" }
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Framework" },
+            { "name":  "C#", "type": "Programming Language" },
+            { "name":  "WinForms", "type": "Desktop Technology" },
+            { "name":  "MS SQL Server", "type": "Database" }
+          ]             
+        },
+
+        { "id": 380, "name": "SaglikTakipcim", "title": "Sağlık Takipçim - Personal Health Tracker", "group":"Misc", "company": "Datasel", "value":100, "icon": "sagliktakipcim.png", 
+          "summary": "Personal health monitoring and tracking application for individuals to manage their wellness journey.",
+          "fulltext": [
+            "Sağlık Takipçim (My Health Tracker) is a personal health management application designed to help individuals monitor and track their health and wellness activities.",
+            "<br/>",
+            "The application provides comprehensive tools for personal health management and lifestyle optimization.",
+            "<br/>",
+            "<strong>Key Features:</strong>",
+            "<ul>",
+            "<li>Personal health metrics tracking</li>",
+            "<li>Medication reminders and scheduling</li>",
+            "<li>Exercise and fitness monitoring</li>",
+            "<li>Diet and nutrition tracking</li>",
+            "<li>Health goal setting and progress tracking</li>",
+            "<li>Personal health reports and analytics</li>",
+            "</ul>"
+          ],
+          "datePeriod": { "startDate": "01.09.2015", "endDate": "01.03.2016" },
+        
+          "props": [
+            { "name":"platforms", "title": "Mobile Application" }
+          ],
+          
+          "team": [
+            { "position": "Project Manager", "name": "Muhammet Tursak", "contactNo": "1" },
+            { "position": "Mobile Developer", "name": "Davut Gürbüz", "contactNo": "1" }
+          ],
+
+          "technologies": [
+            { "name":  "Android", "type": "Mobile Platform" },
+            { "name":  "Java", "type": "Programming Language" },
+            { "name":  "SQLite", "type": "Database" }
+          ]             
+        },
+
+        { "id": 381, "name": "Frizbi", "title": "Frizbi - Interactive Educational Game", "group":"Game", "company": "Halıcı", "value":100, "icon": "frizbi.jpg", 
+          "summary": "Interactive educational game designed to teach physics concepts through engaging frisbee simulation gameplay.",
+          "fulltext": [
+            "Frizbi is an interactive educational game that teaches physics concepts through engaging frisbee simulation and gameplay mechanics.",
+            "<br/>",
+            "The game combines entertainment with education to help students understand physics principles in an interactive environment.",
+            "<br/>",
+            "<strong>Key Features:</strong>",
+            "<ul>",
+            "<li>Physics-based frisbee simulation</li>",
+            "<li>Educational content integration</li>",
+            "<li>Interactive learning modules</li>",
+            "<li>Progress tracking and assessment</li>",
+            "<li>Engaging visual graphics and animations</li>",
+            "<li>Multi-level difficulty progression</li>",
+            "</ul>"
+          ],
+          "datePeriod": { "startDate": "01.02.2004", "endDate": "01.08.2004" },
+        
+          "props": [
+            { "name":"platforms", "title": "Desktop Game" }
+          ],
+          
+          "team": [
+            { "position": "Project Manager", "name": "Muhammet Tursak", "contactNo": "1" },
+            { "position": "Game Developer", "name": "Davut Gürbüz", "contactNo": "1" }
+          ],
+
+          "technologies": [
+            { "name":  "C++", "type": "Programming Language" },
+            { "name":  "DirectX", "type": "Graphics Framework" },
+            { "name":  "Visual Studio", "type": "IDE" }
           ]             
         }
     ]
