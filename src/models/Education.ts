@@ -22,6 +22,7 @@ export interface Education {
   code: string;
   name: string;
   department: string;
+  summary?: string;
   level: string;
   period: string;
   datePeriod: DatePeriod;

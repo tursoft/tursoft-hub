@@ -47,25 +47,6 @@ const EducationSection = () => {
     loadEducationData();
   }, []);
 
-  // Process education data to match the expected format
-  const getProcessedEducation = () => {
-    if (!educationData) return [];
-
-    return educationData.items.map(item => ({
-      degree: `${item.level} ${item.department}`,
-      institution: item.name,
-      location: item.city,
-      period: `${item.datePeriod.startDate} - ${item.datePeriod.endDate}`,
-      graduation: item.graduateDate,
-      type: item.level,
-      description: `Advanced studies in ${item.department.toLowerCase()}${item.graduateScore ? ` with GPA: ${item.graduateScore}` : ''}`,
-      focus: item.technologies?.slice(0, 6).map(tech => tech.name) || [],
-      logo: `/assets/logos/companies/${item.icon}`,
-      score: item.graduateScore,
-      url: item.url
-    }));
-  };
-
   // Handle education card click
   const handleEducationClick = (education: Education) => {
     setSelectedEducation(education);
@@ -91,8 +72,6 @@ const EducationSection = () => {
       </section>
     );
   }
-
-  const education = getProcessedEducation();
 
   return (
     <section id="education" className="py-20 bg-background">
@@ -238,7 +217,7 @@ const EducationSection = () => {
                               isLeft ? 'lg:text-right lg:border-r-4 lg:border-l-0 lg:bg-gradient-to-l' : ''
                             }`}>
                               <p className="text-muted-foreground leading-relaxed text-sm">
-                                Advanced studies in {edu.department.toLowerCase()}. Focused on modern technologies and methodologies in educational technology and software development.
+                                {edu.summary}
                               </p>
                             </div>
                           </div>
