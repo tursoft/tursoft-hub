@@ -2395,6 +2395,85 @@
             { "name":  "MS SQL", "type": "Database" },
             { "name":  "Visual Studio", "type": "IDE" }    
           ]             
+        },
+
+        { "id": 376, "name": "MBYS", "title": "Avicenna MBYS - Clinic Information Management System", "group":"HIS", "company": "Datasel", "value":100, "icon": "mbys.logo.png", 
+          "summary": "Avicenna MBYS (Muayenehane Bilgi Yönetim Sistemi) is a 100% web-based clinic application designed to meet all the needs of doctors with private clinics while ensuring secure data transmission to the Turkish Ministry of Health's Sağlık.Net application as required by government regulations.",
+          "fulltext": [
+            "Avicenna MBYS (Clinic Information Management System) is a comprehensive web-based healthcare solution specifically designed for private medical clinics and individual practitioners.",
+            "<br/>",
+            "The system provides complete clinic management capabilities while ensuring compliance with Turkish Ministry of Health regulations and data reporting requirements.",
+            "<br/>",
+            "<strong>Key Features:</strong>",
+            "<ul>",
+            "<li>100% web-based application requiring no installation</li>",
+            "<li>Online data access from anywhere, anytime</li>",
+            "<li>Full integration with Ministry of Health Sağlık.Net application</li>",
+            "<li>Secure patient data management and privacy protection</li>",
+            "<li>User-friendly interfaces optimized for medical staff workflows</li>",
+            "<li>Advanced appointment scheduling and management system</li>",
+            "<li>Comprehensive reporting and analytics tools</li>",
+            "<li>Healthcare staff and resource management</li>",
+            "<li>Multi-browser compatibility (Internet Explorer, Opera, Firefox, Safari, Chrome)</li>",
+            "<li>Support for 32/64-bit operating systems</li>",
+            "</ul>",
+            "<br/>",
+            "<strong>Technical Architecture:</strong>",
+            "<br/>",
+            "Built with Microsoft Silverlight 5.0 technology featuring advanced animations and visual components, the application supports multi-layered architecture and works seamlessly across different platforms and browsers.",
+            "<br/>",
+            "The system enables private clinic doctors to focus on patient care while automating administrative tasks and ensuring regulatory compliance with government health reporting requirements."
+          ],
+          "datePeriod": { "startDate": "01.06.2010", "endDate": "01.12.2014" },
+        
+          "props": [
+            { "name":"platforms", "title": "Web Application" },
+            { "name":"servicemode", "title": "SaaS" },
+            { "name":"integration", "title": "Ministry of Health Sağlık.Net Integration" },
+            { "name":"lang", "title": "Turkish" }
+          ],
+
+          "domains": [
+            { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          "customers":[            
+            "Private Medical Clinics / Turkey",
+            "Individual Medical Practitioners / Turkey"
+          ],
+
+          "partners":[],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Project Manager", "name": "Mesut Demirer", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Davut Gürbüz", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Cankat Abacı", "contactNo": "1" }
+          ],
+
+          "modules": [
+            "Patient Registration and Management",
+            "Appointment Scheduling System",
+            "Medical Records Management", 
+            "Ministry of Health Sağlık.Net Integration",
+            "Reporting and Analytics Engine",
+            "Healthcare Staff Management",
+            "Billing and Financial Management",
+            "Data Security and Privacy Controls"
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Framework" },
+            { "name":  "C#", "type": "Programming Language" },
+            { "name":  "Silverlight", "type": "Web Technology" },
+            { "name":  "XAML", "type": "Markup Language" },
+            { "name":  "WCF", "type": "Web Services" },
+            { "name":  "MS SQL Server", "type": "Database" },
+            { "name":  "Entity Framework", "type": "ORM" },
+            { "name":  "Visual Studio", "type": "IDE" },
+            { "name":  "IIS", "type": "Web Server" },
+            { "name":  "XML", "type": "Data Format" }
+          ]             
         }
     ]
 }
