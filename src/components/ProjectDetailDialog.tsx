@@ -205,6 +205,39 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                 />
               </div>
 
+              {/* Modules */}
+              {project.modules && project.modules.length > 0 && (
+                <div className="px-4 py-2">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <span>Modules</span>
+                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                      {project.modules.length}
+                    </Badge>
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                    {project.modules.map((module, index) => {
+                      const isEven = index % 2 === 0;
+                      const isLastInColumn = index === project.modules.length - 1 || 
+                        (isEven && index === project.modules.length - 2 && project.modules.length % 2 === 0);
+                      
+                      return (
+                        <div key={index}>
+                          <div className="flex items-start gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
+                            <div className="w-2 h-2 bg-primary/60 rounded-full flex-shrink-0 mt-2" />
+                            <span className="text-sm text-foreground leading-relaxed">
+                              {module}
+                            </span>
+                          </div>
+                          {!isLastInColumn && (
+                            <div className="border-b border-dashed border-border/50 mx-4"></div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
               {/* Full Description */}
               {project.fulltext && (
                 <div className="px-4 py-2">
