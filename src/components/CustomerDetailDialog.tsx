@@ -304,22 +304,18 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
               )}
 
               {/* Industry & Category */}
-              <div className="px-4 py-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {customer.industry && (
-                    <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
-                      <span className="font-medium">Industry:</span>
+              {(customer.industry || customer.relationship) && (
+                <div className="px-4 py-2">
+                  <div className="flex flex-wrap gap-3">
+                    {customer.industry && (
                       <Badge variant="outline">{customer.industry}</Badge>
-                    </div>
-                  )}
-                  {customer.relationship && (
-                    <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
-                      <span className="font-medium">Relationship:</span>
+                    )}
+                    {customer.relationship && (
                       <Badge variant="outline">{customer.relationship}</Badge>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Contact Information */}
               {customer.contact && (
@@ -415,16 +411,16 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
 
               {/* Associated Companies */}
               {customer.companyCodes && customer.companyCodes.length > 0 && (
-                <Card className="mx-4">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-base">
-                      <Building2 className="w-4 h-4" />
-                      Associated Companies
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {customer.companyCodes.map((companyCode, index) => {
+                <div className="px-4 py-2">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Building2 className="w-4 h-4" />
+                    <span>Associated Companies</span>
+                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                      {customer.companyCodes.length}
+                    </Badge>
+                  </h4>
+                  <div className="space-y-3">
+                    {customer.companyCodes.map((companyCode, index) => {
                         const companyName = customer.resolvedCompanyNames?.[index];
                         const logoPath = resolveCompanyLogo(companyCode);
                         
@@ -463,23 +459,22 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                           </div>
                         );
                       }).filter(Boolean)}
-                    </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               )}
 
               {/* Related Projects */}
               {customer.projectNames && customer.projectNames.length > 0 && (
-                <Card className="mx-4">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-base">
-                      <Briefcase className="w-4 h-4" />
-                      Related Projects
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {customer.projectNames.map((projectName, index) => {
+                <div className="px-4 py-2">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Briefcase className="w-4 h-4" />
+                    <span>Related Projects</span>
+                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                      {customer.projectNames.length}
+                    </Badge>
+                  </h4>
+                  <div className="space-y-3">
+                    {customer.projectNames.map((projectName, index) => {
                         const projectTitle = customer.resolvedProjectTitles?.[index] || projectName;
                         const logoPath = resolveProjectLogo(projectName);
                         
@@ -515,9 +510,8 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                           </div>
                         );
                       })}
-                    </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               )}
             </TabsContent>
 
