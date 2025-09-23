@@ -1,12 +1,29 @@
 {
     "items": [
-       { "name": "MOH.TR", "title": "Turkish Ministry of Health", "iconCss": "" },
-       { "name": "MOI.KSA", "title": "KSA Ministry of Interior", "iconCss": "" },
-       { "name": "MOH.KSA", "title": "KSA Ministry of Health", "iconCss": "" },
-       { "name": "TTNET", "title": "Türk Telekom - TTNET", "iconCss": "" },
-       { "name": "TTNET", "title": "Eczacıbaşı Sağlık Hizmetleri", "iconCss": "" },
-       { "name": "Avea", "title": "Türk Telekom - Avea", "iconCss": "" },
-       { "name": "H.IbniSina", "title": "Ibni Sina Hastanesi", "iconCss": "" },
-       { "name": "MOH.PAL", "title": "Palestane Ministry of Health", "iconCss": "" }
+       { "name": "MOH.TR", "title": "Turkish Ministry of Health", "logoPath": "/assets/files/customers/_LOGOs/moh_turkey/logo/turkey_moh.jpg" },
+       { "name": "MOI.KSA", "title": "KSA Ministry of Interior", "logoPath": "/assets/files/customers/moi-ksa/logo.png" },
+       { "name": "MOH.KSA", "title": "KSA Ministry of Health", "logoPath": "/assets/files/customers/_LOGOs/moh_ksa/logo/ksa_moh.jpg" },
+       { "name": "TTNET", "title": "Türk Telekom - TTNET", "logoPath": "/assets/files/customers/_LOGOs/tr_turktelekom/logo/turktelekom.jpg" },
+       { "name": "ECZACIBASI", "title": "Eczacıbaşı Sağlık Hizmetleri", "logoPath": "/assets/files/customers/_LOGOs/tr_eczacibasi/eczacibasi_saglik.jpg" },
+       { "name": "Avea", "title": "Türk Telekom - Avea", "logoPath": "/assets/files/customers/_LOGOs/tr_avea/logo/avea.png" },
+       { "name": "H.IbniSina", "title": "Ibni Sina Hastanesi", "logoPath": "/assets/files/customers/_LOGOs/tr_ibnisina/logo/ibnisina.jpg" },
+       { "name": "MOH.PAL", "title": "Palestine Ministry of Health", "logoPath": "/assets/files/customers/_LOGOs/moh_palestine/photos/big/palestine_moh.jpg" },
+       { "name": "LIFEWATCH.CH", "title": "Lifewatch AG - Switzerland", "logoPath": "/assets/files/customers/_LOGOs/tr_lw/logo/tr_lifewatch.png" },
+       { "name": "UCELL.UZ", "title": "Ucell - Uzbekistan Telecommunications", "logoPath": "/assets/files/customers/_LOGOs/uz_ucell/logo/3843407_1_644x461_ucell-kodli-1212-tashkent5947a86188872.jpg" },
+       { "name": "SPMS.PT", "title": "SPMS - Portugal Ministry of Health", "logoPath": "/assets/files/customers/_LOGOs/moh_portugal_spms/logo/moh_portugal_spms.png" },
+       { "name": "AXIS.INT", "title": "Axis Interior Systems - Cincinnati, OH", "logoPath": "/assets/files/customers/axis-interior-systems/logo.png" },
+       { "name": "SSG.NY", "title": "Silver Slate Group - New York, NY", "logoPath": "/assets/files/customers/silver-slate-group/logo.png" },
+       { "name": "PRO.UNITED", "title": "Pro-United Inc - New Hampshire", "logoPath": "/assets/files/customers/pro-united-inc/logo.png" },
+       { "name": "TRANSYL.FL", "title": "Transylvania Flooring Professionals", "logoPath": "/assets/files/customers/transylvania-flooring-professionals/logo.png" },
+       { "name": "BONITZ", "title": "Bonitz Flooring Contractor", "logoPath": "/assets/files/customers/bonitz/logo.png" },
+       { "name": "DMA.FLOORS", "title": "DMA Floors", "logoPath": "/assets/files/customers/dma-floors/logo.png" },
+       { "name": "SERGENIANS", "title": "Sergenian's Flooring", "logoPath": "/assets/files/customers/sergenians/logo.png" },
+       { "name": "GARMON", "title": "Garmon Flooring", "logoPath": "/assets/files/customers/garmon/logo.png" },
+       { "name": "MF.HIGGINS", "title": "MF Higgins Flooring", "logoPath": "/assets/files/customers/mf-higgins/logo.png" },
+       { "name": "GOMEZ.FC", "title": "Gomez Floor Covering", "logoPath": "/assets/files/customers/gomez-floor-covering/logo.png" },
+       { "name": "DESOTO", "title": "Desoto Flooring", "logoPath": "/assets/files/customers/desoto/logo.png" },
+       { "name": "PROFLOORS", "title": "ProFloors, LLC", "logoPath": "/assets/files/customers/profloors-llc/logo.png" },
+       { "name": "ROUSE.CO", "title": "The Rouse Company", "logoPath": "/assets/files/customers/the-rouse-company/logo.png" },
+       { "name": "SHAFAFIYA.KSA", "title": "Shafafiya - Saudi Healthcare Transparency Platform", "logoPath": "/assets/files/customers/shafafiya/logo.png" }
    ]
 }
