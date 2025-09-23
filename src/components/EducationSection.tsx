@@ -63,17 +63,12 @@ const EducationSection = () => {
         const data: EducationData = await response.json();
         setEducationData(data);
 
-        // Load education institution icons dynamically
+        // Create education icon map using direct asset paths
         const educationIcons: { [key: string]: string } = {};
         for (const education of data.items) {
           if (education.icon) {
-            try {
-              const iconPath = `/assets/logos/companies/${education.icon}`;
-              const iconModule = await import(/* @vite-ignore */ iconPath);
-              educationIcons[education.code] = iconModule.default;
-            } catch (error) {
-              console.warn(`Failed to load education icon: ${education.icon} for ${education.name}`, error);
-            }
+            // Use direct asset path for reliable loading in production
+            educationIcons[education.code] = `/assets/logos/companies/${education.icon}`;
           }
         }
         setEducationIconMap(educationIcons);

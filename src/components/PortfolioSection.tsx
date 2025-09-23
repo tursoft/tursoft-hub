@@ -162,19 +162,12 @@ const PortfolioSection = () => {
         const data: NewProjectData = await response.json();
         setProjectData(data);
 
-        // Load project icons dynamically from _logos folder
+        // Create project icon map using direct asset paths
         const projectIcons: { [key: string]: string } = {};
         for (const project of data.items) {
           if (project.icon) {
-            try {
-              // Try to load the project icon from assets/files/projects/_logos/
-              const iconPath = `/assets/files/projects/_logos/${project.icon}`;
-              const iconModule = await import(/* @vite-ignore */ iconPath);
-              projectIcons[project.name] = iconModule.default;
-            } catch (error) {
-              // If specific icon fails, try fallback or continue without icon
-              console.warn(`Failed to load project icon: ${project.icon} for ${project.name}`, error);
-            }
+            // Use direct asset path for reliable loading in production
+            projectIcons[project.name] = `/assets/files/projects/_logos/${project.icon}`;
           }
         }
         setProjectIconMap(projectIcons);
