@@ -358,6 +358,87 @@ const PortfolioSection = () => {
       );
     }
     
+    // Carousel variant - always shows full content
+    if (variant === 'carousel') {
+      return (
+        <Card 
+          className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in transition-all duration-300 cursor-pointer"
+          style={{ animationDelay: `${index * 100}ms`, ...style }}
+          onMouseEnter={() => setHoveredCard(project.id)}
+          onMouseLeave={() => setHoveredCard(null)}
+          onClick={() => handleProjectClick(project)}
+        >
+          <CardHeader className="pb-2">
+            <div className="flex flex-col items-center text-center mb-2">
+              {/* Category Badge */}
+              <Badge variant="outline" className="mb-2 text-xs">
+                {project.group}
+              </Badge>
+              
+              {/* Project Icon - Smaller for carousel */}
+              {project.icon && projectIconMap[project.name] && (
+                <div className="w-20 h-20 flex items-center justify-center mb-2">
+                  <img 
+                    src={projectIconMap[project.name]} 
+                    alt={`${project.title} icon`}
+                    className="w-16 h-16 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300"
+                  />
+                </div>
+              )}
+              
+              {/* Project Info */}
+              <div className="w-full">
+                <CardTitle className="text-base leading-tight group-hover:text-primary transition-colors mb-1">
+                  {project.title}
+                </CardTitle>
+                {project.company && (
+                  <div className="text-xs text-muted-foreground/80 font-medium">
+                    {project.company}
+                  </div>
+                )}
+              </div>
+            </div>
+            {/* Date - Always shown in carousel */}
+            {project.datePeriod?.startDate && (
+              <div className="text-xs text-muted-foreground text-center mb-2">
+                {formatDateToYears(project.datePeriod)}
+              </div>
+            )}
+          </CardHeader>
+          <CardContent className="pt-0">
+            {/* Description - Always shown in carousel */}
+            <div className="mb-3">
+              <CardDescription 
+                className="text-xs leading-relaxed text-center line-clamp-4"
+                dangerouslySetInnerHTML={{ __html: project.summary }}
+              />
+            </div>
+            
+            {/* Technologies - Always shown in carousel */}
+            <div className="flex flex-wrap gap-1 justify-center">
+              {project.technologies.slice(0, 4).map((tech) => (
+                <Badge 
+                  key={tech.name} 
+                  variant="secondary" 
+                  className="text-xs hover:bg-primary/10 transition-colors"
+                >
+                  {tech.name}
+                </Badge>
+              ))}
+              {project.technologies.length > 4 && (
+                <Badge 
+                  variant="outline" 
+                  className="text-xs text-muted-foreground border-dashed"
+                >
+                  +{project.technologies.length - 4} more
+                </Badge>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      );
+    }
+    
     // Default card view (same as existing)
     return (
       <Card 
@@ -634,7 +715,7 @@ const PortfolioSection = () => {
                     <ProjectCard 
                       project={project} 
                       index={index} 
-                      variant="default"
+                      variant="carousel"
                       style={{ 
                         height: '100%',
                         transform: `scale(${scale})`,
