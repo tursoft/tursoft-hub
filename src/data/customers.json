@@ -14,7 +14,7 @@
          "relationship": "Strategic Partner",
          "services": ["Healthcare Information Systems", "Patient Management Solutions", "Medical Data Analytics", "Digital Health Infrastructure"],
          "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET", "Crystal Reports"],
-         "partnership": { "startDate": "01.01.2008", "status": "ongoing" },
+         "partnership": { "startDate": "01.01.2008", "endDate": "01.01.2018", "status": "completed" },
          "companyCodes": ["DATASEL", "ERC"],
          "projectNames": ["VKBS", "ProEmpower"]
        },
@@ -50,7 +50,7 @@
          "relationship": "Strategic Partner",
          "services": ["Electronic Health Records", "Hospital Management Systems", "Health Analytics Platform"],
          "technologies": [".NET", "C#", "MS SQL Server", "Web API", "Angular"],
-         "partnership": { "startDate": "01.03.2011", "status": "ongoing" },
+         "partnership": { "startDate": "01.03.2011", "endDate": "01.01.2014", "status": "completed" },
          "companyCodes": ["DATASEL"],
          "projectNames": ["AIS"]
        },
@@ -176,7 +176,7 @@
          "relationship": "Telecom Client",
          "services": ["Customer Management Systems", "Mobile Billing Solutions", "Network Operations"],
          "technologies": [".NET", "C#", "Oracle", "Web Services"],
-         "partnership": { "startDate": "01.03.2009", "endDate": "01.09.2011", "status": "completed" },
+         "partnership": { "startDate": "01.03.2009", "endDate": "01.09.2009", "status": "completed" },
          "companyCodes": ["DATASEL", "ERC"],
          "projectNames": []
        },
@@ -212,7 +212,7 @@
          "relationship": "Commercial Client",
          "services": [],
          "technologies": ["Web Development", "Database Solutions", "CRM Integration"],
-         "partnership": { "startDate": "01.04.2018", "status": "active" },
+         "partnership": { "startDate": "01.01.2024", "status": "active" },
          "companyCodes": ["jengai"],
          "projectNames": ["JENGAIAPP"]
        },
@@ -230,7 +230,7 @@
          "relationship": "Commercial Client",
          "services": [],
          "technologies": ["Modern Web Stack", "Database Design", "Cloud Solutions"],
-         "partnership": { "startDate": "01.02.2019", "status": "active" },
+         "partnership": { "startDate": "01.01.2019", "status": "active" },
          "companyCodes": ["gamyte", "jengai"],
          "projectNames": ["GAMYTEAPP", "JENGAIAPP"]
        },
@@ -248,7 +248,7 @@
          "relationship": "Commercial Client", 
          "services": [],
          "technologies": ["Web Applications", "Database Management", "Business Intelligence"],
-         "partnership": { "startDate": "01.08.2018", "status": "active" },
+         "partnership": { "startDate": "01.01.2023", "status": "active" },
          "companyCodes": ["jengai"],
          "projectNames": ["JENGAIAPP"]
        },
@@ -266,7 +266,7 @@
          "relationship": "Commercial Client",
          "services": [],
          "technologies": ["Web Development", "Database Solutions", "Mobile Applications"],
-         "partnership": { "startDate": "01.06.2019", "status": "active" },
+         "partnership": { "startDate": "01.01.2024", "status": "active" },
          "companyCodes": ["gamyte"],
          "projectNames": ["GAMYTEAPP"]
        },
@@ -284,7 +284,7 @@
          "relationship": "Commercial Client",
          "services": [],
          "technologies": ["Web Applications", "Database Solutions"],
-         "partnership": { "startDate": "01.03.2020", "status": "active" },
+         "partnership": { "startDate": "01.01.2025", "status": "active" },
          "companyCodes": ["jengai"],
          "projectNames": ["JENGAIAPP"]
        },
@@ -302,7 +302,7 @@
          "relationship": "Commercial Client",
          "services": [],
          "technologies": ["Modern Web Development", "Cloud Infrastructure"],
-         "partnership": { "startDate": "01.01.2020", "status": "active" },
+         "partnership": { "startDate": "01.01.2025", "status": "active" },
          "companyCodes": ["jengai"],
          "projectNames": ["JENGAIAPP"]
        },
@@ -320,7 +320,7 @@
          "relationship": "Long-term Partner",
          "services": [],
          "technologies": ["Full-Stack Development", "Database Migration"],
-         "partnership": { "startDate": "01.05.2019", "status": "active" },
+         "partnership": { "startDate": "01.01.2025", "status": "active" },
          "companyCodes": ["gamyte"],
          "projectNames": ["GAMYTEAPP"]
        },
@@ -338,7 +338,7 @@
          "relationship": "Commercial Client", 
          "services": [],
          "technologies": ["Web Applications", "Mobile Solutions"],
-         "partnership": { "startDate": "01.09.2020", "status": "active" },
+         "partnership": { "startDate": "01.01.2025", "status": "active" },
          "companyCodes": ["jengai"],
          "projectNames": ["JENGAIAPP"]
        },
@@ -356,7 +356,7 @@
          "relationship": "Commercial Client",
          "services": [],
          "technologies": ["Cloud-based Solutions", "Database Systems"],
-         "partnership": { "startDate": "01.07.2020", "status": "active" },
+         "partnership": { "startDate": "01.01.2024", "status": "active" },
          "companyCodes": ["jengai"],
          "projectNames": ["JENGAIAPP"]
        },
@@ -374,7 +374,7 @@
          "relationship": "Regional Partner",
          "services": [],
          "technologies": ["Distributed Systems", "Web Development"],
-         "partnership": { "startDate": "01.11.2019", "status": "active" },
+         "partnership": { "startDate": "01.01.2024", "status": "active" },
          "companyCodes": ["jengai"],
          "projectNames": ["JENGAIAPP"]
        },
@@ -392,7 +392,7 @@
          "relationship": "Commercial Client",
          "services": [],
          "technologies": ["Web Development", "Integration Solutions"],
-         "partnership": { "startDate": "01.04.2021", "status": "active" },
+         "partnership": { "startDate": "01.01.2025", "status": "active" },
          "companyCodes": ["jengai"],
          "projectNames": ["JENGAIAPP"]
        },
@@ -410,7 +410,7 @@
          "relationship": "Strategic Partner",
          "services": [],
          "technologies": ["Modern Tech Stack", "Cloud Solutions", "Mobile Apps"],
-         "partnership": { "startDate": "01.02.2021", "status": "active" },
+         "partnership": { "startDate": "01.01.2025", "status": "active" },
          "companyCodes": ["jengai"],
          "projectNames": ["JENGAIAPP"]
        },
@@ -428,7 +428,7 @@
          "relationship": "Enterprise Client",
          "services": [],
          "technologies": ["Enterprise Solutions", "Advanced Analytics", "Integration Platforms"],
-         "partnership": { "startDate": "01.08.2020", "status": "active" },
+         "partnership": { "startDate": "01.01.2025", "status": "active" },
          "companyCodes": ["jengai"],
          "projectNames": ["JENGAIAPP"]
        },
@@ -446,7 +446,7 @@
          "relationship": "Technology Partner",
          "services": ["System Integration"],
          "technologies": ["Modern Web Stack", "Web", "Silverlight", "Xaml", "C#", ".NET"],
-         "partnership": { "startDate": "01.06.2022", "status": "active" },
+         "partnership": { "startDate": "01.06.2012", "endDate": "01.06.2014", "status": "active" },
          "companyCodes": ["DATASEL", "ERC"],
          "projectNames": []
        },
@@ -464,7 +464,7 @@
          "relationship": "Government Client",
          "services": ["LMS", "E-Learning"],
          "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET"],
-         "partnership": { "startDate": "01.01.2005", "status": "completed" },
+         "partnership": { "startDate": "01.01.2005", "endDate": "01.01.2006", "status": "completed" },
          "companyCodes": ["DATASEL"],
          "projectNames": []
        },
@@ -482,7 +482,7 @@
          "relationship": "Government Client",
          "services": ["LMS", "E-Learning"],
          "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET"],
-         "partnership": { "startDate": "01.01.2005", "status": "completed" },
+         "partnership": { "startDate": "01.01.2005", "endDate": "01.01.2006", "status": "completed" },
          "companyCodes": ["DATASEL"],
          "projectNames": []
        },
@@ -500,7 +500,7 @@
          "relationship": "Academic Partner",
          "services": ["Educational Systems", "Research Support", "Academic Management"],
          "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET"],
-         "partnership": { "startDate": "01.01.2004", "status": "completed" },
+         "partnership": { "startDate": "01.01.2004", "endDate": "01.01.2005", "status": "completed" },
          "companyCodes": ["DATASEL"],
          "projectNames": []
        },
@@ -518,7 +518,7 @@
          "relationship": "Research Partner",
          "services": ["Research Grant Management", "Scientific Project Support", "Technology Transfer"],
          "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET"],
-         "partnership": { "startDate": "01.01.2003", "status": "completed" },
+         "partnership": { "startDate": "01.01.2003", "endDate": "01.01.2004","status": "completed" },
          "companyCodes": ["DATASEL"],
          "projectNames": []
        },
@@ -536,7 +536,7 @@
          "relationship": "Academic Partner",
          "services": ["Web Development", "Trainning", "Community Building"],
          "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET"],
-         "partnership": { "startDate": "01.01.2003", "status": "completed" },
+         "partnership": { "startDate": "01.01.2003", "endDate": "01.01.2004", "status": "completed" },
          "companyCodes": ["Tursoft"],
          "projectNames": []
        }
