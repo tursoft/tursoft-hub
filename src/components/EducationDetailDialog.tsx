@@ -138,7 +138,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                   {education.level}
                 </Badge>
               </div>
-              <DialogDescription className="text-base text-muted-foreground">
+              <div className="text-base text-muted-foreground">
                 <div className="flex items-center gap-2 mb-2">
                   <Building2 className="w-4 h-4" />
                   <span>{education.name}</span>
@@ -163,7 +163,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                     <span>{education.city}</span>
                   </div>
                 </div>
-              </DialogDescription>
+              </div>
             </div>
           </div>
         </DialogHeader>

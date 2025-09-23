@@ -220,7 +220,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                   </Badge>
                 )}
               </div>
-              <DialogDescription className="text-base text-muted-foreground">
+              <div className="text-base text-muted-foreground">
                 {customer.location && (
                   <div className="flex items-center gap-2 mb-2">
                     <MapPin className="w-4 h-4" />
@@ -233,7 +233,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                     <span>{formatPartnershipPeriod()}</span>
                   </div>
                 )}
-              </DialogDescription>
+              </div>
             </div>
             {customerLogo && (
               <div className="w-16 h-16 flex-shrink-0">

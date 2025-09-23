@@ -180,7 +180,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                   </Badge>
                 )}
               </div>
-              <DialogDescription className="text-base text-muted-foreground">
+              <div className="text-base text-muted-foreground">
                 <div className="flex items-center gap-2 mb-2">
                   <Clock className="w-4 h-4" />
                   <span>{calculateTotalDuration()}</span>
@@ -215,7 +215,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                     )}
                   </div>
                 )}
-              </DialogDescription>
+              </div>
             </div>
             <div className="w-16 h-16 flex-shrink-0">
               <img 
