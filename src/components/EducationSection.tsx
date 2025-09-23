@@ -134,12 +134,12 @@ const EducationSection = () => {
                     <div className="hidden lg:block absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
                       <div className={`transition-all duration-300 rounded-full border-2 border-background flex items-center justify-center ${
                         isHovered 
-                          ? 'w-12 h-12 bg-gradient-to-br from-primary to-primary-dark shadow-xl shadow-primary/40 scale-110' 
+                          ? 'w-12 h-12 bg-white shadow-xl scale-110' 
                           : 'w-10 h-10 bg-background/70 border-muted-foreground/20 shadow-md'
                       }`}>
                         <GraduationCap className={`transition-all duration-300 ${
                           isHovered 
-                            ? 'w-6 h-6 text-background scale-110' 
+                            ? 'w-6 h-6 text-primary scale-110' 
                             : 'w-5 h-5 text-muted-foreground/60'
                         }`} />
                       </div>
