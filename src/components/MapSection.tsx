@@ -169,8 +169,21 @@ function HoverMarker({ marker, icon }: { marker: MapMarker; icon: L.DivIcon }) {
         autoClose={false}
         closeOnEscapeKey={true}
       >
-        <div className="p-2 bg-background text-foreground rounded-lg">
-          <h3 className="font-semibold text-lg mb-1 text-foreground">{marker.title}</h3>
+        <div className="p-2 bg-background text-foreground rounded-lg relative">
+          {marker.logo && (
+            <div className="absolute top-2 right-2 w-8 h-8 flex-shrink-0">
+              <img 
+                src={marker.type === 'customer' ? marker.logo : `/assets/logos/companies/${marker.logo}`}
+                alt={`${marker.title} logo`}
+                className="w-full h-full object-contain rounded"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
+              />
+            </div>
+          )}
+          <h3 className="font-semibold text-lg mb-1 text-foreground pr-10">{marker.title}</h3>
           {marker.subtitle && (
             <p className="text-sm text-muted-foreground mb-2">{marker.subtitle}</p>
           )}
@@ -185,18 +198,6 @@ function HoverMarker({ marker, icon }: { marker: MapMarker; icon: L.DivIcon }) {
               </Badge>
             )}
           </div>
-          {marker.technologies && marker.technologies.length > 0 && (
-            <div className="mt-2">
-              <p className="text-xs text-muted-foreground mb-1">Key Technologies:</p>
-              <div className="flex flex-wrap gap-1">
-                {marker.technologies.map((tech, index) => (
-                  <Badge key={index} variant="outline" className="text-xs border-border text-foreground">
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </Popup>
     </Marker>
