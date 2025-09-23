@@ -4,6 +4,9 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Card } from './ui/card'
 import { Badge } from './ui/badge'
+import { Button } from './ui/button'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table'
+import { Map, Grid, Eye } from 'lucide-react'
 import ExperienceDetailDialog from './ExperienceDetailDialog'
 import EducationDetailDialog from './EducationDetailDialog'
 import CustomerDetailDialog from './CustomerDetailDialog'
@@ -392,6 +395,7 @@ function MapBounds({ markers }: { markers: MapMarker[] }) {
 
 export default function MapSection() {
   const [selectedFilters, setSelectedFilters] = useState<string[]>(['experience', 'education', 'customer'])
+  const [viewMode, setViewMode] = useState<'map' | 'grid'>('map')
   const mapRef = useRef<L.Map | null>(null)
   
   // Dialog state management
@@ -524,6 +528,34 @@ export default function MapSection() {
     }
   }
 
+  // Handle grid row click to open appropriate dialog
+  const handleRowClick = (item: MapItem) => {
+    // Find the original data object for dialogs
+    let originalData: unknown = null
+    if (item.type === 'experience') {
+      originalData = experiencesData.items.find(exp => (exp as Record<string, unknown>).uid === item.uid)
+    } else if (item.type === 'education') {
+      originalData = educationData.items.find(edu => (edu as Record<string, unknown>).uid === item.uid)
+    } else if (item.type === 'customer') {
+      originalData = customersData.items.find(cust => (cust as Record<string, unknown>).uid === item.uid)
+    }
+
+    switch (item.type) {
+      case 'experience':
+        setSelectedExperience(originalData)
+        setIsExperienceDialogOpen(true)
+        break
+      case 'education':
+        setSelectedEducation(originalData)
+        setIsEducationDialogOpen(true)
+        break
+      case 'customer':
+        setSelectedCustomer(originalData)
+        setIsCustomerDialogOpen(true)
+        break
+    }
+  }
+
   return (
     <section id="map" className="py-20 bg-gradient-to-b from-background via-secondary/50 to-background">
       <div className="container mx-auto px-4">
@@ -536,6 +568,30 @@ export default function MapSection() {
             Explore the worldwide locations of companies I've worked with, institutions where I've studied, 
             and clients I've served throughout my career.
           </p>
+        </div>
+
+        {/* View Mode Toggle */}
+        <div className="flex justify-center mb-6">
+          <div className="flex bg-secondary rounded-lg p-1">
+            <Button
+              variant={viewMode === 'map' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setViewMode('map')}
+              className="flex items-center gap-2"
+            >
+              <Map className="w-4 h-4" />
+              Map View
+            </Button>
+            <Button
+              variant={viewMode === 'grid' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setViewMode('grid')}
+              className="flex items-center gap-2"
+            >
+              <Grid className="w-4 h-4" />
+              Grid View
+            </Button>
+          </div>
         </div>
 
         {/* Filters */}
@@ -575,36 +631,101 @@ export default function MapSection() {
           </button>
         </div>
 
-        {/* Map */}
+        {/* Map or Grid View */}
         <Card className="overflow-hidden">
-          <div className="h-[600px] w-full">
-            <MapContainer
-              center={[40, 0]}
-              zoom={2}
-              style={{ height: '100%', width: '100%' }}
-              className="z-0"
-              scrollWheelZoom={true}
-              attributionControl={true}
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                maxZoom={18}
-                minZoom={2}
-              />
-              {markers.length > 0 && <MapBounds markers={markers} />}
-              <CountryHighlight />
-              
-              {markers.map((marker) => (
-                <HoverMarker
-                  key={marker.id}
-                  marker={marker}
-                  icon={createIconWithLogo(marker.type, marker.logo)}
-                  onMarkerClick={handleMarkerClick}
+          {viewMode === 'map' ? (
+            <div className="h-[600px] w-full">
+              <MapContainer
+                center={[40, 0]}
+                zoom={2}
+                style={{ height: '100%', width: '100%' }}
+                className="z-0"
+                scrollWheelZoom={true}
+                attributionControl={true}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  maxZoom={18}
+                  minZoom={2}
                 />
-              ))}
-            </MapContainer>
-          </div>
+                {markers.length > 0 && <MapBounds markers={markers} />}
+                <CountryHighlight />
+                
+                {markers.map((marker) => (
+                  <HoverMarker
+                    key={marker.id}
+                    marker={marker}
+                    icon={createIconWithLogo(marker.type, marker.logo)}
+                    onMarkerClick={handleMarkerClick}
+                  />
+                ))}
+              </MapContainer>
+            </div>
+          ) : (
+            <div className="max-h-[600px] overflow-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Type</TableHead>
+                    <TableHead>Title</TableHead>
+                    <TableHead>Date Range</TableHead>
+                    <TableHead>Country</TableHead>
+                    <TableHead>City</TableHead>
+                    <TableHead>Action</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {mapItems.map((item) => {
+                    const typeColors = {
+                      experience: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
+                      education: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+                      customer: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                    }
+                    
+                    const dateRange = item.daterange.end 
+                      ? `${item.daterange.start} - ${item.daterange.end}`
+                      : `${item.daterange.start} - Present`
+
+                    return (
+                      <TableRow 
+                        key={item.uid} 
+                        className="hover:bg-muted/50 cursor-pointer"
+                        onClick={() => handleRowClick(item)}
+                      >
+                        <TableCell>
+                          <Badge className={typeColors[item.type]}>
+                            {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="font-medium">{item.title}</TableCell>
+                        <TableCell className="text-muted-foreground">{dateRange}</TableCell>
+                        <TableCell>{item.country}</TableCell>
+                        <TableCell>{item.city}</TableCell>
+                        <TableCell>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleRowClick(item)
+                            }}
+                          >
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+              </Table>
+              {mapItems.length === 0 && (
+                <div className="p-8 text-center text-muted-foreground">
+                  No items match the selected filters.
+                </div>
+              )}
+            </div>
+          )}
         </Card>
 
         {/* Statistics */}
