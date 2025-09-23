@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -25,7 +25,9 @@ import {
   ExternalLink,
   Phone,
   Mail,
-  Clock
+  Clock,
+  ChevronDown,
+  ChevronRight
 } from "lucide-react";
 
 interface Customer {
@@ -76,7 +78,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
   onClose,
   customerLogo
 }) => {
-  if (!customer) return null;
+  const [expandedTechGroups, setExpandedTechGroups] = useState<Record<string, boolean>>({});
 
   // Helper function to resolve company logo paths
   const resolveCompanyLogo = (companyCode: string): string | null => {
@@ -163,6 +165,81 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
     const logoFile = projectLogoMap[projectName];
     return logoFile ? `/src/assets/files/projects/_logos/${logoFile}` : null;
   };
+
+  // Helper function to categorize technologies by type
+  const categorizeTechnology = (tech: string): string => {
+    const techLower = tech.toLowerCase().trim();
+    
+    // Programming Languages & Frameworks
+    if (['.net', 'c#', 'java', 'python', 'php', 'javascript', 'typescript', 'asp.net', 'angular', 'react', 'nodejs', 'node.js', 'jquery'].includes(techLower)) {
+      return 'Programming & Frameworks';
+    }
+    
+    // Databases
+    if (['ms sql server', 'mssql', 'sql server', 'oracle', 'mysql', 'postgresql', 'mongodb'].includes(techLower)) {
+      return 'Databases';
+    }
+    
+    // Web Technologies
+    if (['html', 'css', 'bootstrap', 'web services', 'soap', 'web api'].includes(techLower)) {
+      return 'Web Technologies';
+    }
+    
+    // DevOps & Cloud
+    if (['docker', 'azure', 'aws', 'git'].includes(techLower)) {
+      return 'DevOps & Cloud';
+    }
+    
+    // Development Tools
+    if (['visual studio', 'vs code', 'crystal reports'].includes(techLower)) {
+      return 'Development Tools';
+    }
+    
+    // Default category
+    return 'Other Technologies';
+  };
+
+  // Group technologies by category
+  const groupedTechnologies = React.useMemo(() => {
+    if (!customer?.technologies) return {};
+    
+    const grouped: { [key: string]: string[] } = {};
+    customer.technologies.forEach(tech => {
+      const category = categorizeTechnology(tech);
+      if (!grouped[category]) {
+        grouped[category] = [];
+      }
+      grouped[category].push(tech);
+    });
+    
+    // Sort technologies within each group
+    Object.keys(grouped).forEach(category => {
+      grouped[category].sort();
+    });
+    
+    return grouped;
+  }, [customer?.technologies]);
+
+  // Initialize expanded state for technology groups
+  useEffect(() => {
+    if (isOpen && customer?.technologies) {
+      const initialExpandedState = Object.keys(groupedTechnologies).reduce((acc, category) => {
+        acc[category] = true; // Default to expanded
+        return acc;
+      }, {} as Record<string, boolean>);
+      setExpandedTechGroups(initialExpandedState);
+    }
+  }, [isOpen, customer?.technologies, groupedTechnologies]);
+
+  // Toggle function for technology groups
+  const toggleTechGroup = (category: string) => {
+    setExpandedTechGroups(prev => ({
+      ...prev,
+      [category]: !prev[category]
+    }));
+  };
+  
+  if (!customer) return null;
 
   // Helper function to get partnership status color
   const getPartnershipStatusColor = (status?: string) => {
@@ -258,11 +335,10 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
         </DialogHeader>
 
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="companies-projects">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="overview">
               <span className="flex items-center gap-2">
-                Companies & Projects
+                Overview
                 {((customer.companyCodes && customer.companyCodes.length > 0) || (customer.projectNames && customer.projectNames.length > 0)) && (
                   <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                     {(customer.companyCodes?.length || 0) + (customer.projectNames?.length || 0)}
@@ -413,6 +489,113 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                   </CardContent>
                 </Card>
               )}
+
+              {/* Associated Companies */}
+              {customer.companyCodes && customer.companyCodes.length > 0 && (
+                <Card className="mx-4">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Building2 className="w-4 h-4" />
+                      Associated Companies
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {customer.companyCodes.map((companyCode, index) => {
+                        const companyName = customer.resolvedCompanyNames?.[index];
+                        const logoPath = resolveCompanyLogo(companyCode);
+                        
+                        // Only show company if we have a resolved name (don't show raw codes)
+                        if (!companyName) return null;
+                        
+                        return (
+                          <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
+                            {/* Company Logo */}
+                            {logoPath && (
+                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+                                <img 
+                                  src={logoPath}
+                                  alt={`${companyName} logo`}
+                                  className="w-7 h-7 object-contain rounded"
+                                  onError={(e) => {
+                                    // Try with /assets/ prefix for production fallback
+                                    const currentSrc = e.currentTarget.src;
+                                    if (currentSrc.includes('/src/assets/')) {
+                                      e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
+                                    } else {
+                                      // Hide image if it fails to load
+                                      e.currentTarget.style.display = 'none';
+                                    }
+                                  }}
+                                />
+                              </div>
+                            )}
+                            
+                            {/* Company Name */}
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-medium text-foreground truncate">
+                                {companyName}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      }).filter(Boolean)}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Related Projects */}
+              {customer.projectNames && customer.projectNames.length > 0 && (
+                <Card className="mx-4">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Briefcase className="w-4 h-4" />
+                      Related Projects
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {customer.projectNames.map((projectName, index) => {
+                        const projectTitle = customer.resolvedProjectTitles?.[index] || projectName;
+                        const logoPath = resolveProjectLogo(projectName);
+                        
+                        return (
+                          <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
+                            {/* Project Logo */}
+                            {logoPath && (
+                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+                                <img 
+                                  src={logoPath}
+                                  alt={`${projectTitle} logo`}
+                                  className="w-7 h-7 object-contain rounded"
+                                  onError={(e) => {
+                                    // Try with /assets/ prefix for production fallback
+                                    const currentSrc = e.currentTarget.src;
+                                    if (currentSrc.includes('/src/assets/')) {
+                                      e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
+                                    } else {
+                                      // Hide image if it fails to load
+                                      e.currentTarget.style.display = 'none';
+                                    }
+                                  }}
+                                />
+                              </div>
+                            )}
+                            
+                            {/* Project Details */}
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-medium text-foreground truncate">
+                                {projectTitle}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </TabsContent>
 
             <TabsContent value="services" className="space-y-6 min-h-[400px]">
@@ -442,172 +625,86 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
               </div>
             </TabsContent>
 
-            <TabsContent value="companies-projects" className="space-y-6 min-h-[400px]">
-              <div className="p-4">
-                {/* Associated Companies Section */}
-                {customer.companyCodes && customer.companyCodes.length > 0 ? (
-                  <div className="mb-8">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Building2 className="w-5 h-5" />
-                      <h3 className="text-lg font-semibold">Associated Companies</h3>
-                    </div>
-                    <div className="space-y-3">
-                      {customer.companyCodes.map((companyCode, index) => {
-                        const companyName = customer.resolvedCompanyNames?.[index];
-                        const logoPath = resolveCompanyLogo(companyCode);
-                        
-                        // Only show company if we have a resolved name (don't show raw codes)
-                        if (!companyName) return null;
-                        
-                        return (
-                          <div key={index} className="flex items-center gap-4 p-4 bg-card border border-border/50 rounded-lg hover:shadow-md transition-shadow">
-                            {/* Company Logo */}
-                            {logoPath && (
-                              <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
-                                <img 
-                                  src={logoPath}
-                                  alt={`${companyName} logo`}
-                                  className="w-10 h-10 object-contain rounded"
-                                  onError={(e) => {
-                                    // Try with /assets/ prefix for production fallback
-                                    const currentSrc = e.currentTarget.src;
-                                    if (currentSrc.includes('/src/assets/')) {
-                                      e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
-                                    } else {
-                                      // Hide image if it fails to load
-                                      e.currentTarget.style.display = 'none';
-                                    }
-                                  }}
-                                />
-                              </div>
-                            )}
-                            
-                            {/* Company Name */}
-                            <div className="flex-1 min-w-0">
-                              <div className="text-sm font-medium text-foreground truncate">
-                                {companyName}
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      }).filter(Boolean)}
-                    </div>
-                  </div>
-                ) : null}
-
-                {/* Related Projects Section */}
-                {customer.projectNames && customer.projectNames.length > 0 ? (
-                  <div>
-                    <div className="flex items-center gap-2 mb-4">
-                      <Briefcase className="w-5 h-5" />
-                      <h3 className="text-lg font-semibold">Related Projects</h3>
-                    </div>
-                    <div className="space-y-3">
-                      {customer.projectNames.map((projectName, index) => {
-                        const projectTitle = customer.resolvedProjectTitles?.[index] || projectName;
-                        const logoPath = resolveProjectLogo(projectName);
-                        
-                        return (
-                          <div key={index} className="flex items-center gap-4 p-4 bg-card border border-border/50 rounded-lg hover:shadow-md transition-shadow">
-                            {/* Project Logo */}
-                            {logoPath && (
-                              <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
-                                <img 
-                                  src={logoPath}
-                                  alt={`${projectTitle} logo`}
-                                  className="w-10 h-10 object-contain rounded"
-                                  onError={(e) => {
-                                    // Try with /assets/ prefix for production fallback
-                                    const currentSrc = e.currentTarget.src;
-                                    if (currentSrc.includes('/src/assets/')) {
-                                      e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
-                                    } else {
-                                      // Hide image if it fails to load
-                                      e.currentTarget.style.display = 'none';
-                                    }
-                                  }}
-                                />
-                              </div>
-                            )}
-                            
-                            {/* Project Details */}
-                            <div className="flex-1 min-w-0">
-                              <div className="text-sm font-medium text-foreground truncate">
-                                {projectTitle}
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ) : null}
-
-                {/* No Data Message */}
-                {(!customer.companyCodes || customer.companyCodes.length === 0) && (!customer.projectNames || customer.projectNames.length === 0) && (
-                  <Card>
-                    <CardContent className="p-8 text-center">
-                      <Building2 className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                      <p className="text-muted-foreground">No company or project information available.</p>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="technologies" className="space-y-6 min-h-[400px]">
-              <div className="p-4">
-                {customer.technologies && customer.technologies.length > 0 ? (
-                  <>
+            <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
+              {Object.keys(groupedTechnologies).length > 0 ? (
+                <>
+                  <div className="px-4 py-2">
                     <div className="flex items-center gap-2 mb-4">
                       <Star className="w-5 h-5" />
                       <h3 className="text-lg font-semibold">Technologies Used</h3>
                     </div>
-                    <div className="flex flex-wrap gap-3">
-                      {customer.technologies.map((tech, index) => {
-                        const logoPath = resolveTechnologyLogo(tech);
-                        
-                        return (
-                          <div key={index} className="flex items-center gap-2 p-3 bg-muted/30 rounded-lg border border-border/30 hover:shadow-sm transition-shadow">
-                            {/* Technology Logo */}
-                            {logoPath && (
-                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                                <img 
-                                  src={logoPath}
-                                  alt={`${tech} logo`}
-                                  className="w-6 h-6 object-contain"
-                                  onError={(e) => {
-                                    // Try with /assets/ prefix for production fallback
-                                    const currentSrc = e.currentTarget.src;
-                                    if (currentSrc.includes('/src/assets/')) {
-                                      e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
-                                    } else {
-                                      // Hide image if it fails to load
-                                      e.currentTarget.style.display = 'none';
-                                    }
-                                  }}
-                                />
-                              </div>
-                            )}
-                            
-                            {/* Technology Name */}
-                            <span className="text-sm font-medium text-foreground">
-                              {tech}
-                            </span>
+                  </div>
+                  
+                  {Object.entries(groupedTechnologies).map(([category, techs]) => {
+                    const isExpanded = expandedTechGroups[category] ?? true; // Default to expanded
+                    return (
+                      <div key={category} className="px-4 py-1">
+                        <button
+                          onClick={() => toggleTechGroup(category)}
+                          className="flex items-center gap-2 w-full text-left hover:bg-muted/50 rounded p-2 transition-colors border-t border-b border-border/30"
+                        >
+                          {isExpanded ? (
+                            <ChevronDown className="w-4 h-4" />
+                          ) : (
+                            <ChevronRight className="w-4 h-4" />
+                          )}
+                          <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
+                            {category}
+                          </h3>
+                          <span className="text-xs text-muted-foreground ml-auto">
+                            ({techs.length})
+                          </span>
+                        </button>
+                        {isExpanded && (
+                          <div className="flex flex-wrap gap-2 mt-3 ml-6">
+                            {techs.map((tech, index) => {
+                              const logoPath = resolveTechnologyLogo(tech);
+                              return (
+                                <div key={index} className="flex items-center gap-2 p-2 bg-muted/30 rounded-lg border border-border/30 hover:shadow-sm transition-shadow">
+                                  {/* Technology Logo */}
+                                  {logoPath && (
+                                    <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
+                                      <img 
+                                        src={logoPath}
+                                        alt={`${tech} logo`}
+                                        className="w-5 h-5 object-contain"
+                                        onError={(e) => {
+                                          // Try with /assets/ prefix for production fallback
+                                          const currentSrc = e.currentTarget.src;
+                                          if (currentSrc.includes('/src/assets/')) {
+                                            e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
+                                          } else {
+                                            // Hide image if it fails to load
+                                            e.currentTarget.style.display = 'none';
+                                          }
+                                        }}
+                                      />
+                                    </div>
+                                  )}
+                                  
+                                  {/* Technology Name */}
+                                  <span className="text-xs font-medium text-foreground">
+                                    {tech}
+                                  </span>
+                                </div>
+                              );
+                            })}
                           </div>
-                        );
-                      })}
-                    </div>
-                  </>
-                ) : (
+                        )}
+                      </div>
+                    );
+                  })}
+                </>
+              ) : (
+                <div className="p-4">
                   <Card>
                     <CardContent className="p-8 text-center">
                       <Star className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                       <p className="text-muted-foreground">No technology information available.</p>
                     </CardContent>
                   </Card>
-                )}
-              </div>
+                </div>
+              )}
             </TabsContent>
           </div>
         </Tabs>
