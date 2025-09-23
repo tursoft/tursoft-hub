@@ -1,0 +1,20 @@
+{ 
+    "general": {
+               
+    },
+
+    "items":[
+        { "name": "professional", "title": "Professional Experiences", "value":20, "subTitle": "years of", "iconCss": "fa fa-handshake" },
+        { "name": "management", "title": "Management Experience", "value":15, "subTitle": "years of", "iconCss": "fa fa-briefcase" },
+        { "name": "net", "title": ".NET Experience", "value":17, "subTitle": "years of", "iconCss": "fa fa-hashtag" },
+        { "name": "web", "title": "Web Experience", "value":20, "subTitle": "years of", "iconCss": "fa fa-code" }                                   
+    ],
+
+    "subItems": [
+        { "name": "software", "title": "Software Projects", "value":50, "subTitle": "", "iconCss": "" },
+        { "name": "rd", "title": "Research & Development Projects", "value":10, "subTitle": "", "iconCss": "" },
+        { "name": "international", "title": "International Projects", "value":10, "subTitle": "", "iconCss": "" },
+        { "name": "national", "title": "National Projects", "value":5, "subTitle": "", "iconCss": "" },
+        { "name": "major-domains", "title": "Major Domains", "value":5, "subTitle": "", "iconCss": "" }
+    ]
+}

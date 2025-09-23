@@ -1,0 +1,21 @@
+{ 
+    "items": [                    
+        { "name": "consultancy", "title": "Consultancy", "value":100, "iconCss": "fa fa-desktop", 
+        "summary": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. consectetuer adipi scing elit Lorem ipsum dolor sit amet, consectetuer adipiscing elit." },
+        
+        { "name": "project.management", "title": "Project Management", "value":100, "iconCss": "fa fa-credit-card", 
+        "summary": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. consectetuer adipi scing elit Lorem ipsum dolor sit amet, consectetuer adipiscing elit." },
+        
+        { "name": "outsourcing", "title": "Outsourcing", "value":100, "iconCss": "fa fa-google-wallet", 
+        "summary": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. consectetuer adipi scing elit Lorem ipsum dolor sit amet, consectetuer adipiscing elit." },
+        
+        { "name": "training", "title": "Training", "value":100, "iconCss": "fa fa-list-alt", 
+        "summary": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. consectetuer adipi scing elit Lorem ipsum dolor sit amet, consectetuer adipiscing elit." },
+
+        { "name": "framework", "title": "Framework Development", "value":100, "iconCss": "fa fa-newspaper-o", 
+        "summary": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. consectetuer adipi scing elit Lorem ipsum dolor sit amet, consectetuer adipiscing elit." },
+
+        { "name": "design", "title": "Graphics Design", "value":100, "iconCss": "fa fa-picture-o", 
+        "summary": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. consectetuer adipi scing elit Lorem ipsum dolor sit amet, consectetuer adipiscing elit." }
+    ]
+}

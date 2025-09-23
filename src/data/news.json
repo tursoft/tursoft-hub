@@ -1,0 +1,24 @@
+{
+    "items": [
+        {
+            "date":"17.01.2019",
+            "category": "projects",
+            "projects": ["ProEmpower"],
+            "companies": ["ERC"],
+
+            "title": 
+            {
+                "tr": "ProEmpower Projesinde Faz3'deyiz!",
+                "en": "Awarded for Phase3 of Proempower Project"
+            },
+            
+            "content": { 
+                "tr": "T.C. Sağlık Bakanlığı koordinatörlüğünde yürütülen @ProEmpowerPCP projesi 3. Faz ihalesini de içerisinde yer aldığımız Gnomon konsoriyumu olarak en yüksek puan alarak kazandığımızı paylaşmaktan gurur duyuyoruz. @saglikbakanligi https://sbsgm.saglik.gov.tr/TR,52634/proempower-ihale-sonucu.html",
+                "en": "We are proud to share that our consortium Gnomon awarded for the 3rd Phase of the @ProEmpowerPCP project with the highest score which carried out under the coordination of the Republic of Turkey Ministry of Health. @saglikbakanligi. https://sbsgm.saglik.gov.tr/TR,52634/proempower-ihale-sonucu.html"
+            },
+
+            "image_main": "",
+            "images": []
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "items": [
+       { "name": "MOH.TR", "title": "Turkish Ministry of Health", "iconCss": "" },
+       { "name": "MOI.KSA", "title": "KSA Ministry of Interior", "iconCss": "" },
+       { "name": "MOH.KSA", "title": "KSA Ministry of Health", "iconCss": "" },
+       { "name": "TTNET", "title": "Türk Telekom - TTNET", "iconCss": "" },
+       { "name": "TTNET", "title": "Eczacıbaşı Sağlık Hizmetleri", "iconCss": "" },
+       { "name": "Avea", "title": "Türk Telekom - Avea", "iconCss": "" },
+       { "name": "H.IbniSina", "title": "Ibni Sina Hastanesi", "iconCss": "" },
+       { "name": "MOH.PAL", "title": "Palestane Ministry of Health", "iconCss": "" }
+   ]
+}

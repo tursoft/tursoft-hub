@@ -1,0 +1,14 @@
+{
+    "items": [
+        { "code": "tr", "name": "Turkey", "orderIndex": 1, "icon": "turkey_flag.png", "location": { "lat": 39.9192490141359, "long": 32.85369157791138 } },
+        { "code": "eu", "name": "European Union", "orderIndex": 2, "icon": "eu_flag.png", "location": { "lat": 39.9192490141359, "long": 32.85369157791138 } },
+        { "code": "usa", "name": "United States of America", "orderIndex": 3, "icon": "usa_flag.png" },
+        { "code": "ksa", "name": "Kingdom of Saudi Arabia", "orderIndex": 4, "icon": "ksa_flag.png" },        
+        { "code": "palestine", "name": "Palestine", "orderIndex": 5, "icon": "palestine_flag.png" },
+        { "code": "kosovo", "name": "Kosovo", "orderIndex": 6, "icon": "kosovo_flag.png" },
+        { "code": "spain", "name": "Spain", "orderIndex": 7, "icon": "spain_flag.png" },
+        { "code": "italy", "name": "Italy", "orderIndex": 8, "icon": "italy_flag.png" },
+        { "code": "portugal", "name": "Portugal", "orderIndex": 9, "icon": "portugal_flag.png" },        
+        { "code": "uzbekistan", "name": "Uzbekistan", "orderIndex": 10, "icon": "uzbekistan_flag.png" }
+    ]
+}
