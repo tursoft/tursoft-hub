@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import tursoftLogo from "@/assets/tursoft-logo.png";
+import cvData from "@/data/cv.json";
 
 const navItems = [
   { id: "hero", label: "Home" },
@@ -106,7 +107,7 @@ const Navigation = () => {
           {/* Desktop Download CV Button */}
           <Button 
             className="hidden lg:flex bg-primary hover:bg-primary/90 text-primary-foreground glow-on-hover"
-            onClick={() => window.open("#", "_blank")}
+            onClick={() => window.open(cvData.general.downloadUrl, "_blank")}
           >
             Download CV
           </Button>
@@ -156,7 +157,7 @@ const Navigation = () => {
             <Button 
               className="justify-start mt-4 bg-primary hover:bg-primary/90 text-primary-foreground"
               onClick={() => {
-                window.open("#", "_blank");
+                window.open(cvData.general.downloadUrl, "_blank");
                 setIsMobileMenuOpen(false);
               }}
             >

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, Globe, MapPin, Github, Linkedin, Twitter, Youtube } from "lucide-react";
+import cvData from "@/data/cv.json";
 
 const ContactSection = () => {
   const contactInfo = [
@@ -166,7 +167,7 @@ const ContactSection = () => {
                       <Button 
                         variant="outline" 
                         className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                        onClick={() => window.open('#', '_blank')}
+                        onClick={() => window.open(cvData.general.downloadUrl, '_blank')}
                       >
                         Download My CV
                       </Button>
