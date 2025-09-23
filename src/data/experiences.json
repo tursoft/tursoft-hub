@@ -12,6 +12,9 @@
             "companyCode": "infrion", "companyName": "Infrion",
             "websiteUrl": "https://www.infrion.com",
             "linkedinUrl": "https://www.linkedin.com/company/infrion/",
+            "coordinates": { "lat": 40.7128, "lng": -74.0060 },
+            "country": "United States",
+            "city": "New York",
             "positions": [
                 {
                     "id": 2150,
@@ -66,6 +69,9 @@
             "companyCode": "jengai", "companyName": "Jengai",
             "websiteUrl": "https://www.jengai.com",
             "linkedinUrl": "https://www.linkedin.com/company/98084750/",
+            "coordinates": { "lat": 40.7128, "lng": -74.0060 },
+            "country": "United States",
+            "city": "New York",
             "positions": [
                 {
                     "id": 2020,
@@ -129,7 +135,10 @@
             "id": 202, "orderIndex":16, "icon": "gamyte.png",
             "companyCode": "gamyte", "companyName": "Gamyte",
             "websiteUrl": "https://www.jengai.com",
-            "linkedinUrl": "https://www.linkedin.com/company/98084750/",                         
+            "linkedinUrl": "https://www.linkedin.com/company/98084750/",
+            "coordinates": { "lat": 40.7128, "lng": -74.0060 },
+            "country": "United States",
+            "city": "New York",
             "positions": [
                 {
                     "id": 2019,
@@ -193,7 +202,10 @@
             "id": 201, "orderIndex":15, "icon": "erc.png",
             "companyCode": "ERC", "companyName": "ERC Group Engineering, Consultancy, R&D",
             "websiteUrl": "https://www.ercgroup.com.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/erc-group/",                         
+            "linkedinUrl": "https://www.linkedin.com/company/erc-group/",
+            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2011,
@@ -333,7 +345,10 @@
             "id": 202, "orderIndex":14, "icon": "datasel.png",  
             "companyCode": "DATASEL", "companyName": "DataSel Information Systems Co.",
             "websiteUrl": "https://www.datasel.com.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/datasel/",                                                                       
+            "linkedinUrl": "https://www.linkedin.com/company/datasel/",
+            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2021,
@@ -496,7 +511,10 @@
             "id": 203, "orderIndex":13, "icon": "fonet.png",
             "companyCode": "FONET", "companyName": "Fonet Software Co.",
             "websiteUrl": "https://www.fonet.com.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/fonet-software/",                         
+            "linkedinUrl": "https://www.linkedin.com/company/fonet-software/",
+            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2031,
@@ -595,7 +613,10 @@
             "id": 213, "orderIndex":11, "icon": "jandarma.egitim.png",
             "companyCode": "JANDARMA", "companyName": "Gendarmerie Training Command",
             "websiteUrl": "https://www.jandarma.gov.tr",
-            "linkedinUrl": null, 
+            "linkedinUrl": null,
+            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2131,
@@ -621,7 +642,10 @@
             "id": 204, "orderIndex":11, "icon": "halici.png",
             "companyCode": "HALICI", "companyName": "Halıcı Informatics & Software Co.",
             "websiteUrl": "https://www.halici.com.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/halıcı-bilgi-i̇şlem-aş-/", 
+            "linkedinUrl": "https://www.linkedin.com/company/halıcı-bilgi-i̇şlem-aş-/",
+            "coordinates": { "lat": 41.0082, "lng": 28.9784 },
+            "country": "Turkey",
+            "city": "Istanbul",
             "positions": [
                 {
                     "id": 2041,
@@ -759,7 +783,10 @@
             "id": 205, "orderIndex":10, "icon": "metu.ceit.png",
             "companyCode": "METU.CEIT", "companyName": "METU Computer Education and Instructional Tech. Dep.",
             "websiteUrl": "https://www.metu.edu.tr",
-            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/", 
+            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
+            "coordinates": { "lat": 39.8939, "lng": 32.7816 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2051,
@@ -802,7 +829,10 @@
             "id": 206, "orderIndex":9, "icon": "metu.ii.png",
             "companyCode": "METU.II", "companyName": "METU Informatics Institute",
             "websiteUrl": "https://www.metu.edu.tr",
-            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/", 
+            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
+            "coordinates": { "lat": 39.8939, "lng": 32.7816 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2061,
@@ -852,7 +882,10 @@
             "id": 207, "orderIndex":8, "icon": "metu.ii.png",
             "companyCode": "METU.II", "companyName": "METU Informatics Institute",
             "websiteUrl": "https://www.metu.edu.tr",
-            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/", 
+            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
+            "coordinates": { "lat": 39.8939, "lng": 32.7816 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2071,
@@ -876,7 +909,10 @@
             "id": 208, "orderIndex":7, "icon": "labris.png",
             "companyCode": "LABRIS", "companyName": "Labris Technology",
             "websiteUrl": "https://www.labris.com.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/labris-technology/", 
+            "linkedinUrl": "https://www.linkedin.com/company/labris-technology/",
+            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2081,
@@ -904,7 +940,10 @@
             "id": 209, "orderIndex":6, "icon": "metu.ieee.png",
             "companyCode": "METU.IEEE", "companyName": "IEEE METU Student Club",
             "websiteUrl": "https://ieee.metu.edu.tr",
-            "linkedinUrl": null, 
+            "linkedinUrl": null,
+            "coordinates": { "lat": 39.8939, "lng": 32.7816 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2091,
@@ -928,7 +967,10 @@
             "id": 210, "orderIndex":5, "icon": "metu.com.png",
             "companyCode": "METU.COM", "companyName": "METU Communication Club",
             "websiteUrl": "https://www.metu.edu.tr",
-            "linkedinUrl": null, 
+            "linkedinUrl": null,
+            "coordinates": { "lat": 39.8939, "lng": 32.7816 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2101,
@@ -952,7 +994,10 @@
             "id": 211, "orderIndex":4, "icon": "netteyim.png",
             "companyCode": "NETTEYIM", "companyName": "Netteyim.net",
             "websiteUrl": "https://www.netteyim.net",
-            "linkedinUrl": null, 
+            "linkedinUrl": null,
+            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2111,
@@ -976,7 +1021,10 @@
             "id": 212, "orderIndex":3, "icon": "tbd.genc.png",
             "companyCode": "TBD.GENC", "companyName": "Informatics Association of Turkey / Youth Branch",
             "websiteUrl": "https://www.tbd.org.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/turkey-informatics-association/", 
+            "linkedinUrl": "https://www.linkedin.com/company/turkey-informatics-association/",
+            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+            "country": "Turkey",
+            "city": "Ankara",
             "positions": [
                 {
                     "id": 2121,

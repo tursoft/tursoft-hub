@@ -195,8 +195,6 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <GraduationCap className="w-5 h-5" />
-                    Academic Achievement
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
