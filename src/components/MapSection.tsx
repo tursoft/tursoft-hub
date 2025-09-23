@@ -4,6 +4,9 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Card } from './ui/card'
 import { Badge } from './ui/badge'
+import ExperienceDetailDialog from './ExperienceDetailDialog'
+import EducationDetailDialog from './EducationDetailDialog'
+import CustomerDetailDialog from './CustomerDetailDialog'
 
 // Custom CSS for dark theme popups
 const darkPopupStyles = `
@@ -125,10 +128,19 @@ interface MapMarker {
   period?: string
   technologies?: string[]
   logo?: string
+  data: unknown // Store the full data object for dialog display
 }
 
-// Custom Marker component that handles hover events
-function HoverMarker({ marker, icon }: { marker: MapMarker; icon: L.DivIcon }) {
+// Custom Marker component that handles hover and click events
+function HoverMarker({ 
+  marker, 
+  icon, 
+  onMarkerClick 
+}: { 
+  marker: MapMarker; 
+  icon: L.DivIcon;
+  onMarkerClick: (marker: MapMarker) => void;
+}) {
   const markerRef = useRef<L.Marker>(null)
   
   const handleMouseOver = () => {
@@ -151,6 +163,10 @@ function HoverMarker({ marker, icon }: { marker: MapMarker; icon: L.DivIcon }) {
     }
   }
 
+  const handleClick = () => {
+    onMarkerClick(marker)
+  }
+
   return (
     <Marker
       ref={markerRef}
@@ -159,6 +175,7 @@ function HoverMarker({ marker, icon }: { marker: MapMarker; icon: L.DivIcon }) {
       eventHandlers={{
         mouseover: handleMouseOver,
         mouseout: handleMouseOut,
+        click: handleClick,
       }}
     >
       <Popup 
@@ -283,6 +300,14 @@ function MapBounds({ markers }: { markers: MapMarker[] }) {
 export default function MapSection() {
   const [selectedFilters, setSelectedFilters] = useState<string[]>(['experience', 'education', 'customer'])
   const mapRef = useRef<L.Map | null>(null)
+  
+  // Dialog state management
+  const [selectedExperience, setSelectedExperience] = useState<unknown | null>(null)
+  const [selectedEducation, setSelectedEducation] = useState<unknown | null>(null)
+  const [selectedCustomer, setSelectedCustomer] = useState<unknown | null>(null)
+  const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false)
+  const [isEducationDialogOpen, setIsEducationDialogOpen] = useState(false)
+  const [isCustomerDialogOpen, setIsCustomerDialogOpen] = useState(false)
 
   // Inject dark theme styles
   useEffect(() => {
@@ -377,7 +402,8 @@ export default function MapSection() {
             location,
             period: `${latestPosition?.startDate} - ${latestPosition?.endDate || 'Present'}`,
             technologies: latestPosition?.technologies?.slice(0, 5).map(t => t.name),
-            logo: company.icon
+            logo: company.icon,
+            data: company
           })
         }
       })
@@ -419,7 +445,8 @@ export default function MapSection() {
             location,
             period: school.period,
             technologies: school.technologies?.slice(0, 5).map(t => t.name),
-            logo: school.icon
+            logo: school.icon,
+            data: school
           })
         }
       })
@@ -446,7 +473,8 @@ export default function MapSection() {
             location: customer.location,
             period: `${customer.partnership.startDate} - ${customer.partnership.endDate || 'Present'}`,
             technologies: customer.technologies?.slice(0, 5),
-            logo: customer.logoPath
+            logo: customer.logoPath,
+            data: customer
           })
         }
       })
@@ -463,12 +491,31 @@ export default function MapSection() {
     )
   }
 
+  // Handle marker click to open appropriate dialog
+  const handleMarkerClick = (marker: MapMarker) => {
+    switch (marker.type) {
+      case 'experience':
+        setSelectedExperience(marker.data)
+        setIsExperienceDialogOpen(true)
+        break
+      case 'education':
+        setSelectedEducation(marker.data)
+        setIsEducationDialogOpen(true)
+        break
+      case 'customer':
+        setSelectedCustomer(marker.data)
+        setIsCustomerDialogOpen(true)
+        break
+    }
+  }
+
   return (
     <section id="map" className="py-20 bg-gradient-to-b from-background via-secondary/50 to-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary via-primary/80 to-secondary bg-clip-text text-transparent">
-            Global Footprint
+            Global 
+            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Footprint</span>            
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Explore the worldwide locations of companies I've worked with, institutions where I've studied, 
@@ -538,6 +585,7 @@ export default function MapSection() {
                   key={marker.id}
                   marker={marker}
                   icon={createIconWithLogo(marker.type, marker.logo)}
+                  onMarkerClick={handleMarkerClick}
                 />
               ))}
             </MapContainer>
@@ -559,6 +607,36 @@ export default function MapSection() {
             <div className="text-muted-foreground">Clients Served</div>
           </Card>
         </div>
+
+        {/* Detail Dialogs */}
+        <ExperienceDetailDialog
+          experience={selectedExperience as never}
+          isOpen={isExperienceDialogOpen}
+          onClose={() => {
+            setIsExperienceDialogOpen(false)
+            setSelectedExperience(null)
+          }}
+        />
+        
+        <EducationDetailDialog
+          education={selectedEducation as never}
+          isOpen={isEducationDialogOpen}
+          onClose={() => {
+            setIsEducationDialogOpen(false)
+            setSelectedEducation(null)
+          }}
+          educationIcon={(selectedEducation as Record<string, unknown>)?.icon as string}
+        />
+        
+        <CustomerDetailDialog
+          customer={selectedCustomer as never}
+          isOpen={isCustomerDialogOpen}
+          onClose={() => {
+            setIsCustomerDialogOpen(false)
+            setSelectedCustomer(null)
+          }}
+          customerLogo={(selectedCustomer as Record<string, unknown>)?.logoPath as string}
+        />
       </div>
     </section>
   )
