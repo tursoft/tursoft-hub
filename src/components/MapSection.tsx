@@ -117,6 +117,19 @@ const createIconWithLogo = (type: 'experience' | 'education' | 'customer', logoF
   return createIcon(colors[type], type, logoUrl)
 }
 
+interface MapItem {
+  uid: string
+  type: 'education' | 'experience' | 'customer'
+  title: string
+  coordinate: { lat: number; lng: number }
+  logoUrl?: string
+  category: string
+  summarytext: string
+  city: string
+  country: string
+  daterange: { start: string; end?: string }
+}
+
 interface MapMarker {
   id: string
   position: [number, number]
