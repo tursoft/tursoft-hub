@@ -3,7 +3,7 @@
        { 
          "name": "MOH.TR", 
          "title": "Turkish Ministry of Health", 
-         "logoPath": "/assets/files/customers/_LOGOs/moh_turkey/logo/turkey_moh.jpg",
+         "logoPath": "/assets/files/customers/moh_turkey/logo/turkey_moh.jpg",
          "description": "Leading healthcare digitization initiatives across Turkey with comprehensive health information systems and patient care solutions.",
          "location": "Ankara, Turkey",
          "industry": "Government Healthcare",
@@ -31,7 +31,7 @@
        { 
          "name": "MOH.KSA", 
          "title": "KSA Ministry of Health", 
-         "logoPath": "/assets/files/customers/_LOGOs/moh_ksa/logo/ksa_moh.jpg",
+         "logoPath": "/assets/files/customers/moh_ksa/logo/ksa_moh.jpg",
          "description": "Saudi Arabia's Ministry of Health leading healthcare transformation with comprehensive digital health solutions.",
          "location": "Riyadh, Saudi Arabia", 
          "industry": "Government Healthcare",
@@ -45,7 +45,7 @@
        { 
          "name": "TTNET", 
          "title": "Türk Telekom - TTNET", 
-         "logoPath": "/assets/files/customers/_LOGOs/tr_turktelekom/logo/turktelekom.jpg",
+         "logoPath": "/assets/files/customers/tr_turktelekom/logo/turktelekom.jpg",
          "description": "Turkey's largest telecommunications company providing internet and digital services to millions of customers.",
          "location": "Istanbul, Turkey",
          "industry": "Telecommunications",
@@ -59,7 +59,7 @@
        { 
          "name": "ECZACIBASI", 
          "title": "Eczacıbaşı Sağlık Hizmetleri", 
-         "logoPath": "/assets/files/customers/_LOGOs/tr_eczacibasi/eczacibasi_saglik.jpg",
+         "logoPath": "/assets/files/customers/tr_eczacibasi/eczacibasi_saglik.jpg",
          "description": "Leading healthcare conglomerate in Turkey providing comprehensive medical services and pharmaceutical solutions.",
          "location": "Istanbul, Turkey",
          "industry": "Private Healthcare",
@@ -73,7 +73,7 @@
        { 
          "name": "Avea", 
          "title": "Türk Telekom - Avea", 
-         "logoPath": "/assets/files/customers/_LOGOs/tr_avea/logo/avea.png",
+         "logoPath": "/assets/files/customers/tr_avea/logo/avea.png",
          "description": "Major mobile telecommunications operator in Turkey providing innovative mobile services and digital solutions.",
          "location": "Istanbul, Turkey",
          "industry": "Mobile Telecommunications",
@@ -87,7 +87,7 @@
        { 
          "name": "H.IbniSina", 
          "title": "Ibni Sina Hastanesi", 
-         "logoPath": "/assets/files/customers/_LOGOs/tr_ibnisina/logo/ibnisina.jpg",
+         "logoPath": "/assets/files/customers/tr_ibnisina/logo/ibnisina.jpg",
          "description": "Premier private hospital in Turkey known for advanced medical care and innovative healthcare solutions.",
          "location": "Ankara, Turkey",
          "industry": "Private Healthcare",
@@ -101,7 +101,7 @@
        { 
          "name": "MOH.PAL", 
          "title": "Palestine Ministry of Health", 
-         "logoPath": "/assets/files/customers/_LOGOs/moh_palestine/photos/big/palestine_moh.jpg",
+         "logoPath": "/assets/files/customers/moh_palestine/photos/big/palestine_moh.jpg",
          "description": "Palestinian Ministry of Health working to improve healthcare infrastructure and patient care across Palestine.",
          "location": "Ramallah, Palestine",
          "industry": "Government Healthcare", 
@@ -115,7 +115,7 @@
        { 
          "name": "LIFEWATCH.CH", 
          "title": "Lifewatch AG - Switzerland", 
-         "logoPath": "/assets/files/customers/_LOGOs/tr_lw/logo/tr_lifewatch.png",
+         "logoPath": "/assets/files/customers/tr_lw/logo/tr_lifewatch.png",
          "description": "Swiss medical technology company specializing in remote cardiac monitoring and telemedicine solutions.",
          "location": "Neuhausen, Switzerland",
          "industry": "Medical Technology",
@@ -129,7 +129,7 @@
        { 
          "name": "UCELL.UZ", 
          "title": "Ucell - Uzbekistan Telecommunications", 
-         "logoPath": "/assets/files/customers/_LOGOs/uz_ucell/logo/3843407_1_644x461_ucell-kodli-1212-tashkent5947a86188872.jpg",
+         "logoPath": "/assets/files/customers/uz_ucell/logo.png",
          "description": "Leading mobile network operator in Uzbekistan providing comprehensive telecommunications services.",
          "location": "Tashkent, Uzbekistan",
          "industry": "Mobile Telecommunications",
@@ -143,7 +143,7 @@
        { 
          "name": "SPMS.PT", 
          "title": "SPMS - Portugal Ministry of Health", 
-         "logoPath": "/assets/files/customers/_LOGOs/moh_portugal_spms/logo/moh_portugal_spms.png",
+         "logoPath": "/assets/files/customers/moh_portugal_spms/logo/moh_portugal_spms.png",
          "description": "Portuguese health services organization managing digital health transformation and healthcare information systems.",
          "location": "Lisbon, Portugal", 
          "industry": "Government Healthcare",
@@ -337,15 +337,15 @@
          "projectNames": ["JENGAIAPP"]
        },
        { 
-         "name": "SHAFAFIYA.KSA", 
-         "title": "Shafafiya - Saudi Healthcare Transparency Platform", 
+         "name": "SHAFAFIYA.UAE", 
+         "title": "Shafafiya - Department of Health - Abu Dhabi", 
          "logoPath": "/assets/files/customers/shafafiya/logo.png",
-         "description": "Innovative healthcare transparency platform in Saudi Arabia promoting patient rights and healthcare quality through digital solutions.",
-         "location": "Riyadh, Saudi Arabia",
+         "description": "Shafafiya portal contains the key standards that govern how healthcare information is exchanged and used in accordance with the Regulator Policy Manual chapter VIII Data Management, and hosts the information exchange. Documents published here describe the standard language used to exchange data (codes, licenses, etc.) as well as technical specifications of related data exchange systems.",
+         "location": "Abu Dhabi",
          "industry": "Healthcare Technology", 
          "relationship": "Technology Partner",
          "services": ["Healthcare Transparency Platform", "Patient Rights Management", "Quality Metrics Dashboard"],
-         "technologies": ["Modern Web Stack", "Cloud Infrastructure", "Data Analytics"],
+         "technologies": ["Modern Web Stack", "Web", "Silverlight", "Xaml", "C#", ".NET"],
          "partnership": { "startDate": "01.06.2022", "status": "active" },
          "companyCodes": ["DATASEL", "ERC"],
          "projectNames": []

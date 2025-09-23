@@ -627,14 +627,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
 
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
               {Object.keys(groupedTechnologies).length > 0 ? (
-                <>
-                  <div className="px-4 py-2">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Star className="w-5 h-5" />
-                      <h3 className="text-lg font-semibold">Technologies Used</h3>
-                    </div>
-                  </div>
-                  
+                <>                                    
                   {Object.entries(groupedTechnologies).map(([category, techs]) => {
                     const isExpanded = expandedTechGroups[category] ?? true; // Default to expanded
                     return (

@@ -387,11 +387,7 @@ const CustomersSection = () => {
                   {customer.category}
                 </Badge>
               )}
-            </div>
-            
-            <div className="text-sm text-muted-foreground mb-2">
-              {customer.name}
-            </div>
+            </div>            
             
             {/* Associated Companies */}
             {customer.companyCodes && customer.companyCodes.length > 0 && (
@@ -463,9 +459,6 @@ const CustomersSection = () => {
                 <CardTitle className="text-base leading-tight group-hover:text-primary transition-colors mb-1">
                   {customer.title}
                 </CardTitle>
-                <div className="text-xs text-muted-foreground/80 font-medium">
-                  {customer.name}
-                </div>
                 
                 {/* Associated Companies */}
                 {customer.companyCodes && customer.companyCodes.length > 0 && (
@@ -538,9 +531,6 @@ const CustomersSection = () => {
               <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors mb-1">
                 {customer.title}
               </CardTitle>
-              <div className="text-sm text-muted-foreground/80 font-medium">
-                {customer.name}
-              </div>
               
               {/* Associated Companies */}
               {customer.companyCodes && customer.companyCodes.length > 0 && (
