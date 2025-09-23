@@ -5,39 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Filter, Grid, List, RotateCcw, ChevronLeft, ChevronRight, Search, Building2, Globe, Users } from "lucide-react";
 import CustomerDetailDialog from './CustomerDetailDialog';
-
-// Define interfaces for type safety
-export interface Customer {
-  name: string;
-  title: string;
-  logoPath: string;
-  category?: string;
-  description?: string;
-  website?: string;
-  location?: string;
-  industry?: string;
-  relationship?: string;
-  projects?: string[];
-  technologies?: string[];
-  companyCodes?: string[];
-  projectNames?: string[];
-  resolvedCompanyNames?: string[];
-  resolvedProjectTitles?: string[];
-  partnership?: {
-    startDate?: string;
-    endDate?: string;
-    status?: 'active' | 'completed' | 'ongoing';
-  };
-  uid: string;
-  coordinates: { lat: number; lng: number };
-  city: string;
-  country: string;
-}
-
-export interface CustomerData {
-  items: Customer[];
-  categories?: string[];
-}
+import type { Customer, CustomerData } from '@/models/Customer';
 
 interface Experience {
   companyCode: string;

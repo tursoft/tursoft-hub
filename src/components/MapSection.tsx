@@ -8,10 +8,10 @@ import ExperienceDetailDialog from './ExperienceDetailDialog'
 import EducationDetailDialog from './EducationDetailDialog'
 import CustomerDetailDialog from './CustomerDetailDialog'
 
-// Import specific interfaces from components for type safety
-import type { Education } from './EducationSection'
-import type { Experience, Position } from './ExperienceSection'
-import type { Customer } from './CustomersSection'
+// Import specific interfaces from models for type safety
+import type { Education } from '@/models/Education'
+import type { Experience, Position } from '@/models/Experience'
+import type { Customer } from '@/models/Customer'
 
 // Custom CSS for dark theme popups
 const darkPopupStyles = `

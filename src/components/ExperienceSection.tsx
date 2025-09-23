@@ -3,60 +3,14 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building, ExternalLink, Linkedin } from "lucide-react";
 import ExperienceDetailDialog from './ExperienceDetailDialog';
-
-// Define interfaces for the data structure
-export interface Technology {
-  name: string;
-  type: string;
-}
-
-export interface Project {
-  name: string;
-  title: string;
-}
-
-export interface Domain {
-  name: string;
-  title: string;
-  value: number;
-  iconCss: string;
-}
-
-export interface Position {
-  id: number;
-  title: string;
-  startDate: string;
-  endDate: string | null;
-  summary: string;
-  domains?: Domain[];
-  projects?: Project[];
-  technologies: Technology[];
-}
-
-export interface Experience {
-  id: number;
-  orderIndex: number;
-  icon: string;
-  companyCode: string;
-  companyName: string;
-  websiteUrl?: string;
-  linkedinUrl?: string;
-  positions: Position[];
-  uid: string;
-  coordinates: { lat: number; lng: number };
-  city: string;
-  country: string;
-}
-
-export interface ExperiencesData {
-  general: {
-    title: string;
-    summary: string;
-    total_years: number;
-    prop_subitems: string;
-  };
-  items: Experience[];
-}
+import type { 
+  Experience, 
+  ExperiencesData, 
+  Position, 
+  ExperienceTechnology as Technology,
+  Project,
+  Domain 
+} from '@/models/Experience';
 
 const ExperienceSection = () => {
   const [experiencesData, setExperiencesData] = useState<ExperiencesData | null>(null);

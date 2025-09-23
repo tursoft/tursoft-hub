@@ -3,52 +3,13 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Calendar, MapPin } from "lucide-react";
 import EducationDetailDialog from './EducationDetailDialog';
-
-// Define interfaces for the data structure
-export interface Course {
-  name: string;
-  score: string;
-  content: string;
-}
-
-export interface Technology {
-  name: string;
-  type: string;
-}
-
-export interface DatePeriod {
-  startDate: string;
-  endDate: string;
-}
-
-export interface Education {
-  id: number;
-  orderIndex: number;
-  icon: string;
-  url?: string;
-  code: string;
-  name: string;
-  department: string;
-  level: string;
-  period: string;
-  datePeriod: DatePeriod;
-  city: string;
-  graduateDate: string;
-  graduateScore: string;
-  courses?: Course[];
-  technologies?: Technology[];
-  uid: string;
-  coordinates: { lat: number; lng: number };
-  country: string;
-}
-
-export interface EducationData {
-  general: {
-    title: string;
-    summary: string;
-  };
-  items: Education[];
-}
+import type { 
+  Education, 
+  EducationData, 
+  Course, 
+  EducationTechnology as Technology,
+  DatePeriod 
+} from '@/models/Education';
 
 const EducationSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
