@@ -5,23 +5,23 @@ import { GraduationCap, Calendar, MapPin } from "lucide-react";
 import EducationDetailDialog from './EducationDetailDialog';
 
 // Define interfaces for the data structure
-interface Course {
+export interface Course {
   name: string;
   score: string;
   content: string;
 }
 
-interface Technology {
+export interface Technology {
   name: string;
   type: string;
 }
 
-interface DatePeriod {
+export interface DatePeriod {
   startDate: string;
   endDate: string;
 }
 
-interface Education {
+export interface Education {
   id: number;
   orderIndex: number;
   icon: string;
@@ -39,7 +39,7 @@ interface Education {
   technologies?: Technology[];
 }
 
-interface EducationData {
+export interface EducationData {
   general: {
     title: string;
     summary: string;

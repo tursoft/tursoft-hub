@@ -7,7 +7,7 @@ import { Filter, Grid, List, RotateCcw, ChevronLeft, ChevronRight, Search, Build
 import CustomerDetailDialog from './CustomerDetailDialog';
 
 // Define interfaces for type safety
-interface Customer {
+export interface Customer {
   name: string;
   title: string;
   logoPath: string;
@@ -30,7 +30,7 @@ interface Customer {
   };
 }
 
-interface CustomerData {
+export interface CustomerData {
   items: Customer[];
   categories?: string[];
 }

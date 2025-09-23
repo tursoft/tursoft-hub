@@ -8,6 +8,32 @@ import ExperienceDetailDialog from './ExperienceDetailDialog'
 import EducationDetailDialog from './EducationDetailDialog'
 import CustomerDetailDialog from './CustomerDetailDialog'
 
+// Import specific interfaces from components for type safety
+import type { Education } from './EducationSection'
+import type { Experience, Position } from './ExperienceSection'
+import type { Customer } from './CustomersSection'
+
+// Extended interfaces for map data that include location information
+interface ExperienceMapData extends Experience {
+  uid: string
+  coordinates: { lat: number; lng: number }
+  city: string
+  country: string
+}
+
+interface EducationMapData extends Education {
+  uid: string
+  coordinates: { lat: number; lng: number }
+  country: string
+}
+
+interface CustomerMapData extends Customer {
+  uid: string
+  coordinates: { lat: number; lng: number }
+  city: string
+  country: string
+}
+
 // Custom CSS for dark theme popups
 const darkPopupStyles = `
   .leaflet-popup-content-wrapper {
@@ -116,111 +142,77 @@ interface MapMarker {
 }
 
 // Helper functions to transform data into MapItem objects
-const transformExperienceToMapItem = (company: Record<string, unknown>, index: number): MapItem | null => {
-  const companyName = company.companyName as string
-  const companyCode = company.companyCode as string
-  const companyId = company.id as string
-  const positions = company.positions as Array<Record<string, unknown>>
-  const icon = company.icon as string
-  const uid = company.uid as string
-  const coordinates = company.coordinates as { lat: number; lng: number }
-  const city = company.city as string
-  const country = company.country as string
-
+const transformExperienceToMapItem = (company: ExperienceMapData, index: number): MapItem | null => {
   // Use coordinates directly from the JSON data
-  if (!coordinates) return null
+  if (!company.coordinates) return null
 
-  const latestPosition = positions?.sort((a, b) => 
-    new Date((b.startDate as string)).getTime() - new Date((a.startDate as string)).getTime()
+  const latestPosition = company.positions?.sort((a, b) => 
+    new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
   )?.[0]
 
-  const logoUrl = icon && icon.endsWith('.png') 
-    ? `/assets/logos/companies/${icon}` 
+  const logoUrl = company.icon && company.icon.endsWith('.png') 
+    ? `/assets/logos/companies/${company.icon}` 
     : undefined
 
   return {
-    uid: uid || `experience.${companyId}.${companyCode}`,
+    uid: company.uid || `experience.${company.id}.${company.companyCode}`,
     type: 'experience',
-    title: companyName || '',
-    coordinate: coordinates,
+    title: company.companyName || '',
+    coordinate: company.coordinates,
     logoUrl,
-    category: (latestPosition?.title as string) || 'Professional Experience',
-    summarytext: (latestPosition?.summary as string) || '',
-    city,
-    country,
+    category: latestPosition?.title || 'Professional Experience',
+    summarytext: latestPosition?.summary || '',
+    city: company.city,
+    country: company.country,
     daterange: {
-      start: (latestPosition?.startDate as string) || '',
-      end: latestPosition?.endDate as string
+      start: latestPosition?.startDate || '',
+      end: latestPosition?.endDate || undefined
     }
   }
 }
 
-const transformEducationToMapItem = (school: Record<string, unknown>, index: number): MapItem | null => {
-  const schoolName = school.name as string
-  const schoolCity = school.city as string
-  const schoolCountry = school.country as string
-  const schoolId = school.id as string
-  const schoolCode = school.code as string
-  const schoolLevel = school.level as string
-  const schoolDepartment = school.department as string
-  const schoolPeriod = school.period as string
-  const schoolIcon = school.icon as string
-  const schoolUid = school.uid as string
-  const schoolCoordinates = school.coordinates as { lat: number; lng: number }
-
+const transformEducationToMapItem = (school: EducationMapData, index: number): MapItem | null => {
   // Use coordinates, city, and country directly from the JSON data
-  if (!schoolCoordinates) return null
+  if (!school.coordinates) return null
 
-  const logoUrl = schoolIcon && schoolIcon.endsWith('.png') 
-    ? `/assets/logos/companies/${schoolIcon}` 
+  const logoUrl = school.icon && school.icon.endsWith('.png') 
+    ? `/assets/logos/companies/${school.icon}` 
     : undefined
 
   return {
-    uid: schoolUid || `education.${schoolId}.${schoolCode}`,
+    uid: school.uid || `education.${school.id}.${school.code}`,
     type: 'education',
-    title: schoolName || '',
-    coordinate: schoolCoordinates,
+    title: school.name || '',
+    coordinate: school.coordinates,
     logoUrl,
-    category: schoolLevel || 'Education',
-    summarytext: schoolDepartment || '',
-    city: schoolCity || '',
-    country: schoolCountry || '',
+    category: school.level || 'Education',
+    summarytext: school.department || '',
+    city: school.city || '',
+    country: school.country || '',
     daterange: {
-      start: schoolPeriod?.split(' - ')[0] || '',
-      end: schoolPeriod?.split(' - ')[1]
+      start: school.period?.split(' - ')[0] || '',
+      end: school.period?.split(' - ')[1]
     }
   }
 }
 
-const transformCustomerToMapItem = (customer: Record<string, unknown>, index: number): MapItem | null => {
-  const customerName = customer.name as string
-  const customerTitle = customer.title as string
-  const customerLocation = customer.location as string
-  const customerCity = customer.city as string
-  const customerCountry = customer.country as string
-  const customerIndustry = customer.industry as string
-  const customerDescription = customer.description as string
-  const customerLogoPath = customer.logoPath as string
-  const customerUid = customer.uid as string
-  const customerCoordinates = customer.coordinates as { lat: number; lng: number }
-  const customerPartnership = customer.partnership as { startDate: string; endDate?: string }
-
+const transformCustomerToMapItem = (customer: CustomerMapData, index: number): MapItem | null => {
   // Use coordinates directly from the JSON data
-  if (!customerCoordinates) return null
+  if (!customer.coordinates) return null
 
   return {
-    uid: customerUid || `customer.${customerName}`,
+    uid: customer.uid || `customer.${customer.name}`,
     type: 'customer',
-    title: customerTitle || '',
-    coordinate: customerCoordinates,
-    logoUrl: customerLogoPath,
-    category: customerIndustry || 'Client',
-    summarytext: customerDescription || '',
-    city: customerCity || '',
-    country: customerCountry || '',
+    title: customer.title || '',
+    coordinate: customer.coordinates,
+    logoUrl: customer.logoPath,
+    category: customer.industry || 'Client',
+    summarytext: customer.description || '',
+    city: customer.city || '',
+    country: customer.country || '',
     daterange: {
-      start: customerPartnership?.startDate || '',
-      end: customerPartnership?.endDate
+      start: customer.partnership?.startDate || '',
+      end: customer.partnership?.endDate
     }
   }
 }
@@ -231,21 +223,21 @@ const createMapItemsFromData = (filters: string[] = ['experience', 'education', 
 
   if (filters.includes('experience')) {
     experiencesData.items.forEach((company, index) => {
-      const mapItem = transformExperienceToMapItem(company as Record<string, unknown>, index)
+      const mapItem = transformExperienceToMapItem(company as ExperienceMapData, index)
       if (mapItem) result.push(mapItem)
     })
   }
 
   if (filters.includes('education')) {
     educationData.items.forEach((school, index) => {
-      const mapItem = transformEducationToMapItem(school as Record<string, unknown>, index)
+      const mapItem = transformEducationToMapItem(school as EducationMapData, index)
       if (mapItem) result.push(mapItem)
     })
   }
 
   if (filters.includes('customer')) {
     customersData.items.forEach((customer, index) => {
-      const mapItem = transformCustomerToMapItem(customer as Record<string, unknown>, index)
+      const mapItem = transformCustomerToMapItem(customer as CustomerMapData, index)
       if (mapItem) result.push(mapItem)
     })
   }
@@ -460,7 +452,7 @@ export default function MapSection() {
     // Transform Experience data to MapItems
     if (selectedFilters.includes('experience')) {
       experiencesData.items.forEach((company, index) => {
-        const mapItem = transformExperienceToMapItem(company as Record<string, unknown>, index)
+        const mapItem = transformExperienceToMapItem(company as ExperienceMapData, index)
         if (mapItem) result.push(mapItem)
       })
     }
@@ -468,7 +460,7 @@ export default function MapSection() {
     // Transform Education data to MapItems
     if (selectedFilters.includes('education')) {
       educationData.items.forEach((school, index) => {
-        const mapItem = transformEducationToMapItem(school as Record<string, unknown>, index)
+        const mapItem = transformEducationToMapItem(school as EducationMapData, index)
         if (mapItem) result.push(mapItem)
       })
     }
@@ -476,7 +468,7 @@ export default function MapSection() {
     // Transform Customer data to MapItems
     if (selectedFilters.includes('customer')) {
       customersData.items.forEach((customer, index) => {
-        const mapItem = transformCustomerToMapItem(customer as Record<string, unknown>, index)
+        const mapItem = transformCustomerToMapItem(customer as CustomerMapData, index)
         if (mapItem) result.push(mapItem)
       })
     }

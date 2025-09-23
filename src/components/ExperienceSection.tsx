@@ -5,24 +5,24 @@ import { CalendarDays, MapPin, Building, ExternalLink, Linkedin } from "lucide-r
 import ExperienceDetailDialog from './ExperienceDetailDialog';
 
 // Define interfaces for the data structure
-interface Technology {
+export interface Technology {
   name: string;
   type: string;
 }
 
-interface Project {
+export interface Project {
   name: string;
   title: string;
 }
 
-interface Domain {
+export interface Domain {
   name: string;
   title: string;
   value: number;
   iconCss: string;
 }
 
-interface Position {
+export interface Position {
   id: number;
   title: string;
   startDate: string;
@@ -33,7 +33,7 @@ interface Position {
   technologies: Technology[];
 }
 
-interface Experience {
+export interface Experience {
   id: number;
   orderIndex: number;
   icon: string;
@@ -44,7 +44,7 @@ interface Experience {
   positions: Position[];
 }
 
-interface ExperiencesData {
+export interface ExperiencesData {
   general: {
     title: string;
     summary: string;
