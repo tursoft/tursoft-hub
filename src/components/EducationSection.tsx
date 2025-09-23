@@ -111,108 +111,155 @@ const EducationSection = () => {
           </div>
 
           {/* Education Timeline */}
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-primary/20" />
+          <div className="relative min-h-screen">
+            {/* Main Timeline Line - Subtle and Dashed */}
+            <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full border-l-2 border-dashed border-muted-foreground/20 z-10" />
 
-            <div className="space-y-12">
+            {/* Timeline Container with Overlapping Items */}
+            <div className="relative">
               {educationData.items.map((edu, index) => {
                 const isHovered = hoveredCard === index;
+                const isLeft = index % 2 === 0;
+                
                 return (
                   <div 
                     key={edu.id}
-                    className={`relative animate-slide-in ${
-                      index % 2 === 0 ? 'lg:pr-1/2' : 'lg:pl-1/2 lg:ml-auto'
-                    }`}
-                    style={{ animationDelay: `${index * 0.3}s` }}
+                    className={`relative animate-slide-in mb-8 lg:mb-6`}
+                    style={{ 
+                      animationDelay: `${index * 0.2}s`,
+                      marginTop: index > 0 ? (isLeft !== ((index - 1) % 2 === 0) ? '-2rem' : '0') : '0'
+                    }}
                   >
-                  {/* Timeline Dot */}
-                  <div className="hidden lg:block absolute top-8 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background z-10" />
+                    {/* Timeline Dot - Enhanced Size and Visibility */}
+                    <div className="hidden lg:block absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
+                      <div className={`transition-all duration-300 rounded-full border-2 border-background flex items-center justify-center ${
+                        isHovered 
+                          ? 'w-12 h-12 bg-gradient-to-br from-primary to-primary-dark shadow-xl shadow-primary/40 scale-110' 
+                          : 'w-10 h-10 bg-background/70 border-muted-foreground/20 shadow-md'
+                      }`}>
+                        <GraduationCap className={`transition-all duration-300 ${
+                          isHovered 
+                            ? 'w-6 h-6 text-background scale-110' 
+                            : 'w-5 h-5 text-muted-foreground/60'
+                        }`} />
+                      </div>
+                    </div>
 
-                  <Card 
-                    className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:shadow-xl ${
-                      index % 2 === 0 ? 'lg:mr-8' : 'lg:ml-8'
-                    }`}
-                    onMouseEnter={() => setHoveredCard(edu.id)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    onClick={() => handleEducationClick(edu)}
-                  >
-                    <CardHeader className="pb-4">
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <GraduationCap className="h-6 w-6 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <Badge variant="secondary" className="mb-2 text-xs">
-                            {edu.level}
-                          </Badge>
-                          <h3 className="text-xl font-bold text-foreground mb-2 leading-tight">
-                            {edu.department}
-                          </h3>
-                          <h4 className="text-lg font-semibold text-primary mb-3">
-                            {edu.name}
-                          </h4>
-                          
-                          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
-                            <div className="flex items-center gap-1">
-                              <Calendar className="h-4 w-4" />
-                              <span>{edu.period}</span>
-                            </div>
-                            <div className="flex items-center gap-1">  
-                              <MapPin className="h-4 w-4" />
-                              <span>{edu.city}</span>
+                    {/* Card Container */}
+                    <div className={`lg:w-1/2 ${isLeft ? 'lg:pr-10' : 'lg:pl-10 lg:ml-auto'} relative`}>
+
+                      {/* Mobile Timeline Elements */}
+                      <div className="lg:hidden absolute left-4 top-8 w-0.5 h-full border-l-2 border-dashed border-muted-foreground/20" />
+                      <div className={`lg:hidden absolute left-2 top-6 w-5 h-5 rounded-full border border-background shadow-sm flex items-center justify-center transition-all duration-300 ${
+                        isHovered 
+                          ? 'bg-gradient-to-br from-primary to-primary-dark shadow-lg border-primary/20' 
+                          : 'bg-background/40 border-transparent'
+                      }`}>
+                        <GraduationCap className={`w-2 h-2 transition-all duration-300 ${
+                          isHovered ? 'text-background scale-110' : 'text-muted-foreground/15'
+                        }`} />
+                      </div>
+
+                      <Card 
+                        className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border transition-all duration-500 cursor-pointer hover:scale-[1.01] hover:shadow-xl hover:shadow-primary/10 lg:ml-0 relative z-10 ${
+                          isHovered ? 'shadow-xl shadow-primary/20 scale-[1.005]' : ''
+                        } ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}
+                        onMouseEnter={() => setHoveredCard(edu.id)}
+                        onMouseLeave={() => setHoveredCard(null)}
+                        onClick={() => handleEducationClick(edu)}
+                      >
+                        <CardHeader className="pb-4">
+                          <div className={`flex items-start gap-4 ${isLeft ? 'lg:flex-row-reverse lg:text-right' : ''}`}>
+                            {educationIconMap[edu.code] && (
+                              <div className="flex-shrink-0">
+                                <div className="w-16 h-16">
+                                  <img 
+                                    src={educationIconMap[edu.code]} 
+                                    alt={`${edu.name} logo`}
+                                    className="w-full h-full object-contain"
+                                  />
+                                </div>
+                              </div>
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <div className={`mb-3 ${isLeft ? 'lg:text-right' : ''}`}>
+                                <Badge variant="secondary" className="mb-2 text-xs bg-primary/10 text-primary border-primary/20">
+                                  {edu.level}
+                                </Badge>
+                                <h3 className="text-xl font-bold text-foreground mb-1 leading-tight">
+                                  {edu.department}
+                                </h3>
+                                <h4 className="text-lg font-semibold text-primary mb-2">
+                                  {edu.name}
+                                </h4>
+                              </div>
+                              
+                              <div className={`flex flex-wrap items-center gap-3 text-sm text-muted-foreground mb-3 ${
+                                isLeft ? 'lg:justify-end' : ''
+                              }`}>
+                                <div className="flex items-center gap-1.5 bg-muted/50 rounded-full px-2 py-1">
+                                  <Calendar className="h-3 w-3" />
+                                  <span className="font-medium">{edu.period}</span>
+                                </div>
+                                <div className="flex items-center gap-1.5 bg-muted/50 rounded-full px-2 py-1">
+                                  <MapPin className="h-3 w-3" />
+                                  <span className="font-medium">{edu.city}</span>
+                                </div>
+                              </div>
+
+                              {/* Graduation info - Hidden in compact view */}
+                              <div className={`text-sm text-primary font-medium transition-all duration-300 ${
+                                hoveredCard === edu.id ? 'max-h-8 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0 overflow-hidden'
+                              } ${isLeft ? 'lg:text-right' : ''}`}>
+                                <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs">
+                                  Graduated: {edu.graduateDate} • GPA: {edu.graduateScore}
+                                </span>
+                              </div>
                             </div>
                           </div>
+                        </CardHeader>
 
-                          {/* Graduation info - Hidden in compact view */}
-                          <div className={`text-sm text-primary font-medium transition-all duration-300 ${
-                            hoveredCard === edu.id ? 'max-h-8 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0 overflow-hidden'
+                        <CardContent className="pt-0">
+                          {/* Description - Hidden in compact view */}
+                          <div className={`overflow-hidden transition-all duration-500 ${
+                            hoveredCard === edu.id ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
                           }`}>
-                            Graduated: {edu.graduateDate} • GPA: {edu.graduateScore}
+                            <div className={`p-4 bg-gradient-to-r from-primary/5 to-transparent rounded-lg border-l-4 border-primary/30 ${
+                              isLeft ? 'lg:text-right lg:border-r-4 lg:border-l-0 lg:bg-gradient-to-l' : ''
+                            }`}>
+                              <p className="text-muted-foreground leading-relaxed text-sm">
+                                Advanced studies in {edu.department.toLowerCase()}. Focused on modern technologies and methodologies in educational technology and software development.
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                        {educationIconMap[edu.code] && (
-                          <div className="flex-shrink-0">
-                            <img 
-                              src={educationIconMap[edu.code]} 
-                              alt={`${edu.name} logo`}
-                              className="w-16 h-16 object-contain"
-                            />
+
+                          {/* Technologies - Hidden in compact view */}
+                          <div className={`overflow-hidden transition-all duration-500 ${
+                            hoveredCard === edu.id ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                          }`}>
+                            <div className={`${isLeft ? 'lg:text-right' : ''}`}>
+                              <div className={`flex flex-wrap gap-1.5 ${isLeft ? 'lg:justify-end' : ''}`}>
+                                {edu.technologies?.slice(0, 8).map((tech, i) => (
+                                  <Badge 
+                                    key={i} 
+                                    variant="outline" 
+                                    className="text-xs bg-primary/5 border-primary/20 text-primary hover:bg-primary/10 transition-colors"
+                                  >
+                                    {tech.name}
+                                  </Badge>
+                                ))}
+                                {edu.technologies && edu.technologies.length > 8 && (
+                                  <Badge variant="outline" className="text-xs border-dashed bg-muted/20">
+                                    +{edu.technologies.length - 8} more
+                                  </Badge>
+                                )}
+                              </div>
+                            </div>
                           </div>
-                        )}
-                      </div>
-                    </CardHeader>
-
-                    <CardContent className="pt-0">
-                      {/* Description - Hidden in compact view */}
-                      <div className={`overflow-hidden transition-all duration-300 ${
-                        hoveredCard === edu.id ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
-                      }`}>
-                        <p className="text-muted-foreground leading-relaxed">
-                          Advanced studies in {edu.department.toLowerCase()}. Focused on modern technologies and methodologies in educational technology and software development.
-                        </p>
-                      </div>
-
-                      {/* Technologies - Hidden in compact view */}
-                      <div className={`overflow-hidden transition-all duration-300 ${
-                        hoveredCard === edu.id ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
-                      }`}>
-                        <div className="flex flex-wrap gap-2">
-                          {edu.technologies?.slice(0, 6).map((tech, i) => (
-                            <Badge key={i} variant="outline" className="text-xs">
-                              {tech.name}
-                            </Badge>
-                          ))}
-                          {edu.technologies && edu.technologies.length > 6 && (
-                            <Badge variant="outline" className="text-xs border-dashed">
-                              +{edu.technologies.length - 6} more
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
                 );
               })}
             </div>
