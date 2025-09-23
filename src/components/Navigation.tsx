@@ -11,6 +11,7 @@ const navItems = [
   { id: "domains", label: "Domains" },
   { id: "skills", label: "Skills" },
   { id: "portfolio", label: "Portfolio" },
+  { id: "customers", label: "Customers" },
   { id: "references", label: "References" },
   { id: "education", label: "Education" },
   { id: "contact", label: "Contact" }
