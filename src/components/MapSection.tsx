@@ -560,11 +560,12 @@ export default function MapSection() {
     <section id="map" className="py-20 bg-gradient-to-b from-background via-secondary/50 to-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary via-primary/80 to-secondary bg-clip-text text-transparent">
-            Global 
-            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Footprint</span>            
+          <Badge variant="outline" className="mb-4">Global Presence</Badge>
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            Global
+            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Footprint</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Explore the worldwide locations of companies I've worked with, institutions where I've studied, 
             and clients I've served throughout my career.
           </p>
