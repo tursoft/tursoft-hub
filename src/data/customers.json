@@ -10,7 +10,9 @@
          "relationship": "Strategic Partner",
          "services": ["Healthcare Information Systems", "Patient Management Solutions", "Medical Data Analytics", "Digital Health Infrastructure"],
          "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET", "Crystal Reports"],
-         "partnership": { "startDate": "01.01.2008", "status": "ongoing" }
+         "partnership": { "startDate": "01.01.2008", "status": "ongoing" },
+         "companyCodes": ["DATASEL", "ERC"],
+         "projectNames": ["VKBS", "ProEmpower"]
        },
        { 
          "name": "MOI.KSA", 
@@ -22,7 +24,9 @@
          "relationship": "Government Client",
          "services": ["Security Information Systems", "Civil Affairs Management", "Digital Identity Solutions"],
          "technologies": [".NET", "C#", "Oracle", "Web Services"],
-         "partnership": { "startDate": "01.06.2010", "endDate": "01.12.2013", "status": "completed" }
+         "partnership": { "startDate": "01.06.2010", "endDate": "01.12.2013", "status": "completed" },
+         "companyCodes": ["DATASEL"],
+         "projectNames": ["AIS"]
        },
        { 
          "name": "MOH.KSA", 
@@ -34,7 +38,9 @@
          "relationship": "Strategic Partner",
          "services": ["Electronic Health Records", "Hospital Management Systems", "Health Analytics Platform"],
          "technologies": [".NET", "C#", "MS SQL Server", "Web API", "Angular"],
-         "partnership": { "startDate": "01.03.2011", "status": "ongoing" }
+         "partnership": { "startDate": "01.03.2011", "status": "ongoing" },
+         "companyCodes": ["DATASEL"],
+         "projectNames": ["AIS"]
        },
        { 
          "name": "TTNET", 
@@ -46,7 +52,9 @@
          "relationship": "Enterprise Client", 
          "services": ["Customer Management Systems", "Billing Solutions", "Network Management Tools"],
          "technologies": [".NET", "C#", "Oracle", "ASP.NET", "Web Services"],
-         "partnership": { "startDate": "01.09.2005", "endDate": "01.06.2008", "status": "completed" }
+         "partnership": { "startDate": "01.09.2005", "endDate": "01.06.2008", "status": "completed" },
+         "companyCodes": ["DATASEL"],
+         "projectNames": ["AHBS"]
        },
        { 
          "name": "ECZACIBASI", 
@@ -58,7 +66,9 @@
          "relationship": "Healthcare Partner",
          "services": ["Hospital Information Systems", "Laboratory Management", "Pharmaceutical Tracking"],
          "technologies": [".NET", "C#", "MS SQL Server", "Crystal Reports", "Web Forms"],
-         "partnership": { "startDate": "01.04.2006", "endDate": "01.10.2009", "status": "completed" }
+         "partnership": { "startDate": "01.04.2006", "endDate": "01.10.2009", "status": "completed" },
+         "companyCodes": ["DATASEL", "ERC"],
+         "projectNames": []
        },
        { 
          "name": "Avea", 
@@ -70,7 +80,9 @@
          "relationship": "Telecom Partner",
          "services": ["Mobile Customer Management", "Billing Systems", "Service Activation Platforms"],
          "technologies": [".NET", "C#", "Oracle", "Web Services", "ASP.NET"],
-         "partnership": { "startDate": "01.02.2007", "endDate": "01.08.2010", "status": "completed" }
+         "partnership": { "startDate": "01.02.2007", "endDate": "01.08.2010", "status": "completed" },
+         "companyCodes": ["DATASEL", "ERC"],
+         "projectNames": []
        },
        { 
          "name": "H.IbniSina", 
@@ -82,7 +94,9 @@
          "relationship": "Healthcare Client",
          "services": ["Hospital Management System", "Patient Care Solutions", "Medical Records Management"],
          "technologies": [".NET", "C#", "MS SQL Server", "Crystal Reports"],
-         "partnership": { "startDate": "01.05.2007", "endDate": "01.12.2009", "status": "completed" }
+         "partnership": { "startDate": "01.05.2007", "endDate": "01.12.2009", "status": "completed" },
+         "companyCodes": ["DATASEL", "ERC"],
+         "projectNames": ["HIS2x", "ABI"]
        },
        { 
          "name": "MOH.PAL", 
@@ -94,7 +108,9 @@
          "relationship": "Government Partner",
          "services": ["Health Information Systems", "Medical Data Management", "Healthcare Analytics"],
          "technologies": [".NET", "C#", "MS SQL Server", "Web API"],
-         "partnership": { "startDate": "01.09.2012", "endDate": "01.03.2015", "status": "completed" }
+         "partnership": { "startDate": "01.09.2012", "endDate": "01.03.2015", "status": "completed" },
+         "companyCodes": ["DATASEL", "ERC"],
+         "projectNames": ["HIS2x"]
        },
        { 
          "name": "LIFEWATCH.CH", 
@@ -106,7 +122,9 @@
          "relationship": "Technology Partner", 
          "services": ["Cardiac Monitoring Systems", "Telemedicine Platforms", "Medical Data Analytics"],
          "technologies": [".NET", "C#", "Web Services", "Medical Device Integration"],
-         "partnership": { "startDate": "01.01.2010", "endDate": "01.06.2013", "status": "completed" }
+         "partnership": { "startDate": "01.01.2010", "endDate": "01.06.2013", "status": "completed" },
+         "companyCodes": ["ERC"],
+         "projectNames": ["ATTP", "ATTPMobile"]
        },
        { 
          "name": "UCELL.UZ", 
@@ -118,7 +136,9 @@
          "relationship": "Telecom Client",
          "services": ["Customer Management Systems", "Mobile Billing Solutions", "Network Operations"],
          "technologies": [".NET", "C#", "Oracle", "Web Services"],
-         "partnership": { "startDate": "01.03.2009", "endDate": "01.09.2011", "status": "completed" }
+         "partnership": { "startDate": "01.03.2009", "endDate": "01.09.2011", "status": "completed" },
+         "companyCodes": ["DATASEL", "ERC"],
+         "projectNames": []
        },
        { 
          "name": "SPMS.PT", 
@@ -130,7 +150,9 @@
          "relationship": "Strategic Partner",
          "services": ["Health Information Systems", "Digital Health Platform", "Healthcare Data Analytics"],
          "technologies": [".NET", "C#", "MS SQL Server", "Web API", "Angular"],
-         "partnership": { "startDate": "01.07.2014", "status": "ongoing" }
+         "partnership": { "startDate": "01.07.2014", "status": "ongoing" },
+         "companyCodes": ["ERC"],
+         "projectNames": ["ProEmpower"]
        },
        { 
          "name": "AXIS.INT", 
@@ -142,7 +164,9 @@
          "relationship": "Commercial Client",
          "services": ["Project Management Systems", "Customer Relationship Management", "Inventory Management"],
          "technologies": ["Web Development", "Database Solutions", "CRM Integration"],
-         "partnership": { "startDate": "01.04.2018", "status": "active" }
+         "partnership": { "startDate": "01.04.2018", "status": "active" },
+         "companyCodes": ["jengai"],
+         "projectNames": ["JENGAIAPP"]
        },
        { 
          "name": "SSG.NY", 
@@ -154,7 +178,9 @@
          "relationship": "Commercial Client",
          "services": ["Project Management Tools", "Customer Portal", "Business Process Automation"],
          "technologies": ["Modern Web Stack", "Database Design", "Cloud Solutions"],
-         "partnership": { "startDate": "01.02.2019", "status": "active" }
+         "partnership": { "startDate": "01.02.2019", "status": "active" },
+         "companyCodes": ["gamyte", "jengai"],
+         "projectNames": ["GAMYTEAPP", "JENGAIAPP"]
        },
        { 
          "name": "PRO.UNITED", 
@@ -166,7 +192,9 @@
          "relationship": "Commercial Client", 
          "services": ["Business Management System", "Client Communication Platform", "Resource Planning"],
          "technologies": ["Web Applications", "Database Management", "Business Intelligence"],
-         "partnership": { "startDate": "01.08.2018", "status": "active" }
+         "partnership": { "startDate": "01.08.2018", "status": "active" },
+         "companyCodes": ["jengai"],
+         "projectNames": ["JENGAIAPP"]
        },
        { 
          "name": "TRANSYL.FL", 
@@ -178,7 +206,9 @@
          "relationship": "Commercial Client",
          "services": ["Project Management Solutions", "Customer Management", "Scheduling Systems"],
          "technologies": ["Web Development", "Database Solutions", "Mobile Applications"],
-         "partnership": { "startDate": "01.06.2019", "status": "active" }
+         "partnership": { "startDate": "01.06.2019", "status": "active" },
+         "companyCodes": ["gamyte"],
+         "projectNames": ["GAMYTEAPP"]
        },
        { 
          "name": "BONITZ", 
@@ -190,7 +220,9 @@
          "relationship": "Commercial Client",
          "services": ["Project Tracking Systems", "Customer Management", "Quality Control Tools"],
          "technologies": ["Web Applications", "Database Solutions"],
-         "partnership": { "startDate": "01.03.2020", "status": "active" }
+         "partnership": { "startDate": "01.03.2020", "status": "active" },
+         "companyCodes": ["jengai"],
+         "projectNames": ["JENGAIAPP"]
        },
        { 
          "name": "DMA.FLOORS", 
@@ -202,7 +234,9 @@
          "relationship": "Commercial Client",
          "services": ["Business Management Platform", "Customer Relations", "Project Scheduling"],
          "technologies": ["Modern Web Development", "Cloud Infrastructure"],
-         "partnership": { "startDate": "01.01.2020", "status": "active" }
+         "partnership": { "startDate": "01.01.2020", "status": "active" },
+         "companyCodes": ["jengai"],
+         "projectNames": ["JENGAIAPP"]
        },
        { 
          "name": "SERGENIANS", 
@@ -214,7 +248,9 @@
          "relationship": "Long-term Partner",
          "services": ["Legacy System Modernization", "Customer Portal", "Inventory Management"],
          "technologies": ["Full-Stack Development", "Database Migration"],
-         "partnership": { "startDate": "01.05.2019", "status": "active" }
+         "partnership": { "startDate": "01.05.2019", "status": "active" },
+         "companyCodes": ["gamyte"],
+         "projectNames": ["GAMYTEAPP"]
        },
        { 
          "name": "GARMON", 
@@ -226,7 +262,9 @@
          "relationship": "Commercial Client", 
          "services": ["Project Management Suite", "Customer Communication", "Resource Planning"],
          "technologies": ["Web Applications", "Mobile Solutions"],
-         "partnership": { "startDate": "01.09.2020", "status": "active" }
+         "partnership": { "startDate": "01.09.2020", "status": "active" },
+         "companyCodes": ["jengai"],
+         "projectNames": ["JENGAIAPP"]
        },
        { 
          "name": "MF.HIGGINS", 
@@ -238,7 +276,9 @@
          "relationship": "Commercial Client",
          "services": ["Business Process Automation", "Customer Management", "Project Tracking"],
          "technologies": ["Cloud-based Solutions", "Database Systems"],
-         "partnership": { "startDate": "01.07.2020", "status": "active" }
+         "partnership": { "startDate": "01.07.2020", "status": "active" },
+         "companyCodes": ["jengai"],
+         "projectNames": ["JENGAIAPP"]
        },
        { 
          "name": "GOMEZ.FC", 
@@ -250,7 +290,9 @@
          "relationship": "Regional Partner",
          "services": ["Multi-location Management", "Customer Relations", "Quality Assurance"],
          "technologies": ["Distributed Systems", "Web Development"],
-         "partnership": { "startDate": "01.11.2019", "status": "active" }
+         "partnership": { "startDate": "01.11.2019", "status": "active" },
+         "companyCodes": ["jengai"],
+         "projectNames": ["JENGAIAPP"]
        },
        { 
          "name": "DESOTO", 
@@ -262,7 +304,9 @@
          "relationship": "Commercial Client",
          "services": ["Project Management Tools", "Vendor Management", "Client Portal"],
          "technologies": ["Web Development", "Integration Solutions"],
-         "partnership": { "startDate": "01.04.2021", "status": "active" }
+         "partnership": { "startDate": "01.04.2021", "status": "active" },
+         "companyCodes": ["jengai"],
+         "projectNames": ["JENGAIAPP"]
        },
        { 
          "name": "PROFLOORS", 
@@ -274,7 +318,9 @@
          "relationship": "Strategic Partner",
          "services": ["Comprehensive Business Platform", "Customer Experience", "Operational Excellence"],
          "technologies": ["Modern Tech Stack", "Cloud Solutions", "Mobile Apps"],
-         "partnership": { "startDate": "01.02.2021", "status": "active" }
+         "partnership": { "startDate": "01.02.2021", "status": "active" },
+         "companyCodes": ["jengai"],
+         "projectNames": ["JENGAIAPP"]
        },
        { 
          "name": "ROUSE.CO", 
@@ -286,7 +332,9 @@
          "relationship": "Enterprise Client",
          "services": ["Enterprise Project Management", "Resource Allocation", "Financial Tracking"],
          "technologies": ["Enterprise Solutions", "Advanced Analytics", "Integration Platforms"],
-         "partnership": { "startDate": "01.08.2020", "status": "active" }
+         "partnership": { "startDate": "01.08.2020", "status": "active" },
+         "companyCodes": ["jengai"],
+         "projectNames": ["JENGAIAPP"]
        },
        { 
          "name": "SHAFAFIYA.KSA", 
@@ -298,7 +346,9 @@
          "relationship": "Technology Partner",
          "services": ["Healthcare Transparency Platform", "Patient Rights Management", "Quality Metrics Dashboard"],
          "technologies": ["Modern Web Stack", "Cloud Infrastructure", "Data Analytics"],
-         "partnership": { "startDate": "01.06.2022", "status": "active" }
+         "partnership": { "startDate": "01.06.2022", "status": "active" },
+         "companyCodes": ["DATASEL", "ERC"],
+         "projectNames": []
        }
    ]
 }

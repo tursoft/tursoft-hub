@@ -19,6 +19,10 @@ interface Customer {
   relationship?: string;
   projects?: string[];
   technologies?: string[];
+  companyCodes?: string[];
+  projectNames?: string[];
+  resolvedCompanyNames?: string[];
+  resolvedProjectTitles?: string[];
   partnership?: {
     startDate?: string;
     endDate?: string;
@@ -29,6 +33,24 @@ interface Customer {
 interface CustomerData {
   items: Customer[];
   categories?: string[];
+}
+
+interface Experience {
+  companyCode: string;
+  companyName: string;
+}
+
+interface Project {
+  name: string;
+  title: string;
+}
+
+interface ExperiencesData {
+  items: Experience[];
+}
+
+interface ProjectsData {
+  items: Project[];
 }
 
 // Animated Counter Component
@@ -95,7 +117,10 @@ const CustomersSection = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [statsVisible, setStatsVisible] = useState(false);
   const [customerData, setCustomerData] = useState<CustomerData | null>(null);
+  const [experiencesData, setExperiencesData] = useState<ExperiencesData | null>(null);
+  const [projectsData, setProjectsData] = useState<ProjectsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [customerLogoMap, setCustomerLogoMap] = useState<{ [key: string]: string }>({});
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -104,6 +129,24 @@ const CustomersSection = () => {
   const [searchText, setSearchText] = useState("");
   const statsRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Helper function to resolve company codes to company names
+  const resolveCompanyNames = (companyCodes: string[] = []): string[] => {
+    if (!experiencesData) return [];
+    return companyCodes.map(code => {
+      const experience = experiencesData.items.find(exp => exp.companyCode === code);
+      return experience ? experience.companyName : code;
+    });
+  };
+
+  // Helper function to resolve project names to project titles
+  const resolveProjectTitles = (projectNames: string[] = []): string[] => {
+    if (!projectsData) return [];
+    return projectNames.map(name => {
+      const project = projectsData.items.find(proj => proj.name === name);
+      return project ? project.title : name;
+    });
+  };
 
   // Extract industry/category from customer name or title
   const categorizeCustomer = (customer: Customer): string => {
@@ -132,32 +175,55 @@ const CustomersSection = () => {
     return 'Other';
   };
 
-  // Load customer data from JSON file
+  // Load customer, experiences, and projects data from JSON files
   useEffect(() => {
-    const loadCustomerData = async () => {
+    const loadData = async () => {
       try {
-        const response = await fetch('/data/customers.json');
-        const data: CustomerData = await response.json();
-        
-        // Add categories based on customer info
-        const categorizedCustomers = data.items.map(customer => ({
+        // Load all three data files concurrently
+        const [customersResponse, experiencesResponse, projectsResponse] = await Promise.all([
+          fetch('/data/customers.json'),
+          fetch('/data/experiences.json'),
+          fetch('/data/projects.json')
+        ]);
+
+        const [customersData, experiencesData, projectsData] = await Promise.all([
+          customersResponse.json() as Promise<CustomerData>,
+          experiencesResponse.json() as Promise<ExperiencesData>,
+          projectsResponse.json() as Promise<ProjectsData>
+        ]);
+
+        // Set experiences and projects data
+        setExperiencesData(experiencesData);
+        setProjectsData(projectsData);
+
+        // Add categories based on customer info and fix logo paths
+        const categorizedCustomers = customersData.items.map(customer => ({
           ...customer,
           category: categorizeCustomer(customer)
         }));
         
+        // Create customer logo map using proper asset paths
+        const customerLogos: { [key: string]: string } = {};
+        for (const customer of categorizedCustomers) {
+          if (customer.logoPath) {
+            customerLogos[customer.name] = customer.logoPath;
+          }
+        }
+        setCustomerLogoMap(customerLogos);
+        
         setCustomerData({
-          ...data,
+          ...customersData,
           items: categorizedCustomers
         });
 
       } catch (error) {
-        console.error('Failed to load customer data:', error);
+        console.error('Failed to load data:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadCustomerData();
+    loadData();
   }, []);
 
   // Intersection observer for stats animation
@@ -218,7 +284,14 @@ const CustomersSection = () => {
 
   // Handle customer card click
   const handleCustomerClick = (customer: Customer) => {
-    setSelectedCustomer(customer);
+    // Create customer object with resolved company names and project titles
+    const customerWithResolvedData: Customer = {
+      ...customer,
+      resolvedCompanyNames: resolveCompanyNames(customer.companyCodes),
+      resolvedProjectTitles: resolveProjectTitles(customer.projectNames)
+    };
+    
+    setSelectedCustomer(customerWithResolvedData);
     setIsDialogOpen(true);
   };
 
@@ -283,12 +356,22 @@ const CustomersSection = () => {
           onClick={() => handleCustomerClick(customer)}
         >
           {/* Customer Logo */}
-          {customer.logoPath && (
+          {customerLogoMap[customer.name] && (
             <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
               <img 
-                src={customer.logoPath} 
+                src={customerLogoMap[customer.name]} 
                 alt={`${customer.title} logo`}
                 className="w-14 h-14 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300 rounded-lg"
+                onError={(e) => {
+                  // Try with /src/assets/ prefix for development fallback
+                  const currentSrc = e.currentTarget.src;
+                  if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
+                    e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
+                  } else {
+                    // Hide image if it fails to load even with fallback
+                    e.currentTarget.style.display = 'none';
+                  }
+                }}
               />
             </div>
           )}
@@ -309,6 +392,17 @@ const CustomersSection = () => {
             <div className="text-sm text-muted-foreground mb-2">
               {customer.name}
             </div>
+            
+            {/* Associated Companies */}
+            {customer.companyCodes && customer.companyCodes.length > 0 && (
+              <div className="flex flex-wrap gap-1 mb-2">
+                {resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
+                  <Badge key={index} variant="secondary" className="text-xs">
+                    {companyName}
+                  </Badge>
+                ))}
+              </div>
+            )}
             
             {customer.description && (
               <div 
@@ -344,12 +438,22 @@ const CustomersSection = () => {
               )}
               
               {/* Customer Logo - Smaller for carousel */}
-              {customer.logoPath && (
+              {customerLogoMap[customer.name] && (
                 <div className="w-20 h-20 flex items-center justify-center mb-2">
                   <img 
-                    src={customer.logoPath} 
+                    src={customerLogoMap[customer.name]} 
                     alt={`${customer.title} logo`}
                     className="w-16 h-16 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300 rounded-lg"
+                    onError={(e) => {
+                      // Try with /src/assets/ prefix for development fallback
+                      const currentSrc = e.currentTarget.src;
+                      if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
+                        e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
+                      } else {
+                        // Hide image if it fails to load even with fallback
+                        e.currentTarget.style.display = 'none';
+                      }
+                    }}
                   />
                 </div>
               )}
@@ -362,6 +466,17 @@ const CustomersSection = () => {
                 <div className="text-xs text-muted-foreground/80 font-medium">
                   {customer.name}
                 </div>
+                
+                {/* Associated Companies */}
+                {customer.companyCodes && customer.companyCodes.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-2 justify-center">
+                    {resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
+                      <Badge key={index} variant="secondary" className="text-xs">
+                        {companyName}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </CardHeader>
@@ -398,12 +513,22 @@ const CustomersSection = () => {
             )}
             
             {/* Customer Logo */}
-            {customer.logoPath && (
+            {customerLogoMap[customer.name] && (
               <div className="w-36 h-36 flex items-center justify-center mb-3">
                 <img 
-                  src={customer.logoPath} 
+                  src={customerLogoMap[customer.name]} 
                   alt={`${customer.title} logo`}
                   className="w-32 h-32 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300 rounded-lg"
+                  onError={(e) => {
+                    // Try with /src/assets/ prefix for development fallback
+                    const currentSrc = e.currentTarget.src;
+                    if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
+                      e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
+                    } else {
+                      // Hide image if it fails to load even with fallback
+                      e.currentTarget.style.display = 'none';
+                    }
+                  }}
                 />
               </div>
             )}
@@ -416,6 +541,17 @@ const CustomersSection = () => {
               <div className="text-sm text-muted-foreground/80 font-medium">
                 {customer.name}
               </div>
+              
+              {/* Associated Companies */}
+              {customer.companyCodes && customer.companyCodes.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-3 justify-center">
+                  {resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
+                    <Badge key={index} variant="secondary" className="text-xs">
+                      {companyName}
+                    </Badge>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </CardHeader>
@@ -719,6 +855,7 @@ const CustomersSection = () => {
         customer={selectedCustomer}
         isOpen={isDialogOpen}
         onClose={handleDialogClose}
+        customerLogo={selectedCustomer ? customerLogoMap[selectedCustomer.name] : undefined}
       />
     </section>
   );

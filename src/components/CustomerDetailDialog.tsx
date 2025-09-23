@@ -39,6 +39,10 @@ interface Customer {
   industry?: string;
   relationship?: string;
   projects?: string[];
+  companyCodes?: string[];
+  projectNames?: string[];
+  resolvedCompanyNames?: string[];
+  resolvedProjectTitles?: string[];
   technologies?: string[];
   partnership?: {
     startDate?: string;
@@ -63,14 +67,102 @@ interface CustomerDetailDialogProps {
   customer: Customer | null;
   isOpen: boolean;
   onClose: () => void;
+  customerLogo?: string;
 }
 
 const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
   customer,
   isOpen,
-  onClose
+  onClose,
+  customerLogo
 }) => {
   if (!customer) return null;
+
+  // Helper function to resolve company logo paths
+  const resolveCompanyLogo = (companyCode: string): string | null => {
+    // Map company codes to logo filenames
+    const logoMap: { [key: string]: string } = {
+      'ERC': 'erc.png',
+      'DATASEL': 'datasel.png',
+      'jengai': 'jengai.png',
+      'gamyte': 'gamyte.png',
+      'FONET': 'fonet.png',
+      'JANDARMA': 'jandarma.egitim.png',
+      'HALICI': 'halici.png',
+      'LABRIS': 'labris.png',
+      'METU.CEIT': 'metu.ceit.png',
+      'METU.II': 'metu.ii.png',
+      'METU': 'metu.png'
+    };
+    
+    const logoFile = logoMap[companyCode];
+    return logoFile ? `/src/assets/logos/companies/${logoFile}` : null;
+  };
+
+  // Helper function to resolve technology logo paths
+  const resolveTechnologyLogo = (tech: string): string | null => {
+    // Map technology names to logo filenames (normalize to lowercase for matching)
+    const techLogoMap: { [key: string]: string } = {
+      '.net': 'net.png',
+      'c#': 'csharp.png',
+      'ms sql server': 'mssql.png',
+      'mssql': 'mssql.png',
+      'sql server': 'mssql.png',
+      'asp.net': 'aspnet.png',
+      'crystal reports': 'crystalreports.png',
+      'oracle': 'oracle.png',
+      'web services': 'soap.png',
+      'javascript': 'js.png',
+      'jquery': 'jquery.png',
+      'html': 'html5.png',
+      'css': 'css3.png',
+      'bootstrap': 'bootstrap.png',
+      'angular': 'angular.png',
+      'react': 'js.png',
+      'nodejs': 'nodejs.png',
+      'node.js': 'nodejs.png',
+      'typescript': 'typescript.png',
+      'mysql': 'mysql.png',
+      'postgresql': 'postgresql.png',
+      'mongodb': 'mongodb.png',
+      'docker': 'docker.png',
+      'azure': 'azure.png',
+      'aws': 'aws.png',
+      'git': 'git.png',
+      'visual studio': 'visualstudio.png',
+      'vs code': 'vscode.png',
+      'java': 'java.png',
+      'python': 'python.png',
+      'php': 'php.png'
+    };
+    
+    const normalizedTech = tech.toLowerCase().trim();
+    const logoFile = techLogoMap[normalizedTech];
+    return logoFile ? `/src/assets/logos/technologies/small_50x50/${logoFile}` : null;
+  };
+
+  // Helper function to resolve project logo paths based on project name
+  const resolveProjectLogo = (projectName: string): string | null => {
+    // Map project names to their icon filenames
+    const projectLogoMap: { [key: string]: string } = {
+      'JENGAIAPP': 'jengai.app.png',
+      'GAMYTEAPP': 'gamyte.app.png', 
+      'ALISVERISASISTANI': 'alisveris.asistani.png',
+      'PARDUSDOCKER': 'PARDUSDOCKER.png',
+      'ATTP': 'ATTP.png',
+      'ATTPMobile': 'ATTPMobile.png',
+      'PDFW': 'PDFW.png',
+      'VKBS': 'VKBS.png',
+      'ProEmpower': 'ProEmpower.png',
+      'HIS2x': 'HIS2x.png',
+      'ABI': 'ABI.png',
+      'AHBS': 'AHBS.png',
+      'AIS': 'AIS.png'
+    };
+    
+    const logoFile = projectLogoMap[projectName];
+    return logoFile ? `/src/assets/files/projects/_logos/${logoFile}` : null;
+  };
 
   // Helper function to get partnership status color
   const getPartnershipStatusColor = (status?: string) => {
@@ -129,10 +221,6 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                 )}
               </div>
               <DialogDescription className="text-base text-muted-foreground">
-                <div className="flex items-center gap-2 mb-2">
-                  <Building2 className="w-4 h-4" />
-                  <span>{customer.name}</span>
-                </div>
                 {customer.location && (
                   <div className="flex items-center gap-2 mb-2">
                     <MapPin className="w-4 h-4" />
@@ -147,12 +235,22 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                 )}
               </DialogDescription>
             </div>
-            {customer.logoPath && (
+            {customerLogo && (
               <div className="w-16 h-16 flex-shrink-0">
                 <img 
-                  src={customer.logoPath} 
+                  src={customerLogo} 
                   alt={`${customer.title} logo`}
                   className="w-full h-full object-contain rounded-lg"
+                  onError={(e) => {
+                    // Try with /src/assets/ prefix for development fallback
+                    const currentSrc = e.currentTarget.src;
+                    if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
+                      e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
+                    } else {
+                      // Hide image if it fails to load even with fallback
+                      e.currentTarget.style.display = 'none';
+                    }
+                  }}
                 />
               </div>
             )}
@@ -160,8 +258,28 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
         </DialogHeader>
 
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="companies-projects">
+              <span className="flex items-center gap-2">
+                Companies & Projects
+                {((customer.companyCodes && customer.companyCodes.length > 0) || (customer.projectNames && customer.projectNames.length > 0)) && (
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {(customer.companyCodes?.length || 0) + (customer.projectNames?.length || 0)}
+                  </Badge>
+                )}
+              </span>
+            </TabsTrigger>
+            <TabsTrigger value="technologies">
+              <span className="flex items-center gap-2">
+                Technologies
+                {customer.technologies && (
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {customer.technologies.length}
+                  </Badge>
+                )}
+              </span>
+            </TabsTrigger>
             <TabsTrigger value="services">
               <span className="flex items-center gap-2">
                 Services
@@ -172,7 +290,6 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                 )}
               </span>
             </TabsTrigger>
-            <TabsTrigger value="partnership">Partnership</TabsTrigger>
           </TabsList>
 
           <div className="max-h-[60vh] overflow-y-auto mt-4">
@@ -322,86 +439,171 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                     </CardContent>
                   </Card>
                 )}
+              </div>
+            </TabsContent>
 
-                {/* Technologies Used */}
-                {customer.technologies && customer.technologies.length > 0 && (
-                  <div className="mt-6">
-                    <h4 className="text-md font-semibold mb-3">Technologies Used</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {customer.technologies.map((tech, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
-                          {tech}
-                        </Badge>
-                      ))}
+            <TabsContent value="companies-projects" className="space-y-6 min-h-[400px]">
+              <div className="p-4">
+                {/* Associated Companies Section */}
+                {customer.companyCodes && customer.companyCodes.length > 0 ? (
+                  <div className="mb-8">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Building2 className="w-5 h-5" />
+                      <h3 className="text-lg font-semibold">Associated Companies</h3>
+                    </div>
+                    <div className="space-y-3">
+                      {customer.companyCodes.map((companyCode, index) => {
+                        const companyName = customer.resolvedCompanyNames?.[index];
+                        const logoPath = resolveCompanyLogo(companyCode);
+                        
+                        // Only show company if we have a resolved name (don't show raw codes)
+                        if (!companyName) return null;
+                        
+                        return (
+                          <div key={index} className="flex items-center gap-4 p-4 bg-card border border-border/50 rounded-lg hover:shadow-md transition-shadow">
+                            {/* Company Logo */}
+                            {logoPath && (
+                              <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
+                                <img 
+                                  src={logoPath}
+                                  alt={`${companyName} logo`}
+                                  className="w-10 h-10 object-contain rounded"
+                                  onError={(e) => {
+                                    // Try with /assets/ prefix for production fallback
+                                    const currentSrc = e.currentTarget.src;
+                                    if (currentSrc.includes('/src/assets/')) {
+                                      e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
+                                    } else {
+                                      // Hide image if it fails to load
+                                      e.currentTarget.style.display = 'none';
+                                    }
+                                  }}
+                                />
+                              </div>
+                            )}
+                            
+                            {/* Company Name */}
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-medium text-foreground truncate">
+                                {companyName}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      }).filter(Boolean)}
                     </div>
                   </div>
-                )}
+                ) : null}
 
-                {/* Related Projects */}
-                {customer.projects && customer.projects.length > 0 && (
-                  <div className="mt-6">
-                    <h4 className="text-md font-semibold mb-3">Related Projects</h4>
-                    <div className="space-y-2">
-                      {customer.projects.map((project, index) => (
-                        <div key={index} className="p-3 bg-card border border-border/50 rounded-lg">
-                          <div className="text-sm font-medium">{project}</div>
-                        </div>
-                      ))}
+                {/* Related Projects Section */}
+                {customer.projectNames && customer.projectNames.length > 0 ? (
+                  <div>
+                    <div className="flex items-center gap-2 mb-4">
+                      <Briefcase className="w-5 h-5" />
+                      <h3 className="text-lg font-semibold">Related Projects</h3>
+                    </div>
+                    <div className="space-y-3">
+                      {customer.projectNames.map((projectName, index) => {
+                        const projectTitle = customer.resolvedProjectTitles?.[index] || projectName;
+                        const logoPath = resolveProjectLogo(projectName);
+                        
+                        return (
+                          <div key={index} className="flex items-center gap-4 p-4 bg-card border border-border/50 rounded-lg hover:shadow-md transition-shadow">
+                            {/* Project Logo */}
+                            {logoPath && (
+                              <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
+                                <img 
+                                  src={logoPath}
+                                  alt={`${projectTitle} logo`}
+                                  className="w-10 h-10 object-contain rounded"
+                                  onError={(e) => {
+                                    // Try with /assets/ prefix for production fallback
+                                    const currentSrc = e.currentTarget.src;
+                                    if (currentSrc.includes('/src/assets/')) {
+                                      e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
+                                    } else {
+                                      // Hide image if it fails to load
+                                      e.currentTarget.style.display = 'none';
+                                    }
+                                  }}
+                                />
+                              </div>
+                            )}
+                            
+                            {/* Project Details */}
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-medium text-foreground truncate">
+                                {projectTitle}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
+                ) : null}
+
+                {/* No Data Message */}
+                {(!customer.companyCodes || customer.companyCodes.length === 0) && (!customer.projectNames || customer.projectNames.length === 0) && (
+                  <Card>
+                    <CardContent className="p-8 text-center">
+                      <Building2 className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                      <p className="text-muted-foreground">No company or project information available.</p>
+                    </CardContent>
+                  </Card>
                 )}
               </div>
             </TabsContent>
 
-            <TabsContent value="partnership" className="space-y-6 min-h-[400px]">
+            <TabsContent value="technologies" className="space-y-6 min-h-[400px]">
               <div className="p-4">
-                <div className="flex items-center gap-2 mb-6">
-                  <Users className="w-5 h-5" />
-                  <h3 className="text-lg font-semibold">Partnership Details</h3>
-                </div>
-
-                {customer.partnership ? (
-                  <div className="space-y-4">
-                    {/* Partnership Status */}
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-base">Partnership Status</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm text-muted-foreground">Current Status:</span>
-                          <Badge className={getPartnershipStatusColor(customer.partnership.status)}>
-                            {customer.partnership.status?.charAt(0).toUpperCase() + customer.partnership.status?.slice(1) || 'Unknown'}
-                          </Badge>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    {/* Partnership Duration */}
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-base">Duration</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4 text-muted-foreground" />
-                            <span className="text-sm">{formatPartnershipPeriod()}</span>
+                {customer.technologies && customer.technologies.length > 0 ? (
+                  <>
+                    <div className="flex items-center gap-2 mb-4">
+                      <Star className="w-5 h-5" />
+                      <h3 className="text-lg font-semibold">Technologies Used</h3>
+                    </div>
+                    <div className="flex flex-wrap gap-3">
+                      {customer.technologies.map((tech, index) => {
+                        const logoPath = resolveTechnologyLogo(tech);
+                        
+                        return (
+                          <div key={index} className="flex items-center gap-2 p-3 bg-muted/30 rounded-lg border border-border/30 hover:shadow-sm transition-shadow">
+                            {/* Technology Logo */}
+                            {logoPath && (
+                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+                                <img 
+                                  src={logoPath}
+                                  alt={`${tech} logo`}
+                                  className="w-6 h-6 object-contain"
+                                  onError={(e) => {
+                                    // Try with /assets/ prefix for production fallback
+                                    const currentSrc = e.currentTarget.src;
+                                    if (currentSrc.includes('/src/assets/')) {
+                                      e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
+                                    } else {
+                                      // Hide image if it fails to load
+                                      e.currentTarget.style.display = 'none';
+                                    }
+                                  }}
+                                />
+                              </div>
+                            )}
+                            
+                            {/* Technology Name */}
+                            <span className="text-sm font-medium text-foreground">
+                              {tech}
+                            </span>
                           </div>
-                          {customer.partnership.startDate && (
-                            <div className="text-xs text-muted-foreground">
-                              Partnership established: {formatDate(customer.partnership.startDate)}
-                            </div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
+                        );
+                      })}
+                    </div>
+                  </>
                 ) : (
                   <Card>
                     <CardContent className="p-8 text-center">
-                      <Users className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                      <p className="text-muted-foreground">No partnership information available.</p>
+                      <Star className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                      <p className="text-muted-foreground">No technology information available.</p>
                     </CardContent>
                   </Card>
                 )}
