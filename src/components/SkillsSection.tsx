@@ -5,18 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Code, Database, Cloud, Smartphone, Layers, Globe, ChevronLeft, ChevronRight, Eye, EyeOff, Grid, List } from "lucide-react";
 
-// Import technology logos
-import angularLogo from "@/assets/logos/technologies/angular.png";
-import csharpLogo from "@/assets/logos/technologies/csharp.png";
-import dockerLogo from "@/assets/logos/technologies/docker.png";
-import dotnetLogo from "@/assets/logos/technologies/dotnet.png";
-import dotnetcoreLogo from "@/assets/logos/technologies/dotnetcore.png";
-import ionicLogo from "@/assets/logos/technologies/ionic.png";
-import javaLogo from "@/assets/logos/technologies/java.png";
-import mysqlLogo from "@/assets/logos/technologies/mysql.png";
-import nodejsLogo from "@/assets/logos/technologies/nodejs.png";
-import reactLogo from "@/assets/logos/technologies/react.png";
-import typescriptLogo from "@/assets/logos/technologies/typescript.png";
+// Technology logos from small_50x50 folder
 
 // Define interfaces for the new JSON structure
 interface SkillGroup {
@@ -89,20 +78,178 @@ const getFrequencyFromProjects = (projects: number): number => {
   return 1;
 };
 
-// Map skill names to technology images
+// Map skill names to technology images from small_50x50 folder
 const getTechnologyImage = (skillName: string): string | undefined => {
   const nameToImage: { [key: string]: string } = {
-    'Angular': angularLogo,
-    'C#': csharpLogo,
-    'Docker': dockerLogo,
-    '.NET': dotnetLogo,
-    '.NET Core': dotnetcoreLogo,
-    'Ionic': ionicLogo,
-    'Java': javaLogo,
-    'MySQL': mysqlLogo,
-    'Node.js': nodejsLogo,
-    'React': reactLogo,
-    'TypeScript': typescriptLogo
+    // Programming Languages
+    'C#': '/assets/logos/technologies/small_50x50/csharp.png',
+    'Java': '/assets/logos/technologies/small_50x50/java.png',
+    'Typescript': '/assets/logos/technologies/small_50x50/typescript.png',
+    'JS': '/assets/logos/technologies/small_50x50/js.png',
+    'Pascal': '/assets/logos/technologies/small_50x50/pascal.png',
+    'VB.NET': '/assets/logos/technologies/small_50x50/vbnet.png',
+    'Visual Basic': '/assets/logos/technologies/small_50x50/visualbasic.png',
+    'VB Script': '/assets/logos/technologies/small_50x50/vbscript.png',
+    'VisualBasic.NET': '/assets/logos/technologies/small_50x50/visualbasicnet.png',
+    'PHP': '/assets/logos/technologies/small_50x50/php.png',
+    
+    // Frameworks
+    '.NET': '/assets/logos/technologies/small_50x50/net.png',
+    '.NETCore': '/assets/logos/technologies/small_50x50/netcore.png',
+    'PDFWCore': '/assets/logos/technologies/small_50x50/pdfwcore.png',
+    'PDFW': '/assets/logos/technologies/small_50x50/pdfw.png',
+    'Spring': '/assets/logos/technologies/small_50x50/spring.png',
+    
+    // Frontend
+    'AngularJS': '/assets/logos/technologies/small_50x50/angularjs.png',
+    'Angular': '/assets/logos/technologies/small_50x50/angular.png',
+    'HTML5': '/assets/logos/technologies/small_50x50/html5.png',
+    'CSS': '/assets/logos/technologies/small_50x50/css.png',
+    'CSS3': '/assets/logos/technologies/small_50x50/css3.png',
+    'JQuery': '/assets/logos/technologies/small_50x50/jquery.png',
+    'Ionic': '/assets/logos/technologies/small_50x50/ionic.png',
+    'Bootstrap': '/assets/logos/technologies/small_50x50/bootstrap.png',
+    'Animate.css': '/assets/logos/technologies/small_50x50/animatecss.png',
+    'Timelinejs3': '/assets/logos/technologies/small_50x50/timelinejs3.png',
+    'dom-to-image': '/assets/logos/technologies/small_50x50/domtoimage.png',
+    'jspdf': '/assets/logos/technologies/small_50x50/jspdf.png',
+    'Windows Forms': '/assets/logos/technologies/small_50x50/windowsforms.png',
+    'Fontawesome': '/assets/logos/technologies/small_50x50/fontawesome.png',
+    'MomentJS': '/assets/logos/technologies/small_50x50/momentjs.png',
+    'PrimeNG': '/assets/logos/technologies/small_50x50/primeng.png',
+    'Angular Material': '/assets/logos/technologies/small_50x50/angularmaterial.png',
+    
+    // Backend
+    'Nodejs': '/assets/logos/technologies/small_50x50/nodejs.png',
+    'Express': '/assets/logos/technologies/small_50x50/express.png',
+    'EJS': '/assets/logos/technologies/small_50x50/ejs.png',
+    
+    // Web
+    'ASP.NET': '/assets/logos/technologies/small_50x50/aspnet.png',
+    'ASP.NET MVC': '/assets/logos/technologies/small_50x50/aspnetmvc.png',
+    'Telerik UI for Silverlight': '/assets/logos/technologies/small_50x50/telerikuiforsilverlight.png',
+    'Silverlight': '/assets/logos/technologies/small_50x50/silverlight.png',
+    
+    // Databases
+    'MS SQL': '/assets/logos/technologies/small_50x50/mssql.png',
+    'LINQ': '/assets/logos/technologies/small_50x50/linq.png',
+    'MySQL': '/assets/logos/technologies/small_50x50/mysql.png',
+    'Oracle': '/assets/logos/technologies/small_50x50/oracle.png',
+    'DB2': '/assets/logos/technologies/small_50x50/db2.png',
+    'MS Access': '/assets/logos/technologies/small_50x50/msaccess.png',
+    'SQL Lite': '/assets/logos/technologies/small_50x50/sqlite.png',
+    'My SQL': '/assets/logos/technologies/small_50x50/mysql.png',
+    
+    // ORM
+    'Entity Framework Core': '/assets/logos/technologies/small_50x50/entityframeworkcore.png',
+    'EntityFramework': '/assets/logos/technologies/small_50x50/entityframework.png',
+    'Hibernate': '/assets/logos/technologies/small_50x50/hibernate.png',
+    
+    // IDEs
+    'Visual Studio': '/assets/logos/technologies/small_50x50/visualstudio.png',
+    'Eclipse': '/assets/logos/technologies/small_50x50/eclipse.png',
+    
+    // Source Control
+    'Gitlab': '/assets/logos/technologies/small_50x50/gitlab.png',
+    'TFS': '/assets/logos/technologies/small_50x50/tfs.png',
+    'Git': '/assets/logos/technologies/small_50x50/git.png',
+    'Source Tree': '/assets/logos/technologies/small_50x50/sourcetree.png',
+    'Tortoise Hg': '/assets/logos/technologies/small_50x50/tortoisehg.png',
+    'Mercurial': '/assets/logos/technologies/small_50x50/mercurial.png',
+    'Github': '/assets/logos/technologies/small_50x50/github.png',
+    
+    // DevOps
+    'Jenkins': '/assets/logos/technologies/small_50x50/jenkins.png',
+    
+    // Virtualization
+    'Kubernetes': '/assets/logos/technologies/small_50x50/kubernetes.png',
+    'Docker': '/assets/logos/technologies/small_50x50/docker.png',
+    'VMware': '/assets/logos/technologies/small_50x50/vmware.png',
+    'HyperV': '/assets/logos/technologies/small_50x50/hyperv.png',
+    
+    // Dependency Management
+    'npm': '/assets/logos/technologies/small_50x50/npm.png',
+    'NuGet': '/assets/logos/technologies/small_50x50/nuget.png',
+    'ProGet': '/assets/logos/technologies/small_50x50/proget.png',
+    'Nexus': '/assets/logos/technologies/small_50x50/nexus.png',
+    'Maven': '/assets/logos/technologies/small_50x50/maven.png',
+    
+    // Scheduled Tasks
+    'Hangfire': '/assets/logos/technologies/small_50x50/hangfire.png',
+    
+    // Graphics Design
+    'Photoshop': '/assets/logos/technologies/small_50x50/photoshop.png',
+    'Adobe Flash': '/assets/logos/technologies/small_50x50/adobeflash.png',
+    'MS Blend': '/assets/logos/technologies/small_50x50/msblend.png',
+    
+    // File Format
+    'XAML': '/assets/logos/technologies/small_50x50/xaml.png',
+    'XML': '/assets/logos/technologies/small_50x50/xml.png',
+    'Json': '/assets/logos/technologies/small_50x50/json.png',
+    
+    // Webservices
+    'WCF': '/assets/logos/technologies/small_50x50/wcf.png',
+    
+    // Sniffing Tool
+    'Fiddler': '/assets/logos/technologies/small_50x50/fiddler.png',
+    
+    // Project Management
+    'MS Project': '/assets/logos/technologies/small_50x50/msproject.png',
+    'Redmine': '/assets/logos/technologies/small_50x50/redmine.png',
+    'APM': '/assets/logos/technologies/small_50x50/APM.png',
+    
+    // Cloud Hosting
+    'Azure': '/assets/logos/technologies/small_50x50/azure.png',
+    'AWS': '/assets/logos/technologies/small_50x50/aws.png',
+    'Heroku': '/assets/logos/technologies/small_50x50/heroku.png',
+    'Alibaba Cloud': '/assets/logos/technologies/small_50x50/alibabacloud.png',
+    'Google Cloud': '/assets/logos/technologies/small_50x50/googlecloud.png',
+    'Digital Ocean': '/assets/logos/technologies/small_50x50/digitalocean.png',
+    
+    // Web Services
+    'SOAP': '/assets/logos/technologies/small_50x50/soap.png',
+    
+    // Scripting
+    'Bash Scripting': '/assets/logos/technologies/small_50x50/bashscripting.png',
+    
+    // OS
+    'ubuntu': '/assets/logos/technologies/small_50x50/ubuntu.png',
+    
+    // Task Runner
+    'Apache Ant': '/assets/logos/technologies/small_50x50/apacheant.png',
+    
+    // 3D Modeling Tool
+    '3Ds Max': '/assets/logos/technologies/small_50x50/3dsmax.png',
+    
+    // E-Learning Standard
+    'Scorm': '/assets/logos/technologies/small_50x50/scorm.png',
+    
+    // Reporting
+    'iReports': '/assets/logos/technologies/small_50x50/ireports.png',
+    'Jasper Reports': '/assets/logos/technologies/small_50x50/jasperreports.png',
+    
+    // Business Intelligence
+    'Jasper BI': '/assets/logos/technologies/small_50x50/jasperbi.png',
+    'Oracle BI': '/assets/logos/technologies/small_50x50/oraclebi.png',
+    
+    // Desktop
+    'WPF': '/assets/logos/technologies/small_50x50/wpf.png',
+    
+    // E-Commerce
+    'Paypal': '/assets/logos/technologies/small_50x50/paypal.png',
+    
+    // ERP
+    'Microsoft Dynamics NAV': '/assets/logos/technologies/small_50x50/microsoftdynamicsnav.png',
+    
+    // Gaming Engine
+    'Adobe Atmosphere': '/assets/logos/technologies/small_50x50/adobeatmosphere.png',
+    'Dark Basic': '/assets/logos/technologies/small_50x50/darkbasic.png',
+    
+    // Design Pattern
+    'MVVM': '/assets/logos/technologies/small_50x50/mvvm.png',
+    
+    // Approach
+    'Design Patterns': '/assets/logos/technologies/small_50x50/designpatterns.png'
   };
   
   return nameToImage[skillName];
