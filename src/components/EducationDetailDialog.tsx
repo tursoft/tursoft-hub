@@ -238,63 +238,18 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                 </CardContent>
               </Card>
 
-              {/* Academic Focus */}
-              {education.technologies && education.technologies.length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <BookOpen className="w-5 h-5" />
-                      Academic Focus Areas
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-wrap gap-2">
-                      {education.technologies.slice(0, 8).map((tech, index) => {
-                        const logoPath = getTechnologyLogo(tech.name);
-                        return (
-                          <Badge key={index} variant="secondary" className="flex items-center gap-1.5">
-                            {logoPath && (
-                              <img 
-                                src={logoPath} 
-                                alt={`${tech.name} logo`} 
-                                className="w-4 h-4 object-contain" 
-                                onError={(e) => {
-                                  // Hide image if it fails to load
-                                  e.currentTarget.style.display = 'none';
-                                }}
-                              />
-                            )}
-                            {tech.name}
-                          </Badge>
-                        );
-                      })}
-                      {education.technologies.length > 8 && (
-                        <Badge variant="outline" className="border-dashed">
-                          +{education.technologies.length - 8} more
-                        </Badge>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
             </TabsContent>
 
             <TabsContent value="courses" className="space-y-6">
               {education.courses && education.courses.length > 0 ? (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <BookOpen className="w-5 h-5" />
-                      Course Details
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
+                <div className="space-y-4">
                       {education.courses.map((course, index) => (
                         <div key={index} className="p-4 bg-muted/20 rounded-lg border border-border/50">
                           <div className="flex items-start justify-between mb-2">
-                            <h4 className="font-semibold text-foreground">{course.name}</h4>
+                            <h4 className="font-semibold text-foreground flex items-center gap-2">
+                              <BookOpen className="w-4 h-4 text-muted-foreground" />
+                              {course.name}
+                            </h4>
                             <Badge className={getScoreBadgeColor(course.score)}>
                               {course.score}
                             </Badge>
@@ -307,8 +262,6 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                         </div>
                       ))}
                     </div>
-                  </CardContent>
-                </Card>
               ) : (
                 <Card>
                   <CardContent className="p-8 text-center">
