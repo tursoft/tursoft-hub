@@ -6,7 +6,7 @@ import { Card } from './ui/card'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table'
-import { Map, Grid, Eye } from 'lucide-react'
+import { Map, Grid } from 'lucide-react'
 import ExperienceDetailDialog from './ExperienceDetailDialog'
 import EducationDetailDialog from './EducationDetailDialog'
 import CustomerDetailDialog from './CustomerDetailDialog'
@@ -673,7 +673,6 @@ export default function MapSection() {
                     <TableHead>Date Range</TableHead>
                     <TableHead>Country</TableHead>
                     <TableHead>City</TableHead>
-                    <TableHead>Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -703,18 +702,6 @@ export default function MapSection() {
                         <TableCell className="text-muted-foreground">{dateRange}</TableCell>
                         <TableCell>{item.country}</TableCell>
                         <TableCell>{item.city}</TableCell>
-                        <TableCell>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              handleRowClick(item)
-                            }}
-                          >
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                        </TableCell>
                       </TableRow>
                     )
                   })}

@@ -164,7 +164,10 @@ const EducationSection = () => {
                             </div>
                           </div>
 
-                          <div className="text-sm text-primary font-medium mb-4">
+                          {/* Graduation info - Hidden in compact view */}
+                          <div className={`text-sm text-primary font-medium transition-all duration-300 ${
+                            hoveredCard === edu.id ? 'max-h-8 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0 overflow-hidden'
+                          }`}>
                             Graduated: {edu.graduateDate} • GPA: {edu.graduateScore}
                           </div>
                         </div>
