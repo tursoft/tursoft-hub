@@ -68,7 +68,7 @@
 
         "modules": [],
 
-        "customers":[],
+        "customerNames":[],
 
         "partners":[],
 
@@ -105,7 +105,7 @@
 
         "modules": [],
 
-        "customers":[],
+        "customerNames":[],
 
         "partners":[],
 
@@ -171,7 +171,7 @@
 
         "modules": [],
 
-        "customers":[],
+        "customerNames":[],
 
         "partners":[],
 
@@ -227,7 +227,7 @@
             { "name":"platforms", "title": "Docker" }          
           ],
 
-          "domains": [            
+          "domains": [
           ], 
           
           "team": [ 
@@ -239,7 +239,7 @@
             "Populer Docker Images on Pardus Base Image"
           ],
 
-          "customers":[],
+          "customerNames":[],
 
           "partners":[],
 
@@ -277,8 +277,8 @@
               "Security Management"
             ],
 
-            "customers":[
-              "Lifewatch Türkiye"
+            "customerNames":[
+              "LIFEWATCH.CH"
             ],
 
             "partners":[],
@@ -428,8 +428,8 @@
             { "position": "Software Developer", "name": "Ertem Yazıcı", "contactNo": "1" }
           ],          
 
-          "customers":[
-            "Lifewatch Türkiye"
+          "customerNames":[
+            "LIFEWATCH.CH"
           ],          
 
           "technologies":[
@@ -607,8 +607,8 @@
             { "name":"platforms", "title": "Web" }
           ],
 
-          "customers":[
-            "Bayındır Healthcare Group / Turkey"
+          "customerNames":[
+            "BAYINDIR.TR"
           ],      
           
           "team": [             
@@ -696,11 +696,9 @@
               { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
           ],
           
-          "customers":[
-            "Ministry of Health / Turkey",
-            "Ministry of Health / Italy",
-            "Ministry of Health / Spain",
-            "Ministry of Health / Portugal"
+          "customerNames":[
+            "MOH.TR",
+            "SPMS.PT"
           ],
 
           "partners":[
@@ -795,13 +793,9 @@
               { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
           ],
 
-          "customers":[
-            "SEHA / Palestine",
-            "Red Crescent Hospital / Palestine",
-            "Makassed General Hospital / Palestine",
-            "Ministry of Health / Republic of Kosovo",
-            "University of Ankara - Ibni Sina Hospital / Turkey",
-            "Bayındır Healthcare Group / Turkey"         
+          "customerNames":[
+            "MOH.PAL",
+            "H.IbniSina"
           ],
           
           "technologies": [                        
@@ -888,7 +882,8 @@
 
               { "name":  "Photoshop", "type": "Graphics Design" },
               { "name":  "MS Blend", "type": "Graphics Design" }
-            ]
+            ],
+        "customerNames":["MOH.KSA"]
         },
 
         { "id": 313, "name": "EDIS", "title": "Avicenna Emergency Department Information System", "group":"HIS", "company": "Datasel", "value":100, "icon": "EDIS.png", "datePeriod": { "startDate": "01.03.2013", "endDate": "01.02.2014" },
@@ -1068,10 +1063,9 @@
             { "position": "Domain Specialist", "name": "Gülpembe Ergin", "contactNo": "1" }
           ],
 
-          "customers":[            
-            "80+ Hospitals in Turkey",
-            "Ministry of Health / Turkey",            
-            "Bayındır Healthcare Group / Turkey"         
+          "customerNames":[            
+            "MOH.TR",
+            "H.IbniSina"
           ],
 
           "domains": [
@@ -1267,8 +1261,8 @@
               { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
           ],
 
-          "customers":[            
-            "80+ Hospitals in Turkey"
+          "customerNames":[            
+            "MOH.TR"
           ],
 
           "technologies": [
@@ -1570,9 +1564,9 @@
             { "position": "Software Developer", "name": "M. Mustafa Uysal", "contactNo": "1" }
           ],
 
-          "customers":[            
-            "General Diractorate Of Security (EGM)",
-            "Planning Organization of State (DPT)"
+          "customerNames":[            
+            "EGM.TR",
+            "DPT.TR"
           ],
           
           "props": [
@@ -1600,8 +1594,8 @@
             { "position": "Software Developer", "name": "M. Mustafa Uysal", "contactNo": "1" }
           ],
 
-          "customers":[            
-            "Ankara University"
+          "customerNames":[            
+            "AU.TR"
           ],
           
           "props": [
@@ -2000,9 +1994,9 @@
               { "name":"type", "title": "Social Responsibility Project" }
             ],
 
-            "customers":[
-              "Tubitak",
-              "IEEE METU"
+            "customerNames":[
+              "TUBITAK.TR",
+              "IEEE.METU"
             ],
 
             "team": [             
@@ -2299,8 +2293,9 @@
             { "name":"platforms", "title": "Web" }
           ],
 
-          "customers":[
-            "İbni Sina Hastanesi | Ankara Üniversitesi Tıp Fakültesi / Turkey"
+          "customerNames":[
+            "H.IbniSina",
+            "AU.TR"
           ],      
           
           "team": [             
@@ -2366,7 +2361,7 @@
             { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
           ],
 
-          "customers":[            
+          "customerNames":[            
             "Turkish Hospitals",
             "Ministry of Health / Turkey"
           ],
@@ -2437,7 +2432,7 @@
             { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
           ],
 
-          "customers":[            
+          "customerNames":[            
             "Private Medical Clinics / Turkey",
             "Individual Medical Practitioners / Turkey"
           ],

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Dialog,
   DialogContent,
@@ -15,19 +15,13 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
-  Calendar, 
   GraduationCap, 
   MapPin, 
   Building2, 
   Code, 
-  BookOpen, 
-  Award,
+  BookOpen,
   ExternalLink,
-  Clock,
-  Trophy,
-  Globe,
-  ChevronDown,
-  ChevronRight
+  Clock
 } from "lucide-react";
 import { getTechnologyLogo } from "@/lib/technologyLogos";
 
@@ -78,27 +72,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
   onClose,
   educationIcon
 }) => {
-  // State for expandable technology groups
-  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
 
-  // Initialize expanded state when education changes
-  useEffect(() => {
-    if (education?.technologies) {
-      const groupedTechs = education.technologies.reduce((acc, tech) => {
-        if (!acc[tech.type]) {
-          acc[tech.type] = [];
-        }
-        acc[tech.type].push(tech);
-        return acc;
-      }, {} as Record<string, Technology[]>);
-      
-      const initialExpandedState = Object.keys(groupedTechs).reduce((acc, type) => {
-        acc[type] = true; // Default to expanded
-        return acc;
-      }, {} as Record<string, boolean>);
-      setExpandedGroups(initialExpandedState);
-    }
-  }, [education]);
 
   if (!education) return null;
 
@@ -121,22 +95,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
     return `${startFormatted} - ${endFormatted}`;
   };
 
-  // Group technologies by type
-  const groupedTechnologies = education.technologies?.reduce((acc, tech) => {
-    if (!acc[tech.type]) {
-      acc[tech.type] = [];
-    }
-    acc[tech.type].push(tech);
-    return acc;
-  }, {} as Record<string, Technology[]>) || {};
 
-  // Toggle function for expanding/collapsing technology groups
-  const toggleGroup = (groupName: string) => {
-    setExpandedGroups(prev => ({
-      ...prev,
-      [groupName]: !prev[groupName]
-    }));
-  };
 
   // Helper function to get GPA color
   const getGPAColor = (score: string) => {
@@ -361,57 +320,41 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
             </TabsContent>
 
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
-              {Object.keys(groupedTechnologies).length > 0 ? (
-                Object.entries(groupedTechnologies).map(([type, techs]) => {
-                  const isExpanded = expandedGroups[type] ?? true; // Default to expanded
-                  return (
-                    <div key={type} className="px-4 py-1">
-                      <button
-                        onClick={() => toggleGroup(type)}
-                        className="flex items-center gap-2 w-full text-left hover:bg-muted/50 rounded p-1 transition-colors border-t border-b border-border/30"
-                      >
-                        {isExpanded ? (
-                          <ChevronDown className="w-4 h-4" />
-                        ) : (
-                          <ChevronRight className="w-4 h-4" />
-                        )}
-                        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                          {type}
-                        </h3>
-                        <span className="text-xs text-muted-foreground ml-auto">
-                          ({techs.length})
-                        </span>
-                      </button>
-                      {isExpanded && (
-                        <div className="flex flex-wrap gap-1.5 mt-2 ml-6">
-                          {techs.map((tech, index) => {
-                            const logoPath = getTechnologyLogo(tech.name);
-                            return (
-                              <Badge 
-                                key={index} 
-                                variant="secondary"
-                                className="text-xs px-2 py-1 hover:bg-primary/10 transition-colors flex items-center gap-1.5"
-                              >
-                                {logoPath && (
-                                  <img 
-                                    src={logoPath} 
-                                    alt={`${tech.name} logo`} 
-                                    className="w-4 h-4 object-contain" 
-                                    onError={(e) => {
-                                      // Hide image if it fails to load
-                                      e.currentTarget.style.display = 'none';
-                                    }}
-                                  />
-                                )}
-                                {tech.name}
-                              </Badge>
-                            );
-                          })}
+              {education.technologies && education.technologies.length > 0 ? (
+                <div className="px-4 py-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                    {education.technologies.map((tech, index) => {
+                      const logoPath = getTechnologyLogo(tech.name);
+                      const isEven = index % 2 === 0;
+                      const isLastInColumn = index === education.technologies.length - 1 || 
+                        (isEven && index === education.technologies.length - 2 && education.technologies.length % 2 === 0);
+                      
+                      return (
+                        <div key={index}>
+                          <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
+                            {logoPath && (
+                              <img 
+                                src={logoPath} 
+                                alt={`${tech.name} logo`} 
+                                className="w-5 h-5 object-contain flex-shrink-0" 
+                                onError={(e) => {
+                                  // Hide image if it fails to load
+                                  e.currentTarget.style.display = 'none';
+                                }}
+                              />
+                            )}
+                            <span className="text-sm font-medium text-foreground">
+                              {tech.name}
+                            </span>
+                          </div>
+                          {!isLastInColumn && (
+                            <div className="border-b border-dashed border-border/50 mx-4"></div>
+                          )}
                         </div>
-                      )}
-                    </div>
-                  );
-                })
+                      );
+                    })}
+                  </div>
+                </div>
               ) : (
                 <Card>
                   <CardContent className="p-8 text-center">

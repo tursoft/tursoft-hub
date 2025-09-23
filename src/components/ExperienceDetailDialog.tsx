@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Dialog,
   DialogContent,
@@ -16,13 +16,8 @@ import { Badge } from "@/components/ui/badge";
 import { CardDescription } from "@/components/ui/card";
 import { 
   Calendar, 
-  Users, 
   Building2, 
-  Code, 
-  User,
   Clock,
-  ChevronDown,
-  ChevronRight,
   MapPin,
   ExternalLink,
   Linkedin,
@@ -79,29 +74,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
   isOpen,
   onClose
 }) => {
-  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
-
-  // Initialize all groups as expanded when dialog opens
-  React.useEffect(() => {
-    if (isOpen && experience) {
-      const initialExpandedState: Record<string, boolean> = {};
-      experience.positions.forEach(position => {
-        position.technologies.forEach(tech => {
-          initialExpandedState[tech.type] = true;
-        });
-      });
-      setExpandedGroups(initialExpandedState);
-    }
-  }, [isOpen, experience]);
-
   if (!experience) return null;
-
-  const toggleGroup = (groupName: string) => {
-    setExpandedGroups(prev => ({
-      ...prev,
-      [groupName]: !prev[groupName]
-    }));
-  };
 
   // Helper function to format date period
   const formatDatePeriod = (startDate: string, endDate: string | null) => {
@@ -207,10 +180,6 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                 )}
               </div>
               <DialogDescription className="text-base text-muted-foreground">
-                <div className="flex items-center gap-2 mb-2">
-                  <Building2 className="w-4 h-4" />
-                  <span>{experience.positions.length} Position{experience.positions.length > 1 ? 's' : ''}</span>
-                </div>
                 <div className="flex items-center gap-2 mb-2">
                   <Clock className="w-4 h-4" />
                   <span>{calculateTotalDuration()}</span>
@@ -343,42 +312,28 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
             </TabsContent>
 
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
-              {Object.entries(groupedTechnologies).map(([type, techs]) => {
-                const isExpanded = expandedGroups[type] ?? true;
-                return (
-                  <div key={type} className="px-4 py-1">
-                    <button
-                      onClick={() => toggleGroup(type)}
-                      className="flex items-center gap-2 w-full text-left hover:bg-muted/50 rounded p-1 transition-colors border-t border-b border-border/30"
-                    >
-                      {isExpanded ? (
-                        <ChevronDown className="w-4 h-4" />
-                      ) : (
-                        <ChevronRight className="w-4 h-4" />
-                      )}
-                      <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                        {type}
-                      </h3>
-                      <span className="text-xs text-muted-foreground ml-auto">
-                        ({techs.length})
-                      </span>
-                    </button>
-                    {isExpanded && (
-                      <div className="flex flex-wrap gap-1.5 mt-2 ml-6">
-                        {techs.map((tech, index) => (
-                          <Badge 
-                            key={index} 
-                            variant="secondary"
-                            className="text-xs px-2 py-1 hover:bg-primary/10 transition-colors"
-                          >
+              <div className="px-4 py-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                  {Object.values(groupedTechnologies).flat().map((tech, index, allTechs) => {
+                    const isEven = index % 2 === 0;
+                    const isLastInColumn = index === allTechs.length - 1 || 
+                      (isEven && index === allTechs.length - 2 && allTechs.length % 2 === 0);
+                    
+                    return (
+                      <div key={index}>
+                        <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
+                          <span className="text-sm font-medium text-foreground">
                             {tech.name}
-                          </Badge>
-                        ))}
+                          </span>
+                        </div>
+                        {!isLastInColumn && (
+                          <div className="border-b border-dashed border-border/50 mx-4"></div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </div>
+              </div>
             </TabsContent>
 
             <TabsContent value="projects" className="space-y-3 min-h-[400px]">

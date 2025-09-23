@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -15,17 +15,21 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
-  Calendar, 
   Users, 
   Building2, 
-  Code, 
   User,
-  Phone,
-  Clock,
-  ChevronDown,
-  ChevronRight
+  Clock
 } from "lucide-react";
 import { getTechnologyLogo } from "@/lib/technologyLogos";
+
+interface Customer {
+  name: string;
+  title: string;
+  logoPath: string;
+  description?: string;
+  location?: string;
+  industry?: string;
+}
 
 interface ProjectItem {
   id: number;
@@ -42,7 +46,7 @@ interface ProjectItem {
   domains?: { name: string; title: string; value: number; iconCss: string }[];
   team: { position: string; name: string; contactNo: string }[];
   modules?: string[];
-  customers?: string[];
+  customerNames?: string[];
   partners?: string[];
   technologies: { name: string; type: string }[];
 }
@@ -60,27 +64,43 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
   onClose,
   projectIcon
 }) => {
-  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
+  const [customersData, setCustomersData] = useState<Customer[]>([]);
+  const [isLoadingCustomers, setIsLoadingCustomers] = useState(false);
 
-  // Initialize all groups as expanded when dialog opens
-  React.useEffect(() => {
-    if (isOpen && project) {
-      const initialExpandedState: Record<string, boolean> = {};
-      project.technologies.forEach(tech => {
-        initialExpandedState[tech.type] = true;
-      });
-      setExpandedGroups(initialExpandedState);
+  // Load customers data when dialog opens
+  useEffect(() => {
+    if (isOpen && project?.customerNames && project.customerNames.length > 0) {
+      const loadCustomers = async () => {
+        setIsLoadingCustomers(true);
+        try {
+          const response = await fetch('/data/customers.json');
+          const data = await response.json();
+          
+          // Filter customers that match the project's customer names
+          // Use case-insensitive partial matching to handle variations like "Lifewatch" vs "LIFEWATCH.CH"
+          const projectCustomers = data.items.filter((customer: Customer) => 
+            project.customerNames?.some(customerName => 
+              customer.name.toLowerCase().includes(customerName.toLowerCase()) ||
+              customer.title.toLowerCase().includes(customerName.toLowerCase())
+            )
+          );
+          
+          setCustomersData(projectCustomers);
+        } catch (error) {
+          console.error('Failed to load customers:', error);
+          setCustomersData([]);
+        } finally {
+          setIsLoadingCustomers(false);
+        }
+      };
+
+      loadCustomers();
+    } else {
+      setCustomersData([]);
     }
-  }, [isOpen, project]);
+  }, [isOpen, project?.customerNames]);
 
   if (!project) return null;
-
-  const toggleGroup = (groupName: string) => {
-    setExpandedGroups(prev => ({
-      ...prev,
-      [groupName]: !prev[groupName]
-    }));
-  };
 
   // Helper function to format date period
   const formatDatePeriod = (datePeriod: { startDate: string; endDate: string | null }) => {
@@ -104,15 +124,6 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
     const endFormatted = formatDate(datePeriod.endDate);
     return `${startFormatted} - ${endFormatted}`;
   };
-
-  // Group technologies by type
-  const groupedTechnologies = project.technologies.reduce((acc, tech) => {
-    if (!acc[tech.type]) {
-      acc[tech.type] = [];
-    }
-    acc[tech.type].push(tech);
-    return acc;
-  }, {} as Record<string, typeof project.technologies>);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -154,7 +165,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
         </DialogHeader>
 
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className={`grid w-full ${project.customerNames && project.customerNames.length > 0 ? 'grid-cols-4' : 'grid-cols-3'}`}>
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="technologies">
               <span className="flex items-center gap-2">
@@ -164,6 +175,16 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                 </Badge>
               </span>
             </TabsTrigger>
+            {project.customerNames && project.customerNames.length > 0 && (
+              <TabsTrigger value="customers">
+                <span className="flex items-center gap-2">
+                  Customers
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {project.customerNames.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
+            )}
             <TabsTrigger value="team">
               <span className="flex items-center gap-2">
                 Team
@@ -210,74 +231,107 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                   </div>
                 </div>
               )}
-
-              {/* Properties */}
-              {project.props && project.props.length > 0 && (
-                <div className="px-4 py-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {project.props.map((prop, index) => (
-                      <div key={index} className="flex items-center justify-between p-2 bg-muted/30 rounded-lg">
-                        <span className="font-medium capitalize">{prop.name}:</span>
-                        <Badge variant="outline">{prop.title}</Badge>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </TabsContent>
 
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
-              {Object.entries(groupedTechnologies).map(([type, techs]) => {
-                const isExpanded = expandedGroups[type] ?? true; // Default to expanded
-                return (
-                  <div key={type} className="px-4 py-1">
-                    <button
-                      onClick={() => toggleGroup(type)}
-                      className="flex items-center gap-2 w-full text-left hover:bg-muted/50 rounded p-1 transition-colors border-t border-b border-border/30"
-                    >
-                      {isExpanded ? (
-                        <ChevronDown className="w-4 h-4" />
-                      ) : (
-                        <ChevronRight className="w-4 h-4" />
-                      )}
-                      <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                        {type}
-                      </h3>
-                      <span className="text-xs text-muted-foreground ml-auto">
-                        ({techs.length})
-                      </span>
-                    </button>
-                    {isExpanded && (
-                      <div className="flex flex-wrap gap-1.5 mt-2 ml-6">
-                        {techs.map((tech, index) => {
-                          const logoPath = getTechnologyLogo(tech.name);
-                          return (
-                            <Badge 
-                              key={index} 
-                              variant="secondary"
-                              className="text-xs px-2 py-1 hover:bg-primary/10 transition-colors flex items-center gap-1.5"
-                            >
-                              {logoPath && (
-                                <img 
-                                  src={logoPath} 
-                                  alt={`${tech.name} logo`} 
-                                  className="w-4 h-4 object-contain" 
-                                  onError={(e) => {
+              <div className="px-4 py-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                  {project.technologies.map((tech, index) => {
+                    const logoPath = getTechnologyLogo(tech.name);
+                    const isEven = index % 2 === 0;
+                    const isLastInColumn = index === project.technologies.length - 1 || 
+                      (isEven && index === project.technologies.length - 2 && project.technologies.length % 2 === 0);
+                    
+                    return (
+                      <div key={index}>
+                        <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
+                          {logoPath && (
+                            <img 
+                              src={logoPath} 
+                              alt={`${tech.name} logo`} 
+                              className="w-5 h-5 object-contain flex-shrink-0" 
+                              onError={(e) => {
+                                // Hide image if it fails to load
+                                e.currentTarget.style.display = 'none';
+                              }}
+                            />
+                          )}
+                          <span className="text-sm font-medium text-foreground">
+                            {tech.name}
+                          </span>
+                        </div>
+                        {!isLastInColumn && (
+                          <div className="border-b border-dashed border-border/50 mx-4"></div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </TabsContent>
+
+            {project.customerNames && project.customerNames.length > 0 && (
+              <TabsContent value="customers" className="space-y-2 min-h-[400px]">
+                <div className="px-4 py-2">
+                  {isLoadingCustomers ? (
+                    <div className="flex items-center justify-center py-8">
+                      <p className="text-muted-foreground">Loading customers...</p>
+                    </div>
+                  ) : customersData.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {customersData.map((customer, index) => (
+                        <div key={customer.name} className="flex items-center gap-3 p-4 bg-muted/20 rounded-lg border border-border/30 hover:bg-muted/30 hover:shadow-sm transition-all duration-200">
+                          {/* Customer Logo */}
+                          {customer.logoPath && (
+                            <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
+                              <img 
+                                src={customer.logoPath}
+                                alt={`${customer.title} logo`}
+                                className="w-10 h-10 object-contain rounded"
+                                onError={(e) => {
+                                  // Try with /src/assets/ prefix for development fallback
+                                  const currentSrc = e.currentTarget.src;
+                                  if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
+                                    e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
+                                  } else {
                                     // Hide image if it fails to load
                                     e.currentTarget.style.display = 'none';
-                                  }}
-                                />
-                              )}
-                              {tech.name}
-                            </Badge>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </TabsContent>
+                                  }
+                                }}
+                              />
+                            </div>
+                          )}
+                          
+                          {/* Customer Info */}
+                          <div className="flex-1 min-w-0">
+                            <div className="font-medium text-sm text-foreground truncate">
+                              {customer.title}
+                            </div>
+                            {customer.location && (
+                              <div className="text-xs text-muted-foreground truncate">
+                                {customer.location}
+                              </div>
+                            )}
+                            {customer.industry && (
+                              <Badge variant="outline" className="text-xs mt-1">
+                                {customer.industry}
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <Card>
+                      <CardContent className="p-8 text-center">
+                        <Building2 className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                        <p className="text-muted-foreground">No customer information available.</p>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
+              </TabsContent>
+            )}
 
             <TabsContent value="team" className="space-y-6 min-h-[400px]">
               <div className="p-4">

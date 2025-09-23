@@ -349,6 +349,76 @@
          "partnership": { "startDate": "01.06.2022", "status": "active" },
          "companyCodes": ["DATASEL", "ERC"],
          "projectNames": []
+       },
+       { 
+         "name": "EGM.TR", 
+         "title": "General Directorate of Security (EGM)", 
+         "logoPath": "/assets/files/customers/egm_turkey/logo/egm_turkey.jpg",
+         "description": "Turkey's national police force managing public security, crime prevention, and law enforcement through advanced information systems.",
+         "location": "Ankara, Turkey",
+         "industry": "Government Security",
+         "relationship": "Government Client",
+         "services": ["Security Information Systems", "Crime Management", "Public Safety Solutions"],
+         "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET"],
+         "partnership": { "startDate": "01.01.2005", "status": "completed" },
+         "companyCodes": ["DATASEL"],
+         "projectNames": []
+       },
+       { 
+         "name": "DPT.TR", 
+         "title": "State Planning Organization (DPT)", 
+         "logoPath": "/assets/files/customers/dpt_turkey/logo/dpt_turkey.jpg",
+         "description": "Turkey's former State Planning Organization responsible for national economic planning and development strategies.",
+         "location": "Ankara, Turkey",
+         "industry": "Government Planning",
+         "relationship": "Government Client",
+         "services": ["Economic Planning Systems", "Development Strategy Tools", "Statistical Analysis"],
+         "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET"],
+         "partnership": { "startDate": "01.01.2005", "status": "completed" },
+         "companyCodes": ["DATASEL"],
+         "projectNames": []
+       },
+       { 
+         "name": "AU.TR", 
+         "title": "Ankara University", 
+         "logoPath": "/assets/files/customers/ankara_university/logo/ankara_university.jpg",
+         "description": "Turkey's first modern university, established in 1946, leading in education, research, and technology innovation.",
+         "location": "Ankara, Turkey",
+         "industry": "Higher Education",
+         "relationship": "Academic Partner",
+         "services": ["Educational Systems", "Research Support", "Academic Management"],
+         "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET"],
+         "partnership": { "startDate": "01.01.2004", "status": "completed" },
+         "companyCodes": ["DATASEL"],
+         "projectNames": []
+       },
+       { 
+         "name": "TUBITAK.TR", 
+         "title": "TUBITAK", 
+         "logoPath": "/assets/files/customers/tubitak/logo/tubitak.jpg",
+         "description": "Turkey's leading scientific and technological research institution supporting innovation and R&D projects nationwide.",
+         "location": "Ankara, Turkey",
+         "industry": "Research & Development",
+         "relationship": "Research Partner",
+         "services": ["Research Grant Management", "Scientific Project Support", "Technology Transfer"],
+         "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET"],
+         "partnership": { "startDate": "01.01.2003", "status": "completed" },
+         "companyCodes": ["DATASEL"],
+         "projectNames": []
+       },
+       { 
+         "name": "IEEE.METU", 
+         "title": "IEEE METU", 
+         "logoPath": "/assets/files/customers/ieee_metu/logo/ieee_metu.jpg",
+         "description": "IEEE Middle East Technical University student branch promoting engineering excellence and professional development.",
+         "location": "Ankara, Turkey",
+         "industry": "Professional Organization",
+         "relationship": "Academic Partner",
+         "services": ["Professional Development", "Engineering Events", "Student Support"],
+         "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET"],
+         "partnership": { "startDate": "01.01.2003", "status": "completed" },
+         "companyCodes": ["DATASEL"],
+         "projectNames": []
        }
    ]
 }

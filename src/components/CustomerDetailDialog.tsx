@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Dialog,
   DialogContent,
@@ -18,16 +18,12 @@ import {
   Building2, 
   Globe, 
   MapPin, 
-  Calendar,
-  Users,
   Briefcase,
   Star,
   ExternalLink,
   Phone,
   Mail,
-  Clock,
-  ChevronDown,
-  ChevronRight
+  Clock
 } from "lucide-react";
 
 interface Customer {
@@ -78,7 +74,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
   onClose,
   customerLogo
 }) => {
-  const [expandedTechGroups, setExpandedTechGroups] = useState<Record<string, boolean>>({});
+
 
   // Helper function to resolve company logo paths
   const resolveCompanyLogo = (companyCode: string): string | null => {
@@ -166,79 +162,6 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
     return logoFile ? `/src/assets/files/projects/_logos/${logoFile}` : null;
   };
 
-  // Helper function to categorize technologies by type
-  const categorizeTechnology = (tech: string): string => {
-    const techLower = tech.toLowerCase().trim();
-    
-    // Programming Languages & Frameworks
-    if (['.net', 'c#', 'java', 'python', 'php', 'javascript', 'typescript', 'asp.net', 'angular', 'react', 'nodejs', 'node.js', 'jquery'].includes(techLower)) {
-      return 'Programming & Frameworks';
-    }
-    
-    // Databases
-    if (['ms sql server', 'mssql', 'sql server', 'oracle', 'mysql', 'postgresql', 'mongodb'].includes(techLower)) {
-      return 'Databases';
-    }
-    
-    // Web Technologies
-    if (['html', 'css', 'bootstrap', 'web services', 'soap', 'web api'].includes(techLower)) {
-      return 'Web Technologies';
-    }
-    
-    // DevOps & Cloud
-    if (['docker', 'azure', 'aws', 'git'].includes(techLower)) {
-      return 'DevOps & Cloud';
-    }
-    
-    // Development Tools
-    if (['visual studio', 'vs code', 'crystal reports'].includes(techLower)) {
-      return 'Development Tools';
-    }
-    
-    // Default category
-    return 'Other Technologies';
-  };
-
-  // Group technologies by category
-  const groupedTechnologies = React.useMemo(() => {
-    if (!customer?.technologies) return {};
-    
-    const grouped: { [key: string]: string[] } = {};
-    customer.technologies.forEach(tech => {
-      const category = categorizeTechnology(tech);
-      if (!grouped[category]) {
-        grouped[category] = [];
-      }
-      grouped[category].push(tech);
-    });
-    
-    // Sort technologies within each group
-    Object.keys(grouped).forEach(category => {
-      grouped[category].sort();
-    });
-    
-    return grouped;
-  }, [customer?.technologies]);
-
-  // Initialize expanded state for technology groups
-  useEffect(() => {
-    if (isOpen && customer?.technologies) {
-      const initialExpandedState = Object.keys(groupedTechnologies).reduce((acc, category) => {
-        acc[category] = true; // Default to expanded
-        return acc;
-      }, {} as Record<string, boolean>);
-      setExpandedTechGroups(initialExpandedState);
-    }
-  }, [isOpen, customer?.technologies, groupedTechnologies]);
-
-  // Toggle function for technology groups
-  const toggleTechGroup = (category: string) => {
-    setExpandedTechGroups(prev => ({
-      ...prev,
-      [category]: !prev[category]
-    }));
-  };
-  
   if (!customer) return null;
 
   // Helper function to get partnership status color
@@ -626,68 +549,50 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
             </TabsContent>
 
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
-              {Object.keys(groupedTechnologies).length > 0 ? (
-                <>                                    
-                  {Object.entries(groupedTechnologies).map(([category, techs]) => {
-                    const isExpanded = expandedTechGroups[category] ?? true; // Default to expanded
-                    return (
-                      <div key={category} className="px-4 py-1">
-                        <button
-                          onClick={() => toggleTechGroup(category)}
-                          className="flex items-center gap-2 w-full text-left hover:bg-muted/50 rounded p-2 transition-colors border-t border-b border-border/30"
-                        >
-                          {isExpanded ? (
-                            <ChevronDown className="w-4 h-4" />
-                          ) : (
-                            <ChevronRight className="w-4 h-4" />
-                          )}
-                          <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                            {category}
-                          </h3>
-                          <span className="text-xs text-muted-foreground ml-auto">
-                            ({techs.length})
-                          </span>
-                        </button>
-                        {isExpanded && (
-                          <div className="flex flex-wrap gap-2 mt-3 ml-6">
-                            {techs.map((tech, index) => {
-                              const logoPath = resolveTechnologyLogo(tech);
-                              return (
-                                <div key={index} className="flex items-center gap-2 p-2 bg-muted/30 rounded-lg border border-border/30 hover:shadow-sm transition-shadow">
-                                  {/* Technology Logo */}
-                                  {logoPath && (
-                                    <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
-                                      <img 
-                                        src={logoPath}
-                                        alt={`${tech} logo`}
-                                        className="w-5 h-5 object-contain"
-                                        onError={(e) => {
-                                          // Try with /assets/ prefix for production fallback
-                                          const currentSrc = e.currentTarget.src;
-                                          if (currentSrc.includes('/src/assets/')) {
-                                            e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
-                                          } else {
-                                            // Hide image if it fails to load
-                                            e.currentTarget.style.display = 'none';
-                                          }
-                                        }}
-                                      />
-                                    </div>
-                                  )}
-                                  
-                                  {/* Technology Name */}
-                                  <span className="text-xs font-medium text-foreground">
-                                    {tech}
-                                  </span>
-                                </div>
-                              );
-                            })}
+              {customer.technologies && customer.technologies.length > 0 ? (
+                <div className="px-4 py-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                    {customer.technologies.map((tech, index) => {
+                      const logoPath = resolveTechnologyLogo(tech);
+                      const isEven = index % 2 === 0;
+                      const isLastInColumn = index === customer.technologies.length - 1 || 
+                        (isEven && index === customer.technologies.length - 2 && customer.technologies.length % 2 === 0);
+                      
+                      return (
+                        <div key={index}>
+                          <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
+                            {/* Technology Logo */}
+                            {logoPath && (
+                              <img 
+                                src={logoPath}
+                                alt={`${tech} logo`}
+                                className="w-5 h-5 object-contain flex-shrink-0"
+                                onError={(e) => {
+                                  // Try with /assets/ prefix for production fallback
+                                  const currentSrc = e.currentTarget.src;
+                                  if (currentSrc.includes('/src/assets/')) {
+                                    e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
+                                  } else {
+                                    // Hide image if it fails to load
+                                    e.currentTarget.style.display = 'none';
+                                  }
+                                }}
+                              />
+                            )}
+                            
+                            {/* Technology Name */}
+                            <span className="text-sm font-medium text-foreground">
+                              {tech}
+                            </span>
                           </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </>
+                          {!isLastInColumn && (
+                            <div className="border-b border-dashed border-border/50 mx-4"></div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               ) : (
                 <div className="p-4">
                   <Card>
