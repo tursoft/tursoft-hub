@@ -2,6 +2,7 @@
     "items": [
        { 
          "name": "MOH.TR", 
+         "uid": "customer.MOH.TR",
          "title": "Turkish Ministry of Health", 
          "logoPath": "/assets/files/customers/moh_turkey/logo/turkey_moh.jpg",
          "description": "Leading healthcare digitization initiatives across Turkey with comprehensive health information systems and patient care solutions.",
@@ -19,6 +20,7 @@
        },
        { 
          "name": "MOI.KSA", 
+         "uid": "customer.MOI.KSA",
          "title": "KSA Ministry of Interior", 
          "logoPath": "/assets/files/customers/moi-ksa/logo.png",
          "description": "Saudi Arabia's Ministry of Interior managing national security and civil affairs through advanced digital systems.",
@@ -36,6 +38,7 @@
        },
        { 
          "name": "MOH.KSA", 
+         "uid": "customer.MOH.KSA",
          "title": "KSA Ministry of Health", 
          "logoPath": "/assets/files/customers/moh_ksa/logo/ksa_moh.jpg",
          "description": "Saudi Arabia's Ministry of Health leading healthcare transformation with comprehensive digital health solutions.",
@@ -53,6 +56,7 @@
        },
        { 
          "name": "TTNET", 
+         "uid": "customer.TTNET",
          "title": "Türk Telekom - TTNET", 
          "logoPath": "/assets/files/customers/tr_turktelekom/logo/turktelekom.jpg",
          "description": "Turkey's largest telecommunications company providing internet and digital services to millions of customers.",
@@ -70,6 +74,7 @@
        },
        { 
          "name": "ECZACIBASI", 
+         "uid": "customer.ECZACIBASI",
          "title": "Eczacıbaşı Sağlık Hizmetleri", 
          "logoPath": "/assets/files/customers/tr_eczacibasi/eczacibasi_saglik.jpg",
          "description": "Leading healthcare conglomerate in Turkey providing comprehensive medical services and pharmaceutical solutions.",
@@ -87,6 +92,7 @@
        },
        { 
          "name": "Avea", 
+         "uid": "customer.Avea",
          "title": "Türk Telekom - Avea", 
          "logoPath": "/assets/files/customers/tr_avea/logo/avea.png",
          "description": "Major mobile telecommunications operator in Turkey providing innovative mobile services and digital solutions.",
@@ -104,6 +110,7 @@
        },
        { 
          "name": "H.IbniSina", 
+         "uid": "customer.H.IbniSina",
          "title": "Ibni Sina Hastanesi", 
          "logoPath": "/assets/files/customers/tr_ibnisina/logo/ibnisina.png",
          "description": "Premier private hospital in Turkey known for advanced medical care and innovative healthcare solutions.",
@@ -121,6 +128,7 @@
        },
        { 
          "name": "MOH.PAL", 
+         "uid": "customer.MOH.PAL",
          "title": "Palestine Ministry of Health", 
          "logoPath": "/assets/files/customers/moh_palestine/photos/big/palestine_moh.jpg",
          "description": "Palestinian Ministry of Health working to improve healthcare infrastructure and patient care across Palestine.",
@@ -138,6 +146,7 @@
        },
        { 
          "name": "LIFEWATCH.CH", 
+         "uid": "customer.LIFEWATCH.CH",
          "title": "Lifewatch AG - Switzerland", 
          "logoPath": "/assets/files/customers/tr_lw/logo/tr_lifewatch.png",
          "description": "Swiss medical technology company specializing in remote cardiac monitoring and telemedicine solutions.",
@@ -155,6 +164,7 @@
        },
        { 
          "name": "UCELL.UZ", 
+         "uid": "customer.UCELL.UZ",
          "title": "Ucell - Uzbekistan Telecommunications", 
          "logoPath": "/assets/files/customers/uz_ucell/logo.png",
          "description": "Leading mobile network operator in Uzbekistan providing comprehensive telecommunications services.",
@@ -172,6 +182,7 @@
        },
        { 
          "name": "SPMS.PT", 
+         "uid": "customer.SPMS.PT",
          "title": "SPMS - Portugal Ministry of Health", 
          "logoPath": "/assets/files/customers/moh_portugal_spms/logo/moh_portugal_spms.png",
          "description": "Portuguese health services organization managing digital health transformation and healthcare information systems.",
@@ -189,6 +200,7 @@
        },
        { 
          "name": "AXIS.INT", 
+         "uid": "customer.AXIS.INT",
          "title": "Axis Interior Systems - Cincinnati, OH", 
          "logoPath": "/assets/files/customers/axis-interior-systems/logo.png",
          "description": "Professional interior construction company specializing in commercial and residential interior systems in Ohio.",
@@ -206,6 +218,7 @@
        },
        { 
          "name": "SSG.NY", 
+         "uid": "customer.SSG.NY",
          "title": "Silver Slate Group - New York, NY", 
          "logoPath": "/assets/files/customers/silver-slate-group/logo.png",
          "description": "Premium flooring contractor serving the New York metropolitan area with high-end residential and commercial projects.",
@@ -223,6 +236,7 @@
        },
        { 
          "name": "PRO.UNITED", 
+         "uid": "customer.PRO.UNITED",
          "title": "Pro-United Inc - New Hampshire", 
          "logoPath": "/assets/files/customers/pro-united-inc/logo.png",
          "description": "Professional contracting company in New Hampshire providing comprehensive construction and renovation services.",
@@ -240,6 +254,7 @@
        },
        { 
          "name": "TRANSYL.FL", 
+         "uid": "customer.TRANSYL.FL",
          "title": "Transylvania Flooring Professionals", 
          "logoPath": "/assets/files/customers/transylvania-flooring-professionals/logo.png",
          "description": "Specialized flooring contractor providing professional installation and renovation services in Pennsylvania.",
@@ -257,6 +272,7 @@
        },
        { 
          "name": "BONITZ", 
+         "uid": "customer.BONITZ",
          "title": "Bonitz Flooring Contractor", 
          "logoPath": "/assets/files/customers/bonitz/logo.png",
          "description": "Established flooring contractor providing professional installation services for commercial and residential projects.",
@@ -274,6 +290,7 @@
        },
        { 
          "name": "DMA.FLOORS", 
+         "uid": "customer.DMA.FLOORS",
          "title": "DMA Floors", 
          "logoPath": "/assets/files/customers/dma-floors/logo.png",
          "description": "Professional flooring company specializing in residential and light commercial flooring solutions.",
@@ -291,6 +308,7 @@
        },
        { 
          "name": "SERGENIANS", 
+         "uid": "customer.SERGENIANS",
          "title": "Sergenian's Flooring", 
          "logoPath": "/assets/files/customers/sergenians/logo.png",
          "description": "Family-owned flooring business providing high-quality installation and renovation services for decades.",
@@ -308,6 +326,7 @@
        },
        { 
          "name": "GARMON", 
+         "uid": "customer.GARMON",
          "title": "Garmon Flooring", 
          "logoPath": "/assets/files/customers/garmon/logo.png",
          "description": "Specialized flooring contractor focused on high-end residential and commercial flooring installations.",
@@ -325,6 +344,7 @@
        },
        { 
          "name": "MF.HIGGINS", 
+         "uid": "customer.MF.HIGGINS",
          "title": "MF Higgins Flooring", 
          "logoPath": "/assets/files/customers/mf-higgins/logo.png",
          "description": "Professional flooring contractor offering comprehensive flooring solutions for residential and commercial clients.",
@@ -342,6 +362,7 @@
        },
        { 
          "name": "GOMEZ.FC", 
+         "uid": "customer.GOMEZ.FC",
          "title": "Gomez Floor Covering", 
          "logoPath": "/assets/files/customers/gomez-floor-covering/logo.png",
          "description": "Established floor covering company providing quality installation services across multiple states.",
@@ -359,6 +380,7 @@
        },
        { 
          "name": "DESOTO", 
+         "uid": "customer.DESOTO",
          "title": "Desoto Flooring", 
          "logoPath": "/assets/files/customers/desoto/logo.png",
          "description": "Regional flooring contractor specializing in commercial and institutional flooring projects.",
@@ -376,6 +398,7 @@
        },
        { 
          "name": "PROFLOORS", 
+         "uid": "customer.PROFLOORS",
          "title": "ProFloors, LLC", 
          "logoPath": "/assets/files/customers/profloors-llc/logo.png",
          "description": "Professional flooring company providing expert installation and consultation services for diverse projects.",
@@ -393,6 +416,7 @@
        },
        { 
          "name": "ROUSE.CO", 
+         "uid": "customer.ROUSE.CO",
          "title": "The Rouse Company", 
          "logoPath": "/assets/files/customers/the-rouse-company/logo.png",
          "description": "Established construction and development company managing large-scale commercial and residential projects.",
@@ -410,6 +434,7 @@
        },
        { 
          "name": "SHAFAFIYA.UAE", 
+         "uid": "customer.SHAFAFIYA.UAE",
          "title": "Shafafiya - Department of Health - Abu Dhabi", 
          "logoPath": "/assets/files/customers/shafafiya/logo.png",
          "description": "Shafafiya portal contains the key standards that govern how healthcare information is exchanged and used in accordance with the Regulator Policy Manual chapter VIII Data Management, and hosts the information exchange. Documents published here describe the standard language used to exchange data (codes, licenses, etc.) as well as technical specifications of related data exchange systems.",
@@ -427,7 +452,8 @@
        },
        { 
          "name": "EGM.TR", 
-         "title": "General Directorate of Security (EGM)", 
+         "uid": "customer.EGM.TR",
+         "title": "Directorate General of Security - Ministry of Interior", 
          "logoPath": "/assets/files/customers/egm/egm.png",
          "description": "Turkey's national police force managing public security, crime prevention, and law enforcement through advanced information systems.",
          "location": "Ankara, Turkey",
@@ -444,6 +470,7 @@
        },
        { 
          "name": "DPT.TR", 
+         "uid": "customer.DPT.TR",
          "title": "State Planning Organization (DPT)", 
          "logoPath": "/assets/files/customers/dpt/dpt.png",
          "description": "Turkey's former State Planning Organization responsible for national economic planning and development strategies.",
@@ -461,6 +488,7 @@
        },
        { 
          "name": "AU.TR", 
+         "uid": "customer.AU.TR",
          "title": "Ankara University", 
          "logoPath": "/assets/files/customers/ankara.universitesi/ankara.universitesi.png",
          "description": "Turkey's first modern university, established in 1946, leading in education, research, and technology innovation.",
@@ -478,6 +506,7 @@
        },
        { 
          "name": "TUBITAK.TR", 
+         "uid": "customer.TUBITAK.TR",
          "title": "TUBITAK", 
          "logoPath": "/assets/files/customers/tubitak/tubitak.png",
          "description": "Turkey's leading scientific and technological research institution supporting innovation and R&D projects nationwide.",
@@ -495,6 +524,7 @@
        },
        { 
          "name": "IEEE.METU", 
+         "uid": "customer.IEEE.METU",
          "title": "IEEE METU", 
          "logoPath": "/assets/files/customers/metu.ieee/metu.ieee.png",
          "description": "IEEE Middle East Technical University student branch promoting engineering excellence and professional development.",

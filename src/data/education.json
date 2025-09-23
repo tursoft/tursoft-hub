@@ -7,6 +7,7 @@
     "items": [
         { 
             "id": 101, "orderIndex":15, "icon": "metu.png", "url": "https://ii.metu.edu.tr/software-management-ms",
+            "uid": "education.101.metu3",
             "code": "METU3", 
             "name": "Middle Easth Technical University", 
             "department": "Department of Software Management",                        
@@ -32,6 +33,7 @@
 
         { 
             "id": 102, "orderIndex":14, "icon": "metu.png", "url": "https://ceit.metu.edu.tr/",
+            "uid": "education.102.metu2",
             "code": "METU2", 
             "name": "Middle Easth Technical University", 
             "department": "Computer Education and Instructional Technologies Department",                        
@@ -76,6 +78,7 @@
 
         { 
             "id": 103, "orderIndex":13, "icon": "metu.png", "url": "https://ceit.metu.edu.tr/",
+            "uid": "education.103.metu1",
             "code": "METU1", 
             "name": "Middle Easth Technical University", 
             "department": "Computer Education and Instructional Technologies Department",                        
@@ -121,6 +124,7 @@
 
         { 
             "id": 104, "orderIndex":12, "icon": "meb.png", "url": "http://izmiteml.meb.k12.tr/",
+            "uid": "education.104.ktl",
             "code": "KTL", 
             "name": "Kocaeli Technical High School", 
             "department": "Computer Programming Branch",                        
@@ -147,6 +151,7 @@
 
         { 
             "id": 105, "orderIndex":12, "icon": "meb.png", "url": "http://ataturkmtal.meb.k12.tr/",
+            "uid": "education.105.atl",
             "code": "ATL", 
             "name": "Atatürk Mesleki ve Teknik Anadolu Lisesi", 
             "department": "Computer Programming Branch",                        
