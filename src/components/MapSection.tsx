@@ -77,18 +77,42 @@ const locationCoordinates: { [key: string]: { lat: number; lng: number; country:
 }
 
 // Create custom icons for different marker types
-const createIcon = (color: string, type: string) => {
+const createIcon = (color: string, type: string, logoUrl?: string) => {
+  const logoHtml = logoUrl 
+    ? `<img src="${logoUrl}" alt="logo" style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+       <span style="display: none; font-size: 10px; color: white; font-weight: bold;">${type.charAt(0).toUpperCase()}</span>`
+    : `<span style="font-size: 10px; color: white; font-weight: bold;">${type.charAt(0).toUpperCase()}</span>`
+
   return L.divIcon({
     className: 'custom-div-icon',
-    html: `<div style="background-color: ${color}; width: 25px; height: 25px; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">${type.charAt(0)}</div>`,
-    iconSize: [25, 25],
-    iconAnchor: [12, 12],
+    html: `<div style="background-color: ${logoUrl ? 'white' : color}; width: 30px; height: 30px; border-radius: 50%; border: 3px solid ${color}; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.4); overflow: hidden; position: relative;">${logoHtml}</div>`,
+    iconSize: [30, 30],
+    iconAnchor: [15, 15],
   })
 }
 
-const experienceIcon = createIcon('#3b82f6', 'E')
-const educationIcon = createIcon('#059669', 'S')
-const customerIcon = createIcon('#dc2626', 'C')
+// Function to create icon with logo
+const createIconWithLogo = (type: 'experience' | 'education' | 'customer', logoFileName?: string) => {
+  const colors = {
+    experience: '#3b82f6',
+    education: '#059669',
+    customer: '#dc2626'
+  }
+  
+  let logoUrl: string | undefined
+  
+  if (logoFileName) {
+    if (type === 'customer') {
+      // Customer logos use full path from logoPath
+      logoUrl = logoFileName
+    } else if ((type === 'experience' || type === 'education') && logoFileName.endsWith('.png')) {
+      // Experience and education logos are in companies folder
+      logoUrl = `/assets/logos/companies/${logoFileName}`
+    }
+  }
+  
+  return createIcon(colors[type], type, logoUrl)
+}
 
 interface MapMarker {
   id: string
@@ -100,6 +124,7 @@ interface MapMarker {
   location: string
   period?: string
   technologies?: string[]
+  logo?: string
 }
 
 // Custom Marker component that handles hover events
@@ -350,7 +375,8 @@ export default function MapSection() {
             description: latestPosition?.summary || '',
             location,
             period: `${latestPosition?.startDate} - ${latestPosition?.endDate || 'Present'}`,
-            technologies: latestPosition?.technologies?.slice(0, 5).map(t => t.name)
+            technologies: latestPosition?.technologies?.slice(0, 5).map(t => t.name),
+            logo: company.icon
           })
         }
       })
@@ -391,7 +417,8 @@ export default function MapSection() {
             description: school.level,
             location,
             period: school.period,
-            technologies: school.technologies?.slice(0, 5).map(t => t.name)
+            technologies: school.technologies?.slice(0, 5).map(t => t.name),
+            logo: school.icon
           })
         }
       })
@@ -417,7 +444,8 @@ export default function MapSection() {
             description: customer.description,
             location: customer.location,
             period: `${customer.partnership.startDate} - ${customer.partnership.endDate || 'Present'}`,
-            technologies: customer.technologies?.slice(0, 5)
+            technologies: customer.technologies?.slice(0, 5),
+            logo: customer.logoPath
           })
         }
       })
@@ -508,11 +536,7 @@ export default function MapSection() {
                 <HoverMarker
                   key={marker.id}
                   marker={marker}
-                  icon={
-                    marker.type === 'experience' ? experienceIcon :
-                    marker.type === 'education' ? educationIcon :
-                    customerIcon
-                  }
+                  icon={createIconWithLogo(marker.type, marker.logo)}
                 />
               ))}
             </MapContainer>
