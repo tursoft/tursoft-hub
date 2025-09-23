@@ -266,7 +266,7 @@ const ExperienceSection = () => {
                     <div className={`flex flex-col items-center gap-1 text-xs transition-all duration-300 ${
                       isHovered ? 'opacity-0 max-h-0' : 'opacity-100 max-h-32'
                     }`}>
-                      <Badge variant="secondary" className="text-xs px-2 py-1">
+                      <Badge variant="secondary" className="text-xs px-2 py-1 whitespace-nowrap">
                         {companyDateInfo.duration}
                       </Badge>
                     </div>
@@ -326,7 +326,7 @@ const ExperienceSection = () => {
                           <div className={`absolute -right-28 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 transition-all duration-300 ${
                             isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
                           }`}>
-                            <Badge variant="secondary" className="text-xs px-2 py-1">
+                            <Badge variant="secondary" className="text-xs px-2 py-1 whitespace-nowrap">
                               {position.years}
                             </Badge>
                             <div className="flex items-center gap-1 text-xs text-muted-foreground">
