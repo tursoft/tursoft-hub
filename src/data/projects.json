@@ -2333,6 +2333,68 @@
             { "name":  "Jenkins", "type": "DevOps" },   
             { "name":  "Docker", "type": "Virtualization" }  
           ]                      
-        }         
+        },
+
+        { "id": 375, "name": "TIGVAP", "title": "TİG Veri Aktarım Programı (DRG Data Transfer Program)", "group":"HIS", "company": "DataSel", "value":100, "icon": "TIGVAP.png", 
+          "summary": "TIGVAP is a specialized data transfer software developed to facilitate the export of DRG (Diagnosis Related Groups/Teşhisle İlişkili Gruplar) data from Hospital Information Management Systems (HIMS) to the Turkish Ministry of Health's DRG data collection software. The program enables hospitals to easily transfer required DRG data without additional HIMS modifications, supporting Turkey's healthcare reform initiatives for resource management and cost control.",
+          "fulltext": [
+            "TIGVAP (TİG Veri Aktarım Programı) was developed by DataSel as a social responsibility project to support Turkish healthcare institutions.",
+            "<br/>",
+            "The software addresses the challenge of DRG (Diagnosis Related Groups) data collection required by the Turkish Ministry of Health as part of healthcare reforms for resource management and cost control.",
+            "<br/>",
+            "<strong>Key Features:</strong>",
+            "<ul>",
+            "<li>Easy data extraction from existing Hospital Information Management Systems</li>",
+            "<li>No additional development required for HIMS software</li>",
+            "<li>User-friendly interface for data completion and validation</li>",
+            "<li>Direct integration with Ministry of Health DRG collection system</li>",
+            "<li>Provided as free software under social responsibility initiative</li>",
+            "</ul>",
+            "<br/>",
+            "The program significantly reduces the complexity of DRG data reporting for Turkish hospitals and supports the national healthcare digitization efforts."
+          ],
+          "datePeriod": { "startDate": "01.01.2012", "endDate": "01.12.2015" },
+        
+          "props": [
+            { "name":"platforms", "title": "Desktop Application" },
+            { "name":"type", "title": "Healthcare Integration Tool" },
+            { "name":"integration", "title": "Ministry of Health Integration" },
+            { "name":"lang", "title": "Turkish" }
+          ],
+
+          "domains": [
+            { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+          ],
+
+          "customers":[            
+            "Turkish Hospitals",
+            "Ministry of Health / Turkey"
+          ],
+
+          "partners":[],
+
+          "team": [             
+            { "position": "Team Leader", "name": "Muhammet Turşak", "contactNo": "0" } ,
+            { "position": "Project Manager", "name": "Tolga Aktan", "contactNo": "1" },
+            { "position": "Software Developer", "name": "Esra Ertunç", "contactNo": "1" }
+          ],
+
+          "modules": [
+            "DRG Data Extraction Engine",
+            "Hospital Information System Integration",
+            "Ministry of Health Data Format Converter",
+            "Data Validation and Quality Control",
+            "User Interface for Data Review and Completion"
+          ],
+
+          "technologies": [
+            { "name":  ".NET", "type": "Framework" },
+            { "name":  "C#", "type": "Programming Language" },
+            { "name":  "Windows Forms", "type": "Desktop UI" },
+            { "name":  "XML", "type": "Data Format" },
+            { "name":  "MS SQL", "type": "Database" },
+            { "name":  "Visual Studio", "type": "IDE" }    
+          ]             
+        }
     ]
 }

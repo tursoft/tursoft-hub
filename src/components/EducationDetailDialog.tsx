@@ -29,6 +29,7 @@ import {
   ChevronDown,
   ChevronRight
 } from "lucide-react";
+import { getTechnologyLogo } from "@/lib/technologyLogos";
 
 interface Course {
   name: string;
@@ -289,11 +290,25 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-wrap gap-2">
-                      {education.technologies.slice(0, 8).map((tech, index) => (
-                        <Badge key={index} variant="secondary">
-                          {tech.name}
-                        </Badge>
-                      ))}
+                      {education.technologies.slice(0, 8).map((tech, index) => {
+                        const logoPath = getTechnologyLogo(tech.name);
+                        return (
+                          <Badge key={index} variant="secondary" className="flex items-center gap-1.5">
+                            {logoPath && (
+                              <img 
+                                src={logoPath} 
+                                alt={`${tech.name} logo`} 
+                                className="w-4 h-4 object-contain" 
+                                onError={(e) => {
+                                  // Hide image if it fails to load
+                                  e.currentTarget.style.display = 'none';
+                                }}
+                              />
+                            )}
+                            {tech.name}
+                          </Badge>
+                        );
+                      })}
                       {education.technologies.length > 8 && (
                         <Badge variant="outline" className="border-dashed">
                           +{education.technologies.length - 8} more
@@ -369,15 +384,29 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                       </button>
                       {isExpanded && (
                         <div className="flex flex-wrap gap-1.5 mt-2 ml-6">
-                          {techs.map((tech, index) => (
-                            <Badge 
-                              key={index} 
-                              variant="secondary"
-                              className="text-xs px-2 py-1 hover:bg-primary/10 transition-colors"
-                            >
-                              {tech.name}
-                            </Badge>
-                          ))}
+                          {techs.map((tech, index) => {
+                            const logoPath = getTechnologyLogo(tech.name);
+                            return (
+                              <Badge 
+                                key={index} 
+                                variant="secondary"
+                                className="text-xs px-2 py-1 hover:bg-primary/10 transition-colors flex items-center gap-1.5"
+                              >
+                                {logoPath && (
+                                  <img 
+                                    src={logoPath} 
+                                    alt={`${tech.name} logo`} 
+                                    className="w-4 h-4 object-contain" 
+                                    onError={(e) => {
+                                      // Hide image if it fails to load
+                                      e.currentTarget.style.display = 'none';
+                                    }}
+                                  />
+                                )}
+                                {tech.name}
+                              </Badge>
+                            );
+                          })}
                         </div>
                       )}
                     </div>

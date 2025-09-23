@@ -25,6 +25,7 @@ import {
   ChevronDown,
   ChevronRight
 } from "lucide-react";
+import { getTechnologyLogo } from "@/lib/technologyLogos";
 
 interface ProjectItem {
   id: number;
@@ -248,15 +249,29 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                     </button>
                     {isExpanded && (
                       <div className="flex flex-wrap gap-1.5 mt-2 ml-6">
-                        {techs.map((tech, index) => (
-                          <Badge 
-                            key={index} 
-                            variant="secondary"
-                            className="text-xs px-2 py-1 hover:bg-primary/10 transition-colors"
-                          >
-                            {tech.name}
-                          </Badge>
-                        ))}
+                        {techs.map((tech, index) => {
+                          const logoPath = getTechnologyLogo(tech.name);
+                          return (
+                            <Badge 
+                              key={index} 
+                              variant="secondary"
+                              className="text-xs px-2 py-1 hover:bg-primary/10 transition-colors flex items-center gap-1.5"
+                            >
+                              {logoPath && (
+                                <img 
+                                  src={logoPath} 
+                                  alt={`${tech.name} logo`} 
+                                  className="w-4 h-4 object-contain" 
+                                  onError={(e) => {
+                                    // Hide image if it fails to load
+                                    e.currentTarget.style.display = 'none';
+                                  }}
+                                />
+                              )}
+                              {tech.name}
+                            </Badge>
+                          );
+                        })}
                       </div>
                     )}
                   </div>
