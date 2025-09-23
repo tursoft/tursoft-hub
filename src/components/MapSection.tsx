@@ -5,6 +5,26 @@ import 'leaflet/dist/leaflet.css'
 import { Card } from './ui/card'
 import { Badge } from './ui/badge'
 
+// Custom CSS for dark theme popups
+const darkPopupStyles = `
+  .leaflet-popup-content-wrapper {
+    background: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+    border: 1px solid hsl(var(--border)) !important;
+    border-radius: 0.5rem !important;
+  }
+  .leaflet-popup-tip {
+    background: hsl(var(--background)) !important;
+    border: 1px solid hsl(var(--border)) !important;
+  }
+  .leaflet-popup-close-button {
+    color: hsl(var(--foreground)) !important;
+  }
+  .leaflet-popup-close-button:hover {
+    color: hsl(var(--primary)) !important;
+  }
+`
+
 // Import data
 import experiencesData from '@/data/experiences.json'
 import educationData from '@/data/education.json'
@@ -103,6 +123,17 @@ function MapBounds({ markers }: { markers: MapMarker[] }) {
 export default function MapSection() {
   const [selectedFilters, setSelectedFilters] = useState<string[]>(['experience', 'education', 'customer'])
   const mapRef = useRef<L.Map | null>(null)
+
+  // Inject dark theme styles
+  useEffect(() => {
+    const styleElement = document.createElement('style')
+    styleElement.textContent = darkPopupStyles
+    document.head.appendChild(styleElement)
+
+    return () => {
+      document.head.removeChild(styleElement)
+    }
+  }, [])
 
   // Process data to create markers
   const markers = useMemo(() => {
@@ -304,8 +335,8 @@ export default function MapSection() {
               attributionControl={true}
             >
               <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                 maxZoom={18}
                 minZoom={2}
               />
@@ -321,19 +352,19 @@ export default function MapSection() {
                     customerIcon
                   }
                 >
-                  <Popup maxWidth={300} minWidth={250}>
-                    <div className="p-2">
-                      <h3 className="font-semibold text-lg mb-1">{marker.title}</h3>
+                  <Popup maxWidth={300} minWidth={250} className="dark-popup">
+                    <div className="p-2 bg-background text-foreground rounded-lg">
+                      <h3 className="font-semibold text-lg mb-1 text-foreground">{marker.title}</h3>
                       {marker.subtitle && (
                         <p className="text-sm text-muted-foreground mb-2">{marker.subtitle}</p>
                       )}
-                      <p className="text-sm mb-2">{marker.description}</p>
+                      <p className="text-sm mb-2 text-foreground/80">{marker.description}</p>
                       <div className="flex flex-wrap gap-1 mb-2">
-                        <Badge variant="secondary" className="text-xs">
+                        <Badge variant="secondary" className="text-xs bg-secondary text-secondary-foreground">
                           📍 {marker.location}
                         </Badge>
                         {marker.period && (
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs border-border text-foreground">
                             📅 {marker.period}
                           </Badge>
                         )}
@@ -343,7 +374,7 @@ export default function MapSection() {
                           <p className="text-xs text-muted-foreground mb-1">Key Technologies:</p>
                           <div className="flex flex-wrap gap-1">
                             {marker.technologies.map((tech, index) => (
-                              <Badge key={index} variant="outline" className="text-xs">
+                              <Badge key={index} variant="outline" className="text-xs border-border text-foreground">
                                 {tech}
                               </Badge>
                             ))}
