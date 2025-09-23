@@ -249,7 +249,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
             </div>
             <div className="w-16 h-16 flex-shrink-0">
               <img 
-                src={`/src/assets/logos/companies/${experience.icon}`} 
+                src={`/assets/logos/companies/${experience.icon}`} 
                 alt={`${experience.companyName} logo`}
                 className="w-full h-full object-contain rounded-lg"
               />

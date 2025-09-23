@@ -59,7 +59,7 @@ const EducationSection = () => {
   useEffect(() => {
     const loadEducationData = async () => {
       try {
-        const response = await fetch('/src/data/education.json');
+        const response = await fetch('/data/education.json');
         const data: EducationData = await response.json();
         setEducationData(data);
 
@@ -68,7 +68,7 @@ const EducationSection = () => {
         for (const education of data.items) {
           if (education.icon) {
             try {
-              const iconPath = `/src/assets/logos/companies/${education.icon}`;
+              const iconPath = `/assets/logos/companies/${education.icon}`;
               const iconModule = await import(/* @vite-ignore */ iconPath);
               educationIcons[education.code] = iconModule.default;
             } catch (error) {
@@ -101,7 +101,7 @@ const EducationSection = () => {
       type: item.level,
       description: `Advanced studies in ${item.department.toLowerCase()}${item.graduateScore ? ` with GPA: ${item.graduateScore}` : ''}`,
       focus: item.technologies?.slice(0, 6).map(tech => tech.name) || [],
-      logo: `/src/assets/logos/companies/${item.icon}`,
+      logo: `/assets/logos/companies/${item.icon}`,
       score: item.graduateScore,
       url: item.url
     }));

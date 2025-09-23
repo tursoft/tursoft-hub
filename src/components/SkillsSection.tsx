@@ -403,7 +403,7 @@ const SkillsSection = () => {
   useEffect(() => {
     const loadSkillsData = async () => {
       try {
-        const response = await fetch('/src/data/skills.json');
+        const response = await fetch('/data/skills.json');
         const newData: NewSkillsData = await response.json();
         const transformedData = transformSkillsData(newData);
         setSkillsData(transformedData);

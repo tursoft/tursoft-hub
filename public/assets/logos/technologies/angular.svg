@@ -1,0 +1,12 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="6" fill="url(#gradient-angular)"/>
+  <path d="M16 4 L28 8 L26 22 L16 28 L6 22 L4 8 Z" fill="white" opacity="0.1"/>
+  <path d="M16 6 L24 9 L22 20 L16 24 L10 20 L8 9 Z" fill="white"/>
+  <path d="M16 10 L20 16 L16 18 L12 16 Z" fill="#DD0031"/>
+  <defs>
+    <linearGradient id="gradient-angular" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DD0031"/>
+      <stop offset="100%" stop-color="#C21807"/>
+    </linearGradient>
+  </defs>
+</svg>

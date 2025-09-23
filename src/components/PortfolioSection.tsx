@@ -158,7 +158,7 @@ const PortfolioSection = () => {
   useEffect(() => {
     const loadProjectData = async () => {
       try {
-        const response = await fetch('/src/data/projects.json');
+        const response = await fetch('/data/projects.json');
         const data: NewProjectData = await response.json();
         setProjectData(data);
 
@@ -168,7 +168,7 @@ const PortfolioSection = () => {
           if (project.icon) {
             try {
               // Try to load the project icon from assets/files/projects/_logos/
-              const iconPath = `/src/assets/files/projects/_logos/${project.icon}`;
+              const iconPath = `/assets/files/projects/_logos/${project.icon}`;
               const iconModule = await import(/* @vite-ignore */ iconPath);
               projectIcons[project.name] = iconModule.default;
             } catch (error) {

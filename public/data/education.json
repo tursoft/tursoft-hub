@@ -1,0 +1,154 @@
+{
+    "general": {
+        "title": "Education",
+        "summary": "Throughout my academic life, while taking various technology and software development related courses, I have also engaged in a lot of academic projects that help me to get great experience during my education years."
+    },
+    
+    "items": [
+        { 
+            "id": 101, "orderIndex":15, "icon": "metu.png", "url": "https://ii.metu.edu.tr/software-management-ms",
+            "code": "METU3", 
+            "name": "Middle Easth Technical University", 
+            "department": "Department of Software Management",                        
+            "level": "Graduate School", 
+            "period": "2012-2013", 
+            "datePeriod": { "startDate": "01.09.2012", "endDate": "01.02.2013" },
+            "city": "Ankara",
+            "graduateDate": "February, 2013",
+            "graduateScore": "AA",
+            "courses": [
+                { "name": "Project Management", "score": "AA", "content": "" }             
+            ],
+            "technologies": [
+                { "name":  "PMP", "type": "Project Management" },
+                { "name":  "Project Management", "type": "Project Management" },
+                { "name":  "Time Management", "type": "Project Management" },
+                { "name":  "Cost Management", "type": "Project Management" },
+                { "name":  "Software Estimation", "type": "Project Management" }
+            ]
+        },
+
+        { 
+            "id": 102, "orderIndex":14, "icon": "metu.png", "url": "https://ceit.metu.edu.tr/",
+            "code": "METU2", 
+            "name": "Middle Easth Technical University", 
+            "department": "Computer Education and Instructional Technologies Department",                        
+            "level": "Graduate School", 
+            "period": "2004-2007", 
+            "datePeriod": { "startDate": "15.09.2004", "endDate": "15.09.2007" },
+            "city": "Ankara",
+            "graduateDate": "September, 2007",
+            "graduateScore": "3.68 / 4.00",
+            "courses": [
+                { "name": "Design Patterns",                  "score": "AA", "content": "OOD, Use Cases, UML, OCL, Design Patterns" },
+                { "name": "Total Quality Management",         "score": "AA", "content": "Strategic Planning" },
+                { "name": "Multimedia Information Systems",   "score": "BB", "content": "OS, Networks, Data Types, Compression" },
+                { "name": "Distance Education",               "score": "AA", "content": "" },
+                { "name": "Telecommunication in Education",   "score": "AA", "content": "" }
+            ],
+            
+            "technologies": [
+                { "name":  "Visual Basic", "type": "Programming Language" },
+                { "name":  "Pascal", "type": "Programming Language" },
+                { "name":  "C", "type": "Programming Language" },
+                { "name":  "C++", "type": "Programming Language" },
+                { "name":  "Java", "type": "Programming Language" },
+                { "name":  "Web Development", "type": "Web" },
+                { "name":  "HTML5", "type": "Web" },
+                { "name":  "CSS", "type": "Web" },
+                { "name":  "JS", "type": "Web" },
+                { "name":  "ASP.NET", "type": "Web" },
+                { "name":  "Photoshop", "type": "Graphics Design" },
+                { "name":  "Adobe Flash", "type": "Graphics Design" },
+                { "name":  "MS SQL", "type": "Database" },
+
+                { "name":  "Networking", "type": "System" },
+
+                { "name":  "Design Patterns", "type": "Approach" },
+                { "name":  "OOP", "type": "Approach" },
+                { "name":  "UML", "type": "Design" }
+              ]
+        },
+
+        { 
+            "id": 103, "orderIndex":13, "icon": "metu.png", "url": "https://ceit.metu.edu.tr/",
+            "code": "METU1", 
+            "name": "Middle Easth Technical University", 
+            "department": "Computer Education and Instructional Technologies Department",                        
+            "level": "Undergraduate School", 
+            "period": "1999–2004", 
+            "datePeriod": { "startDate": "15.09.1999", "endDate": "15.06.2004" },
+            "city": "Ankara",
+            "graduateDate": "June, 2004",
+            "graduateScore": "3.80 / 4.00",
+            "courses": [
+                { "name": "Programming Languages I",                      "score": "AA", "content": "Pascal, Functional Programming" },
+                { "name": "Programming Languages II",                     "score": "AA", "content": "Visual Basic" },
+                { "name": "Authoring Languages on PC Environment",        "score": "BB", "content": "Macromedia Authorware" },
+                { "name": "Instructional Technology and Material Prepar", "score": "AA", "content": "Macromedia Flash" },
+                { "name": "Introduction to C",                            "score": "AA", "content": "C" },
+                { "name": "Introduction to C++",                          "score": "AA", "content": "C++" },
+                { "name": "Advanced Object Oriented Programming",         "score": "AA", "content": "Java" },
+                { "name": "Fundamentals of Data Systems",                 "score": "AA", "content": "SQL" },
+                { "name": "Authoring Languages on Internet",              "score": "AA", "content": "HTML, JavaScript, ASP, PHP, .NET" },
+                { "name": "Computer Network Systems",                     "score": "AA", "content": "TCP, UDP, OSI, FTP, HTTP" },
+                { "name": "WAN Technologies",                             "score": "AA", "content": "Cisco Router Configuration" },
+                { "name": "3D Educational Game Development I",            "score": "AA", "content": "Dark Basic" },
+                { "name": "3D Educational Game Development II",           "score": "AA", "content": "3D Max, Rhinoceros, Adobe Atmosphere" }
+            ],
+            
+            "technologies": [
+                { "name":  "Visual Basic", "type": "Programming Language" },
+                { "name":  "Pascal", "type": "Programming Language" },
+                { "name":  "C", "type": "Programming Language" },
+                { "name":  "C++", "type": "Programming Language" },
+                { "name":  "Java", "type": "Programming Language" },
+                { "name":  "HTML5", "type": "Web" },
+                { "name":  "CSS", "type": "Web" },
+                { "name":  "JS", "type": "Web" },
+                { "name":  "ASP.NET", "type": "Web" },
+                { "name":  "Photoshop", "type": "Graphics Design" },
+                { "name":  "Adobe Flash", "type": "Graphics Design" },
+                { "name":  "MS SQL", "type": "Database" }
+              ]
+        },
+
+        { 
+            "id": 104, "orderIndex":12, "icon": "meb.png", "url": "http://izmiteml.meb.k12.tr/",
+            "code": "KTL", 
+            "name": "Kocaeli Technical High School", 
+            "department": "Computer Programming Branch",                        
+            "level": "High School", 
+            "period": "1995-1999", 
+            "datePeriod": { "startDate": "15.09.1996", "endDate": "15.06.1999" },
+            "city": "Kocaeli",
+            "graduateDate": "June, 1999",
+            "graduateScore": "4.80 / 5.00",
+            "courses": [
+                { "name": "Programming Languages I",                      "score": "5", "content": "Pascal, Functional Programming" },
+                { "name": "Programming Languages II",                     "score": "5", "content": "Visual Basic" },
+                { "name": "Operating Systems",                            "score": "5", "content": "Windows" }
+            ],
+            
+            "technologies": [
+                { "name":  "Pascal", "type": "Programming Language" },
+                { "name":  "Visual Basic", "type": "Programming Language" },                
+                { "name":  "Photoshop", "type": "Graphics Design" }
+              ]
+        },
+
+        { 
+            "id": 105, "orderIndex":12, "icon": "meb.png", "url": "http://ataturkmtal.meb.k12.tr/",
+            "code": "ATL", 
+            "name": "Atatürk Mesleki ve Teknik Anadolu Lisesi", 
+            "department": "Computer Programming Branch",                        
+            "level": "High School", 
+            "period": "1995-1996", 
+            "datePeriod": { "startDate": "15.09.1995", "endDate": "15.06.1996" },
+            "city": "Kocaeli",
+            "graduateDate": "June, 1996",
+            "graduateScore": "4.80",
+            "courses": []                   
+        }
+    ]
+}

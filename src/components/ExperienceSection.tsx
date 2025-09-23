@@ -75,7 +75,7 @@ const ExperienceSection = () => {
   useEffect(() => {
     const loadExperiencesData = async () => {
       try {
-        const response = await fetch('/src/data/experiences.json');
+        const response = await fetch('/data/experiences.json');
         const data: ExperiencesData = await response.json();
         setExperiencesData(data);
       } catch (error) {
@@ -176,7 +176,7 @@ const ExperienceSection = () => {
       
       processedExperiences.push({
         company: company.companyName,
-        logo: `/src/assets/logos/companies/${company.icon}`,
+        logo: `/assets/logos/companies/${company.icon}`,
         websiteUrl: company.websiteUrl,
         linkedinUrl: company.linkedinUrl,
         positions: positions,
