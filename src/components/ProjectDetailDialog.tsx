@@ -281,10 +281,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
             <TabsContent value="team" className="space-y-6 min-h-[400px]">
               <div className="p-4">
-                <div className="flex items-center gap-2 mb-4">
-                  <Users className="w-5 h-5" />
-                  <h3 className="text-lg font-semibold">Team Members</h3>
-                </div>
+
                 {project.team.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {project.team.map((member, index) => (
@@ -295,12 +292,6 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                         <div>
                           <div className="font-medium">{member.name}</div>
                           <div className="text-sm text-muted-foreground">{member.position}</div>
-                          {member.contactNo !== "0" && (
-                            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
-                              <Phone className="w-3 h-3" />
-                              {member.contactNo}
-                            </div>
-                          )}
                         </div>
                       </div>
                     ))}
