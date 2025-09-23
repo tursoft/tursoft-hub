@@ -1,12 +1,66 @@
 {
     "general": {
         "title": "Experiences",
-        "summary": "Throughout 16 years of my professional career, I have work in various companies. There were national, international projects, while some of them are customer projects, the other ones were Research and Development projects. I have mostly undertook managerial and leading positions within projects teams.",
-        "total_years": 16,                
+        "summary": "Throughout 17 years of my professional career, I have work in various companies. There were national, international projects, while some of them are customer projects, the other ones were Research and Development projects. I have mostly undertook managerial and leading positions within projects teams.",
+        "total_years": 17,                
         "prop_subitems": "positions"
     },
     
     "items": [
+        { 
+            "id": 215, "orderIndex":18, "icon": "infrion.png",
+            "companyCode": "infrion", "companyName": "Infrion",
+            "websiteUrl": "https://www.infrion.com",
+            "linkedinUrl": "https://www.linkedin.com/company/infrion/",
+            "positions": [
+                {
+                    "id": 2150,
+                    "title": "Senior Software Architect",                                 
+                    "startDate": "01.01.2018", "endDate": "30.07.2019",
+                    "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+
+                    "domains": [
+                        { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" },
+                        { "name": "certifications", "title": "Digital Certifications", "value":100, "iconCss": "" }
+                    ],
+
+                    "projects": [
+                        { "name":  "certify.health", "title": "Certify Health" }
+                    ],
+
+                    "technologies": [                        
+                        { "name":  "NodeJs", "type": "Framework" },
+                        { "name":  "Fastify", "type": "Framework" },                        
+
+                        { "name":  "VS Code", "type": "IDE" },
+
+                        { "name":  "Google Cloud", "type": "Cloud" },
+                        { "name":  "Gitlab", "type": "DevOps" },
+
+                        { "name":  "Git", "type": "Source Control" },
+                        { "name":  "npm", "type": "Dependency Management" },
+                                                
+                        { "name":  "React", "type": "Web Framework" },
+                        { "name":  "StencilJS", "type": "Web Framework" },
+                        { "name":  "TypeScript", "type": "Programming Language" },
+                        
+                        { "name":  "Postgres", "type": "Database" },
+                        
+                        { "name":  "HTML5", "type": "Web" },
+                        { "name":  "JS", "type": "Web" },
+                        { "name":  "CSS", "type": "Web" },
+
+                        { "name":  "OAuth", "type": "Security" },
+                        { "name":  "JWT", "type": "Security" },
+
+                        { "name":  "Json", "type": "File Format" },
+                        
+                        { "name":  "Google Analytics", "type": "Monitoring" }
+
+                      ]
+                }                            
+            ]
+        },
         { 
             "id": 214, "orderIndex":17, "icon": "jengai.png",
             "companyCode": "jengai", "companyName": "Jengai",

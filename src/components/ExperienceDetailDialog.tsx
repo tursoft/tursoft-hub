@@ -23,6 +23,7 @@ import {
   Linkedin,
   Briefcase
 } from "lucide-react";
+import { getTechnologyLogo } from "@/lib/technologyLogos";
 
 interface Technology {
   name: string;
@@ -280,7 +281,6 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                   
                   {position.domains && position.domains.length > 0 && (
                     <div className="mb-3">
-                      <h4 className="text-sm font-medium text-muted-foreground mb-2">Domains:</h4>
                       <div className="flex flex-wrap gap-2">
                         {position.domains.map((domain, i) => (
                           <Badge key={i} variant="secondary" className="text-xs">
@@ -289,20 +289,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                         ))}
                       </div>
                     </div>
-                  )}
-                  
-                  {position.projects && position.projects.length > 0 && (
-                    <div className="mb-3">
-                      <h4 className="text-sm font-medium text-muted-foreground mb-2">Projects:</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {position.projects.map((project, i) => (
-                          <Badge key={i} variant="outline" className="text-xs">
-                            {project.title}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                  )}                
                   
                   {index < experience.positions.length - 1 && (
                     <div className="border-b border-border/30 mt-4"></div>
@@ -315,6 +302,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
               <div className="px-4 py-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                   {Object.values(groupedTechnologies).flat().map((tech, index, allTechs) => {
+                    const logoPath = getTechnologyLogo(tech.name);
                     const isEven = index % 2 === 0;
                     const isLastInColumn = index === allTechs.length - 1 || 
                       (isEven && index === allTechs.length - 2 && allTechs.length % 2 === 0);
@@ -322,6 +310,17 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                     return (
                       <div key={index}>
                         <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
+                          {logoPath && (
+                            <img 
+                              src={logoPath} 
+                              alt={`${tech.name} logo`} 
+                              className="w-5 h-5 object-contain flex-shrink-0" 
+                              onError={(e) => {
+                                // Hide image if it fails to load
+                                e.currentTarget.style.display = 'none';
+                              }}
+                            />
+                          )}
                           <span className="text-sm font-medium text-foreground">
                             {tech.name}
                           </span>

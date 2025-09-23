@@ -87,7 +87,7 @@
        { 
          "name": "H.IbniSina", 
          "title": "Ibni Sina Hastanesi", 
-         "logoPath": "/assets/files/customers/tr_ibnisina/logo/ibnisina.jpg",
+         "logoPath": "/assets/files/customers/tr_ibnisina/logo/ibnisina.png",
          "description": "Premier private hospital in Turkey known for advanced medical care and innovative healthcare solutions.",
          "location": "Ankara, Turkey",
          "industry": "Private Healthcare",
@@ -353,7 +353,7 @@
        { 
          "name": "EGM.TR", 
          "title": "General Directorate of Security (EGM)", 
-         "logoPath": "/assets/files/customers/egm_turkey/logo/egm_turkey.jpg",
+         "logoPath": "/assets/files/customers/egm/egm.png",
          "description": "Turkey's national police force managing public security, crime prevention, and law enforcement through advanced information systems.",
          "location": "Ankara, Turkey",
          "industry": "Government Security",
@@ -367,7 +367,7 @@
        { 
          "name": "DPT.TR", 
          "title": "State Planning Organization (DPT)", 
-         "logoPath": "/assets/files/customers/dpt_turkey/logo/dpt_turkey.jpg",
+         "logoPath": "/assets/files/customers/dpt/dpt.png",
          "description": "Turkey's former State Planning Organization responsible for national economic planning and development strategies.",
          "location": "Ankara, Turkey",
          "industry": "Government Planning",
@@ -381,7 +381,7 @@
        { 
          "name": "AU.TR", 
          "title": "Ankara University", 
-         "logoPath": "/assets/files/customers/ankara_university/logo/ankara_university.jpg",
+         "logoPath": "/assets/files/customers/ankara.universitesi/ankara.universitesi.png",
          "description": "Turkey's first modern university, established in 1946, leading in education, research, and technology innovation.",
          "location": "Ankara, Turkey",
          "industry": "Higher Education",
@@ -395,7 +395,7 @@
        { 
          "name": "TUBITAK.TR", 
          "title": "TUBITAK", 
-         "logoPath": "/assets/files/customers/tubitak/logo/tubitak.jpg",
+         "logoPath": "/assets/files/customers/tubitak/tubitak.png",
          "description": "Turkey's leading scientific and technological research institution supporting innovation and R&D projects nationwide.",
          "location": "Ankara, Turkey",
          "industry": "Research & Development",
@@ -409,7 +409,7 @@
        { 
          "name": "IEEE.METU", 
          "title": "IEEE METU", 
-         "logoPath": "/assets/files/customers/ieee_metu/logo/ieee_metu.jpg",
+         "logoPath": "/assets/files/customers/metu.ieee/metu.ieee.png",
          "description": "IEEE Middle East Technical University student branch promoting engineering excellence and professional development.",
          "location": "Ankara, Turkey",
          "industry": "Professional Organization",
@@ -417,7 +417,7 @@
          "services": ["Professional Development", "Engineering Events", "Student Support"],
          "technologies": [".NET", "C#", "MS SQL Server", "ASP.NET"],
          "partnership": { "startDate": "01.01.2003", "status": "completed" },
-         "companyCodes": ["DATASEL"],
+         "companyCodes": ["Tursoft"],
          "projectNames": []
        }
    ]

@@ -18,6 +18,73 @@
     
     "items": [   
 
+      { "id": 382, "name": "CERTIFY.HEALTH", "title": "Certify Health", "group":"HIS", "company": "Infrion", "value":100, "icon": "certify.health.png", 
+        "datePeriod": { "startDate": "15.05.2021", "endDate": "20.07.2022" },
+        "summary": "Digital certification platform for healthcare professionals and medical institutions, providing secure and verifiable credentials management.",
+        
+        "props": [
+          { "name":"platforms", "title": "Web, Mobile" },
+          { "name":"db", "title": "SQL Server" },
+          { "name":"lang", "title": "English" }
+        ],
+
+        "domains": [
+            { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" },
+            { "name": "certifications", "title": "Digital Certifications", "value":100, "iconCss": "" }
+        ],
+
+        "modules": [
+          "Digital Certificate Management",
+          "Healthcare Professional Verification",
+          "Institution Credential Systems", 
+          "Secure Authentication & Authorization",
+          "Compliance & Audit Trails"
+        ],
+
+        "customerNames":[],
+
+        "partners":[],
+
+        "team": [             
+          { "position": "CEO", "name": "Aslak Felin", "contactNo": "1" },
+          { "position": "CTO", "name": "Mikael Karon", "contactNo": "2" },
+          { "position": "Project Manager", "name": "Alexander Kjeldaas", "contactNo": "3" },
+          { "position": "Software Architect", "name": "Muhammet Turşak", "contactNo": "4" }
+        ],
+
+        "technologies": [                        
+              { "name":  "NodeJs", "type": "Framework" },
+              { "name":  "Fastify", "type": "Framework" },                        
+
+              { "name":  "VS Code", "type": "IDE" },
+
+              { "name":  "Google Cloud", "type": "Cloud" },
+              { "name":  "Gitlab", "type": "DevOps" },
+              { "name":  "Docker", "type": "DevOps" },
+              { "name":  "Kubernetes", "type": "DevOps" },
+
+              { "name":  "Git", "type": "Source Control" },
+              { "name":  "npm", "type": "Dependency Management" },
+                                      
+              { "name":  "React", "type": "Web Framework" },
+              { "name":  "StencilJS", "type": "Web Framework" },
+              { "name":  "TypeScript", "type": "Programming Language" },
+              
+              { "name":  "Postgres", "type": "Database" },
+              
+              { "name":  "HTML5", "type": "Web" },
+              { "name":  "JS", "type": "Web" },
+              { "name":  "CSS", "type": "Web" },
+
+              { "name":  "OAuth", "type": "Security" },
+              { "name":  "JWT", "type": "Security" },
+
+              { "name":  "Json", "type": "File Format" },
+              
+              { "name":  "Google Analytics", "type": "Monitoring" }
+          ]
+      },
+
       { "id": 373, "name": "ALISVERISASISTANI", "title": "Alışveriş Asistanı", "group":"Misc", "company": "Tursoft", "value":900, "icon": "alisveris.asistani.png",
         "summary": "Online alışveriş sitelerinde incelediğiniz ürünüm en ucuz fiyatlı alternatifini bulmanıza yardımcı olan bir eklenti",
         "fulltext": [
@@ -2639,14 +2706,38 @@
           ],
           
           "team": [
-            { "position": "Project Manager", "name": "Muhammet Tursak", "contactNo": "1" },
-            { "position": "Game Developer", "name": "Davut Gürbüz", "contactNo": "1" }
+            
+            { "position": "CEO", "name": "Çetin Balanüye", "contactNo": "1" },
+            { "position": "Team Lead", "name": "Serkan Kayrancı", "contactNo": "2" },
+            { "position": "Senior Developer", "name": "Ertan Eyimaya", "contactNo": "3" },
+            { "position": "Senior Developer", "name": "Muhammet Tursak", "contactNo": "4" },
+            { "position": "Senior Developer", "name": "Selcen İyisever", "contactNo": "5" },
+            { "position": "Developer", "name": "Mustafa Uysal", "contactNo": "6" }
           ],
 
           "technologies": [
-            { "name":  "C++", "type": "Programming Language" },
-            { "name":  "DirectX", "type": "Graphics Framework" },
-            { "name":  "Visual Studio", "type": "IDE" }
+            { "name":  ".NET", "type": "Framework" },
+            { "name":  ".NETCore", "type": "Framework" },
+            { "name":  "C#", "type": "Programming Language" },
+
+            { "name":  "Visual Studio", "type": "IDE" },                
+            { "name":  "EntityFramework", "type": "ORM" },
+            { "name":  "LINQ", "type": "Database" },                   
+
+            { "name":  "Source Tree", "type": "Source Control" },
+            
+            { "name":  "ASP.NET", "type": "Web" },
+            
+            { "name":  "MS SQL", "type": "Database" },
+            
+            { "name":  "HTML5", "type": "Web" },
+            { "name":  "JS", "type": "Web" },
+            { "name":  "CSS", "type": "Web" },
+
+            { "name":  "Photoshop", "type": "Graphics Design" },
+            { "name":  "Json", "type": "File Format" },
+            
+            { "name":  "Google Analytics", "type": "Monitoring" }
           ]             
         }
     ]
