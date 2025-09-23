@@ -117,8 +117,8 @@ const EducationSection = () => {
 
             {/* Timeline Container with Overlapping Items */}
             <div className="relative">
-              {educationData.items.map((edu, index) => {
-                const isHovered = hoveredCard === index;
+              {[...educationData.items].slice().reverse().map((edu, index) => {
+                const isHovered = hoveredCard === edu.id;
                 const isLeft = index % 2 === 0;
                 
                 return (
@@ -134,12 +134,12 @@ const EducationSection = () => {
                     <div className="hidden lg:block absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
                       <div className={`transition-all duration-300 rounded-full border-2 border-background flex items-center justify-center ${
                         isHovered 
-                          ? 'w-12 h-12 bg-white shadow-xl scale-110' 
+                          ? 'w-12 h-12 bg-primary shadow-xl scale-110' 
                           : 'w-10 h-10 bg-background/70 border-muted-foreground/20 shadow-md'
                       }`}>
                         <GraduationCap className={`transition-all duration-300 ${
                           isHovered 
-                            ? 'w-6 h-6 text-primary scale-110' 
+                            ? 'w-6 h-6 text-white scale-110' 
                             : 'w-5 h-5 text-muted-foreground/60'
                         }`} />
                       </div>
@@ -162,11 +162,11 @@ const EducationSection = () => {
                       <div className="lg:hidden absolute left-4 top-8 w-0.5 h-full border-l-2 border-dashed border-muted-foreground/20" />
                       <div className={`lg:hidden absolute left-2 top-6 w-5 h-5 rounded-full border border-background shadow-sm flex items-center justify-center transition-all duration-300 ${
                         isHovered 
-                          ? 'bg-gradient-to-br from-primary to-primary-dark shadow-lg border-primary/20' 
+                          ? 'bg-primary shadow-lg border-primary/20' 
                           : 'bg-background/40 border-transparent'
                       }`}>
                         <GraduationCap className={`w-2 h-2 transition-all duration-300 ${
-                          isHovered ? 'text-background scale-110' : 'text-muted-foreground/15'
+                          isHovered ? 'text-white scale-110' : 'text-muted-foreground/15'
                         }`} />
                       </div>
 
