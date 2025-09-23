@@ -37,6 +37,9 @@ export interface Education {
   graduateScore: string;
   courses?: Course[];
   technologies?: Technology[];
+  uid: string;
+  coordinates: { lat: number; lng: number };
+  country: string;
 }
 
 export interface EducationData {

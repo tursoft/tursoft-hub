@@ -28,6 +28,10 @@ export interface Customer {
     endDate?: string;
     status?: 'active' | 'completed' | 'ongoing';
   };
+  uid: string;
+  coordinates: { lat: number; lng: number };
+  city: string;
+  country: string;
 }
 
 export interface CustomerData {

@@ -42,6 +42,10 @@ export interface Experience {
   websiteUrl?: string;
   linkedinUrl?: string;
   positions: Position[];
+  uid: string;
+  coordinates: { lat: number; lng: number };
+  city: string;
+  country: string;
 }
 
 export interface ExperiencesData {

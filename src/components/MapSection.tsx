@@ -13,27 +13,6 @@ import type { Education } from './EducationSection'
 import type { Experience, Position } from './ExperienceSection'
 import type { Customer } from './CustomersSection'
 
-// Extended interfaces for map data that include location information
-interface ExperienceMapData extends Experience {
-  uid: string
-  coordinates: { lat: number; lng: number }
-  city: string
-  country: string
-}
-
-interface EducationMapData extends Education {
-  uid: string
-  coordinates: { lat: number; lng: number }
-  country: string
-}
-
-interface CustomerMapData extends Customer {
-  uid: string
-  coordinates: { lat: number; lng: number }
-  city: string
-  country: string
-}
-
 // Custom CSS for dark theme popups
 const darkPopupStyles = `
   .leaflet-popup-content-wrapper {
@@ -142,7 +121,7 @@ interface MapMarker {
 }
 
 // Helper functions to transform data into MapItem objects
-const transformExperienceToMapItem = (company: ExperienceMapData, index: number): MapItem | null => {
+const transformExperienceToMapItem = (company: Experience, index: number): MapItem | null => {
   // Use coordinates directly from the JSON data
   if (!company.coordinates) return null
 
@@ -171,7 +150,7 @@ const transformExperienceToMapItem = (company: ExperienceMapData, index: number)
   }
 }
 
-const transformEducationToMapItem = (school: EducationMapData, index: number): MapItem | null => {
+const transformEducationToMapItem = (school: Education, index: number): MapItem | null => {
   // Use coordinates, city, and country directly from the JSON data
   if (!school.coordinates) return null
 
@@ -196,7 +175,7 @@ const transformEducationToMapItem = (school: EducationMapData, index: number): M
   }
 }
 
-const transformCustomerToMapItem = (customer: CustomerMapData, index: number): MapItem | null => {
+const transformCustomerToMapItem = (customer: Customer, index: number): MapItem | null => {
   // Use coordinates directly from the JSON data
   if (!customer.coordinates) return null
 
@@ -223,21 +202,21 @@ const createMapItemsFromData = (filters: string[] = ['experience', 'education', 
 
   if (filters.includes('experience')) {
     experiencesData.items.forEach((company, index) => {
-      const mapItem = transformExperienceToMapItem(company as ExperienceMapData, index)
+      const mapItem = transformExperienceToMapItem(company as Experience, index)
       if (mapItem) result.push(mapItem)
     })
   }
 
   if (filters.includes('education')) {
     educationData.items.forEach((school, index) => {
-      const mapItem = transformEducationToMapItem(school as EducationMapData, index)
+      const mapItem = transformEducationToMapItem(school as Education, index)
       if (mapItem) result.push(mapItem)
     })
   }
 
   if (filters.includes('customer')) {
     customersData.items.forEach((customer, index) => {
-      const mapItem = transformCustomerToMapItem(customer as CustomerMapData, index)
+      const mapItem = transformCustomerToMapItem(customer as Customer, index)
       if (mapItem) result.push(mapItem)
     })
   }
@@ -452,7 +431,7 @@ export default function MapSection() {
     // Transform Experience data to MapItems
     if (selectedFilters.includes('experience')) {
       experiencesData.items.forEach((company, index) => {
-        const mapItem = transformExperienceToMapItem(company as ExperienceMapData, index)
+        const mapItem = transformExperienceToMapItem(company as Experience, index)
         if (mapItem) result.push(mapItem)
       })
     }
@@ -460,7 +439,7 @@ export default function MapSection() {
     // Transform Education data to MapItems
     if (selectedFilters.includes('education')) {
       educationData.items.forEach((school, index) => {
-        const mapItem = transformEducationToMapItem(school as EducationMapData, index)
+        const mapItem = transformEducationToMapItem(school as Education, index)
         if (mapItem) result.push(mapItem)
       })
     }
@@ -468,7 +447,7 @@ export default function MapSection() {
     // Transform Customer data to MapItems
     if (selectedFilters.includes('customer')) {
       customersData.items.forEach((customer, index) => {
-        const mapItem = transformCustomerToMapItem(customer as CustomerMapData, index)
+        const mapItem = transformCustomerToMapItem(customer as Customer, index)
         if (mapItem) result.push(mapItem)
       })
     }
