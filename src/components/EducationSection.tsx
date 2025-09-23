@@ -145,6 +145,16 @@ const EducationSection = () => {
                       </div>
                     </div>
 
+                    {/* Connector line (sibling) - placed under the card by being a sibling with lower z-index than card's z-10 */}
+                    <div className="hidden lg:block absolute z-0" style={{
+                      top: '52px',
+                      transform: 'translateY(-50%)',
+                      left: isLeft ? `calc(50% - 180px)` : 'calc(50% + 20px)',
+                      width: '160px'
+                    }}>
+                      <div className={`h-0.5 w-full transition-colors duration-200 ${isHovered ? 'bg-primary/70' : 'bg-muted-foreground/30'}`} />
+                    </div>
+
                     {/* Card Container */}
                     <div className={`lg:w-1/2 ${isLeft ? 'lg:pr-10' : 'lg:pl-10 lg:ml-auto'} relative`}>
 
