@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMap, GeoJSON } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Card } from './ui/card'
@@ -22,6 +22,14 @@ const darkPopupStyles = `
   }
   .leaflet-popup-close-button:hover {
     color: hsl(var(--primary)) !important;
+  }
+  .leaflet-popup-content-wrapper:hover,
+  .leaflet-popup-tip:hover {
+    background: hsl(var(--background)) !important;
+  }
+  .custom-div-icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
   }
 `
 
@@ -94,6 +102,132 @@ interface MapMarker {
   technologies?: string[]
 }
 
+// Custom Marker component that handles hover events
+function HoverMarker({ marker, icon }: { marker: MapMarker; icon: L.DivIcon }) {
+  const markerRef = useRef<L.Marker>(null)
+  
+  const handleMouseOver = () => {
+    const markerInstance = markerRef.current
+    if (markerInstance) {
+      markerInstance.openPopup()
+    }
+  }
+
+  const handleMouseOut = () => {
+    const markerInstance = markerRef.current
+    if (markerInstance) {
+      // Close popup after a small delay to allow moving to popup
+      setTimeout(() => {
+        if (markerInstance && markerInstance.getPopup() && !markerInstance.getPopup()?.isOpen()) {
+          return
+        }
+        markerInstance.closePopup()
+      }, 100)
+    }
+  }
+
+  return (
+    <Marker
+      ref={markerRef}
+      position={marker.position}
+      icon={icon}
+      eventHandlers={{
+        mouseover: handleMouseOver,
+        mouseout: handleMouseOut,
+      }}
+    >
+      <Popup 
+        maxWidth={300} 
+        minWidth={250} 
+        className="dark-popup"
+        closeButton={false}
+        autoClose={false}
+        closeOnEscapeKey={true}
+      >
+        <div className="p-2 bg-background text-foreground rounded-lg">
+          <h3 className="font-semibold text-lg mb-1 text-foreground">{marker.title}</h3>
+          {marker.subtitle && (
+            <p className="text-sm text-muted-foreground mb-2">{marker.subtitle}</p>
+          )}
+          <p className="text-sm mb-2 text-foreground/80">{marker.description}</p>
+          <div className="flex flex-wrap gap-1 mb-2">
+            <Badge variant="secondary" className="text-xs bg-secondary text-secondary-foreground">
+              📍 {marker.location}
+            </Badge>
+            {marker.period && (
+              <Badge variant="outline" className="text-xs border-border text-foreground">
+                📅 {marker.period}
+              </Badge>
+            )}
+          </div>
+          {marker.technologies && marker.technologies.length > 0 && (
+            <div className="mt-2">
+              <p className="text-xs text-muted-foreground mb-1">Key Technologies:</p>
+              <div className="flex flex-wrap gap-1">
+                {marker.technologies.map((tech, index) => (
+                  <Badge key={index} variant="outline" className="text-xs border-border text-foreground">
+                    {tech}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </Popup>
+    </Marker>
+  )
+}
+
+// Component to add country hover highlighting
+function CountryHighlight() {
+  const map = useMap()
+  
+  useEffect(() => {
+    if (!map) return
+    
+    // Add hover effect for country polygons
+    const highlightCountry = (e: L.LeafletMouseEvent) => {
+      const layer = e.target
+      if (layer && layer.setStyle) {
+        layer.setStyle({
+          weight: 3,
+          color: '#3b82f6',
+          dashArray: '',
+          fillOpacity: 0.3,
+          fillColor: '#3b82f6'
+        })
+        layer.bringToFront()
+      }
+    }
+
+    const resetHighlight = (e: L.LeafletMouseEvent) => {
+      const layer = e.target
+      if (layer && layer.setStyle) {
+        layer.setStyle({
+          weight: 1,
+          opacity: 0.5,
+          color: '#666',
+          dashArray: '3',
+          fillOpacity: 0.1,
+          fillColor: '#ccc'
+        })
+      }
+    }
+
+    // Simple country hover effect using map events
+    map.on('mouseover', (e) => {
+      // This is a basic implementation - for full country boundaries you'd need GeoJSON data
+      // For now, we'll just add a subtle overlay effect
+    })
+
+    return () => {
+      map.off('mouseover')
+    }
+  }, [map])
+  
+  return null
+}
+
 // Component to handle map bounds
 function MapBounds({ markers }: { markers: MapMarker[] }) {
   const map = useMap()
@@ -135,9 +269,21 @@ export default function MapSection() {
     }
   }, [])
 
+  // Function to add small offset to avoid overlapping markers
+  const addOffset = (lat: number, lng: number, index: number) => {
+    const offset = 0.01 * (index % 8) // Small offset based on index
+    const angle = (index * 45) % 360 // Different angle for each marker
+    const radians = (angle * Math.PI) / 180
+    return [
+      lat + offset * Math.sin(radians),
+      lng + offset * Math.cos(radians)
+    ] as [number, number]
+  }
+
   // Process data to create markers
   const markers = useMemo(() => {
     const result: MapMarker[] = []
+    const coordinateCount: { [key: string]: number } = {} // Track how many markers at each coordinate
 
     // Process Experience data
     if (selectedFilters.includes('experience')) {
@@ -190,9 +336,14 @@ export default function MapSection() {
             new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
           )[0]
 
+          // Create coordinate key and count markers at same location
+          const coordKey = `${coordinates.lat}-${coordinates.lng}`
+          const offsetIndex = coordinateCount[coordKey] || 0
+          coordinateCount[coordKey] = offsetIndex + 1
+
           result.push({
             id: `exp-${company.companyCode}-${company.id}-${companyIndex}`,
-            position: [coordinates.lat, coordinates.lng],
+            position: addOffset(coordinates.lat, coordinates.lng, offsetIndex),
             type: 'experience',
             title: company.companyName,
             subtitle: latestPosition?.title,
@@ -226,9 +377,14 @@ export default function MapSection() {
         }
 
         if (coordinates) {
+          // Create coordinate key and count markers at same location
+          const coordKey = `${coordinates.lat}-${coordinates.lng}`
+          const offsetIndex = coordinateCount[coordKey] || 0
+          coordinateCount[coordKey] = offsetIndex + 1
+
           result.push({
             id: `edu-${school.code}-${school.id}-${schoolIndex}`,
-            position: [coordinates.lat, coordinates.lng],
+            position: addOffset(coordinates.lat, coordinates.lng, offsetIndex),
             type: 'education',
             title: school.name,
             subtitle: school.department,
@@ -247,9 +403,14 @@ export default function MapSection() {
         const coordinates = locationCoordinates[customer.location]
         
         if (coordinates) {
+          // Create coordinate key and count markers at same location
+          const coordKey = `${coordinates.lat}-${coordinates.lng}`
+          const offsetIndex = coordinateCount[coordKey] || 0
+          coordinateCount[coordKey] = offsetIndex + 1
+
           result.push({
             id: `cus-${customer.name}-${index}`,
-            position: [coordinates.lat, coordinates.lng],
+            position: addOffset(coordinates.lat, coordinates.lng, offsetIndex),
             type: 'customer',
             title: customer.title,
             subtitle: customer.industry,
@@ -335,55 +496,24 @@ export default function MapSection() {
               attributionControl={true}
             >
               <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 maxZoom={18}
                 minZoom={2}
               />
               {markers.length > 0 && <MapBounds markers={markers} />}
+              <CountryHighlight />
               
               {markers.map((marker) => (
-                <Marker
+                <HoverMarker
                   key={marker.id}
-                  position={marker.position}
+                  marker={marker}
                   icon={
                     marker.type === 'experience' ? experienceIcon :
                     marker.type === 'education' ? educationIcon :
                     customerIcon
                   }
-                >
-                  <Popup maxWidth={300} minWidth={250} className="dark-popup">
-                    <div className="p-2 bg-background text-foreground rounded-lg">
-                      <h3 className="font-semibold text-lg mb-1 text-foreground">{marker.title}</h3>
-                      {marker.subtitle && (
-                        <p className="text-sm text-muted-foreground mb-2">{marker.subtitle}</p>
-                      )}
-                      <p className="text-sm mb-2 text-foreground/80">{marker.description}</p>
-                      <div className="flex flex-wrap gap-1 mb-2">
-                        <Badge variant="secondary" className="text-xs bg-secondary text-secondary-foreground">
-                          📍 {marker.location}
-                        </Badge>
-                        {marker.period && (
-                          <Badge variant="outline" className="text-xs border-border text-foreground">
-                            📅 {marker.period}
-                          </Badge>
-                        )}
-                      </div>
-                      {marker.technologies && marker.technologies.length > 0 && (
-                        <div className="mt-2">
-                          <p className="text-xs text-muted-foreground mb-1">Key Technologies:</p>
-                          <div className="flex flex-wrap gap-1">
-                            {marker.technologies.map((tech, index) => (
-                              <Badge key={index} variant="outline" className="text-xs border-border text-foreground">
-                                {tech}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </Popup>
-                </Marker>
+                />
               ))}
             </MapContainer>
           </div>
