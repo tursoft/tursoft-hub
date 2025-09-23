@@ -668,8 +668,8 @@ export default function MapSection() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Type</TableHead>
                     <TableHead>Title</TableHead>
+                    <TableHead>Type</TableHead>
                     <TableHead>Date Range</TableHead>
                     <TableHead>Country</TableHead>
                     <TableHead>City</TableHead>
@@ -687,18 +687,49 @@ export default function MapSection() {
                       ? `${item.daterange.start} - ${item.daterange.end}`
                       : `${item.daterange.start} - Present`
 
+                    // Get logo URL for the item
+                    const getLogoUrl = (item: MapItem) => {
+                      if (item.logoUrl) {
+                        return item.logoUrl
+                      }
+                      return null
+                    }
+
+                    const logoUrl = getLogoUrl(item)
+
                     return (
                       <TableRow 
                         key={item.uid} 
                         className="hover:bg-muted/50 cursor-pointer"
                         onClick={() => handleRowClick(item)}
                       >
+                        <TableCell className="font-medium">
+                          <div className="flex items-center gap-3">
+                            {logoUrl ? (
+                              <img 
+                                src={logoUrl}
+                                alt={`${item.title} logo`}
+                                className="w-6 h-6 object-contain rounded flex-shrink-0"
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  target.style.display = 'none';
+                                }}
+                              />
+                            ) : (
+                              <div className="w-6 h-6 bg-muted rounded flex items-center justify-center flex-shrink-0">
+                                <span className="text-xs text-muted-foreground font-medium">
+                                  {item.type.charAt(0).toUpperCase()}
+                                </span>
+                              </div>
+                            )}
+                            <span>{item.title}</span>
+                          </div>
+                        </TableCell>
                         <TableCell>
                           <Badge className={typeColors[item.type]}>
                             {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
                           </Badge>
                         </TableCell>
-                        <TableCell className="font-medium">{item.title}</TableCell>
                         <TableCell className="text-muted-foreground">{dateRange}</TableCell>
                         <TableCell>{item.country}</TableCell>
                         <TableCell>{item.city}</TableCell>
