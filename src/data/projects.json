@@ -2397,7 +2397,7 @@
           ]                      
         },
 
-        { "id": 375, "name": "TIGVAP", "title": "TİG Veri Aktarım Programı (DRG Data Transfer Program)", "group":"HIS", "company": "DataSel", "value":100, "icon": "TIGVAP.png", 
+        { "id": 375, "name": "TIGVAP", "title": "TİG Veri Aktarım Programı (DRG Data Transfer Program)", "group":"HIS", "company": "DataSel", "value":100, "icon": "TigVAP.png", 
           "summary": "TIGVAP is a specialized data transfer software developed to facilitate the export of DRG (Diagnosis Related Groups/Teşhisle İlişkili Gruplar) data from Hospital Information Management Systems (HIMS) to the Turkish Ministry of Health's DRG data collection software. The program enables hospitals to easily transfer required DRG data without additional HIMS modifications, supporting Turkey's healthcare reform initiatives for resource management and cost control.",
           "fulltext": [
             "TIGVAP (TİG Veri Aktarım Programı) was developed by DataSel as a social responsibility project to support Turkish healthcare institutions.",
