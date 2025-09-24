@@ -58,3 +58,7 @@ This project is built with:
 * add langıuage support
 * improve map
 * fix highlight animations
+* add animation to switch between map & grid
+* add animation to switch between card, list and carosel views
+* use better design and animation for download cv button
+* use better design and animation for map buttons
