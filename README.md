@@ -46,3 +46,15 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+
+
+## Todos
+* add firefly animation to background
+* techs: sort
+* projects: sort
+* projects: show major items first, load minors on demand
+* improve texts (project, experience, education etc.)
+* fix project texts and linkds
+* add langıuage support
+* improve map
+* fix highlight animations
