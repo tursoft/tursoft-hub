@@ -24,6 +24,7 @@ import {
   Briefcase
 } from "lucide-react";
 import { getTechnologyLogo } from "@/lib/technologyLogos";
+import projectsData from "@/data/projects.json";
 
 interface Technology {
   name: string;
@@ -34,6 +35,34 @@ interface Project {
   name: string;
   title: string;
 }
+
+  // Helper to resolve project logo path (prefer projects.json data, fall back to map)
+  const resolveProjectLogo = (projectName: string): string | null => {
+    if (!projectName) return null;
+
+    const normalize = (s: string) => s.replace(/[^a-z0-9]/gi, '').toUpperCase();
+
+    try {
+      if (Array.isArray(projectsData)) {
+        type ProjectEntry = { name?: string; title?: string; code?: string; logo?: string };
+        const key = normalize(projectName);
+        const match = (projectsData as ProjectEntry[]).find((p) => {
+          return normalize((p.name || p.title || p.code || '').toString()) === key;
+        });
+
+        if (match && match.logo) {
+          const logo = match.logo;
+          return logo.startsWith('/') ? logo : `/assets/files/projects/_logos/${logo}`;
+        }
+      }
+    } catch (err) {
+      // ignore and return null if projects.json lookup fails
+      return null;
+    }
+
+    // If no match found in projects.json, return null (no hardcoded fallback)
+    return null;
+  };
 
 interface Domain {
   name: string;
@@ -339,17 +368,41 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
               <div className="px-4 py-2">
                 {allProjects.length > 0 ? (
                   <div className="space-y-3">
-                    {allProjects.map((project, index) => (
-                      <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
-                        <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                          <Briefcase className="w-4 h-4 text-primary" />
+                    {allProjects.map((project, index) => {
+                      const logoPath = resolveProjectLogo(project.name);
+
+                      return (
+                        <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
+                          {/* Project Logo (fallback to /src/assets during development if needed) */}
+                          {logoPath ? (
+                            <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+                              <img
+                                src={logoPath}
+                                alt={`${project.title} logo`}
+                                className="w-7 h-7 object-contain rounded"
+                                onError={(e) => {
+                                  const current = e.currentTarget.src;
+                                  if (current.includes('/assets/') && !current.includes('/src/assets/')) {
+                                    e.currentTarget.src = current.replace('/assets/', '/src/assets/');
+                                  } else {
+                                    e.currentTarget.style.display = 'none';
+                                  }
+                                }}
+                              />
+                            </div>
+                          ) : (
+                            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                              <Briefcase className="w-4 h-4 text-primary" />
+                            </div>
+                          )}
+
+                          <div>
+                            <div className="font-medium">{project.title}</div>
+                            <div className="text-sm text-muted-foreground">{project.name}</div>
+                          </div>
                         </div>
-                        <div>
-                          <div className="font-medium">{project.title}</div>
-                          <div className="text-sm text-muted-foreground">{project.name}</div>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
                   <p className="text-muted-foreground">No specific projects listed for this experience.</p>
