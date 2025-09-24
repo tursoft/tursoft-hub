@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#071226" stop-opacity="0.02" />
+      <stop offset="50%" stop-color="#002b3a" stop-opacity="0.03" />
+      <stop offset="100%" stop-color="#07243a" stop-opacity="0.02" />
+    </linearGradient>
+
+    <pattern id="p" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#00a8ff" opacity="0.035" />
+    </pattern>
+
+    <filter id="grain">
+      <feTurbulence baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" result="turb" />
+      <feColorMatrix type="saturate" values="0" />
+      <feComposite operator="in" in2="turb" />
+      <feBlend in="SourceGraphic" mode="overlay" />
+    </filter>
+  </defs>
+
+  <!-- subtle gradient base -->
+  <rect width="100%" height="100%" fill="url(#g)" />
+
+  <!-- soft dot pattern to add texture -->
+  <rect width="100%" height="100%" fill="url(#p)" />
+
+  <!-- very faint diagonal lines -->
+  <g stroke="#00a8ff" stroke-opacity="0.02" stroke-width="1">
+    <path d="M -200 0 L 2000 1400" />
+    <path d="M -220 40 L 2000 1440" />
+    <path d="M -240 80 L 2000 1480" />
+  </g>
+
+</svg>
