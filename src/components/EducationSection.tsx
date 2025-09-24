@@ -74,9 +74,9 @@ const EducationSection = () => {
   }
 
   return (
-    <section id="education" className="py-20 bg-background">
-      <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
+    <section id="education" className="py-20 bg-background education-bg">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-6xl mx-auto relative z-10">
           {/* Section Header */}
           <div className="text-center mb-16 animate-fade-in">
             <Badge variant="outline" className="mb-4">Academic Background</Badge>

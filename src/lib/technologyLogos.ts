@@ -239,21 +239,21 @@ export const getTechnologyLogo = (technologyName: string): string | null => {
   
   // Direct lookup first
   if (logoMapping[normalizedName]) {
-    return `/src/assets/logos/technologies/small_50x50/${logoMapping[normalizedName]}`;
+    return `/assets/logos/technologies/small_50x50/${logoMapping[normalizedName]}`;
   }
 
   // Case-insensitive lookup
   const lowerCaseName = normalizedName.toLowerCase();
   for (const [key, value] of Object.entries(logoMapping)) {
     if (key.toLowerCase() === lowerCaseName) {
-      return `/src/assets/logos/technologies/small_50x50/${value}`;
+  return `/assets/logos/technologies/small_50x50/${value}`;
     }
   }
 
   // Partial match lookup for complex names
   for (const [key, value] of Object.entries(logoMapping)) {
     if (key.toLowerCase().includes(lowerCaseName) || lowerCaseName.includes(key.toLowerCase())) {
-      return `/src/assets/logos/technologies/small_50x50/${value}`;
+  return `/assets/logos/technologies/small_50x50/${value}`;
     }
   }
 

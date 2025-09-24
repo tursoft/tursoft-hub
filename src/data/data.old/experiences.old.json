@@ -7,7 +7,7 @@
       "years": "6+ years",
       "location": "Turkey",
       "type": "Full-time",
-      "logo": "/src/assets/logos/companies/gamyte.png",
+  "logo": "/assets/logos/companies/gamyte.png",
       "description": [
         "Leading technology strategy and architecture decisions for enterprise gaming solutions",
         "Managing cross-functional development teams and R&D initiatives",
@@ -24,7 +24,7 @@
       "years": "6.3 years",
       "location": "Turkey",
       "type": "Full-time",
-      "logo": "/src/assets/logos/companies/erc.png",
+  "logo": "/assets/logos/companies/erc.png",
       "description": [
         "Led the architecture and development of enterprise-grade engineering solutions",
         "Managed multiple development teams across different product lines",
@@ -41,7 +41,7 @@
       "years": "1.8 years",
       "location": "Turkey",
       "type": "Full-time",
-      "logo": "/src/assets/logos/companies/datasel.png",
+  "logo": "/assets/logos/companies/datasel.png",
       "description": [
         "Architected enterprise information management systems",
         "Led development teams in building data-driven applications",
@@ -58,7 +58,7 @@
       "years": "1.9 years",
       "location": "Turkey",
       "type": "Full-time",
-      "logo": "/src/assets/logos/companies/fonet.png",
+  "logo": "/assets/logos/companies/fonet.png",
       "description": [
         "Directed R&D initiatives for next-generation software products",
         "Established development methodologies and best practices",
@@ -75,7 +75,7 @@
       "years": "1 year",
       "location": "Turkey",
       "type": "Military Service",
-      "logo": "/src/assets/logos/companies/jandarma.egitim.png",
+  "logo": "/assets/logos/companies/jandarma.egitim.png",
       "description": [
         "Served as a Lieutenant in the Turkish Gendarmerie Training Command",
         "Led training programs and educational initiatives",
@@ -92,7 +92,7 @@
       "years": "4.7 years total",
       "location": "Turkey",
       "type": "Full-time",
-      "logo": "/src/assets/logos/companies/halici.png",
+  "logo": "/assets/logos/companies/halici.png",
       "description": [
         "Oversaw software production lifecycle and project planning (2007-2008)",
         "Served as Project Manager and System Analyst (2005-2007)",

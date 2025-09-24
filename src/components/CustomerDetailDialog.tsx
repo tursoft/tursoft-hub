@@ -93,8 +93,8 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
       'METU': 'metu.png'
     };
     
-    const logoFile = logoMap[companyCode];
-    return logoFile ? `/src/assets/logos/companies/${logoFile}` : null;
+  const logoFile = logoMap[companyCode];
+  return logoFile ? `/assets/logos/companies/${logoFile}` : null;
   };
 
   // Helper function to resolve technology logo paths
@@ -135,8 +135,8 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
     };
     
     const normalizedTech = tech.toLowerCase().trim();
-    const logoFile = techLogoMap[normalizedTech];
-    return logoFile ? `/src/assets/logos/technologies/small_50x50/${logoFile}` : null;
+  const logoFile = techLogoMap[normalizedTech];
+  return logoFile ? `/assets/logos/technologies/small_50x50/${logoFile}` : null;
   };
 
   // Helper function to resolve project logo paths based on project name
@@ -158,8 +158,8 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
       'AIS': 'AIS.png'
     };
     
-    const logoFile = projectLogoMap[projectName];
-    return logoFile ? `/src/assets/files/projects/_logos/${logoFile}` : null;
+  const logoFile = projectLogoMap[projectName];
+  return logoFile ? `/assets/files/projects/_logos/${logoFile}` : null;
   };
 
   if (!customer) return null;
