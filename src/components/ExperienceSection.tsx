@@ -208,7 +208,12 @@ const ExperienceSection = () => {
                   } cursor-pointer`}
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
-                  onClick={() => handleExperienceClick(experiencesData.items[index])}
+                  onClick={() => {
+                    // Find the original experience item by uid or companyName to avoid index mismatch
+                    const uidMatch = experiencesData.items.find(item => item.companyName === exp.company || item.uid === exp.company);
+                    const byUid = uidMatch ? uidMatch : experiencesData.items[index];
+                    handleExperienceClick(byUid);
+                  }}
                 >
                   {/* Company Logo - Horizontally centered based on years/daterange cells */}
                   <div className="absolute top-4 right-4 w-24 flex flex-col items-center">
