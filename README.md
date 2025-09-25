@@ -62,3 +62,5 @@ This project is built with:
 * add animation to switch between card, list and carosel views
 * use better design and animation for download cv button
 * use better design and animation for map buttons
+
+* store data in db and develop admin panel
