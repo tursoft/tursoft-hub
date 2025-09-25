@@ -49,13 +49,22 @@ This project is built with:
 
 
 ## Todos
-* add firefly animation to background
+
+* remove highlight box on detail popups which initially selected
+* remove dublicated fields from education detail popup
+
+* add domain details page (projects, experiences)
+* add skills detail page (years, experiencs, projects etc.)
+
 * techs: sort
 * projects: sort
 * projects: show major items first, load minors on demand
 * improve texts (project, experience, education etc.)
 * fix project texts and linkds
-* add langıuage support
+* add language support (tr, en)
+* auto translate texts, including reference texts etc.
+* refactor json files and make relations more concrete
+
 * improve map
 * fix highlight animations
 * add animation to switch between map & grid
@@ -64,3 +73,31 @@ This project is built with:
 * use better design and animation for map buttons
 
 * store data in db and develop admin panel
+* add missing relations between entities
+experience => projects
+experience => customers
+project => customers
+project => modules
+
+* check and fix dates
+
+* add photos of collegues
+* add generic customers => vkbs => 80 tr hospitals
+* add jengai customers
+* add fonet customers
+* add datasel customers
+* add erc customers
+* add halici customers
+
+* improve texts, keep short
+* add highlights to texts
+* microsoft dynamics nav
+
+* add more recent techs: kubernetes, docker, cloud, serverless, azure, google cloud, aws
+* mark projects as major and minor
+* mark customers as major and minor
+* mark skills as major and minor
+
+
+* sort skills
+* reorganize skills carousel
