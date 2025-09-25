@@ -88,6 +88,7 @@ project => modules
 * add datasel customers
 * add erc customers
 * add halici customers
+* add/relate halici projects
 
 * improve texts, keep short
 * add highlights to texts
