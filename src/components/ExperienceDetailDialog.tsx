@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { getTechnologyLogo } from "@/lib/technologyLogos";
 import projectsData from "@/data/projects.json";
+import { ProjectEntry, ProjectsData } from '@/models';
 
 interface Technology {
   name: string;
@@ -40,27 +41,24 @@ interface Project {
   const resolveProjectLogo = (projectName: string): string | null => {
     if (!projectName) return null;
 
-    const normalize = (s: string) => s.replace(/[^a-z0-9]/gi, '').toUpperCase();
-
     try {
-      if (Array.isArray(projectsData)) {
-        type ProjectEntry = { name?: string; title?: string; code?: string; logo?: string };
-        const key = normalize(projectName);
-        const match = (projectsData as ProjectEntry[]).find((p) => {
-          return normalize((p.name || p.title || p.code || '').toString()) === key;
-        });
+      const entries: ProjectEntry[] = (projectsData as ProjectsData).items;
+      if (entries.length === 0) return null;
 
-        if (match && match.logo) {
-          const logo = match.logo;
-          return logo.startsWith('/') ? logo : `/assets/files/projects/_logos/${logo}`;
-        }
+      const match = entries.find((p) => { return p.name.toUpperCase() === projectName.toUpperCase(); });
+
+      console.log('resolveProjectLogo:', { projectName, entries, match });
+
+      if (match?.icon) {
+        const icon = match.icon;
+        return icon.startsWith('/') ? icon : `/assets/files/projects/_logos/${icon}`;
       }
     } catch (err) {
       // ignore and return null if projects.json lookup fails
       return null;
     }
 
-    // If no match found in projects.json, return null (no hardcoded fallback)
+    // If no match found in projects.json, return null
     return null;
   };
 
@@ -185,7 +183,20 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
         allProjects.push(...position.projects);
       }
     });
-    return allProjects;
+
+    // Deduplicate by normalized project.name (case-insensitive, trimmed)
+    const seen = new Set<string>();
+    const unique: Project[] = [];
+    for (const p of allProjects) {
+      const key = (p?.name || '').toString().trim().toUpperCase();
+      if (!key) continue;
+      if (!seen.has(key)) {
+        seen.add(key);
+        unique.push(p);
+      }
+    }
+
+    return unique;
   };
 
   const groupedTechnologies = getAllTechnologies();
@@ -398,7 +409,6 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
 
                           <div>
                             <div className="font-medium">{project.title}</div>
-                            <div className="text-sm text-muted-foreground">{project.name}</div>
                           </div>
                         </div>
                       );
