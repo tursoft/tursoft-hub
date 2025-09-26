@@ -25,6 +25,7 @@ import {
   Mail,
   Clock
 } from "lucide-react";
+import dataHelper from '@/lib/datahelper';
 
 interface Customer {
   name: string;
@@ -76,103 +77,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
 }) => {
 
 
-  // Helper function to resolve company logo paths
-  const resolveCompanyLogo = (companyCode: string): string | null => {
-    // Map company codes to logo filenames
-    const logoMap: { [key: string]: string } = {
-      'ERC': 'erc.png',
-      'DATASEL': 'datasel.png',
-      'jengai': 'jengai.png',
-      'gamyte': 'gamyte.png',
-      'FONET': 'fonet.png',
-      'JANDARMA': 'jandarma.egitim.png',
-      'HALICI': 'halici.png',
-      'LABRIS': 'labris.png',
-      'METU.CEIT': 'metu.ceit.png',
-      'METU.II': 'metu.ii.png',
-      'METU': 'metu.png'
-    };
-    
-  const logoFile = logoMap[companyCode];
-  return logoFile ? `/assets/logos/companies/${logoFile}` : null;
-  };
-
-  // Helper function to resolve technology logo paths
-  const resolveTechnologyLogo = (tech: string): string | null => {
-    // Map technology names to logo filenames (normalize to lowercase for matching)
-    const techLogoMap: { [key: string]: string } = {
-      '.net': 'net.png',
-      'c#': 'csharp.png',
-      'ms sql server': 'mssql.png',
-      'mssql': 'mssql.png',
-      'sql server': 'mssql.png',
-      'asp.net': 'aspnet.png',
-      'crystal reports': 'crystalreports.png',
-      'oracle': 'oracle.png',
-      'web services': 'soap.png',
-      'javascript': 'js.png',
-      'jquery': 'jquery.png',
-      'html': 'html5.png',
-      'css': 'css3.png',
-      'bootstrap': 'bootstrap.png',
-      'angular': 'angular.png',
-      'react': 'js.png',
-      'nodejs': 'nodejs.png',
-      'node.js': 'nodejs.png',
-      'typescript': 'typescript.png',
-      'mysql': 'mysql.png',
-      'postgresql': 'postgresql.png',
-      'mongodb': 'mongodb.png',
-      'docker': 'docker.png',
-      'azure': 'azure.png',
-      'aws': 'aws.png',
-      'git': 'git.png',
-      'visual studio': 'visualstudio.png',
-      'vs code': 'vscode.png',
-      'java': 'java.png',
-      'python': 'python.png',
-      'php': 'php.png'
-    };
-    
-    const normalizedTech = tech.toLowerCase().trim();
-  const logoFile = techLogoMap[normalizedTech];
-  return logoFile ? `/assets/logos/technologies/small_50x50/${logoFile}` : null;
-  };
-
-  // Helper function to resolve project logo paths based on project name
-  const resolveProjectLogo = (projectName: string): string | null => {
-    // Map project names to their icon filenames
-    const projectLogoMap: { [key: string]: string } = {
-      'JENGAIAPP': 'jengai.app.png',
-      'GAMYTEAPP': 'gamyte.app.png', 
-      'ALISVERISASISTANI': 'alisveris.asistani.png',
-      'PARDUSDOCKER': 'PARDUSDOCKER.png',
-      'ATTP': 'ATTP.png',
-      'ATTPMobile': 'ATTPMobile.png',
-      'PDFW': 'PDFW.png',
-      'VKBS': 'VKBS.png',
-      'ProEmpower': 'ProEmpower.png',
-      'HIS2x': 'HIS2x.png',
-      'ABI': 'ABI.png',
-      'AHBS': 'AHBS.png',
-      'AIS': 'AIS.png'
-    };
-    
-  const logoFile = projectLogoMap[projectName];
-  return logoFile ? `/assets/files/projects/_logos/${logoFile}` : null;
-  };
-
   if (!customer) return null;
-
-  // Helper function to get partnership status color
-  const getPartnershipStatusColor = (status?: string) => {
-    switch (status) {
-      case 'active': return 'bg-green-100 text-green-800 border-green-200';
-      case 'ongoing': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'completed': return 'bg-gray-100 text-gray-800 border-gray-200';
-      default: return 'bg-muted text-muted-foreground';
-    }
-  };
 
   // Helper function to format dates
   const formatDate = (dateStr?: string) => {
@@ -422,7 +327,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                   <div className="space-y-3">
                     {customer.companyCodes.map((companyCode, index) => {
                         const companyName = customer.resolvedCompanyNames?.[index];
-                        const logoPath = resolveCompanyLogo(companyCode);
+                        const logoPath = dataHelper.resolveCompanyLogo(companyCode);
                         
                         // Only show company if we have a resolved name (don't show raw codes)
                         if (!companyName) return null;
@@ -476,7 +381,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                   <div className="space-y-3">
                     {customer.projectNames.map((projectName, index) => {
                         const projectTitle = customer.resolvedProjectTitles?.[index] || projectName;
-                        const logoPath = resolveProjectLogo(projectName);
+                        const logoPath = dataHelper.resolveProjectLogo(projectName);
                         
                         return (
                           <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
@@ -547,7 +452,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                 <div className="px-4 py-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                     {customer.technologies.map((tech, index) => {
-                      const logoPath = resolveTechnologyLogo(tech);
+                      const logoPath = dataHelper.resolveTechnologyLogo(tech);
                       const isEven = index % 2 === 0;
                       const isLastInColumn = index === customer.technologies.length - 1 || 
                         (isEven && index === customer.technologies.length - 2 && customer.technologies.length % 2 === 0);

@@ -24,8 +24,7 @@ import {
   Briefcase
 } from "lucide-react";
 import { getTechnologyLogo } from "@/lib/technologyLogos";
-import projectsData from "@/data/projects.json";
-import { ProjectEntry, ProjectsData } from '@/models';
+import dataHelper from '@/lib/datahelper';
 
 interface Technology {
   name: string;
@@ -36,31 +35,6 @@ interface Project {
   name: string;
   title: string;
 }
-
-  // Helper to resolve project logo path (prefer projects.json data, fall back to map)
-  const resolveProjectLogo = (projectName: string): string | null => {
-    if (!projectName) return null;
-
-    try {
-      const entries: ProjectEntry[] = (projectsData as ProjectsData).items;
-      if (entries.length === 0) return null;
-
-      const match = entries.find((p) => { return p.name.toUpperCase() === projectName.toUpperCase(); });
-
-      console.log('resolveProjectLogo:', { projectName, entries, match });
-
-      if (match?.icon) {
-        const icon = match.icon;
-        return icon.startsWith('/') ? icon : `/assets/files/projects/_logos/${icon}`;
-      }
-    } catch (err) {
-      // ignore and return null if projects.json lookup fails
-      return null;
-    }
-
-    // If no match found in projects.json, return null
-    return null;
-  };
 
 interface Domain {
   name: string;
@@ -380,7 +354,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                 {allProjects.length > 0 ? (
                   <div className="space-y-3">
                     {allProjects.map((project, index) => {
-                      const logoPath = resolveProjectLogo(project.name);
+                      const logoPath = dataHelper.resolveProjectLogo(project.name);
 
                       return (
                         <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Filter, Grid, List, RotateCcw, ChevronLeft, ChevronRight, Search, Building2, Globe, Users } from "lucide-react";
 import CustomerDetailDialog from './CustomerDetailDialog';
 import type { Customer, CustomerData } from '@/models/Customer';
+import dataHelper from '@/lib/datahelper';
 
 interface Experience {
   companyCode: string;
@@ -101,24 +102,6 @@ const CustomersSection = () => {
   const [searchText, setSearchText] = useState("");
   const statsRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
-
-  // Helper function to resolve company codes to company names
-  const resolveCompanyNames = (companyCodes: string[] = []): string[] => {
-    if (!experiencesData) return [];
-    return companyCodes.map(code => {
-      const experience = experiencesData.items.find(exp => exp.companyCode === code);
-      return experience ? experience.companyName : code;
-    });
-  };
-
-  // Helper function to resolve project names to project titles
-  const resolveProjectTitles = (projectNames: string[] = []): string[] => {
-    if (!projectsData) return [];
-    return projectNames.map(name => {
-      const project = projectsData.items.find(proj => proj.name === name);
-      return project ? project.title : name;
-    });
-  };
 
   // Extract industry/category from customer name or title
   const categorizeCustomer = (customer: Customer): string => {
@@ -259,8 +242,8 @@ const CustomersSection = () => {
     // Create customer object with resolved company names and project titles
     const customerWithResolvedData: Customer = {
       ...customer,
-      resolvedCompanyNames: resolveCompanyNames(customer.companyCodes),
-      resolvedProjectTitles: resolveProjectTitles(customer.projectNames)
+      resolvedCompanyNames: dataHelper.resolveCompanyNames(customer.companyCodes),
+      resolvedProjectTitles: dataHelper.resolveProjectTitles(customer.projectNames)
     };
     
     setSelectedCustomer(customerWithResolvedData);
@@ -364,7 +347,7 @@ const CustomersSection = () => {
             {/* Associated Companies */}
             {customer.companyCodes && customer.companyCodes.length > 0 && (
               <div className="flex flex-wrap gap-1 mb-2">
-                {resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
+                {dataHelper.resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
                   <Badge key={index} variant="secondary" className="text-xs">
                     {companyName}
                   </Badge>
@@ -435,7 +418,7 @@ const CustomersSection = () => {
                 {/* Associated Companies */}
                 {customer.companyCodes && customer.companyCodes.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2 justify-center">
-                    {resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
+                    {dataHelper.resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
                       <Badge key={index} variant="secondary" className="text-xs">
                         {companyName}
                       </Badge>
@@ -507,7 +490,7 @@ const CustomersSection = () => {
               {/* Associated Companies */}
               {customer.companyCodes && customer.companyCodes.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-3 justify-center">
-                  {resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
+                  {dataHelper.resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
                     <Badge key={index} variant="secondary" className="text-xs">
                       {companyName}
                     </Badge>
