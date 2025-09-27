@@ -54,6 +54,7 @@ interface ProjectData {
   projects: Project[];
   categories: string[];
   companyLogos: { [key: string]: string };
+  companyLogosUrl?: { [key: string]: string };
   techIcons: { [key: string]: string };
   techIconNames: { [key: string]: string };
 }

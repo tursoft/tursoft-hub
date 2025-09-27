@@ -77,8 +77,8 @@ export class DataHelper
         });
     };
 
-    // Helper function to resolve company logo paths
-    resolveCompanyLogo(companyCode: string): string | null {
+    // Helper function to resolve company logo URL (path) for a company code
+    resolveCompanyLogoUrl(companyCode: string): string | null {
         // Map company codes to logo filenames
         const logoMap: { [key: string]: string } = {
                             'ERC': 'erc.png',
@@ -96,6 +96,12 @@ export class DataHelper
         
         const logoFile = logoMap[companyCode];
         return logoFile ? `/assets/logos/companies/${logoFile}` : null;
+    };
+
+    // Backwards-compatible alias for older code that called resolveCompanyLogo
+    // Keep this thin wrapper so other modules continue to work until fully migrated.
+    resolveCompanyLogo(companyCode: string): string | null {
+        return this.resolveCompanyLogoUrl(companyCode);
     };
 
     // Helper function to resolve technology logo paths
