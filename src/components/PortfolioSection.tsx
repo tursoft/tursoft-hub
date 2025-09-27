@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Filter, Grid, List, RotateCcw, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import ProjectDetailDialog from './ProjectDetailDialog';
+import dataHelper from '@/lib/datahelper';
 
 // Define interfaces for type safety
 interface Project {
@@ -158,18 +159,8 @@ const PortfolioSection = () => {
   useEffect(() => {
     const loadProjectData = async () => {
       try {
-        const response = await fetch('/data/projects.json');
-        const data: NewProjectData = await response.json();
-        setProjectData(data);
-
-        // Create project icon map using direct asset paths
-        const projectIcons: { [key: string]: string } = {};
-        for (const project of data.items) {
-          if (project.icon) {
-            // Use direct asset path for reliable loading in production
-            projectIcons[project.name] = `/assets/files/projects/_logos/${project.icon}`;
-          }
-        }
+        const projectData = await dataHelper.getProjectsData();
+        const projectIcons = await dataHelper.getProjectIconMap(projectData);
         setProjectIconMap(projectIcons);
 
       } catch (error) {

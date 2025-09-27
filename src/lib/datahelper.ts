@@ -26,6 +26,10 @@ export class DataHelper
         this.experiencesData = experiencesData;
         this.projectsData = projectsData;
     }
+    
+    getProjectsData(): ProjectsData {
+        return this.projectsData;
+    }
 
     // Helper to resolve project logo path (prefer projects.json data, fall back to map)
     resolveProjectLogo(projectName: string): string | null {
@@ -156,6 +160,20 @@ export class DataHelper
         const candidate = entry.logo || entry.icon || '';
         if (!candidate) return null;
         return candidate.startsWith('/') ? candidate : `/assets/files/projects/_logos/${candidate}`;
+    }
+
+    getProjectIconMap(projectsData: ProjectsData): { [key: string]: string } {
+       
+        // Create project icon map using direct asset paths
+        const projectIcons: { [key: string]: string } = {};
+        for (const project of projectsData.items) {
+          if (project.icon) {
+            // Use direct asset path for reliable loading in production
+            projectIcons[project.name] = `/assets/files/projects/_logos/${project.icon}`;
+          }
+        }
+
+        return projectIcons;
     }
 }
 
