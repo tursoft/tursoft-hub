@@ -35,17 +35,7 @@ export interface ProjectsData {
 export const normalizeProjectKey = (s?: string) =>
   (s || '').toString().replace(/[^a-z0-9]/gi, '').toUpperCase();
 
-/**
- * Resolve the actual logo path for a project entry.
- * If entry.logo or entry.icon is provided as a relative filename the function
- * returns a prefixed path under /assets/files/projects/_logos/ otherwise returns as-is.
- */
-export function getProjectLogoPath(entry?: ProjectEntry | null): string | null {
-  if (!entry) return null;
-  const candidate = entry.logo || entry.icon || '';
-  if (!candidate) return null;
-  return candidate.startsWith('/') ? candidate : `/assets/files/projects/_logos/${candidate}`;
-}
+
 
 /**
  * Create a ProjectEntry from a raw object (from JSON). This performs minimal
