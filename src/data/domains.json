@@ -5,6 +5,9 @@
        { "id": 3, "name": "ecommerce", "title": "E-Commerce", "value":100, "iconCss": "ShoppingCart" },
        { "id": 4, "name": "video", "title": "Video Streaming", "value":100, "iconCss": "Play" },
        { "id": 5, "name": "cms", "title": "Content Management Systems", "value":100, "iconCss": "FileText" },
-       { "id": 6, "name": "gaming", "title": "Game Development", "value":100, "iconCss": "Gamepad2" }
+       { "id": 6, "name": "gaming", "title": "Game Development", "value":100, "iconCss": "Gamepad2" },
+       { "id": 7, "name": "certifications", "title": "Digital Certifications", "value":100, "iconCss": "Certificate" },
+       { "id": 8, "name": "shopping", "title": "Shopping", "value":100, "iconCss": "ShoppingBag" },
+       { "id": 9, "name": "construction", "title": "Construction", "value":100, "iconCss": "Building" }
    ]
 }

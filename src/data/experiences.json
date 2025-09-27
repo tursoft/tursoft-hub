@@ -18,20 +18,7 @@
                     "startDate": "01.01.2018",
                     "endDate": "30.07.2019",
                     "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-                    "domains": [
-                        {
-                            "name": "healthcareit",
-                            "title": "Healthcare Informatics",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "certifications",
-                            "title": "Digital Certifications",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["healthcareit", "certifications"],
                     "projects": [
                         "certify.health"
                     ],
@@ -70,14 +57,7 @@
                     "startDate": "01.12.2023",
                     "endDate": null,
                     "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-                    "domains": [
-                        {
-                            "name": "construction",
-                            "title": "Construction Informatics",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["construction"],
                     "projects": [
                         "JENGAIAPP"
                     ],
@@ -124,14 +104,7 @@
                     "startDate": "04.09.2019",
                     "endDate": "01.12.2023",
                     "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-                    "domains": [
-                        {
-                            "name": "construction",
-                            "title": "Construction Informatics",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["construction"],
                     "projects": [
                         "GAMYTEAPP"
                     ],
@@ -178,14 +151,7 @@
                     "startDate": "20.05.2013",
                     "endDate": "03.09.2019",
                     "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-                    "domains": [
-                        {
-                            "name": "healthcareit",
-                            "title": "Healthcare Informatics",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["healthcareit"],
                     "projects": [
                         "ProEmpower",
                         "PDFWCore",
@@ -294,26 +260,7 @@
                     "startDate": "01.01.2012",
                     "endDate": "20.05.2013",
                     "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-                    "domains": [
-                        {
-                            "name": "healthcareit",
-                            "title": "Healthcare Informatics",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "ecommerce",
-                            "title": "E-Commerce",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "video",
-                            "title": "Video Streaming",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["healthcareit", "ecommerce", "video"],
                     "projects": [
                         "PDFW",
                         "Avicenna2x",
@@ -389,20 +336,7 @@
                     "startDate": "16.08.2011",
                     "endDate": "01.01.2012",
                     "summary": "Full-Stack Development (Frontend and Backend), Leading, Mentoring and Technical Consultancy, Development of Research and Development Projects, Framework Development",
-                    "domains": [
-                        {
-                            "name": "healthcareit",
-                            "title": "Healthcare Informatics",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "ecommerce",
-                            "title": "E-Commerce",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["healthcareit", "ecommerce"],
                     "projects": [
                         "PDFWSL",
                         "CMS",
@@ -450,14 +384,7 @@
                     "startDate": "01.01.2010",
                     "endDate": "13.08.2011",
                     "summary": "Management of R&D Team, Framework Development.",
-                    "domains": [
-                        {
-                            "name": "healthcareit",
-                            "title": "Healthcare Informatics",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["healthcareit"],
                     "projects": [
                         "FonetFW",
                         "FonetStudio",
@@ -491,14 +418,7 @@
                     "startDate": "16.09.2009",
                     "endDate": "01.01.2010",
                     "summary": "Framework Development",
-                    "domains": [
-                        {
-                            "name": "healthcareit",
-                            "title": "Healthcare Informatics",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["healthcareit"],
                     "projects": [
                         "FonetFW",
                         "FonetHBYS",
@@ -564,32 +484,7 @@
                     "startDate": "01.01.2007",
                     "endDate": "01.09.2008",
                     "summary": "Production Planning, Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
-                    "domains": [
-                        {
-                            "name": "elearning",
-                            "title": "E-Learning",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "ecommerce",
-                            "title": "E-Commerce",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "video",
-                            "title": "Video Streaming",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "cms",
-                            "title": "Content Management Systems",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["elearning", "ecommerce", "video", "cms"],
                     "projects": [
                         "HEP"
                     ],
@@ -617,32 +512,7 @@
                     "startDate": "01.01.2005",
                     "endDate": "01.01.2007",
                     "summary": "Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
-                    "domains": [
-                        {
-                            "name": "elearning",
-                            "title": "E-Learning",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "ecommerce",
-                            "title": "E-Commerce",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "video",
-                            "title": "Video Streaming",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "cms",
-                            "title": "Content Management Systems",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["elearning", "ecommerce", "video", "cms"],
                     "projects": [
                         "HEP",
                         "UNHCR",
@@ -672,20 +542,7 @@
                     "startDate": "01.01.2004",
                     "endDate": "01.01.2005",
                     "summary": "Design & Imlementation of Software Project Architectures.<br/> Tool, Halıcı Frizbi",
-                    "domains": [
-                        {
-                            "name": "elearning",
-                            "title": "E-Learning",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "cms",
-                            "title": "Content Management Systems",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["elearning", "cms"],
                     "projects": [
                         "HEP",
                         "EDISA",
@@ -723,14 +580,7 @@
                     "startDate": "01.09.2003",
                     "endDate": "01.06.2004",
                     "summary": "I have developed a LMS portal system. Technologies: ASP.NET, C#,  VB.NET, MS SQL, HTML, CSS, JS",
-                    "domains": [
-                        {
-                            "name": "elearning",
-                            "title": "E-Learning",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["elearning"],
                     "projects": [
                         "BotebOnline",
                         "EGM"
@@ -764,20 +614,7 @@
                     "startDate": "01.05.2003",
                     "endDate": "01.08.2004",
                     "summary": "I have worked on development of an LMS System",
-                    "domains": [
-                        {
-                            "name": "elearning",
-                            "title": "E-Learning",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "cms",
-                            "title": "Content Management Systems",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["elearning", "cms"],
                     "skillCodes": [
                         "Java",
                         "MySQL",
@@ -793,20 +630,7 @@
                     "startDate": "01.01.2002",
                     "endDate": "01.01.2003",
                     "summary": "I have worked on development of an E-Learning System",
-                    "domains": [
-                        {
-                            "name": "elearning",
-                            "title": "E-Learning",
-                            "value": 100,
-                            "iconCss": ""
-                        },
-                        {
-                            "name": "cms",
-                            "title": "Content Management Systems",
-                            "value": 100,
-                            "iconCss": ""
-                        }
-                    ],
+                    "domainCodes": ["elearning", "cms"],
                     "skillCodes": [
                         ".NET",
                         "MySQL",
@@ -830,6 +654,7 @@
                     "startDate": "01.10.2001",
                     "endDate": "01.06.2003",
                     "summary": "I have worked on development of an E-Learning System",
+                    "domainCodes": ["elearning"],
                     "skillCodes": [
                         "PHP",
                         "MySQL",
@@ -853,6 +678,7 @@
                     "startDate": "01.01.2003",
                     "endDate": "01.01.2004",
                     "summary": "I have developed a Web-based Customer Support System using PHP and MySQL",
+                    "domainCodes": ["elearning"],
                     "projects": [
                         "CSC"
                     ],
@@ -879,6 +705,7 @@
                     "startDate": "01.10.2001",
                     "endDate": "01.07.2002",
                     "summary": "I have developed a Web-portal of this student Club",
+                    "domainCodes": ["elearning"],
                     "skillCodes": [
                         "PHP",
                         "MySQL",
@@ -902,6 +729,7 @@
                     "startDate": "01.01.2002",
                     "endDate": "01.01.2003",
                     "summary": "I have developed a Web-portal of this student Club",
+                    "domainCodes": ["elearning"],
                     "skillCodes": [
                         "PHP",
                         "MySQL",
@@ -925,6 +753,7 @@
                     "startDate": "01.06.2000",
                     "endDate": "01.09.2002",
                     "summary": "I have developed an online pooling system using PHP and MySQL",
+                    "domainCodes": ["elearning"],
                     "skillCodes": [
                         "PHP",
                         "MySQL",
@@ -948,6 +777,7 @@
                     "startDate": "01.05.2000",
                     "endDate": "01.05.2001",
                     "summary": "I have designed website for Youth Branch of TBD",
+                    "domainCodes": ["elearning"],
                     "skillCodes": [
                         "HTML5",
                         "JS",

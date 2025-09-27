@@ -85,19 +85,9 @@
           "title": "English"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        },
-        {
-          "name": "certifications",
-          "title": "Digital Certifications",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit",
+        "certifications"
       ],
       "modules": [
         "Digital Certificate Management",
@@ -106,7 +96,7 @@
         "Secure Authentication & Authorization",
         "Compliance & Audit Trails"
       ],
-      "customerNames": [],
+      "customerCodes": [],
       "partners": [],
       "team": [
         {
@@ -182,13 +172,8 @@
           "title": "Chrome Extensions"
         }
       ],
-      "domains": [
-        {
-          "name": "shopping",
-          "title": "Shopping",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "shopping"
       ],
       "team": [
         {
@@ -198,7 +183,7 @@
         }
       ],
       "modules": [],
-      "customerNames": [],
+      "customerCodes": [],
       "partners": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
@@ -222,13 +207,8 @@
           "title": "Web Platform"
         }
       ],
-      "domains": [
-        {
-          "name": "construction",
-          "title": "Construction",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "construction"
       ],
       "team": [
         {
@@ -238,7 +218,7 @@
         }
       ],
       "modules": [],
-      "customerNames": [],
+      "customerCodes": [],
       "partners": [],
       "skillCodes": ["C"],
       "companyCode": "jengai",
@@ -262,13 +242,8 @@
           "title": "Web Platform"
         }
       ],
-      "domains": [
-        {
-          "name": "construction",
-          "title": "Construction",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "construction"
       ],
       "team": [
         {
@@ -278,7 +253,7 @@
         }
       ],
       "modules": [],
-      "customerNames": [],
+      "customerCodes": [],
       "partners": [],
       "skillCodes": ["C"],
       "companyCode": "gamyte",
@@ -302,7 +277,7 @@
           "title": "Docker"
         }
       ],
-      "domains": [],
+      "domainCodes": [],
       "team": [
         {
           "position": "Team Leader",
@@ -314,7 +289,7 @@
         "Pardus Base Docker Image",
         "Populer Docker Images on Pardus Base Image"
       ],
-      "customerNames": [],
+      "customerCodes": [],
       "partners": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
@@ -342,13 +317,8 @@
           "title": "VPOS Integration"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
       "team": [
         {
@@ -375,7 +345,7 @@
         "Reporting",
         "Security Management"
       ],
-      "customerNames": ["LIFEWATCH.CH"],
+      "customerCodes": ["LIFEWATCH.CH"],
       "partners": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
@@ -461,13 +431,8 @@
           "title": "Mobile"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
       "team": [
         {
@@ -481,7 +446,7 @@
           "personCode": "ertemyazici"
         }
       ],
-      "customerNames": ["LIFEWATCH.CH"],
+      "customerCodes": ["LIFEWATCH.CH"],
       "skillCodes": ["C"],
       "companyCode": "ERC",
       "logoUrl": "assets/logos/projects/ATTPMobile.png"
@@ -503,13 +468,8 @@
           "title": "Mobile"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
       "team": [
         {
@@ -528,6 +488,7 @@
           "personCode": "cankatabaci"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
       "logoUrl": "assets/logos/projects/HIS2x.png"
@@ -553,13 +514,8 @@
           "title": "SaS"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
       "team": [
         {
@@ -578,6 +534,7 @@
           "personCode": "cankatabaci"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
       "logoUrl": "assets/logos/projects/EPR.png"
@@ -603,6 +560,7 @@
           "title": "Social Responsibility Project"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
       "logoUrl": "assets/logos/projects/soyagaciniznet.png"
@@ -624,14 +582,10 @@
           "title": "Desktop"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
       "logoUrl": "assets/logos/projects/FDS.png"
@@ -653,7 +607,7 @@
           "title": "Web"
         }
       ],
-      "customerNames": ["BAYINDIR.TR"],
+      "customerCodes": ["BAYINDIR.TR"],
       "team": [
         {
           "position": "Team Leader",
@@ -687,20 +641,11 @@
           "title": "Tubitak Project"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        },
-        {
-          "name": "ecommerce",
-          "title": "E-Commerce",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit",
+        "ecommerce"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/AHIN.png"
@@ -734,15 +679,10 @@
           "title": "Multi Database Support"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
-      "customerNames": ["MOH.TR", "SPMS.PT"],
+      "customerCodes": ["MOH.TR", "SPMS.PT"],
       "partners": [
         "ERC / Turkey",
         "Gnomon / Greece",
@@ -792,6 +732,7 @@
           "personCode": "ertemyazici"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
       "logoUrl": "assets/logos/projects/APM.png"
@@ -821,15 +762,10 @@
           "title": "Multi Language Support (Turkish, English, Arabic, Albanian)"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
-      "customerNames": ["MOH.PAL", "H.IbniSina"],
+      "customerCodes": ["MOH.PAL", "H.IbniSina"],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/HIS2x.png"
@@ -859,13 +795,8 @@
           "title": "English"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
       "team": [
         {
@@ -889,8 +820,8 @@
           "personCode": "onurkipel"
         }
       ],
+      "customerCodes": ["MOH.KSA"],
       "skillCodes": ["C"],
-      "customerNames": ["MOH.KSA"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/AIS.png"
     },
@@ -915,13 +846,8 @@
           "title": "Multi Database Support"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
       "team": [
         {
@@ -950,6 +876,7 @@
           "personCode": "alpercetinkaya"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/EDIS.png"
@@ -979,13 +906,8 @@
           "title": "Multi Language Support (Turkish, English)"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
       "team": [
         {
@@ -1019,6 +941,7 @@
           "personCode": "alpercetinkaya"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/CMS.png"
@@ -1052,6 +975,9 @@
           "title": "Multi Language Support (Turkish, English)"
         }
       ],
+      "domainCodes": [
+        "healthcareit"
+      ],
       "team": [
         {
           "position": "Team Leader",
@@ -1074,14 +1000,7 @@
           "personCode": "kemalbirer"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
-      ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/CQRE.png"
@@ -1142,14 +1061,9 @@
           "personCode": "gulpembeergin"
         }
       ],
-      "customerNames": ["MOH.TR", "H.IbniSina"],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "customerCodes": ["MOH.TR", "H.IbniSina"],
+      "domainCodes": [
+        "healthcareit"
       ],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
@@ -1189,6 +1103,7 @@
           "personCode": "onurkipel"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/FastEyes.png"
@@ -1204,13 +1119,8 @@
         "endDate": "01.10.2014"
       },
       "summary": "Remote Patient Management System having embedded webcast and video streaming module",
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
       "props": [
         {
@@ -1243,6 +1153,7 @@
           "personCode": "davutgurbuz"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/RPMS.png"
@@ -1268,13 +1179,8 @@
           "title": "SaS"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
       "team": [
         {
@@ -1318,6 +1224,7 @@
           "personCode": "alpercetinkaya"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
       "logoUrl": "assets/logos/projects/AHBS.png"
@@ -1343,15 +1250,10 @@
           "title": "Web"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
-      "customerNames": ["MOH.TR"],
+      "customerCodes": ["MOH.TR"],
       "skillCodes": ["C"],
       "companyCode": "FONET",
       "logoUrl": "assets/logos/projects/FonetHBYS.png"
@@ -1393,14 +1295,10 @@
           "personCode": "mehmetgoren"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "FONET",
       "logoUrl": "assets/logos/projects/FonetFW.png"
@@ -1438,14 +1336,10 @@
           "personCode": "mehmetgoren"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "FONET",
       "logoUrl": "assets/logos/projects/FonetStudio.png"
@@ -1479,6 +1373,7 @@
           "personCode": "ozlemtursak"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "FONET",
       "logoUrl": "assets/logos/projects/FonetLog.png"
@@ -1527,14 +1422,10 @@
           "personCode": "fatihekici"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "FONET",
       "logoUrl": "assets/logos/projects/FonetInventory.png"
@@ -1587,6 +1478,10 @@
           "title": "Tubitak Project"
         }
       ],
+      "domainCodes": [
+        "elearning"
+      ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Halici",
       "logoUrl": "assets/logos/projects/HEP.png"
@@ -1639,6 +1534,7 @@
           "title": "VPOS Integration"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Halici",
       "logoUrl": "assets/logos/projects/HEP.png"
@@ -1685,6 +1581,10 @@
           "title": "SCORM"
         }
       ],
+      "domainCodes": [
+        "elearning"
+      ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Halici",
       "logoUrl": "assets/logos/projects/EDISA.png"
@@ -1722,6 +1622,7 @@
           "title": "Academic Project"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
       "logoUrl": "assets/logos/projects/UNHCR.png"
@@ -1751,6 +1652,7 @@
           "title": "Academic Project"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "LABRIS",
       "logoUrl": "assets/logos/projects/CSC.png"
@@ -1802,6 +1704,10 @@
           "title": "Academic Project"
         }
       ],
+      "domainCodes": [
+        "elearning"
+      ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
       "logoUrl": "assets/logos/projects/OCMS.png"
@@ -1831,6 +1737,10 @@
           "title": "Academic Project"
         }
       ],
+      "domainCodes": [
+        "elearning"
+      ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
       "logoUrl": "assets/logos/projects/OCCM.png"
@@ -1863,7 +1773,7 @@
           "personCode": "mustafauysal"
         }
       ],
-      "customerNames": ["EGM.TR", "DPT.TR"],
+      "customerCodes": ["EGM.TR", "DPT.TR"],
       "props": [
         {
           "name": "platforms",
@@ -1873,6 +1783,9 @@
           "name": "mode",
           "title": "Video Streaming"
         }
+      ],
+      "domainCodes": [
+        "elearning"
       ],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
@@ -1901,12 +1814,15 @@
           "personCode": "mustafauysal"
         }
       ],
-      "customerNames": ["AU.TR"],
+      "customerCodes": ["AU.TR"],
       "props": [
         {
           "name": "platforms",
           "title": "Web"
         }
+      ],
+      "domainCodes": [
+        "elearning"
       ],
       "skillCodes": ["C"],
       "companyCode": "HALICI",
@@ -1946,6 +1862,7 @@
           "title": "Video Streaming"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Halici",
       "logoUrl": "assets/logos/projects/dsp.png"
@@ -1983,6 +1900,7 @@
           "title": "Video Streaming"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
       "logoUrl": "assets/logos/projects/BotebOnline.png"
@@ -2029,6 +1947,11 @@
           "title": "Academic Project"
         }
       ],
+      "domainCodes": [
+        "elearning",
+        "gaming"
+      ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
       "logoUrl": "assets/logos/projects/Efsane.png"
@@ -2066,6 +1989,10 @@
           "title": "Academic Project"
         }
       ],
+      "domainCodes": [
+        "gaming"
+      ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
       "logoUrl": "assets/logos/projects/The358Game.png"
@@ -2117,6 +2044,10 @@
           "personCode": "hasanbasaran"
         }
       ],
+      "domainCodes": [
+        "elearning"
+      ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
       "logoUrl": "assets/logos/projects/BenKimim.png"
@@ -2146,20 +2077,11 @@
           "title": "Interpreter"
         }
       ],
-      "domains": [
-        {
-          "name": "elearning",
-          "title": "E-Learning",
-          "value": 100,
-          "iconCss": ""
-        },
-        {
-          "name": "gaming",
-          "title": "Game Development",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "elearning",
+        "gaming"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
       "logoUrl": "assets/logos/projects/CilginTosba.png"
@@ -2189,20 +2111,11 @@
           "title": "Academic Project"
         }
       ],
-      "domains": [
-        {
-          "name": "elearning",
-          "title": "E-Learning",
-          "value": 100,
-          "iconCss": ""
-        },
-        {
-          "name": "gaming",
-          "title": "Game Development",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "elearning",
+        "gaming"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
       "logoUrl": "assets/logos/projects/DarkRoom.png"
@@ -2232,20 +2145,11 @@
           "title": "Academic Project"
         }
       ],
-      "domains": [
-        {
-          "name": "elearning",
-          "title": "E-Learning",
-          "value": 100,
-          "iconCss": ""
-        },
-        {
-          "name": "gaming",
-          "title": "Game Development",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "elearning",
+        "gaming"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
       "logoUrl": "assets/logos/projects/EgikAtis.png"
@@ -2287,20 +2191,11 @@
           "title": "Academic Project"
         }
       ],
-      "domains": [
-        {
-          "name": "elearning",
-          "title": "E-Learning",
-          "value": 100,
-          "iconCss": ""
-        },
-        {
-          "name": "gaming",
-          "title": "Game Development",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "elearning",
+        "gaming"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
       "logoUrl": "assets/logos/projects/KriptoTurkiyede.png"
@@ -2343,14 +2238,10 @@
           "title": "Academic Project"
         }
       ],
-      "domains": [
-        {
-          "name": "elearning",
-          "title": "E-Learning",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "elearning"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": null,
       "logoUrl": "assets/logos/projects/Eders.png"
@@ -2376,6 +2267,7 @@
           "title": "Social Responsibility Project"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": null,
       "logoUrl": "assets/logos/projects/METU_ILT.png"
@@ -2413,6 +2305,7 @@
           "personCode": "mustafauysal"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": null,
       "logoUrl": "assets/logos/projects/XMessenger.png"
@@ -2438,14 +2331,10 @@
           "title": "PayPal Integration"
         }
       ],
-      "domains": [
-        {
-          "name": "ecommerce",
-          "title": "E-Commerce",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "ecommerce"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/EditMyTurkish.png"
@@ -2467,6 +2356,7 @@
           "title": "Web"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/Eyedder.png"
@@ -2492,6 +2382,7 @@
           "title": "Social Responsibility Project"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/BiltekOnline.png"
@@ -2513,6 +2404,7 @@
           "title": "Web"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/BootCamp.png"
@@ -2538,6 +2430,7 @@
           "title": "Social Responsibility Project"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/Btie2004.png"
@@ -2563,7 +2456,7 @@
           "title": "Social Responsibility Project"
         }
       ],
-      "customerNames": ["TUBITAK.TR", "IEEE.METU"],
+      "customerCodes": ["TUBITAK.TR", "IEEE.METU"],
       "team": [
         {
           "position": "Web Team Leader",
@@ -2624,6 +2517,7 @@
           "title": "Desktop"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/DizgiPro.png"
@@ -2661,6 +2555,7 @@
           "personCode": "serdarcicek"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/EOkullar.png"
@@ -2686,6 +2581,7 @@
           "title": "Web"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/ProjeNedir.png"
@@ -2707,6 +2603,7 @@
           "title": "Desktop"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": null,
       "logoUrl": "assets/logos/projects/JandarmaBYS.png"
@@ -2728,6 +2625,7 @@
           "title": "Desktop"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": null,
       "logoUrl": "assets/logos/projects/JandarmaATS.png"
@@ -2761,6 +2659,7 @@
           "title": "Desktop"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/tursoft.stock.png"
@@ -2782,6 +2681,7 @@
           "title": "Desktop"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/tursoft.paint.png"
@@ -2803,6 +2703,7 @@
           "title": "Desktop"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/tursoft.animmaker.png"
@@ -2824,14 +2725,10 @@
           "title": "Desktop"
         }
       ],
-      "domains": [
-        {
-          "name": "gaming",
-          "title": "Game Development",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "gaming"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/tursoft.tetris.jpg"
@@ -2853,14 +2750,10 @@
           "title": "Desktop"
         }
       ],
-      "domains": [
-        {
-          "name": "gaming",
-          "title": "Game Development",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "gaming"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/tursoft.packman.png"
@@ -2894,14 +2787,10 @@
           "title": "Desktop"
         }
       ],
-      "domains": [
-        {
-          "name": "elearning",
-          "title": "E-Learning",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "elearning"
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/tursoft.questionbank.png"
@@ -2923,6 +2812,7 @@
           "title": "Web"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/tursoft.logo.png"
@@ -2956,6 +2846,7 @@
           "title": "Web"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/kocaeli_valilik.png"
@@ -2977,6 +2868,7 @@
           "title": "Web"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/tursoft.logo.png"
@@ -2992,6 +2884,7 @@
         "endDate": "12.10.2017"
       },
       "summary": "A docker image containg a small tool to browse exposed endpoints of a dockerhost node. It is deployed on dockerhub. <br/>URL: https://tursoft.github.io/docker_manager/.",
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
       "logoUrl": "assets/logos/projects/dockermaster.logo.small.png"
@@ -3013,7 +2906,7 @@
           "title": "Web"
         }
       ],
-      "customerNames": ["H.IbniSina", "AU.TR"],
+      "customerCodes": ["H.IbniSina", "AU.TR"],
       "team": [
         {
           "position": "Group Leader",
@@ -3075,15 +2968,11 @@
           "title": "Turkish"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit",
+        "elearning"
       ],
-      "customerNames": ["Turkish Hospitals", "Ministry of Health / Turkey"],
+      "customerCodes": ["Turkish Hospitals", "Ministry of Health / Turkey"],
       "partners": [],
       "team": [
         {
@@ -3167,15 +3056,11 @@
           "title": "Turkish"
         }
       ],
-      "domains": [
-        {
-          "name": "healthcareit",
-          "title": "Healthcare Informatics",
-          "value": 100,
-          "iconCss": ""
-        }
+      "domainCodes": [
+        "healthcareit",
+        "elearning"
       ],
-      "customerNames": [
+      "customerCodes": [
         "Private Medical Clinics / Turkey",
         "Individual Medical Practitioners / Turkey"
       ],
@@ -3260,6 +3145,7 @@
           "personCode": "davutgurbuz"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/ATS.png"
@@ -3308,6 +3194,7 @@
           "personCode": "davutgurbuz"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/ATHP.png"
@@ -3356,6 +3243,7 @@
           "personCode": "davutgurbuz"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/IHBS.png"
@@ -3404,6 +3292,7 @@
           "personCode": "davutgurbuz"
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
       "logoUrl": "assets/logos/projects/sagliktakipcim.png"
@@ -3472,6 +3361,7 @@
           "personCode": null
         }
       ],
+      "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Halici",
       "logoUrl": "assets/logos/projects/frizbi.jpg"
