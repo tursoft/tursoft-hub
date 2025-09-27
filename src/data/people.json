@@ -1,0 +1,710 @@
+{
+    "general": {
+        "title": "People",
+        "summary": "Combined people from references and project teams."
+    },
+    "items": [
+        {
+            "id": 1,
+            "code": "andonisphilippidis",
+            "name": "Andonis Philippidis",
+            "photoUrl": "assets/references/andonis.philippidis.jpg",
+            "company": "Datasel",
+            "contacts": [
+                {
+                    "code": "phone",
+                    "value": "+90 533 291 05 22"
+                },
+                {
+                    "code": "email",
+                    "value": "a.filippidis@datasel.com.tr"
+                },
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/andonis-filippidis-9731364/"
+                },
+                {
+                    "code": "twitter",
+                    "value": "https://twitter.com/A_Filippidis"
+                },
+                {
+                    "code": "facebook",
+                    "value": "https://www.facebook.com/andonis"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "code": "myasarozden",
+            "name": "Prof. Dr. M. Yaşar Özden",
+            "photoUrl": "assets/references/myozden.jpg",
+            "company": "Doğu Akdeniz Üniversitesi",
+            "contacts": [
+                {
+                    "code": "phone",
+                    "value": "+90 392 630 3128"
+                },
+                {
+                    "code": "email",
+                    "value": "myozden@gmail.com"
+                },
+                {
+                    "code": "website",
+                    "value": "http://myozden.blogspot.com/"
+                },
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/m-yasar-ozden-903a725a/"
+                },
+                {
+                    "code": "twitter",
+                    "value": "https://twitter.com/myozden"
+                },
+                {
+                    "code": "facebook",
+                    "value": "https://www.facebook.com/m.yasar.ozden"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "code": "cetinbalanuye",
+            "name": "Çetin Balanuye",
+            "photoUrl": "assets/references/cetin.balanuye.jpg",
+            "company": "Akdeniz University",
+            "contacts": [
+                {
+                    "code": "phone",
+                    "value": "+90 0312 210 00 20"
+                },
+                {
+                    "code": "email",
+                    "value": "balanuye@akdeniz.edu.tr"
+                },
+                {
+                    "code": "website",
+                    "value": "http://www.balanuye.net/main/"
+                },
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/cetin-balanuye-24083547/"
+                },
+                {
+                    "code": "twitter",
+                    "value": "https://twitter.com/balanuye"
+                },
+                {
+                    "code": "facebook",
+                    "value": "https://www.facebook.com/cetin.balanuye"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "code": "kursatcagiltay",
+            "name": "Prof. Dr. Kürşat Çağıltay",
+            "photoUrl": "assets/references/kursat.cagiltay.png",
+            "company": "Middle East Technical University",
+            "contacts": [
+                {
+                    "code": "phone",
+                    "value": "+90 312 210 36 83"
+                },
+                {
+                    "code": "email",
+                    "value": "kursat@metu.edu.tr"
+                },
+                {
+                    "code": "website",
+                    "value": "https://ceit.metu.edu.tr/tr/kursat-cagiltay"
+                },
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/kursat-cagiltay-30651aa/"
+                },
+                {
+                    "code": "twitter",
+                    "value": "https://twitter.com/cagiltay"
+                },
+                {
+                    "code": "facebook",
+                    "value": "https://www.facebook.com/cagiltay"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "code": "alexanderberler",
+            "name": "Alexander Berler",
+            "photoUrl": "assets/references/alexander.berler.jpg",
+            "company": "Gnomon",
+            "contacts": [
+                {
+                    "code": "email",
+                    "value": "a.berler@gnomon.com.gr"
+                },
+                {
+                    "code": "twitter",
+                    "value": "alexanderberler"
+                },
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/aberler"
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "code": "umuthuseyinoglu",
+            "name": "Umut Hüseyinoğlu",
+            "photoUrl": "assets/references/umut.huseyinoglu.jpg",
+            "company": "Hacettepe University",
+            "contacts": [
+                {
+                    "code": "phone",
+                    "value": "+90 312 2978950#121"
+                },
+                {
+                    "code": "email",
+                    "value": "uhus@hacettepe.edu.tr"
+                },
+                {
+                    "code": "website",
+                    "value": "http://aes.hacettepe.edu.tr/uhus"
+                },
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/umut-huseyinoglu-1a2a991b/"
+                },
+                {
+                    "code": "twitter",
+                    "value": "https://twitter.com/uhus"
+                },
+                {
+                    "code": "facebook",
+                    "value": "https://www.facebook.com/umut.huseyinoglu"
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "code": "gulpembeergin",
+            "name": "Gülpembe Ergin",
+            "photoUrl": "assets/references/gulpembe.ergin.jpg",
+            "company": "Ondokuz Mayıs University",
+            "contacts": [
+                {
+                    "code": "phone",
+                    "value": "+90 362 457 6020#6355"
+                },
+                {
+                    "code": "email",
+                    "value": "gulpembe.oguzhan@omu.edu.tr"
+                },
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/gulpembe-ergin-a274b729/"
+                },
+                {
+                    "code": "twitter",
+                    "value": "https://twitter.com/gulpembeergin"
+                },
+                {
+                    "code": "facebook",
+                    "value": "https://www.facebook.com/gulpembe.ergin"
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "code": "firatozerden",
+            "name": "Fırat Özerden",
+            "photoUrl": "assets/references/firat.ozerden.jpg",
+            "company": "Mh Handel GmbH",
+            "contacts": [
+                {
+                    "code": "phone",
+                    "value": "+90 531 509 31 97"
+                },
+                {
+                    "code": "email",
+                    "value": "firatozerden@gmail.com"
+                },
+                {
+                    "code": "skype",
+                    "value": "firat.oezerden"
+                },
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/firatozerden"
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "code": "johansellstrom",
+            "name": "Johan Sellström",
+            "photoUrl": "assets/references/johan.sellstrom.jpg",
+            "company": "Infrion",
+            "contacts": [
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/johansellstrom"
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "code": "aslakfelin",
+            "name": "Aslak Felin",
+            "photoUrl": "assets/references/aslak.felin.jpg",
+            "company": "Infrion",
+            "contacts": [
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/aslakfelin"
+                }
+            ]
+        },
+        {
+            "id": 12,
+            "code": "uweweimer",
+            "name": "Uwe Weimer",
+            "photoUrl": "assets/references/uwe.weimer.jpg",
+            "company": "Medisanté",
+            "contacts": [
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/uweweimer"
+                }
+            ]
+        },
+        {
+            "id": 13,
+            "code": "mehmetalpkarabas",
+            "name": "Dr. Mehmet Alp Karabas",
+            "photoUrl": "assets/references/mehmet.alp.karabas.jpg",
+            "company": "Hylman Group",
+            "contacts": [
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/mehmetalpkarabas"
+                }
+            ]
+        },
+        {
+            "id": 14,
+            "code": "eleftheriapolychronidou",
+            "name": "Eleftheria Polychronidou",
+            "photoUrl": "assets/references/eleftheria.polychronidou.jpg",
+            "company": "Causaly",
+            "contacts": [
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/eleftheriapolychronidou"
+                }
+            ]
+        },
+        {
+            "id": 15,
+            "code": "kostaskarkaletsis",
+            "name": "Kostas Karkaletsis",
+            "photoUrl": "assets/references/kostas.karkaletsis.jpg",
+            "company": "Gnomon Informatics SA",
+            "contacts": [
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/kostaskarkaletsis"
+                }
+            ]
+        },
+        {
+            "id": 16,
+            "code": "velibicer",
+            "name": "Veli Bicer",
+            "photoUrl": "assets/references/veli.bicer.jpg",
+            "company": "A5 Labs",
+            "contacts": [
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/velibicer"
+                }
+            ]
+        },
+        {
+            "id": 17,
+            "code": "erol-ozcelik",
+            "name": "Erol Ozcelik",
+            "photoUrl": "assets/references/erol.ozcelik.jpg",
+            "company": "University Faculty",
+            "contacts": [
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/erolozcelik"
+                }
+            ]
+        },
+        {
+            "id": 18,
+            "code": "mesutdemirer",
+            "name": "Mesut Demirer",
+            "photoUrl": "assets/references/mesut.demirer.jpg",
+            "company": "Infera Teknoloji ve Bilişim Hizmetleri A.Ş.",
+            "contacts": [
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/mesutdemirer"
+                }
+            ]
+        },
+        {
+            "id": 19,
+            "code": "davutgurbuz",
+            "name": "Davut Gürbüz",
+            "photoUrl": "assets/references/davut.gurbuz.jpg",
+            "company": "Cloud Solutions",
+            "contacts": [
+                {
+                    "code": "linkedin",
+                    "value": "https://www.linkedin.com/in/davutgurbuz"
+                }
+            ]
+        },
+        {
+            "id": 20,
+            "code": "mikaelkaron",
+            "name": "Mikael Karon",
+            "photoUrl": null,
+            "company": "Infrion",
+            "contacts": []
+        },
+        {
+            "id": 21,
+            "code": "alexanderkjeldaas",
+            "name": "Alexander Kjeldaas",
+            "photoUrl": null,
+            "company": "Infrion",
+            "contacts": []
+        },
+        {
+            "id": 22,
+            "code": "muhammettursak",
+            "name": "Muhammet Turşak",
+            "photoUrl": null,
+            "company": "Infrion",
+            "contacts": []
+        },
+        {
+            "id": 23,
+            "code": "ertemyazici",
+            "name": "Ertem Yazıcı",
+            "photoUrl": null,
+            "company": "ERC",
+            "contacts": []
+        },
+        {
+            "id": 24,
+            "code": "ekremyildiz",
+            "name": "Ekrem Yıldız",
+            "photoUrl": null,
+            "company": "ERC",
+            "contacts": []
+        },
+        {
+            "id": 25,
+            "code": "cankatabaci",
+            "name": "Cankat Abacı",
+            "photoUrl": null,
+            "company": "ERC",
+            "contacts": []
+        },
+        {
+            "id": 27,
+            "code": "onurkipel",
+            "name": "Onur Kipel",
+            "photoUrl": null,
+            "company": "Datasel",
+            "contacts": []
+        },
+        {
+            "id": 28,
+            "code": "mehmetalicicek",
+            "name": "Mehmet Ali Çiçek",
+            "photoUrl": null,
+            "company": "Datasel",
+            "contacts": []
+        },
+        {
+            "id": 29,
+            "code": "alpercetinkaya",
+            "name": "Alper Çetinkaya",
+            "photoUrl": null,
+            "company": "Datasel",
+            "contacts": []
+        },
+        {
+            "id": 30,
+            "code": "tolgaaktan",
+            "name": "Tolga Aktan",
+            "photoUrl": null,
+            "company": "Datasel",
+            "contacts": []
+        },
+        {
+            "id": 31,
+            "code": "kemalbirer",
+            "name": "Kemal Birer",
+            "photoUrl": null,
+            "company": "Datasel",
+            "contacts": []
+        },
+        {
+            "id": 32,
+            "code": "esraertunc",
+            "name": "Esra Ertunç",
+            "photoUrl": null,
+            "company": "Datasel",
+            "contacts": []
+        },
+        {
+            "id": 33,
+            "code": "duranturemis",
+            "name": "Duran Türemiş",
+            "photoUrl": null,
+            "company": "ERC",
+            "contacts": []
+        },
+        {
+            "id": 34,
+            "code": "eserkalac",
+            "name": "Eser Kalaç",
+            "photoUrl": null,
+            "company": "ERC",
+            "contacts": []
+        },
+        {
+            "id": 35,
+            "code": "ahmetbeskonaklioglu",
+            "name": "Ahmet Beşkonaklıoğlu",
+            "photoUrl": null,
+            "company": "ERC",
+            "contacts": []
+        },
+        {
+            "id": 36,
+            "code": "mehmetgoren",
+            "name": "Mehmet Gören",
+            "photoUrl": null,
+            "company": "Fonet",
+            "contacts": []
+        },
+        {
+            "id": 37,
+            "code": "ozlemtursak",
+            "name": "Özlem Turşak",
+            "photoUrl": null,
+            "company": "Fonet",
+            "contacts": []
+        },
+        {
+            "id": 38,
+            "code": "engincelik",
+            "name": "Engin Çelik",
+            "photoUrl": null,
+            "company": "Fonet",
+            "contacts": []
+        },
+        {
+            "id": 39,
+            "code": "hasanturunc",
+            "name": "Hasan Turunç",
+            "photoUrl": null,
+            "company": "Fonet",
+            "contacts": []
+        },
+        {
+            "id": 40,
+            "code": "naserarab",
+            "name": "Naser Arab",
+            "photoUrl": null,
+            "company": "Fonet",
+            "contacts": []
+        },
+        {
+            "id": 41,
+            "code": "fatihekici",
+            "name": "Fatih Ekici",
+            "photoUrl": null,
+            "company": "Fonet",
+            "contacts": []
+        },
+        {
+            "id": 42,
+            "code": "mustafauysal",
+            "name": "M. Mustafa Uysal",
+            "photoUrl": null,
+            "company": "Halıcı",
+            "contacts": []
+        },
+        {
+            "id": 43,
+            "code": "selceniyisever",
+            "name": "Selcen İyisever",
+            "photoUrl": null,
+            "company": "Halıcı",
+            "contacts": []
+        },
+        {
+            "id": 44,
+            "code": "ugurumutluoglu",
+            "name": "Uğur Umutluoğlu",
+            "photoUrl": null,
+            "company": "Halıcı",
+            "contacts": []
+        },
+        {
+            "id": 45,
+            "code": "erhandurust",
+            "name": "Erhan Dürüst",
+            "photoUrl": null,
+            "company": "Halıcı",
+            "contacts": []
+        },
+        {
+            "id": 46,
+            "code": "evrimbaran",
+            "name": "Evrim Baran",
+            "photoUrl": null,
+            "company": "Halıcı",
+            "contacts": []
+        },
+        {
+            "id": 47,
+            "code": "tayfunyuksel",
+            "name": "Tayfun Yüksel",
+            "photoUrl": null,
+            "company": "CEIT",
+            "contacts": []
+        },
+        {
+            "id": 48,
+            "code": "umitkaya",
+            "name": "Ümit Kaya",
+            "photoUrl": null,
+            "company": "CEIT",
+            "contacts": []
+        },
+        {
+            "id": 49,
+            "code": "erolisik",
+            "name": "Erol Işık",
+            "photoUrl": null,
+            "company": "CEIT",
+            "contacts": []
+        },
+        {
+            "id": 50,
+            "code": "melihtop",
+            "name": "Melih Top",
+            "photoUrl": null,
+            "company": "CEIT",
+            "contacts": []
+        },
+        {
+            "id": 51,
+            "code": "hasanbasaran",
+            "name": "Hasan Başaran",
+            "photoUrl": null,
+            "company": "CEIT",
+            "contacts": []
+        },
+        {
+            "id": 52,
+            "code": "zahideyildirim",
+            "name": "Prof. Dr. Zahide Yıldırım",
+            "photoUrl": null,
+            "company": "METU II",
+            "contacts": []
+        },
+        {
+            "id": 53,
+            "code": "cevahirturgut",
+            "name": "Cevahir Turgut",
+            "photoUrl": null,
+            "company": "Tursoft",
+            "contacts": []
+        },
+        {
+            "id": 54,
+            "code": "ozansener",
+            "name": "Ozan Şener",
+            "photoUrl": null,
+            "company": "Tursoft",
+            "contacts": []
+        },
+        {
+            "id": 55,
+            "code": "serdarcicek",
+            "name": "Serdar Çiçek",
+            "photoUrl": null,
+            "company": "Tursoft",
+            "contacts": []
+        },
+        {
+            "id": 56,
+            "code": "ertugruloral",
+            "name": "Ertuğrul Oral",
+            "photoUrl": null,
+            "company": "Tursoft",
+            "contacts": []
+        },
+        {
+            "id": 57,
+            "code": "ercansuat",
+            "name": "Ercan Suat",
+            "photoUrl": null,
+            "company": "Tursoft",
+            "contacts": []
+        },
+        {
+            "id": 58,
+            "code": "nesetmutlu",
+            "name": "Neşet Mutlu",
+            "photoUrl": null,
+            "company": "Tursoft",
+            "contacts": []
+        },
+        {
+            "id": 59,
+            "code": "emreusta",
+            "name": "Emre Usta",
+            "photoUrl": null,
+            "company": "Tursoft",
+            "contacts": []
+        },
+        {
+            "id": 61,
+            "code": "cetinbalanuye",
+            "name": "Çetin Balanüye",
+            "photoUrl": null,
+            "company": "Halıcı",
+            "contacts": []
+        },
+        {
+            "id": 62,
+            "code": "serkankayranci",
+            "name": "Serkan Kayrancı",
+            "photoUrl": null,
+            "company": "Halıcı",
+            "contacts": []
+        },
+        {
+            "id": 63,
+            "code": "ertaneyimaya",
+            "name": "Ertan Eyimaya",
+            "photoUrl": null,
+            "company": "Halıcı",
+            "contacts": []
+        }
+    ]
+}

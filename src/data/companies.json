@@ -1,0 +1,485 @@
+{
+  "items": [
+    {
+      "code": "infrion",
+      "name": "Infrion",
+      "logo": "/assets/logos/companies/infrion.png",
+      "websiteUrl": "https://www.infrion.com",
+      "linkedinUrl": "https://www.linkedin.com/company/infrion/",
+      "coordinates": { "lat": 40.7128, "lng": -74.0060 },
+      "country": "United States",
+      "city": "New York"
+    },
+    {
+      "code": "jengai",
+      "name": "Jengai",
+      "logo": "/assets/logos/companies/jengai.png",
+      "websiteUrl": "https://www.jengai.com",
+      "linkedinUrl": "https://www.linkedin.com/company/98084750/",
+      "coordinates": { "lat": 40.7128, "lng": -74.0060 },
+      "country": "United States",
+      "city": "New York"
+    },
+    {
+      "code": "gamyte",
+      "name": "Gamyte",
+      "logo": "/assets/logos/companies/gamyte.png",
+      "websiteUrl": "https://www.jengai.com",
+      "linkedinUrl": "https://www.linkedin.com/company/98084750/",
+      "coordinates": { "lat": 40.7128, "lng": -74.0060 },
+      "country": "United States",
+      "city": "New York"
+    },
+    {
+      "code": "ERC",
+      "name": "ERC Group Engineering, Consultancy, R&D",
+      "logo": "/assets/logos/companies/erc.png",
+      "websiteUrl": "https://www.ercgroup.com.tr",
+      "linkedinUrl": "https://www.linkedin.com/company/erc-group/",
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "DATASEL",
+      "name": "DataSel Information Systems Co.",
+      "logo": "/assets/logos/companies/datasel.png",
+      "websiteUrl": "https://www.datasel.com.tr",
+      "linkedinUrl": "https://www.linkedin.com/company/datasel/",
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "FONET",
+      "name": "Fonet Software Co.",
+      "logo": "/assets/logos/companies/fonet.png",
+      "websiteUrl": "https://www.fonet.com.tr",
+      "linkedinUrl": "https://www.linkedin.com/company/fonet-software/",
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "JANDARMA",
+      "name": "Gendarmerie Training Command",
+      "logo": "/assets/logos/companies/jandarma.egitim.png",
+      "websiteUrl": "https://www.jandarma.gov.tr",
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "HALICI",
+      "name": "Halici Informatics & Software Co.",
+      "logo": "/assets/logos/companies/halici.png",
+      "websiteUrl": "https://www.halici.com.tr",
+      "linkedinUrl": "https://www.linkedin.com/company/halici-bilgi-i\u0307\u015flem-a\u015f-/",
+      "coordinates": { "lat": 41.0082, "lng": 28.9784 },
+      "country": "Turkey",
+      "city": "Istanbul"
+    },
+    {
+      "code": "METU.CEIT",
+      "name": "METU Computer Education and Instructional Tech. Dep.",
+      "logo": "/assets/logos/companies/metu.png",
+      "websiteUrl": "https://www.metu.edu.tr",
+      "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
+      "coordinates": { "lat": 39.8939, "lng": 32.7816 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "METU.II",
+      "name": "METU Informatics Institute",
+      "logo": "/assets/logos/companies/metu.png",
+      "websiteUrl": "https://www.metu.edu.tr",
+      "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
+      "coordinates": { "lat": 39.8939, "lng": 32.7816 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "LABRIS",
+      "name": "Labris Technology",
+      "logo": "/assets/logos/companies/labris.png",
+      "websiteUrl": "https://www.labris.com.tr",
+      "linkedinUrl": "https://www.linkedin.com/company/labris-technology/",
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "METU.IEEE",
+      "name": "IEEE METU Student Club",
+      "logo": "/assets/logos/companies/metu.png",
+      "websiteUrl": "https://ieee.metu.edu.tr",
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.8939, "lng": 32.7816 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "METU.COM",
+      "name": "METU Communication Club",
+      "logo": "/assets/logos/companies/metu.png",
+      "websiteUrl": "https://www.metu.edu.tr",
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.8939, "lng": 32.7816 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "NETTEYIM",
+      "name": "Netteyim.net",
+      "logo": "/assets/logos/companies/netteyim.png",
+      "websiteUrl": "https://www.netteyim.net",
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "TBD.GENC",
+      "name": "Informatics Association of Turkey / Youth Branch",
+      "logo": "/assets/logos/companies/tbd.genc.png",
+      "websiteUrl": "https://www.tbd.org.tr",
+      "linkedinUrl": "https://www.linkedin.com/company/turkey-informatics-association/",
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "CEIT",
+      "name": "CEIT / METU",
+      "logo": "/assets/logos/companies/ceit.png",
+      "websiteUrl": "https://www.metu.edu.tr",
+      "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
+      "coordinates": { "lat": 39.8939, "lng": 32.7816 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "Halici",
+      "name": "Halici Informatics & Software Co.",
+      "logo": "/assets/logos/companies/halici.png",
+      "websiteUrl": "https://www.halici.com.tr",
+      "linkedinUrl": "https://www.linkedin.com/company/halici-bilgi-i\u0307\u015flem-a\u015f-/",
+      "coordinates": { "lat": 41.0082, "lng": 28.9784 },
+      "country": "Turkey",
+      "city": "Istanbul"
+    },
+    {
+      "code": "Tursoft",
+      "name": "Tursoft",
+      "logo": "/assets/logos/companies/tursoft.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": null,
+      "country": null,
+      "city": null
+    }
+    ,
+    {
+      "code": "MOH.TR",
+      "name": "Turkish Ministry of Health",
+      "logo": "/assets/files/customers/moh_turkey/logo/turkey_moh.jpg",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "MOI.KSA",
+      "name": "KSA Ministry of Interior",
+      "logo": "/assets/files/customers/moi-ksa/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 24.7136, "lng": 46.6753 },
+      "country": "Saudi Arabia",
+      "city": "Riyadh"
+    },
+    {
+      "code": "MOH.KSA",
+      "name": "KSA Ministry of Health",
+      "logo": "/assets/files/customers/moh_ksa/logo/ksa_moh.jpg",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 24.7136, "lng": 46.6753 },
+      "country": "Saudi Arabia",
+      "city": "Riyadh"
+    },
+    {
+      "code": "TTNET",
+      "name": "Türk Telekom - TTNET",
+      "logo": "/assets/files/customers/tr_turktelekom/logo/turktelekom.jpg",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 41.0082, "lng": 28.9784 },
+      "country": "Turkey",
+      "city": "Istanbul"
+    },
+    {
+      "code": "ECZACIBASI",
+      "name": "Eczacıbaşı Sağlık Hizmetleri",
+      "logo": "/assets/files/customers/tr_eczacibasi/eczacibasi_saglik.jpg",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 41.0082, "lng": 28.9784 },
+      "country": "Turkey",
+      "city": "Istanbul"
+    },
+    {
+      "code": "Avea",
+      "name": "Türk Telekom - Avea",
+      "logo": "/assets/files/customers/tr_avea/logo/avea.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 41.0082, "lng": 28.9784 },
+      "country": "Turkey",
+      "city": "Istanbul"
+    },
+    {
+      "code": "H.IbniSina",
+      "name": "Ibni Sina Hastanesi",
+      "logo": "/assets/files/customers/tr_ibnisina/logo/ibnisina.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "MOH.PAL",
+      "name": "Palestine Ministry of Health",
+      "logo": "/assets/files/customers/moh_palestine/photos/big/palestine_moh.jpg",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 31.9073, "lng": 35.2044 },
+      "country": "Palestine",
+      "city": "Ramallah"
+    },
+    {
+      "code": "LIFEWATCH.CH",
+      "name": "Lifewatch AG - Switzerland",
+      "logo": "/assets/files/customers/tr_lw/logo/tr_lifewatch.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 47.6779, "lng": 8.6089 },
+      "country": "Switzerland",
+      "city": "Neuhausen"
+    },
+    {
+      "code": "UCELL.UZ",
+      "name": "Ucell - Uzbekistan Telecommunications",
+      "logo": "/assets/files/customers/uz_ucell/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 41.2995, "lng": 69.2401 },
+      "country": "Uzbekistan",
+      "city": "Tashkent"
+    },
+    {
+      "code": "SPMS.PT",
+      "name": "SPMS - Portugal Ministry of Health",
+      "logo": "/assets/files/customers/moh_portugal_spms/logo/moh_portugal_spms.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 38.7223, "lng": -9.1393 },
+      "country": "Portugal",
+      "city": "Lisbon"
+    },
+    {
+      "code": "AXIS.INT",
+      "name": "Axis Interior Systems - Cincinnati, OH",
+      "logo": "/assets/files/customers/axis-interior-systems/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.1031, "lng": -84.512 },
+      "country": "United States",
+      "city": "Cincinnati"
+    },
+    {
+      "code": "SSG.NY",
+      "name": "Silver Slate Group - New York, NY",
+      "logo": "/assets/files/customers/silver-slate-group/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 40.7128, "lng": -74.006 },
+      "country": "United States",
+      "city": "New York"
+    },
+    {
+      "code": "PRO.UNITED",
+      "name": "Pro-United Inc - New Hampshire",
+      "logo": "/assets/files/customers/pro-united-inc/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 43.1939, "lng": -71.5724 },
+      "country": "United States",
+      "city": "New Hampshire"
+    },
+    {
+      "code": "TRANSYL.FL",
+      "name": "Transylvania Flooring Professionals",
+      "logo": "/assets/files/customers/transylvania-flooring-professionals/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 40.2732, "lng": -76.8867 },
+      "country": "United States",
+      "city": "Pennsylvania"
+    },
+    {
+      "code": "BONITZ",
+      "name": "Bonitz Flooring Contractor",
+      "logo": "/assets/files/customers/bonitz/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 33.749, "lng": -84.388 },
+      "country": "United States",
+      "city": "Atlanta"
+    },
+    {
+      "code": "DMA.FLOORS",
+      "name": "DMA Floors",
+      "logo": "/assets/files/customers/dma-floors/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.7391, "lng": -75.5398 },
+      "country": "United States",
+      "city": "Philadelphia"
+    },
+    {
+      "code": "SERGENIANS",
+      "name": "Sergenian's Flooring",
+      "logo": "/assets/files/customers/sergenians/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 42.3601, "lng": -71.0589 },
+      "country": "United States",
+      "city": "Boston"
+    },
+    {
+      "code": "GARMON",
+      "name": "Garmon Flooring",
+      "logo": "/assets/files/customers/garmon/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 33.4484, "lng": -112.074 },
+      "country": "United States",
+      "city": "Phoenix"
+    },
+    {
+      "code": "MF.HIGGINS",
+      "name": "MF Higgins Flooring",
+      "logo": "/assets/files/customers/mf-higgins/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 47.6062, "lng": -122.3321 },
+      "country": "United States",
+      "city": "Seattle"
+    },
+    {
+      "code": "GOMEZ.FC",
+      "name": "Gomez Floor Covering",
+      "logo": "/assets/files/customers/gomez-floor-covering/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 32.7767, "lng": -96.797 },
+      "country": "United States",
+      "city": "Dallas"
+    },
+    {
+      "code": "DESOTO",
+      "name": "Desoto Flooring",
+      "logo": "/assets/files/customers/desoto/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 33.749, "lng": -84.388 },
+      "country": "United States",
+      "city": "Atlanta"
+    },
+    {
+      "code": "PROFLOORS",
+      "name": "ProFloors, LLC",
+      "logo": "/assets/files/customers/profloors-llc/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 34.0522, "lng": -118.2437 },
+      "country": "United States",
+      "city": "Los Angeles"
+    },
+    {
+      "code": "ROUSE.CO",
+      "name": "The Rouse Company",
+      "logo": "/assets/files/customers/the-rouse-company/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 40.7128, "lng": -74.006 },
+      "country": "United States",
+      "city": "New York"
+    },
+    {
+      "code": "SHAFAFIYA.UAE",
+      "name": "Shafafiya - Department of Health - Abu Dhabi",
+      "logo": "/assets/files/customers/shafafiya/logo.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 24.4539, "lng": 54.3773 },
+      "country": "United Arab Emirates",
+      "city": "Abu Dhabi"
+    },
+    {
+      "code": "EGM.TR",
+      "name": "Directorate General of Security - Ministry of Interior",
+      "logo": "/assets/files/customers/egm/egm.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "DPT.TR",
+      "name": "State Planning Organization (DPT)",
+      "logo": "/assets/files/customers/dpt/dpt.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "AU.TR",
+      "name": "Ankara University",
+      "logo": "/assets/files/customers/ankara.universitesi/ankara.universitesi.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "TUBITAK.TR",
+      "name": "TUBITAK",
+      "logo": "/assets/files/customers/tubitak/tubitak.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    },
+    {
+      "code": "IEEE.METU",
+      "name": "IEEE METU",
+      "logo": "/assets/files/customers/metu.ieee/metu.ieee.png",
+      "websiteUrl": null,
+      "linkedinUrl": null,
+      "coordinates": { "lat": 39.9334, "lng": 32.8597 },
+      "country": "Turkey",
+      "city": "Ankara"
+    }
+  ]
+}

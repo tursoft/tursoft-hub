@@ -1,1061 +1,961 @@
 {
     "general": {
         "title": "Experiences",
-        "summary": "Throughout 17 years of my professional career, I have work in various companies. There were national, international projects, while some of them are customer projects, the other ones were Research and Development projects. I have mostly undertook managerial and leading positions within projects teams.",
-        "total_years": 17,                
+        "summary": "Throughout 25 years of my professional career, I have work in various companies. There were national, international projects, while some of them are customer projects, the other ones were Research and Development projects. I have mostly undertook managerial and leading positions within projects teams.",
+        "total_years": 25,
         "prop_subitems": "positions"
     },
-    
     "items": [
-        { 
-            "id": 215, "orderIndex":18, "icon": "infrion.png",
+        {
+            "id": 215,
+            "orderIndex": 18,
             "uid": "experience.215.infrion",
-            "companyCode": "infrion", "companyName": "Infrion",
-            "websiteUrl": "https://www.infrion.com",
-            "linkedinUrl": "https://www.linkedin.com/company/infrion/",
-            "coordinates": { "lat": 40.7128, "lng": -74.0060 },
-            "country": "United States",
-            "city": "New York",
+            "companyCode": "infrion",
             "positions": [
                 {
                     "id": 2150,
-                    "title": "Senior Software Architect",                                 
-                    "startDate": "01.01.2018", "endDate": "30.07.2019",
+                    "title": "Senior Software Architect",
+                    "startDate": "01.01.2018",
+                    "endDate": "30.07.2019",
                     "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-
                     "domains": [
-                        { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" },
-                        { "name": "certifications", "title": "Digital Certifications", "value":100, "iconCss": "" }
+                        {
+                            "name": "healthcareit",
+                            "title": "Healthcare Informatics",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "certifications",
+                            "title": "Digital Certifications",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-
                     "projects": [
-                        { "name":  "certify.health", "title": "Certify Health" }
+                        "certify.health"
                     ],
-
-                    "technologies": [                        
-                        { "name":  "NodeJs", "type": "Framework" },
-                        { "name":  "Fastify", "type": "Framework" },                        
-
-                        { "name":  "VS Code", "type": "IDE" },
-
-                        { "name":  "Google Cloud", "type": "Cloud" },
-                        { "name":  "Gitlab", "type": "DevOps" },
-
-                        { "name":  "Git", "type": "Source Control" },
-                        { "name":  "npm", "type": "Dependency Management" },
-                                                
-                        { "name":  "React", "type": "Web Framework" },
-                        { "name":  "StencilJS", "type": "Web Framework" },
-                        { "name":  "TypeScript", "type": "Programming Language" },
-                        
-                        { "name":  "Postgres", "type": "Database" },
-                        
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-
-                        { "name":  "OAuth", "type": "Security" },
-                        { "name":  "JWT", "type": "Security" },
-
-                        { "name":  "Json", "type": "File Format" },
-                        
-                        { "name":  "Google Analytics", "type": "Monitoring" }
-
-                      ]
-                }                            
-            ]
-        },
-        { 
-            "id": 214, "orderIndex":17, "icon": "jengai.png",
-            "uid": "experience.214.jengai",
-            "companyCode": "jengai", "companyName": "Jengai",
-            "websiteUrl": "https://www.jengai.com",
-            "linkedinUrl": "https://www.linkedin.com/company/98084750/",
-            "coordinates": { "lat": 40.7128, "lng": -74.0060 },
-            "country": "United States",
-            "city": "New York",
-            "positions": [
-                {
-                    "id": 2020,
-                    "title": "Director of Technology & Senior Software Architect",                                 
-                    "startDate":"01.12.2023",  "endDate":null,     
-                    "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-
-                    "domains": [
-                        { "name": "construction", "title": "Construction Informatics", "value":100, "iconCss": "" }
-                    ],
-
-                    "projects": [
-                        { "name":  "JENGAIAPP", "title": "Jengai App" }
-                    ],
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  ".NETCore", "type": "Framework" },
-                        { "name":  "C#", "type": "Programming Language" },
-
-                        { "name":  "Visual Studio", "type": "IDE" },
-                        { "name":  "VS Code", "type": "IDE" },
-                        { "name":  "VS Code Insiders", "type": "IDE" },
-
-                        { "name":  "Azure", "type": "Cloud" },
-                        { "name":  "Azure DevOps", "type": "Cloud" },
-
-                        { "name":  "EntityFramework", "type": "ORM" },
-                        { "name":  "LINQ", "type": "Database" },                   
-
-                        { "name":  "Source Tree", "type": "Source Control" },
-                        { "name":  "npm", "type": "Dependency Management" },
-                        
-                        { "name":  "ASP.NET", "type": "Web" },
-                        { "name":  "ASP.NET Core", "type": "Web" },
-                        { "name":  "ASP.NET WebAPI", "type": "Web" },
-
-                        { "name":  "Angular", "type": "Web Framework" },
-                        { "name":  "MVVM", "type": "Design Pattern" },
-                        
-                        { "name":  "MS SQL", "type": "Database" },
-                        
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-
-                        { "name":  "Photoshop", "type": "Graphics Design" },
-
-                        { "name":  "OAuth", "type": "Security" },
-                        { "name":  "JWT", "type": "Security" },
-
-                        { "name":  "Json", "type": "File Format" },
-                        
-                        { "name":  "Google Analytics", "type": "Monitoring" }
-
-                      ]
-                }                            
-            ]
-        },
-        { 
-            "id": 202, "orderIndex":16, "icon": "gamyte.png",
-            "uid": "experience.202.gamyte",
-            "companyCode": "gamyte", "companyName": "Gamyte",
-            "websiteUrl": "https://www.jengai.com",
-            "linkedinUrl": "https://www.linkedin.com/company/98084750/",
-            "coordinates": { "lat": 40.7128, "lng": -74.0060 },
-            "country": "United States",
-            "city": "New York",
-            "positions": [
-                {
-                    "id": 2019,
-                    "title": "Director of Technology & Senior Software Architect",                                 
-                    "startDate":"04.09.2019",  "endDate":"01.12.2023",     
-                    "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-
-                    "domains": [
-                        { "name": "construction", "title": "Construction Informatics", "value":100, "iconCss": "" }
-                    ],
-
-                    "projects": [
-                        { "name":  "GAMYTEAPP", "title": "Gamyte App" }
-                    ],
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  ".NETCore", "type": "Framework" },
-                        { "name":  "C#", "type": "Programming Language" },
-
-                        { "name":  "Visual Studio", "type": "IDE" },
-                        { "name":  "VS Code", "type": "IDE" },
-                        { "name":  "VS Code Insiders", "type": "IDE" },
-
-                        { "name":  "Azure", "type": "Cloud" },
-                        { "name":  "Azure DevOps", "type": "Cloud" },
-
-                        { "name":  "EntityFramework", "type": "ORM" },
-                        { "name":  "LINQ", "type": "Database" },                   
-
-                        { "name":  "Source Tree", "type": "Source Control" },
-                        { "name":  "npm", "type": "Dependency Management" },
-                        
-                        { "name":  "ASP.NET", "type": "Web" },
-                        { "name":  "ASP.NET Core", "type": "Web" },
-                        { "name":  "ASP.NET WebAPI", "type": "Web" },
-
-                        { "name":  "Angular", "type": "Web Framework" },
-                        { "name":  "MVVM", "type": "Design Pattern" },
-                        
-                        { "name":  "MS SQL", "type": "Database" },
-                        
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-
-                        { "name":  "Photoshop", "type": "Graphics Design" },
-
-                        { "name":  "OAuth", "type": "Security" },
-                        { "name":  "JWT", "type": "Security" },
-
-                        { "name":  "Json", "type": "File Format" },
-                        
-                        { "name":  "Google Analytics", "type": "Monitoring" }
-
-                      ]
-                }                            
+                    "skillCodes": [
+                        "Nodejs",
+                        "Fastify",
+                        "VS Code",
+                        "Google Cloud",
+                        "Gitlab",
+                        "Git",
+                        "npm",
+                        "React",
+                        "StencilJS",
+                        "Typescript",
+                        "Postgres",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "OAuth",
+                        "JWT",
+                        "Json",
+                        "Google Analytics"
+                    ]
+                }
             ]
         },
         {
-            "id": 201, "orderIndex":15, "icon": "erc.png",
+            "id": 214,
+            "orderIndex": 17,
+            "uid": "experience.214.jengai",
+            "companyCode": "jengai",
+            "positions": [
+                {
+                    "id": 2020,
+                    "title": "Director of Technology & Senior Software Architect",
+                    "startDate": "01.12.2023",
+                    "endDate": null,
+                    "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+                    "domains": [
+                        {
+                            "name": "construction",
+                            "title": "Construction Informatics",
+                            "value": 100,
+                            "iconCss": ""
+                        }
+                    ],
+                    "projects": [
+                        "JENGAIAPP"
+                    ],
+                    "skillCodes": [
+                        ".NET",
+                        ".NETCore",
+                        "C#",
+                        "Visual Studio",
+                        "VS Code",
+                        "VS Code Insiders",
+                        "Azure",
+                        "Azure DevOps",
+                        "EntityFramework",
+                        "LINQ",
+                        "Source Tree",
+                        "npm",
+                        "ASP.NET",
+                        "ASP.NET Core",
+                        "ASP.NET WebAPI",
+                        "Angular",
+                        "MVVM",
+                        "MS SQL",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop",
+                        "OAuth",
+                        "JWT",
+                        "Json",
+                        "Google Analytics"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 202,
+            "orderIndex": 16,
+            "uid": "experience.202.gamyte",
+            "companyCode": "gamyte",
+            "positions": [
+                {
+                    "id": 2019,
+                    "title": "Director of Technology & Senior Software Architect",
+                    "startDate": "04.09.2019",
+                    "endDate": "01.12.2023",
+                    "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+                    "domains": [
+                        {
+                            "name": "construction",
+                            "title": "Construction Informatics",
+                            "value": 100,
+                            "iconCss": ""
+                        }
+                    ],
+                    "projects": [
+                        "GAMYTEAPP"
+                    ],
+                    "skillCodes": [
+                        ".NET",
+                        ".NETCore",
+                        "C#",
+                        "Visual Studio",
+                        "VS Code",
+                        "VS Code Insiders",
+                        "Azure",
+                        "Azure DevOps",
+                        "EntityFramework",
+                        "LINQ",
+                        "Source Tree",
+                        "npm",
+                        "ASP.NET",
+                        "ASP.NET Core",
+                        "ASP.NET WebAPI",
+                        "Angular",
+                        "MVVM",
+                        "MS SQL",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop",
+                        "OAuth",
+                        "JWT",
+                        "Json",
+                        "Google Analytics"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 201,
+            "orderIndex": 15,
             "uid": "experience.201.erc",
-            "companyCode": "ERC", "companyName": "ERC Group Engineering, Consultancy, R&D",
-            "websiteUrl": "https://www.ercgroup.com.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/erc-group/",
-            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "ERC",
             "positions": [
                 {
                     "id": 2011,
-                    "title": "Senior Software Architect and Group Leader",                                 
-                    "startDate":"20.05.2013",  "endDate": "03.09.2019",     
+                    "title": "Senior Software Architect and Group Leader",
+                    "startDate": "20.05.2013",
+                    "endDate": "03.09.2019",
                     "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-
                     "domains": [
-                        { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
+                        {
+                            "name": "healthcareit",
+                            "title": "Healthcare Informatics",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-
                     "projects": [
-                        { "name":  "ProEmpower","title": "ProEmpower / DM4All" },
-                        { "name":  "PDFWCore",  "title": "PDFWCore" },
-                        { "name":  "PDFW",      "title": "PDFW" },                                
-
-                        { "name":  "AvicennaMobile","title": "Avicenna Mobile" },
-                        { "name":  "Avicenna2x","title": "Avicenna 2x" },
-
-                        { "name":  "AHR","title": "Avicenna AHR" },                        
-                        { "name":  "AHIN",      "title": "Avicenna AHIN" },
-                        { "name":  "APM",      "title": "Avicenna APM" },
-                        { "name":  "EPR",       "title": "Avicenna EPR" },
-
-                        { "name":  "ATTP",      "title": "Avicenna ATTP" },
-                        { "name":  "ATTPMobile","title": "Avicenna ATTPMobile" },
-                        
-                        { "name":  "CMS",       "title": "Avicenna CMS" },
-                        { "name":  "FastEyes",  "title": "Avicenna FastEyes" }
+                        "ProEmpower",
+                        "PDFWCore",
+                        "PDFW",
+                        "AvicennaMobile",
+                        "Avicenna2x",
+                        "AHR",
+                        "AHIN",
+                        "APM",
+                        "EPR",
+                        "ATTP",
+                        "ATTPMobile",
+                        "CMS",
+                        "FastEyes"
                     ],
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  ".NETCore", "type": "Framework" },
-                        { "name":  "C#", "type": "Programming Language" },
-                        { "name":  "Java", "type": "Programming Language" },
-
-                        { "name":  "Visual Studio", "type": "IDE" },
-                        { "name":  "VS Code", "type": "IDE" },
-                        { "name":  "VS Code Insiders", "type": "IDE" },
-                        { "name":  "Eclipse", "type": "IDE" },
-
-                        { "name":  "Redis", "type": "Cache Server" },
-                        { "name":  "RabbitMQ", "type": "Messaging Queue" },
-                        
-                        { "name":  "Azure", "type": "Cloud" },
-                        { "name":  "AWS", "type": "Cloud" },
-
-                        { "name":  "EntityFramework", "type": "ORM" },
-                        { "name":  "Hibernate", "type": "ORM" },
-                        { "name":  "LINQ", "type": "Database" },                   
-                        { "name":  "Hangfire", "type": "Scheduled Tasks" },
-                        { "name":  "Quartz Scheduler", "type": "Scheduled Tasks" },
-                        { "name":  "Spring", "type": "Framework" },
-
-                        { "name":  "TFS", "type": "Source Control" },
-                        { "name":  "Git", "type": "Source Control" },
-                        { "name":  "Gitlab", "type": "Source Control" },
-                        { "name":  "Mercurial", "type": "Source Control" },
-                        { "name":  "Tortoise Hg", "type": "Source Control" },                        
-                        { "name":  "Source Tree", "type": "Source Control" },
-
-                        { "name":  "Nexus", "type": "Dependency Management" },
-                        { "name":  "ProGet", "type": "Dependency Management" },
-                        { "name":  "npm", "type": "Dependency Management" },
-                        { "name":  "NuGet", "type": "Dependency Management" },
-
-                        { "name":  "Jenkins", "type": "DevOps" },
-                        { "name":  "VMware", "type": "Virtualization" },
-                        { "name":  "HyperV", "type": "Virtualization" },
-                        { "name":  "Docker", "type": "Containers" },                        
-                        { "name":  "Portainer", "type": "Containers" },
-
-                        { "name":  "PowerShell", "type": "Scripting" },
-                        { "name":  "Bash Scripting", "type": "Scripting" },
-                        { "name":  "ubuntu", "type": "OS" },
-                        { "name":  "Wordpress", "type": "Content Management System" },
-                        
-                        { "name":  "ASP.NET", "type": "Web" },
-                        { "name":  "ASP.NET Core", "type": "Web" },
-                        { "name":  "ASP.NET WebAPI", "type": "Web" },
-                        { "name":  "ASP.NET MVC", "type": "Web" },                        
-
-                        { "name":  "AngularJS", "type": "Web Framework" },
-                        { "name":  "Angular", "type": "Web Framework" },
-                        { "name":  "MVVM", "type": "Design Pattern" },
-                        
-                        { "name":  "Ionic", "type": "Mobile Framework" },
-                        { "name":  "Cordova", "type": "Mobile Framework" },
-
-                        { "name":  "MS SQL", "type": "Database" },
-                        { "name":  "Oracle", "type": "Database" },
-                        { "name":  "DB2", "type": "Database" },
-                        { "name":  "MySQL", "type": "Database" },
-                        { "name":  "MongoDB", "type": "Database" },
-                        
-                        { "name":  "iReports", "type": "Reporting" },
-                        { "name":  "Jasper Reports", "type": "Reporting" },
-                        { "name":  "Jasper BI", "type": "Business Intelligence" },
-                        { "name":  "Oracle BI", "type": "Business Intelligence" },
-
-                        { "name":  "JQuery", "type": "Web" },
-                        { "name":  "Animate.css", "type": "Web" },
-                        { "name":  "Bootstrap", "type": "Web" },
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-                        { "name":  "Fontawesome", "type": "Web" },
-
-                        { "name":  "Photoshop", "type": "Graphics Design" },
-                        { "name":  "MS Blend", "type": "Graphics Design" },
-
-                        { "name":  "Nodejs", "type": "Backend" },
-                        { "name":  "Express", "type": "Backend" },
-                        { "name":  "EJS", "type": "Backend" },
-
-                        { "name":  "OAuth", "type": "Security" },
-                        { "name":  "Xml", "type": "File Format" },
-                        { "name":  "Json", "type": "File Format" },
-                        
-                        { "name":  "Apache Ant", "type": "Task Runner" },
-
-                        { "name":  "Redmine", "type": "Project Management" },
-                        { "name":  "APM", "type": "Project Management" },
-                        { "name":  "MS Project", "type": "Project Management" },
-
-                        { "name":  "Google Analytics", "type": "Monitoring" },
-
-                        { "name":  "Grunt", "type": "Task Runner" }
-
-                      ]
-                }                            
-            ]                        
+                    "skillCodes": [
+                        ".NET",
+                        ".NETCore",
+                        "C#",
+                        "Java",
+                        "Visual Studio",
+                        "VS Code",
+                        "VS Code Insiders",
+                        "Eclipse",
+                        "Redis",
+                        "RabbitMQ",
+                        "Azure",
+                        "AWS",
+                        "EntityFramework",
+                        "Hibernate",
+                        "LINQ",
+                        "Hangfire",
+                        "Quartz Scheduler",
+                        "Spring",
+                        "TFS",
+                        "Git",
+                        "Gitlab",
+                        "Mercurial",
+                        "Tortoise Hg",
+                        "Source Tree",
+                        "Nexus",
+                        "ProGet",
+                        "npm",
+                        "NuGet",
+                        "Jenkins",
+                        "VMware",
+                        "HyperV",
+                        "Docker",
+                        "Portainer",
+                        "PowerShell",
+                        "Bash Scripting",
+                        "ubuntu",
+                        "Wordpress",
+                        "ASP.NET",
+                        "ASP.NET Core",
+                        "ASP.NET WebAPI",
+                        "ASP.NET MVC",
+                        "AngularJS",
+                        "Angular",
+                        "MVVM",
+                        "Ionic",
+                        "Cordova",
+                        "MS SQL",
+                        "Oracle",
+                        "DB2",
+                        "MySQL",
+                        "MongoDB",
+                        "iReports",
+                        "Jasper Reports",
+                        "Jasper BI",
+                        "Oracle BI",
+                        "JQuery",
+                        "Animate.css",
+                        "Bootstrap",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Fontawesome",
+                        "Photoshop",
+                        "MS Blend",
+                        "Nodejs",
+                        "Express",
+                        "EJS",
+                        "OAuth",
+                        "XML",
+                        "Json",
+                        "Apache Ant",
+                        "Redmine",
+                        "APM",
+                        "MS Project",
+                        "Google Analytics",
+                        "Grunt"
+                    ]
+                }
+            ]
         },
-
-        { 
-            "id": 202, "orderIndex":14, "icon": "datasel.png",  
+        {
+            "id": 202,
+            "orderIndex": 14,
             "uid": "experience.202.datasel",
-            "companyCode": "DATASEL", "companyName": "DataSel Information Systems Co.",
-            "websiteUrl": "https://www.datasel.com.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/datasel/",
-            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "DATASEL",
             "positions": [
                 {
                     "id": 2021,
-                    "title": "Senior Software Architect and Group Leader",                                 
-                    "startDate":"01.01.2012",  "endDate":"20.05.2013",      
+                    "title": "Senior Software Architect and Group Leader",
+                    "startDate": "01.01.2012",
+                    "endDate": "20.05.2013",
                     "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-
                     "domains": [
-                        { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" },
-                        { "name": "ecommerce", "title": "E-Commerce", "value":100, "iconCss": "" },
-                        { "name": "video", "title": "Video Streaming", "value":100, "iconCss": "" }
+                        {
+                            "name": "healthcareit",
+                            "title": "Healthcare Informatics",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "ecommerce",
+                            "title": "E-Commerce",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "video",
+                            "title": "Video Streaming",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-
                     "projects": [
-                        { "name":  "PDFW",      "title": "PDFW" },
-
-                        { "name":  "Avicenna2x","title": "Avicenna 2x" },
-                                               
-                        { "name":  "AHIN",      "title": "Avicenna AHIN" },
-                        { "name":  "APM",       "title": "Avicenna APM" },
-                        { "name":  "CMS",       "title": "Avicenna CMS" },
-                        { "name":  "RPMS",      "title": "Avicenna RPMS" },
-                        { "name":  "EDIS",      "title": "Avicenna EDIS" },
-                        { "name":  "AIS",       "title": "Avicenna AIS" },
-                        { "name":  "FastEyes",  "title": "Avicenna FastEyes" },
-                        { "name":  "CQRE",      "title": "Avicenna CQRE" },
-                        { "name":  "ATHP",      "title": "Avicenna ATHP" }
+                        "PDFW",
+                        "Avicenna2x",
+                        "AHIN",
+                        "APM",
+                        "CMS",
+                        "RPMS",
+                        "EDIS",
+                        "AIS",
+                        "FastEyes",
+                        "CQRE",
+                        "ATHP"
                     ],
-
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  "C#", "type": "Programming Language" },
-                        { "name":  "Java", "type": "Programming Language" },
-
-                        { "name":  "Visual Studio", "type": "IDE" },
-                        { "name":  "Eclipse", "type": "IDE" },
-                        
-                        { "name":  "EntityFramework", "type": "ORM" },
-                        { "name":  "Hibernate", "type": "ORM" },
-                        { "name":  "LINQ", "type": "Database" },                   
-                        { "name":  "Hangfire", "type": "Scheduled Tasks" },
-                        { "name":  "Quartz Scheduler", "type": "Scheduled Tasks" },
-
-                        { "name":  "TFS", "type": "Source Control" },
-                        { "name":  "Mercurial", "type": "Source Control" },
-                        { "name":  "Tortoise Hg", "type": "Source Control" },                        
-                        { "name":  "Source Tree", "type": "Source Control" },
-
-                        { "name":  "Nexus", "type": "Dependency Management" },
-                        { "name":  "npm", "type": "Dependency Management" },
-                        { "name":  "NuGet", "type": "Dependency Management" },
-
-                        { "name":  "VMware", "type": "Virtualization" },                  
-                        { "name":  "Portainer", "type": "Containers" },
-
-                        { "name":  "PowerShell", "type": "Scripting" },
-                        { "name":  "Bash Scripting", "type": "Scripting" },
-                        
-                        { "name":  "WCF", "type": "Webservices" },
-                        { "name":  "Silverlight", "type": "Web" },
-                        { "name":  "WPF", "type": "Desktop" },
-                        { "name":  "XAML", "type": "File Format" },
-                        { "name":  "Telerik UI for Silverlight", "type": "Web" },
-                        { "name":  "MVVM", "type": "Design Pattern" },
-                        { "name":  "Fiddler", "type": "Sniffing Tool" },
-
-                        { "name":  "ASP.NET", "type": "Web" },
-                        { "name":  "ASP.NET Core", "type": "Web" },
-                        { "name":  "ASP.NET WebAPI", "type": "Web" },
-                        { "name":  "ASP.NET MVC", "type": "Web" },                        
-
-                        { "name":  "AngularJS", "type": "Web Framework" },
-                        { "name":  "Angular", "type": "Web Framework" },
-
-                        { "name":  "Ionic", "type": "Mobile Framework" },
-                        { "name":  "Cordova", "type": "Mobile Framework" },
-                        
-                        { "name":  "MS SQL", "type": "Database" },
-                        { "name":  "Oracle", "type": "Database" },
-                        { "name":  "DB2", "type": "Database" },
-                        { "name":  "MySQL", "type": "Database" },
-                        
-                        { "name":  "iReports", "type": "Reporting" },
-                        { "name":  "Jasper Reports", "type": "Reporting" },
-                        { "name":  "Jasper BI", "type": "Business Intelligence" },
-                        { "name":  "Oracle BI", "type": "Business Intelligence" },
-
-                        { "name":  "JQuery", "type": "Web" },
-                        { "name":  "Animate.css", "type": "Web" },
-                        { "name":  "Bootstrap", "type": "Web" },
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-                        { "name":  "Fontawesome", "type": "Web" },
-
-                        { "name":  "Photoshop", "type": "Graphics Design" },
-                        { "name":  "MS Blend", "type": "Graphics Design" }
-                      ]
-                } ,
+                    "skillCodes": [
+                        ".NET",
+                        "C#",
+                        "Java",
+                        "Visual Studio",
+                        "Eclipse",
+                        "EntityFramework",
+                        "Hibernate",
+                        "LINQ",
+                        "Hangfire",
+                        "Quartz Scheduler",
+                        "TFS",
+                        "Mercurial",
+                        "Tortoise Hg",
+                        "Source Tree",
+                        "Nexus",
+                        "npm",
+                        "NuGet",
+                        "VMware",
+                        "Portainer",
+                        "PowerShell",
+                        "Bash Scripting",
+                        "WCF",
+                        "Silverlight",
+                        "WPF",
+                        "XAML",
+                        "Telerik UI for Silverlight",
+                        "MVVM",
+                        "Fiddler",
+                        "ASP.NET",
+                        "ASP.NET Core",
+                        "ASP.NET WebAPI",
+                        "ASP.NET MVC",
+                        "AngularJS",
+                        "Angular",
+                        "Ionic",
+                        "Cordova",
+                        "MS SQL",
+                        "Oracle",
+                        "DB2",
+                        "MySQL",
+                        "iReports",
+                        "Jasper Reports",
+                        "Jasper BI",
+                        "Oracle BI",
+                        "JQuery",
+                        "Animate.css",
+                        "Bootstrap",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Fontawesome",
+                        "Photoshop",
+                        "MS Blend"
+                    ]
+                },
                 {
                     "id": 2022,
-                    "title": "Senior Software Developer",                                 
-                    "startDate":"16.08.2011",  "endDate":"01.01.2012",  
+                    "title": "Senior Software Developer",
+                    "startDate": "16.08.2011",
+                    "endDate": "01.01.2012",
                     "summary": "Full-Stack Development (Frontend and Backend), Leading, Mentoring and Technical Consultancy, Development of Research and Development Projects, Framework Development",
-
                     "domains": [
-                        { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" },
-                        { "name": "ecommerce", "title": "E-Commerce", "value":100, "iconCss": "" }
+                        {
+                            "name": "healthcareit",
+                            "title": "Healthcare Informatics",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "ecommerce",
+                            "title": "E-Commerce",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-
                     "projects": [
-                        { "name":  "PDFWSL",      "title": "PDFW SL" },
-
-                        { "name":  "CMS",       "title": "Avicenna CMS" },
-                        { "name":  "FastEyes",  "title": "Avicenna FastEyes" },
-                        { "name":  "ATHP",      "title": "Avicenna ATHP" },
-                        { "name":  "AHBS",      "title": "Avicenna AHBS" },
-                        { "name":  "VKBS",      "title": "Avicenna VKBS" }
+                        "PDFWSL",
+                        "CMS",
+                        "FastEyes",
+                        "ATHP",
+                        "AHBS",
+                        "VKBS"
                     ],
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  "C#", "type": "Programming Language" },
-
-                        { "name":  "Visual Studio", "type": "IDE" },
-
-                        { "name":  "EntityFramework", "type": "ORM" },
-                        { "name":  "LINQ", "type": "Database" },
-
-                        { "name":  "TFS", "type": "Source Control" },
-                        
-                        { "name":  "WCF", "type": "Webservices" },
-                        { "name":  "Silverlight", "type": "Web" },
-                        { "name":  "WPF", "type": "Desktop" },
-                        { "name":  "XAML", "type": "File Format" },
-                        { "name":  "Telerik UI for Silverlight", "type": "Web" },
-                        { "name":  "MVVM", "type": "Design Pattern" },
-                        { "name":  "Fiddler", "type": "Sniffing Tool" },
-
-                        { "name":  "ASP.NET", "type": "Web" },
-                        { "name":  "ASP.NET MVC", "type": "Web" },
-                        
-                        { "name":  "MS SQL", "type": "Database" },
-                        
-                        { "name":  "JQuery", "type": "Web" },
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-
-                        { "name":  "Photoshop", "type": "Graphics Design" },
-                        { "name":  "MS Blend", "type": "Graphics Design" }
-                      ]
-                }                            
-            ]                         
-            
+                    "skillCodes": [
+                        ".NET",
+                        "C#",
+                        "Visual Studio",
+                        "EntityFramework",
+                        "LINQ",
+                        "TFS",
+                        "WCF",
+                        "Silverlight",
+                        "WPF",
+                        "XAML",
+                        "Telerik UI for Silverlight",
+                        "MVVM",
+                        "Fiddler",
+                        "ASP.NET",
+                        "ASP.NET MVC",
+                        "MS SQL",
+                        "JQuery",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop",
+                        "MS Blend"
+                    ]
+                }
+            ]
         },
-
-        { 
-            "id": 203, "orderIndex":13, "icon": "fonet.png",
+        {
+            "id": 203,
+            "orderIndex": 13,
             "uid": "experience.203.fonet",
-            "companyCode": "FONET", "companyName": "Fonet Software Co.",
-            "websiteUrl": "https://www.fonet.com.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/fonet-software/",
-            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "FONET",
             "positions": [
                 {
                     "id": 2031,
-                    "title": "Research & Development Director",                                 
-                    "startDate":"01.01.2010",  "endDate":"13.08.2011",  
+                    "title": "Research & Development Director",
+                    "startDate": "01.01.2010",
+                    "endDate": "13.08.2011",
                     "summary": "Management of R&D Team, Framework Development.",
-                    
                     "domains": [
-                        { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
-                    ],                    
-
-                    "projects": [
-                        { "name":  "FonetFW",      "title": "Fonet FW" },
-                        { "name":  "FonetStudio",  "title": "Fonet Studio" },
-                        { "name":  "FonetHBYS",     "title": "Fonet HBYS" },                        
-                        { "name":  "FonetInventory","title": "Fonet Inventory" },
-                        { "name":  "FonetLog",      "title": "Fonet Log" }
+                        {
+                            "name": "healthcareit",
+                            "title": "Healthcare Informatics",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  "C#", "type": "Programming Language" },
-                        { "name":  "VB.NET", "type": "Programming Language" },
-
-                        { "name":  "Visual Studio", "type": "IDE" },
-                        { "name":  "Visual SourceSafe", "type": "Source Control" },
-                        
-                        { "name":  "ASP.NET", "type": "Web" },
-                        { "name":  "ASP.NET WebAPI", "type": "Web" },
-                        { "name":  "ASP.NET MVC", "type": "Web" },
-                        
-                        { "name":  "Oracle", "type": "Database" },
-                        
-                        { "name":  "Crystal Reports", "type": "Reporting" },
-                        { "name":  "Fast Reports", "type": "Reporting" },
-                        { "name":  "Oracle BI", "type": "Business Intelligence" },
-
-                        { "name":  "JQuery", "type": "Web" },
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "projects": [
+                        "FonetFW",
+                        "FonetStudio",
+                        "FonetHBYS",
+                        "FonetInventory",
+                        "FonetLog"
+                    ],
+                    "skillCodes": [
+                        ".NET",
+                        "C#",
+                        "VB.NET",
+                        "Visual Studio",
+                        "Visual SourceSafe",
+                        "ASP.NET",
+                        "ASP.NET WebAPI",
+                        "ASP.NET MVC",
+                        "Oracle",
+                        "Crystal Reports",
+                        "Fast Reports",
+                        "Oracle BI",
+                        "JQuery",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 },
-
                 {
                     "id": 2032,
-                    "title": "Software Team Leader",                         
-                    "startDate":"16.09.2009",  "endDate":"01.01.2010",  
+                    "title": "Software Team Leader",
+                    "startDate": "16.09.2009",
+                    "endDate": "01.01.2010",
                     "summary": "Framework Development",
-
                     "domains": [
-                        { "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "" }
-                    ],                    
-                    
-                    "projects": [
-                        { "name":  "FonetFW",      "title": "Fonet FW" },
-                        { "name":  "FonetHBYS",     "title": "Fonet HBYS" },                        
-                        { "name":  "FonetInventory","title": "Fonet Inventory" },
-                        { "name":  "FonetLog",      "title": "Fonet Log" },
-                        { "name":  "FonetMKYSMaster",      "title": "Fonet MKYS Master" }                      
+                        {
+                            "name": "healthcareit",
+                            "title": "Healthcare Informatics",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  "C#", "type": "Programming Language" },
-                        { "name":  "VB.NET", "type": "Programming Language" },
-
-                        { "name":  "Visual Studio", "type": "IDE" },
-                        { "name":  "Visual SourceSafe", "type": "Source Control" },
-                        
-                        { "name":  "ASP.NET", "type": "Web" },
-                        { "name":  "ASP.NET WebAPI", "type": "Web" },
-                        { "name":  "ASP.NET MVC", "type": "Web" },
-                        
-                        { "name":  "Oracle", "type": "Database" },
-                        
-                        { "name":  "Crystal Reports", "type": "Reporting" },
-                        { "name":  "Fast Reports", "type": "Reporting" },
-                        { "name":  "Oracle BI", "type": "Business Intelligence" },
-
-                        { "name":  "JQuery", "type": "Web" },
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "projects": [
+                        "FonetFW",
+                        "FonetHBYS",
+                        "FonetInventory",
+                        "FonetLog",
+                        "FonetMKYSMaster"
+                    ],
+                    "skillCodes": [
+                        ".NET",
+                        "C#",
+                        "VB.NET",
+                        "Visual Studio",
+                        "Visual SourceSafe",
+                        "ASP.NET",
+                        "ASP.NET WebAPI",
+                        "ASP.NET MVC",
+                        "Oracle",
+                        "Crystal Reports",
+                        "Fast Reports",
+                        "Oracle BI",
+                        "JQuery",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 }
-            ]                                     
+            ]
         },
-
-
-         { 
-            "id": 213, "orderIndex":11, "icon": "jandarma.egitim.png",
+        {
+            "id": 213,
+            "orderIndex": 11,
             "uid": "experience.213.jandarma",
-            "companyCode": "JANDARMA", "companyName": "Gendarmerie Training Command",
-            "websiteUrl": "https://www.jandarma.gov.tr",
-            "linkedinUrl": null,
-            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "JANDARMA",
             "positions": [
                 {
                     "id": 2131,
-                    "title": "Lieutenant",                         
-                    "startDate":"15.09.2008",  "endDate":"15.09.2009",  
+                    "title": "Lieutenant",
+                    "startDate": "15.09.2008",
+                    "endDate": "15.09.2009",
                     "summary": "I have executed my compulsory military service. During this period I also developed 2 software for my departments: Document Management System, Military Student Perforamance Tracking Database",
-
                     "projects": [
-                        { "name":  "JandarmaBYS",      "title": "Document Tracking System" },
-                        { "name":  "JandarmaATS",  "title": "Performance Monitoring Database" }
+                        "JandarmaBYS",
+                        "JandarmaATS"
                     ],
-
-                    "technologies": [                                                
-                        { "name":  "VB Script", "type": "Programming Language" },                                                
-                        { "name":  "MS Access", "type": "Database" },                        
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        "VB Script",
+                        "MS Access",
+                        "Photoshop"
+                    ]
                 }
-            ]                                                
-        },       
-
-        { 
-            "id": 204, "orderIndex":11, "icon": "halici.png",
+            ]
+        },
+        {
+            "id": 204,
+            "orderIndex": 11,
             "uid": "experience.204.halici",
-            "companyCode": "HALICI", "companyName": "Halıcı Informatics & Software Co.",
-            "websiteUrl": "https://www.halici.com.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/halıcı-bilgi-i̇şlem-aş-/",
-            "coordinates": { "lat": 41.0082, "lng": 28.9784 },
-            "country": "Turkey",
-            "city": "Istanbul",
+            "companyCode": "HALICI",
             "positions": [
                 {
                     "id": 2041,
-                    "title": "Software Production and Planning Director",                         
-                    "startDate":"01.01.2007",  "endDate":"01.09.2008",  
-                    "summary": "Production Planning, Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi"             ,
-
+                    "title": "Software Production and Planning Director",
+                    "startDate": "01.01.2007",
+                    "endDate": "01.09.2008",
+                    "summary": "Production Planning, Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
                     "domains": [
-                        { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" },
-                        { "name": "ecommerce", "title": "E-Commerce", "value":100, "iconCss": "" },
-                        { "name": "video", "title": "Video Streaming", "value":100, "iconCss": "" },
-                        { "name": "cms", "title": "Content Management Systems", "value":100, "iconCss": "" }
+                        {
+                            "name": "elearning",
+                            "title": "E-Learning",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "ecommerce",
+                            "title": "E-Commerce",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "video",
+                            "title": "Video Streaming",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "cms",
+                            "title": "Content Management Systems",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-                    
                     "projects": [
-                        { "name":  "HEP","title": "Halsoft LMS" }
+                        "HEP"
                     ],
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  "C#", "type": "Programming Language" },
-                        { "name":  "VB.NET", "type": "Programming Language" },
-
-                        { "name":  "Visual Studio", "type": "IDE" },
-                        { "name":  "Visual SourceSafe", "type": "Source Control" },
-                        
-                        { "name":  "ASP.NET", "type": "Web" },
-                        { "name":  "ASP.NET WebAPI", "type": "Web" },
-                        { "name":  "ASP.NET MVC", "type": "Web" },
-                        
-                        { "name":  "MS SQL", "type": "Database" },
-                        
-                        { "name":  "Crystal Reports", "type": "Reporting" },
-
-                        { "name":  "JQuery", "type": "Web" },
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        ".NET",
+                        "C#",
+                        "VB.NET",
+                        "Visual Studio",
+                        "Visual SourceSafe",
+                        "ASP.NET",
+                        "ASP.NET WebAPI",
+                        "ASP.NET MVC",
+                        "MS SQL",
+                        "Crystal Reports",
+                        "JQuery",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 },
-
                 {
                     "id": 2042,
-                    "title": "Project Manager and System Analyst",                         
-                    "startDate":"01.01.2005",  "endDate":"01.01.2007",  
-                    "summary": "Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi"                                  ,
-
+                    "title": "Project Manager and System Analyst",
+                    "startDate": "01.01.2005",
+                    "endDate": "01.01.2007",
+                    "summary": "Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
                     "domains": [
-                        { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" },
-                        { "name": "ecommerce", "title": "E-Commerce", "value":100, "iconCss": "" },
-                        { "name": "video", "title": "Video Streaming", "value":100, "iconCss": "" },
-                        { "name": "cms", "title": "Content Management Systems", "value":100, "iconCss": "" }
+                        {
+                            "name": "elearning",
+                            "title": "E-Learning",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "ecommerce",
+                            "title": "E-Commerce",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "video",
+                            "title": "Video Streaming",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "cms",
+                            "title": "Content Management Systems",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-
                     "projects": [
-                        { "name":  "HEP","title": "Halsoft LMS" },
-                        { "name":  "UNHCR",  "title": "UNHCR Offical Website" },
-                        { "name":  "EDISA",  "title": "Halsoft EDISA" }
+                        "HEP",
+                        "UNHCR",
+                        "EDISA"
                     ],
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  "C#", "type": "Programming Language" },
-                        { "name":  "VB.NET", "type": "Programming Language" },
-
-                        { "name":  "Visual Studio", "type": "IDE" },
-                        { "name":  "Visual SourceSafe", "type": "Source Control" },
-                        
-                        { "name":  "ASP.NET", "type": "Web" },
-                        { "name":  "ASP.NET WebAPI", "type": "Web" },
-                        { "name":  "ASP.NET MVC", "type": "Web" },
-                        
-                        { "name":  "MS SQL", "type": "Database" },
-                        
-                        { "name":  "Crystal Reports", "type": "Reporting" },
-
-                        { "name":  "JQuery", "type": "Web" },
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        ".NET",
+                        "C#",
+                        "VB.NET",
+                        "Visual Studio",
+                        "Visual SourceSafe",
+                        "ASP.NET",
+                        "ASP.NET WebAPI",
+                        "ASP.NET MVC",
+                        "MS SQL",
+                        "Crystal Reports",
+                        "JQuery",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 },
-
                 {
                     "id": 2043,
-                    "title": ".NET Application Developer",                         
-                    "startDate":"01.01.2004",  "endDate":"01.01.2005",  
+                    "title": ".NET Application Developer",
+                    "startDate": "01.01.2004",
+                    "endDate": "01.01.2005",
                     "summary": "Design & Imlementation of Software Project Architectures.<br/> Tool, Halıcı Frizbi",
-
                     "domains": [
-                        { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" },
-                        { "name": "cms", "title": "Content Management Systems", "value":100, "iconCss": "" }
+                        {
+                            "name": "elearning",
+                            "title": "E-Learning",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "cms",
+                            "title": "Content Management Systems",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-
                     "projects": [
-                        { "name":  "HEP","title": "Halsoft LMS" },
-                        { "name":  "EDISA",  "title": "Halsoft EDISA" },
-                        { "name":  "Frizbi",  "title": "Halsoft Frizbi" }
+                        "HEP",
+                        "EDISA",
+                        "Frizbi"
                     ],
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  "C#", "type": "Programming Language" },
-                        { "name":  "VB.NET", "type": "Programming Language" },
-
-                        { "name":  "Visual Studio", "type": "IDE" },
-                        { "name":  "Visual SourceSafe", "type": "Source Control" },
-                        
-                        { "name":  "ASP.NET", "type": "Web" },
-                        { "name":  "ASP.NET WebAPI", "type": "Web" },
-                        { "name":  "ASP.NET MVC", "type": "Web" },
-                        
-                        { "name":  "MS SQL", "type": "Database" },
-                        
-                        { "name":  "Crystal Reports", "type": "Reporting" },
-
-                        { "name":  "JQuery", "type": "Web" },
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        ".NET",
+                        "C#",
+                        "VB.NET",
+                        "Visual Studio",
+                        "Visual SourceSafe",
+                        "ASP.NET",
+                        "ASP.NET WebAPI",
+                        "ASP.NET MVC",
+                        "MS SQL",
+                        "Crystal Reports",
+                        "JQuery",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 }
-            ]                                                
+            ]
         },
-
-
-
-        { 
-            "id": 205, "orderIndex":10, "icon": "metu.ceit.png",
+        {
+            "id": 205,
+            "orderIndex": 10,
             "uid": "experience.205.metu.ceit",
-            "companyCode": "METU.CEIT", "companyName": "METU Computer Education and Instructional Tech. Dep.",
-            "websiteUrl": "https://www.metu.edu.tr",
-            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
-            "coordinates": { "lat": 39.8939, "lng": 32.7816 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "METU.CEIT",
             "positions": [
                 {
                     "id": 2051,
-                    "title": "Web Programmer and Designer",                     
-                    "startDate":"01.09.2003",  "endDate":"01.06.2004",                          
+                    "title": "Web Programmer and Designer",
+                    "startDate": "01.09.2003",
+                    "endDate": "01.06.2004",
                     "summary": "I have developed a LMS portal system. Technologies: ASP.NET, C#,  VB.NET, MS SQL, HTML, CSS, JS",
-
                     "domains": [
-                        { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" }
+                        {
+                            "name": "elearning",
+                            "title": "E-Learning",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-
                     "projects": [
-                        { "name":  "BotebOnline","title": "Böteb Online" },
-                        { "name":  "EGM",  "title": "General Diractorate Of Security Distance Education Portal" }
+                        "BotebOnline",
+                        "EGM"
                     ],
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  "C#", "type": "Programming Language" },
-                        { "name":  "VB.NET", "type": "Programming Language" },
-                        { "name":  "Visual Studio", "type": "IDE" },
-                        
-                        { "name":  "ASP.NET", "type": "Web" },
-                        { "name":  "ASP.NET WebAPI", "type": "Web" },
-                        { "name":  "ASP.NET MVC", "type": "Web" },
-                        
-                        { "name":  "MS SQL", "type": "Database" },
-
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        ".NET",
+                        "C#",
+                        "VB.NET",
+                        "Visual Studio",
+                        "ASP.NET",
+                        "ASP.NET WebAPI",
+                        "ASP.NET MVC",
+                        "MS SQL",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 }
-            ]                            
+            ]
         },
-
-        { 
-            "id": 206, "orderIndex":9, "icon": "metu.ii.png",
+        {
+            "id": 206,
+            "orderIndex": 9,
             "uid": "experience.206.metu.ii",
-            "companyCode": "METU.II", "companyName": "METU Informatics Institute",
-            "websiteUrl": "https://www.metu.edu.tr",
-            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
-            "coordinates": { "lat": 39.8939, "lng": 32.7816 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "METU.II",
             "positions": [
                 {
                     "id": 2061,
-                    "title": "Software Developer",                         
-                    "startDate":"01.05.2003",  "endDate":"01.08.2004",                          
+                    "title": "Software Developer",
+                    "startDate": "01.05.2003",
+                    "endDate": "01.08.2004",
                     "summary": "I have worked on development of an LMS System",
-
                     "domains": [
-                        { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" },
-                        { "name": "cms", "title": "Content Management Systems", "value":100, "iconCss": "" }
+                        {
+                            "name": "elearning",
+                            "title": "E-Learning",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "cms",
+                            "title": "Content Management Systems",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-
-                    "technologies": [                        
-                        { "name":  "Java", "type": "Framework" },                        
-                        { "name":  "MySQL", "type": "Database" },                        
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        "Java",
+                        "MySQL",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 },
-
                 {
                     "id": 2062,
-                    "title": "Web Developer & Designer",                         
-                    "startDate":"01.01.2002",  "endDate":"01.01.2003",                          
+                    "title": "Web Developer & Designer",
+                    "startDate": "01.01.2002",
+                    "endDate": "01.01.2003",
                     "summary": "I have worked on development of an E-Learning System",
-
                     "domains": [
-                        { "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "" },
-                        { "name": "cms", "title": "Content Management Systems", "value":100, "iconCss": "" }
+                        {
+                            "name": "elearning",
+                            "title": "E-Learning",
+                            "value": 100,
+                            "iconCss": ""
+                        },
+                        {
+                            "name": "cms",
+                            "title": "Content Management Systems",
+                            "value": 100,
+                            "iconCss": ""
+                        }
                     ],
-
-                    "technologies": [                        
-                        { "name":  ".NET", "type": "Framework" },
-                        { "name":  "MySQL", "type": "Database" },                        
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
-                }                
-            ]                        
+                    "skillCodes": [
+                        ".NET",
+                        "MySQL",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
+                }
+            ]
         },
-
-        { 
-            "id": 207, "orderIndex":8, "icon": "metu.ii.png",
+        {
+            "id": 207,
+            "orderIndex": 8,
             "uid": "experience.207.metu.ii",
-            "companyCode": "METU.II", "companyName": "METU Informatics Institute",
-            "websiteUrl": "https://www.metu.edu.tr",
-            "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
-            "coordinates": { "lat": 39.8939, "lng": 32.7816 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "METU.II",
             "positions": [
                 {
                     "id": 2071,
-                    "title": "Web Developer & Designer",                             
-                    "startDate":"01.10.2001",  "endDate":"01.06.2003",  
+                    "title": "Web Developer & Designer",
+                    "startDate": "01.10.2001",
+                    "endDate": "01.06.2003",
                     "summary": "I have worked on development of an E-Learning System",
-
-                    "technologies": [                        
-                        { "name":  "PHP", "type": "Web Framework" },                        
-                        { "name":  "MySQL", "type": "Database" },                        
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        "PHP",
+                        "MySQL",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 }
-            ]                        
+            ]
         },
-
-        { 
-            "id": 208, "orderIndex":7, "icon": "labris.png",
+        {
+            "id": 208,
+            "orderIndex": 7,
             "uid": "experience.208.labris",
-            "companyCode": "LABRIS", "companyName": "Labris Technology",
-            "websiteUrl": "https://www.labris.com.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/labris-technology/",
-            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "LABRIS",
             "positions": [
                 {
                     "id": 2081,
-                    "title": "Web Developer & Designer",                                 
-                    "startDate":"01.01.2003",  "endDate":"01.01.2004",  
+                    "title": "Web Developer & Designer",
+                    "startDate": "01.01.2003",
+                    "endDate": "01.01.2004",
                     "summary": "I have developed a Web-based Customer Support System using PHP and MySQL",
-
                     "projects": [
-                        { "name":  "CSC","title": "Customer Support Center" }
+                        "CSC"
                     ],
-
-                    "technologies": [                        
-                        { "name":  "PHP", "type": "Web Framework" },                        
-                        { "name":  "MySQL", "type": "Database" },                        
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        "PHP",
+                        "MySQL",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 }
-            ]                                            
+            ]
         },
-
-        { 
-            "id": 209, "orderIndex":6, "icon": "metu.ieee.png",
+        {
+            "id": 209,
+            "orderIndex": 6,
             "uid": "experience.209.metu.ieee",
-            "companyCode": "METU.IEEE", "companyName": "IEEE METU Student Club",
-            "websiteUrl": "https://ieee.metu.edu.tr",
-            "linkedinUrl": null,
-            "coordinates": { "lat": 39.8939, "lng": 32.7816 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "METU.IEEE",
             "positions": [
                 {
                     "id": 2091,
-                    "title": "Chief of Web Team",                                 
-                    "startDate":"01.10.2001",  "endDate":"01.07.2002",  
+                    "title": "Chief of Web Team",
+                    "startDate": "01.10.2001",
+                    "endDate": "01.07.2002",
                     "summary": "I have developed a Web-portal of this student Club",
-
-                    "technologies": [                        
-                        { "name":  "PHP", "type": "Web Framework" },                        
-                        { "name":  "MySQL", "type": "Database" },                        
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        "PHP",
+                        "MySQL",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 }
-            ]                                            
+            ]
         },
-
-        { 
-            "id": 210, "orderIndex":5, "icon": "metu.com.png",
+        {
+            "id": 210,
+            "orderIndex": 5,
             "uid": "experience.210.metu.com",
-            "companyCode": "METU.COM", "companyName": "METU Communication Club",
-            "websiteUrl": "https://www.metu.edu.tr",
-            "linkedinUrl": null,
-            "coordinates": { "lat": 39.8939, "lng": 32.7816 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "METU.COM",
             "positions": [
                 {
                     "id": 2101,
-                    "title": "Web Developer & Designer",                                 
-                    "startDate":"01.01.2002",  "endDate":"01.01.2003",  
+                    "title": "Web Developer & Designer",
+                    "startDate": "01.01.2002",
+                    "endDate": "01.01.2003",
                     "summary": "I have developed a Web-portal of this student Club",
-
-                    "technologies": [                        
-                        { "name":  "PHP", "type": "Web Framework" },                        
-                        { "name":  "MySQL", "type": "Database" },                        
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        "PHP",
+                        "MySQL",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 }
-            ]                                              
+            ]
         },
-
-        { 
-            "id": 211, "orderIndex":4, "icon": "netteyim.png",
+        {
+            "id": 211,
+            "orderIndex": 4,
             "uid": "experience.211.netteyim",
-            "companyCode": "NETTEYIM", "companyName": "Netteyim.net",
-            "websiteUrl": "https://www.netteyim.net",
-            "linkedinUrl": null,
-            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "NETTEYIM",
             "positions": [
                 {
                     "id": 2111,
-                    "title": "Webmaster",                                 
-                    "startDate":"01.06.2000",  "endDate":"01.09.2002",  
+                    "title": "Webmaster",
+                    "startDate": "01.06.2000",
+                    "endDate": "01.09.2002",
                     "summary": "I have developed an online pooling system using PHP and MySQL",
-
-                    "technologies": [                        
-                        { "name":  "PHP", "type": "Web Framework" },                        
-                        { "name":  "MySQL", "type": "Database" },                        
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        "PHP",
+                        "MySQL",
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 }
-            ]                                         
+            ]
         },
-
-        { 
-            "id": 212, "orderIndex":3, "icon": "tbd.genc.png",
+        {
+            "id": 212,
+            "orderIndex": 3,
             "uid": "experience.212.tbd.genc",
-            "companyCode": "TBD.GENC", "companyName": "Informatics Association of Turkey / Youth Branch",
-            "websiteUrl": "https://www.tbd.org.tr",
-            "linkedinUrl": "https://www.linkedin.com/company/turkey-informatics-association/",
-            "coordinates": { "lat": 39.9334, "lng": 32.8597 },
-            "country": "Turkey",
-            "city": "Ankara",
+            "companyCode": "TBD.GENC",
             "positions": [
                 {
                     "id": 2121,
-                    "title": "Webmaster", 
-                    "startDate":"01.05.2000",  "endDate":"01.05.2001",  
+                    "title": "Webmaster",
+                    "startDate": "01.05.2000",
+                    "endDate": "01.05.2001",
                     "summary": "I have designed website for Youth Branch of TBD",
-
-                    "technologies": [                     
-                        { "name":  "HTML5", "type": "Web" },
-                        { "name":  "JS", "type": "Web" },
-                        { "name":  "CSS", "type": "Web" },
-                        { "name":  "Photoshop", "type": "Graphics Design" }
-                      ]
+                    "skillCodes": [
+                        "HTML5",
+                        "JS",
+                        "CSS",
+                        "Photoshop"
+                    ]
                 }
-            ]                                            
+            ]
         }
     ]
 }
