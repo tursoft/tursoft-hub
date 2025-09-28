@@ -1,28 +1,32 @@
 export interface Customer {
   name: string;
-  title: string;
-  logoPath: string;
-  category?: string;
+  uid: string;
+  title?: string;
   description?: string;
   website?: string;
-  location?: string;
+  logoPath?: string;
+  location?: string; // freeform location string from JSON
+  city?: string;
+  country?: string;
   industry?: string;
   relationship?: string;
-  projects?: string[];
-  technologies?: string[];
+  // codes arrays used in JSON
+  skillCodes?: string[];
+  experienceCodes?: string[];
+  serviceCodes?: string[];
+  projectCodes?: string[];
   companyCodes?: string[];
   projectNames?: string[];
+  technologies?: string[];
   resolvedCompanyNames?: string[];
   resolvedProjectTitles?: string[];
   partnership?: {
     startDate?: string;
     endDate?: string;
-    status?: 'active' | 'completed' | 'ongoing';
+    status?: 'active' | 'completed' | 'ongoing' | string;
   };
-  uid: string;
-  coordinates: { lat: number; lng: number };
-  city: string;
-  country: string;
+  // optional geolocation metadata if present
+  coordinates?: { lat: number; lng: number };
 }
 
 export interface CustomerData {

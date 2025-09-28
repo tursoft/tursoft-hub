@@ -3,19 +3,28 @@ export interface ProjectEntry {
   name: string;
   title?: string;
   group?: string;
-  company?: string;
+  company?: string; // legacy alias
+  companyCode?: string; // new field used in JSON
   value?: number;
   icon?: string;
   logo?: string; // optional alternate field name used for explicit logos
+  logoUrl?: string; // alias used widely in JSON
   summary?: string;
   fulltext?: string | string[];
   datePeriod?: { startDate?: string; endDate?: string | null };
-  props?: Array<{ name: string; title: string }>;
-  domains?: Array<{ name: string; title: string; value?: number; iconCss?: string }>;
+  // props in JSON can be heterogeneous objects; keep flexible
+  props?: Array<{ name?: string; title?: string } | { [k: string]: unknown }>;
+  // legacy domain objects and also domainCodes (string[])
+  domains?: Array<{ name?: string; title?: string; value?: number; iconCss?: string }>;
+  domainCodes?: string[];
   modules?: string[];
   customerNames?: string[];
+  customerCodes?: string[];
   partners?: string[];
-  team?: Array<{ position?: string; name?: string; contactNo?: string }>;
+  // team members in JSON often contain personCode and contactNo
+  team?: Array<{ personCode?: string; position?: string; name?: string; contactNo?: string }>;
+  // skill codes from JSON
+  skillCodes?: string[];
   technologies?: Array<{ name: string; type?: string }>;
   isactive?: boolean;
 }
@@ -49,18 +58,24 @@ export function fromJSON(raw: unknown): ProjectEntry {
   const title = typeof r['title'] === 'string' ? r['title'] as string : (typeof r['name'] === 'string' ? r['name'] as string : '');
   const group = typeof r['group'] === 'string' ? r['group'] as string : undefined;
   const company = typeof r['company'] === 'string' ? r['company'] as string : undefined;
+  const companyCode = typeof r['companyCode'] === 'string' ? r['companyCode'] as string : (typeof r['company'] === 'string' ? r['company'] as string : undefined);
   const value = typeof r['value'] === 'number' ? r['value'] as number : (typeof r['value'] === 'string' ? Number(r['value']) : undefined);
   const icon = typeof r['icon'] === 'string' ? r['icon'] as string : undefined;
-  const logo = typeof r['logo'] === 'string' ? r['logo'] as string : undefined;
+  // prefer explicit logo or alias logoUrl
+  const logo = typeof r['logo'] === 'string' ? r['logo'] as string : (typeof r['logoUrl'] === 'string' ? r['logoUrl'] as string : undefined);
+  const logoUrl = typeof r['logoUrl'] === 'string' ? r['logoUrl'] as string : (typeof r['logo'] === 'string' ? r['logo'] as string : undefined);
   const summary = typeof r['summary'] === 'string' ? r['summary'] as string : undefined;
   const fulltext = typeof r['fulltext'] === 'string' || Array.isArray(r['fulltext']) ? r['fulltext'] as string | string[] : undefined;
   const datePeriod = typeof r['datePeriod'] === 'object' ? r['datePeriod'] as { startDate?: string; endDate?: string | null } : undefined;
-  const props = Array.isArray(r['props']) ? r['props'] as Array<{ name: string; title: string }> : [];
-  const domains = Array.isArray(r['domains']) ? r['domains'] as Array<{ name: string; title: string; value?: number; iconCss?: string }> : [];
+  const props = Array.isArray(r['props']) ? r['props'] as Array<{ name?: string; title?: string } | { [k: string]: unknown }> : [];
+  const domains = Array.isArray(r['domains']) ? r['domains'] as Array<{ name?: string; title?: string; value?: number; iconCss?: string }> : [];
+  const domainCodes = Array.isArray(r['domainCodes']) ? r['domainCodes'] as string[] : [];
   const modules = Array.isArray(r['modules']) ? r['modules'] as string[] : [];
   const customerNames = Array.isArray(r['customerNames']) ? r['customerNames'] as string[] : [];
+  const customerCodes = Array.isArray(r['customerCodes']) ? r['customerCodes'] as string[] : (Array.isArray(r['customerCodes']) ? r['customerCodes'] as string[] : []);
   const partners = Array.isArray(r['partners']) ? r['partners'] as string[] : [];
-  const team = Array.isArray(r['team']) ? r['team'] as Array<{ position?: string; name?: string; contactNo?: string }> : [];
+  const team = Array.isArray(r['team']) ? r['team'] as Array<{ personCode?: string; position?: string; name?: string; contactNo?: string }> : [];
+  const skillCodes = Array.isArray(r['skillCodes']) ? r['skillCodes'] as string[] : [];
   const technologies = Array.isArray(r['technologies']) ? r['technologies'] as Array<{ name: string; type?: string }> : [];
   const isactive = typeof r['isactive'] === 'boolean' ? r['isactive'] as boolean : undefined;
 
@@ -70,18 +85,23 @@ export function fromJSON(raw: unknown): ProjectEntry {
     title,
     group,
     company,
+    companyCode,
     value,
     icon,
     logo,
+    logoUrl,
     summary,
     fulltext,
     datePeriod,
     props,
     domains,
+    domainCodes,
     modules,
     customerNames,
+    customerCodes,
     partners,
     team,
+    skillCodes,
     technologies,
     isactive,
   };
