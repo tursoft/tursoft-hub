@@ -214,7 +214,7 @@
       ],
       "customerCodes": [
         "MOH.PAL",
-        "H.IbniSina"
+        "IBNISINA"
       ],
       "skillCodes": [
         "C"
@@ -1480,7 +1480,7 @@
       "value": 100,
       "summary": "Avicenna Business Intelligence System ",
       "customerCodes": [
-        "H.IbniSina",
+        "IBNISINA",
         "AU.TR"
       ],
       "skillCodes": [
@@ -2928,7 +2928,7 @@
       "summary": "It is a complete DRG Costing Solution. I designed and implemented the architecture, managed the project, developed reusable advanced components, coordinated and lead the team. Project was also used in about 80 hospitals from all over the Turkey, even biggest ones. We collected and anayzed more than 50 billion clinical and financial records (about 5TB). Eventually, we have calculated the first official DRG costs and weighted DRG values of Turkey.",
       "customerCodes": [
         "MOH.TR",
-        "H.IbniSina"
+        "IBNISINA"
       ],
       "domainCodes": [
         "healthcareit"

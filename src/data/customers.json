@@ -161,9 +161,9 @@
       }
     },
     {
-      "code": "Avea",
+      "code": "AVEA",
       "orderIndex": 25,
-      "companyCode": "Avea",
+      "companyCode": "AVEA",
       "description": "Major mobile telecommunications operator in Turkey providing innovative mobile services and digital solutions.",
       "location": "Istanbul, Turkey",
       "industry": "Mobile Telecommunications",
@@ -192,9 +192,9 @@
       }
     },
     {
-      "code": "H.IbniSina",
+      "code": "IBNISINA",
       "orderIndex": 24,
-      "companyCode": "H.IbniSina",
+      "companyCode": "IBNISINA",
       "description": "Premier private hospital in Turkey known for advanced medical care and innovative healthcare solutions.",
       "location": "Ankara, Turkey",
       "industry": "Private Healthcare",
