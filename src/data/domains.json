@@ -22,38 +22,31 @@
       "value": 100
     },
     {
-      "code": "shopping",
+      "code": "ecommerce",
       "orderIndex": 4,
-      "title": "Shopping",
-      "photoUrl": "/assets/domains/shopping.png",
-      "value": 100
-    },
-    {
-      "code": "gaming",
-      "orderIndex": 5,
-      "title": "Game Development",
-      "photoUrl": "/assets/domains/gaming.png",
+      "title": "E-Commerce",
+      "photoUrl": "/assets/domains/ecommerce.png",
       "value": 100
     },
     {
       "code": "cms",
-      "orderIndex": 6,
+      "orderIndex": 5,
       "title": "Content Management Systems",
       "photoUrl": "/assets/domains/cms.png",
       "value": 100
     },
     {
-      "code": "video",
-      "orderIndex": 7,
-      "title": "Video Streaming",
-      "photoUrl": "/assets/domains/video.png",
+      "code": "gaming",
+      "orderIndex": 6,
+      "title": "Game Development",
+      "photoUrl": "/assets/domains/gaming.png",
       "value": 100
     },
     {
-      "code": "ecommerce",
-      "orderIndex": 8,
-      "title": "E-Commerce",
-      "photoUrl": "/assets/domains/ecommerce.png",
+      "code": "videostreaming",
+      "orderIndex": 7,
+      "title": "Video Streaming",
+      "photoUrl": "/assets/domains/video.png",
       "value": 100
     }
   ]

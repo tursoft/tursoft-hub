@@ -1,8 +1,7 @@
 constructionit
 healthcareit
 elearning
-shopping
-gaming
-cms
-video
 ecommerce
+cms
+gaming
+videostreaming
