@@ -19,6 +19,10 @@ export interface DatePeriod {
 export interface Education extends IBaseModel {
   companyCode: string;
   url?: string;
+  // Optional runtime fields used by UI components
+  id?: number;
+  name?: string;
+  icon?: string;
   department: string;
   summary?: string;
   level: string;

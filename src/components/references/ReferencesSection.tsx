@@ -50,10 +50,8 @@ const photoMap: { [key: string]: string } = {
 };
 
 interface Reference {
-  id: number;
-  name: string;
-  photoPath: string;
-  photo?: string;
+  code: string;
+  photoUrl: string;
   company: string;
   position: string;
   testimonial: string;
@@ -75,7 +73,7 @@ const ReferencesSection = () => {
         .filter((ref: Reference) => ref.isActive)
         .map((ref: Reference) => ({
           ...ref,
-          photo: photoMap[ref.photoPath] || '',
+          photo: photoMap[ref.photoUrl] || '',
         }));
       setReferences(loadedReferences);
     } catch (error) {

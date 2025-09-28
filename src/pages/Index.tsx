@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
-import ExperienceSection from "@/components/ExperienceSection";
-import DomainsSection from "@/components/DomainsSection";
-import EducationSection from "@/components/EducationSection";
-import MapSection from "@/components/MapSection";
-import SkillsSection from "@/components/SkillsSection";
-import PortfolioSection from "@/components/PortfolioSection";
-import CustomersSection from "@/components/CustomersSection";
-import ReferencesSection from "@/components/ReferencesSection";
-import ContactSection from "@/components/ContactSection";
+import ExperienceSection from "@/components/experiences/ExperienceSection";
+import DomainsSection from "@/components/domains/DomainsSection";
+import EducationSection from "@/components/educations/EducationSection";
+import MapSection from "@/components/map/MapSection";
+import SkillsSection from "@/components/skills/SkillsSection";
+import PortfolioSection from "@/components/projects/PortfolioSection";
+import CustomersSection from "@/components/customers/CustomersSection";
+import ReferencesSection from "@/components/references/ReferencesSection";
+import ContactSection from "@/components/contact/ContactSection";
 import profilePhoto from "@/assets/profile-photo.jpg";
 
 const Index = () => {
