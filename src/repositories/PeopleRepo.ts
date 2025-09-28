@@ -1,19 +1,12 @@
-import BaseRepo from './BaseRepo';
 import type { Person, PeopleData } from '../models/People';
+import BaseRepoAdvanced from './base/BaseRepoAdvanced';
 
-
-
-class PeopleRepo extends BaseRepo<Person, PeopleData> {
+class PeopleRepo extends BaseRepoAdvanced<Person, PeopleData> {
   constructor() {
-    super(
-      '/src/data/people.json',
-      item => item.code,
-      item => item.photoUrl,
-      (s) => s.toUpperCase()
-    );
+    super('/src/data/people.json');
   }
 }
 
 const peopleRepo = new PeopleRepo();
 export default peopleRepo;
-export { peopleRepo };
+export { peopleRepo, PeopleRepo };

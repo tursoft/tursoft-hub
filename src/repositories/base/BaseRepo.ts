@@ -1,14 +1,14 @@
-export default class BaseRepo<TItem, TData extends { items: TItem[] } = { items: TItem[] }> {
+import { IBaseModel } from "@/models/base/IBaseModel";
+
+export default class BaseRepo<TItem extends IBaseModel, TData extends { items: TItem[] } = { items: TItem[] }> {
+  protected jsonPath: string;
   protected data: TData | null = null;
   protected loadingPromise: Promise<void> | null = null;
   protected codeMap: Map<string, TItem> | null = null;
 
-  constructor(
-    private jsonPath: string,
-    private codeSelector: (item: TItem) => string | undefined,
-    private logoSelector: (item: TItem) => string | undefined,
-    private normalizeCode: (k: string) => string = (s) => s.toUpperCase()
-  ) { }
+  constructor(jsonPath: string) {
+    this.jsonPath = jsonPath;
+  }
 
   protected async loadIfNeeded(): Promise<void> {
     if (this.data) return;
@@ -33,6 +33,10 @@ export default class BaseRepo<TItem, TData extends { items: TItem[] } = { items:
     return this.loadingPromise;
   }
 
+  protected normalizeCode(k: string): string {
+    return k.toUpperCase();
+  }
+
   protected buildMaps() {
     if (!this.data) {
       this.codeMap = new Map();
@@ -40,9 +44,9 @@ export default class BaseRepo<TItem, TData extends { items: TItem[] } = { items:
     }
     this.codeMap = new Map();
     for (const item of this.data.items) {
-      const raw = this.codeSelector(item);
-      if (raw) {
-        const key = this.normalizeCode(raw.toString());
+      const code = item.code;
+      if (code) {
+        const key = this.normalizeCode(code.toString());
         this.codeMap.set(key, item);
       }
     }
@@ -53,36 +57,10 @@ export default class BaseRepo<TItem, TData extends { items: TItem[] } = { items:
     return this.data ? this.data.items.slice() : [];
   }
 
-  async getById(id: number | string): Promise<TItem | null> {
-    await this.loadIfNeeded();
-    if (!this.data) return null;
-
-    if (typeof id === 'number') {
-      // try to find by id property first, then by array index
-      const byId = this.data.items.find((it) => {
-        const candidate = it as unknown as { id?: number | string };
-        return candidate && candidate.id === id;
-      });
-      if (byId) return byId;
-      return this.data.items[id] || null;
-    }
-
-    const key = this.normalizeCode(id.toString());
-    return this.codeMap?.get(key) || null;
-  }
-
   async getByCode(code: string | null | undefined): Promise<TItem | null> {
     if (!code) return null;
     await this.loadIfNeeded();
     return this.codeMap?.get(this.normalizeCode(code.toString())) || null;
-  }
-
-  async getLogoUrlByCode(code: string | null | undefined): Promise<string | null> {
-    if (!code) return null;
-    const item = await this.getByCode(code);
-    if (!item) return null;
-    const logo = this.logoSelector(item);
-    return logo ?? null;
   }
 
   /**

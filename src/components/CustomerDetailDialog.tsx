@@ -40,8 +40,8 @@ interface Customer {
   projects?: string[];
   companyCodes?: string[];
   projectNames?: string[];
-  resolvedCompanyNames?: string[];
-  resolvedProjectTitles?: string[];
+  // resolvedCompanyNames?: string[];
+  // resolvedProjectTitles?: string[];
   technologies?: string[];
   partnership?: {
     startDate?: string;

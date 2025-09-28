@@ -1,7 +1,6 @@
-export interface Company {
-  code: string;
-  name: string;
-  logo?: string | null;
+import { IBaseModelAdvanced } from "./base/IBaseModelAdvanced";
+
+export interface Company extends IBaseModelAdvanced {
   websiteUrl?: string | null;
   linkedinUrl?: string | null;
   coordinates?: { lat: number; lng: number } | null;

@@ -1,20 +1,12 @@
-
-import BaseRepo from './BaseRepo';
 import type { ProjectEntry, ProjectsData } from '../models/Project';
+import BaseRepoAdvanced from './base/BaseRepoAdvanced';
 
-
-
-class ProjectsRepo extends BaseRepo<ProjectEntry, ProjectsData> {
+class ProjectsRepo extends BaseRepoAdvanced<ProjectEntry, ProjectsData> {
   constructor() {
-    super(
-      '/src/data/projects.json',
-      item => item.name,
-      item => item.logo || item.logoUrl || item.icon,
-      (s) => s.toUpperCase()
-    );
+    super('/src/data/projects.json');
   }
 }
 
 const projectsRepo = new ProjectsRepo();
 export default projectsRepo;
-export { projectsRepo };
+export { projectsRepo, ProjectsRepo };

@@ -7,11 +7,11 @@
         {
             "id": 101,
             "orderIndex": 15,
-            "icon": "metu.png",
+            "logoUrl": "metu.png",
             "url": "https://ii.metu.edu.tr/software-management-ms",
             "uid": "education.101.metu3",
             "code": "METU3",
-            "name": "Middle East Technical University",
+            "title": "Middle East Technical University",
             "department": "Department of Software Management",
             "summary": "One-year postgraduate program in Software Management emphasizing project management, software estimation, cost/time management and applied PMP practices through coursework and project work.",
             "level": "Graduate School",
@@ -30,7 +30,7 @@
             "graduateScore": "AA",
             "courses": [
                 {
-                    "name": "Project Management",
+                    "title": "Project Management",
                     "score": "AA",
                     "content": ""
                 }
@@ -46,11 +46,11 @@
         {
             "id": 102,
             "orderIndex": 14,
-            "icon": "metu.png",
+            "logoUrl": "metu.png",
             "url": "https://ceit.metu.edu.tr/",
             "uid": "education.102.metu2",
             "code": "METU2",
-            "name": "Middle East Technical University",
+            "title": "Middle East Technical University",
             "department": "Computer Education and Instructional Technologies Department",
             "summary": "Graduate studies focused on instructional design, multimedia information systems and educational technologies, combining theory and hands-on software development and multimedia coursework.",
             "level": "Graduate School",
@@ -69,27 +69,27 @@
             "graduateScore": "3.68 / 4.00",
             "courses": [
                 {
-                    "name": "Design Patterns",
+                    "title": "Design Patterns",
                     "score": "AA",
                     "content": "OOD, Use Cases, UML, OCL, Design Patterns"
                 },
                 {
-                    "name": "Total Quality Management",
+                    "title": "Total Quality Management",
                     "score": "AA",
                     "content": "Strategic Planning"
                 },
                 {
-                    "name": "Multimedia Information Systems",
+                    "title": "Multimedia Information Systems",
                     "score": "BB",
                     "content": "OS, Networks, Data Types, Compression"
                 },
                 {
-                    "name": "Distance Education",
+                    "title": "Distance Education",
                     "score": "AA",
                     "content": ""
                 },
                 {
-                    "name": "Telecommunication in Education",
+                    "title": "Telecommunication in Education",
                     "score": "AA",
                     "content": ""
                 }
@@ -117,11 +117,11 @@
         {
             "id": 103,
             "orderIndex": 13,
-            "icon": "metu.png",
+            "logoUrl": "metu.png",
             "url": "https://ceit.metu.edu.tr/",
             "uid": "education.103.metu1",
             "code": "METU1",
-            "name": "Middle East Technical University",
+            "title": "Middle East Technical University",
             "department": "Computer Education and Instructional Technologies Department",
             "summary": "Undergraduate degree covering programming (Pascal, C, C++, Java), web and database technologies, networking and several applied projects including 3D educational game development.",
             "level": "Undergraduate School",
@@ -140,67 +140,67 @@
             "graduateScore": "3.80 / 4.00",
             "courses": [
                 {
-                    "name": "Programming Languages I",
+                    "title": "Programming Languages I",
                     "score": "AA",
                     "content": "Pascal, Functional Programming"
                 },
                 {
-                    "name": "Programming Languages II",
+                    "title": "Programming Languages II",
                     "score": "AA",
                     "content": "Visual Basic"
                 },
                 {
-                    "name": "Authoring Languages on PC Environment",
+                    "title": "Authoring Languages on PC Environment",
                     "score": "BB",
                     "content": "Macromedia Authorware"
                 },
                 {
-                    "name": "Instructional Technology and Material Prepar",
+                    "title": "Instructional Technology and Material Prepar",
                     "score": "AA",
                     "content": "Macromedia Flash"
                 },
                 {
-                    "name": "Introduction to C",
+                    "title": "Introduction to C",
                     "score": "AA",
                     "content": "C"
                 },
                 {
-                    "name": "Introduction to C++",
+                    "title": "Introduction to C++",
                     "score": "AA",
                     "content": "C++"
                 },
                 {
-                    "name": "Advanced Object Oriented Programming",
+                    "title": "Advanced Object Oriented Programming",
                     "score": "AA",
                     "content": "Java"
                 },
                 {
-                    "name": "Fundamentals of Data Systems",
+                    "title": "Fundamentals of Data Systems",
                     "score": "AA",
                     "content": "SQL"
                 },
                 {
-                    "name": "Authoring Languages on Internet",
+                    "title": "Authoring Languages on Internet",
                     "score": "AA",
                     "content": "HTML, JavaScript, ASP, PHP, .NET"
                 },
                 {
-                    "name": "Computer Network Systems",
+                    "title": "Computer Network Systems",
                     "score": "AA",
                     "content": "TCP, UDP, OSI, FTP, HTTP"
                 },
                 {
-                    "name": "WAN Technologies",
+                    "title": "WAN Technologies",
                     "score": "AA",
                     "content": "Cisco Router Configuration"
                 },
                 {
-                    "name": "3D Educational Game Development I",
+                    "title": "3D Educational Game Development I",
                     "score": "AA",
                     "content": "Dark Basic"
                 },
                 {
-                    "name": "3D Educational Game Development II",
+                    "title": "3D Educational Game Development II",
                     "score": "AA",
                     "content": "3D Max, Rhinoceros, Adobe Atmosphere"
                 }
@@ -223,11 +223,11 @@
         {
             "id": 104,
             "orderIndex": 12,
-            "icon": "meb.png",
+            "logoUrl": "meb.png",
             "url": "http://izmiteml.meb.k12.tr/",
             "uid": "education.104.ktl",
             "code": "KTL",
-            "name": "Kocaeli Technical High School",
+            "title": "Kocaeli Technical High School",
             "department": "Computer Programming Branch",
             "summary": "Technical high school program with a strong focus on practical programming, operating systems and software tools; provided solid foundational skills for further studies in computing.",
             "level": "High School",
@@ -246,17 +246,17 @@
             "graduateScore": "4.80 / 5.00",
             "courses": [
                 {
-                    "name": "Programming Languages I",
+                    "title": "Programming Languages I",
                     "score": "5",
                     "content": "Pascal, Functional Programming"
                 },
                 {
-                    "name": "Programming Languages II",
+                    "title": "Programming Languages II",
                     "score": "5",
                     "content": "Visual Basic"
                 },
                 {
-                    "name": "Operating Systems",
+                    "title": "Operating Systems",
                     "score": "5",
                     "content": "Windows"
                 }
@@ -270,11 +270,11 @@
         {
             "id": 105,
             "orderIndex": 12,
-            "icon": "meb.png",
+            "logoUrl": "meb.png",
             "url": "http://ataturkmtal.meb.k12.tr/",
             "uid": "education.105.atl",
             "code": "ATL",
-            "name": "Atatürk Mesleki ve Teknik Anadolu Lisesi",
+            "title": "Atatürk Mesleki ve Teknik Anadolu Lisesi",
             "department": "Computer Programming Branch",
             "summary": "Vocational high school curriculum emphasizing core programming concepts and hands-on labs that reinforced practical coding and problem-solving skills.",
             "level": "High School",

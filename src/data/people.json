@@ -7,7 +7,7 @@
         {
             "id": 1,
             "code": "andonisphilippidis",
-            "name": "Andonis Philippidis",
+            "title": "Andonis Philippidis",
             "photoUrl": "assets/references/andonis.philippidis.jpg",
             "company": "Datasel",
             "contacts": [
@@ -36,7 +36,7 @@
         {
             "id": 3,
             "code": "myasarozden",
-            "name": "Prof. Dr. M. Yaşar Özden",
+            "title": "Prof. Dr. M. Yaşar Özden",
             "photoUrl": "assets/references/myozden.jpg",
             "company": "Doğu Akdeniz Üniversitesi",
             "contacts": [
@@ -69,7 +69,7 @@
         {
             "id": 4,
             "code": "cetinbalanuye",
-            "name": "Çetin Balanuye",
+            "title": "Çetin Balanuye",
             "photoUrl": "assets/references/cetin.balanuye.jpg",
             "company": "Akdeniz University",
             "contacts": [
@@ -102,7 +102,7 @@
         {
             "id": 5,
             "code": "kursatcagiltay",
-            "name": "Prof. Dr. Kürşat Çağıltay",
+            "title": "Prof. Dr. Kürşat Çağıltay",
             "photoUrl": "assets/references/kursat.cagiltay.png",
             "company": "Middle East Technical University",
             "contacts": [
@@ -135,7 +135,7 @@
         {
             "id": 6,
             "code": "alexanderberler",
-            "name": "Alexander Berler",
+            "title": "Alexander Berler",
             "photoUrl": "assets/references/alexander.berler.jpg",
             "company": "Gnomon",
             "contacts": [
@@ -156,7 +156,7 @@
         {
             "id": 7,
             "code": "umuthuseyinoglu",
-            "name": "Umut Hüseyinoğlu",
+            "title": "Umut Hüseyinoğlu",
             "photoUrl": "assets/references/umut.huseyinoglu.jpg",
             "company": "Hacettepe University",
             "contacts": [
@@ -189,7 +189,7 @@
         {
             "id": 8,
             "code": "gulpembeergin",
-            "name": "Gülpembe Ergin",
+            "title": "Gülpembe Ergin",
             "photoUrl": "assets/references/gulpembe.ergin.jpg",
             "company": "Ondokuz Mayıs University",
             "contacts": [
@@ -218,7 +218,7 @@
         {
             "id": 9,
             "code": "firatozerden",
-            "name": "Fırat Özerden",
+            "title": "Fırat Özerden",
             "photoUrl": "assets/references/firat.ozerden.jpg",
             "company": "Mh Handel GmbH",
             "contacts": [
@@ -243,7 +243,7 @@
         {
             "id": 10,
             "code": "johansellstrom",
-            "name": "Johan Sellström",
+            "title": "Johan Sellström",
             "photoUrl": "assets/references/johan.sellstrom.jpg",
             "company": "Infrion",
             "contacts": [
@@ -256,7 +256,7 @@
         {
             "id": 11,
             "code": "aslakfelin",
-            "name": "Aslak Felin",
+            "title": "Aslak Felin",
             "photoUrl": "assets/references/aslak.felin.jpg",
             "company": "Infrion",
             "contacts": [
@@ -269,7 +269,7 @@
         {
             "id": 12,
             "code": "uweweimer",
-            "name": "Uwe Weimer",
+            "title": "Uwe Weimer",
             "photoUrl": "assets/references/uwe.weimer.jpg",
             "company": "Medisanté",
             "contacts": [
@@ -282,7 +282,7 @@
         {
             "id": 13,
             "code": "mehmetalpkarabas",
-            "name": "Dr. Mehmet Alp Karabas",
+            "title": "Dr. Mehmet Alp Karabas",
             "photoUrl": "assets/references/mehmet.alp.karabas.jpg",
             "company": "Hylman Group",
             "contacts": [
@@ -295,7 +295,7 @@
         {
             "id": 14,
             "code": "eleftheriapolychronidou",
-            "name": "Eleftheria Polychronidou",
+            "title": "Eleftheria Polychronidou",
             "photoUrl": "assets/references/eleftheria.polychronidou.jpg",
             "company": "Causaly",
             "contacts": [
@@ -308,7 +308,7 @@
         {
             "id": 15,
             "code": "kostaskarkaletsis",
-            "name": "Kostas Karkaletsis",
+            "title": "Kostas Karkaletsis",
             "photoUrl": "assets/references/kostas.karkaletsis.jpg",
             "company": "Gnomon Informatics SA",
             "contacts": [
@@ -321,7 +321,7 @@
         {
             "id": 16,
             "code": "velibicer",
-            "name": "Veli Bicer",
+            "title": "Veli Bicer",
             "photoUrl": "assets/references/veli.bicer.jpg",
             "company": "A5 Labs",
             "contacts": [
@@ -334,7 +334,7 @@
         {
             "id": 17,
             "code": "erol-ozcelik",
-            "name": "Erol Ozcelik",
+            "title": "Erol Ozcelik",
             "photoUrl": "assets/references/erol.ozcelik.jpg",
             "company": "University Faculty",
             "contacts": [
@@ -347,7 +347,7 @@
         {
             "id": 18,
             "code": "mesutdemirer",
-            "name": "Mesut Demirer",
+            "title": "Mesut Demirer",
             "photoUrl": "assets/references/mesut.demirer.jpg",
             "company": "Infera Teknoloji ve Bilişim Hizmetleri A.Ş.",
             "contacts": [
@@ -360,7 +360,7 @@
         {
             "id": 19,
             "code": "davutgurbuz",
-            "name": "Davut Gürbüz",
+            "title": "Davut Gürbüz",
             "photoUrl": "assets/references/davut.gurbuz.jpg",
             "company": "Cloud Solutions",
             "contacts": [
@@ -373,7 +373,7 @@
         {
             "id": 20,
             "code": "mikaelkaron",
-            "name": "Mikael Karon",
+            "title": "Mikael Karon",
             "photoUrl": null,
             "company": "Infrion",
             "contacts": []
@@ -381,7 +381,7 @@
         {
             "id": 21,
             "code": "alexanderkjeldaas",
-            "name": "Alexander Kjeldaas",
+            "title": "Alexander Kjeldaas",
             "photoUrl": null,
             "company": "Infrion",
             "contacts": []
@@ -389,7 +389,7 @@
         {
             "id": 22,
             "code": "muhammettursak",
-            "name": "Muhammet Turşak",
+            "title": "Muhammet Turşak",
             "photoUrl": null,
             "company": "Infrion",
             "contacts": []
@@ -397,7 +397,7 @@
         {
             "id": 23,
             "code": "ertemyazici",
-            "name": "Ertem Yazıcı",
+            "title": "Ertem Yazıcı",
             "photoUrl": null,
             "company": "ERC",
             "contacts": []
@@ -405,7 +405,7 @@
         {
             "id": 24,
             "code": "ekremyildiz",
-            "name": "Ekrem Yıldız",
+            "title": "Ekrem Yıldız",
             "photoUrl": null,
             "company": "ERC",
             "contacts": []
@@ -413,7 +413,7 @@
         {
             "id": 25,
             "code": "cankatabaci",
-            "name": "Cankat Abacı",
+            "title": "Cankat Abacı",
             "photoUrl": null,
             "company": "ERC",
             "contacts": []
@@ -421,7 +421,7 @@
         {
             "id": 27,
             "code": "onurkipel",
-            "name": "Onur Kipel",
+            "title": "Onur Kipel",
             "photoUrl": null,
             "company": "Datasel",
             "contacts": []
@@ -429,7 +429,7 @@
         {
             "id": 28,
             "code": "mehmetalicicek",
-            "name": "Mehmet Ali Çiçek",
+            "title": "Mehmet Ali Çiçek",
             "photoUrl": null,
             "company": "Datasel",
             "contacts": []
@@ -437,7 +437,7 @@
         {
             "id": 29,
             "code": "alpercetinkaya",
-            "name": "Alper Çetinkaya",
+            "title": "Alper Çetinkaya",
             "photoUrl": null,
             "company": "Datasel",
             "contacts": []
@@ -445,7 +445,7 @@
         {
             "id": 30,
             "code": "tolgaaktan",
-            "name": "Tolga Aktan",
+            "title": "Tolga Aktan",
             "photoUrl": null,
             "company": "Datasel",
             "contacts": []
@@ -453,7 +453,7 @@
         {
             "id": 31,
             "code": "kemalbirer",
-            "name": "Kemal Birer",
+            "title": "Kemal Birer",
             "photoUrl": null,
             "company": "Datasel",
             "contacts": []
@@ -461,7 +461,7 @@
         {
             "id": 32,
             "code": "esraertunc",
-            "name": "Esra Ertunç",
+            "title": "Esra Ertunç",
             "photoUrl": null,
             "company": "Datasel",
             "contacts": []
@@ -469,7 +469,7 @@
         {
             "id": 33,
             "code": "duranturemis",
-            "name": "Duran Türemiş",
+            "title": "Duran Türemiş",
             "photoUrl": null,
             "company": "ERC",
             "contacts": []
@@ -477,7 +477,7 @@
         {
             "id": 34,
             "code": "eserkalac",
-            "name": "Eser Kalaç",
+            "title": "Eser Kalaç",
             "photoUrl": null,
             "company": "ERC",
             "contacts": []
@@ -485,7 +485,7 @@
         {
             "id": 35,
             "code": "ahmetbeskonaklioglu",
-            "name": "Ahmet Beşkonaklıoğlu",
+            "title": "Ahmet Beşkonaklıoğlu",
             "photoUrl": null,
             "company": "ERC",
             "contacts": []
@@ -493,7 +493,7 @@
         {
             "id": 36,
             "code": "mehmetgoren",
-            "name": "Mehmet Gören",
+            "title": "Mehmet Gören",
             "photoUrl": null,
             "company": "Fonet",
             "contacts": []
@@ -501,7 +501,7 @@
         {
             "id": 37,
             "code": "ozlemtursak",
-            "name": "Özlem Turşak",
+            "title": "Özlem Turşak",
             "photoUrl": null,
             "company": "Fonet",
             "contacts": []
@@ -509,7 +509,7 @@
         {
             "id": 38,
             "code": "engincelik",
-            "name": "Engin Çelik",
+            "title": "Engin Çelik",
             "photoUrl": null,
             "company": "Fonet",
             "contacts": []
@@ -517,7 +517,7 @@
         {
             "id": 39,
             "code": "hasanturunc",
-            "name": "Hasan Turunç",
+            "title": "Hasan Turunç",
             "photoUrl": null,
             "company": "Fonet",
             "contacts": []
@@ -525,7 +525,7 @@
         {
             "id": 40,
             "code": "naserarab",
-            "name": "Naser Arab",
+            "title": "Naser Arab",
             "photoUrl": null,
             "company": "Fonet",
             "contacts": []
@@ -533,7 +533,7 @@
         {
             "id": 41,
             "code": "fatihekici",
-            "name": "Fatih Ekici",
+            "title": "Fatih Ekici",
             "photoUrl": null,
             "company": "Fonet",
             "contacts": []
@@ -541,7 +541,7 @@
         {
             "id": 42,
             "code": "mustafauysal",
-            "name": "M. Mustafa Uysal",
+            "title": "M. Mustafa Uysal",
             "photoUrl": null,
             "company": "Halıcı",
             "contacts": []
@@ -549,7 +549,7 @@
         {
             "id": 43,
             "code": "selceniyisever",
-            "name": "Selcen İyisever",
+            "title": "Selcen İyisever",
             "photoUrl": null,
             "company": "Halıcı",
             "contacts": []
@@ -557,7 +557,7 @@
         {
             "id": 44,
             "code": "ugurumutluoglu",
-            "name": "Uğur Umutluoğlu",
+            "title": "Uğur Umutluoğlu",
             "photoUrl": null,
             "company": "Halıcı",
             "contacts": []
@@ -565,7 +565,7 @@
         {
             "id": 45,
             "code": "erhandurust",
-            "name": "Erhan Dürüst",
+            "title": "Erhan Dürüst",
             "photoUrl": null,
             "company": "Halıcı",
             "contacts": []
@@ -573,7 +573,7 @@
         {
             "id": 46,
             "code": "evrimbaran",
-            "name": "Evrim Baran",
+            "title": "Evrim Baran",
             "photoUrl": null,
             "company": "Halıcı",
             "contacts": []
@@ -581,7 +581,7 @@
         {
             "id": 47,
             "code": "tayfunyuksel",
-            "name": "Tayfun Yüksel",
+            "title": "Tayfun Yüksel",
             "photoUrl": null,
             "company": "CEIT",
             "contacts": []
@@ -589,7 +589,7 @@
         {
             "id": 48,
             "code": "umitkaya",
-            "name": "Ümit Kaya",
+            "title": "Ümit Kaya",
             "photoUrl": null,
             "company": "CEIT",
             "contacts": []
@@ -597,7 +597,7 @@
         {
             "id": 49,
             "code": "erolisik",
-            "name": "Erol Işık",
+            "title": "Erol Işık",
             "photoUrl": null,
             "company": "CEIT",
             "contacts": []
@@ -605,7 +605,7 @@
         {
             "id": 50,
             "code": "melihtop",
-            "name": "Melih Top",
+            "title": "Melih Top",
             "photoUrl": null,
             "company": "CEIT",
             "contacts": []
@@ -613,7 +613,7 @@
         {
             "id": 51,
             "code": "hasanbasaran",
-            "name": "Hasan Başaran",
+            "title": "Hasan Başaran",
             "photoUrl": null,
             "company": "CEIT",
             "contacts": []
@@ -621,7 +621,7 @@
         {
             "id": 52,
             "code": "zahideyildirim",
-            "name": "Prof. Dr. Zahide Yıldırım",
+            "title": "Prof. Dr. Zahide Yıldırım",
             "photoUrl": null,
             "company": "METU II",
             "contacts": []
@@ -629,7 +629,7 @@
         {
             "id": 53,
             "code": "cevahirturgut",
-            "name": "Cevahir Turgut",
+            "title": "Cevahir Turgut",
             "photoUrl": null,
             "company": "Tursoft",
             "contacts": []
@@ -637,7 +637,7 @@
         {
             "id": 54,
             "code": "ozansener",
-            "name": "Ozan Şener",
+            "title": "Ozan Şener",
             "photoUrl": null,
             "company": "Tursoft",
             "contacts": []
@@ -645,7 +645,7 @@
         {
             "id": 55,
             "code": "serdarcicek",
-            "name": "Serdar Çiçek",
+            "title": "Serdar Çiçek",
             "photoUrl": null,
             "company": "Tursoft",
             "contacts": []
@@ -653,7 +653,7 @@
         {
             "id": 56,
             "code": "ertugruloral",
-            "name": "Ertuğrul Oral",
+            "title": "Ertuğrul Oral",
             "photoUrl": null,
             "company": "Tursoft",
             "contacts": []
@@ -661,7 +661,7 @@
         {
             "id": 57,
             "code": "ercansuat",
-            "name": "Ercan Suat",
+            "title": "Ercan Suat",
             "photoUrl": null,
             "company": "Tursoft",
             "contacts": []
@@ -669,7 +669,7 @@
         {
             "id": 58,
             "code": "nesetmutlu",
-            "name": "Neşet Mutlu",
+            "title": "Neşet Mutlu",
             "photoUrl": null,
             "company": "Tursoft",
             "contacts": []
@@ -677,7 +677,7 @@
         {
             "id": 59,
             "code": "emreusta",
-            "name": "Emre Usta",
+            "title": "Emre Usta",
             "photoUrl": null,
             "company": "Tursoft",
             "contacts": []
@@ -685,7 +685,7 @@
         {
             "id": 61,
             "code": "cetinbalanuye",
-            "name": "Çetin Balanüye",
+            "title": "Çetin Balanüye",
             "photoUrl": null,
             "company": "Halıcı",
             "contacts": []
@@ -693,7 +693,7 @@
         {
             "id": 62,
             "code": "serkankayranci",
-            "name": "Serkan Kayrancı",
+            "title": "Serkan Kayrancı",
             "photoUrl": null,
             "company": "Halıcı",
             "contacts": []
@@ -701,7 +701,7 @@
         {
             "id": 63,
             "code": "ertaneyimaya",
-            "name": "Ertan Eyimaya",
+            "title": "Ertan Eyimaya",
             "photoUrl": null,
             "company": "Halıcı",
             "contacts": []

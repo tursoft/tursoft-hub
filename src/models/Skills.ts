@@ -1,3 +1,5 @@
+import { IBaseModelAdvanced } from "./base/IBaseModelAdvanced";
+
 export interface SkillGroup {
   id?: number;
   name?: string;
@@ -5,13 +7,10 @@ export interface SkillGroup {
   orderIndex?: number;
 }
 
-export interface SkillItem {
+export interface SkillItem extends IBaseModelAdvanced {
   id?: number;
-  name: string;
-  title?: string;
   group?: string | number;
   value?: number;
-  iconCss?: string;
   projects?: number;
   jobs?: number;
   orderIndex?: number;

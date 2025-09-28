@@ -1,3 +1,5 @@
+import { IBaseModel } from "./base/IBaseModel";
+
 export interface ExperienceTechnology {
   name: string;
   type?: string;
@@ -29,12 +31,10 @@ export interface Position {
   skillCodes?: string[];
 }
 
-export interface Experience {
+export interface Experience extends IBaseModel {
   id: number;
   orderIndex: number;
-  icon?: string;
   companyCode?: string;
-  companyName?: string;
   websiteUrl?: string;
   linkedinUrl?: string;
   positions: Position[];

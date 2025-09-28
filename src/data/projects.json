@@ -4,55 +4,55 @@
     "summary": "Throughout 25 years of my professional career, I have completed managed various projects with more than million dolars.",
     "groups": [
       {
-        "name": "RD",
+        "code": "RD",
         "title": "Research",
         "value": 100,
         "iconCss": ""
       },
       {
-        "name": "Framework",
+        "code": "Framework",
         "title": "Framework",
         "value": 100,
         "iconCss": ""
       },
       {
-        "name": "HIS",
+        "code": "HIS",
         "title": "HIS",
         "value": 100,
         "iconCss": ""
       },
       {
-        "name": "Telemedicine",
+        "code": "Telemedicine",
         "title": "Telemedicine",
         "value": 100,
         "iconCss": ""
       },
       {
-        "name": "LMS",
+        "code": "LMS",
         "title": "LMS",
         "value": 100,
         "iconCss": ""
       },
       {
-        "name": "Social Responsibility",
+        "code": "Social Responsibility",
         "title": "Social Responsibility",
         "value": 100,
         "iconCss": ""
       },
       {
-        "name": "PM",
+        "code": "PM",
         "title": "Project Management",
         "value": 100,
         "iconCss": ""
       },
       {
-        "name": "Game",
+        "code": "Game",
         "title": "Game",
         "value": 100,
         "iconCss": ""
       },
       {
-        "name": "Misc",
+        "code": "Misc",
         "title": "Misc",
         "value": 100,
         "iconCss": ""
@@ -62,7 +62,7 @@
   "items": [
     {
       "id": 382,
-      "name": "CERTIFY.HEALTH",
+      "code": "CERTIFY.HEALTH",
       "title": "Certify Health",
       "group": "HIS",
       "value": 100,
@@ -73,15 +73,15 @@
       "summary": "Digital certification platform for healthcare professionals and medical institutions, providing secure and verifiable credentials management.",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web, Mobile"
         },
         {
-          "name": "db",
+          "code": "db",
           "title": "SQL Server"
         },
         {
-          "name": "lang",
+          "code": "lang",
           "title": "English"
         }
       ],
@@ -97,7 +97,7 @@
         "Compliance & Audit Trails"
       ],
       "customerCodes": [],
-      "partners": [],
+      "partnerCodes": [],
       "team": [
         {
           "position": "CEO",
@@ -122,11 +122,11 @@
       ],
       "skillCodes": ["C"],
       "companyCode": "infrion",
-      "logoUrl": "assets/logos/projects/certify.health.png"
+      "photoUrl": "assets/logos/projects/certify.health.png"
     },
     {
       "id": 373,
-      "name": "ALISVERISASISTANI",
+      "code": "ALISVERISASISTANI",
       "title": "Alışveriş Asistanı",
       "group": "Misc",
       "value": 900,
@@ -168,7 +168,7 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Chrome Extensions"
         }
       ],
@@ -184,14 +184,14 @@
       ],
       "modules": [],
       "customerCodes": [],
-      "partners": [],
+      "partnerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/alisveris.asistani.png"
+      "photoUrl": "assets/logos/projects/alisveris.asistani.png"
     },
     {
       "id": 374,
-      "name": "JENGAIAPP",
+      "code": "JENGAIAPP",
       "title": "Jengai App",
       "group": "Misc",
       "value": 900,
@@ -203,7 +203,7 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web Platform"
         }
       ],
@@ -219,14 +219,14 @@
       ],
       "modules": [],
       "customerCodes": [],
-      "partners": [],
+      "partnerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "jengai",
-      "logoUrl": "assets/logos/projects/jengai.app.png"
+      "photoUrl": "assets/logos/projects/jengai.app.png"
     },
     {
       "id": 372,
-      "name": "GAMYTEAPP",
+      "code": "GAMYTEAPP",
       "title": "Gamyte App",
       "group": "Misc",
       "value": 900,
@@ -238,7 +238,7 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web Platform"
         }
       ],
@@ -254,14 +254,14 @@
       ],
       "modules": [],
       "customerCodes": [],
-      "partners": [],
+      "partnerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "gamyte",
-      "logoUrl": "assets/logos/projects/gamyte.app.png"
+      "photoUrl": "assets/logos/projects/gamyte.app.png"
     },
     {
       "id": 371,
-      "name": "PARDUSDOCKER",
+      "code": "PARDUSDOCKER",
       "title": "Pardus on Docker",
       "group": "Social Responsibility",
       "value": 100,
@@ -273,7 +273,7 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Docker"
         }
       ],
@@ -290,14 +290,14 @@
         "Populer Docker Images on Pardus Base Image"
       ],
       "customerCodes": [],
-      "partners": [],
+      "partnerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/PARDUSDOCKER.png"
+      "photoUrl": "assets/logos/projects/PARDUSDOCKER.png"
     },
     {
       "id": 301,
-      "name": "ATTP",
+      "code": "ATTP",
       "title": "Avicenna Telemedicine Platform",
       "group": "Telemedicine",
       "value": 100,
@@ -309,11 +309,11 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "integration",
+          "code": "integration",
           "title": "VPOS Integration"
         }
       ],
@@ -346,14 +346,14 @@
         "Security Management"
       ],
       "customerCodes": ["LIFEWATCH.CH"],
-      "partners": [],
+      "partnerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/ATTP.png"
+      "photoUrl": "assets/logos/projects/ATTP.png"
     },
     {
       "id": 307,
-      "name": "PDFW",
+      "code": "PDFW",
       "title": "Avicenna Product Development Framework",
       "group": "Framework",
       "value": 100,
@@ -364,17 +364,17 @@
       "summary": "Enterprise Level Web-based Rapid Application Development Framework",
       "props": [
         {
-          "name": "category",
+          "code": "category",
           "title": "Framework"
         }
       ],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/PDFW.png"
+      "photoUrl": "assets/logos/projects/PDFW.png"
     },
     {
       "id": 308,
-      "name": "PDFWCore",
+      "code": "PDFWCore",
       "title": "Avicenna Product Development Framework",
       "group": "Framework",
       "value": 100,
@@ -385,17 +385,17 @@
       "summary": "Enterprise Level Web-based Rapid Application Development Framework based on .NET Core",
       "props": [
         {
-          "name": "category",
+          "code": "category",
           "title": "Framework"
         }
       ],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/PDFWCore.png"
+      "photoUrl": "assets/logos/projects/PDFWCore.png"
     },
     {
       "id": 355,
-      "name": "PDFWSL",
+      "code": "PDFWSL",
       "title": "Avicenna Product Development Framework SL",
       "group": "Framework",
       "value": 100,
@@ -406,17 +406,17 @@
       "summary": "Ürün Geliştirme Departmanı projelerinin geliştirme süreçlerinin hızlandırılması, ortak ve standart bileşen ve yazılım kütüphanelerini kullanmasına yönelik olarak geliştirilen .NET kütüphanesidir. - Bir çok ortak kütüphaneyi içerir (çeşitli extension'lar, interface'ler, asenkron işlemler için yardımcı kütüphaneler, MVVM yardımcı kütüphaneleri, güvenlik kütüphaneleri vb.), Silverlight, WPF ve WP7 için temel arayüz bileşenleri içerir",
       "props": [
         {
-          "name": "category",
+          "code": "category",
           "title": "Framework"
         }
       ],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/PDFWSL.png"
+      "photoUrl": "assets/logos/projects/PDFWSL.png"
     },
     {
       "id": 306,
-      "name": "ATTPMobile",
+      "code": "ATTPMobile",
       "title": "Avicenna Telemedicine Platform Mobile",
       "group": "Telemedicine",
       "value": 100,
@@ -427,7 +427,7 @@
       "summary": "Mobile Client Application for ATTP Platform. Developed using Ionic and Angular",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Mobile"
         }
       ],
@@ -449,11 +449,11 @@
       "customerCodes": ["LIFEWATCH.CH"],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/ATTPMobile.png"
+      "photoUrl": "assets/logos/projects/ATTPMobile.png"
     },
     {
       "id": 302,
-      "name": "AvicennaMobile",
+      "code": "AvicennaMobile",
       "title": "Avicenna Mobile",
       "group": "HIS",
       "value": 100,
@@ -464,7 +464,7 @@
       "summary": "Avicenna Mobile is a mobile client for Avicenna HIS. By using Avicenna Mobile, patients can schedule new appointments, check existing appointments, list, view and download lab results, update detail patient details and perform much more actions.",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Mobile"
         }
       ],
@@ -491,11 +491,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/HIS2x.png"
+      "photoUrl": "assets/logos/projects/HIS2x.png"
     },
     {
       "id": 303,
-      "name": "EPR",
+      "code": "EPR",
       "title": "Avicenna E-Reçete",
       "group": "HIS",
       "value": 100,
@@ -506,11 +506,11 @@
       "summary": "Avicenna E-Reçete sayesinde İşyeri Hekimleri e-reçetelerini online olarak yönetebilecek, e-imzaları ile kolayca imzayabilecek ve hızlıca Medula'ya gönderebilecekler. <br/>URL: https://erecete.erc-grup.com.tr",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "servicemode",
+          "code": "servicemode",
           "title": "SaS"
         }
       ],
@@ -537,11 +537,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/EPR.png"
+      "photoUrl": "assets/logos/projects/EPR.png"
     },
     {
       "id": 304,
-      "name": "soyagaciniznet",
+      "code": "soyagaciniznet",
       "title": "soyagaciniz.net",
       "group": "Social Responsibility",
       "value": 100,
@@ -552,22 +552,22 @@
       "summary": "Gönüllü olarak geliştirdiğim bu proje sayesinde e-devlet soyağacınızı görselleştirmek artık çok kolay. Teknolojiler: SPA, Angular4, Angular Material, PrimeNg, ChartJS, MomentJS, FontAwesome, Light Gallery, RxJS, JsPdf. <br/>URL: <a href='http://www.soyagaciniz.net' target='_blank'>http://www.soyagaciniz.net</a>. Kaynak Kod: <a href='https://github.com/tursoft/familytree' target='_blank'>https://github.com/tursoft/familytree</a>",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Social Responsibility Project"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/soyagaciniznet.png"
+      "photoUrl": "assets/logos/projects/soyagaciniznet.png"
     },
     {
       "id": 305,
-      "name": "FDS",
+      "code": "FDS",
       "title": "Avicenna FDS",
       "group": "HIS",
       "value": 100,
@@ -578,7 +578,7 @@
       "summary": "Avicenna FDS is one of the major core modules of Avicenna HIS. Avicena FDS provides a free style form design surface for end users to create and edit new forms integrated to most of the HIS modules such as medical forms, medical reports, order forms, quality data collection forms etc. Forms can be authorized to target user groups and target departments. Avicena FDS provides most of the functionalities of modern IDE platforms in the market. Both backend and frontend layers of the module were developed using Java.",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
@@ -588,11 +588,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/FDS.png"
+      "photoUrl": "assets/logos/projects/FDS.png"
     },
     {
       "id": 309,
-      "name": "AHR",
+      "code": "AHR",
       "title": "Avicenna Human Resources 360",
       "group": "Misc",
       "value": 100,
@@ -603,7 +603,7 @@
       "summary": "360 degree human resources performance measurement and tracking platform for enterprises",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         }
       ],
@@ -622,11 +622,11 @@
       ],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/AHR.png"
+      "photoUrl": "assets/logos/projects/AHR.png"
     },
     {
       "id": 316,
-      "name": "AHIN",
+      "code": "AHIN",
       "title": "Avicenna Health Integration Network",
       "group": "RD",
       "value": 100,
@@ -637,7 +637,7 @@
       "summary": "Flexible Integration Platform for Health Data",
       "props": [
         {
-          "name": "type",
+          "code": "type",
           "title": "Tubitak Project"
         }
       ],
@@ -648,11 +648,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/AHIN.png"
+      "photoUrl": "assets/logos/projects/AHIN.png"
     },
     {
       "id": 356,
-      "name": "ProEmpower",
+      "code": "ProEmpower",
       "title": "ProEmpower - DM4All",
       "group": "RD",
       "value": 100,
@@ -663,19 +663,19 @@
       "summary": "It is PCP project founded by European Union. The DM4ALL is our solution to solve challenge for innovative ICT for patient empowerment and self-management of type 2 diabetes mellitus procured by the ProEmpower consortium. As an international consortium, we are awarded for first 2 phases of 3-phased project by ProEmpower Project Commitee. Procurer Countries: Turkey, Italy, Spain, Portugal",
       "props": [
         {
-          "name": "type",
+          "code": "type",
           "title": "European Union PCP Project"
         },
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "lang",
+          "code": "lang",
           "title": "Multi Language Support"
         },
         {
-          "name": "db",
+          "code": "db",
           "title": "Multi Database Support"
         }
       ],
@@ -683,7 +683,7 @@
         "healthcareit"
       ],
       "customerCodes": ["MOH.TR", "SPMS.PT"],
-      "partners": [
+      "partnerCodes": [
         "ERC / Turkey",
         "Gnomon / Greece",
         "CERTH / Greece",
@@ -693,11 +693,11 @@
       ],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/ProEmpower.png"
+      "photoUrl": "assets/logos/projects/ProEmpower.png"
     },
     {
       "id": 310,
-      "name": "APM",
+      "code": "APM",
       "title": "Avicenna Project Master",
       "group": "PM",
       "value": 100,
@@ -708,15 +708,15 @@
       "summary": "Specialized Web-based ERP for Softwarehouse Workflows",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "db",
+          "code": "db",
           "title": "Multi Database Support"
         },
         {
-          "name": "lang",
+          "code": "lang",
           "title": "Multi Language Support (Turkish, English)"
         }
       ],
@@ -735,11 +735,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/APM.png"
+      "photoUrl": "assets/logos/projects/APM.png"
     },
     {
       "id": 311,
-      "name": "HIS2x",
+      "code": "HIS2x",
       "title": "Avicenna Hospital Information System",
       "group": "HIS",
       "value": 100,
@@ -750,15 +750,15 @@
       "summary": "Enterprise Level Hospital Information System having multi-organization support, multiple languages. <br/>It is still used by national level in 2 countries: Kosovo and Palestine.",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web, Desktop"
         },
         {
-          "name": "db",
+          "code": "db",
           "title": "Multi Database Support"
         },
         {
-          "name": "lang",
+          "code": "lang",
           "title": "Multi Language Support (Turkish, English, Arabic, Albanian)"
         }
       ],
@@ -768,11 +768,11 @@
       "customerCodes": ["MOH.PAL", "H.IbniSina"],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/HIS2x.png"
+      "photoUrl": "assets/logos/projects/HIS2x.png"
     },
     {
       "id": 312,
-      "name": "AIS",
+      "code": "AIS",
       "title": "Avicenna Ambulance Information System",
       "group": "HIS",
       "value": 100,
@@ -783,15 +783,15 @@
       "summary": "Specialized Ambulance Information System having mobile app, web portal and integration APIs. It has been used in Hajj period in KSA.",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "db",
+          "code": "db",
           "title": "Multi Database Support"
         },
         {
-          "name": "lang",
+          "code": "lang",
           "title": "English"
         }
       ],
@@ -823,11 +823,11 @@
       "customerCodes": ["MOH.KSA"],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/AIS.png"
+      "photoUrl": "assets/logos/projects/AIS.png"
     },
     {
       "id": 313,
-      "name": "EDIS",
+      "code": "EDIS",
       "title": "Avicenna Emergency Department Information System",
       "group": "HIS",
       "value": 100,
@@ -838,11 +838,11 @@
       "summary": "It is Canadian Triage Based specialized Emergency Department Information Management System.",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "db",
+          "code": "db",
           "title": "Multi Database Support"
         }
       ],
@@ -879,11 +879,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/EDIS.png"
+      "photoUrl": "assets/logos/projects/EDIS.png"
     },
     {
       "id": 314,
-      "name": "CMS",
+      "code": "CMS",
       "title": "Avicenna Clinic Management System",
       "group": "HIS",
       "value": 100,
@@ -894,15 +894,15 @@
       "summary": "Online SaS Clinical Management System",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "db",
+          "code": "db",
           "title": "Multi Database Support"
         },
         {
-          "name": "lang",
+          "code": "lang",
           "title": "Multi Language Support (Turkish, English)"
         }
       ],
@@ -944,11 +944,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/CMS.png"
+      "photoUrl": "assets/logos/projects/CMS.png"
     },
     {
       "id": 315,
-      "name": "CQRE",
+      "code": "CQRE",
       "title": "Avicenna Clinical Quality Rule Engine",
       "group": "RD",
       "value": 100,
@@ -959,19 +959,19 @@
       "summary": "Clinical Data Quality Validation System with easy-to-use rule engine",
       "props": [
         {
-          "name": "type",
+          "code": "type",
           "title": "Tubitak Project"
         },
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "db",
+          "code": "db",
           "title": "Multi Database Support"
         },
         {
-          "name": "lang",
+          "code": "lang",
           "title": "Multi Language Support (Turkish, English)"
         }
       ],
@@ -1003,11 +1003,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/CQRE.png"
+      "photoUrl": "assets/logos/projects/CQRE.png"
     },
     {
       "id": 317,
-      "name": "VKBS",
+      "code": "VKBS",
       "title": "Avicenna Case-Mix Information System",
       "group": "RD",
       "value": 100,
@@ -1018,19 +1018,19 @@
       "summary": "It is a complete DRG Costing Solution. I designed and implemented the architecture, managed the project, developed reusable advanced components, coordinated and lead the team. Project was also used in about 80 hospitals from all over the Turkey, even biggest ones. We collected and anayzed more than 50 billion clinical and financial records (about 5TB). Eventually, we have calculated the first official DRG costs and weighted DRG values of Turkey.",
       "props": [
         {
-          "name": "type",
+          "code": "type",
           "title": "Tubitak Project"
         },
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "db",
+          "code": "db",
           "title": "Multi Database Support"
         },
         {
-          "name": "lang",
+          "code": "lang",
           "title": "Multi Language Support (Turkish, English)"
         }
       ],
@@ -1067,11 +1067,11 @@
       ],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/VKBS.png"
+      "photoUrl": "assets/logos/projects/VKBS.png"
     },
     {
       "id": 318,
-      "name": "FastEyes",
+      "code": "FastEyes",
       "title": "Avicenna FastEyes",
       "group": "RD",
       "value": 100,
@@ -1082,7 +1082,7 @@
       "summary": "Web Based Project Management Platform",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         }
       ],
@@ -1106,11 +1106,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/FastEyes.png"
+      "photoUrl": "assets/logos/projects/FastEyes.png"
     },
     {
       "id": 320,
-      "name": "RPMS",
+      "code": "RPMS",
       "title": "Avicenna Remote Patient Management System",
       "group": "HIS",
       "value": 100,
@@ -1124,15 +1124,15 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "mode",
+          "code": "mode",
           "title": "Video Streaming"
         },
         {
-          "name": "servicemode",
+          "code": "servicemode",
           "title": "SaS"
         }
       ],
@@ -1156,11 +1156,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/RPMS.png"
+      "photoUrl": "assets/logos/projects/RPMS.png"
     },
     {
       "id": 321,
-      "name": "AHBS",
+      "code": "AHBS",
       "title": "Avicenna AHBS",
       "group": "HIS",
       "value": 100,
@@ -1171,11 +1171,11 @@
       "summary": "An Online Family Practitioner Information System. Project Partner : TTNET.",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "servicemode",
+          "code": "servicemode",
           "title": "SaS"
         }
       ],
@@ -1227,11 +1227,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/AHBS.png"
+      "photoUrl": "assets/logos/projects/AHBS.png"
     },
     {
       "id": 322,
-      "name": "FonetHBYS",
+      "code": "FonetHBYS",
       "title": "Fonet Hospital Information System",
       "group": "HIS",
       "value": 100,
@@ -1242,11 +1242,11 @@
       "summary": "HIS System with various major modules containg both medical and management",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         },
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         }
       ],
@@ -1256,11 +1256,11 @@
       "customerCodes": ["MOH.TR"],
       "skillCodes": ["C"],
       "companyCode": "FONET",
-      "logoUrl": "assets/logos/projects/FonetHBYS.png"
+      "photoUrl": "assets/logos/projects/FonetHBYS.png"
     },
     {
       "id": 323,
-      "name": "FonetFW",
+      "code": "FonetFW",
       "title": "Fonet Framework",
       "group": "Framework",
       "value": 100,
@@ -1271,15 +1271,15 @@
       "summary": "Enterprise Level Rapid Application Development Framework",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         },
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "category",
+          "code": "category",
           "title": "Framework"
         }
       ],
@@ -1301,11 +1301,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "FONET",
-      "logoUrl": "assets/logos/projects/FonetFW.png"
+      "photoUrl": "assets/logos/projects/FonetFW.png"
     },
     {
       "id": 324,
-      "name": "FonetStudio",
+      "code": "FonetStudio",
       "title": "Fonet Studio",
       "group": "Framework",
       "value": 100,
@@ -1316,11 +1316,11 @@
       "summary": "Flexible Form Design and Runtime Module to be used as IDE for end-users",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         },
         {
-          "name": "mode",
+          "code": "mode",
           "title": "IDE"
         }
       ],
@@ -1342,11 +1342,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "FONET",
-      "logoUrl": "assets/logos/projects/FonetStudio.png"
+      "photoUrl": "assets/logos/projects/FonetStudio.png"
     },
     {
       "id": 325,
-      "name": "FonetLog",
+      "code": "FonetLog",
       "title": "Fonet Advanced Log Module",
       "group": "HIS",
       "value": 100,
@@ -1357,7 +1357,7 @@
       "summary": "Flexible Log Module of Fonet HIS",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
@@ -1376,11 +1376,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "FONET",
-      "logoUrl": "assets/logos/projects/FonetLog.png"
+      "photoUrl": "assets/logos/projects/FonetLog.png"
     },
     {
       "id": 326,
-      "name": "FonetInventory",
+      "code": "FonetInventory",
       "title": "Fonet Inventory Modules",
       "group": "HIS",
       "value": 100,
@@ -1391,7 +1391,7 @@
       "summary": "Inventory Module of Fonet HIS",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
@@ -1428,11 +1428,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "FONET",
-      "logoUrl": "assets/logos/projects/FonetInventory.png"
+      "photoUrl": "assets/logos/projects/FonetInventory.png"
     },
     {
       "id": 327,
-      "name": "HEP",
+      "code": "HEP",
       "title": "Halsoft e-Learning Portal",
       "group": "LMS",
       "value": 100,
@@ -1470,11 +1470,11 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Tubitak Project"
         }
       ],
@@ -1484,11 +1484,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Halici",
-      "logoUrl": "assets/logos/projects/HEP.png"
+      "photoUrl": "assets/logos/projects/HEP.png"
     },
     {
       "id": 328,
-      "name": "HalsoftPortal",
+      "code": "HalsoftPortal",
       "title": "Halsoft Enterprise Portal",
       "group": "Misc",
       "value": 100,
@@ -1526,22 +1526,22 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "integration",
+          "code": "integration",
           "title": "VPOS Integration"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Halici",
-      "logoUrl": "assets/logos/projects/HEP.png"
+      "photoUrl": "assets/logos/projects/HEP.png"
     },
     {
       "id": 329,
-      "name": "EDİSA",
+      "code": "EDİSA",
       "title": "EDİSA - ELearning Content Authoring Tool",
       "group": "LMS",
       "value": 100,
@@ -1569,15 +1569,15 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         },
         {
-          "name": "standards",
+          "code": "standards",
           "title": "SCORM"
         }
       ],
@@ -1587,11 +1587,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Halici",
-      "logoUrl": "assets/logos/projects/EDISA.png"
+      "photoUrl": "assets/logos/projects/EDISA.png"
     },
     {
       "id": 330,
-      "name": "UNHCR",
+      "code": "UNHCR",
       "title": "Official Portal of The UN Refugee Agency Turkey",
       "group": "EnterpisePortal",
       "value": 100,
@@ -1614,22 +1614,22 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/UNHCR.png"
+      "photoUrl": "assets/logos/projects/UNHCR.png"
     },
     {
       "id": 331,
-      "name": "CSC",
+      "code": "CSC",
       "title": "Labris Customer Support Center",
       "group": "Misc",
       "value": 100,
@@ -1640,26 +1640,26 @@
       "summary": "Customer Support System.",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "mode",
+          "code": "mode",
           "title": "Video Streaming"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "LABRIS",
-      "logoUrl": "assets/logos/projects/CSC.png"
+      "photoUrl": "assets/logos/projects/CSC.png"
     },
     {
       "id": 332,
-      "name": "OCMS",
+      "code": "OCMS",
       "title": "Online Course Management System",
       "group": "LMS",
       "value": 100,
@@ -1692,15 +1692,15 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "mode",
+          "code": "mode",
           "title": "Video Streaming"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
@@ -1710,11 +1710,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/OCMS.png"
+      "photoUrl": "assets/logos/projects/OCMS.png"
     },
     {
       "id": 333,
-      "name": "OCCM",
+      "code": "OCCM",
       "title": "Online Course Content Manager",
       "group": "LMS",
       "value": 100,
@@ -1725,15 +1725,15 @@
       "summary": "E-Learning Platform",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "mode",
+          "code": "mode",
           "title": "Video Streaming"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
@@ -1743,11 +1743,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/OCCM.png"
+      "photoUrl": "assets/logos/projects/OCCM.png"
     },
     {
       "id": 334,
-      "name": "EGM",
+      "code": "EGM",
       "title": "General Diractorate Of Security / Distance Education Portal",
       "group": "LMS",
       "value": 100,
@@ -1776,11 +1776,11 @@
       "customerCodes": ["EGM.TR", "DPT.TR"],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "mode",
+          "code": "mode",
           "title": "Video Streaming"
         }
       ],
@@ -1789,11 +1789,11 @@
       ],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/EGM.png"
+      "photoUrl": "assets/logos/projects/EGM.png"
     },
     {
       "id": 401,
-      "name": "Ankuzem",
+      "code": "Ankuzem",
       "title": "Ankara University - Distance Education Center",
       "group": "LMS",
       "value": 100,
@@ -1817,7 +1817,7 @@
       "customerCodes": ["AU.TR"],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         }
       ],
@@ -1826,12 +1826,12 @@
       ],
       "skillCodes": ["C"],
       "companyCode": "HALICI",
-      "logoUrl": "assets/logos/projects/ankuzem.png"
+      "photoUrl": "assets/logos/projects/ankuzem.png"
     },
     {
       "id": 335,
       "isactive": false,
-      "name": "DSP",
+      "code": "DSP",
       "title": "Official Portal of Democratic Left Party",
       "group": "Misc",
       "value": 100,
@@ -1854,22 +1854,22 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "mode",
+          "code": "mode",
           "title": "Video Streaming"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Halici",
-      "logoUrl": "assets/logos/projects/dsp.png"
+      "photoUrl": "assets/logos/projects/dsp.png"
     },
     {
       "id": 336,
-      "name": "BotebOnline",
+      "code": "BotebOnline",
       "title": "BÖTEB Online",
       "group": "Misc",
       "value": 100,
@@ -1892,22 +1892,22 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "mode",
+          "code": "mode",
           "title": "Video Streaming"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/BotebOnline.png"
+      "photoUrl": "assets/logos/projects/BotebOnline.png"
     },
     {
       "id": 337,
-      "name": "Efsane",
+      "code": "Efsane",
       "title": "Efsane - 3D Educational Game",
       "group": "Game",
       "value": 100,
@@ -1935,15 +1935,15 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "mode",
+          "code": "mode",
           "title": "3D"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
@@ -1954,11 +1954,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/Efsane.png"
+      "photoUrl": "assets/logos/projects/Efsane.png"
     },
     {
       "id": 338,
-      "name": "358Game",
+      "code": "358Game",
       "title": "3-5-8 P2P Card Game",
       "group": "Game",
       "value": 100,
@@ -1981,11 +1981,11 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
@@ -1995,11 +1995,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/The358Game.png"
+      "photoUrl": "assets/logos/projects/The358Game.png"
     },
     {
       "id": 339,
-      "name": "BenKimim",
+      "code": "BenKimim",
       "title": "BenKimim - Educational Game",
       "group": "Game",
       "value": 100,
@@ -2010,15 +2010,15 @@
       "summary": "2D Educational Game targeting kindergarden students",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         },
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
@@ -2050,11 +2050,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/BenKimim.png"
+      "photoUrl": "assets/logos/projects/BenKimim.png"
     },
     {
       "id": 340,
-      "name": "CilginTosba",
+      "code": "CilginTosba",
       "title": "Çılgın Tosba - Educational Game",
       "group": "Game",
       "value": 100,
@@ -2065,15 +2065,15 @@
       "summary": "2D Educational interpreter game supporting basic commands to move character turtule and paint drawings. It supports variables and functions.",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         },
         {
-          "name": "mode",
+          "code": "mode",
           "title": "Interpreter"
         }
       ],
@@ -2084,11 +2084,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/CilginTosba.png"
+      "photoUrl": "assets/logos/projects/CilginTosba.png"
     },
     {
       "id": 341,
-      "name": "DarkRoom",
+      "code": "DarkRoom",
       "title": "DarkRoom - Educational Game",
       "group": "Game",
       "value": 100,
@@ -2099,15 +2099,15 @@
       "summary": "2D Training game covering photo bathing",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         },
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
@@ -2118,11 +2118,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/DarkRoom.png"
+      "photoUrl": "assets/logos/projects/DarkRoom.png"
     },
     {
       "id": 342,
-      "name": "EgikAtis",
+      "code": "EgikAtis",
       "title": "Eğik Atış - Educational Game",
       "group": "Game",
       "value": 100,
@@ -2133,15 +2133,15 @@
       "summary": "2D Educational Console Game covering physics course topics",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         },
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
@@ -2152,11 +2152,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/EgikAtis.png"
+      "photoUrl": "assets/logos/projects/EgikAtis.png"
     },
     {
       "id": 343,
-      "name": "KriptoTurkiyede",
+      "code": "KriptoTurkiyede",
       "title": "Kripto Türkiye'de - Educational Game",
       "group": "Game",
       "value": 100,
@@ -2179,15 +2179,15 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         },
         {
-          "name": "mode",
+          "code": "mode",
           "title": "3D"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
@@ -2198,11 +2198,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "CEIT",
-      "logoUrl": "assets/logos/projects/KriptoTurkiyede.png"
+      "photoUrl": "assets/logos/projects/KriptoTurkiyede.png"
     },
     {
       "id": 344,
-      "name": "EDers",
+      "code": "EDers",
       "title": "EDers - Online Learning Platform",
       "group": "LMS",
       "value": 100,
@@ -2230,11 +2230,11 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
@@ -2244,11 +2244,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": null,
-      "logoUrl": "assets/logos/projects/Eders.png"
+      "photoUrl": "assets/logos/projects/Eders.png"
     },
     {
       "id": 345,
-      "name": "METU_ILT",
+      "code": "METU_ILT",
       "title": "Official Website of METU Communication Club",
       "group": "Social Responsibility",
       "value": 100,
@@ -2259,22 +2259,22 @@
       "summary": "Official website of METU Communication Club",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Social Responsibility Project"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": null,
-      "logoUrl": "assets/logos/projects/METU_ILT.png"
+      "photoUrl": "assets/logos/projects/METU_ILT.png"
     },
     {
       "id": 346,
-      "name": "XMessenger",
+      "code": "XMessenger",
       "title": "XMessenger - P2P Communication Platform",
       "group": "Misc",
       "value": 100,
@@ -2285,11 +2285,11 @@
       "summary": "Peer to Peer Realtime Communication platform containing text messages, smiles and whiteboard features",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         }
       ],
@@ -2308,11 +2308,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": null,
-      "logoUrl": "assets/logos/projects/XMessenger.png"
+      "photoUrl": "assets/logos/projects/XMessenger.png"
     },
     {
       "id": 347,
-      "name": "EditMyTurkish",
+      "code": "EditMyTurkish",
       "title": "EditMyTurkish.com",
       "group": "Misc",
       "value": 100,
@@ -2323,11 +2323,11 @@
       "summary": "Web portal for online academic translation and review services. <br/>Url: <a href='http://www.editmyturkish.com/' target='_blank'>http://www.editmyturkish.com/</a>",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "integration",
+          "code": "integration",
           "title": "PayPal Integration"
         }
       ],
@@ -2337,11 +2337,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/EditMyTurkish.png"
+      "photoUrl": "assets/logos/projects/EditMyTurkish.png"
     },
     {
       "id": 348,
-      "name": "Eyedder",
+      "code": "Eyedder",
       "title": "Official Website of Eyedder",
       "group": "Misc",
       "value": 100,
@@ -2352,18 +2352,18 @@
       "summary": "Official website of Eyedder that is a national non-profit organization for education management",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/Eyedder.png"
+      "photoUrl": "assets/logos/projects/Eyedder.png"
     },
     {
       "id": 349,
-      "name": "BiltekOnline",
+      "code": "BiltekOnline",
       "title": "Official Website of BiltekOnline",
       "group": "Social Responsibility",
       "value": 100,
@@ -2374,22 +2374,22 @@
       "summary": "Official website of BiltekOnline that is an online magazine about technology",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Social Responsibility Project"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/BiltekOnline.png"
+      "photoUrl": "assets/logos/projects/BiltekOnline.png"
     },
     {
       "id": 350,
-      "name": "BootCamp",
+      "code": "BootCamp",
       "title": "Official Website of BootCamp",
       "group": "Misc",
       "value": 100,
@@ -2400,18 +2400,18 @@
       "summary": "Official website of BootCamp that is a technology training camp",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/BootCamp.png"
+      "photoUrl": "assets/logos/projects/BootCamp.png"
     },
     {
       "id": 351,
-      "name": "Btie2004",
+      "code": "Btie2004",
       "title": "Official Website of BTIE 2004",
       "group": "Misc",
       "value": 100,
@@ -2422,22 +2422,22 @@
       "summary": "Official website of BTIE2014 that is a national level tech-conference related with technology and education",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Social Responsibility Project"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/Btie2004.png"
+      "photoUrl": "assets/logos/projects/Btie2004.png"
     },
     {
       "id": 369,
-      "name": "TeknoparklarZirvesi2004",
+      "code": "TeknoparklarZirvesi2004",
       "title": "Official Website of TechnoParks Summit 2004",
       "group": "Social Responsibility",
       "value": 100,
@@ -2448,11 +2448,11 @@
       "summary": "Official website of TechnoParks Summit 2004 that is a national level summit for TechnoParks in Turkey. Summit were organized in the cooperation and support of IEEE METU and Tubitak. Website was maintained during next 3 years up to 2007 and used by at least 3 more summits too. <br/>URL:http://teknozirve.org.tr  (not active anymore)<br/>NOT: Since screehshoots taken nowadays that is 14 years later by using web.archive.org, some sections of design are missing. You can access cached version from following url: https://web.archive.org/web/20071013170339/http://teknozirve.org.tr:80/",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Social Responsibility Project"
         }
       ],
@@ -2481,11 +2481,11 @@
       ],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/teknoparklar_zirvesi2004.jpg"
+      "photoUrl": "assets/logos/projects/teknoparklar_zirvesi2004.jpg"
     },
     {
       "id": 352,
-      "name": "DizgiPro",
+      "code": "DizgiPro",
       "title": "Dizgi Pro - Photo Composition Tool",
       "group": "Misc",
       "value": 100,
@@ -2513,18 +2513,18 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/DizgiPro.png"
+      "photoUrl": "assets/logos/projects/DizgiPro.png"
     },
     {
       "id": 353,
-      "name": "EOkullar",
+      "code": "EOkullar",
       "title": "E-Okullar - Online Schools Portal",
       "group": "Misc",
       "value": 100,
@@ -2535,11 +2535,11 @@
       "summary": "A web platform to manage school websites",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         },
         {
-          "name": "servicetype",
+          "code": "servicetype",
           "title": "SaS"
         }
       ],
@@ -2558,11 +2558,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/EOkullar.png"
+      "photoUrl": "assets/logos/projects/EOkullar.png"
     },
     {
       "id": 354,
-      "name": "ProjeNedir",
+      "code": "ProjeNedir",
       "title": "ProjeNedir.com",
       "group": "Misc",
       "value": 100,
@@ -2573,22 +2573,22 @@
       "summary": "A web portal about Project Management",
       "props": [
         {
-          "name": "type",
+          "code": "type",
           "title": "Academic Project"
         },
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/ProjeNedir.png"
+      "photoUrl": "assets/logos/projects/ProjeNedir.png"
     },
     {
       "id": 357,
-      "name": "JandarmaBYS",
+      "code": "JandarmaBYS",
       "title": "Gendarmerie - Document Management System",
       "group": "Misc",
       "value": 100,
@@ -2599,18 +2599,18 @@
       "summary": "Document Management System for Gendarmerie. Developed by MS Access",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": null,
-      "logoUrl": "assets/logos/projects/JandarmaBYS.png"
+      "photoUrl": "assets/logos/projects/JandarmaBYS.png"
     },
     {
       "id": 358,
-      "name": "JandarmaATS",
+      "code": "JandarmaATS",
       "title": "Gendarmerie Training Command - Student Perforamance Tracking Database",
       "group": "Misc",
       "value": 100,
@@ -2621,18 +2621,18 @@
       "summary": "Student Perforamance Tracking Database for Gendarmerie Training Command. Developed by MS Access",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": null,
-      "logoUrl": "assets/logos/projects/JandarmaATS.png"
+      "photoUrl": "assets/logos/projects/JandarmaATS.png"
     },
     {
       "id": 360,
-      "name": "TursoftStock",
+      "code": "TursoftStock",
       "title": "Stock Tracking System",
       "group": "Misc",
       "value": 100,
@@ -2655,18 +2655,18 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/tursoft.stock.png"
+      "photoUrl": "assets/logos/projects/tursoft.stock.png"
     },
     {
       "id": 359,
-      "name": "TursoftPaint",
+      "code": "TursoftPaint",
       "title": "Tursoft Paint",
       "group": "Misc",
       "value": 100,
@@ -2677,18 +2677,18 @@
       "summary": "Basic Drawing Application developed by Pascal on Graphics Mode",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/tursoft.paint.png"
+      "photoUrl": "assets/logos/projects/tursoft.paint.png"
     },
     {
       "id": 361,
-      "name": "TursoftAnimMaker",
+      "code": "TursoftAnimMaker",
       "title": "Tursoft Animation Maker",
       "group": "Misc",
       "value": 100,
@@ -2699,18 +2699,18 @@
       "summary": "Basic Animation Tool developed by Pascal on Graphics Mode",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/tursoft.animmaker.png"
+      "photoUrl": "assets/logos/projects/tursoft.animmaker.png"
     },
     {
       "id": 362,
-      "name": "TursoftTetris",
+      "code": "TursoftTetris",
       "title": "Tursoft Tetris",
       "group": "Game",
       "value": 100,
@@ -2721,7 +2721,7 @@
       "summary": "Tetris Game developed by Pascal on Graphics Mode",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
@@ -2731,11 +2731,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/tursoft.tetris.jpg"
+      "photoUrl": "assets/logos/projects/tursoft.tetris.jpg"
     },
     {
       "id": 363,
-      "name": "TursoftPackman",
+      "code": "TursoftPackman",
       "title": "Tursoft Packman",
       "group": "Game",
       "value": 100,
@@ -2746,7 +2746,7 @@
       "summary": "Packman Game developed by Pascal on Graphics Mode",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
@@ -2756,11 +2756,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/tursoft.packman.png"
+      "photoUrl": "assets/logos/projects/tursoft.packman.png"
     },
     {
       "id": 364,
-      "name": "TursoftQuestionBank",
+      "code": "TursoftQuestionBank",
       "title": "Tursoft QuestionBank",
       "group": "Misc",
       "value": 100,
@@ -2783,7 +2783,7 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop"
         }
       ],
@@ -2793,11 +2793,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/tursoft.questionbank.png"
+      "photoUrl": "assets/logos/projects/tursoft.questionbank.png"
     },
     {
       "id": 365,
-      "name": "TursoftWebsiteV1",
+      "code": "TursoftWebsiteV1",
       "title": "Tursoft Homepage v1",
       "group": "Misc",
       "value": 100,
@@ -2808,18 +2808,18 @@
       "summary": "I have developed my first webpage by using HTML, CSS and Photoshop",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/tursoft.logo.png"
+      "photoUrl": "assets/logos/projects/tursoft.logo.png"
     },
     {
       "id": 366,
-      "name": "KocaeliValilik",
+      "code": "KocaeliValilik",
       "title": "Websitesi of Governorship of Kocaeli",
       "group": "Misc",
       "value": 100,
@@ -2842,18 +2842,18 @@
       ],
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/kocaeli_valilik.png"
+      "photoUrl": "assets/logos/projects/kocaeli_valilik.png"
     },
     {
       "id": 367,
-      "name": "TursoftWebsite2018",
+      "code": "TursoftWebsite2018",
       "title": "Tursoft Website 2018",
       "group": "Misc",
       "value": 100,
@@ -2864,18 +2864,18 @@
       "summary": "New version of my personal website. I think this is 6th version of tursoft.net",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         }
       ],
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/tursoft.logo.png"
+      "photoUrl": "assets/logos/projects/tursoft.logo.png"
     },
     {
       "id": 368,
-      "name": "DockerMaster",
+      "code": "DockerMaster",
       "title": "Docker Master",
       "group": "Misc",
       "value": 100,
@@ -2887,11 +2887,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Tursoft",
-      "logoUrl": "assets/logos/projects/dockermaster.logo.small.png"
+      "photoUrl": "assets/logos/projects/dockermaster.logo.small.png"
     },
     {
       "id": 370,
-      "name": "ABI",
+      "code": "ABI",
       "title": "Avicenna ABI",
       "group": "Misc",
       "value": 100,
@@ -2902,7 +2902,7 @@
       "summary": "Avicenna Business Intelligence System ",
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web"
         }
       ],
@@ -2921,11 +2921,11 @@
       ],
       "skillCodes": ["C"],
       "companyCode": "ERC",
-      "logoUrl": "assets/logos/projects/ABI.png"
+      "photoUrl": "assets/logos/projects/ABI.png"
     },
     {
       "id": 375,
-      "name": "TIGVAP",
+      "code": "TIGVAP",
       "title": "TİG Veri Aktarım Programı (DRG Data Transfer Program)",
       "group": "HIS",
       "value": 100,
@@ -2952,19 +2952,19 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop Application"
         },
         {
-          "name": "type",
+          "code": "type",
           "title": "Healthcare Integration Tool"
         },
         {
-          "name": "integration",
+          "code": "integration",
           "title": "Ministry of Health Integration"
         },
         {
-          "name": "lang",
+          "code": "lang",
           "title": "Turkish"
         }
       ],
@@ -2973,7 +2973,7 @@
         "elearning"
       ],
       "customerCodes": ["Turkish Hospitals", "Ministry of Health / Turkey"],
-      "partners": [],
+      "partnerCodes": [],
       "team": [
         {
           "position": "Team Leader",
@@ -3000,11 +3000,11 @@
       ],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/TigVAP.png"
+      "photoUrl": "assets/logos/projects/TigVAP.png"
     },
     {
       "id": 376,
-      "name": "MBYS",
+      "code": "MBYS",
       "title": "Avicenna MBYS - Clinic Management System",
       "group": "HIS",
       "value": 100,
@@ -3040,19 +3040,19 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web Application"
         },
         {
-          "name": "servicemode",
+          "code": "servicemode",
           "title": "SaaS"
         },
         {
-          "name": "integration",
+          "code": "integration",
           "title": "Ministry of Health Sağlık.Net Integration"
         },
         {
-          "name": "lang",
+          "code": "lang",
           "title": "Turkish"
         }
       ],
@@ -3064,7 +3064,7 @@
         "Private Medical Clinics / Turkey",
         "Individual Medical Practitioners / Turkey"
       ],
-      "partners": [],
+      "partnerCodes": [],
       "team": [
         {
           "position": "Team Leader",
@@ -3099,11 +3099,11 @@
       ],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/mbys.logo.png"
+      "photoUrl": "assets/logos/projects/mbys.logo.png"
     },
     {
       "id": 377,
-      "name": "ATS",
+      "code": "ATS",
       "title": "Avicenna Transcription System",
       "group": "HIS",
       "value": 100,
@@ -3129,7 +3129,7 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web Application"
         }
       ],
@@ -3148,11 +3148,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/ATS.png"
+      "photoUrl": "assets/logos/projects/ATS.png"
     },
     {
       "id": 378,
-      "name": "ATHP",
+      "code": "ATHP",
       "title": "Avicenna Telemedicine Health Platform",
       "group": "Telemedicine",
       "value": 100,
@@ -3178,7 +3178,7 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Web Application, Mobile"
         }
       ],
@@ -3197,11 +3197,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/ATHP.png"
+      "photoUrl": "assets/logos/projects/ATHP.png"
     },
     {
       "id": 379,
-      "name": "IHBS",
+      "code": "IHBS",
       "title": "Integrated Hospital Business System",
       "group": "HIS",
       "value": 100,
@@ -3227,7 +3227,7 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop Application"
         }
       ],
@@ -3246,11 +3246,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/IHBS.png"
+      "photoUrl": "assets/logos/projects/IHBS.png"
     },
     {
       "id": 380,
-      "name": "SaglikTakipcim",
+      "code": "SaglikTakipcim",
       "title": "Sağlık Takipçim - Personal Health Tracker",
       "group": "Misc",
       "value": 100,
@@ -3276,7 +3276,7 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Mobile Application"
         }
       ],
@@ -3295,11 +3295,11 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "DATASEL",
-      "logoUrl": "assets/logos/projects/sagliktakipcim.png"
+      "photoUrl": "assets/logos/projects/sagliktakipcim.png"
     },
     {
       "id": 381,
-      "name": "Frizbi",
+      "code": "Frizbi",
       "title": "Frizbi - Interactive Educational Game",
       "group": "Game",
       "value": 100,
@@ -3325,7 +3325,7 @@
       },
       "props": [
         {
-          "name": "platforms",
+          "code": "platforms",
           "title": "Desktop Game"
         }
       ],
@@ -3364,7 +3364,7 @@
       "customerCodes": [],
       "skillCodes": ["C"],
       "companyCode": "Halici",
-      "logoUrl": "assets/logos/projects/frizbi.jpg"
+      "photoUrl": "assets/logos/projects/frizbi.jpg"
     }
   ]
 }

@@ -1,21 +1,12 @@
-
-
-import BaseRepo from './BaseRepo';
 import type { Company, CompaniesData } from '../models/Companies';
+import BaseRepoAdvanced from './base/BaseRepoAdvanced';
 
-
-
-class CompaniesRepo extends BaseRepo<Company, CompaniesData> {
+class CompaniesRepo extends BaseRepoAdvanced<Company, CompaniesData> {
 	constructor() {
-		super(
-			'/src/data/companies.json',
-			item => item.code,
-			item => item.logo,
-			(s) => s.toUpperCase()
-		);
+		super('/src/data/companies.json');
 	}
 }
 
 const companiesRepo = new CompaniesRepo();
 export default companiesRepo;
-export { companiesRepo };
+export { companiesRepo, CompaniesRepo };

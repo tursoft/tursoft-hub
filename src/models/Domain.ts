@@ -1,9 +1,8 @@
-export interface Domain {
-  id?: number;
-  name: string;
-  title?: string;
+import { IBaseModelAdvanced } from "./base/IBaseModelAdvanced";
+
+export interface Domain extends IBaseModelAdvanced {
+  id: number;
   value?: number;
-  iconCss?: string;
 }
 
 export interface DomainsData {

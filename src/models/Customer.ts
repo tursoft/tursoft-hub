@@ -1,16 +1,15 @@
-export interface Customer {
-  name: string;
+import { IBaseModel } from "./base/IBaseModel";
+
+export interface Customer extends IBaseModel {
   uid: string;
-  title?: string;
   description?: string;
   website?: string;
-  logoPath?: string;
-  location?: string; // freeform location string from JSON
+  location?: string;
   city?: string;
   country?: string;
   industry?: string;
   relationship?: string;
-  // codes arrays used in JSON
+
   skillCodes?: string[];
   experienceCodes?: string[];
   serviceCodes?: string[];
@@ -18,14 +17,13 @@ export interface Customer {
   companyCodes?: string[];
   projectNames?: string[];
   technologies?: string[];
-  resolvedCompanyNames?: string[];
-  resolvedProjectTitles?: string[];
+  // resolvedCompanyNames?: string[];
+  // resolvedProjectTitles?: string[];
   partnership?: {
     startDate?: string;
     endDate?: string;
     status?: 'active' | 'completed' | 'ongoing' | string;
   };
-  // optional geolocation metadata if present
   coordinates?: { lat: number; lng: number };
 }
 

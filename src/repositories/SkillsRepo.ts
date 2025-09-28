@@ -1,20 +1,12 @@
-
-
-import BaseRepo from './BaseRepo';
 import type { SkillItem, SkillsData } from '../models/Skills';
+import BaseRepoAdvanced from './base/BaseRepoAdvanced';
 
-
-class SkillsRepo extends BaseRepo<SkillItem, SkillsData> {
+class SkillsRepo extends BaseRepoAdvanced<SkillItem, SkillsData> {
   constructor() {
-    super(
-      '/src/data/skills.json',
-      item => item.name,
-      item => item.iconCss,
-      (s) => s.toUpperCase()
-    );
+    super('/src/data/skills.json');
   }
 }
 
 const skillsRepo = new SkillsRepo();
 export default skillsRepo;
-export { skillsRepo };
+export { skillsRepo, SkillsRepo };

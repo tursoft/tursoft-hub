@@ -1,13 +1,12 @@
+import { IBaseModelAdvanced } from "./base/IBaseModelAdvanced";
+
 export interface PersonContact {
   code: string;
   value: string | null;
 }
 
-export interface Person {
+export interface Person extends IBaseModelAdvanced {
   id: number;
-  code: string;
-  name: string;
-  photoUrl?: string | null;
   company?: string;
   contacts?: PersonContact[];
 }
