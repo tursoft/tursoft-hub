@@ -1,93 +1,89 @@
 {
-    "general": {
-        "sitename": "tursoft",
-        "year": 2025,
-        "fullname": "Muhammet TURŞAK",
-        "firstname": "Muhammet",
-        "lastname": "TURŞAK",
-        "title": "Senior Software Architect / .NET, Java, Web and Mobile",
-        "title_short": "Senior Software Architect",
-
-        "biography": "Within 25+ years of my professional career, I have taken the leadership of various enterprise projects within various software companies that are significant players in their sectors. As a part of international companies, we have completed multi-million dollar software projects on all over the world.",
-        "vision": "Developing huge sector-leader enterprise systems characterized by their world-class features like functionality, performance, scalability, security, manageability, robustness, agility, extensibility.",
-        "mission": "In such software companies, my mission is to lead both research and development teams to produce world-class innovative systems in terms of both functional and technical quality.",
-        "birthdate":"01.03.1982",
-        "age":"",
-        "nationality": "Turkish",
-
-        "address_short": "Ankara, Turkey",
-        "email": "tursoft@gmail.com",
-        "mobilephone": "+90 554 200 78 29",
-        "website": "http://tursoft.net",
-
-        "positions": [
-            {
-                "name": "Software Group Director",
-                "experience": "5 years"
-            },
-            {
-                "name": "Research & Development Director",
-                "experience": "5 years"
-            },
-            {
-                "name": "Project Manager",
-                "experience": "5+ years"
-            },
-            {
-                "name":"Software Architect",
-                "experience": "6 years"
-            },
-            {
-                "name": "Software Team Leader",
-                "experience": "5+ years"
-            }
-        ],
-    
-        "contacts": [
-            { 
-                "isactive":false,
-                "code": "website",
-                "value": "http://www.tursoft.net"
-            },
-            { 
-                "isactive":false,
-                "code": "email",
-                "value": "tursoft@gmail.com"
-            },
-            {
-                "code": "linkedin",
-                "value": "https://www.linkedin.com/in/tursoft/"
-            },
-            {
-                "code": "github",
-                "value": "https://github.com/tursoft"
-            },
-            { 
-                "isactive":false,
-                "code": "youtube",
-                "value": "https://www.youtube.com/channel/UCn3G4uKhXkpwwmrh3Lzu7ww?view_as=subscriber" 
-            },
-            { 
-                "isactive":false,
-                "code": "instagram",
-                "value": "https://www.instagram.com/mtursak"
-            },
-            {
-                "code": "twitter",
-                "value": "https://twitter.com/muhammettursak"
-            },
-            {
-                "code": "skype",
-                "value": "https://www.skype.com/profile/tursoft"
-            },
-            {
-                "code": "facebook",
-                "value": "https://www.facebook.com/tursoft"
-            },
-            {
-                "code": "stack-exchange",
-                "value": "https://stackoverflow.com/users/1949367/muhammet-tur%C5%9Eak"
-            }        
-        ]        
-    }    
+  "general": {
+    "title": "Senior Software Architect / .NET, Java, Web and Mobile",
+    "sitename": "tursoft",
+    "year": 2025,
+    "fullname": "Muhammet TURŞAK",
+    "firstname": "Muhammet",
+    "lastname": "TURŞAK",
+    "title_short": "Senior Software Architect",
+    "biography": "Within 25+ years of my professional career, I have taken the leadership of various enterprise projects within various software companies that are significant players in their sectors. As a part of international companies, we have completed multi-million dollar software projects on all over the world.",
+    "vision": "Developing huge sector-leader enterprise systems characterized by their world-class features like functionality, performance, scalability, security, manageability, robustness, agility, extensibility.",
+    "mission": "In such software companies, my mission is to lead both research and development teams to produce world-class innovative systems in terms of both functional and technical quality.",
+    "birthdate": "01.03.1982",
+    "age": "",
+    "nationality": "Turkish",
+    "address_short": "Ankara, Turkey",
+    "email": "tursoft@gmail.com",
+    "mobilephone": "+90 554 200 78 29",
+    "website": "http://tursoft.net",
+    "positions": [
+      {
+        "name": "Software Group Director",
+        "experience": "5 years"
+      },
+      {
+        "name": "Research & Development Director",
+        "experience": "5 years"
+      },
+      {
+        "name": "Project Manager",
+        "experience": "5+ years"
+      },
+      {
+        "name": "Software Architect",
+        "experience": "6 years"
+      },
+      {
+        "name": "Software Team Leader",
+        "experience": "5+ years"
+      }
+    ],
+    "contacts": [
+      {
+        "code": "website",
+        "isactive": false,
+        "value": "http://www.tursoft.net"
+      },
+      {
+        "code": "email",
+        "isactive": false,
+        "value": "tursoft@gmail.com"
+      },
+      {
+        "code": "linkedin",
+        "value": "https://www.linkedin.com/in/tursoft/"
+      },
+      {
+        "code": "github",
+        "value": "https://github.com/tursoft"
+      },
+      {
+        "code": "youtube",
+        "isactive": false,
+        "value": "https://www.youtube.com/channel/UCn3G4uKhXkpwwmrh3Lzu7ww?view_as=subscriber"
+      },
+      {
+        "code": "instagram",
+        "isactive": false,
+        "value": "https://www.instagram.com/mtursak"
+      },
+      {
+        "code": "twitter",
+        "value": "https://twitter.com/muhammettursak"
+      },
+      {
+        "code": "skype",
+        "value": "https://www.skype.com/profile/tursoft"
+      },
+      {
+        "code": "facebook",
+        "value": "https://www.facebook.com/tursoft"
+      },
+      {
+        "code": "stack-exchange",
+        "value": "https://stackoverflow.com/users/1949367/muhammet-tur%C5%9Eak"
+      }
+    ]
+  }
 }

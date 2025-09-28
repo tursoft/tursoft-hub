@@ -1,16 +1,15 @@
 {
-    "general" : {
-        "website"       : "fa fa-dribbble",
-        "email"         : "fa fa-envelope",
-        "phone"         : "fa fa-phone",
-
-        "linkedin"      : "fa fa-linkedin",
-        "github"        : "fa fa-github",
-        "youtube"       : "fa fa-youtube",
-        "instagram"     : "fa fa-instagram",
-        "twitter"       : "fa fa-twitter",
-        "skype"         : "fa fa-skype",
-        "facebook"      : "fa fa-facebook-f",
-        "stack-exchange": "fa fa-stack-exchange"
-    }   
+  "general": {
+    "website": "fa fa-dribbble",
+    "email": "fa fa-envelope",
+    "phone": "fa fa-phone",
+    "linkedin": "fa fa-linkedin",
+    "github": "fa fa-github",
+    "youtube": "fa fa-youtube",
+    "instagram": "fa fa-instagram",
+    "twitter": "fa fa-twitter",
+    "skype": "fa fa-skype",
+    "facebook": "fa fa-facebook-f",
+    "stack-exchange": "fa fa-stack-exchange"
+  }
 }

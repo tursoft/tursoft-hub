@@ -1,9 +1,13 @@
 {
-    "general": {
-        "summary": ""
-    },
-    
-    "items": [
-        { "name": "", "title": "", "value":100, "iconCss": "" }
-    ]
+  "general": {
+    "summary": ""
+  },
+  "items": [
+    {
+      "title": "",
+      "name": "",
+      "value": 100,
+      "iconCss": ""
+    }
+  ]
 }

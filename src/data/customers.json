@@ -1,8 +1,9 @@
 {
   "items": [
     {
-      "code": "MOH.TR",
       "uid": "customer.MOH.TR",
+      "code": "MOH.TR",
+      "companyCode": "MOH.TR",
       "description": "Leading healthcare digitization initiatives across Turkey with comprehensive health information systems and patient care solutions.",
       "location": "Ankara, Turkey",
       "industry": "Government Healthcare",
@@ -14,16 +15,10 @@
         "ASP.NET",
         "Crystal Reports"
       ],
-      "partnership": {
-        "startDate": "01.01.2008",
-        "endDate": "01.01.2018",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL",
         "ERC"
       ],
-      "companyCode": "MOH.TR",
       "serviceCodes": [
         "healthcare-information-systems",
         "patient-management-solutions",
@@ -33,11 +28,17 @@
       "projectCodes": [
         "VKBS",
         "ProEmpower"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2008",
+        "endDate": "01.01.2018",
+        "status": "completed"
+      }
     },
     {
-      "code": "MOI.KSA",
       "uid": "customer.MOI.KSA",
+      "code": "MOI.KSA",
+      "companyCode": "MOI.KSA",
       "description": "Saudi Arabia's Ministry of Interior managing national security and civil affairs through advanced digital systems.",
       "location": "Riyadh, Saudi Arabia",
       "industry": "Government Security",
@@ -48,15 +49,9 @@
         "Oracle",
         "C"
       ],
-      "partnership": {
-        "startDate": "01.06.2010",
-        "endDate": "01.12.2013",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL"
       ],
-      "companyCode": "MOI.KSA",
       "serviceCodes": [
         "security-information-systems",
         "civil-affairs-management",
@@ -64,11 +59,17 @@
       ],
       "projectCodes": [
         "AIS"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.06.2010",
+        "endDate": "01.12.2013",
+        "status": "completed"
+      }
     },
     {
-      "code": "MOH.KSA",
       "uid": "customer.MOH.KSA",
+      "code": "MOH.KSA",
+      "companyCode": "MOH.KSA",
       "description": "Saudi Arabia's Ministry of Health leading healthcare transformation with comprehensive digital health solutions.",
       "location": "Riyadh, Saudi Arabia",
       "industry": "Government Healthcare",
@@ -80,15 +81,9 @@
         "Web API",
         "Angular"
       ],
-      "partnership": {
-        "startDate": "01.03.2011",
-        "endDate": "01.01.2014",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL"
       ],
-      "companyCode": "MOH.KSA",
       "serviceCodes": [
         "electronic-health-records",
         "hospital-management-systems",
@@ -96,11 +91,17 @@
       ],
       "projectCodes": [
         "AIS"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.03.2011",
+        "endDate": "01.01.2014",
+        "status": "completed"
+      }
     },
     {
-      "code": "TTNET",
       "uid": "customer.TTNET",
+      "code": "TTNET",
+      "companyCode": "TTNET",
       "description": "Turkey's largest telecommunications company providing internet and digital services to millions of customers.",
       "location": "Istanbul, Turkey",
       "industry": "Telecommunications",
@@ -112,26 +113,26 @@
         "ASP.NET",
         "C"
       ],
-      "partnership": {
-        "startDate": "01.09.2005",
-        "endDate": "01.06.2008",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL"
       ],
-      "companyCode": "TTNET",
       "serviceCodes": [
         "customer-management-systems",
         "billing-solutions"
       ],
       "projectCodes": [
         "AHBS"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.09.2005",
+        "endDate": "01.06.2008",
+        "status": "completed"
+      }
     },
     {
-      "code": "ECZACIBASI",
       "uid": "customer.ECZACIBASI",
+      "code": "ECZACIBASI",
+      "companyCode": "ECZACIBASI",
       "description": "Leading healthcare conglomerate in Turkey providing comprehensive medical services and pharmaceutical solutions.",
       "location": "Istanbul, Turkey",
       "industry": "Private Healthcare",
@@ -143,26 +144,26 @@
         "Crystal Reports",
         "Web Forms"
       ],
-      "partnership": {
-        "startDate": "01.04.2006",
-        "endDate": "01.10.2009",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL",
         "ERC"
       ],
-      "companyCode": "ECZACIBASI",
       "serviceCodes": [
         "hospital-information-systems",
         "laboratory-management",
         "pharmaceutical-tracking"
       ],
-      "projectCodes": []
+      "projectCodes": [],
+      "partnership": {
+        "startDate": "01.04.2006",
+        "endDate": "01.10.2009",
+        "status": "completed"
+      }
     },
     {
-      "code": "Avea",
       "uid": "customer.Avea",
+      "code": "Avea",
+      "companyCode": "Avea",
       "description": "Major mobile telecommunications operator in Turkey providing innovative mobile services and digital solutions.",
       "location": "Istanbul, Turkey",
       "industry": "Mobile Telecommunications",
@@ -174,26 +175,26 @@
         "C",
         "ASP.NET"
       ],
-      "partnership": {
-        "startDate": "01.02.2007",
-        "endDate": "01.08.2010",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL",
         "ERC"
       ],
-      "companyCode": "Avea",
       "serviceCodes": [
         "mobile-customer-management",
         "billing-systems",
         "service-activation-platforms"
       ],
-      "projectCodes": []
+      "projectCodes": [],
+      "partnership": {
+        "startDate": "01.02.2007",
+        "endDate": "01.08.2010",
+        "status": "completed"
+      }
     },
     {
-      "code": "H.IbniSina",
       "uid": "customer.H.IbniSina",
+      "code": "H.IbniSina",
+      "companyCode": "H.IbniSina",
       "description": "Premier private hospital in Turkey known for advanced medical care and innovative healthcare solutions.",
       "location": "Ankara, Turkey",
       "industry": "Private Healthcare",
@@ -204,16 +205,10 @@
         "MS SQL",
         "Crystal Reports"
       ],
-      "partnership": {
-        "startDate": "01.05.2007",
-        "endDate": "01.12.2009",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL",
         "ERC"
       ],
-      "companyCode": "H.IbniSina",
       "serviceCodes": [
         "hospital-management-systems",
         "patient-care-solutions",
@@ -222,11 +217,17 @@
       "projectCodes": [
         "HIS2x",
         "ABI"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.05.2007",
+        "endDate": "01.12.2009",
+        "status": "completed"
+      }
     },
     {
-      "code": "MOH.PAL",
       "uid": "customer.MOH.PAL",
+      "code": "MOH.PAL",
+      "companyCode": "MOH.PAL",
       "description": "Palestinian Ministry of Health working to improve healthcare infrastructure and patient care across Palestine.",
       "location": "Ramallah, Palestine",
       "industry": "Government Healthcare",
@@ -237,16 +238,10 @@
         "MS SQL",
         "Web API"
       ],
-      "partnership": {
-        "startDate": "01.09.2012",
-        "endDate": "01.03.2015",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL",
         "ERC"
       ],
-      "companyCode": "MOH.PAL",
       "serviceCodes": [
         "health-information-systems",
         "medical-data-management",
@@ -254,11 +249,17 @@
       ],
       "projectCodes": [
         "HIS2x"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.09.2012",
+        "endDate": "01.03.2015",
+        "status": "completed"
+      }
     },
     {
-      "code": "LIFEWATCH.CH",
       "uid": "customer.LIFEWATCH.CH",
+      "code": "LIFEWATCH.CH",
+      "companyCode": "LIFEWATCH.CH",
       "description": "Swiss medical technology company specializing in remote cardiac monitoring and telemedicine solutions.",
       "location": "Neuhausen, Switzerland",
       "industry": "Medical Technology",
@@ -268,15 +269,9 @@
         "C#",
         "C"
       ],
-      "partnership": {
-        "startDate": "01.01.2010",
-        "endDate": "01.06.2013",
-        "status": "completed"
-      },
       "experienceCodes": [
         "ERC"
       ],
-      "companyCode": "LIFEWATCH.CH",
       "serviceCodes": [
         "cardiac-monitoring-systems",
         "telemedicine-platforms",
@@ -285,11 +280,17 @@
       "projectCodes": [
         "ATTP",
         "ATTPMobile"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2010",
+        "endDate": "01.06.2013",
+        "status": "completed"
+      }
     },
     {
-      "code": "UCELL.UZ",
       "uid": "customer.UCELL.UZ",
+      "code": "UCELL.UZ",
+      "companyCode": "UCELL.UZ",
       "description": "Leading mobile network operator in Uzbekistan providing comprehensive telecommunications services.",
       "location": "Tashkent, Uzbekistan",
       "industry": "Mobile Telecommunications",
@@ -300,26 +301,26 @@
         "Oracle",
         "C"
       ],
-      "partnership": {
-        "startDate": "01.03.2009",
-        "endDate": "01.09.2009",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL",
         "ERC"
       ],
-      "companyCode": "UCELL.UZ",
       "serviceCodes": [
         "customer-management-systems",
         "mobile-billing-solutions",
         "network-operations"
       ],
-      "projectCodes": []
+      "projectCodes": [],
+      "partnership": {
+        "startDate": "01.03.2009",
+        "endDate": "01.09.2009",
+        "status": "completed"
+      }
     },
     {
-      "code": "SPMS.PT",
       "uid": "customer.SPMS.PT",
+      "code": "SPMS.PT",
+      "companyCode": "SPMS.PT",
       "description": "Portuguese health services organization managing digital health transformation and healthcare information systems.",
       "location": "Lisbon, Portugal",
       "industry": "Government Healthcare",
@@ -331,14 +332,9 @@
         "Web API",
         "Angular"
       ],
-      "partnership": {
-        "startDate": "01.07.2014",
-        "status": "ongoing"
-      },
       "experienceCodes": [
         "ERC"
       ],
-      "companyCode": "SPMS.PT",
       "serviceCodes": [
         "health-information-systems",
         "digital-health-platform",
@@ -346,11 +342,16 @@
       ],
       "projectCodes": [
         "ProEmpower"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.07.2014",
+        "status": "ongoing"
+      }
     },
     {
-      "code": "AXIS.INT",
       "uid": "customer.AXIS.INT",
+      "code": "AXIS.INT",
+      "companyCode": "AXIS.INT",
       "description": "Professional interior construction company specializing in commercial and residential interior systems in Ohio.",
       "location": "Cincinnati, Ohio, USA",
       "industry": "Construction & Flooring",
@@ -360,22 +361,22 @@
         "Database Solutions",
         "C"
       ],
-      "partnership": {
-        "startDate": "01.01.2024",
-        "status": "active"
-      },
       "experienceCodes": [
         "jengai"
       ],
-      "companyCode": "AXIS.INT",
       "serviceCodes": [],
       "projectCodes": [
         "JENGAIAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2024",
+        "status": "active"
+      }
     },
     {
-      "code": "SSG.NY",
       "uid": "customer.SSG.NY",
+      "code": "SSG.NY",
+      "companyCode": "SSG.NY",
       "description": "Premium flooring contractor serving the New York metropolitan area with high-end residential and commercial projects.",
       "location": "New York, NY, USA",
       "industry": "Construction & Flooring",
@@ -384,24 +385,24 @@
         "C",
         "Database Design"
       ],
-      "partnership": {
-        "startDate": "01.01.2019",
-        "status": "active"
-      },
       "experienceCodes": [
         "gamyte",
         "jengai"
       ],
-      "companyCode": "SSG.NY",
       "serviceCodes": [],
       "projectCodes": [
         "GAMYTEAPP",
         "JENGAIAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2019",
+        "status": "active"
+      }
     },
     {
-      "code": "PRO.UNITED",
       "uid": "customer.PRO.UNITED",
+      "code": "PRO.UNITED",
+      "companyCode": "PRO.UNITED",
       "description": "Professional contracting company in New Hampshire providing comprehensive construction and renovation services.",
       "location": "New Hampshire, USA",
       "industry": "Construction & Flooring",
@@ -410,22 +411,22 @@
         "C",
         "Database Management"
       ],
-      "partnership": {
-        "startDate": "01.01.2023",
-        "status": "active"
-      },
       "experienceCodes": [
         "jengai"
       ],
-      "companyCode": "PRO.UNITED",
       "serviceCodes": [],
       "projectCodes": [
         "JENGAIAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2023",
+        "status": "active"
+      }
     },
     {
-      "code": "TRANSYL.FL",
       "uid": "customer.TRANSYL.FL",
+      "code": "TRANSYL.FL",
+      "companyCode": "TRANSYL.FL",
       "description": "Specialized flooring contractor providing professional installation and renovation services in Pennsylvania.",
       "location": "Pennsylvania, USA",
       "industry": "Construction & Flooring",
@@ -435,22 +436,22 @@
         "Database Solutions",
         "C"
       ],
-      "partnership": {
-        "startDate": "01.01.2024",
-        "status": "active"
-      },
       "experienceCodes": [
         "gamyte"
       ],
-      "companyCode": "TRANSYL.FL",
       "serviceCodes": [],
       "projectCodes": [
         "GAMYTEAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2024",
+        "status": "active"
+      }
     },
     {
-      "code": "BONITZ",
       "uid": "customer.BONITZ",
+      "code": "BONITZ",
+      "companyCode": "BONITZ",
       "description": "Established flooring contractor providing professional installation services for commercial and residential projects.",
       "location": "Southeast USA",
       "industry": "Construction & Flooring",
@@ -459,22 +460,22 @@
         "C",
         "Database Solutions"
       ],
-      "partnership": {
-        "startDate": "01.01.2025",
-        "status": "active"
-      },
       "experienceCodes": [
         "jengai"
       ],
-      "companyCode": "BONITZ",
       "serviceCodes": [],
       "projectCodes": [
         "JENGAIAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2025",
+        "status": "active"
+      }
     },
     {
-      "code": "DMA.FLOORS",
       "uid": "customer.DMA.FLOORS",
+      "code": "DMA.FLOORS",
+      "companyCode": "DMA.FLOORS",
       "description": "Professional flooring company specializing in residential and light commercial flooring solutions.",
       "location": "Mid-Atlantic USA",
       "industry": "Construction & Flooring",
@@ -483,22 +484,22 @@
         "Web Development",
         "C"
       ],
-      "partnership": {
-        "startDate": "01.01.2025",
-        "status": "active"
-      },
       "experienceCodes": [
         "jengai"
       ],
-      "companyCode": "DMA.FLOORS",
       "serviceCodes": [],
       "projectCodes": [
         "JENGAIAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2025",
+        "status": "active"
+      }
     },
     {
-      "code": "SERGENIANS",
       "uid": "customer.SERGENIANS",
+      "code": "SERGENIANS",
+      "companyCode": "SERGENIANS",
       "description": "Family-owned flooring business providing high-quality installation and renovation services for decades.",
       "location": "Northeast USA",
       "industry": "Construction & Flooring",
@@ -507,22 +508,22 @@
         "C",
         "Database Migration"
       ],
-      "partnership": {
-        "startDate": "01.01.2025",
-        "status": "active"
-      },
       "experienceCodes": [
         "gamyte"
       ],
-      "companyCode": "SERGENIANS",
       "serviceCodes": [],
       "projectCodes": [
         "GAMYTEAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2025",
+        "status": "active"
+      }
     },
     {
-      "code": "GARMON",
       "uid": "customer.GARMON",
+      "code": "GARMON",
+      "companyCode": "GARMON",
       "description": "Specialized flooring contractor focused on high-end residential and commercial flooring installations.",
       "location": "Southwest USA",
       "industry": "Construction & Flooring",
@@ -531,22 +532,22 @@
         "C",
         "Mobile Solutions"
       ],
-      "partnership": {
-        "startDate": "01.01.2025",
-        "status": "active"
-      },
       "experienceCodes": [
         "jengai"
       ],
-      "companyCode": "GARMON",
       "serviceCodes": [],
       "projectCodes": [
         "JENGAIAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2025",
+        "status": "active"
+      }
     },
     {
-      "code": "MF.HIGGINS",
       "uid": "customer.MF.HIGGINS",
+      "code": "MF.HIGGINS",
+      "companyCode": "MF.HIGGINS",
       "description": "Professional flooring contractor offering comprehensive flooring solutions for residential and commercial clients.",
       "location": "Pacific Northwest USA",
       "industry": "Construction & Flooring",
@@ -555,22 +556,22 @@
         "C",
         "Database Systems"
       ],
-      "partnership": {
-        "startDate": "01.01.2024",
-        "status": "active"
-      },
       "experienceCodes": [
         "jengai"
       ],
-      "companyCode": "MF.HIGGINS",
       "serviceCodes": [],
       "projectCodes": [
         "JENGAIAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2024",
+        "status": "active"
+      }
     },
     {
-      "code": "GOMEZ.FC",
       "uid": "customer.GOMEZ.FC",
+      "code": "GOMEZ.FC",
+      "companyCode": "GOMEZ.FC",
       "description": "Established floor covering company providing quality installation services across multiple states.",
       "location": "South Central USA",
       "industry": "Construction & Flooring",
@@ -579,22 +580,22 @@
         "Distributed Systems",
         "Web Development"
       ],
-      "partnership": {
-        "startDate": "01.01.2024",
-        "status": "active"
-      },
       "experienceCodes": [
         "jengai"
       ],
-      "companyCode": "GOMEZ.FC",
       "serviceCodes": [],
       "projectCodes": [
         "JENGAIAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2024",
+        "status": "active"
+      }
     },
     {
-      "code": "DESOTO",
       "uid": "customer.DESOTO",
+      "code": "DESOTO",
+      "companyCode": "DESOTO",
       "description": "Regional flooring contractor specializing in commercial and institutional flooring projects.",
       "location": "Southern USA",
       "industry": "Construction & Flooring",
@@ -603,22 +604,22 @@
         "Web Development",
         "Integration Solutions"
       ],
-      "partnership": {
-        "startDate": "01.01.2025",
-        "status": "active"
-      },
       "experienceCodes": [
         "jengai"
       ],
-      "companyCode": "DESOTO",
       "serviceCodes": [],
       "projectCodes": [
         "JENGAIAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2025",
+        "status": "active"
+      }
     },
     {
-      "code": "PROFLOORS",
       "uid": "customer.PROFLOORS",
+      "code": "PROFLOORS",
+      "companyCode": "PROFLOORS",
       "description": "Professional flooring company providing expert installation and consultation services for diverse projects.",
       "location": "Western USA",
       "industry": "Construction & Flooring",
@@ -627,22 +628,22 @@
         "C",
         "Mobile Apps"
       ],
-      "partnership": {
-        "startDate": "01.01.2025",
-        "status": "active"
-      },
       "experienceCodes": [
         "jengai"
       ],
-      "companyCode": "PROFLOORS",
       "serviceCodes": [],
       "projectCodes": [
         "JENGAIAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2025",
+        "status": "active"
+      }
     },
     {
-      "code": "ROUSE.CO",
       "uid": "customer.ROUSE.CO",
+      "code": "ROUSE.CO",
+      "companyCode": "ROUSE.CO",
       "description": "Established construction and development company managing large-scale commercial and residential projects.",
       "location": "Eastern USA",
       "industry": "Construction & Development",
@@ -652,22 +653,22 @@
         "C",
         "Integration Platforms"
       ],
-      "partnership": {
-        "startDate": "01.01.2025",
-        "status": "active"
-      },
       "experienceCodes": [
         "jengai"
       ],
-      "companyCode": "ROUSE.CO",
       "serviceCodes": [],
       "projectCodes": [
         "JENGAIAPP"
-      ]
+      ],
+      "partnership": {
+        "startDate": "01.01.2025",
+        "status": "active"
+      }
     },
     {
-      "code": "SHAFAFIYA.UAE",
       "uid": "customer.SHAFAFIYA.UAE",
+      "code": "SHAFAFIYA.UAE",
+      "companyCode": "SHAFAFIYA.UAE",
       "description": "Shafafiya portal contains the key standards that govern how healthcare information is exchanged and used in accordance with the Regulator Policy Manual chapter VIII Data Management, and hosts the information exchange. Documents published here describe the standard language used to exchange data (codes, licenses, etc.) as well as technical specifications of related data exchange systems.",
       "location": "Abu Dhabi",
       "industry": "Healthcare Technology",
@@ -680,24 +681,24 @@
         "C#",
         ".NET"
       ],
-      "partnership": {
-        "startDate": "01.06.2012",
-        "endDate": "01.06.2014",
-        "status": "active"
-      },
       "experienceCodes": [
         "DATASEL",
         "ERC"
       ],
-      "companyCode": "SHAFAFIYA.UAE",
       "serviceCodes": [
         "system-integration"
       ],
-      "projectCodes": []
+      "projectCodes": [],
+      "partnership": {
+        "startDate": "01.06.2012",
+        "endDate": "01.06.2014",
+        "status": "active"
+      }
     },
     {
-      "code": "EGM.TR",
       "uid": "customer.EGM.TR",
+      "code": "EGM.TR",
+      "companyCode": "EGM.TR",
       "description": "Turkey's national police force managing public security, crime prevention, and law enforcement through advanced information systems.",
       "location": "Ankara, Turkey",
       "industry": "Government Security",
@@ -708,24 +709,24 @@
         "MS SQL",
         "ASP.NET"
       ],
-      "partnership": {
-        "startDate": "01.01.2005",
-        "endDate": "01.01.2006",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL"
       ],
-      "companyCode": "EGM.TR",
       "serviceCodes": [
         "e-learning",
         "e-learning"
       ],
-      "projectCodes": []
+      "projectCodes": [],
+      "partnership": {
+        "startDate": "01.01.2005",
+        "endDate": "01.01.2006",
+        "status": "completed"
+      }
     },
     {
-      "code": "DPT.TR",
       "uid": "customer.DPT.TR",
+      "code": "DPT.TR",
+      "companyCode": "DPT.TR",
       "description": "Turkey's former State Planning Organization responsible for national economic planning and development strategies.",
       "location": "Ankara, Turkey",
       "industry": "Government Planning",
@@ -736,24 +737,24 @@
         "MS SQL",
         "ASP.NET"
       ],
-      "partnership": {
-        "startDate": "01.01.2005",
-        "endDate": "01.01.2006",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL"
       ],
-      "companyCode": "DPT.TR",
       "serviceCodes": [
         "e-learning",
         "e-learning"
       ],
-      "projectCodes": []
+      "projectCodes": [],
+      "partnership": {
+        "startDate": "01.01.2005",
+        "endDate": "01.01.2006",
+        "status": "completed"
+      }
     },
     {
-      "code": "AU.TR",
       "uid": "customer.AU.TR",
+      "code": "AU.TR",
+      "companyCode": "AU.TR",
       "description": "Turkey's first modern university, established in 1946, leading in education, research, and technology innovation.",
       "location": "Ankara, Turkey",
       "industry": "Higher Education",
@@ -764,25 +765,25 @@
         "MS SQL",
         "ASP.NET"
       ],
-      "partnership": {
-        "startDate": "01.01.2004",
-        "endDate": "01.01.2005",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL"
       ],
-      "companyCode": "AU.TR",
       "serviceCodes": [
         "educational-systems",
         "research-support",
         "academic-management"
       ],
-      "projectCodes": []
+      "projectCodes": [],
+      "partnership": {
+        "startDate": "01.01.2004",
+        "endDate": "01.01.2005",
+        "status": "completed"
+      }
     },
     {
-      "code": "TUBITAK.TR",
       "uid": "customer.TUBITAK.TR",
+      "code": "TUBITAK.TR",
+      "companyCode": "TUBITAK.TR",
       "description": "Turkey's leading scientific and technological research institution supporting innovation and R&D projects nationwide.",
       "location": "Ankara, Turkey",
       "industry": "Research & Development",
@@ -793,25 +794,25 @@
         "MS SQL",
         "ASP.NET"
       ],
-      "partnership": {
-        "startDate": "01.01.2003",
-        "endDate": "01.01.2004",
-        "status": "completed"
-      },
       "experienceCodes": [
         "DATASEL"
       ],
-      "companyCode": "TUBITAK.TR",
       "serviceCodes": [
         "research-grant-management",
         "scientific-project-support",
         "technology-transfer"
       ],
-      "projectCodes": []
+      "projectCodes": [],
+      "partnership": {
+        "startDate": "01.01.2003",
+        "endDate": "01.01.2004",
+        "status": "completed"
+      }
     },
     {
-      "code": "IEEE.METU",
       "uid": "customer.IEEE.METU",
+      "code": "IEEE.METU",
+      "companyCode": "IEEE.METU",
       "description": "IEEE Middle East Technical University student branch promoting engineering excellence and professional development.",
       "location": "Ankara, Turkey",
       "industry": "Professional Organization",
@@ -822,21 +823,20 @@
         "MS SQL",
         "ASP.NET"
       ],
-      "partnership": {
-        "startDate": "01.01.2003",
-        "endDate": "01.01.2004",
-        "status": "completed"
-      },
       "experienceCodes": [
         "Tursoft"
       ],
-      "companyCode": "IEEE.METU",
       "serviceCodes": [
         "web-development",
         "training",
         "community-building"
       ],
-      "projectCodes": []
+      "projectCodes": [],
+      "partnership": {
+        "startDate": "01.01.2003",
+        "endDate": "01.01.2004",
+        "status": "completed"
+      }
     }
   ]
 }

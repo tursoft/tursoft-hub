@@ -1,791 +1,844 @@
 {
-    "general": {
-        "title": "Experiences",
-        "summary": "Throughout 25 years of my professional career, I have work in various companies. There were national, international projects, while some of them are customer projects, the other ones were Research and Development projects. I have mostly undertook managerial and leading positions within projects teams.",
-        "total_years": 25,
-        "prop_subitems": "positions"
-    },
-    "items": [
+  "general": {
+    "title": "Experiences",
+    "summary": "Throughout 25 years of my professional career, I have work in various companies. There were national, international projects, while some of them are customer projects, the other ones were Research and Development projects. I have mostly undertook managerial and leading positions within projects teams.",
+    "total_years": 25,
+    "prop_subitems": "positions"
+  },
+  "items": [
+    {
+      "id": 215,
+      "uid": "experience.215.infrion",
+      "orderIndex": 18,
+      "companyCode": "infrion",
+      "positions": [
         {
-            "id": 215,
-            "orderIndex": 18,
-            "uid": "experience.215.infrion",
-            "companyCode": "infrion",
-            "positions": [
-                {
-                    "id": 2150,
-                    "title": "Senior Software Architect",
-                    "startDate": "01.01.2018",
-                    "endDate": "30.07.2019",
-                    "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-                    "domainCodes": ["healthcareit", "certifications"],
-                    "projects": [
-                        "certify.health"
-                    ],
-                    "skillCodes": [
-                        "Nodejs",
-                        "Fastify",
-                        "VS Code",
-                        "Google Cloud",
-                        "Gitlab",
-                        "Git",
-                        "npm",
-                        "React",
-                        "StencilJS",
-                        "Typescript",
-                        "Postgres",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "OAuth",
-                        "JWT",
-                        "Json",
-                        "Google Analytics"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 214,
-            "orderIndex": 17,
-            "uid": "experience.214.jengai",
-            "companyCode": "jengai",
-            "positions": [
-                {
-                    "id": 2020,
-                    "title": "Director of Technology & Senior Software Architect",
-                    "startDate": "01.12.2023",
-                    "endDate": null,
-                    "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-                    "domainCodes": ["construction"],
-                    "projects": [
-                        "JENGAIAPP"
-                    ],
-                    "skillCodes": [
-                        ".NET",
-                        ".NETCore",
-                        "C#",
-                        "Visual Studio",
-                        "VS Code",
-                        "VS Code Insiders",
-                        "Azure",
-                        "Azure DevOps",
-                        "EntityFramework",
-                        "LINQ",
-                        "Source Tree",
-                        "npm",
-                        "ASP.NET",
-                        "ASP.NET Core",
-                        "ASP.NET WebAPI",
-                        "Angular",
-                        "MVVM",
-                        "MS SQL",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop",
-                        "OAuth",
-                        "JWT",
-                        "Json",
-                        "Google Analytics"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 202,
-            "orderIndex": 16,
-            "uid": "experience.202.gamyte",
-            "companyCode": "gamyte",
-            "positions": [
-                {
-                    "id": 2019,
-                    "title": "Director of Technology & Senior Software Architect",
-                    "startDate": "04.09.2019",
-                    "endDate": "01.12.2023",
-                    "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-                    "domainCodes": ["construction"],
-                    "projects": [
-                        "GAMYTEAPP"
-                    ],
-                    "skillCodes": [
-                        ".NET",
-                        ".NETCore",
-                        "C#",
-                        "Visual Studio",
-                        "VS Code",
-                        "VS Code Insiders",
-                        "Azure",
-                        "Azure DevOps",
-                        "EntityFramework",
-                        "LINQ",
-                        "Source Tree",
-                        "npm",
-                        "ASP.NET",
-                        "ASP.NET Core",
-                        "ASP.NET WebAPI",
-                        "Angular",
-                        "MVVM",
-                        "MS SQL",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop",
-                        "OAuth",
-                        "JWT",
-                        "Json",
-                        "Google Analytics"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 201,
-            "orderIndex": 15,
-            "uid": "experience.201.erc",
-            "companyCode": "ERC",
-            "positions": [
-                {
-                    "id": 2011,
-                    "title": "Senior Software Architect and Group Leader",
-                    "startDate": "20.05.2013",
-                    "endDate": "03.09.2019",
-                    "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-                    "domainCodes": ["healthcareit"],
-                    "projects": [
-                        "ProEmpower",
-                        "PDFWCore",
-                        "PDFW",
-                        "AvicennaMobile",
-                        "Avicenna2x",
-                        "AHR",
-                        "AHIN",
-                        "APM",
-                        "EPR",
-                        "ATTP",
-                        "ATTPMobile",
-                        "CMS",
-                        "FastEyes"
-                    ],
-                    "skillCodes": [
-                        ".NET",
-                        ".NETCore",
-                        "C#",
-                        "Java",
-                        "Visual Studio",
-                        "VS Code",
-                        "VS Code Insiders",
-                        "Eclipse",
-                        "Redis",
-                        "RabbitMQ",
-                        "Azure",
-                        "AWS",
-                        "EntityFramework",
-                        "Hibernate",
-                        "LINQ",
-                        "Hangfire",
-                        "Quartz Scheduler",
-                        "Spring",
-                        "TFS",
-                        "Git",
-                        "Gitlab",
-                        "Mercurial",
-                        "Tortoise Hg",
-                        "Source Tree",
-                        "Nexus",
-                        "ProGet",
-                        "npm",
-                        "NuGet",
-                        "Jenkins",
-                        "VMware",
-                        "HyperV",
-                        "Docker",
-                        "Portainer",
-                        "PowerShell",
-                        "Bash Scripting",
-                        "ubuntu",
-                        "Wordpress",
-                        "ASP.NET",
-                        "ASP.NET Core",
-                        "ASP.NET WebAPI",
-                        "ASP.NET MVC",
-                        "AngularJS",
-                        "Angular",
-                        "MVVM",
-                        "Ionic",
-                        "Cordova",
-                        "MS SQL",
-                        "Oracle",
-                        "DB2",
-                        "MySQL",
-                        "MongoDB",
-                        "iReports",
-                        "Jasper Reports",
-                        "Jasper BI",
-                        "Oracle BI",
-                        "JQuery",
-                        "Animate.css",
-                        "Bootstrap",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Fontawesome",
-                        "Photoshop",
-                        "MS Blend",
-                        "Nodejs",
-                        "Express",
-                        "EJS",
-                        "OAuth",
-                        "XML",
-                        "Json",
-                        "Apache Ant",
-                        "Redmine",
-                        "APM",
-                        "MS Project",
-                        "Google Analytics",
-                        "Grunt"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 202,
-            "orderIndex": 14,
-            "uid": "experience.202.datasel",
-            "companyCode": "DATASEL",
-            "positions": [
-                {
-                    "id": 2021,
-                    "title": "Senior Software Architect and Group Leader",
-                    "startDate": "01.01.2012",
-                    "endDate": "20.05.2013",
-                    "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-                    "domainCodes": ["healthcareit", "ecommerce", "video"],
-                    "projects": [
-                        "PDFW",
-                        "Avicenna2x",
-                        "AHIN",
-                        "APM",
-                        "CMS",
-                        "RPMS",
-                        "EDIS",
-                        "AIS",
-                        "FastEyes",
-                        "CQRE",
-                        "ATHP"
-                    ],
-                    "skillCodes": [
-                        ".NET",
-                        "C#",
-                        "Java",
-                        "Visual Studio",
-                        "Eclipse",
-                        "EntityFramework",
-                        "Hibernate",
-                        "LINQ",
-                        "Hangfire",
-                        "Quartz Scheduler",
-                        "TFS",
-                        "Mercurial",
-                        "Tortoise Hg",
-                        "Source Tree",
-                        "Nexus",
-                        "npm",
-                        "NuGet",
-                        "VMware",
-                        "Portainer",
-                        "PowerShell",
-                        "Bash Scripting",
-                        "WCF",
-                        "Silverlight",
-                        "WPF",
-                        "XAML",
-                        "Telerik UI for Silverlight",
-                        "MVVM",
-                        "Fiddler",
-                        "ASP.NET",
-                        "ASP.NET Core",
-                        "ASP.NET WebAPI",
-                        "ASP.NET MVC",
-                        "AngularJS",
-                        "Angular",
-                        "Ionic",
-                        "Cordova",
-                        "MS SQL",
-                        "Oracle",
-                        "DB2",
-                        "MySQL",
-                        "iReports",
-                        "Jasper Reports",
-                        "Jasper BI",
-                        "Oracle BI",
-                        "JQuery",
-                        "Animate.css",
-                        "Bootstrap",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Fontawesome",
-                        "Photoshop",
-                        "MS Blend"
-                    ]
-                },
-                {
-                    "id": 2022,
-                    "title": "Senior Software Developer",
-                    "startDate": "16.08.2011",
-                    "endDate": "01.01.2012",
-                    "summary": "Full-Stack Development (Frontend and Backend), Leading, Mentoring and Technical Consultancy, Development of Research and Development Projects, Framework Development",
-                    "domainCodes": ["healthcareit", "ecommerce"],
-                    "projects": [
-                        "PDFWSL",
-                        "CMS",
-                        "FastEyes",
-                        "ATHP",
-                        "AHBS",
-                        "VKBS"
-                    ],
-                    "skillCodes": [
-                        ".NET",
-                        "C#",
-                        "Visual Studio",
-                        "EntityFramework",
-                        "LINQ",
-                        "TFS",
-                        "WCF",
-                        "Silverlight",
-                        "WPF",
-                        "XAML",
-                        "Telerik UI for Silverlight",
-                        "MVVM",
-                        "Fiddler",
-                        "ASP.NET",
-                        "ASP.NET MVC",
-                        "MS SQL",
-                        "JQuery",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop",
-                        "MS Blend"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 203,
-            "orderIndex": 13,
-            "uid": "experience.203.fonet",
-            "companyCode": "FONET",
-            "positions": [
-                {
-                    "id": 2031,
-                    "title": "Research & Development Director",
-                    "startDate": "01.01.2010",
-                    "endDate": "13.08.2011",
-                    "summary": "Management of R&D Team, Framework Development.",
-                    "domainCodes": ["healthcareit"],
-                    "projects": [
-                        "FonetFW",
-                        "FonetStudio",
-                        "FonetHBYS",
-                        "FonetInventory",
-                        "FonetLog"
-                    ],
-                    "skillCodes": [
-                        ".NET",
-                        "C#",
-                        "VB.NET",
-                        "Visual Studio",
-                        "Visual SourceSafe",
-                        "ASP.NET",
-                        "ASP.NET WebAPI",
-                        "ASP.NET MVC",
-                        "Oracle",
-                        "Crystal Reports",
-                        "Fast Reports",
-                        "Oracle BI",
-                        "JQuery",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                },
-                {
-                    "id": 2032,
-                    "title": "Software Team Leader",
-                    "startDate": "16.09.2009",
-                    "endDate": "01.01.2010",
-                    "summary": "Framework Development",
-                    "domainCodes": ["healthcareit"],
-                    "projects": [
-                        "FonetFW",
-                        "FonetHBYS",
-                        "FonetInventory",
-                        "FonetLog",
-                        "FonetMKYSMaster"
-                    ],
-                    "skillCodes": [
-                        ".NET",
-                        "C#",
-                        "VB.NET",
-                        "Visual Studio",
-                        "Visual SourceSafe",
-                        "ASP.NET",
-                        "ASP.NET WebAPI",
-                        "ASP.NET MVC",
-                        "Oracle",
-                        "Crystal Reports",
-                        "Fast Reports",
-                        "Oracle BI",
-                        "JQuery",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 213,
-            "orderIndex": 11,
-            "uid": "experience.213.jandarma",
-            "companyCode": "JANDARMA",
-            "positions": [
-                {
-                    "id": 2131,
-                    "title": "Lieutenant",
-                    "startDate": "15.09.2008",
-                    "endDate": "15.09.2009",
-                    "summary": "I have executed my compulsory military service. During this period I also developed 2 software for my departments: Document Management System, Military Student Perforamance Tracking Database",
-                    "projects": [
-                        "JandarmaBYS",
-                        "JandarmaATS"
-                    ],
-                    "skillCodes": [
-                        "VB Script",
-                        "MS Access",
-                        "Photoshop"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 204,
-            "orderIndex": 11,
-            "uid": "experience.204.halici",
-            "companyCode": "HALICI",
-            "positions": [
-                {
-                    "id": 2041,
-                    "title": "Software Production and Planning Director",
-                    "startDate": "01.01.2007",
-                    "endDate": "01.09.2008",
-                    "summary": "Production Planning, Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
-                    "domainCodes": ["elearning", "ecommerce", "video", "cms"],
-                    "projects": [
-                        "HEP"
-                    ],
-                    "skillCodes": [
-                        ".NET",
-                        "C#",
-                        "VB.NET",
-                        "Visual Studio",
-                        "Visual SourceSafe",
-                        "ASP.NET",
-                        "ASP.NET WebAPI",
-                        "ASP.NET MVC",
-                        "MS SQL",
-                        "Crystal Reports",
-                        "JQuery",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                },
-                {
-                    "id": 2042,
-                    "title": "Project Manager and System Analyst",
-                    "startDate": "01.01.2005",
-                    "endDate": "01.01.2007",
-                    "summary": "Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
-                    "domainCodes": ["elearning", "ecommerce", "video", "cms"],
-                    "projects": [
-                        "HEP",
-                        "UNHCR",
-                        "EDISA"
-                    ],
-                    "skillCodes": [
-                        ".NET",
-                        "C#",
-                        "VB.NET",
-                        "Visual Studio",
-                        "Visual SourceSafe",
-                        "ASP.NET",
-                        "ASP.NET WebAPI",
-                        "ASP.NET MVC",
-                        "MS SQL",
-                        "Crystal Reports",
-                        "JQuery",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                },
-                {
-                    "id": 2043,
-                    "title": ".NET Application Developer",
-                    "startDate": "01.01.2004",
-                    "endDate": "01.01.2005",
-                    "summary": "Design & Imlementation of Software Project Architectures.<br/> Tool, Halıcı Frizbi",
-                    "domainCodes": ["elearning", "cms"],
-                    "projects": [
-                        "HEP",
-                        "EDISA",
-                        "Frizbi"
-                    ],
-                    "skillCodes": [
-                        ".NET",
-                        "C#",
-                        "VB.NET",
-                        "Visual Studio",
-                        "Visual SourceSafe",
-                        "ASP.NET",
-                        "ASP.NET WebAPI",
-                        "ASP.NET MVC",
-                        "MS SQL",
-                        "Crystal Reports",
-                        "JQuery",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 205,
-            "orderIndex": 10,
-            "uid": "experience.205.metu.ceit",
-            "companyCode": "METU.CEIT",
-            "positions": [
-                {
-                    "id": 2051,
-                    "title": "Web Programmer and Designer",
-                    "startDate": "01.09.2003",
-                    "endDate": "01.06.2004",
-                    "summary": "I have developed a LMS portal system. Technologies: ASP.NET, C#,  VB.NET, MS SQL, HTML, CSS, JS",
-                    "domainCodes": ["elearning"],
-                    "projects": [
-                        "BotebOnline",
-                        "EGM"
-                    ],
-                    "skillCodes": [
-                        ".NET",
-                        "C#",
-                        "VB.NET",
-                        "Visual Studio",
-                        "ASP.NET",
-                        "ASP.NET WebAPI",
-                        "ASP.NET MVC",
-                        "MS SQL",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 206,
-            "orderIndex": 9,
-            "uid": "experience.206.metu.ii",
-            "companyCode": "METU.II",
-            "positions": [
-                {
-                    "id": 2061,
-                    "title": "Software Developer",
-                    "startDate": "01.05.2003",
-                    "endDate": "01.08.2004",
-                    "summary": "I have worked on development of an LMS System",
-                    "domainCodes": ["elearning", "cms"],
-                    "skillCodes": [
-                        "Java",
-                        "MySQL",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                },
-                {
-                    "id": 2062,
-                    "title": "Web Developer & Designer",
-                    "startDate": "01.01.2002",
-                    "endDate": "01.01.2003",
-                    "summary": "I have worked on development of an E-Learning System",
-                    "domainCodes": ["elearning", "cms"],
-                    "skillCodes": [
-                        ".NET",
-                        "MySQL",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 207,
-            "orderIndex": 8,
-            "uid": "experience.207.metu.ii",
-            "companyCode": "METU.II",
-            "positions": [
-                {
-                    "id": 2071,
-                    "title": "Web Developer & Designer",
-                    "startDate": "01.10.2001",
-                    "endDate": "01.06.2003",
-                    "summary": "I have worked on development of an E-Learning System",
-                    "domainCodes": ["elearning"],
-                    "skillCodes": [
-                        "PHP",
-                        "MySQL",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 208,
-            "orderIndex": 7,
-            "uid": "experience.208.labris",
-            "companyCode": "LABRIS",
-            "positions": [
-                {
-                    "id": 2081,
-                    "title": "Web Developer & Designer",
-                    "startDate": "01.01.2003",
-                    "endDate": "01.01.2004",
-                    "summary": "I have developed a Web-based Customer Support System using PHP and MySQL",
-                    "domainCodes": ["elearning"],
-                    "projects": [
-                        "CSC"
-                    ],
-                    "skillCodes": [
-                        "PHP",
-                        "MySQL",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 209,
-            "orderIndex": 6,
-            "uid": "experience.209.metu.ieee",
-            "companyCode": "METU.IEEE",
-            "positions": [
-                {
-                    "id": 2091,
-                    "title": "Chief of Web Team",
-                    "startDate": "01.10.2001",
-                    "endDate": "01.07.2002",
-                    "summary": "I have developed a Web-portal of this student Club",
-                    "domainCodes": ["elearning"],
-                    "skillCodes": [
-                        "PHP",
-                        "MySQL",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 210,
-            "orderIndex": 5,
-            "uid": "experience.210.metu.com",
-            "companyCode": "METU.COM",
-            "positions": [
-                {
-                    "id": 2101,
-                    "title": "Web Developer & Designer",
-                    "startDate": "01.01.2002",
-                    "endDate": "01.01.2003",
-                    "summary": "I have developed a Web-portal of this student Club",
-                    "domainCodes": ["elearning"],
-                    "skillCodes": [
-                        "PHP",
-                        "MySQL",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 211,
-            "orderIndex": 4,
-            "uid": "experience.211.netteyim",
-            "companyCode": "NETTEYIM",
-            "positions": [
-                {
-                    "id": 2111,
-                    "title": "Webmaster",
-                    "startDate": "01.06.2000",
-                    "endDate": "01.09.2002",
-                    "summary": "I have developed an online pooling system using PHP and MySQL",
-                    "domainCodes": ["elearning"],
-                    "skillCodes": [
-                        "PHP",
-                        "MySQL",
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 212,
-            "orderIndex": 3,
-            "uid": "experience.212.tbd.genc",
-            "companyCode": "TBD.GENC",
-            "positions": [
-                {
-                    "id": 2121,
-                    "title": "Webmaster",
-                    "startDate": "01.05.2000",
-                    "endDate": "01.05.2001",
-                    "summary": "I have designed website for Youth Branch of TBD",
-                    "domainCodes": ["elearning"],
-                    "skillCodes": [
-                        "HTML5",
-                        "JS",
-                        "CSS",
-                        "Photoshop"
-                    ]
-                }
-            ]
+          "id": 2150,
+          "title": "Senior Software Architect",
+          "startDate": "01.01.2018",
+          "endDate": "30.07.2019",
+          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+          "domainCodes": [
+            "healthcareit",
+            "certifications"
+          ],
+          "skillCodes": [
+            "Nodejs",
+            "Fastify",
+            "VS Code",
+            "Google Cloud",
+            "Gitlab",
+            "Git",
+            "npm",
+            "React",
+            "StencilJS",
+            "Typescript",
+            "Postgres",
+            "HTML5",
+            "JS",
+            "CSS",
+            "OAuth",
+            "JWT",
+            "Json",
+            "Google Analytics"
+          ],
+          "projects": [
+            "certify.health"
+          ]
         }
-    ]
+      ]
+    },
+    {
+      "id": 214,
+      "uid": "experience.214.jengai",
+      "orderIndex": 17,
+      "companyCode": "jengai",
+      "positions": [
+        {
+          "id": 2020,
+          "title": "Director of Technology & Senior Software Architect",
+          "startDate": "01.12.2023",
+          "endDate": null,
+          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+          "domainCodes": [
+            "construction"
+          ],
+          "skillCodes": [
+            ".NET",
+            ".NETCore",
+            "C#",
+            "Visual Studio",
+            "VS Code",
+            "VS Code Insiders",
+            "Azure",
+            "Azure DevOps",
+            "EntityFramework",
+            "LINQ",
+            "Source Tree",
+            "npm",
+            "ASP.NET",
+            "ASP.NET Core",
+            "ASP.NET WebAPI",
+            "Angular",
+            "MVVM",
+            "MS SQL",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop",
+            "OAuth",
+            "JWT",
+            "Json",
+            "Google Analytics"
+          ],
+          "projects": [
+            "JENGAIAPP"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 202,
+      "uid": "experience.202.gamyte",
+      "orderIndex": 16,
+      "companyCode": "gamyte",
+      "positions": [
+        {
+          "id": 2019,
+          "title": "Director of Technology & Senior Software Architect",
+          "startDate": "04.09.2019",
+          "endDate": "01.12.2023",
+          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+          "domainCodes": [
+            "construction"
+          ],
+          "skillCodes": [
+            ".NET",
+            ".NETCore",
+            "C#",
+            "Visual Studio",
+            "VS Code",
+            "VS Code Insiders",
+            "Azure",
+            "Azure DevOps",
+            "EntityFramework",
+            "LINQ",
+            "Source Tree",
+            "npm",
+            "ASP.NET",
+            "ASP.NET Core",
+            "ASP.NET WebAPI",
+            "Angular",
+            "MVVM",
+            "MS SQL",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop",
+            "OAuth",
+            "JWT",
+            "Json",
+            "Google Analytics"
+          ],
+          "projects": [
+            "GAMYTEAPP"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 201,
+      "uid": "experience.201.erc",
+      "orderIndex": 15,
+      "companyCode": "ERC",
+      "positions": [
+        {
+          "id": 2011,
+          "title": "Senior Software Architect and Group Leader",
+          "startDate": "20.05.2013",
+          "endDate": "03.09.2019",
+          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+          "domainCodes": [
+            "healthcareit"
+          ],
+          "skillCodes": [
+            ".NET",
+            ".NETCore",
+            "C#",
+            "Java",
+            "Visual Studio",
+            "VS Code",
+            "VS Code Insiders",
+            "Eclipse",
+            "Redis",
+            "RabbitMQ",
+            "Azure",
+            "AWS",
+            "EntityFramework",
+            "Hibernate",
+            "LINQ",
+            "Hangfire",
+            "Quartz Scheduler",
+            "Spring",
+            "TFS",
+            "Git",
+            "Gitlab",
+            "Mercurial",
+            "Tortoise Hg",
+            "Source Tree",
+            "Nexus",
+            "ProGet",
+            "npm",
+            "NuGet",
+            "Jenkins",
+            "VMware",
+            "HyperV",
+            "Docker",
+            "Portainer",
+            "PowerShell",
+            "Bash Scripting",
+            "ubuntu",
+            "Wordpress",
+            "ASP.NET",
+            "ASP.NET Core",
+            "ASP.NET WebAPI",
+            "ASP.NET MVC",
+            "AngularJS",
+            "Angular",
+            "MVVM",
+            "Ionic",
+            "Cordova",
+            "MS SQL",
+            "Oracle",
+            "DB2",
+            "MySQL",
+            "MongoDB",
+            "iReports",
+            "Jasper Reports",
+            "Jasper BI",
+            "Oracle BI",
+            "JQuery",
+            "Animate.css",
+            "Bootstrap",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Fontawesome",
+            "Photoshop",
+            "MS Blend",
+            "Nodejs",
+            "Express",
+            "EJS",
+            "OAuth",
+            "XML",
+            "Json",
+            "Apache Ant",
+            "Redmine",
+            "APM",
+            "MS Project",
+            "Google Analytics",
+            "Grunt"
+          ],
+          "projects": [
+            "ProEmpower",
+            "PDFWCore",
+            "PDFW",
+            "AvicennaMobile",
+            "Avicenna2x",
+            "AHR",
+            "AHIN",
+            "APM",
+            "EPR",
+            "ATTP",
+            "ATTPMobile",
+            "CMS",
+            "FastEyes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 202,
+      "uid": "experience.202.datasel",
+      "orderIndex": 14,
+      "companyCode": "DATASEL",
+      "positions": [
+        {
+          "id": 2021,
+          "title": "Senior Software Architect and Group Leader",
+          "startDate": "01.01.2012",
+          "endDate": "20.05.2013",
+          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+          "domainCodes": [
+            "healthcareit",
+            "ecommerce",
+            "video"
+          ],
+          "skillCodes": [
+            ".NET",
+            "C#",
+            "Java",
+            "Visual Studio",
+            "Eclipse",
+            "EntityFramework",
+            "Hibernate",
+            "LINQ",
+            "Hangfire",
+            "Quartz Scheduler",
+            "TFS",
+            "Mercurial",
+            "Tortoise Hg",
+            "Source Tree",
+            "Nexus",
+            "npm",
+            "NuGet",
+            "VMware",
+            "Portainer",
+            "PowerShell",
+            "Bash Scripting",
+            "WCF",
+            "Silverlight",
+            "WPF",
+            "XAML",
+            "Telerik UI for Silverlight",
+            "MVVM",
+            "Fiddler",
+            "ASP.NET",
+            "ASP.NET Core",
+            "ASP.NET WebAPI",
+            "ASP.NET MVC",
+            "AngularJS",
+            "Angular",
+            "Ionic",
+            "Cordova",
+            "MS SQL",
+            "Oracle",
+            "DB2",
+            "MySQL",
+            "iReports",
+            "Jasper Reports",
+            "Jasper BI",
+            "Oracle BI",
+            "JQuery",
+            "Animate.css",
+            "Bootstrap",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Fontawesome",
+            "Photoshop",
+            "MS Blend"
+          ],
+          "projects": [
+            "PDFW",
+            "Avicenna2x",
+            "AHIN",
+            "APM",
+            "CMS",
+            "RPMS",
+            "EDIS",
+            "AIS",
+            "FastEyes",
+            "CQRE",
+            "ATHP"
+          ]
+        },
+        {
+          "id": 2022,
+          "title": "Senior Software Developer",
+          "startDate": "16.08.2011",
+          "endDate": "01.01.2012",
+          "summary": "Full-Stack Development (Frontend and Backend), Leading, Mentoring and Technical Consultancy, Development of Research and Development Projects, Framework Development",
+          "domainCodes": [
+            "healthcareit",
+            "ecommerce"
+          ],
+          "skillCodes": [
+            ".NET",
+            "C#",
+            "Visual Studio",
+            "EntityFramework",
+            "LINQ",
+            "TFS",
+            "WCF",
+            "Silverlight",
+            "WPF",
+            "XAML",
+            "Telerik UI for Silverlight",
+            "MVVM",
+            "Fiddler",
+            "ASP.NET",
+            "ASP.NET MVC",
+            "MS SQL",
+            "JQuery",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop",
+            "MS Blend"
+          ],
+          "projects": [
+            "PDFWSL",
+            "CMS",
+            "FastEyes",
+            "ATHP",
+            "AHBS",
+            "VKBS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 203,
+      "uid": "experience.203.fonet",
+      "orderIndex": 13,
+      "companyCode": "FONET",
+      "positions": [
+        {
+          "id": 2031,
+          "title": "Research & Development Director",
+          "startDate": "01.01.2010",
+          "endDate": "13.08.2011",
+          "summary": "Management of R&D Team, Framework Development.",
+          "domainCodes": [
+            "healthcareit"
+          ],
+          "skillCodes": [
+            ".NET",
+            "C#",
+            "VB.NET",
+            "Visual Studio",
+            "Visual SourceSafe",
+            "ASP.NET",
+            "ASP.NET WebAPI",
+            "ASP.NET MVC",
+            "Oracle",
+            "Crystal Reports",
+            "Fast Reports",
+            "Oracle BI",
+            "JQuery",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ],
+          "projects": [
+            "FonetFW",
+            "FonetStudio",
+            "FonetHBYS",
+            "FonetInventory",
+            "FonetLog"
+          ]
+        },
+        {
+          "id": 2032,
+          "title": "Software Team Leader",
+          "startDate": "16.09.2009",
+          "endDate": "01.01.2010",
+          "summary": "Framework Development",
+          "domainCodes": [
+            "healthcareit"
+          ],
+          "skillCodes": [
+            ".NET",
+            "C#",
+            "VB.NET",
+            "Visual Studio",
+            "Visual SourceSafe",
+            "ASP.NET",
+            "ASP.NET WebAPI",
+            "ASP.NET MVC",
+            "Oracle",
+            "Crystal Reports",
+            "Fast Reports",
+            "Oracle BI",
+            "JQuery",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ],
+          "projects": [
+            "FonetFW",
+            "FonetHBYS",
+            "FonetInventory",
+            "FonetLog",
+            "FonetMKYSMaster"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 213,
+      "uid": "experience.213.jandarma",
+      "orderIndex": 11,
+      "companyCode": "JANDARMA",
+      "positions": [
+        {
+          "id": 2131,
+          "title": "Lieutenant",
+          "startDate": "15.09.2008",
+          "endDate": "15.09.2009",
+          "summary": "I have executed my compulsory military service. During this period I also developed 2 software for my departments: Document Management System, Military Student Perforamance Tracking Database",
+          "skillCodes": [
+            "VB Script",
+            "MS Access",
+            "Photoshop"
+          ],
+          "projects": [
+            "JandarmaBYS",
+            "JandarmaATS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 204,
+      "uid": "experience.204.halici",
+      "orderIndex": 11,
+      "companyCode": "HALICI",
+      "positions": [
+        {
+          "id": 2041,
+          "title": "Software Production and Planning Director",
+          "startDate": "01.01.2007",
+          "endDate": "01.09.2008",
+          "summary": "Production Planning, Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
+          "domainCodes": [
+            "elearning",
+            "ecommerce",
+            "video",
+            "cms"
+          ],
+          "skillCodes": [
+            ".NET",
+            "C#",
+            "VB.NET",
+            "Visual Studio",
+            "Visual SourceSafe",
+            "ASP.NET",
+            "ASP.NET WebAPI",
+            "ASP.NET MVC",
+            "MS SQL",
+            "Crystal Reports",
+            "JQuery",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ],
+          "projects": [
+            "HEP"
+          ]
+        },
+        {
+          "id": 2042,
+          "title": "Project Manager and System Analyst",
+          "startDate": "01.01.2005",
+          "endDate": "01.01.2007",
+          "summary": "Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
+          "domainCodes": [
+            "elearning",
+            "ecommerce",
+            "video",
+            "cms"
+          ],
+          "skillCodes": [
+            ".NET",
+            "C#",
+            "VB.NET",
+            "Visual Studio",
+            "Visual SourceSafe",
+            "ASP.NET",
+            "ASP.NET WebAPI",
+            "ASP.NET MVC",
+            "MS SQL",
+            "Crystal Reports",
+            "JQuery",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ],
+          "projects": [
+            "HEP",
+            "UNHCR",
+            "EDISA"
+          ]
+        },
+        {
+          "id": 2043,
+          "title": ".NET Application Developer",
+          "startDate": "01.01.2004",
+          "endDate": "01.01.2005",
+          "summary": "Design & Imlementation of Software Project Architectures.<br/> Tool, Halıcı Frizbi",
+          "domainCodes": [
+            "elearning",
+            "cms"
+          ],
+          "skillCodes": [
+            ".NET",
+            "C#",
+            "VB.NET",
+            "Visual Studio",
+            "Visual SourceSafe",
+            "ASP.NET",
+            "ASP.NET WebAPI",
+            "ASP.NET MVC",
+            "MS SQL",
+            "Crystal Reports",
+            "JQuery",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ],
+          "projects": [
+            "HEP",
+            "EDISA",
+            "Frizbi"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 205,
+      "uid": "experience.205.metu.ceit",
+      "orderIndex": 10,
+      "companyCode": "METU.CEIT",
+      "positions": [
+        {
+          "id": 2051,
+          "title": "Web Programmer and Designer",
+          "startDate": "01.09.2003",
+          "endDate": "01.06.2004",
+          "summary": "I have developed a LMS portal system. Technologies: ASP.NET, C#,  VB.NET, MS SQL, HTML, CSS, JS",
+          "domainCodes": [
+            "elearning"
+          ],
+          "skillCodes": [
+            ".NET",
+            "C#",
+            "VB.NET",
+            "Visual Studio",
+            "ASP.NET",
+            "ASP.NET WebAPI",
+            "ASP.NET MVC",
+            "MS SQL",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ],
+          "projects": [
+            "BotebOnline",
+            "EGM"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 206,
+      "uid": "experience.206.metu.ii",
+      "orderIndex": 9,
+      "companyCode": "METU.II",
+      "positions": [
+        {
+          "id": 2061,
+          "title": "Software Developer",
+          "startDate": "01.05.2003",
+          "endDate": "01.08.2004",
+          "summary": "I have worked on development of an LMS System",
+          "domainCodes": [
+            "elearning",
+            "cms"
+          ],
+          "skillCodes": [
+            "Java",
+            "MySQL",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ]
+        },
+        {
+          "id": 2062,
+          "title": "Web Developer & Designer",
+          "startDate": "01.01.2002",
+          "endDate": "01.01.2003",
+          "summary": "I have worked on development of an E-Learning System",
+          "domainCodes": [
+            "elearning",
+            "cms"
+          ],
+          "skillCodes": [
+            ".NET",
+            "MySQL",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 207,
+      "uid": "experience.207.metu.ii",
+      "orderIndex": 8,
+      "companyCode": "METU.II",
+      "positions": [
+        {
+          "id": 2071,
+          "title": "Web Developer & Designer",
+          "startDate": "01.10.2001",
+          "endDate": "01.06.2003",
+          "summary": "I have worked on development of an E-Learning System",
+          "domainCodes": [
+            "elearning"
+          ],
+          "skillCodes": [
+            "PHP",
+            "MySQL",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 208,
+      "uid": "experience.208.labris",
+      "orderIndex": 7,
+      "companyCode": "LABRIS",
+      "positions": [
+        {
+          "id": 2081,
+          "title": "Web Developer & Designer",
+          "startDate": "01.01.2003",
+          "endDate": "01.01.2004",
+          "summary": "I have developed a Web-based Customer Support System using PHP and MySQL",
+          "domainCodes": [
+            "elearning"
+          ],
+          "skillCodes": [
+            "PHP",
+            "MySQL",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ],
+          "projects": [
+            "CSC"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 209,
+      "uid": "experience.209.metu.ieee",
+      "orderIndex": 6,
+      "companyCode": "METU.IEEE",
+      "positions": [
+        {
+          "id": 2091,
+          "title": "Chief of Web Team",
+          "startDate": "01.10.2001",
+          "endDate": "01.07.2002",
+          "summary": "I have developed a Web-portal of this student Club",
+          "domainCodes": [
+            "elearning"
+          ],
+          "skillCodes": [
+            "PHP",
+            "MySQL",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 210,
+      "uid": "experience.210.metu.com",
+      "orderIndex": 5,
+      "companyCode": "METU.COM",
+      "positions": [
+        {
+          "id": 2101,
+          "title": "Web Developer & Designer",
+          "startDate": "01.01.2002",
+          "endDate": "01.01.2003",
+          "summary": "I have developed a Web-portal of this student Club",
+          "domainCodes": [
+            "elearning"
+          ],
+          "skillCodes": [
+            "PHP",
+            "MySQL",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 211,
+      "uid": "experience.211.netteyim",
+      "orderIndex": 4,
+      "companyCode": "NETTEYIM",
+      "positions": [
+        {
+          "id": 2111,
+          "title": "Webmaster",
+          "startDate": "01.06.2000",
+          "endDate": "01.09.2002",
+          "summary": "I have developed an online pooling system using PHP and MySQL",
+          "domainCodes": [
+            "elearning"
+          ],
+          "skillCodes": [
+            "PHP",
+            "MySQL",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 212,
+      "uid": "experience.212.tbd.genc",
+      "orderIndex": 3,
+      "companyCode": "TBD.GENC",
+      "positions": [
+        {
+          "id": 2121,
+          "title": "Webmaster",
+          "startDate": "01.05.2000",
+          "endDate": "01.05.2001",
+          "summary": "I have designed website for Youth Branch of TBD",
+          "domainCodes": [
+            "elearning"
+          ],
+          "skillCodes": [
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ]
+        }
+      ]
+    }
+  ]
 }

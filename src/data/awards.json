@@ -1,9 +1,10 @@
 {
-    "items":[
-        { "name":"TechAwards2014", 
-          "title": "XI. Technology Awards Finalist in Turkey – 2014",
-          "issuer": "Tubitak, TTGV, TUSİAD",
-          "summary": "AviCenna VKBS is selected as finalist in XI. Technology Awards organized by TTGV, TUBITAK, TUSIAD in Turkey. It is a R&D projects about DRG Costing Calculation that also used by MOH of Turkey in 2011 and the first DRG costs and DRG weighted values are calculated by AviCenna VKBS in Turkey."
-        }
-    ]
+  "items": [
+    {
+      "title": "XI. Technology Awards Finalist in Turkey – 2014",
+      "name": "TechAwards2014",
+      "issuer": "Tubitak, TTGV, TUSİAD",
+      "summary": "AviCenna VKBS is selected as finalist in XI. Technology Awards organized by TTGV, TUBITAK, TUSIAD in Turkey. It is a R&D projects about DRG Costing Calculation that also used by MOH of Turkey in 2011 and the first DRG costs and DRG weighted values are calculated by AviCenna VKBS in Turkey."
+    }
+  ]
 }

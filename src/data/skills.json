@@ -1,1760 +1,1759 @@
 {
-    "general": {
-        "title": "Skills",
-        "summary": "I had experience on various tech stacks in my long career.",
-        "groups": [
-            {
-                "id": 1,
-                "code": "Programming Language",
-                "title": "Programming Language",
-                "orderIndex": 1
-            },
-            {
-                "id": 2,
-                "code": "Framework",
-                "title": "Framework",
-                "orderIndex": 2
-            },
-            {
-                "id": 4,
-                "code": "Backend",
-                "title": "Backend",
-                "orderIndex": 3
-            },
-            {
-                "id": 3,
-                "code": "Frontend",
-                "title": "Frontend",
-                "orderIndex": 4
-            },
-            {
-                "id": 5,
-                "code": "Web",
-                "title": "Web",
-                "orderIndex": 5
-            },
-            {
-                "id": 6,
-                "code": "ORM",
-                "title": "ORM",
-                "orderIndex": 6
-            },
-            {
-                "id": 7,
-                "code": "IDE",
-                "title": "IDE",
-                "orderIndex": 7
-            },
-            {
-                "id": 8,
-                "code": "Database",
-                "title": "Database",
-                "orderIndex": 8
-            },
-            {
-                "id": 9,
-                "code": "Source Control",
-                "title": "Source Control",
-                "orderIndex": 9
-            },
-            {
-                "id": 10,
-                "code": "DevOps",
-                "title": "DevOps",
-                "orderIndex": 10
-            },
-            {
-                "id": 11,
-                "code": "Scheduled Tasks",
-                "title": "Scheduled Tasks",
-                "orderIndex": 11
-            },
-            {
-                "id": 12,
-                "code": "Dependency Management",
-                "title": "Dependency Management",
-                "orderIndex": 12
-            },
-            {
-                "id": 13,
-                "code": "Virtualization",
-                "title": "Virtualization",
-                "orderIndex": 13
-            },
-            {
-                "id": 14,
-                "code": "Graphics Design",
-                "title": "Graphics Design",
-                "orderIndex": 14
-            },
-            {
-                "id": 15,
-                "code": "File Format",
-                "title": "File Format",
-                "orderIndex": 15
-            },
-            {
-                "id": 16,
-                "code": "Webservices",
-                "title": "Webservices",
-                "orderIndex": 16
-            },
-            {
-                "id": 17,
-                "code": "Sniffing Tool",
-                "title": "Sniffing Tool",
-                "orderIndex": 17
-            },
-            {
-                "id": 18,
-                "code": "Project Management",
-                "title": "Project Management",
-                "orderIndex": 18
-            },
-            {
-                "id": 19,
-                "code": "Cloud Hosting",
-                "title": "Cloud Hosting",
-                "orderIndex": 19
-            },
-            {
-                "id": 20,
-                "code": "Web Services",
-                "title": "Web Services",
-                "orderIndex": 20
-            },
-            {
-                "id": 21,
-                "code": "Scripting",
-                "title": "Scripting",
-                "orderIndex": 21
-            },
-            {
-                "id": 22,
-                "code": "OS",
-                "title": "OS",
-                "orderIndex": 22
-            },
-            {
-                "id": 23,
-                "code": "Task Runner",
-                "title": "Task Runner",
-                "orderIndex": 23
-            },
-            {
-                "id": 24,
-                "code": "3D Modeling Tool",
-                "title": "3D Modeling Tool",
-                "orderIndex": 24
-            },
-            {
-                "id": 25,
-                "code": "E-Learning Standart",
-                "title": "E-Learning Standart",
-                "orderIndex": 25
-            },
-            {
-                "id": 26,
-                "code": "Reporting",
-                "title": "Reporting",
-                "orderIndex": 26
-            },
-            {
-                "id": 27,
-                "code": "Business Intelligence",
-                "title": "Business Intelligence",
-                "orderIndex": 27
-            },
-            {
-                "id": 28,
-                "code": "Desktop",
-                "title": "Desktop",
-                "orderIndex": 28
-            },
-            {
-                "id": 29,
-                "code": "E-Commerce",
-                "title": "E-Commerce",
-                "orderIndex": 29
-            },
-            {
-                "id": 30,
-                "code": "ERP",
-                "title": "ERP",
-                "orderIndex": 30
-            },
-            {
-                "id": 31,
-                "code": "Gaming Engine",
-                "title": "Gaming Engine",
-                "orderIndex": 31
-            },
-            {
-                "id": 32,
-                "code": "Design Pattern",
-                "title": "Design Pattern",
-                "orderIndex": 32
-            },
-            {
-                "id": 33,
-                "code": "Approach",
-                "title": "Approach",
-                "orderIndex": 33
-            }
-        ]
-    },
-    "items": [
-        {
-            "id": 1,
-            "code": ".NET",
-            "title": ".NET",
-            "group": "Framework",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 35,
-            "jobs": 0,
-            "orderIndex": 1,
-            "isMajor": true
-        },
-        {
-            "id": 2,
-            "code": ".NETCore",
-            "title": ".NETCore",
-            "group": "Framework",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 15,
-            "jobs": 0,
-            "isMajor": true,
-            "orderIndex": 1
-        },
-        {
-            "id": 3,
-            "code": "Java",
-            "title": "Java",
-            "group": "Programming Language",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0,
-            "isMajor": true,
-            "orderIndex": 2
-        },
-        {
-            "id": 4,
-            "code": "C#",
-            "title": "C#",
-            "group": "Programming Language",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 35,
-            "jobs": 0,
-            "orderIndex": 3,
-            "isMajor": true
-        },
-        {
-            "id": 5,
-            "code": "Typescript",
-            "title": "Typescript",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 1,
-            "jobs": 0,
-            "isMajor": true,
-            "orderIndex": 4
-        },
-        {
-            "id": 6,
-            "code": "AngularJS",
-            "title": "AngularJS",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0,
-            "isMajor": true,
-            "orderIndex": 5
-        },
-        {
-            "id": 7,
-            "code": "Angular",
-            "title": "Angular",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 20,
-            "jobs": 0,
-            "isMajor": true,
-            "orderIndex": 5
-        },
-        {
-            "id": 8,
-            "code": "Kubernetes",
-            "title": "Kubernetes",
-            "group": "Virtualization",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0,
-            "isMajor": true,
-            "orderIndex": 6
-        },
-        {
-            "id": 9,
-            "code": "Docker",
-            "title": "Docker",
-            "group": "Virtualization",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0,
-            "isMajor": true,
-            "orderIndex": 6
-        },
-        {
-            "id": 10,
-            "code": "Gitlab",
-            "title": "Gitlab",
-            "group": "Source Control",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 14,
-            "jobs": 0,
-            "isMajor": true,
-            "orderIndex": 7
-        },
-        {
-            "id": 11,
-            "code": "Jenkins",
-            "title": "Jenkins",
-            "group": "DevOps",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0,
-            "isMajor": true,
-            "orderIndex": 8
-        },
-        {
-            "id": 12,
-            "code": "HTML5",
-            "title": "HTML5",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 37,
-            "jobs": 0,
-            "isMajor": true
-        },
-        {
-            "id": 13,
-            "code": "JS",
-            "title": "JS",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 37,
-            "jobs": 0,
-            "isMajor": true
-        },
-        {
-            "id": 14,
-            "code": "CSS",
-            "title": "CSS",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 37,
-            "jobs": 0,
-            "isMajor": true
-        },
-        {
-            "id": 15,
-            "code": "MS SQL",
-            "title": "MS SQL",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 29,
-            "jobs": 0,
-            "isMajor": true
-        },
-        {
-            "id": 16,
-            "code": "MS Project",
-            "title": "MS Project",
-            "group": "Project Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0,
-            "isMajor": true
-        },
-        {
-            "id": 17,
-            "code": "Nodejs",
-            "title": "Nodejs",
-            "group": "Backend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 14,
-            "jobs": 0,
-            "isMajor": true
-        },
-        {
-            "id": 18,
-            "code": "Ionic",
-            "title": "Ionic",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0,
-            "isMajor": true
-        },
-        {
-            "id": 19,
-            "code": "Photoshop",
-            "title": "Photoshop",
-            "group": "Graphics Design",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 38,
-            "jobs": 0
-        },
-        {
-            "id": 20,
-            "code": "ASP.NET",
-            "title": "ASP.NET",
-            "group": "Web",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 35,
-            "jobs": 0
-        },
-        {
-            "id": 21,
-            "code": "LINQ",
-            "title": "LINQ",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 23,
-            "jobs": 0
-        },
-        {
-            "id": 22,
-            "code": "CSS3",
-            "title": "CSS3",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 23,
-            "code": "TFS",
-            "title": "TFS",
-            "group": "Source Control",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 21,
-            "jobs": 0
-        },
-        {
-            "id": 24,
-            "code": "JQuery",
-            "title": "JQuery",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 31,
-            "jobs": 0
-        },
-        {
-            "id": 25,
-            "code": "Git",
-            "title": "Git",
-            "group": "Source Control",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 14,
-            "jobs": 0
-        },
-        {
-            "id": 26,
-            "code": "ASP.NET MVC",
-            "title": "ASP.NET MVC",
-            "group": "Web",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 33,
-            "jobs": 0
-        },
-        {
-            "id": 27,
-            "code": "Hangfire",
-            "title": "Hangfire",
-            "group": "Scheduled Tasks",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 28,
-            "code": "Entity Framework Core",
-            "title": "Entity Framework Core",
-            "group": "ORM",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 29,
-            "code": "MySQL",
-            "title": "MySQL",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 19,
-            "jobs": 0
-        },
-        {
-            "id": 30,
-            "code": "PHP",
-            "title": "PHP",
-            "group": "Backend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 1,
-            "jobs": 0
-        },
-        {
-            "id": 31,
-            "code": "npm",
-            "title": "npm",
-            "group": "Dependency Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 21,
-            "jobs": 0
-        },
-        {
-            "id": 32,
-            "code": "NuGet",
-            "title": "NuGet",
-            "group": "Dependency Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 33,
-            "code": "ProGet",
-            "title": "ProGet",
-            "group": "Dependency Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 34,
-            "code": "Visual Studio",
-            "title": "Visual Studio",
-            "group": "IDE",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 35,
-            "jobs": 0
-        },
-        {
-            "id": 35,
-            "code": "Oracle",
-            "title": "Oracle",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 24,
-            "jobs": 0
-        },
-        {
-            "id": 36,
-            "code": "Telerik UI for Silverlight",
-            "title": "Telerik UI for Silverlight",
-            "group": "Web",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 14,
-            "jobs": 0
-        },
-        {
-            "id": 37,
-            "code": "Silverlight",
-            "title": "Silverlight",
-            "group": "Web",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 14,
-            "jobs": 0
-        },
-        {
-            "id": 38,
-            "code": "WCF",
-            "title": "WCF",
-            "group": "Webservices",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 14,
-            "jobs": 0
-        },
-        {
-            "id": 39,
-            "code": "EntityFramework",
-            "title": "EntityFramework",
-            "group": "ORM",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 23,
-            "jobs": 0
-        },
-        {
-            "id": 40,
-            "code": "Fiddler",
-            "title": "Fiddler",
-            "group": "Sniffing Tool",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 14,
-            "jobs": 0
-        },
-        {
-            "id": 41,
-            "code": "XAML",
-            "title": "XAML",
-            "group": "File Format",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 14,
-            "jobs": 0
-        },
-        {
-            "id": 42,
-            "code": "MVVM",
-            "title": "MVVM",
-            "group": "Design Pattern",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 23,
-            "jobs": 0
-        },
-        {
-            "id": 43,
-            "code": "MS Blend",
-            "title": "MS Blend",
-            "group": "Graphics Design",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 21,
-            "jobs": 0
-        },
-        {
-            "id": 44,
-            "code": "PDFWCore",
-            "title": "PDFWCore",
-            "group": "Framework",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 45,
-            "code": "Pascal",
-            "title": "Pascal",
-            "group": "Programming Language",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 46,
-            "code": "XML",
-            "title": "XML",
-            "group": "File Format",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 47,
-            "code": "Adobe Flash",
-            "title": "Adobe Flash",
-            "group": "Graphics Design",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 48,
-            "code": "Redmine",
-            "title": "Redmine",
-            "group": "Project Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 49,
-            "code": "Azure",
-            "title": "Azure",
-            "group": "Cloud Hosting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 15,
-            "jobs": 0
-        },
-        {
-            "id": 50,
-            "code": "SOAP",
-            "title": "SOAP",
-            "group": "Web Services",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 51,
-            "code": "VB.NET",
-            "title": "VB.NET",
-            "group": "Backend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 12,
-            "jobs": 0
-        },
-        {
-            "id": 52,
-            "code": "Bootstrap",
-            "title": "Bootstrap",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 53,
-            "code": "DB2",
-            "title": "DB2",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 54,
-            "code": "Bash Scripting",
-            "title": "Bash Scripting",
-            "group": "Scripting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 55,
-            "code": "Nexus",
-            "title": "Nexus",
-            "group": "Dependency Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 56,
-            "code": "Source Tree",
-            "title": "Source Tree",
-            "group": "Source Control",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 20,
-            "jobs": 0
-        },
-        {
-            "id": 57,
-            "code": "Tortoise Hg",
-            "title": "Tortoise Hg",
-            "group": "Source Control",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 58,
-            "code": "ubuntu",
-            "title": "ubuntu",
-            "group": "OS",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 59,
-            "code": "Apache Ant",
-            "title": "Apache Ant",
-            "group": "Task Runner",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 60,
-            "code": "Visual Basic",
-            "title": "Visual Basic",
-            "group": "Programming Language",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 61,
-            "code": "VMware",
-            "title": "VMware",
-            "group": "Virtualization",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 62,
-            "code": "Express",
-            "title": "Express",
-            "group": "Backend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 63,
-            "code": "EJS",
-            "title": "EJS",
-            "group": "Backend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 64,
-            "code": "3Ds Max",
-            "title": "3Ds Max",
-            "group": "3D Modeling Tool",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 65,
-            "code": "Scorm",
-            "title": "Scorm",
-            "group": "E-Learning Standart",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 66,
-            "code": "MS Access",
-            "title": "MS Access",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 2,
-            "jobs": 0
-        },
-        {
-            "id": 67,
-            "code": "iReports",
-            "title": "iReports",
-            "group": "Reporting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 68,
-            "code": "VB Script",
-            "title": "VB Script",
-            "group": "Programming Language",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 2,
-            "jobs": 0
-        },
-        {
-            "id": 69,
-            "code": "Jasper Reports",
-            "title": "Jasper Reports",
-            "group": "Reporting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 70,
-            "code": "Jasper BI",
-            "title": "Jasper BI",
-            "group": "Business Intelligence",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 71,
-            "code": "Animate.css",
-            "title": "Animate.css",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 72,
-            "code": "HyperV",
-            "title": "HyperV",
-            "group": "Virtualization",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 73,
-            "code": "Mercurial",
-            "title": "Mercurial",
-            "group": "Source Control",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 74,
-            "code": "Spring",
-            "title": "Spring",
-            "group": "Framework",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 75,
-            "code": "Hibernate",
-            "title": "Hibernate",
-            "group": "ORM",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 76,
-            "code": "WPF",
-            "title": "WPF",
-            "group": "Desktop",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 14,
-            "jobs": 0
-        },
-        {
-            "id": 77,
-            "code": "Eclipse",
-            "title": "Eclipse",
-            "group": "IDE",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 78,
-            "code": "Maven",
-            "title": "Maven",
-            "group": "Dependency Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 1,
-            "isMajor": false,
-            "orderIndex": 2
-        },
-        {
-            "id": 79,
-            "code": "Oracle BI",
-            "title": "Oracle BI",
-            "group": "Business Intelligence",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 24,
-            "jobs": 0
-        },
-        {
-            "id": 80,
-            "code": "AWS",
-            "title": "AWS",
-            "group": "Cloud Hosting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 81,
-            "code": "SQL Lite",
-            "title": "SQL Lite",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 82,
-            "code": "My SQL",
-            "title": "My SQL",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 83,
-            "code": "Timelinejs3",
-            "title": "Timelinejs3",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 84,
-            "code": "Json",
-            "title": "Json",
-            "group": "File Format",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 16,
-            "jobs": 0
-        },
-        {
-            "id": 85,
-            "code": "APM",
-            "title": "APM",
-            "group": "Project Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 86,
-            "code": "Heroku",
-            "title": "Heroku",
-            "group": "Cloud Hosting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 87,
-            "code": "Paypal",
-            "title": "Paypal",
-            "group": "E-Commerce",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 88,
-            "code": "Microsoft Dynamics NAV",
-            "title": "Microsoft Dynamics NAV",
-            "group": "ERP",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 89,
-            "code": "PDFW",
-            "title": "PDFW",
-            "group": "Framework",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 90,
-            "code": "Alibaba Cloud",
-            "title": "Alibaba Cloud",
-            "group": "Cloud Hosting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 91,
-            "code": "Google Cloud",
-            "title": "Google Cloud",
-            "group": "Cloud Hosting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 1,
-            "jobs": 0
-        },
-        {
-            "id": 92,
-            "code": "dom-to-image",
-            "title": "dom-to-image",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 93,
-            "code": "jspdf",
-            "title": "jspdf",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 94,
-            "code": "Windows Forms",
-            "title": "Windows Forms",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 95,
-            "code": "Digital Ocean",
-            "title": "Digital Ocean",
-            "group": "Cloud Hosting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 96,
-            "code": "Adobe Atmosphere",
-            "title": "Adobe Atmosphere",
-            "group": "Gaming Engine",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 97,
-            "code": "Fontawesome",
-            "title": "Fontawesome",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 98,
-            "code": "Dark Basic",
-            "title": "Dark Basic",
-            "group": "Gaming Engine",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 99,
-            "code": "MomentJS",
-            "title": "MomentJS",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 100,
-            "code": "PrimeNG",
-            "title": "PrimeNG",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 101,
-            "code": "Angular Material",
-            "title": "Angular Material",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 102,
-            "code": "Github",
-            "title": "Github",
-            "group": "Source Control",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 139,
-            "code": "VisualBasic.NET",
-            "title": "VisualBasic.NET",
-            "group": "Programming Language",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 103,
-            "code": "Design Patterns",
-            "title": "Design Patterns",
-            "group": "Approach",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 104,
-            "code": "Fastify",
-            "title": "Fastify",
-            "group": "Framework",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 1,
-            "jobs": 0
-        },
-        {
-            "id": 105,
-            "code": "VS Code",
-            "title": "VS Code",
-            "group": "IDE",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 16,
-            "jobs": 0
-        },
-        {
-            "id": 106,
-            "code": "React",
-            "title": "React",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 1,
-            "jobs": 0
-        },
-        {
-            "id": 107,
-            "code": "StencilJS",
-            "title": "StencilJS",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 1,
-            "jobs": 0
-        },
-        {
-            "id": 108,
-            "code": "Postgres",
-            "title": "Postgres",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 1,
-            "jobs": 0
-        },
-        {
-            "id": 109,
-            "code": "OAuth",
-            "title": "OAuth",
-            "group": "File Format",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 16,
-            "jobs": 0
-        },
-        {
-            "id": 110,
-            "code": "JWT",
-            "title": "JWT",
-            "group": "File Format",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 3,
-            "jobs": 0
-        },
-        {
-            "id": 111,
-            "code": "Google Analytics",
-            "title": "Google Analytics",
-            "group": "Web",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 16,
-            "jobs": 0
-        },
-        {
-            "id": 112,
-            "code": "VS Code Insiders",
-            "title": "VS Code Insiders",
-            "group": "IDE",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 15,
-            "jobs": 0
-        },
-        {
-            "id": 113,
-            "code": "Azure DevOps",
-            "title": "Azure DevOps",
-            "group": "Cloud Hosting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 2,
-            "jobs": 0
-        },
-        {
-            "id": 114,
-            "code": "ASP.NET Core",
-            "title": "ASP.NET Core",
-            "group": "Backend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 20,
-            "jobs": 0
-        },
-        {
-            "id": 115,
-            "code": "ASP.NET WebAPI",
-            "title": "ASP.NET WebAPI",
-            "group": "Backend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 32,
-            "jobs": 0
-        },
-        {
-            "id": 116,
-            "code": "Redis",
-            "title": "Redis",
-            "group": "Backend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 117,
-            "code": "RabbitMQ",
-            "title": "RabbitMQ",
-            "group": "Backend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 118,
-            "code": "Quartz Scheduler",
-            "title": "Quartz Scheduler",
-            "group": "Scheduled Tasks",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 119,
-            "code": "Portainer",
-            "title": "Portainer",
-            "group": "Virtualization",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 120,
-            "code": "PowerShell",
-            "title": "PowerShell",
-            "group": "Scripting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 121,
-            "code": "Wordpress",
-            "title": "Wordpress",
-            "group": "Web",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 122,
-            "code": "Cordova",
-            "title": "Cordova",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 18,
-            "jobs": 0
-        },
-        {
-            "id": 123,
-            "code": "MongoDB",
-            "title": "MongoDB",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 124,
-            "code": "Grunt",
-            "title": "Grunt",
-            "group": "Task Runner",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 13,
-            "jobs": 0
-        },
-        {
-            "id": 125,
-            "code": "Visual SourceSafe",
-            "title": "Visual SourceSafe",
-            "group": "Source Control",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 10,
-            "jobs": 0
-        },
-        {
-            "id": 126,
-            "code": "Crystal Reports",
-            "title": "Crystal Reports",
-            "group": "Reporting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 10,
-            "jobs": 0
-        },
-        {
-            "id": 127,
-            "code": "Fast Reports",
-            "title": "Fast Reports",
-            "group": "Reporting",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 6,
-            "jobs": 0
-        },
-        {
-            "id": 128,
-            "code": "PMP",
-            "title": "PMP",
-            "group": "Project Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 129,
-            "code": "Project Management",
-            "title": "Project Management",
-            "group": "Project Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 130,
-            "code": "Time Management",
-            "title": "Time Management",
-            "group": "Project Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 131,
-            "code": "Cost Management",
-            "title": "Cost Management",
-            "group": "Project Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 132,
-            "code": "Software Estimation",
-            "title": "Software Estimation",
-            "group": "Project Management",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 133,
-            "code": "C",
-            "title": "C",
-            "group": "Programming Language",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 134,
-            "code": "C++",
-            "title": "C++",
-            "group": "Programming Language",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 135,
-            "code": "Web Development",
-            "title": "Web Development",
-            "group": "Web",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 136,
-            "code": "Networking",
-            "title": "Networking",
-            "group": "OS",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 137,
-            "code": "OOP",
-            "title": "OOP",
-            "group": "Approach",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 138,
-            "code": "UML",
-            "title": "UML",
-            "group": "Design Pattern",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        }
-        ,
-        {
-            "id": 140,
-            "code": "Web API",
-            "title": "Web API",
-            "group": "Backend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 141,
-            "code": "Web Forms",
-            "title": "Web Forms",
-            "group": "Web",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 142,
-            "code": "Database Solutions",
-            "title": "Database Solutions",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 143,
-            "code": "Database Design",
-            "title": "Database Design",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 144,
-            "code": "Database Management",
-            "title": "Database Management",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 145,
-            "code": "Database Migration",
-            "title": "Database Migration",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 146,
-            "code": "Mobile Solutions",
-            "title": "Mobile Solutions",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 147,
-            "code": "Database Systems",
-            "title": "Database Systems",
-            "group": "Database",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 148,
-            "code": "Distributed Systems",
-            "title": "Distributed Systems",
-            "group": "Backend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 149,
-            "code": "Integration Solutions",
-            "title": "Integration Solutions",
-            "group": "Webservices",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 150,
-            "code": "Mobile Apps",
-            "title": "Mobile Apps",
-            "group": "Frontend",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 151,
-            "code": "Enterprise Solutions",
-            "title": "Enterprise Solutions",
-            "group": "Approach",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        },
-        {
-            "id": 152,
-            "code": "Integration Platforms",
-            "title": "Integration Platforms",
-            "group": "Webservices",
-            "value": 0,
-            "photoUrl": "",
-            "projects": 0,
-            "jobs": 0
-        }
+  "general": {
+    "title": "Skills",
+    "summary": "I had experience on various tech stacks in my long career.",
+    "groups": [
+      {
+        "id": 1,
+        "code": "Programming Language",
+        "title": "Programming Language",
+        "orderIndex": 1
+      },
+      {
+        "id": 2,
+        "code": "Framework",
+        "title": "Framework",
+        "orderIndex": 2
+      },
+      {
+        "id": 4,
+        "code": "Backend",
+        "title": "Backend",
+        "orderIndex": 3
+      },
+      {
+        "id": 3,
+        "code": "Frontend",
+        "title": "Frontend",
+        "orderIndex": 4
+      },
+      {
+        "id": 5,
+        "code": "Web",
+        "title": "Web",
+        "orderIndex": 5
+      },
+      {
+        "id": 6,
+        "code": "ORM",
+        "title": "ORM",
+        "orderIndex": 6
+      },
+      {
+        "id": 7,
+        "code": "IDE",
+        "title": "IDE",
+        "orderIndex": 7
+      },
+      {
+        "id": 8,
+        "code": "Database",
+        "title": "Database",
+        "orderIndex": 8
+      },
+      {
+        "id": 9,
+        "code": "Source Control",
+        "title": "Source Control",
+        "orderIndex": 9
+      },
+      {
+        "id": 10,
+        "code": "DevOps",
+        "title": "DevOps",
+        "orderIndex": 10
+      },
+      {
+        "id": 11,
+        "code": "Scheduled Tasks",
+        "title": "Scheduled Tasks",
+        "orderIndex": 11
+      },
+      {
+        "id": 12,
+        "code": "Dependency Management",
+        "title": "Dependency Management",
+        "orderIndex": 12
+      },
+      {
+        "id": 13,
+        "code": "Virtualization",
+        "title": "Virtualization",
+        "orderIndex": 13
+      },
+      {
+        "id": 14,
+        "code": "Graphics Design",
+        "title": "Graphics Design",
+        "orderIndex": 14
+      },
+      {
+        "id": 15,
+        "code": "File Format",
+        "title": "File Format",
+        "orderIndex": 15
+      },
+      {
+        "id": 16,
+        "code": "Webservices",
+        "title": "Webservices",
+        "orderIndex": 16
+      },
+      {
+        "id": 17,
+        "code": "Sniffing Tool",
+        "title": "Sniffing Tool",
+        "orderIndex": 17
+      },
+      {
+        "id": 18,
+        "code": "Project Management",
+        "title": "Project Management",
+        "orderIndex": 18
+      },
+      {
+        "id": 19,
+        "code": "Cloud Hosting",
+        "title": "Cloud Hosting",
+        "orderIndex": 19
+      },
+      {
+        "id": 20,
+        "code": "Web Services",
+        "title": "Web Services",
+        "orderIndex": 20
+      },
+      {
+        "id": 21,
+        "code": "Scripting",
+        "title": "Scripting",
+        "orderIndex": 21
+      },
+      {
+        "id": 22,
+        "code": "OS",
+        "title": "OS",
+        "orderIndex": 22
+      },
+      {
+        "id": 23,
+        "code": "Task Runner",
+        "title": "Task Runner",
+        "orderIndex": 23
+      },
+      {
+        "id": 24,
+        "code": "3D Modeling Tool",
+        "title": "3D Modeling Tool",
+        "orderIndex": 24
+      },
+      {
+        "id": 25,
+        "code": "E-Learning Standart",
+        "title": "E-Learning Standart",
+        "orderIndex": 25
+      },
+      {
+        "id": 26,
+        "code": "Reporting",
+        "title": "Reporting",
+        "orderIndex": 26
+      },
+      {
+        "id": 27,
+        "code": "Business Intelligence",
+        "title": "Business Intelligence",
+        "orderIndex": 27
+      },
+      {
+        "id": 28,
+        "code": "Desktop",
+        "title": "Desktop",
+        "orderIndex": 28
+      },
+      {
+        "id": 29,
+        "code": "E-Commerce",
+        "title": "E-Commerce",
+        "orderIndex": 29
+      },
+      {
+        "id": 30,
+        "code": "ERP",
+        "title": "ERP",
+        "orderIndex": 30
+      },
+      {
+        "id": 31,
+        "code": "Gaming Engine",
+        "title": "Gaming Engine",
+        "orderIndex": 31
+      },
+      {
+        "id": 32,
+        "code": "Design Pattern",
+        "title": "Design Pattern",
+        "orderIndex": 32
+      },
+      {
+        "id": 33,
+        "code": "Approach",
+        "title": "Approach",
+        "orderIndex": 33
+      }
     ]
+  },
+  "items": [
+    {
+      "id": 1,
+      "code": ".NET",
+      "title": ".NET",
+      "photoUrl": "",
+      "orderIndex": 1,
+      "group": "Framework",
+      "value": 0,
+      "projects": 35,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 2,
+      "code": ".NETCore",
+      "title": ".NETCore",
+      "photoUrl": "",
+      "orderIndex": 1,
+      "group": "Framework",
+      "value": 0,
+      "projects": 15,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 3,
+      "code": "Java",
+      "title": "Java",
+      "photoUrl": "",
+      "orderIndex": 2,
+      "group": "Programming Language",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 4,
+      "code": "C#",
+      "title": "C#",
+      "photoUrl": "",
+      "orderIndex": 3,
+      "group": "Programming Language",
+      "value": 0,
+      "projects": 35,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 5,
+      "code": "Typescript",
+      "title": "Typescript",
+      "photoUrl": "",
+      "orderIndex": 4,
+      "group": "Frontend",
+      "value": 0,
+      "projects": 1,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 6,
+      "code": "AngularJS",
+      "title": "AngularJS",
+      "photoUrl": "",
+      "orderIndex": 5,
+      "group": "Frontend",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 7,
+      "code": "Angular",
+      "title": "Angular",
+      "photoUrl": "",
+      "orderIndex": 5,
+      "group": "Frontend",
+      "value": 0,
+      "projects": 20,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 8,
+      "code": "Kubernetes",
+      "title": "Kubernetes",
+      "photoUrl": "",
+      "orderIndex": 6,
+      "group": "Virtualization",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 9,
+      "code": "Docker",
+      "title": "Docker",
+      "photoUrl": "",
+      "orderIndex": 6,
+      "group": "Virtualization",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 10,
+      "code": "Gitlab",
+      "title": "Gitlab",
+      "photoUrl": "",
+      "orderIndex": 7,
+      "group": "Source Control",
+      "value": 0,
+      "projects": 14,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 11,
+      "code": "Jenkins",
+      "title": "Jenkins",
+      "photoUrl": "",
+      "orderIndex": 8,
+      "group": "DevOps",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 12,
+      "code": "HTML5",
+      "title": "HTML5",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 37,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 13,
+      "code": "JS",
+      "title": "JS",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 37,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 14,
+      "code": "CSS",
+      "title": "CSS",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 37,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 15,
+      "code": "MS SQL",
+      "title": "MS SQL",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 29,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 16,
+      "code": "MS Project",
+      "title": "MS Project",
+      "photoUrl": "",
+      "group": "Project Management",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 17,
+      "code": "Nodejs",
+      "title": "Nodejs",
+      "photoUrl": "",
+      "group": "Backend",
+      "value": 0,
+      "projects": 14,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 18,
+      "code": "Ionic",
+      "title": "Ionic",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0,
+      "isMajor": true
+    },
+    {
+      "id": 19,
+      "code": "Photoshop",
+      "title": "Photoshop",
+      "photoUrl": "",
+      "group": "Graphics Design",
+      "value": 0,
+      "projects": 38,
+      "jobs": 0
+    },
+    {
+      "id": 20,
+      "code": "ASP.NET",
+      "title": "ASP.NET",
+      "photoUrl": "",
+      "group": "Web",
+      "value": 0,
+      "projects": 35,
+      "jobs": 0
+    },
+    {
+      "id": 21,
+      "code": "LINQ",
+      "title": "LINQ",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 23,
+      "jobs": 0
+    },
+    {
+      "id": 22,
+      "code": "CSS3",
+      "title": "CSS3",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 23,
+      "code": "TFS",
+      "title": "TFS",
+      "photoUrl": "",
+      "group": "Source Control",
+      "value": 0,
+      "projects": 21,
+      "jobs": 0
+    },
+    {
+      "id": 24,
+      "code": "JQuery",
+      "title": "JQuery",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 31,
+      "jobs": 0
+    },
+    {
+      "id": 25,
+      "code": "Git",
+      "title": "Git",
+      "photoUrl": "",
+      "group": "Source Control",
+      "value": 0,
+      "projects": 14,
+      "jobs": 0
+    },
+    {
+      "id": 26,
+      "code": "ASP.NET MVC",
+      "title": "ASP.NET MVC",
+      "photoUrl": "",
+      "group": "Web",
+      "value": 0,
+      "projects": 33,
+      "jobs": 0
+    },
+    {
+      "id": 27,
+      "code": "Hangfire",
+      "title": "Hangfire",
+      "photoUrl": "",
+      "group": "Scheduled Tasks",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 28,
+      "code": "Entity Framework Core",
+      "title": "Entity Framework Core",
+      "photoUrl": "",
+      "group": "ORM",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 29,
+      "code": "MySQL",
+      "title": "MySQL",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 19,
+      "jobs": 0
+    },
+    {
+      "id": 30,
+      "code": "PHP",
+      "title": "PHP",
+      "photoUrl": "",
+      "group": "Backend",
+      "value": 0,
+      "projects": 1,
+      "jobs": 0
+    },
+    {
+      "id": 31,
+      "code": "npm",
+      "title": "npm",
+      "photoUrl": "",
+      "group": "Dependency Management",
+      "value": 0,
+      "projects": 21,
+      "jobs": 0
+    },
+    {
+      "id": 32,
+      "code": "NuGet",
+      "title": "NuGet",
+      "photoUrl": "",
+      "group": "Dependency Management",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 33,
+      "code": "ProGet",
+      "title": "ProGet",
+      "photoUrl": "",
+      "group": "Dependency Management",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 34,
+      "code": "Visual Studio",
+      "title": "Visual Studio",
+      "photoUrl": "",
+      "group": "IDE",
+      "value": 0,
+      "projects": 35,
+      "jobs": 0
+    },
+    {
+      "id": 35,
+      "code": "Oracle",
+      "title": "Oracle",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 24,
+      "jobs": 0
+    },
+    {
+      "id": 36,
+      "code": "Telerik UI for Silverlight",
+      "title": "Telerik UI for Silverlight",
+      "photoUrl": "",
+      "group": "Web",
+      "value": 0,
+      "projects": 14,
+      "jobs": 0
+    },
+    {
+      "id": 37,
+      "code": "Silverlight",
+      "title": "Silverlight",
+      "photoUrl": "",
+      "group": "Web",
+      "value": 0,
+      "projects": 14,
+      "jobs": 0
+    },
+    {
+      "id": 38,
+      "code": "WCF",
+      "title": "WCF",
+      "photoUrl": "",
+      "group": "Webservices",
+      "value": 0,
+      "projects": 14,
+      "jobs": 0
+    },
+    {
+      "id": 39,
+      "code": "EntityFramework",
+      "title": "EntityFramework",
+      "photoUrl": "",
+      "group": "ORM",
+      "value": 0,
+      "projects": 23,
+      "jobs": 0
+    },
+    {
+      "id": 40,
+      "code": "Fiddler",
+      "title": "Fiddler",
+      "photoUrl": "",
+      "group": "Sniffing Tool",
+      "value": 0,
+      "projects": 14,
+      "jobs": 0
+    },
+    {
+      "id": 41,
+      "code": "XAML",
+      "title": "XAML",
+      "photoUrl": "",
+      "group": "File Format",
+      "value": 0,
+      "projects": 14,
+      "jobs": 0
+    },
+    {
+      "id": 42,
+      "code": "MVVM",
+      "title": "MVVM",
+      "photoUrl": "",
+      "group": "Design Pattern",
+      "value": 0,
+      "projects": 23,
+      "jobs": 0
+    },
+    {
+      "id": 43,
+      "code": "MS Blend",
+      "title": "MS Blend",
+      "photoUrl": "",
+      "group": "Graphics Design",
+      "value": 0,
+      "projects": 21,
+      "jobs": 0
+    },
+    {
+      "id": 44,
+      "code": "PDFWCore",
+      "title": "PDFWCore",
+      "photoUrl": "",
+      "group": "Framework",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 45,
+      "code": "Pascal",
+      "title": "Pascal",
+      "photoUrl": "",
+      "group": "Programming Language",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 46,
+      "code": "XML",
+      "title": "XML",
+      "photoUrl": "",
+      "group": "File Format",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 47,
+      "code": "Adobe Flash",
+      "title": "Adobe Flash",
+      "photoUrl": "",
+      "group": "Graphics Design",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 48,
+      "code": "Redmine",
+      "title": "Redmine",
+      "photoUrl": "",
+      "group": "Project Management",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 49,
+      "code": "Azure",
+      "title": "Azure",
+      "photoUrl": "",
+      "group": "Cloud Hosting",
+      "value": 0,
+      "projects": 15,
+      "jobs": 0
+    },
+    {
+      "id": 50,
+      "code": "SOAP",
+      "title": "SOAP",
+      "photoUrl": "",
+      "group": "Web Services",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 51,
+      "code": "VB.NET",
+      "title": "VB.NET",
+      "photoUrl": "",
+      "group": "Backend",
+      "value": 0,
+      "projects": 12,
+      "jobs": 0
+    },
+    {
+      "id": 52,
+      "code": "Bootstrap",
+      "title": "Bootstrap",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 53,
+      "code": "DB2",
+      "title": "DB2",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 54,
+      "code": "Bash Scripting",
+      "title": "Bash Scripting",
+      "photoUrl": "",
+      "group": "Scripting",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 55,
+      "code": "Nexus",
+      "title": "Nexus",
+      "photoUrl": "",
+      "group": "Dependency Management",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 56,
+      "code": "Source Tree",
+      "title": "Source Tree",
+      "photoUrl": "",
+      "group": "Source Control",
+      "value": 0,
+      "projects": 20,
+      "jobs": 0
+    },
+    {
+      "id": 57,
+      "code": "Tortoise Hg",
+      "title": "Tortoise Hg",
+      "photoUrl": "",
+      "group": "Source Control",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 58,
+      "code": "ubuntu",
+      "title": "ubuntu",
+      "photoUrl": "",
+      "group": "OS",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 59,
+      "code": "Apache Ant",
+      "title": "Apache Ant",
+      "photoUrl": "",
+      "group": "Task Runner",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 60,
+      "code": "Visual Basic",
+      "title": "Visual Basic",
+      "photoUrl": "",
+      "group": "Programming Language",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 61,
+      "code": "VMware",
+      "title": "VMware",
+      "photoUrl": "",
+      "group": "Virtualization",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 62,
+      "code": "Express",
+      "title": "Express",
+      "photoUrl": "",
+      "group": "Backend",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 63,
+      "code": "EJS",
+      "title": "EJS",
+      "photoUrl": "",
+      "group": "Backend",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 64,
+      "code": "3Ds Max",
+      "title": "3Ds Max",
+      "photoUrl": "",
+      "group": "3D Modeling Tool",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 65,
+      "code": "Scorm",
+      "title": "Scorm",
+      "photoUrl": "",
+      "group": "E-Learning Standart",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 66,
+      "code": "MS Access",
+      "title": "MS Access",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0
+    },
+    {
+      "id": 67,
+      "code": "iReports",
+      "title": "iReports",
+      "photoUrl": "",
+      "group": "Reporting",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 68,
+      "code": "VB Script",
+      "title": "VB Script",
+      "photoUrl": "",
+      "group": "Programming Language",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0
+    },
+    {
+      "id": 69,
+      "code": "Jasper Reports",
+      "title": "Jasper Reports",
+      "photoUrl": "",
+      "group": "Reporting",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 70,
+      "code": "Jasper BI",
+      "title": "Jasper BI",
+      "photoUrl": "",
+      "group": "Business Intelligence",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 71,
+      "code": "Animate.css",
+      "title": "Animate.css",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 72,
+      "code": "HyperV",
+      "title": "HyperV",
+      "photoUrl": "",
+      "group": "Virtualization",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 73,
+      "code": "Mercurial",
+      "title": "Mercurial",
+      "photoUrl": "",
+      "group": "Source Control",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 74,
+      "code": "Spring",
+      "title": "Spring",
+      "photoUrl": "",
+      "group": "Framework",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 75,
+      "code": "Hibernate",
+      "title": "Hibernate",
+      "photoUrl": "",
+      "group": "ORM",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 76,
+      "code": "WPF",
+      "title": "WPF",
+      "photoUrl": "",
+      "group": "Desktop",
+      "value": 0,
+      "projects": 14,
+      "jobs": 0
+    },
+    {
+      "id": 77,
+      "code": "Eclipse",
+      "title": "Eclipse",
+      "photoUrl": "",
+      "group": "IDE",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 78,
+      "code": "Maven",
+      "title": "Maven",
+      "photoUrl": "",
+      "orderIndex": 2,
+      "group": "Dependency Management",
+      "value": 0,
+      "projects": 0,
+      "jobs": 1,
+      "isMajor": false
+    },
+    {
+      "id": 79,
+      "code": "Oracle BI",
+      "title": "Oracle BI",
+      "photoUrl": "",
+      "group": "Business Intelligence",
+      "value": 0,
+      "projects": 24,
+      "jobs": 0
+    },
+    {
+      "id": 80,
+      "code": "AWS",
+      "title": "AWS",
+      "photoUrl": "",
+      "group": "Cloud Hosting",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 81,
+      "code": "SQL Lite",
+      "title": "SQL Lite",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 82,
+      "code": "My SQL",
+      "title": "My SQL",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 83,
+      "code": "Timelinejs3",
+      "title": "Timelinejs3",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 84,
+      "code": "Json",
+      "title": "Json",
+      "photoUrl": "",
+      "group": "File Format",
+      "value": 0,
+      "projects": 16,
+      "jobs": 0
+    },
+    {
+      "id": 85,
+      "code": "APM",
+      "title": "APM",
+      "photoUrl": "",
+      "group": "Project Management",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 86,
+      "code": "Heroku",
+      "title": "Heroku",
+      "photoUrl": "",
+      "group": "Cloud Hosting",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 87,
+      "code": "Paypal",
+      "title": "Paypal",
+      "photoUrl": "",
+      "group": "E-Commerce",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 88,
+      "code": "Microsoft Dynamics NAV",
+      "title": "Microsoft Dynamics NAV",
+      "photoUrl": "",
+      "group": "ERP",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 89,
+      "code": "PDFW",
+      "title": "PDFW",
+      "photoUrl": "",
+      "group": "Framework",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 90,
+      "code": "Alibaba Cloud",
+      "title": "Alibaba Cloud",
+      "photoUrl": "",
+      "group": "Cloud Hosting",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 91,
+      "code": "Google Cloud",
+      "title": "Google Cloud",
+      "photoUrl": "",
+      "group": "Cloud Hosting",
+      "value": 0,
+      "projects": 1,
+      "jobs": 0
+    },
+    {
+      "id": 92,
+      "code": "dom-to-image",
+      "title": "dom-to-image",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 93,
+      "code": "jspdf",
+      "title": "jspdf",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 94,
+      "code": "Windows Forms",
+      "title": "Windows Forms",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 95,
+      "code": "Digital Ocean",
+      "title": "Digital Ocean",
+      "photoUrl": "",
+      "group": "Cloud Hosting",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 96,
+      "code": "Adobe Atmosphere",
+      "title": "Adobe Atmosphere",
+      "photoUrl": "",
+      "group": "Gaming Engine",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 97,
+      "code": "Fontawesome",
+      "title": "Fontawesome",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 98,
+      "code": "Dark Basic",
+      "title": "Dark Basic",
+      "photoUrl": "",
+      "group": "Gaming Engine",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 99,
+      "code": "MomentJS",
+      "title": "MomentJS",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 100,
+      "code": "PrimeNG",
+      "title": "PrimeNG",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 101,
+      "code": "Angular Material",
+      "title": "Angular Material",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 102,
+      "code": "Github",
+      "title": "Github",
+      "photoUrl": "",
+      "group": "Source Control",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 139,
+      "code": "VisualBasic.NET",
+      "title": "VisualBasic.NET",
+      "photoUrl": "",
+      "group": "Programming Language",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 103,
+      "code": "Design Patterns",
+      "title": "Design Patterns",
+      "photoUrl": "",
+      "group": "Approach",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 104,
+      "code": "Fastify",
+      "title": "Fastify",
+      "photoUrl": "",
+      "group": "Framework",
+      "value": 0,
+      "projects": 1,
+      "jobs": 0
+    },
+    {
+      "id": 105,
+      "code": "VS Code",
+      "title": "VS Code",
+      "photoUrl": "",
+      "group": "IDE",
+      "value": 0,
+      "projects": 16,
+      "jobs": 0
+    },
+    {
+      "id": 106,
+      "code": "React",
+      "title": "React",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 1,
+      "jobs": 0
+    },
+    {
+      "id": 107,
+      "code": "StencilJS",
+      "title": "StencilJS",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 1,
+      "jobs": 0
+    },
+    {
+      "id": 108,
+      "code": "Postgres",
+      "title": "Postgres",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 1,
+      "jobs": 0
+    },
+    {
+      "id": 109,
+      "code": "OAuth",
+      "title": "OAuth",
+      "photoUrl": "",
+      "group": "File Format",
+      "value": 0,
+      "projects": 16,
+      "jobs": 0
+    },
+    {
+      "id": 110,
+      "code": "JWT",
+      "title": "JWT",
+      "photoUrl": "",
+      "group": "File Format",
+      "value": 0,
+      "projects": 3,
+      "jobs": 0
+    },
+    {
+      "id": 111,
+      "code": "Google Analytics",
+      "title": "Google Analytics",
+      "photoUrl": "",
+      "group": "Web",
+      "value": 0,
+      "projects": 16,
+      "jobs": 0
+    },
+    {
+      "id": 112,
+      "code": "VS Code Insiders",
+      "title": "VS Code Insiders",
+      "photoUrl": "",
+      "group": "IDE",
+      "value": 0,
+      "projects": 15,
+      "jobs": 0
+    },
+    {
+      "id": 113,
+      "code": "Azure DevOps",
+      "title": "Azure DevOps",
+      "photoUrl": "",
+      "group": "Cloud Hosting",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0
+    },
+    {
+      "id": 114,
+      "code": "ASP.NET Core",
+      "title": "ASP.NET Core",
+      "photoUrl": "",
+      "group": "Backend",
+      "value": 0,
+      "projects": 20,
+      "jobs": 0
+    },
+    {
+      "id": 115,
+      "code": "ASP.NET WebAPI",
+      "title": "ASP.NET WebAPI",
+      "photoUrl": "",
+      "group": "Backend",
+      "value": 0,
+      "projects": 32,
+      "jobs": 0
+    },
+    {
+      "id": 116,
+      "code": "Redis",
+      "title": "Redis",
+      "photoUrl": "",
+      "group": "Backend",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 117,
+      "code": "RabbitMQ",
+      "title": "RabbitMQ",
+      "photoUrl": "",
+      "group": "Backend",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 118,
+      "code": "Quartz Scheduler",
+      "title": "Quartz Scheduler",
+      "photoUrl": "",
+      "group": "Scheduled Tasks",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 119,
+      "code": "Portainer",
+      "title": "Portainer",
+      "photoUrl": "",
+      "group": "Virtualization",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 120,
+      "code": "PowerShell",
+      "title": "PowerShell",
+      "photoUrl": "",
+      "group": "Scripting",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 121,
+      "code": "Wordpress",
+      "title": "Wordpress",
+      "photoUrl": "",
+      "group": "Web",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 122,
+      "code": "Cordova",
+      "title": "Cordova",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 18,
+      "jobs": 0
+    },
+    {
+      "id": 123,
+      "code": "MongoDB",
+      "title": "MongoDB",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 124,
+      "code": "Grunt",
+      "title": "Grunt",
+      "photoUrl": "",
+      "group": "Task Runner",
+      "value": 0,
+      "projects": 13,
+      "jobs": 0
+    },
+    {
+      "id": 125,
+      "code": "Visual SourceSafe",
+      "title": "Visual SourceSafe",
+      "photoUrl": "",
+      "group": "Source Control",
+      "value": 0,
+      "projects": 10,
+      "jobs": 0
+    },
+    {
+      "id": 126,
+      "code": "Crystal Reports",
+      "title": "Crystal Reports",
+      "photoUrl": "",
+      "group": "Reporting",
+      "value": 0,
+      "projects": 10,
+      "jobs": 0
+    },
+    {
+      "id": 127,
+      "code": "Fast Reports",
+      "title": "Fast Reports",
+      "photoUrl": "",
+      "group": "Reporting",
+      "value": 0,
+      "projects": 6,
+      "jobs": 0
+    },
+    {
+      "id": 128,
+      "code": "PMP",
+      "title": "PMP",
+      "photoUrl": "",
+      "group": "Project Management",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 129,
+      "code": "Project Management",
+      "title": "Project Management",
+      "photoUrl": "",
+      "group": "Project Management",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 130,
+      "code": "Time Management",
+      "title": "Time Management",
+      "photoUrl": "",
+      "group": "Project Management",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 131,
+      "code": "Cost Management",
+      "title": "Cost Management",
+      "photoUrl": "",
+      "group": "Project Management",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 132,
+      "code": "Software Estimation",
+      "title": "Software Estimation",
+      "photoUrl": "",
+      "group": "Project Management",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 133,
+      "code": "C",
+      "title": "C",
+      "photoUrl": "",
+      "group": "Programming Language",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 134,
+      "code": "C++",
+      "title": "C++",
+      "photoUrl": "",
+      "group": "Programming Language",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 135,
+      "code": "Web Development",
+      "title": "Web Development",
+      "photoUrl": "",
+      "group": "Web",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 136,
+      "code": "Networking",
+      "title": "Networking",
+      "photoUrl": "",
+      "group": "OS",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 137,
+      "code": "OOP",
+      "title": "OOP",
+      "photoUrl": "",
+      "group": "Approach",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 138,
+      "code": "UML",
+      "title": "UML",
+      "photoUrl": "",
+      "group": "Design Pattern",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 140,
+      "code": "Web API",
+      "title": "Web API",
+      "photoUrl": "",
+      "group": "Backend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 141,
+      "code": "Web Forms",
+      "title": "Web Forms",
+      "photoUrl": "",
+      "group": "Web",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 142,
+      "code": "Database Solutions",
+      "title": "Database Solutions",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 143,
+      "code": "Database Design",
+      "title": "Database Design",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 144,
+      "code": "Database Management",
+      "title": "Database Management",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 145,
+      "code": "Database Migration",
+      "title": "Database Migration",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 146,
+      "code": "Mobile Solutions",
+      "title": "Mobile Solutions",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 147,
+      "code": "Database Systems",
+      "title": "Database Systems",
+      "photoUrl": "",
+      "group": "Database",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 148,
+      "code": "Distributed Systems",
+      "title": "Distributed Systems",
+      "photoUrl": "",
+      "group": "Backend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 149,
+      "code": "Integration Solutions",
+      "title": "Integration Solutions",
+      "photoUrl": "",
+      "group": "Webservices",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 150,
+      "code": "Mobile Apps",
+      "title": "Mobile Apps",
+      "photoUrl": "",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 151,
+      "code": "Enterprise Solutions",
+      "title": "Enterprise Solutions",
+      "photoUrl": "",
+      "group": "Approach",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    },
+    {
+      "id": 152,
+      "code": "Integration Platforms",
+      "title": "Integration Platforms",
+      "photoUrl": "",
+      "group": "Webservices",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0
+    }
+  ]
 }

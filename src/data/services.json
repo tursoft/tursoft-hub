@@ -1,319 +1,319 @@
 {
   "items": [
     {
-      "name": "consultancy",
+      "code": "consultancy",
       "title": "Consultancy",
-      "value": 100,
-      "iconCss": "fa fa-desktop",
-      "summary": ""
+      "photoUrl": "fa fa-desktop",
+      "summary": "",
+      "value": 100
     },
     {
-      "name": "project.management",
+      "code": "project.management",
       "title": "Project Management",
-      "value": 100,
-      "iconCss": "fa fa-credit-card",
-      "summary": ""
+      "photoUrl": "fa fa-credit-card",
+      "summary": "",
+      "value": 100
     },
     {
-      "name": "outsourcing",
+      "code": "outsourcing",
       "title": "Outsourcing",
-      "value": 100,
-      "iconCss": "fa fa-google-wallet",
-      "summary": ""
+      "photoUrl": "fa fa-google-wallet",
+      "summary": "",
+      "value": 100
     },
     {
-      "name": "training",
+      "code": "training",
       "title": "Training",
-      "value": 100,
-      "iconCss": "fa fa-list-alt",
-      "summary": ""
+      "photoUrl": "fa fa-list-alt",
+      "summary": "",
+      "value": 100
     },
     {
-      "name": "framework",
+      "code": "framework",
       "title": "Framework Development",
-      "value": 100,
-      "iconCss": "fa fa-newspaper-o",
-      "summary": ""
+      "photoUrl": "fa fa-newspaper-o",
+      "summary": "",
+      "value": 100
     },
     {
-      "name": "design",
+      "code": "design",
       "title": "Graphics Design",
-      "value": 100,
-      "iconCss": "fa fa-picture-o",
-      "summary": ""
+      "photoUrl": "fa fa-picture-o",
+      "summary": "",
+      "value": 100
     },
     {
-      "name": "healthcare-information-systems",
+      "code": "healthcare-information-systems",
       "title": "Healthcare Information Systems",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "patient-management-solutions",
+      "code": "patient-management-solutions",
       "title": "Patient Management Solutions",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "medical-data-analytics",
+      "code": "medical-data-analytics",
       "title": "Medical Data Analytics",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "digital-health-infrastructure",
+      "code": "digital-health-infrastructure",
       "title": "Digital Health Infrastructure",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "security-information-systems",
+      "code": "security-information-systems",
       "title": "Security Information Systems",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "civil-affairs-management",
+      "code": "civil-affairs-management",
       "title": "Civil Affairs Management",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "digital-identity-solutions",
+      "code": "digital-identity-solutions",
       "title": "Digital Identity Solutions",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "electronic-health-records",
+      "code": "electronic-health-records",
       "title": "Electronic Health Records",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "hospital-management-systems",
+      "code": "hospital-management-systems",
       "title": "Hospital Management Systems",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "health-analytics-platform",
+      "code": "health-analytics-platform",
       "title": "Health Analytics Platform",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "customer-management-systems",
+      "code": "customer-management-systems",
       "title": "Customer Management Systems",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "billing-solutions",
+      "code": "billing-solutions",
       "title": "Billing Solutions",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "hospital-information-systems",
+      "code": "hospital-information-systems",
       "title": "Hospital Information Systems",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "laboratory-management",
+      "code": "laboratory-management",
       "title": "Laboratory Management",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "pharmaceutical-tracking",
+      "code": "pharmaceutical-tracking",
       "title": "Pharmaceutical Tracking",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "mobile-customer-management",
+      "code": "mobile-customer-management",
       "title": "Mobile Customer Management",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "billing-systems",
+      "code": "billing-systems",
       "title": "Billing Systems",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "service-activation-platforms",
+      "code": "service-activation-platforms",
       "title": "Service Activation Platforms",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "patient-care-solutions",
+      "code": "patient-care-solutions",
       "title": "Patient Care Solutions",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "medical-records-management",
+      "code": "medical-records-management",
       "title": "Medical Records Management",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "health-information-systems",
+      "code": "health-information-systems",
       "title": "Health Information Systems",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "medical-data-management",
+      "code": "medical-data-management",
       "title": "Medical Data Management",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "healthcare-analytics",
+      "code": "healthcare-analytics",
       "title": "Healthcare Analytics",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "cardiac-monitoring-systems",
+      "code": "cardiac-monitoring-systems",
       "title": "Cardiac Monitoring Systems",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "telemedicine-platforms",
+      "code": "telemedicine-platforms",
       "title": "Telemedicine Platforms",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "mobile-billing-solutions",
+      "code": "mobile-billing-solutions",
       "title": "Mobile Billing Solutions",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "network-operations",
+      "code": "network-operations",
       "title": "Network Operations",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "digital-health-platform",
+      "code": "digital-health-platform",
       "title": "Digital Health Platform",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "healthcare-data-analytics",
+      "code": "healthcare-data-analytics",
       "title": "Healthcare Data Analytics",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "system-integration",
+      "code": "system-integration",
       "title": "System Integration",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "e-learning",
+      "code": "e-learning",
       "title": "E-Learning",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "educational-systems",
+      "code": "educational-systems",
       "title": "Educational Systems",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "research-support",
+      "code": "research-support",
       "title": "Research Support",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "academic-management",
+      "code": "academic-management",
       "title": "Academic Management",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "research-grant-management",
+      "code": "research-grant-management",
       "title": "Research Grant Management",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "scientific-project-support",
+      "code": "scientific-project-support",
       "title": "Scientific Project Support",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "technology-transfer",
+      "code": "technology-transfer",
       "title": "Technology Transfer",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "web-development",
+      "code": "web-development",
       "title": "Web Development",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     },
     {
-      "name": "community-building",
+      "code": "community-building",
       "title": "Community Building",
-      "value": 50,
-      "iconCss": "fa fa-cog",
-      "summary": ""
+      "photoUrl": "fa fa-cog",
+      "summary": "",
+      "value": 50
     }
   ]
 }

@@ -1,297 +1,297 @@
 {
-    "general": {
-        "title": "Education",
-        "summary": "Throughout my academic life, while taking various technology and software development related courses, I have also engaged in a lot of academic projects that help me to get great experience during my education years."
-    },
-    "items": [
+  "general": {
+    "title": "Education",
+    "summary": "Throughout my academic life, while taking various technology and software development related courses, I have also engaged in a lot of academic projects that help me to get great experience during my education years."
+  },
+  "items": [
+    {
+      "id": 101,
+      "uid": "education.101.metu3",
+      "code": "METU3",
+      "title": "Middle East Technical University",
+      "photoUrl": "metu.png",
+      "orderIndex": 15,
+      "city": "Ankara",
+      "country": "Turkey",
+      "url": "https://ii.metu.edu.tr/software-management-ms",
+      "department": "Department of Software Management",
+      "summary": "One-year postgraduate program in Software Management emphasizing project management, software estimation, cost/time management and applied PMP practices through coursework and project work.",
+      "level": "Graduate School",
+      "period": "2012-2013",
+      "graduateDate": "February, 2013",
+      "graduateScore": "AA",
+      "skillCodes": [
+        "PMP",
+        "Project Management",
+        "Time Management",
+        "Cost Management",
+        "Software Estimation"
+      ],
+      "datePeriod": {
+        "startDate": "01.09.2012",
+        "endDate": "01.02.2013"
+      },
+      "coordinates": {
+        "lat": 39.8939,
+        "lng": 32.7816
+      },
+      "courses": [
         {
-            "id": 101,
-            "orderIndex": 15,
-            "photoUrl": "metu.png",
-            "url": "https://ii.metu.edu.tr/software-management-ms",
-            "uid": "education.101.metu3",
-            "code": "METU3",
-            "title": "Middle East Technical University",
-            "department": "Department of Software Management",
-            "summary": "One-year postgraduate program in Software Management emphasizing project management, software estimation, cost/time management and applied PMP practices through coursework and project work.",
-            "level": "Graduate School",
-            "period": "2012-2013",
-            "datePeriod": {
-                "startDate": "01.09.2012",
-                "endDate": "01.02.2013"
-            },
-            "city": "Ankara",
-            "coordinates": {
-                "lat": 39.8939,
-                "lng": 32.7816
-            },
-            "country": "Turkey",
-            "graduateDate": "February, 2013",
-            "graduateScore": "AA",
-            "courses": [
-                {
-                    "title": "Project Management",
-                    "score": "AA",
-                    "content": ""
-                }
-            ],
-            "skillCodes": [
-                "PMP",
-                "Project Management",
-                "Time Management",
-                "Cost Management",
-                "Software Estimation"
-            ]
-        },
-        {
-            "id": 102,
-            "orderIndex": 14,
-            "photoUrl": "metu.png",
-            "url": "https://ceit.metu.edu.tr/",
-            "uid": "education.102.metu2",
-            "code": "METU2",
-            "title": "Middle East Technical University",
-            "department": "Computer Education and Instructional Technologies Department",
-            "summary": "Graduate studies focused on instructional design, multimedia information systems and educational technologies, combining theory and hands-on software development and multimedia coursework.",
-            "level": "Graduate School",
-            "period": "2004-2007",
-            "datePeriod": {
-                "startDate": "15.09.2004",
-                "endDate": "15.09.2007"
-            },
-            "city": "Ankara",
-            "coordinates": {
-                "lat": 39.8939,
-                "lng": 32.7816
-            },
-            "country": "Turkey",
-            "graduateDate": "September, 2007",
-            "graduateScore": "3.68 / 4.00",
-            "courses": [
-                {
-                    "title": "Design Patterns",
-                    "score": "AA",
-                    "content": "OOD, Use Cases, UML, OCL, Design Patterns"
-                },
-                {
-                    "title": "Total Quality Management",
-                    "score": "AA",
-                    "content": "Strategic Planning"
-                },
-                {
-                    "title": "Multimedia Information Systems",
-                    "score": "BB",
-                    "content": "OS, Networks, Data Types, Compression"
-                },
-                {
-                    "title": "Distance Education",
-                    "score": "AA",
-                    "content": ""
-                },
-                {
-                    "title": "Telecommunication in Education",
-                    "score": "AA",
-                    "content": ""
-                }
-            ],
-            "skillCodes": [
-                "Visual Basic",
-                "Pascal",
-                "C",
-                "C++",
-                "Java",
-                "Web Development",
-                "HTML5",
-                "CSS",
-                "JS",
-                "ASP.NET",
-                "Photoshop",
-                "Adobe Flash",
-                "MS SQL",
-                "Networking",
-                "Design Patterns",
-                "OOP",
-                "UML"
-            ]
-        },
-        {
-            "id": 103,
-            "orderIndex": 13,
-            "photoUrl": "metu.png",
-            "url": "https://ceit.metu.edu.tr/",
-            "uid": "education.103.metu1",
-            "code": "METU1",
-            "title": "Middle East Technical University",
-            "department": "Computer Education and Instructional Technologies Department",
-            "summary": "Undergraduate degree covering programming (Pascal, C, C++, Java), web and database technologies, networking and several applied projects including 3D educational game development.",
-            "level": "Undergraduate School",
-            "period": "1999–2004",
-            "datePeriod": {
-                "startDate": "15.09.1999",
-                "endDate": "15.06.2004"
-            },
-            "city": "Ankara",
-            "coordinates": {
-                "lat": 39.8939,
-                "lng": 32.7816
-            },
-            "country": "Turkey",
-            "graduateDate": "June, 2004",
-            "graduateScore": "3.80 / 4.00",
-            "courses": [
-                {
-                    "title": "Programming Languages I",
-                    "score": "AA",
-                    "content": "Pascal, Functional Programming"
-                },
-                {
-                    "title": "Programming Languages II",
-                    "score": "AA",
-                    "content": "Visual Basic"
-                },
-                {
-                    "title": "Authoring Languages on PC Environment",
-                    "score": "BB",
-                    "content": "Macromedia Authorware"
-                },
-                {
-                    "title": "Instructional Technology and Material Prepar",
-                    "score": "AA",
-                    "content": "Macromedia Flash"
-                },
-                {
-                    "title": "Introduction to C",
-                    "score": "AA",
-                    "content": "C"
-                },
-                {
-                    "title": "Introduction to C++",
-                    "score": "AA",
-                    "content": "C++"
-                },
-                {
-                    "title": "Advanced Object Oriented Programming",
-                    "score": "AA",
-                    "content": "Java"
-                },
-                {
-                    "title": "Fundamentals of Data Systems",
-                    "score": "AA",
-                    "content": "SQL"
-                },
-                {
-                    "title": "Authoring Languages on Internet",
-                    "score": "AA",
-                    "content": "HTML, JavaScript, ASP, PHP, .NET"
-                },
-                {
-                    "title": "Computer Network Systems",
-                    "score": "AA",
-                    "content": "TCP, UDP, OSI, FTP, HTTP"
-                },
-                {
-                    "title": "WAN Technologies",
-                    "score": "AA",
-                    "content": "Cisco Router Configuration"
-                },
-                {
-                    "title": "3D Educational Game Development I",
-                    "score": "AA",
-                    "content": "Dark Basic"
-                },
-                {
-                    "title": "3D Educational Game Development II",
-                    "score": "AA",
-                    "content": "3D Max, Rhinoceros, Adobe Atmosphere"
-                }
-            ],
-            "skillCodes": [
-                "Visual Basic",
-                "Pascal",
-                "C",
-                "C++",
-                "Java",
-                "HTML5",
-                "CSS",
-                "JS",
-                "ASP.NET",
-                "Photoshop",
-                "Adobe Flash",
-                "MS SQL"
-            ]
-        },
-        {
-            "id": 104,
-            "orderIndex": 12,
-            "photoUrl": "meb.png",
-            "url": "http://izmiteml.meb.k12.tr/",
-            "uid": "education.104.ktl",
-            "code": "KTL",
-            "title": "Kocaeli Technical High School",
-            "department": "Computer Programming Branch",
-            "summary": "Technical high school program with a strong focus on practical programming, operating systems and software tools; provided solid foundational skills for further studies in computing.",
-            "level": "High School",
-            "period": "1995-1999",
-            "datePeriod": {
-                "startDate": "15.09.1996",
-                "endDate": "15.06.1999"
-            },
-            "city": "Kocaeli",
-            "coordinates": {
-                "lat": 40.7654,
-                "lng": 29.9385
-            },
-            "country": "Turkey",
-            "graduateDate": "June, 1999",
-            "graduateScore": "4.80 / 5.00",
-            "courses": [
-                {
-                    "title": "Programming Languages I",
-                    "score": "5",
-                    "content": "Pascal, Functional Programming"
-                },
-                {
-                    "title": "Programming Languages II",
-                    "score": "5",
-                    "content": "Visual Basic"
-                },
-                {
-                    "title": "Operating Systems",
-                    "score": "5",
-                    "content": "Windows"
-                }
-            ],
-            "skillCodes": [
-                "Pascal",
-                "Visual Basic",
-                "Photoshop"
-            ]
-        },
-        {
-            "id": 105,
-            "orderIndex": 12,
-            "photoUrl": "meb.png",
-            "url": "http://ataturkmtal.meb.k12.tr/",
-            "uid": "education.105.atl",
-            "code": "ATL",
-            "title": "Atatürk Mesleki ve Teknik Anadolu Lisesi",
-            "department": "Computer Programming Branch",
-            "summary": "Vocational high school curriculum emphasizing core programming concepts and hands-on labs that reinforced practical coding and problem-solving skills.",
-            "level": "High School",
-            "period": "1995-1996",
-            "datePeriod": {
-                "startDate": "15.09.1995",
-                "endDate": "15.06.1996"
-            },
-            "city": "Kocaeli",
-            "coordinates": {
-                "lat": 40.7654,
-                "lng": 29.9385
-            },
-            "country": "Turkey",
-            "graduateDate": "June, 1996",
-            "graduateScore": "4.80",
-            "courses": []
+          "title": "Project Management",
+          "score": "AA",
+          "content": ""
         }
-    ]
+      ]
+    },
+    {
+      "id": 102,
+      "uid": "education.102.metu2",
+      "code": "METU2",
+      "title": "Middle East Technical University",
+      "photoUrl": "metu.png",
+      "orderIndex": 14,
+      "city": "Ankara",
+      "country": "Turkey",
+      "url": "https://ceit.metu.edu.tr/",
+      "department": "Computer Education and Instructional Technologies Department",
+      "summary": "Graduate studies focused on instructional design, multimedia information systems and educational technologies, combining theory and hands-on software development and multimedia coursework.",
+      "level": "Graduate School",
+      "period": "2004-2007",
+      "graduateDate": "September, 2007",
+      "graduateScore": "3.68 / 4.00",
+      "skillCodes": [
+        "Visual Basic",
+        "Pascal",
+        "C",
+        "C++",
+        "Java",
+        "Web Development",
+        "HTML5",
+        "CSS",
+        "JS",
+        "ASP.NET",
+        "Photoshop",
+        "Adobe Flash",
+        "MS SQL",
+        "Networking",
+        "Design Patterns",
+        "OOP",
+        "UML"
+      ],
+      "datePeriod": {
+        "startDate": "15.09.2004",
+        "endDate": "15.09.2007"
+      },
+      "coordinates": {
+        "lat": 39.8939,
+        "lng": 32.7816
+      },
+      "courses": [
+        {
+          "title": "Design Patterns",
+          "score": "AA",
+          "content": "OOD, Use Cases, UML, OCL, Design Patterns"
+        },
+        {
+          "title": "Total Quality Management",
+          "score": "AA",
+          "content": "Strategic Planning"
+        },
+        {
+          "title": "Multimedia Information Systems",
+          "score": "BB",
+          "content": "OS, Networks, Data Types, Compression"
+        },
+        {
+          "title": "Distance Education",
+          "score": "AA",
+          "content": ""
+        },
+        {
+          "title": "Telecommunication in Education",
+          "score": "AA",
+          "content": ""
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "uid": "education.103.metu1",
+      "code": "METU1",
+      "title": "Middle East Technical University",
+      "photoUrl": "metu.png",
+      "orderIndex": 13,
+      "city": "Ankara",
+      "country": "Turkey",
+      "url": "https://ceit.metu.edu.tr/",
+      "department": "Computer Education and Instructional Technologies Department",
+      "summary": "Undergraduate degree covering programming (Pascal, C, C++, Java), web and database technologies, networking and several applied projects including 3D educational game development.",
+      "level": "Undergraduate School",
+      "period": "1999–2004",
+      "graduateDate": "June, 2004",
+      "graduateScore": "3.80 / 4.00",
+      "skillCodes": [
+        "Visual Basic",
+        "Pascal",
+        "C",
+        "C++",
+        "Java",
+        "HTML5",
+        "CSS",
+        "JS",
+        "ASP.NET",
+        "Photoshop",
+        "Adobe Flash",
+        "MS SQL"
+      ],
+      "datePeriod": {
+        "startDate": "15.09.1999",
+        "endDate": "15.06.2004"
+      },
+      "coordinates": {
+        "lat": 39.8939,
+        "lng": 32.7816
+      },
+      "courses": [
+        {
+          "title": "Programming Languages I",
+          "score": "AA",
+          "content": "Pascal, Functional Programming"
+        },
+        {
+          "title": "Programming Languages II",
+          "score": "AA",
+          "content": "Visual Basic"
+        },
+        {
+          "title": "Authoring Languages on PC Environment",
+          "score": "BB",
+          "content": "Macromedia Authorware"
+        },
+        {
+          "title": "Instructional Technology and Material Prepar",
+          "score": "AA",
+          "content": "Macromedia Flash"
+        },
+        {
+          "title": "Introduction to C",
+          "score": "AA",
+          "content": "C"
+        },
+        {
+          "title": "Introduction to C++",
+          "score": "AA",
+          "content": "C++"
+        },
+        {
+          "title": "Advanced Object Oriented Programming",
+          "score": "AA",
+          "content": "Java"
+        },
+        {
+          "title": "Fundamentals of Data Systems",
+          "score": "AA",
+          "content": "SQL"
+        },
+        {
+          "title": "Authoring Languages on Internet",
+          "score": "AA",
+          "content": "HTML, JavaScript, ASP, PHP, .NET"
+        },
+        {
+          "title": "Computer Network Systems",
+          "score": "AA",
+          "content": "TCP, UDP, OSI, FTP, HTTP"
+        },
+        {
+          "title": "WAN Technologies",
+          "score": "AA",
+          "content": "Cisco Router Configuration"
+        },
+        {
+          "title": "3D Educational Game Development I",
+          "score": "AA",
+          "content": "Dark Basic"
+        },
+        {
+          "title": "3D Educational Game Development II",
+          "score": "AA",
+          "content": "3D Max, Rhinoceros, Adobe Atmosphere"
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "uid": "education.104.ktl",
+      "code": "KTL",
+      "title": "Kocaeli Technical High School",
+      "photoUrl": "meb.png",
+      "orderIndex": 12,
+      "city": "Kocaeli",
+      "country": "Turkey",
+      "url": "http://izmiteml.meb.k12.tr/",
+      "department": "Computer Programming Branch",
+      "summary": "Technical high school program with a strong focus on practical programming, operating systems and software tools; provided solid foundational skills for further studies in computing.",
+      "level": "High School",
+      "period": "1995-1999",
+      "graduateDate": "June, 1999",
+      "graduateScore": "4.80 / 5.00",
+      "skillCodes": [
+        "Pascal",
+        "Visual Basic",
+        "Photoshop"
+      ],
+      "datePeriod": {
+        "startDate": "15.09.1996",
+        "endDate": "15.06.1999"
+      },
+      "coordinates": {
+        "lat": 40.7654,
+        "lng": 29.9385
+      },
+      "courses": [
+        {
+          "title": "Programming Languages I",
+          "score": "5",
+          "content": "Pascal, Functional Programming"
+        },
+        {
+          "title": "Programming Languages II",
+          "score": "5",
+          "content": "Visual Basic"
+        },
+        {
+          "title": "Operating Systems",
+          "score": "5",
+          "content": "Windows"
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "uid": "education.105.atl",
+      "code": "ATL",
+      "title": "Atatürk Mesleki ve Teknik Anadolu Lisesi",
+      "photoUrl": "meb.png",
+      "orderIndex": 12,
+      "city": "Kocaeli",
+      "country": "Turkey",
+      "url": "http://ataturkmtal.meb.k12.tr/",
+      "department": "Computer Programming Branch",
+      "summary": "Vocational high school curriculum emphasizing core programming concepts and hands-on labs that reinforced practical coding and problem-solving skills.",
+      "level": "High School",
+      "period": "1995-1996",
+      "graduateDate": "June, 1996",
+      "graduateScore": "4.80",
+      "datePeriod": {
+        "startDate": "15.09.1995",
+        "endDate": "15.06.1996"
+      },
+      "coordinates": {
+        "lat": 40.7654,
+        "lng": 29.9385
+      },
+      "courses": []
+    }
+  ]
 }

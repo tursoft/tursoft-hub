@@ -1,67 +1,67 @@
 {
-    "items": [
-        {
-            "id": 1,
-            "code": "healthcareit",
-            "title": "Healthcare Informatics",
-            "value": 100,
-            "photoUrl": "Heart"
-        },
-        {
-            "id": 2,
-            "code": "elearning",
-            "title": "E-Learning",
-            "value": 100,
-            "photoUrl": "GraduationCap"
-        },
-        {
-            "id": 3,
-            "code": "ecommerce",
-            "title": "E-Commerce",
-            "value": 100,
-            "photoUrl": "ShoppingCart"
-        },
-        {
-            "id": 4,
-            "code": "video",
-            "title": "Video Streaming",
-            "value": 100,
-            "photoUrl": "Play"
-        },
-        {
-            "id": 5,
-            "code": "cms",
-            "title": "Content Management Systems",
-            "value": 100,
-            "photoUrl": "FileText"
-        },
-        {
-            "id": 6,
-            "code": "gaming",
-            "title": "Game Development",
-            "value": 100,
-            "photoUrl": "Gamepad2"
-        },
-        {
-            "id": 7,
-            "code": "certifications",
-            "title": "Digital Certifications",
-            "value": 100,
-            "photoUrl": "Certificate"
-        },
-        {
-            "id": 8,
-            "code": "shopping",
-            "title": "Shopping",
-            "value": 100,
-            "photoUrl": "ShoppingBag"
-        },
-        {
-            "id": 9,
-            "code": "construction",
-            "title": "Construction",
-            "value": 100,
-            "photoUrl": "Building"
-        }
-    ]
+  "items": [
+    {
+      "id": 1,
+      "code": "healthcareit",
+      "title": "Healthcare Informatics",
+      "photoUrl": "Heart",
+      "value": 100
+    },
+    {
+      "id": 2,
+      "code": "elearning",
+      "title": "E-Learning",
+      "photoUrl": "GraduationCap",
+      "value": 100
+    },
+    {
+      "id": 3,
+      "code": "ecommerce",
+      "title": "E-Commerce",
+      "photoUrl": "ShoppingCart",
+      "value": 100
+    },
+    {
+      "id": 4,
+      "code": "video",
+      "title": "Video Streaming",
+      "photoUrl": "Play",
+      "value": 100
+    },
+    {
+      "id": 5,
+      "code": "cms",
+      "title": "Content Management Systems",
+      "photoUrl": "FileText",
+      "value": 100
+    },
+    {
+      "id": 6,
+      "code": "gaming",
+      "title": "Game Development",
+      "photoUrl": "Gamepad2",
+      "value": 100
+    },
+    {
+      "id": 7,
+      "code": "certifications",
+      "title": "Digital Certifications",
+      "photoUrl": "Certificate",
+      "value": 100
+    },
+    {
+      "id": 8,
+      "code": "shopping",
+      "title": "Shopping",
+      "photoUrl": "ShoppingBag",
+      "value": 100
+    },
+    {
+      "id": 9,
+      "code": "construction",
+      "title": "Construction",
+      "photoUrl": "Building",
+      "value": 100
+    }
+  ]
 }
