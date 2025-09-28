@@ -3,7 +3,7 @@
     {
       "code": "infrion",
       "title": "Infrion",
-      "logoUrl": "/assets/logos/companies/infrion.png",
+      "photoUrl": "/assets/logos/companies/infrion.png",
       "websiteUrl": "https://www.infrion.com",
       "linkedinUrl": "https://www.linkedin.com/company/infrion/",
       "coordinates": { "lat": 40.7128, "lng": -74.0060 },
@@ -13,7 +13,7 @@
     {
       "code": "jengai",
       "title": "Jengai",
-      "logoUrl": "/assets/logos/companies/jengai.png",
+      "photoUrl": "/assets/logos/companies/jengai.png",
       "websiteUrl": "https://www.jengai.com",
       "linkedinUrl": "https://www.linkedin.com/company/98084750/",
       "coordinates": { "lat": 40.7128, "lng": -74.0060 },
@@ -23,7 +23,7 @@
     {
       "code": "gamyte",
       "title": "Gamyte",
-      "logoUrl": "/assets/logos/companies/gamyte.png",
+      "photoUrl": "/assets/logos/companies/gamyte.png",
       "websiteUrl": "https://www.jengai.com",
       "linkedinUrl": "https://www.linkedin.com/company/98084750/",
       "coordinates": { "lat": 40.7128, "lng": -74.0060 },
@@ -33,7 +33,7 @@
     {
       "code": "ERC",
       "title": "ERC Group Engineering, Consultancy, R&D",
-      "logoUrl": "/assets/logos/companies/erc.png",
+      "photoUrl": "/assets/logos/companies/erc.png",
       "websiteUrl": "https://www.ercgroup.com.tr",
       "linkedinUrl": "https://www.linkedin.com/company/erc-group/",
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -43,7 +43,7 @@
     {
       "code": "DATASEL",
       "title": "DataSel Information Systems Co.",
-      "logoUrl": "/assets/logos/companies/datasel.png",
+      "photoUrl": "/assets/logos/companies/datasel.png",
       "websiteUrl": "https://www.datasel.com.tr",
       "linkedinUrl": "https://www.linkedin.com/company/datasel/",
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -53,7 +53,7 @@
     {
       "code": "FONET",
       "title": "Fonet Software Co.",
-      "logoUrl": "/assets/logos/companies/fonet.png",
+      "photoUrl": "/assets/logos/companies/fonet.png",
       "websiteUrl": "https://www.fonet.com.tr",
       "linkedinUrl": "https://www.linkedin.com/company/fonet-software/",
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -63,7 +63,7 @@
     {
       "code": "JANDARMA",
       "title": "Gendarmerie Training Command",
-      "logoUrl": "/assets/logos/companies/jandarma.egitim.png",
+      "photoUrl": "/assets/logos/companies/jandarma.egitim.png",
       "websiteUrl": "https://www.jandarma.gov.tr",
       "linkedinUrl": null,
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -73,7 +73,7 @@
     {
       "code": "HALICI",
       "title": "Halici Informatics & Software Co.",
-      "logoUrl": "/assets/logos/companies/halici.png",
+      "photoUrl": "/assets/logos/companies/halici.png",
       "websiteUrl": "https://www.halici.com.tr",
       "linkedinUrl": "https://www.linkedin.com/company/halici-bilgi-i\u0307\u015flem-a\u015f-/",
       "coordinates": { "lat": 41.0082, "lng": 28.9784 },
@@ -83,7 +83,7 @@
     {
       "code": "METU.CEIT",
       "title": "METU Computer Education and Instructional Tech. Dep.",
-      "logoUrl": "/assets/logos/companies/metu.png",
+      "photoUrl": "/assets/logos/companies/metu.png",
       "websiteUrl": "https://www.metu.edu.tr",
       "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
       "coordinates": { "lat": 39.8939, "lng": 32.7816 },
@@ -93,7 +93,7 @@
     {
       "code": "METU.II",
       "title": "METU Informatics Institute",
-      "logoUrl": "/assets/logos/companies/metu.png",
+      "photoUrl": "/assets/logos/companies/metu.png",
       "websiteUrl": "https://www.metu.edu.tr",
       "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
       "coordinates": { "lat": 39.8939, "lng": 32.7816 },
@@ -103,7 +103,7 @@
     {
       "code": "LABRIS",
       "title": "Labris Technology",
-      "logoUrl": "/assets/logos/companies/labris.png",
+      "photoUrl": "/assets/logos/companies/labris.png",
       "websiteUrl": "https://www.labris.com.tr",
       "linkedinUrl": "https://www.linkedin.com/company/labris-technology/",
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -113,7 +113,7 @@
     {
       "code": "METU.IEEE",
       "title": "IEEE METU Student Club",
-      "logoUrl": "/assets/logos/companies/metu.png",
+      "photoUrl": "/assets/logos/companies/metu.png",
       "websiteUrl": "https://ieee.metu.edu.tr",
       "linkedinUrl": null,
       "coordinates": { "lat": 39.8939, "lng": 32.7816 },
@@ -123,7 +123,7 @@
     {
       "code": "METU.COM",
       "title": "METU Communication Club",
-      "logoUrl": "/assets/logos/companies/metu.png",
+      "photoUrl": "/assets/logos/companies/metu.png",
       "websiteUrl": "https://www.metu.edu.tr",
       "linkedinUrl": null,
       "coordinates": { "lat": 39.8939, "lng": 32.7816 },
@@ -133,7 +133,7 @@
     {
       "code": "NETTEYIM",
       "title": "Netteyim.net",
-      "logoUrl": "/assets/logos/companies/netteyim.png",
+      "photoUrl": "/assets/logos/companies/netteyim.png",
       "websiteUrl": "https://www.netteyim.net",
       "linkedinUrl": null,
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -143,7 +143,7 @@
     {
       "code": "TBD.GENC",
       "title": "Informatics Association of Turkey / Youth Branch",
-      "logoUrl": "/assets/logos/companies/tbd.genc.png",
+      "photoUrl": "/assets/logos/companies/tbd.genc.png",
       "websiteUrl": "https://www.tbd.org.tr",
       "linkedinUrl": "https://www.linkedin.com/company/turkey-informatics-association/",
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -153,7 +153,7 @@
     {
       "code": "CEIT",
       "title": "CEIT / METU",
-      "logoUrl": "/assets/logos/companies/ceit.png",
+      "photoUrl": "/assets/logos/companies/ceit.png",
       "websiteUrl": "https://www.metu.edu.tr",
       "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
       "coordinates": { "lat": 39.8939, "lng": 32.7816 },
@@ -163,7 +163,7 @@
     {
       "code": "Halici",
       "title": "Halici Informatics & Software Co.",
-      "logoUrl": "/assets/logos/companies/halici.png",
+      "photoUrl": "/assets/logos/companies/halici.png",
       "websiteUrl": "https://www.halici.com.tr",
       "linkedinUrl": "https://www.linkedin.com/company/halici-bilgi-i\u0307\u015flem-a\u015f-/",
       "coordinates": { "lat": 41.0082, "lng": 28.9784 },
@@ -173,7 +173,7 @@
     {
       "code": "Tursoft",
       "title": "Tursoft",
-      "logoUrl": "/assets/logos/companies/tursoft.png",
+      "photoUrl": "/assets/logos/companies/tursoft.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": null,
@@ -184,7 +184,7 @@
     {
       "code": "MOH.TR",
       "title": "Turkish Ministry of Health",
-      "logoUrl": "/assets/files/customers/moh_turkey/logo/turkey_moh.jpg",
+      "photoUrl": "/assets/files/customers/moh_turkey/logo/turkey_moh.jpg",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -194,7 +194,7 @@
     {
       "code": "MOI.KSA",
       "title": "KSA Ministry of Interior",
-      "logoUrl": "/assets/files/customers/moi-ksa/logo.png",
+      "photoUrl": "/assets/files/customers/moi-ksa/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 24.7136, "lng": 46.6753 },
@@ -204,7 +204,7 @@
     {
       "code": "MOH.KSA",
       "title": "KSA Ministry of Health",
-      "logoUrl": "/assets/files/customers/moh_ksa/logo/ksa_moh.jpg",
+      "photoUrl": "/assets/files/customers/moh_ksa/logo/ksa_moh.jpg",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 24.7136, "lng": 46.6753 },
@@ -214,7 +214,7 @@
     {
       "code": "TTNET",
       "title": "Türk Telekom - TTNET",
-      "logoUrl": "/assets/files/customers/tr_turktelekom/logo/turktelekom.jpg",
+      "photoUrl": "/assets/files/customers/tr_turktelekom/logo/turktelekom.jpg",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 41.0082, "lng": 28.9784 },
@@ -224,7 +224,7 @@
     {
       "code": "ECZACIBASI",
       "title": "Eczacıbaşı Sağlık Hizmetleri",
-      "logoUrl": "/assets/files/customers/tr_eczacibasi/eczacibasi_saglik.jpg",
+      "photoUrl": "/assets/files/customers/tr_eczacibasi/eczacibasi_saglik.jpg",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 41.0082, "lng": 28.9784 },
@@ -234,7 +234,7 @@
     {
       "code": "Avea",
       "title": "Türk Telekom - Avea",
-      "logoUrl": "/assets/files/customers/tr_avea/logo/avea.png",
+      "photoUrl": "/assets/files/customers/tr_avea/logo/avea.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 41.0082, "lng": 28.9784 },
@@ -244,7 +244,7 @@
     {
       "code": "H.IbniSina",
       "title": "Ibni Sina Hastanesi",
-      "logoUrl": "/assets/files/customers/tr_ibnisina/logo/ibnisina.png",
+      "photoUrl": "/assets/files/customers/tr_ibnisina/logo/ibnisina.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -254,7 +254,7 @@
     {
       "code": "MOH.PAL",
       "title": "Palestine Ministry of Health",
-      "logoUrl": "/assets/files/customers/moh_palestine/photos/big/palestine_moh.jpg",
+      "photoUrl": "/assets/files/customers/moh_palestine/photos/big/palestine_moh.jpg",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 31.9073, "lng": 35.2044 },
@@ -264,7 +264,7 @@
     {
       "code": "LIFEWATCH.CH",
       "title": "Lifewatch AG - Switzerland",
-      "logoUrl": "/assets/files/customers/tr_lw/logo/tr_lifewatch.png",
+      "photoUrl": "/assets/files/customers/tr_lw/logo/tr_lifewatch.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 47.6779, "lng": 8.6089 },
@@ -274,7 +274,7 @@
     {
       "code": "UCELL.UZ",
       "title": "Ucell - Uzbekistan Telecommunications",
-      "logoUrl": "/assets/files/customers/uz_ucell/logo.png",
+      "photoUrl": "/assets/files/customers/uz_ucell/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 41.2995, "lng": 69.2401 },
@@ -284,7 +284,7 @@
     {
       "code": "SPMS.PT",
       "title": "SPMS - Portugal Ministry of Health",
-      "logoUrl": "/assets/files/customers/moh_portugal_spms/logo/moh_portugal_spms.png",
+      "photoUrl": "/assets/files/customers/moh_portugal_spms/logo/moh_portugal_spms.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 38.7223, "lng": -9.1393 },
@@ -294,7 +294,7 @@
     {
       "code": "AXIS.INT",
       "title": "Axis Interior Systems - Cincinnati, OH",
-      "logoUrl": "/assets/files/customers/axis-interior-systems/logo.png",
+      "photoUrl": "/assets/files/customers/axis-interior-systems/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 39.1031, "lng": -84.512 },
@@ -304,7 +304,7 @@
     {
       "code": "SSG.NY",
       "title": "Silver Slate Group - New York, NY",
-      "logoUrl": "/assets/files/customers/silver-slate-group/logo.png",
+      "photoUrl": "/assets/files/customers/silver-slate-group/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 40.7128, "lng": -74.006 },
@@ -314,7 +314,7 @@
     {
       "code": "PRO.UNITED",
       "title": "Pro-United Inc - New Hampshire",
-      "logoUrl": "/assets/files/customers/pro-united-inc/logo.png",
+      "photoUrl": "/assets/files/customers/pro-united-inc/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 43.1939, "lng": -71.5724 },
@@ -324,7 +324,7 @@
     {
       "code": "TRANSYL.FL",
       "title": "Transylvania Flooring Professionals",
-      "logoUrl": "/assets/files/customers/transylvania-flooring-professionals/logo.png",
+      "photoUrl": "/assets/files/customers/transylvania-flooring-professionals/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 40.2732, "lng": -76.8867 },
@@ -334,7 +334,7 @@
     {
       "code": "BONITZ",
       "title": "Bonitz Flooring Contractor",
-      "logoUrl": "/assets/files/customers/bonitz/logo.png",
+      "photoUrl": "/assets/files/customers/bonitz/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 33.749, "lng": -84.388 },
@@ -344,7 +344,7 @@
     {
       "code": "DMA.FLOORS",
       "title": "DMA Floors",
-      "logoUrl": "/assets/files/customers/dma-floors/logo.png",
+      "photoUrl": "/assets/files/customers/dma-floors/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 39.7391, "lng": -75.5398 },
@@ -354,7 +354,7 @@
     {
       "code": "SERGENIANS",
       "title": "Sergenian's Flooring",
-      "logoUrl": "/assets/files/customers/sergenians/logo.png",
+      "photoUrl": "/assets/files/customers/sergenians/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 42.3601, "lng": -71.0589 },
@@ -364,7 +364,7 @@
     {
       "code": "GARMON",
       "title": "Garmon Flooring",
-      "logoUrl": "/assets/files/customers/garmon/logo.png",
+      "photoUrl": "/assets/files/customers/garmon/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 33.4484, "lng": -112.074 },
@@ -374,7 +374,7 @@
     {
       "code": "MF.HIGGINS",
       "title": "MF Higgins Flooring",
-      "logoUrl": "/assets/files/customers/mf-higgins/logo.png",
+      "photoUrl": "/assets/files/customers/mf-higgins/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 47.6062, "lng": -122.3321 },
@@ -384,7 +384,7 @@
     {
       "code": "GOMEZ.FC",
       "title": "Gomez Floor Covering",
-      "logoUrl": "/assets/files/customers/gomez-floor-covering/logo.png",
+      "photoUrl": "/assets/files/customers/gomez-floor-covering/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 32.7767, "lng": -96.797 },
@@ -394,7 +394,7 @@
     {
       "code": "DESOTO",
       "title": "Desoto Flooring",
-      "logoUrl": "/assets/files/customers/desoto/logo.png",
+      "photoUrl": "/assets/files/customers/desoto/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 33.749, "lng": -84.388 },
@@ -404,7 +404,7 @@
     {
       "code": "PROFLOORS",
       "title": "ProFloors, LLC",
-      "logoUrl": "/assets/files/customers/profloors-llc/logo.png",
+      "photoUrl": "/assets/files/customers/profloors-llc/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 34.0522, "lng": -118.2437 },
@@ -414,7 +414,7 @@
     {
       "code": "ROUSE.CO",
       "title": "The Rouse Company",
-      "logoUrl": "/assets/files/customers/the-rouse-company/logo.png",
+      "photoUrl": "/assets/files/customers/the-rouse-company/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 40.7128, "lng": -74.006 },
@@ -424,7 +424,7 @@
     {
       "code": "SHAFAFIYA.UAE",
       "title": "Shafafiya - Department of Health - Abu Dhabi",
-      "logoUrl": "/assets/files/customers/shafafiya/logo.png",
+      "photoUrl": "/assets/files/customers/shafafiya/logo.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 24.4539, "lng": 54.3773 },
@@ -434,7 +434,7 @@
     {
       "code": "EGM.TR",
       "title": "Directorate General of Security - Ministry of Interior",
-      "logoUrl": "/assets/files/customers/egm/egm.png",
+      "photoUrl": "/assets/files/customers/egm/egm.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -444,7 +444,7 @@
     {
       "code": "DPT.TR",
       "title": "State Planning Organization (DPT)",
-      "logoUrl": "/assets/files/customers/dpt/dpt.png",
+      "photoUrl": "/assets/files/customers/dpt/dpt.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -454,7 +454,7 @@
     {
       "code": "AU.TR",
       "title": "Ankara University",
-      "logoUrl": "/assets/files/customers/ankara.universitesi/ankara.universitesi.png",
+      "photoUrl": "/assets/files/customers/ankara.universitesi/ankara.universitesi.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -464,7 +464,7 @@
     {
       "code": "TUBITAK.TR",
       "title": "TUBITAK",
-      "logoUrl": "/assets/files/customers/tubitak/tubitak.png",
+      "photoUrl": "/assets/files/customers/tubitak/tubitak.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },
@@ -474,7 +474,7 @@
     {
       "code": "IEEE.METU",
       "title": "IEEE METU",
-      "logoUrl": "/assets/files/customers/metu.ieee/metu.ieee.png",
+      "photoUrl": "/assets/files/customers/metu.ieee/metu.ieee.png",
       "websiteUrl": null,
       "linkedinUrl": null,
       "coordinates": { "lat": 39.9334, "lng": 32.8597 },

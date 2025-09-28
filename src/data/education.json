@@ -7,7 +7,7 @@
         {
             "id": 101,
             "orderIndex": 15,
-            "logoUrl": "metu.png",
+            "photoUrl": "metu.png",
             "url": "https://ii.metu.edu.tr/software-management-ms",
             "uid": "education.101.metu3",
             "code": "METU3",
@@ -46,7 +46,7 @@
         {
             "id": 102,
             "orderIndex": 14,
-            "logoUrl": "metu.png",
+            "photoUrl": "metu.png",
             "url": "https://ceit.metu.edu.tr/",
             "uid": "education.102.metu2",
             "code": "METU2",
@@ -117,7 +117,7 @@
         {
             "id": 103,
             "orderIndex": 13,
-            "logoUrl": "metu.png",
+            "photoUrl": "metu.png",
             "url": "https://ceit.metu.edu.tr/",
             "uid": "education.103.metu1",
             "code": "METU1",
@@ -223,7 +223,7 @@
         {
             "id": 104,
             "orderIndex": 12,
-            "logoUrl": "meb.png",
+            "photoUrl": "meb.png",
             "url": "http://izmiteml.meb.k12.tr/",
             "uid": "education.104.ktl",
             "code": "KTL",
@@ -270,7 +270,7 @@
         {
             "id": 105,
             "orderIndex": 12,
-            "logoUrl": "meb.png",
+            "photoUrl": "meb.png",
             "url": "http://ataturkmtal.meb.k12.tr/",
             "uid": "education.105.atl",
             "code": "ATL",
