@@ -8,12 +8,9 @@
       "id": 101,
       "uid": "education.101.metu3",
       "code": "METU3",
-      "title": "Middle East Technical University",
-      "photoUrl": "metu.png",
+      "companyCode": "METU.II",
       "orderIndex": 15,
-      "city": "Ankara",
-      "country": "Turkey",
-      "url": "https://ii.metu.edu.tr/software-management-ms",
+      
       "department": "Department of Software Management",
       "summary": "One-year postgraduate program in Software Management emphasizing project management, software estimation, cost/time management and applied PMP practices through coursework and project work.",
       "level": "Graduate School",
@@ -31,10 +28,7 @@
         "startDate": "01.09.2012",
         "endDate": "01.02.2013"
       },
-      "coordinates": {
-        "lat": 39.8939,
-        "lng": 32.7816
-      },
+      
       "courses": [
         {
           "title": "Project Management",
@@ -47,12 +41,9 @@
       "id": 102,
       "uid": "education.102.metu2",
       "code": "METU2",
-      "title": "Middle East Technical University",
-      "photoUrl": "metu.png",
+      "companyCode": "METU.CEIT",
       "orderIndex": 14,
-      "city": "Ankara",
-      "country": "Turkey",
-      "url": "https://ceit.metu.edu.tr/",
+      
       "department": "Computer Education and Instructional Technologies Department",
       "summary": "Graduate studies focused on instructional design, multimedia information systems and educational technologies, combining theory and hands-on software development and multimedia coursework.",
       "level": "Graduate School",
@@ -82,10 +73,7 @@
         "startDate": "15.09.2004",
         "endDate": "15.09.2007"
       },
-      "coordinates": {
-        "lat": 39.8939,
-        "lng": 32.7816
-      },
+      
       "courses": [
         {
           "title": "Design Patterns",
@@ -118,12 +106,9 @@
       "id": 103,
       "uid": "education.103.metu1",
       "code": "METU1",
-      "title": "Middle East Technical University",
-      "photoUrl": "metu.png",
+      "companyCode": "METU.CEIT",
       "orderIndex": 13,
-      "city": "Ankara",
-      "country": "Turkey",
-      "url": "https://ceit.metu.edu.tr/",
+      
       "department": "Computer Education and Instructional Technologies Department",
       "summary": "Undergraduate degree covering programming (Pascal, C, C++, Java), web and database technologies, networking and several applied projects including 3D educational game development.",
       "level": "Undergraduate School",
@@ -148,10 +133,7 @@
         "startDate": "15.09.1999",
         "endDate": "15.06.2004"
       },
-      "coordinates": {
-        "lat": 39.8939,
-        "lng": 32.7816
-      },
+      
       "courses": [
         {
           "title": "Programming Languages I",
@@ -224,12 +206,9 @@
       "id": 104,
       "uid": "education.104.ktl",
       "code": "KTL",
-      "title": "Kocaeli Technical High School",
-      "photoUrl": "meb.png",
+      "companyCode": "KTL",
       "orderIndex": 12,
-      "city": "Kocaeli",
-      "country": "Turkey",
-      "url": "http://izmiteml.meb.k12.tr/",
+      
       "department": "Computer Programming Branch",
       "summary": "Technical high school program with a strong focus on practical programming, operating systems and software tools; provided solid foundational skills for further studies in computing.",
       "level": "High School",
@@ -245,24 +224,21 @@
         "startDate": "15.09.1996",
         "endDate": "15.06.1999"
       },
-      "coordinates": {
-        "lat": 40.7654,
-        "lng": 29.9385
-      },
+      
       "courses": [
         {
           "title": "Programming Languages I",
-          "score": "5",
+          "score": "5.00 / 5.00",
           "content": "Pascal, Functional Programming"
         },
         {
           "title": "Programming Languages II",
-          "score": "5",
+          "score": "5.00 / 5.00",
           "content": "Visual Basic"
         },
         {
           "title": "Operating Systems",
-          "score": "5",
+          "score": "5.00 / 5.00",
           "content": "Windows"
         }
       ]
@@ -271,26 +247,20 @@
       "id": 105,
       "uid": "education.105.atl",
       "code": "ATL",
-      "title": "Atatürk Mesleki ve Teknik Anadolu Lisesi",
-      "photoUrl": "meb.png",
+      "companyCode": "ATL",
       "orderIndex": 12,
-      "city": "Kocaeli",
-      "country": "Turkey",
-      "url": "http://ataturkmtal.meb.k12.tr/",
+      
       "department": "Computer Programming Branch",
       "summary": "Vocational high school curriculum emphasizing core programming concepts and hands-on labs that reinforced practical coding and problem-solving skills.",
       "level": "High School",
       "period": "1995-1996",
       "graduateDate": "June, 1996",
-      "graduateScore": "4.80",
+      "graduateScore": "4.80/5.00",
       "datePeriod": {
         "startDate": "15.09.1995",
         "endDate": "15.06.1996"
       },
-      "coordinates": {
-        "lat": 40.7654,
-        "lng": 29.9385
-      },
+      
       "courses": []
     }
   ]
