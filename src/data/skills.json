@@ -205,7 +205,6 @@
   },
   "items": [
     {
-      "id": 1,
       "code": ".NET",
       "orderIndex": 1,
       "title": ".NET",
@@ -217,7 +216,6 @@
       "isMajor": true
     },
     {
-      "id": 2,
       "code": ".NETCore",
       "orderIndex": 1,
       "title": ".NETCore",
@@ -229,7 +227,6 @@
       "isMajor": true
     },
     {
-      "id": 3,
       "code": "Java",
       "orderIndex": 2,
       "title": "Java",
@@ -241,7 +238,6 @@
       "isMajor": true
     },
     {
-      "id": 4,
       "code": "C#",
       "orderIndex": 3,
       "title": "C#",
@@ -253,7 +249,6 @@
       "isMajor": true
     },
     {
-      "id": 5,
       "code": "Typescript",
       "orderIndex": 4,
       "title": "Typescript",
@@ -265,7 +260,6 @@
       "isMajor": true
     },
     {
-      "id": 6,
       "code": "AngularJS",
       "orderIndex": 5,
       "title": "AngularJS",
@@ -277,7 +271,6 @@
       "isMajor": true
     },
     {
-      "id": 7,
       "code": "Angular",
       "orderIndex": 5,
       "title": "Angular",
@@ -289,7 +282,6 @@
       "isMajor": true
     },
     {
-      "id": 8,
       "code": "Kubernetes",
       "orderIndex": 6,
       "title": "Kubernetes",
@@ -301,7 +293,6 @@
       "isMajor": true
     },
     {
-      "id": 9,
       "code": "Docker",
       "orderIndex": 6,
       "title": "Docker",
@@ -313,7 +304,6 @@
       "isMajor": true
     },
     {
-      "id": 10,
       "code": "Gitlab",
       "orderIndex": 7,
       "title": "Gitlab",
@@ -325,7 +315,6 @@
       "isMajor": true
     },
     {
-      "id": 11,
       "code": "Jenkins",
       "orderIndex": 8,
       "title": "Jenkins",
@@ -337,7 +326,6 @@
       "isMajor": true
     },
     {
-      "id": 12,
       "code": "HTML5",
       "orderIndex": 141,
       "title": "HTML5",
@@ -349,7 +337,6 @@
       "isMajor": true
     },
     {
-      "id": 13,
       "code": "JS",
       "orderIndex": 140,
       "title": "JS",
@@ -361,7 +348,6 @@
       "isMajor": true
     },
     {
-      "id": 14,
       "code": "CSS",
       "orderIndex": 139,
       "title": "CSS",
@@ -373,7 +359,6 @@
       "isMajor": true
     },
     {
-      "id": 15,
       "code": "MS SQL",
       "orderIndex": 138,
       "title": "MS SQL",
@@ -385,7 +370,6 @@
       "isMajor": true
     },
     {
-      "id": 16,
       "code": "MS Project",
       "orderIndex": 137,
       "title": "MS Project",
@@ -397,7 +381,6 @@
       "isMajor": true
     },
     {
-      "id": 17,
       "code": "Nodejs",
       "orderIndex": 136,
       "title": "Nodejs",
@@ -409,7 +392,6 @@
       "isMajor": true
     },
     {
-      "id": 18,
       "code": "Ionic",
       "orderIndex": 135,
       "title": "Ionic",
@@ -421,7 +403,6 @@
       "isMajor": true
     },
     {
-      "id": 19,
       "code": "Photoshop",
       "orderIndex": 134,
       "title": "Photoshop",
@@ -432,7 +413,6 @@
       "jobs": 0
     },
     {
-      "id": 20,
       "code": "ASP.NET",
       "orderIndex": 133,
       "title": "ASP.NET",
@@ -443,7 +423,6 @@
       "jobs": 0
     },
     {
-      "id": 21,
       "code": "LINQ",
       "orderIndex": 132,
       "title": "LINQ",
@@ -454,7 +433,6 @@
       "jobs": 0
     },
     {
-      "id": 22,
       "code": "CSS3",
       "orderIndex": 131,
       "title": "CSS3",
@@ -465,7 +443,6 @@
       "jobs": 0
     },
     {
-      "id": 23,
       "code": "TFS",
       "orderIndex": 130,
       "title": "TFS",
@@ -476,7 +453,6 @@
       "jobs": 0
     },
     {
-      "id": 24,
       "code": "JQuery",
       "orderIndex": 129,
       "title": "JQuery",
@@ -487,7 +463,6 @@
       "jobs": 0
     },
     {
-      "id": 25,
       "code": "Git",
       "orderIndex": 128,
       "title": "Git",
@@ -498,7 +473,6 @@
       "jobs": 0
     },
     {
-      "id": 26,
       "code": "ASP.NET MVC",
       "orderIndex": 127,
       "title": "ASP.NET MVC",
@@ -509,7 +483,6 @@
       "jobs": 0
     },
     {
-      "id": 27,
       "code": "Hangfire",
       "orderIndex": 126,
       "title": "Hangfire",
@@ -520,7 +493,6 @@
       "jobs": 0
     },
     {
-      "id": 28,
       "code": "Entity Framework Core",
       "orderIndex": 125,
       "title": "Entity Framework Core",
@@ -531,7 +503,6 @@
       "jobs": 0
     },
     {
-      "id": 29,
       "code": "MySQL",
       "orderIndex": 124,
       "title": "MySQL",
@@ -542,7 +513,6 @@
       "jobs": 0
     },
     {
-      "id": 30,
       "code": "PHP",
       "orderIndex": 123,
       "title": "PHP",
@@ -553,7 +523,6 @@
       "jobs": 0
     },
     {
-      "id": 31,
       "code": "npm",
       "orderIndex": 122,
       "title": "npm",
@@ -564,7 +533,6 @@
       "jobs": 0
     },
     {
-      "id": 32,
       "code": "NuGet",
       "orderIndex": 121,
       "title": "NuGet",
@@ -575,7 +543,6 @@
       "jobs": 0
     },
     {
-      "id": 33,
       "code": "ProGet",
       "orderIndex": 120,
       "title": "ProGet",
@@ -586,7 +553,6 @@
       "jobs": 0
     },
     {
-      "id": 34,
       "code": "Visual Studio",
       "orderIndex": 119,
       "title": "Visual Studio",
@@ -597,7 +563,6 @@
       "jobs": 0
     },
     {
-      "id": 35,
       "code": "Oracle",
       "orderIndex": 118,
       "title": "Oracle",
@@ -608,7 +573,6 @@
       "jobs": 0
     },
     {
-      "id": 36,
       "code": "Telerik UI for Silverlight",
       "orderIndex": 117,
       "title": "Telerik UI for Silverlight",
@@ -619,7 +583,6 @@
       "jobs": 0
     },
     {
-      "id": 37,
       "code": "Silverlight",
       "orderIndex": 116,
       "title": "Silverlight",
@@ -630,7 +593,6 @@
       "jobs": 0
     },
     {
-      "id": 38,
       "code": "WCF",
       "orderIndex": 115,
       "title": "WCF",
@@ -641,7 +603,6 @@
       "jobs": 0
     },
     {
-      "id": 39,
       "code": "EntityFramework",
       "orderIndex": 114,
       "title": "EntityFramework",
@@ -652,7 +613,6 @@
       "jobs": 0
     },
     {
-      "id": 40,
       "code": "Fiddler",
       "orderIndex": 113,
       "title": "Fiddler",
@@ -663,7 +623,6 @@
       "jobs": 0
     },
     {
-      "id": 41,
       "code": "XAML",
       "orderIndex": 112,
       "title": "XAML",
@@ -674,7 +633,6 @@
       "jobs": 0
     },
     {
-      "id": 42,
       "code": "MVVM",
       "orderIndex": 111,
       "title": "MVVM",
@@ -685,7 +643,6 @@
       "jobs": 0
     },
     {
-      "id": 43,
       "code": "MS Blend",
       "orderIndex": 110,
       "title": "MS Blend",
@@ -696,7 +653,6 @@
       "jobs": 0
     },
     {
-      "id": 44,
       "code": "PDFWCore",
       "orderIndex": 109,
       "title": "PDFWCore",
@@ -707,7 +663,6 @@
       "jobs": 0
     },
     {
-      "id": 45,
       "code": "Pascal",
       "orderIndex": 108,
       "title": "Pascal",
@@ -718,7 +673,6 @@
       "jobs": 0
     },
     {
-      "id": 46,
       "code": "XML",
       "orderIndex": 107,
       "title": "XML",
@@ -729,7 +683,6 @@
       "jobs": 0
     },
     {
-      "id": 47,
       "code": "Adobe Flash",
       "orderIndex": 106,
       "title": "Adobe Flash",
@@ -740,7 +693,6 @@
       "jobs": 0
     },
     {
-      "id": 48,
       "code": "Redmine",
       "orderIndex": 105,
       "title": "Redmine",
@@ -751,7 +703,6 @@
       "jobs": 0
     },
     {
-      "id": 49,
       "code": "Azure",
       "orderIndex": 104,
       "title": "Azure",
@@ -762,7 +713,6 @@
       "jobs": 0
     },
     {
-      "id": 50,
       "code": "SOAP",
       "orderIndex": 103,
       "title": "SOAP",
@@ -773,7 +723,6 @@
       "jobs": 0
     },
     {
-      "id": 51,
       "code": "VB.NET",
       "orderIndex": 102,
       "title": "VB.NET",
@@ -784,7 +733,6 @@
       "jobs": 0
     },
     {
-      "id": 52,
       "code": "Bootstrap",
       "orderIndex": 101,
       "title": "Bootstrap",
@@ -795,7 +743,6 @@
       "jobs": 0
     },
     {
-      "id": 53,
       "code": "DB2",
       "orderIndex": 100,
       "title": "DB2",
@@ -806,7 +753,6 @@
       "jobs": 0
     },
     {
-      "id": 54,
       "code": "Bash Scripting",
       "orderIndex": 99,
       "title": "Bash Scripting",
@@ -817,7 +763,6 @@
       "jobs": 0
     },
     {
-      "id": 55,
       "code": "Nexus",
       "orderIndex": 98,
       "title": "Nexus",
@@ -828,7 +773,6 @@
       "jobs": 0
     },
     {
-      "id": 56,
       "code": "Source Tree",
       "orderIndex": 97,
       "title": "Source Tree",
@@ -839,7 +783,6 @@
       "jobs": 0
     },
     {
-      "id": 57,
       "code": "Tortoise Hg",
       "orderIndex": 96,
       "title": "Tortoise Hg",
@@ -850,7 +793,6 @@
       "jobs": 0
     },
     {
-      "id": 58,
       "code": "ubuntu",
       "orderIndex": 95,
       "title": "ubuntu",
@@ -861,7 +803,6 @@
       "jobs": 0
     },
     {
-      "id": 59,
       "code": "Apache Ant",
       "orderIndex": 94,
       "title": "Apache Ant",
@@ -872,7 +813,6 @@
       "jobs": 0
     },
     {
-      "id": 60,
       "code": "Visual Basic",
       "orderIndex": 93,
       "title": "Visual Basic",
@@ -883,7 +823,6 @@
       "jobs": 0
     },
     {
-      "id": 61,
       "code": "VMware",
       "orderIndex": 92,
       "title": "VMware",
@@ -894,7 +833,6 @@
       "jobs": 0
     },
     {
-      "id": 62,
       "code": "Express",
       "orderIndex": 91,
       "title": "Express",
@@ -905,7 +843,6 @@
       "jobs": 0
     },
     {
-      "id": 63,
       "code": "EJS",
       "orderIndex": 90,
       "title": "EJS",
@@ -916,7 +853,6 @@
       "jobs": 0
     },
     {
-      "id": 64,
       "code": "3Ds Max",
       "orderIndex": 89,
       "title": "3Ds Max",
@@ -927,7 +863,6 @@
       "jobs": 0
     },
     {
-      "id": 65,
       "code": "Scorm",
       "orderIndex": 88,
       "title": "Scorm",
@@ -938,7 +873,6 @@
       "jobs": 0
     },
     {
-      "id": 66,
       "code": "MS Access",
       "orderIndex": 87,
       "title": "MS Access",
@@ -949,7 +883,6 @@
       "jobs": 0
     },
     {
-      "id": 67,
       "code": "iReports",
       "orderIndex": 86,
       "title": "iReports",
@@ -960,7 +893,6 @@
       "jobs": 0
     },
     {
-      "id": 68,
       "code": "VB Script",
       "orderIndex": 85,
       "title": "VB Script",
@@ -971,7 +903,6 @@
       "jobs": 0
     },
     {
-      "id": 69,
       "code": "Jasper Reports",
       "orderIndex": 84,
       "title": "Jasper Reports",
@@ -982,7 +913,6 @@
       "jobs": 0
     },
     {
-      "id": 70,
       "code": "Jasper BI",
       "orderIndex": 83,
       "title": "Jasper BI",
@@ -993,7 +923,6 @@
       "jobs": 0
     },
     {
-      "id": 71,
       "code": "Animate.css",
       "orderIndex": 82,
       "title": "Animate.css",
@@ -1004,7 +933,6 @@
       "jobs": 0
     },
     {
-      "id": 72,
       "code": "HyperV",
       "orderIndex": 81,
       "title": "HyperV",
@@ -1015,7 +943,6 @@
       "jobs": 0
     },
     {
-      "id": 73,
       "code": "Mercurial",
       "orderIndex": 80,
       "title": "Mercurial",
@@ -1026,7 +953,6 @@
       "jobs": 0
     },
     {
-      "id": 74,
       "code": "Spring",
       "orderIndex": 79,
       "title": "Spring",
@@ -1037,7 +963,6 @@
       "jobs": 0
     },
     {
-      "id": 75,
       "code": "Hibernate",
       "orderIndex": 78,
       "title": "Hibernate",
@@ -1048,7 +973,6 @@
       "jobs": 0
     },
     {
-      "id": 76,
       "code": "WPF",
       "orderIndex": 77,
       "title": "WPF",
@@ -1059,7 +983,6 @@
       "jobs": 0
     },
     {
-      "id": 77,
       "code": "Eclipse",
       "orderIndex": 76,
       "title": "Eclipse",
@@ -1070,7 +993,6 @@
       "jobs": 0
     },
     {
-      "id": 78,
       "code": "Maven",
       "orderIndex": 2,
       "title": "Maven",
@@ -1082,7 +1004,6 @@
       "isMajor": false
     },
     {
-      "id": 79,
       "code": "Oracle BI",
       "orderIndex": 74,
       "title": "Oracle BI",
@@ -1093,7 +1014,6 @@
       "jobs": 0
     },
     {
-      "id": 80,
       "code": "AWS",
       "orderIndex": 73,
       "title": "AWS",
@@ -1104,7 +1024,6 @@
       "jobs": 0
     },
     {
-      "id": 81,
       "code": "SQL Lite",
       "orderIndex": 72,
       "title": "SQL Lite",
@@ -1115,7 +1034,6 @@
       "jobs": 0
     },
     {
-      "id": 82,
       "code": "My SQL",
       "orderIndex": 71,
       "title": "My SQL",
@@ -1126,7 +1044,6 @@
       "jobs": 0
     },
     {
-      "id": 83,
       "code": "Timelinejs3",
       "orderIndex": 70,
       "title": "Timelinejs3",
@@ -1137,7 +1054,6 @@
       "jobs": 0
     },
     {
-      "id": 84,
       "code": "Json",
       "orderIndex": 69,
       "title": "Json",
@@ -1148,7 +1064,6 @@
       "jobs": 0
     },
     {
-      "id": 85,
       "code": "APM",
       "orderIndex": 68,
       "title": "APM",
@@ -1159,7 +1074,6 @@
       "jobs": 0
     },
     {
-      "id": 86,
       "code": "Heroku",
       "orderIndex": 67,
       "title": "Heroku",
@@ -1170,7 +1084,6 @@
       "jobs": 0
     },
     {
-      "id": 87,
       "code": "Paypal",
       "orderIndex": 66,
       "title": "Paypal",
@@ -1181,7 +1094,6 @@
       "jobs": 0
     },
     {
-      "id": 88,
       "code": "Microsoft Dynamics NAV",
       "orderIndex": 65,
       "title": "Microsoft Dynamics NAV",
@@ -1192,7 +1104,6 @@
       "jobs": 0
     },
     {
-      "id": 89,
       "code": "PDFW",
       "orderIndex": 64,
       "title": "PDFW",
@@ -1203,7 +1114,6 @@
       "jobs": 0
     },
     {
-      "id": 90,
       "code": "Alibaba Cloud",
       "orderIndex": 63,
       "title": "Alibaba Cloud",
@@ -1214,7 +1124,6 @@
       "jobs": 0
     },
     {
-      "id": 91,
       "code": "Google Cloud",
       "orderIndex": 62,
       "title": "Google Cloud",
@@ -1225,7 +1134,6 @@
       "jobs": 0
     },
     {
-      "id": 92,
       "code": "dom-to-image",
       "orderIndex": 61,
       "title": "dom-to-image",
@@ -1236,7 +1144,6 @@
       "jobs": 0
     },
     {
-      "id": 93,
       "code": "jspdf",
       "orderIndex": 60,
       "title": "jspdf",
@@ -1247,7 +1154,6 @@
       "jobs": 0
     },
     {
-      "id": 94,
       "code": "Windows Forms",
       "orderIndex": 59,
       "title": "Windows Forms",
@@ -1258,7 +1164,6 @@
       "jobs": 0
     },
     {
-      "id": 95,
       "code": "Digital Ocean",
       "orderIndex": 58,
       "title": "Digital Ocean",
@@ -1269,7 +1174,6 @@
       "jobs": 0
     },
     {
-      "id": 96,
       "code": "Adobe Atmosphere",
       "orderIndex": 57,
       "title": "Adobe Atmosphere",
@@ -1280,7 +1184,6 @@
       "jobs": 0
     },
     {
-      "id": 97,
       "code": "Fontawesome",
       "orderIndex": 56,
       "title": "Fontawesome",
@@ -1291,7 +1194,6 @@
       "jobs": 0
     },
     {
-      "id": 98,
       "code": "Dark Basic",
       "orderIndex": 55,
       "title": "Dark Basic",
@@ -1302,7 +1204,6 @@
       "jobs": 0
     },
     {
-      "id": 99,
       "code": "MomentJS",
       "orderIndex": 54,
       "title": "MomentJS",
@@ -1313,7 +1214,6 @@
       "jobs": 0
     },
     {
-      "id": 100,
       "code": "PrimeNG",
       "orderIndex": 53,
       "title": "PrimeNG",
@@ -1324,7 +1224,6 @@
       "jobs": 0
     },
     {
-      "id": 101,
       "code": "Angular Material",
       "orderIndex": 52,
       "title": "Angular Material",
@@ -1335,7 +1234,6 @@
       "jobs": 0
     },
     {
-      "id": 102,
       "code": "Github",
       "orderIndex": 51,
       "title": "Github",
@@ -1346,7 +1244,6 @@
       "jobs": 0
     },
     {
-      "id": 139,
       "code": "VisualBasic.NET",
       "orderIndex": 50,
       "title": "VisualBasic.NET",
@@ -1357,7 +1254,6 @@
       "jobs": 0
     },
     {
-      "id": 103,
       "code": "Design Patterns",
       "orderIndex": 49,
       "title": "Design Patterns",
@@ -1368,7 +1264,6 @@
       "jobs": 0
     },
     {
-      "id": 104,
       "code": "Fastify",
       "orderIndex": 48,
       "title": "Fastify",
@@ -1379,7 +1274,6 @@
       "jobs": 0
     },
     {
-      "id": 105,
       "code": "VS Code",
       "orderIndex": 47,
       "title": "VS Code",
@@ -1390,7 +1284,6 @@
       "jobs": 0
     },
     {
-      "id": 106,
       "code": "React",
       "orderIndex": 46,
       "title": "React",
@@ -1401,7 +1294,6 @@
       "jobs": 0
     },
     {
-      "id": 107,
       "code": "StencilJS",
       "orderIndex": 45,
       "title": "StencilJS",
@@ -1412,7 +1304,6 @@
       "jobs": 0
     },
     {
-      "id": 108,
       "code": "Postgres",
       "orderIndex": 44,
       "title": "Postgres",
@@ -1423,7 +1314,6 @@
       "jobs": 0
     },
     {
-      "id": 109,
       "code": "OAuth",
       "orderIndex": 43,
       "title": "OAuth",
@@ -1434,7 +1324,6 @@
       "jobs": 0
     },
     {
-      "id": 110,
       "code": "JWT",
       "orderIndex": 42,
       "title": "JWT",
@@ -1445,7 +1334,6 @@
       "jobs": 0
     },
     {
-      "id": 111,
       "code": "Google Analytics",
       "orderIndex": 41,
       "title": "Google Analytics",
@@ -1456,7 +1344,6 @@
       "jobs": 0
     },
     {
-      "id": 112,
       "code": "VS Code Insiders",
       "orderIndex": 40,
       "title": "VS Code Insiders",
@@ -1467,7 +1354,6 @@
       "jobs": 0
     },
     {
-      "id": 113,
       "code": "Azure DevOps",
       "orderIndex": 39,
       "title": "Azure DevOps",
@@ -1478,7 +1364,6 @@
       "jobs": 0
     },
     {
-      "id": 114,
       "code": "ASP.NET Core",
       "orderIndex": 38,
       "title": "ASP.NET Core",
@@ -1489,7 +1374,6 @@
       "jobs": 0
     },
     {
-      "id": 115,
       "code": "ASP.NET WebAPI",
       "orderIndex": 37,
       "title": "ASP.NET WebAPI",
@@ -1500,7 +1384,6 @@
       "jobs": 0
     },
     {
-      "id": 116,
       "code": "Redis",
       "orderIndex": 36,
       "title": "Redis",
@@ -1511,7 +1394,6 @@
       "jobs": 0
     },
     {
-      "id": 117,
       "code": "RabbitMQ",
       "orderIndex": 35,
       "title": "RabbitMQ",
@@ -1522,7 +1404,6 @@
       "jobs": 0
     },
     {
-      "id": 118,
       "code": "Quartz Scheduler",
       "orderIndex": 34,
       "title": "Quartz Scheduler",
@@ -1533,7 +1414,6 @@
       "jobs": 0
     },
     {
-      "id": 119,
       "code": "Portainer",
       "orderIndex": 33,
       "title": "Portainer",
@@ -1544,7 +1424,6 @@
       "jobs": 0
     },
     {
-      "id": 120,
       "code": "PowerShell",
       "orderIndex": 32,
       "title": "PowerShell",
@@ -1555,7 +1434,6 @@
       "jobs": 0
     },
     {
-      "id": 121,
       "code": "Wordpress",
       "orderIndex": 31,
       "title": "Wordpress",
@@ -1566,7 +1444,6 @@
       "jobs": 0
     },
     {
-      "id": 122,
       "code": "Cordova",
       "orderIndex": 30,
       "title": "Cordova",
@@ -1577,7 +1454,6 @@
       "jobs": 0
     },
     {
-      "id": 123,
       "code": "MongoDB",
       "orderIndex": 29,
       "title": "MongoDB",
@@ -1588,7 +1464,6 @@
       "jobs": 0
     },
     {
-      "id": 124,
       "code": "Grunt",
       "orderIndex": 28,
       "title": "Grunt",
@@ -1599,7 +1474,6 @@
       "jobs": 0
     },
     {
-      "id": 125,
       "code": "Visual SourceSafe",
       "orderIndex": 27,
       "title": "Visual SourceSafe",
@@ -1610,7 +1484,6 @@
       "jobs": 0
     },
     {
-      "id": 126,
       "code": "Crystal Reports",
       "orderIndex": 26,
       "title": "Crystal Reports",
@@ -1621,7 +1494,6 @@
       "jobs": 0
     },
     {
-      "id": 127,
       "code": "Fast Reports",
       "orderIndex": 25,
       "title": "Fast Reports",
@@ -1632,7 +1504,6 @@
       "jobs": 0
     },
     {
-      "id": 128,
       "code": "PMP",
       "orderIndex": 24,
       "title": "PMP",
@@ -1643,7 +1514,6 @@
       "jobs": 0
     },
     {
-      "id": 129,
       "code": "Project Management",
       "orderIndex": 23,
       "title": "Project Management",
@@ -1654,7 +1524,6 @@
       "jobs": 0
     },
     {
-      "id": 130,
       "code": "Time Management",
       "orderIndex": 22,
       "title": "Time Management",
@@ -1665,7 +1534,6 @@
       "jobs": 0
     },
     {
-      "id": 131,
       "code": "Cost Management",
       "orderIndex": 21,
       "title": "Cost Management",
@@ -1676,7 +1544,6 @@
       "jobs": 0
     },
     {
-      "id": 132,
       "code": "Software Estimation",
       "orderIndex": 20,
       "title": "Software Estimation",
@@ -1687,7 +1554,6 @@
       "jobs": 0
     },
     {
-      "id": 133,
       "code": "C",
       "orderIndex": 19,
       "title": "C",
@@ -1698,7 +1564,6 @@
       "jobs": 0
     },
     {
-      "id": 134,
       "code": "C++",
       "orderIndex": 18,
       "title": "C++",
@@ -1709,7 +1574,6 @@
       "jobs": 0
     },
     {
-      "id": 135,
       "code": "Web Development",
       "orderIndex": 17,
       "title": "Web Development",
@@ -1720,7 +1584,6 @@
       "jobs": 0
     },
     {
-      "id": 136,
       "code": "Networking",
       "orderIndex": 16,
       "title": "Networking",
@@ -1731,7 +1594,6 @@
       "jobs": 0
     },
     {
-      "id": 137,
       "code": "OOP",
       "orderIndex": 15,
       "title": "OOP",
@@ -1742,7 +1604,6 @@
       "jobs": 0
     },
     {
-      "id": 138,
       "code": "UML",
       "orderIndex": 14,
       "title": "UML",
@@ -1753,7 +1614,6 @@
       "jobs": 0
     },
     {
-      "id": 140,
       "code": "Web API",
       "orderIndex": 13,
       "title": "Web API",
@@ -1764,7 +1624,6 @@
       "jobs": 0
     },
     {
-      "id": 141,
       "code": "Web Forms",
       "orderIndex": 12,
       "title": "Web Forms",
@@ -1775,7 +1634,6 @@
       "jobs": 0
     },
     {
-      "id": 142,
       "code": "Database Solutions",
       "orderIndex": 11,
       "title": "Database Solutions",
@@ -1786,7 +1644,6 @@
       "jobs": 0
     },
     {
-      "id": 143,
       "code": "Database Design",
       "orderIndex": 10,
       "title": "Database Design",
@@ -1797,7 +1654,6 @@
       "jobs": 0
     },
     {
-      "id": 144,
       "code": "Database Management",
       "orderIndex": 9,
       "title": "Database Management",
@@ -1808,7 +1664,6 @@
       "jobs": 0
     },
     {
-      "id": 145,
       "code": "Database Migration",
       "orderIndex": 8,
       "title": "Database Migration",
@@ -1819,7 +1674,6 @@
       "jobs": 0
     },
     {
-      "id": 146,
       "code": "Mobile Solutions",
       "orderIndex": 7,
       "title": "Mobile Solutions",
@@ -1830,7 +1684,6 @@
       "jobs": 0
     },
     {
-      "id": 147,
       "code": "Database Systems",
       "orderIndex": 6,
       "title": "Database Systems",
@@ -1841,7 +1694,6 @@
       "jobs": 0
     },
     {
-      "id": 148,
       "code": "Distributed Systems",
       "orderIndex": 5,
       "title": "Distributed Systems",
@@ -1852,7 +1704,6 @@
       "jobs": 0
     },
     {
-      "id": 149,
       "code": "Integration Solutions",
       "orderIndex": 4,
       "title": "Integration Solutions",
@@ -1863,7 +1714,6 @@
       "jobs": 0
     },
     {
-      "id": 150,
       "code": "Mobile Apps",
       "orderIndex": 3,
       "title": "Mobile Apps",
@@ -1874,7 +1724,6 @@
       "jobs": 0
     },
     {
-      "id": 151,
       "code": "Enterprise Solutions",
       "orderIndex": 2,
       "title": "Enterprise Solutions",
@@ -1885,7 +1734,6 @@
       "jobs": 0
     },
     {
-      "id": 152,
       "code": "Integration Platforms",
       "orderIndex": 1,
       "title": "Integration Platforms",

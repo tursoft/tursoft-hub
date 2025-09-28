@@ -1,8 +1,6 @@
 {
   "items": [
     {
-      "id": null,
-      "uid": null,
       "code": "tr",
       "orderIndex": 1,
       "title": "Turkey",
@@ -16,8 +14,6 @@
       }
     },
     {
-      "id": null,
-      "uid": null,
       "code": "eu",
       "orderIndex": 2,
       "title": "European Union",
@@ -31,8 +27,6 @@
       }
     },
     {
-      "id": null,
-      "uid": null,
       "code": "usa",
       "orderIndex": 3,
       "title": "United States of America",
@@ -42,8 +36,6 @@
       "description": null
     },
     {
-      "id": null,
-      "uid": null,
       "code": "ksa",
       "orderIndex": 4,
       "title": "Kingdom of Saudi Arabia",
@@ -53,8 +45,6 @@
       "description": null
     },
     {
-      "id": null,
-      "uid": null,
       "code": "palestine",
       "orderIndex": 5,
       "title": "Palestine",
@@ -64,8 +54,6 @@
       "description": null
     },
     {
-      "id": null,
-      "uid": null,
       "code": "kosovo",
       "orderIndex": 6,
       "title": "Kosovo",
@@ -75,8 +63,6 @@
       "description": null
     },
     {
-      "id": null,
-      "uid": null,
       "code": "spain",
       "orderIndex": 7,
       "title": "Spain",
@@ -86,8 +72,6 @@
       "description": null
     },
     {
-      "id": null,
-      "uid": null,
       "code": "italy",
       "orderIndex": 8,
       "title": "Italy",
@@ -97,8 +81,6 @@
       "description": null
     },
     {
-      "id": null,
-      "uid": null,
       "code": "portugal",
       "orderIndex": 9,
       "title": "Portugal",
@@ -108,8 +90,6 @@
       "description": null
     },
     {
-      "id": null,
-      "uid": null,
       "code": "uzbekistan",
       "orderIndex": 10,
       "title": "Uzbekistan",

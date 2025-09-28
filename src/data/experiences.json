@@ -7,8 +7,6 @@
   },
   "items": [
     {
-      "id": 215,
-      "uid": "experience.215.infrion",
       "orderIndex": 18,
       "companyCode": "infrion",
       "positions": [
@@ -49,8 +47,6 @@
       ]
     },
     {
-      "id": 214,
-      "uid": "experience.214.jengai",
       "orderIndex": 17,
       "companyCode": "jengai",
       "positions": [
@@ -98,8 +94,6 @@
       ]
     },
     {
-      "id": 202,
-      "uid": "experience.202.gamyte",
       "orderIndex": 16,
       "companyCode": "gamyte",
       "positions": [
@@ -147,8 +141,6 @@
       ]
     },
     {
-      "id": 201,
-      "uid": "experience.201.erc",
       "orderIndex": 15,
       "companyCode": "ERC",
       "positions": [
@@ -258,8 +250,6 @@
       ]
     },
     {
-      "id": 202,
-      "uid": "experience.202.datasel",
       "orderIndex": 14,
       "companyCode": "DATASEL",
       "positions": [
@@ -389,8 +379,6 @@
       ]
     },
     {
-      "id": 203,
-      "uid": "experience.203.fonet",
       "orderIndex": 13,
       "companyCode": "FONET",
       "positions": [
@@ -469,8 +457,6 @@
       ]
     },
     {
-      "id": 213,
-      "uid": "experience.213.jandarma",
       "orderIndex": 11,
       "companyCode": "JANDARMA",
       "positions": [
@@ -493,8 +479,6 @@
       ]
     },
     {
-      "id": 204,
-      "uid": "experience.204.halici",
       "orderIndex": 11,
       "companyCode": "HALICI",
       "positions": [
@@ -602,8 +586,6 @@
       ]
     },
     {
-      "id": 205,
-      "uid": "experience.205.metu.ceit",
       "orderIndex": 10,
       "companyCode": "METU.CEIT",
       "positions": [
@@ -638,8 +620,6 @@
       ]
     },
     {
-      "id": 206,
-      "uid": "experience.206.metu.ii",
       "orderIndex": 9,
       "companyCode": "METU.II",
       "positions": [
@@ -684,8 +664,6 @@
       ]
     },
     {
-      "id": 207,
-      "uid": "experience.207.metu.ii",
       "orderIndex": 8,
       "companyCode": "METU.II",
       "positions": [
@@ -710,8 +688,6 @@
       ]
     },
     {
-      "id": 208,
-      "uid": "experience.208.labris",
       "orderIndex": 7,
       "companyCode": "LABRIS",
       "positions": [
@@ -739,8 +715,6 @@
       ]
     },
     {
-      "id": 209,
-      "uid": "experience.209.metu.ieee",
       "orderIndex": 6,
       "companyCode": "METU.IEEE",
       "positions": [
@@ -765,8 +739,6 @@
       ]
     },
     {
-      "id": 210,
-      "uid": "experience.210.metu.com",
       "orderIndex": 5,
       "companyCode": "METU.COM",
       "positions": [
@@ -791,8 +763,6 @@
       ]
     },
     {
-      "id": 211,
-      "uid": "experience.211.netteyim",
       "orderIndex": 4,
       "companyCode": "NETTEYIM",
       "positions": [
@@ -817,8 +787,6 @@
       ]
     },
     {
-      "id": 212,
-      "uid": "experience.212.tbd.genc",
       "orderIndex": 3,
       "companyCode": "TBD.GENC",
       "positions": [

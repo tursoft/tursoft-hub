@@ -1,7 +1,6 @@
 {
   "items": [
     {
-      "uid": "customer.MOH.TR",
       "code": "MOH.TR",
       "orderIndex": 30,
       "companyCode": "MOH.TR",
@@ -37,7 +36,6 @@
       }
     },
     {
-      "uid": "customer.MOI.KSA",
       "code": "MOI.KSA",
       "orderIndex": 29,
       "companyCode": "MOI.KSA",
@@ -69,7 +67,6 @@
       }
     },
     {
-      "uid": "customer.MOH.KSA",
       "code": "MOH.KSA",
       "orderIndex": 28,
       "companyCode": "MOH.KSA",
@@ -102,7 +99,6 @@
       }
     },
     {
-      "uid": "customer.TTNET",
       "code": "TTNET",
       "orderIndex": 27,
       "companyCode": "TTNET",
@@ -134,7 +130,6 @@
       }
     },
     {
-      "uid": "customer.ECZACIBASI",
       "code": "ECZACIBASI",
       "orderIndex": 26,
       "companyCode": "ECZACIBASI",
@@ -166,7 +161,6 @@
       }
     },
     {
-      "uid": "customer.Avea",
       "code": "Avea",
       "orderIndex": 25,
       "companyCode": "Avea",
@@ -198,7 +192,6 @@
       }
     },
     {
-      "uid": "customer.H.IbniSina",
       "code": "H.IbniSina",
       "orderIndex": 24,
       "companyCode": "H.IbniSina",
@@ -232,7 +225,6 @@
       }
     },
     {
-      "uid": "customer.MOH.PAL",
       "code": "MOH.PAL",
       "orderIndex": 23,
       "companyCode": "MOH.PAL",
@@ -265,7 +257,6 @@
       }
     },
     {
-      "uid": "customer.LIFEWATCH.CH",
       "code": "LIFEWATCH.CH",
       "orderIndex": 22,
       "companyCode": "LIFEWATCH.CH",
@@ -297,7 +288,6 @@
       }
     },
     {
-      "uid": "customer.UCELL.UZ",
       "code": "UCELL.UZ",
       "orderIndex": 21,
       "companyCode": "UCELL.UZ",
@@ -328,7 +318,6 @@
       }
     },
     {
-      "uid": "customer.SPMS.PT",
       "code": "SPMS.PT",
       "orderIndex": 20,
       "companyCode": "SPMS.PT",
@@ -360,7 +349,6 @@
       }
     },
     {
-      "uid": "customer.AXIS.INT",
       "code": "AXIS.INT",
       "orderIndex": 19,
       "companyCode": "AXIS.INT",
@@ -386,7 +374,6 @@
       }
     },
     {
-      "uid": "customer.SSG.NY",
       "code": "SSG.NY",
       "orderIndex": 18,
       "companyCode": "SSG.NY",
@@ -413,7 +400,6 @@
       }
     },
     {
-      "uid": "customer.PRO.UNITED",
       "code": "PRO.UNITED",
       "orderIndex": 17,
       "companyCode": "PRO.UNITED",
@@ -438,7 +424,6 @@
       }
     },
     {
-      "uid": "customer.TRANSYL.FL",
       "code": "TRANSYL.FL",
       "orderIndex": 16,
       "companyCode": "TRANSYL.FL",
@@ -464,7 +449,6 @@
       }
     },
     {
-      "uid": "customer.BONITZ",
       "code": "BONITZ",
       "orderIndex": 15,
       "companyCode": "BONITZ",
@@ -489,7 +473,6 @@
       }
     },
     {
-      "uid": "customer.DMA.FLOORS",
       "code": "DMA.FLOORS",
       "orderIndex": 14,
       "companyCode": "DMA.FLOORS",
@@ -514,7 +497,6 @@
       }
     },
     {
-      "uid": "customer.SERGENIANS",
       "code": "SERGENIANS",
       "orderIndex": 13,
       "companyCode": "SERGENIANS",
@@ -539,7 +521,6 @@
       }
     },
     {
-      "uid": "customer.GARMON",
       "code": "GARMON",
       "orderIndex": 12,
       "companyCode": "GARMON",
@@ -564,7 +545,6 @@
       }
     },
     {
-      "uid": "customer.MF.HIGGINS",
       "code": "MF.HIGGINS",
       "orderIndex": 11,
       "companyCode": "MF.HIGGINS",
@@ -589,7 +569,6 @@
       }
     },
     {
-      "uid": "customer.GOMEZ.FC",
       "code": "GOMEZ.FC",
       "orderIndex": 10,
       "companyCode": "GOMEZ.FC",
@@ -614,7 +593,6 @@
       }
     },
     {
-      "uid": "customer.DESOTO",
       "code": "DESOTO",
       "orderIndex": 9,
       "companyCode": "DESOTO",
@@ -639,7 +617,6 @@
       }
     },
     {
-      "uid": "customer.PROFLOORS",
       "code": "PROFLOORS",
       "orderIndex": 8,
       "companyCode": "PROFLOORS",
@@ -664,7 +641,6 @@
       }
     },
     {
-      "uid": "customer.ROUSE.CO",
       "code": "ROUSE.CO",
       "orderIndex": 7,
       "companyCode": "ROUSE.CO",
@@ -690,7 +666,6 @@
       }
     },
     {
-      "uid": "customer.SHAFAFIYA.UAE",
       "code": "SHAFAFIYA.UAE",
       "orderIndex": 6,
       "companyCode": "SHAFAFIYA.UAE",
@@ -721,7 +696,6 @@
       }
     },
     {
-      "uid": "customer.EGM.TR",
       "code": "EGM.TR",
       "orderIndex": 5,
       "companyCode": "EGM.TR",
@@ -750,7 +724,6 @@
       }
     },
     {
-      "uid": "customer.DPT.TR",
       "code": "DPT.TR",
       "orderIndex": 4,
       "companyCode": "DPT.TR",
@@ -779,7 +752,6 @@
       }
     },
     {
-      "uid": "customer.AU.TR",
       "code": "AU.TR",
       "orderIndex": 3,
       "companyCode": "AU.TR",
@@ -809,7 +781,6 @@
       }
     },
     {
-      "uid": "customer.TUBITAK.TR",
       "code": "TUBITAK.TR",
       "orderIndex": 2,
       "companyCode": "TUBITAK.TR",
@@ -839,7 +810,6 @@
       }
     },
     {
-      "uid": "customer.IEEE.METU",
       "code": "IEEE.METU",
       "orderIndex": 1,
       "companyCode": "IEEE.METU",

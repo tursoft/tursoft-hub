@@ -5,7 +5,6 @@
   },
   "items": [
     {
-      "id": 1,
       "code": "andonisphilippidis",
       "orderIndex": 60,
       "title": "Andonis Philippidis",
@@ -35,7 +34,6 @@
       ]
     },
     {
-      "id": 3,
       "code": "myasarozden",
       "orderIndex": 59,
       "title": "Prof. Dr. M. Yaşar Özden",
@@ -69,7 +67,6 @@
       ]
     },
     {
-      "id": 4,
       "code": "cetinbalanuye",
       "orderIndex": 58,
       "title": "Çetin Balanuye",
@@ -103,7 +100,6 @@
       ]
     },
     {
-      "id": 5,
       "code": "kursatcagiltay",
       "orderIndex": 57,
       "title": "Prof. Dr. Kürşat Çağıltay",
@@ -137,7 +133,6 @@
       ]
     },
     {
-      "id": 6,
       "code": "alexanderberler",
       "orderIndex": 56,
       "title": "Alexander Berler",
@@ -159,7 +154,6 @@
       ]
     },
     {
-      "id": 7,
       "code": "umuthuseyinoglu",
       "orderIndex": 55,
       "title": "Umut Hüseyinoğlu",
@@ -193,7 +187,6 @@
       ]
     },
     {
-      "id": 8,
       "code": "gulpembeergin",
       "orderIndex": 54,
       "title": "Gülpembe Ergin",
@@ -223,7 +216,6 @@
       ]
     },
     {
-      "id": 9,
       "code": "firatozerden",
       "orderIndex": 53,
       "title": "Fırat Özerden",
@@ -249,7 +241,6 @@
       ]
     },
     {
-      "id": 10,
       "code": "johansellstrom",
       "orderIndex": 52,
       "title": "Johan Sellström",
@@ -263,7 +254,6 @@
       ]
     },
     {
-      "id": 11,
       "code": "aslakfelin",
       "orderIndex": 51,
       "title": "Aslak Felin",
@@ -277,7 +267,6 @@
       ]
     },
     {
-      "id": 12,
       "code": "uweweimer",
       "orderIndex": 50,
       "title": "Uwe Weimer",
@@ -291,7 +280,6 @@
       ]
     },
     {
-      "id": 13,
       "code": "mehmetalpkarabas",
       "orderIndex": 49,
       "title": "Dr. Mehmet Alp Karabas",
@@ -305,7 +293,6 @@
       ]
     },
     {
-      "id": 14,
       "code": "eleftheriapolychronidou",
       "orderIndex": 48,
       "title": "Eleftheria Polychronidou",
@@ -319,7 +306,6 @@
       ]
     },
     {
-      "id": 15,
       "code": "kostaskarkaletsis",
       "orderIndex": 47,
       "title": "Kostas Karkaletsis",
@@ -333,7 +319,6 @@
       ]
     },
     {
-      "id": 16,
       "code": "velibicer",
       "orderIndex": 46,
       "title": "Veli Bicer",
@@ -347,7 +332,6 @@
       ]
     },
     {
-      "id": 17,
       "code": "erol-ozcelik",
       "orderIndex": 45,
       "title": "Erol Ozcelik",
@@ -361,7 +345,6 @@
       ]
     },
     {
-      "id": 18,
       "code": "mesutdemirer",
       "orderIndex": 44,
       "title": "Mesut Demirer",
@@ -375,7 +358,6 @@
       ]
     },
     {
-      "id": 19,
       "code": "davutgurbuz",
       "orderIndex": 43,
       "title": "Davut Gürbüz",
@@ -389,7 +371,6 @@
       ]
     },
     {
-      "id": 20,
       "code": "mikaelkaron",
       "orderIndex": 42,
       "title": "Mikael Karon",
@@ -398,7 +379,6 @@
       "contacts": []
     },
     {
-      "id": 21,
       "code": "alexanderkjeldaas",
       "orderIndex": 41,
       "title": "Alexander Kjeldaas",
@@ -407,7 +387,6 @@
       "contacts": []
     },
     {
-      "id": 22,
       "code": "muhammettursak",
       "orderIndex": 40,
       "title": "Muhammet Turşak",
@@ -416,7 +395,6 @@
       "contacts": []
     },
     {
-      "id": 23,
       "code": "ertemyazici",
       "orderIndex": 39,
       "title": "Ertem Yazıcı",
@@ -425,7 +403,6 @@
       "contacts": []
     },
     {
-      "id": 24,
       "code": "ekremyildiz",
       "orderIndex": 38,
       "title": "Ekrem Yıldız",
@@ -434,7 +411,6 @@
       "contacts": []
     },
     {
-      "id": 25,
       "code": "cankatabaci",
       "orderIndex": 37,
       "title": "Cankat Abacı",
@@ -443,7 +419,6 @@
       "contacts": []
     },
     {
-      "id": 27,
       "code": "onurkipel",
       "orderIndex": 36,
       "title": "Onur Kipel",
@@ -452,7 +427,6 @@
       "contacts": []
     },
     {
-      "id": 28,
       "code": "mehmetalicicek",
       "orderIndex": 35,
       "title": "Mehmet Ali Çiçek",
@@ -461,7 +435,6 @@
       "contacts": []
     },
     {
-      "id": 29,
       "code": "alpercetinkaya",
       "orderIndex": 34,
       "title": "Alper Çetinkaya",
@@ -470,7 +443,6 @@
       "contacts": []
     },
     {
-      "id": 30,
       "code": "tolgaaktan",
       "orderIndex": 33,
       "title": "Tolga Aktan",
@@ -479,7 +451,6 @@
       "contacts": []
     },
     {
-      "id": 31,
       "code": "kemalbirer",
       "orderIndex": 32,
       "title": "Kemal Birer",
@@ -488,7 +459,6 @@
       "contacts": []
     },
     {
-      "id": 32,
       "code": "esraertunc",
       "orderIndex": 31,
       "title": "Esra Ertunç",
@@ -497,7 +467,6 @@
       "contacts": []
     },
     {
-      "id": 33,
       "code": "duranturemis",
       "orderIndex": 30,
       "title": "Duran Türemiş",
@@ -506,7 +475,6 @@
       "contacts": []
     },
     {
-      "id": 34,
       "code": "eserkalac",
       "orderIndex": 29,
       "title": "Eser Kalaç",
@@ -515,7 +483,6 @@
       "contacts": []
     },
     {
-      "id": 35,
       "code": "ahmetbeskonaklioglu",
       "orderIndex": 28,
       "title": "Ahmet Beşkonaklıoğlu",
@@ -524,7 +491,6 @@
       "contacts": []
     },
     {
-      "id": 36,
       "code": "mehmetgoren",
       "orderIndex": 27,
       "title": "Mehmet Gören",
@@ -533,7 +499,6 @@
       "contacts": []
     },
     {
-      "id": 37,
       "code": "ozlemtursak",
       "orderIndex": 26,
       "title": "Özlem Turşak",
@@ -542,7 +507,6 @@
       "contacts": []
     },
     {
-      "id": 38,
       "code": "engincelik",
       "orderIndex": 25,
       "title": "Engin Çelik",
@@ -551,7 +515,6 @@
       "contacts": []
     },
     {
-      "id": 39,
       "code": "hasanturunc",
       "orderIndex": 24,
       "title": "Hasan Turunç",
@@ -560,7 +523,6 @@
       "contacts": []
     },
     {
-      "id": 40,
       "code": "naserarab",
       "orderIndex": 23,
       "title": "Naser Arab",
@@ -569,7 +531,6 @@
       "contacts": []
     },
     {
-      "id": 41,
       "code": "fatihekici",
       "orderIndex": 22,
       "title": "Fatih Ekici",
@@ -578,7 +539,6 @@
       "contacts": []
     },
     {
-      "id": 42,
       "code": "mustafauysal",
       "orderIndex": 21,
       "title": "M. Mustafa Uysal",
@@ -587,7 +547,6 @@
       "contacts": []
     },
     {
-      "id": 43,
       "code": "selceniyisever",
       "orderIndex": 20,
       "title": "Selcen İyisever",
@@ -596,7 +555,6 @@
       "contacts": []
     },
     {
-      "id": 44,
       "code": "ugurumutluoglu",
       "orderIndex": 19,
       "title": "Uğur Umutluoğlu",
@@ -605,7 +563,6 @@
       "contacts": []
     },
     {
-      "id": 45,
       "code": "erhandurust",
       "orderIndex": 18,
       "title": "Erhan Dürüst",
@@ -614,7 +571,6 @@
       "contacts": []
     },
     {
-      "id": 46,
       "code": "evrimbaran",
       "orderIndex": 17,
       "title": "Evrim Baran",
@@ -623,7 +579,6 @@
       "contacts": []
     },
     {
-      "id": 47,
       "code": "tayfunyuksel",
       "orderIndex": 16,
       "title": "Tayfun Yüksel",
@@ -632,7 +587,6 @@
       "contacts": []
     },
     {
-      "id": 48,
       "code": "umitkaya",
       "orderIndex": 15,
       "title": "Ümit Kaya",
@@ -641,7 +595,6 @@
       "contacts": []
     },
     {
-      "id": 49,
       "code": "erolisik",
       "orderIndex": 14,
       "title": "Erol Işık",
@@ -650,7 +603,6 @@
       "contacts": []
     },
     {
-      "id": 50,
       "code": "melihtop",
       "orderIndex": 13,
       "title": "Melih Top",
@@ -659,7 +611,6 @@
       "contacts": []
     },
     {
-      "id": 51,
       "code": "hasanbasaran",
       "orderIndex": 12,
       "title": "Hasan Başaran",
@@ -668,7 +619,6 @@
       "contacts": []
     },
     {
-      "id": 52,
       "code": "zahideyildirim",
       "orderIndex": 11,
       "title": "Prof. Dr. Zahide Yıldırım",
@@ -677,7 +627,6 @@
       "contacts": []
     },
     {
-      "id": 53,
       "code": "cevahirturgut",
       "orderIndex": 10,
       "title": "Cevahir Turgut",
@@ -686,7 +635,6 @@
       "contacts": []
     },
     {
-      "id": 54,
       "code": "ozansener",
       "orderIndex": 9,
       "title": "Ozan Şener",
@@ -695,7 +643,6 @@
       "contacts": []
     },
     {
-      "id": 55,
       "code": "serdarcicek",
       "orderIndex": 8,
       "title": "Serdar Çiçek",
@@ -704,7 +651,6 @@
       "contacts": []
     },
     {
-      "id": 56,
       "code": "ertugruloral",
       "orderIndex": 7,
       "title": "Ertuğrul Oral",
@@ -713,7 +659,6 @@
       "contacts": []
     },
     {
-      "id": 57,
       "code": "ercansuat",
       "orderIndex": 6,
       "title": "Ercan Suat",
@@ -722,7 +667,6 @@
       "contacts": []
     },
     {
-      "id": 58,
       "code": "nesetmutlu",
       "orderIndex": 5,
       "title": "Neşet Mutlu",
@@ -731,7 +675,6 @@
       "contacts": []
     },
     {
-      "id": 59,
       "code": "emreusta",
       "orderIndex": 4,
       "title": "Emre Usta",
@@ -740,7 +683,6 @@
       "contacts": []
     },
     {
-      "id": 61,
       "code": "cetinbalanuye",
       "orderIndex": 3,
       "title": "Çetin Balanüye",
@@ -749,7 +691,6 @@
       "contacts": []
     },
     {
-      "id": 62,
       "code": "serkankayranci",
       "orderIndex": 2,
       "title": "Serkan Kayrancı",
@@ -758,7 +699,6 @@
       "contacts": []
     },
     {
-      "id": 63,
       "code": "ertaneyimaya",
       "orderIndex": 1,
       "title": "Ertan Eyimaya",

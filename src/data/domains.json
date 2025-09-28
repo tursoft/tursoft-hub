@@ -1,7 +1,6 @@
 {
   "items": [
     {
-      "id": 1,
       "code": "healthcareit",
       "orderIndex": 8,
       "title": "Healthcare Informatics",
@@ -9,7 +8,6 @@
       "value": 100
     },
     {
-      "id": 2,
       "code": "elearning",
       "orderIndex": 7,
       "title": "E-Learning",
@@ -17,7 +15,6 @@
       "value": 100
     },
     {
-      "id": 3,
       "code": "ecommerce",
       "orderIndex": 6,
       "title": "E-Commerce",
@@ -25,7 +22,6 @@
       "value": 100
     },
     {
-      "id": 4,
       "code": "video",
       "orderIndex": 5,
       "title": "Video Streaming",
@@ -33,7 +29,6 @@
       "value": 100
     },
     {
-      "id": 5,
       "code": "cms",
       "orderIndex": 4,
       "title": "Content Management Systems",
@@ -41,7 +36,6 @@
       "value": 100
     },
     {
-      "id": 6,
       "code": "gaming",
       "orderIndex": 3,
       "title": "Game Development",
@@ -49,7 +43,6 @@
       "value": 100
     },
     {
-      "id": 8,
       "code": "shopping",
       "orderIndex": 2,
       "title": "Shopping",
@@ -57,7 +50,6 @@
       "value": 100
     },
     {
-      "id": 9,
       "code": "construction",
       "orderIndex": 1,
       "title": "Construction",

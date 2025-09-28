@@ -5,8 +5,6 @@
   },
   "items": [
     {
-      "id": 101,
-      "uid": "education.101.metu3",
       "code": "METU3",
       "orderIndex": 15,
       "companyCode": "METU.II",
@@ -36,8 +34,6 @@
       ]
     },
     {
-      "id": 102,
-      "uid": "education.102.metu2",
       "code": "METU2",
       "orderIndex": 14,
       "companyCode": "METU.CEIT",
@@ -99,8 +95,6 @@
       ]
     },
     {
-      "id": 103,
-      "uid": "education.103.metu1",
       "code": "METU1",
       "orderIndex": 13,
       "companyCode": "METU.CEIT",
@@ -197,8 +191,6 @@
       ]
     },
     {
-      "id": 104,
-      "uid": "education.104.ktl",
       "code": "KTL",
       "orderIndex": 12,
       "companyCode": "KTL",
@@ -236,8 +228,6 @@
       ]
     },
     {
-      "id": 105,
-      "uid": "education.105.atl",
       "code": "ATL",
       "orderIndex": 12,
       "companyCode": "ATL",

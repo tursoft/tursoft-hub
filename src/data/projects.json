@@ -61,7 +61,6 @@
   },
   "items": [
     {
-      "id": 382,
       "code": "CERTIFY.HEALTH",
       "orderIndex": 82,
       "title": "Certify Health",
@@ -128,7 +127,6 @@
       ]
     },
     {
-      "id": 373,
       "code": "ALISVERISASISTANI",
       "orderIndex": 81,
       "title": "Alışveriş Asistanı",
@@ -196,7 +194,6 @@
       "modules": []
     },
     {
-      "id": 374,
       "code": "JENGAIAPP",
       "orderIndex": 80,
       "title": "Jengai App",
@@ -234,7 +231,6 @@
       "modules": []
     },
     {
-      "id": 372,
       "code": "GAMYTEAPP",
       "orderIndex": 79,
       "title": "Gamyte App",
@@ -272,7 +268,6 @@
       "modules": []
     },
     {
-      "id": 371,
       "code": "PARDUSDOCKER",
       "orderIndex": 78,
       "title": "Pardus on Docker",
@@ -311,7 +306,6 @@
       ]
     },
     {
-      "id": 301,
       "code": "ATTP",
       "orderIndex": 77,
       "title": "Avicenna Telemedicine Platform",
@@ -372,7 +366,6 @@
       ]
     },
     {
-      "id": 307,
       "code": "PDFW",
       "orderIndex": 76,
       "title": "Avicenna Product Development Framework",
@@ -396,7 +389,6 @@
       ]
     },
     {
-      "id": 308,
       "code": "PDFWCore",
       "orderIndex": 75,
       "title": "Avicenna Product Development Framework",
@@ -420,7 +412,6 @@
       ]
     },
     {
-      "id": 355,
       "code": "PDFWSL",
       "orderIndex": 74,
       "title": "Avicenna Product Development Framework SL",
@@ -444,7 +435,6 @@
       ]
     },
     {
-      "id": 306,
       "code": "ATTPMobile",
       "orderIndex": 73,
       "title": "Avicenna Telemedicine Platform Mobile",
@@ -486,7 +476,6 @@
       ]
     },
     {
-      "id": 302,
       "code": "AvicennaMobile",
       "orderIndex": 72,
       "title": "Avicenna Mobile",
@@ -531,7 +520,6 @@
       ]
     },
     {
-      "id": 303,
       "code": "EPR",
       "orderIndex": 71,
       "title": "Avicenna E-Reçete",
@@ -580,7 +568,6 @@
       ]
     },
     {
-      "id": 304,
       "code": "soyagaciniznet",
       "orderIndex": 70,
       "title": "soyagaciniz.net",
@@ -609,7 +596,6 @@
       ]
     },
     {
-      "id": 305,
       "code": "FDS",
       "orderIndex": 69,
       "title": "Avicenna FDS",
@@ -637,7 +623,6 @@
       ]
     },
     {
-      "id": 309,
       "code": "AHR",
       "orderIndex": 68,
       "title": "Avicenna Human Resources 360",
@@ -676,7 +661,6 @@
       ]
     },
     {
-      "id": 316,
       "code": "AHIN",
       "orderIndex": 67,
       "title": "Avicenna Health Integration Network",
@@ -705,7 +689,6 @@
       ]
     },
     {
-      "id": 356,
       "code": "ProEmpower",
       "orderIndex": 66,
       "title": "ProEmpower - DM4All",
@@ -756,7 +739,6 @@
       ]
     },
     {
-      "id": 310,
       "code": "APM",
       "orderIndex": 65,
       "title": "Avicenna Project Master",
@@ -801,7 +783,6 @@
       ]
     },
     {
-      "id": 311,
       "code": "HIS2x",
       "orderIndex": 64,
       "title": "Avicenna Hospital Information System",
@@ -840,7 +821,6 @@
       ]
     },
     {
-      "id": 312,
       "code": "AIS",
       "orderIndex": 63,
       "title": "Avicenna Ambulance Information System",
@@ -900,7 +880,6 @@
       ]
     },
     {
-      "id": 313,
       "code": "EDIS",
       "orderIndex": 62,
       "title": "Avicenna Emergency Department Information System",
@@ -959,7 +938,6 @@
       ]
     },
     {
-      "id": 314,
       "code": "CMS",
       "orderIndex": 61,
       "title": "Avicenna Clinic Management System",
@@ -1027,7 +1005,6 @@
       ]
     },
     {
-      "id": 315,
       "code": "CQRE",
       "orderIndex": 60,
       "title": "Avicenna Clinical Quality Rule Engine",
@@ -1089,7 +1066,6 @@
       ]
     },
     {
-      "id": 317,
       "code": "VKBS",
       "orderIndex": 59,
       "title": "Avicenna Case-Mix Information System",
@@ -1159,7 +1135,6 @@
       ]
     },
     {
-      "id": 318,
       "code": "FastEyes",
       "orderIndex": 58,
       "title": "Avicenna FastEyes",
@@ -1201,7 +1176,6 @@
       ]
     },
     {
-      "id": 320,
       "code": "RPMS",
       "orderIndex": 57,
       "title": "Avicenna Remote Patient Management System",
@@ -1254,7 +1228,6 @@
       ]
     },
     {
-      "id": 321,
       "code": "AHBS",
       "orderIndex": 56,
       "title": "Avicenna AHBS",
@@ -1328,7 +1301,6 @@
       ]
     },
     {
-      "id": 322,
       "code": "FonetHBYS",
       "orderIndex": 55,
       "title": "Fonet Hospital Information System",
@@ -1362,7 +1334,6 @@
       ]
     },
     {
-      "id": 323,
       "code": "FonetFW",
       "orderIndex": 54,
       "title": "Fonet Framework",
@@ -1410,7 +1381,6 @@
       ]
     },
     {
-      "id": 324,
       "code": "FonetStudio",
       "orderIndex": 53,
       "title": "Fonet Studio",
@@ -1454,7 +1424,6 @@
       ]
     },
     {
-      "id": 325,
       "code": "FonetLog",
       "orderIndex": 52,
       "title": "Fonet Advanced Log Module",
@@ -1491,7 +1460,6 @@
       ]
     },
     {
-      "id": 326,
       "code": "FonetInventory",
       "orderIndex": 51,
       "title": "Fonet Inventory Modules",
@@ -1546,7 +1514,6 @@
       ]
     },
     {
-      "id": 327,
       "code": "HEP",
       "orderIndex": 50,
       "title": "Halsoft e-Learning Portal",
@@ -1605,7 +1572,6 @@
       ]
     },
     {
-      "id": 328,
       "code": "HalsoftPortal",
       "orderIndex": 49,
       "title": "Halsoft Enterprise Portal",
@@ -1661,7 +1627,6 @@
       ]
     },
     {
-      "id": 329,
       "code": "EDİSA",
       "orderIndex": 48,
       "title": "EDİSA - ELearning Content Authoring Tool",
@@ -1714,7 +1679,6 @@
       ]
     },
     {
-      "id": 330,
       "code": "UNHCR",
       "orderIndex": 47,
       "title": "Official Portal of The UN Refugee Agency Turkey",
@@ -1755,7 +1719,6 @@
       ]
     },
     {
-      "id": 331,
       "code": "CSC",
       "orderIndex": 46,
       "title": "Labris Customer Support Center",
@@ -1788,7 +1751,6 @@
       ]
     },
     {
-      "id": 332,
       "code": "OCMS",
       "orderIndex": 45,
       "title": "Online Course Management System",
@@ -1846,7 +1808,6 @@
       ]
     },
     {
-      "id": 333,
       "code": "OCCM",
       "orderIndex": 44,
       "title": "Online Course Content Manager",
@@ -1882,7 +1843,6 @@
       ]
     },
     {
-      "id": 334,
       "code": "EGM",
       "orderIndex": 43,
       "title": "General Diractorate Of Security / Distance Education Portal",
@@ -1934,7 +1894,6 @@
       ]
     },
     {
-      "id": 401,
       "code": "Ankuzem",
       "orderIndex": 42,
       "title": "Ankara University - Distance Education Center",
@@ -1976,7 +1935,6 @@
       ]
     },
     {
-      "id": 335,
       "code": "DSP",
       "orderIndex": 41,
       "title": "Official Portal of Democratic Left Party",
@@ -2018,7 +1976,6 @@
       ]
     },
     {
-      "id": 336,
       "code": "BotebOnline",
       "orderIndex": 40,
       "title": "BÖTEB Online",
@@ -2059,7 +2016,6 @@
       ]
     },
     {
-      "id": 337,
       "code": "Efsane",
       "orderIndex": 39,
       "title": "Efsane - 3D Educational Game",
@@ -2113,7 +2069,6 @@
       ]
     },
     {
-      "id": 338,
       "code": "358Game",
       "orderIndex": 38,
       "title": "3-5-8 P2P Card Game",
@@ -2157,7 +2112,6 @@
       ]
     },
     {
-      "id": 339,
       "code": "BenKimim",
       "orderIndex": 37,
       "title": "BenKimim - Educational Game",
@@ -2215,7 +2169,6 @@
       ]
     },
     {
-      "id": 340,
       "code": "CilginTosba",
       "orderIndex": 36,
       "title": "Çılgın Tosba - Educational Game",
@@ -2252,7 +2205,6 @@
       ]
     },
     {
-      "id": 341,
       "code": "DarkRoom",
       "orderIndex": 35,
       "title": "DarkRoom - Educational Game",
@@ -2289,7 +2241,6 @@
       ]
     },
     {
-      "id": 342,
       "code": "EgikAtis",
       "orderIndex": 34,
       "title": "Eğik Atış - Educational Game",
@@ -2326,7 +2277,6 @@
       ]
     },
     {
-      "id": 343,
       "code": "KriptoTurkiyede",
       "orderIndex": 33,
       "title": "Kripto Türkiye'de - Educational Game",
@@ -2375,7 +2325,6 @@
       ]
     },
     {
-      "id": 344,
       "code": "EDers",
       "orderIndex": 32,
       "title": "EDers - Online Learning Platform",
@@ -2424,7 +2373,6 @@
       ]
     },
     {
-      "id": 345,
       "code": "METU_ILT",
       "orderIndex": 31,
       "title": "Official Website of METU Communication Club",
@@ -2453,7 +2401,6 @@
       ]
     },
     {
-      "id": 346,
       "code": "XMessenger",
       "orderIndex": 30,
       "title": "XMessenger - P2P Communication Platform",
@@ -2494,7 +2441,6 @@
       ]
     },
     {
-      "id": 347,
       "code": "EditMyTurkish",
       "orderIndex": 29,
       "title": "EditMyTurkish.com",
@@ -2526,7 +2472,6 @@
       ]
     },
     {
-      "id": 348,
       "code": "Eyedder",
       "orderIndex": 28,
       "title": "Official Website of Eyedder",
@@ -2551,7 +2496,6 @@
       ]
     },
     {
-      "id": 349,
       "code": "BiltekOnline",
       "orderIndex": 27,
       "title": "Official Website of BiltekOnline",
@@ -2580,7 +2524,6 @@
       ]
     },
     {
-      "id": 350,
       "code": "BootCamp",
       "orderIndex": 26,
       "title": "Official Website of BootCamp",
@@ -2605,7 +2548,6 @@
       ]
     },
     {
-      "id": 351,
       "code": "Btie2004",
       "orderIndex": 25,
       "title": "Official Website of BTIE 2004",
@@ -2634,7 +2576,6 @@
       ]
     },
     {
-      "id": 369,
       "code": "TeknoparklarZirvesi2004",
       "orderIndex": 24,
       "title": "Official Website of TechnoParks Summit 2004",
@@ -2688,7 +2629,6 @@
       ]
     },
     {
-      "id": 352,
       "code": "DizgiPro",
       "orderIndex": 23,
       "title": "Dizgi Pro - Photo Composition Tool",
@@ -2730,7 +2670,6 @@
       ]
     },
     {
-      "id": 353,
       "code": "EOkullar",
       "orderIndex": 22,
       "title": "E-Okullar - Online Schools Portal",
@@ -2771,7 +2710,6 @@
       ]
     },
     {
-      "id": 354,
       "code": "ProjeNedir",
       "orderIndex": 21,
       "title": "ProjeNedir.com",
@@ -2800,7 +2738,6 @@
       ]
     },
     {
-      "id": 357,
       "code": "JandarmaBYS",
       "orderIndex": 20,
       "title": "Gendarmerie - Document Management System",
@@ -2825,7 +2762,6 @@
       ]
     },
     {
-      "id": 358,
       "code": "JandarmaATS",
       "orderIndex": 19,
       "title": "Gendarmerie Training Command - Student Perforamance Tracking Database",
@@ -2850,7 +2786,6 @@
       ]
     },
     {
-      "id": 360,
       "code": "TursoftStock",
       "orderIndex": 18,
       "title": "Stock Tracking System",
@@ -2887,7 +2822,6 @@
       ]
     },
     {
-      "id": 359,
       "code": "TursoftPaint",
       "orderIndex": 17,
       "title": "Tursoft Paint",
@@ -2912,7 +2846,6 @@
       ]
     },
     {
-      "id": 361,
       "code": "TursoftAnimMaker",
       "orderIndex": 16,
       "title": "Tursoft Animation Maker",
@@ -2937,7 +2870,6 @@
       ]
     },
     {
-      "id": 362,
       "code": "TursoftTetris",
       "orderIndex": 15,
       "title": "Tursoft Tetris",
@@ -2965,7 +2897,6 @@
       ]
     },
     {
-      "id": 363,
       "code": "TursoftPackman",
       "orderIndex": 14,
       "title": "Tursoft Packman",
@@ -2993,7 +2924,6 @@
       ]
     },
     {
-      "id": 364,
       "code": "TursoftQuestionBank",
       "orderIndex": 13,
       "title": "Tursoft QuestionBank",
@@ -3033,7 +2963,6 @@
       ]
     },
     {
-      "id": 365,
       "code": "TursoftWebsiteV1",
       "orderIndex": 12,
       "title": "Tursoft Homepage v1",
@@ -3058,7 +2987,6 @@
       ]
     },
     {
-      "id": 366,
       "code": "KocaeliValilik",
       "orderIndex": 11,
       "title": "Websitesi of Governorship of Kocaeli",
@@ -3095,7 +3023,6 @@
       ]
     },
     {
-      "id": 367,
       "code": "TursoftWebsite2018",
       "orderIndex": 10,
       "title": "Tursoft Website 2018",
@@ -3120,7 +3047,6 @@
       ]
     },
     {
-      "id": 368,
       "code": "DockerMaster",
       "orderIndex": 9,
       "title": "Docker Master",
@@ -3139,7 +3065,6 @@
       }
     },
     {
-      "id": 370,
       "code": "ABI",
       "orderIndex": 8,
       "title": "Avicenna ABI",
@@ -3179,7 +3104,6 @@
       ]
     },
     {
-      "id": 375,
       "code": "TIGVAP",
       "orderIndex": 7,
       "title": "TİG Veri Aktarım Programı (DRG Data Transfer Program)",
@@ -3264,7 +3188,6 @@
       ]
     },
     {
-      "id": 376,
       "code": "MBYS",
       "orderIndex": 6,
       "title": "Avicenna MBYS - Clinic Management System",
@@ -3366,7 +3289,6 @@
       ]
     },
     {
-      "id": 377,
       "code": "ATS",
       "orderIndex": 5,
       "title": "Avicenna Transcription System",
@@ -3418,7 +3340,6 @@
       ]
     },
     {
-      "id": 378,
       "code": "ATHP",
       "orderIndex": 4,
       "title": "Avicenna Telemedicine Health Platform",
@@ -3470,7 +3391,6 @@
       ]
     },
     {
-      "id": 379,
       "code": "IHBS",
       "orderIndex": 3,
       "title": "Integrated Hospital Business System",
@@ -3522,7 +3442,6 @@
       ]
     },
     {
-      "id": 380,
       "code": "SaglikTakipcim",
       "orderIndex": 2,
       "title": "Sağlık Takipçim - Personal Health Tracker",
@@ -3574,7 +3493,6 @@
       ]
     },
     {
-      "id": 381,
       "code": "Frizbi",
       "orderIndex": 1,
       "title": "Frizbi - Interactive Educational Game",
