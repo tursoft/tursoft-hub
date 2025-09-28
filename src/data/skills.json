@@ -4,199 +4,166 @@
     "summary": "I had experience on various tech stacks in my long career.",
     "groups": [
       {
-        "id": 1,
         "code": "Programming Language",
         "title": "Programming Language",
         "orderIndex": 1
       },
       {
-        "id": 2,
         "code": "Framework",
         "title": "Framework",
         "orderIndex": 2
       },
       {
-        "id": 4,
         "code": "Backend",
         "title": "Backend",
         "orderIndex": 3
       },
       {
-        "id": 3,
         "code": "Frontend",
         "title": "Frontend",
         "orderIndex": 4
       },
       {
-        "id": 5,
         "code": "Web",
         "title": "Web",
         "orderIndex": 5
       },
       {
-        "id": 6,
         "code": "ORM",
         "title": "ORM",
         "orderIndex": 6
       },
       {
-        "id": 7,
         "code": "IDE",
         "title": "IDE",
         "orderIndex": 7
       },
       {
-        "id": 8,
         "code": "Database",
         "title": "Database",
         "orderIndex": 8
       },
       {
-        "id": 9,
         "code": "Source Control",
         "title": "Source Control",
         "orderIndex": 9
       },
       {
-        "id": 10,
         "code": "DevOps",
         "title": "DevOps",
         "orderIndex": 10
       },
       {
-        "id": 11,
         "code": "Scheduled Tasks",
         "title": "Scheduled Tasks",
         "orderIndex": 11
       },
       {
-        "id": 12,
         "code": "Dependency Management",
         "title": "Dependency Management",
         "orderIndex": 12
       },
       {
-        "id": 13,
         "code": "Virtualization",
         "title": "Virtualization",
         "orderIndex": 13
       },
       {
-        "id": 14,
         "code": "Graphics Design",
         "title": "Graphics Design",
         "orderIndex": 14
       },
       {
-        "id": 15,
         "code": "File Format",
         "title": "File Format",
         "orderIndex": 15
       },
       {
-        "id": 16,
         "code": "Webservices",
         "title": "Webservices",
         "orderIndex": 16
       },
       {
-        "id": 17,
         "code": "Sniffing Tool",
         "title": "Sniffing Tool",
         "orderIndex": 17
       },
       {
-        "id": 18,
         "code": "Project Management",
         "title": "Project Management",
         "orderIndex": 18
       },
       {
-        "id": 19,
         "code": "Cloud Hosting",
         "title": "Cloud Hosting",
         "orderIndex": 19
       },
       {
-        "id": 20,
         "code": "Web Services",
         "title": "Web Services",
         "orderIndex": 20
       },
       {
-        "id": 21,
         "code": "Scripting",
         "title": "Scripting",
         "orderIndex": 21
       },
       {
-        "id": 22,
         "code": "OS",
         "title": "OS",
         "orderIndex": 22
       },
       {
-        "id": 23,
         "code": "Task Runner",
         "title": "Task Runner",
         "orderIndex": 23
       },
       {
-        "id": 24,
         "code": "3D Modeling Tool",
         "title": "3D Modeling Tool",
         "orderIndex": 24
       },
       {
-        "id": 25,
         "code": "E-Learning Standart",
         "title": "E-Learning Standart",
         "orderIndex": 25
       },
       {
-        "id": 26,
         "code": "Reporting",
         "title": "Reporting",
         "orderIndex": 26
       },
       {
-        "id": 27,
         "code": "Business Intelligence",
         "title": "Business Intelligence",
         "orderIndex": 27
       },
       {
-        "id": 28,
         "code": "Desktop",
         "title": "Desktop",
         "orderIndex": 28
       },
       {
-        "id": 29,
         "code": "E-Commerce",
         "title": "E-Commerce",
         "orderIndex": 29
       },
       {
-        "id": 30,
         "code": "ERP",
         "title": "ERP",
         "orderIndex": 30
       },
       {
-        "id": 31,
         "code": "Gaming Engine",
         "title": "Gaming Engine",
         "orderIndex": 31
       },
       {
-        "id": 32,
         "code": "Design Pattern",
         "title": "Design Pattern",
         "orderIndex": 32
       },
       {
-        "id": 33,
         "code": "Approach",
         "title": "Approach",
         "orderIndex": 33
