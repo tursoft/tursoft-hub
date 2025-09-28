@@ -8,7 +8,7 @@
       "id": 1,
       "code": "andonisphilippidis",
       "title": "Andonis Philippidis",
-      "photoUrl": "assets/references/andonis.philippidis.jpg",
+      "photoUrl": "/assets/references/andonis.philippidis.jpg",
       "company": "Datasel",
       "contacts": [
         {
@@ -37,7 +37,7 @@
       "id": 3,
       "code": "myasarozden",
       "title": "Prof. Dr. M. Yaşar Özden",
-      "photoUrl": "assets/references/myozden.jpg",
+      "photoUrl": "/assets/references/myozden.jpg",
       "company": "Doğu Akdeniz Üniversitesi",
       "contacts": [
         {
@@ -70,7 +70,7 @@
       "id": 4,
       "code": "cetinbalanuye",
       "title": "Çetin Balanuye",
-      "photoUrl": "assets/references/cetin.balanuye.jpg",
+      "photoUrl": "/assets/references/cetin.balanuye.jpg",
       "company": "Akdeniz University",
       "contacts": [
         {
@@ -103,7 +103,7 @@
       "id": 5,
       "code": "kursatcagiltay",
       "title": "Prof. Dr. Kürşat Çağıltay",
-      "photoUrl": "assets/references/kursat.cagiltay.png",
+      "photoUrl": "/assets/references/kursat.cagiltay.png",
       "company": "Middle East Technical University",
       "contacts": [
         {
@@ -136,7 +136,7 @@
       "id": 6,
       "code": "alexanderberler",
       "title": "Alexander Berler",
-      "photoUrl": "assets/references/alexander.berler.jpg",
+      "photoUrl": "/assets/references/alexander.berler.jpg",
       "company": "Gnomon",
       "contacts": [
         {
@@ -157,7 +157,7 @@
       "id": 7,
       "code": "umuthuseyinoglu",
       "title": "Umut Hüseyinoğlu",
-      "photoUrl": "assets/references/umut.huseyinoglu.jpg",
+      "photoUrl": "/assets/references/umut.huseyinoglu.jpg",
       "company": "Hacettepe University",
       "contacts": [
         {
@@ -190,7 +190,7 @@
       "id": 8,
       "code": "gulpembeergin",
       "title": "Gülpembe Ergin",
-      "photoUrl": "assets/references/gulpembe.ergin.jpg",
+      "photoUrl": "/assets/references/gulpembe.ergin.jpg",
       "company": "Ondokuz Mayıs University",
       "contacts": [
         {
@@ -219,7 +219,7 @@
       "id": 9,
       "code": "firatozerden",
       "title": "Fırat Özerden",
-      "photoUrl": "assets/references/firat.ozerden.jpg",
+      "photoUrl": "/assets/references/firat.ozerden.jpg",
       "company": "Mh Handel GmbH",
       "contacts": [
         {
@@ -244,7 +244,7 @@
       "id": 10,
       "code": "johansellstrom",
       "title": "Johan Sellström",
-      "photoUrl": "assets/references/johan.sellstrom.jpg",
+      "photoUrl": "/assets/references/johan.sellstrom.jpg",
       "company": "Infrion",
       "contacts": [
         {
@@ -257,7 +257,7 @@
       "id": 11,
       "code": "aslakfelin",
       "title": "Aslak Felin",
-      "photoUrl": "assets/references/aslak.felin.jpg",
+      "photoUrl": "/assets/references/aslak.felin.jpg",
       "company": "Infrion",
       "contacts": [
         {
@@ -270,7 +270,7 @@
       "id": 12,
       "code": "uweweimer",
       "title": "Uwe Weimer",
-      "photoUrl": "assets/references/uwe.weimer.jpg",
+      "photoUrl": "/assets/references/uwe.weimer.jpg",
       "company": "Medisanté",
       "contacts": [
         {
@@ -283,7 +283,7 @@
       "id": 13,
       "code": "mehmetalpkarabas",
       "title": "Dr. Mehmet Alp Karabas",
-      "photoUrl": "assets/references/mehmet.alp.karabas.jpg",
+      "photoUrl": "/assets/references/mehmet.alp.karabas.jpg",
       "company": "Hylman Group",
       "contacts": [
         {
@@ -296,7 +296,7 @@
       "id": 14,
       "code": "eleftheriapolychronidou",
       "title": "Eleftheria Polychronidou",
-      "photoUrl": "assets/references/eleftheria.polychronidou.jpg",
+      "photoUrl": "/assets/references/eleftheria.polychronidou.jpg",
       "company": "Causaly",
       "contacts": [
         {
@@ -309,7 +309,7 @@
       "id": 15,
       "code": "kostaskarkaletsis",
       "title": "Kostas Karkaletsis",
-      "photoUrl": "assets/references/kostas.karkaletsis.jpg",
+      "photoUrl": "/assets/references/kostas.karkaletsis.jpg",
       "company": "Gnomon Informatics SA",
       "contacts": [
         {
@@ -322,7 +322,7 @@
       "id": 16,
       "code": "velibicer",
       "title": "Veli Bicer",
-      "photoUrl": "assets/references/veli.bicer.jpg",
+      "photoUrl": "/assets/references/veli.bicer.jpg",
       "company": "A5 Labs",
       "contacts": [
         {
@@ -335,7 +335,7 @@
       "id": 17,
       "code": "erol-ozcelik",
       "title": "Erol Ozcelik",
-      "photoUrl": "assets/references/erol.ozcelik.jpg",
+      "photoUrl": "/assets/references/erol.ozcelik.jpg",
       "company": "University Faculty",
       "contacts": [
         {
@@ -348,7 +348,7 @@
       "id": 18,
       "code": "mesutdemirer",
       "title": "Mesut Demirer",
-      "photoUrl": "assets/references/mesut.demirer.jpg",
+      "photoUrl": "/assets/references/mesut.demirer.jpg",
       "company": "Infera Teknoloji ve Bilişim Hizmetleri A.Ş.",
       "contacts": [
         {
@@ -361,7 +361,7 @@
       "id": 19,
       "code": "davutgurbuz",
       "title": "Davut Gürbüz",
-      "photoUrl": "assets/references/davut.gurbuz.jpg",
+      "photoUrl": "/assets/references/davut.gurbuz.jpg",
       "company": "Cloud Solutions",
       "contacts": [
         {

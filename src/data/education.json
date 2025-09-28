@@ -10,7 +10,6 @@
       "code": "METU3",
       "companyCode": "METU.II",
       "orderIndex": 15,
-      
       "department": "Department of Software Management",
       "summary": "One-year postgraduate program in Software Management emphasizing project management, software estimation, cost/time management and applied PMP practices through coursework and project work.",
       "level": "Graduate School",
@@ -43,7 +42,6 @@
       "code": "METU2",
       "companyCode": "METU.CEIT",
       "orderIndex": 14,
-      
       "department": "Computer Education and Instructional Technologies Department",
       "summary": "Graduate studies focused on instructional design, multimedia information systems and educational technologies, combining theory and hands-on software development and multimedia coursework.",
       "level": "Graduate School",
@@ -108,7 +106,6 @@
       "code": "METU1",
       "companyCode": "METU.CEIT",
       "orderIndex": 13,
-      
       "department": "Computer Education and Instructional Technologies Department",
       "summary": "Undergraduate degree covering programming (Pascal, C, C++, Java), web and database technologies, networking and several applied projects including 3D educational game development.",
       "level": "Undergraduate School",
@@ -208,7 +205,6 @@
       "code": "KTL",
       "companyCode": "KTL",
       "orderIndex": 12,
-      
       "department": "Computer Programming Branch",
       "summary": "Technical high school program with a strong focus on practical programming, operating systems and software tools; provided solid foundational skills for further studies in computing.",
       "level": "High School",
@@ -249,7 +245,6 @@
       "code": "ATL",
       "companyCode": "ATL",
       "orderIndex": 12,
-      
       "department": "Computer Programming Branch",
       "summary": "Vocational high school curriculum emphasizing core programming concepts and hands-on labs that reinforced practical coding and problem-solving skills.",
       "level": "High School",
