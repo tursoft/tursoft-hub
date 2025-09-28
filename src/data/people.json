@@ -332,7 +332,7 @@
       ]
     },
     {
-      "code": "erol-ozcelik",
+      "code": "erolozcelik",
       "orderIndex": 45,
       "title": "Erol Ozcelik",
       "photoUrl": "/assets/references/erol.ozcelik.jpg",
@@ -680,14 +680,6 @@
       "title": "Emre Usta",
       "photoUrl": null,
       "company": "Tursoft",
-      "contacts": []
-    },
-    {
-      "code": "cetinbalanuye",
-      "orderIndex": 3,
-      "title": "Çetin Balanüye",
-      "photoUrl": null,
-      "company": "Halıcı",
       "contacts": []
     },
     {
