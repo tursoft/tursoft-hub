@@ -696,6 +696,20 @@
         "lat": 40.7654,
         "lng": 29.9385
       }
+    },
+    {
+      "code": "MILLIYET.BILISIM",
+      "orderIndex": 1,
+      "title": "Milliyet Bilişim",
+      "photoUrl": "/assets/companies/milliyet.logo.png",
+      "city": "Istanbul",
+      "country": "Turkey",
+      "websiteUrl": "http://milliyet.com.tr/",
+      "linkedinUrl": null,
+      "coordinates": {
+        "lat": 41.0606776,
+        "lng": 28.8438003
+      }
     }
   ]
 }

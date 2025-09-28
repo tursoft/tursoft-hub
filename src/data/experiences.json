@@ -664,30 +664,6 @@
       ]
     },
     {
-      "orderIndex": 8,
-      "companyCode": "METU.II",
-      "positions": [
-        {
-          "orderIndex": 1,
-          "title": "Web Developer & Designer",
-          "startDate": "01.10.2001",
-          "endDate": "01.06.2003",
-          "summary": "I have worked on development of an E-Learning System",
-          "domainCodes": [
-            "elearning"
-          ],
-          "skillCodes": [
-            "PHP",
-            "MySQL",
-            "HTML5",
-            "JS",
-            "CSS",
-            "Photoshop"
-          ]
-        }
-      ]
-    },
-    {
       "orderIndex": 7,
       "companyCode": "LABRIS",
       "positions": [
@@ -740,28 +716,20 @@
     },
     {
       "orderIndex": 5,
-      "companyCode": "METU.COM",
+      "companyCode": "MILLIYET.BILISIM",
       "positions": [
         {
           "orderIndex": 1,
-          "title": "Web Developer & Designer",
-          "startDate": "01.01.2002",
-          "endDate": "01.01.2003",
-          "summary": "I have developed a Web-portal of this student Club",
-          "domainCodes": [
-            "elearning"
-          ],
-          "skillCodes": [
-            "PHP",
-            "MySQL",
-            "HTML5",
-            "JS",
-            "CSS",
-            "Photoshop"
-          ]
+          "title": "Technology Editor",
+          "startDate": "01.02.2005",
+          "endDate": "01.06.2005",
+          "summary": "I have wroked as technology editor on popular media portal",
+          "domainCodes": [],
+          "skillCodes": []
         }
       ]
-    },
+    },    
+
     {
       "orderIndex": 4,
       "companyCode": "NETTEYIM",
