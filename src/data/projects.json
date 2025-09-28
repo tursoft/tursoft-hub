@@ -6,56 +6,56 @@
       {
         "code": "RD",
         "title": "Research",
-        "value": 100,
-        "iconCss": ""
+        "iconCss": "",
+        "orderIndex": 9
       },
       {
         "code": "Framework",
         "title": "Framework",
-        "value": 100,
-        "iconCss": ""
+        "iconCss": "",
+        "orderIndex": 8
       },
       {
         "code": "HIS",
         "title": "HIS",
-        "value": 100,
-        "iconCss": ""
+        "iconCss": "",
+        "orderIndex": 7
       },
       {
         "code": "Telemedicine",
         "title": "Telemedicine",
-        "value": 100,
-        "iconCss": ""
+        "iconCss": "",
+        "orderIndex": 6
       },
       {
         "code": "LMS",
         "title": "LMS",
-        "value": 100,
-        "iconCss": ""
+        "iconCss": "",
+        "orderIndex": 5
       },
       {
         "code": "Social Responsibility",
         "title": "Social Responsibility",
-        "value": 100,
-        "iconCss": ""
+        "iconCss": "",
+        "orderIndex": 4
       },
       {
         "code": "PM",
         "title": "Project Management",
-        "value": 100,
-        "iconCss": ""
+        "iconCss": "",
+        "orderIndex": 3
       },
       {
         "code": "Game",
         "title": "Game",
-        "value": 100,
-        "iconCss": ""
+        "iconCss": "",
+        "orderIndex": 2
       },
       {
         "code": "Misc",
         "title": "Misc",
-        "value": 100,
-        "iconCss": ""
+        "iconCss": "",
+        "orderIndex": 1
       }
     ]
   },
