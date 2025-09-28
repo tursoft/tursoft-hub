@@ -5,8 +5,8 @@
   },
   "items": [
     {
-      "code": "METU3",
-      "orderIndex": 15,
+      "code": "METU3.SM",
+      "orderIndex": 5,
       "companyCode": "METU.II",
       "department": "Department of Software Management",
       "summary": "One-year postgraduate program in Software Management emphasizing project management, software estimation, cost/time management and applied PMP practices through coursework and project work.",
@@ -34,8 +34,8 @@
       ]
     },
     {
-      "code": "METU2",
-      "orderIndex": 14,
+      "code": "METU2.CEIT.MASTER",
+      "orderIndex": 4,
       "companyCode": "METU.CEIT",
       "department": "Computer Education and Instructional Technologies Department",
       "summary": "Graduate studies focused on instructional design, multimedia information systems and educational technologies, combining theory and hands-on software development and multimedia coursework.",
@@ -95,8 +95,8 @@
       ]
     },
     {
-      "code": "METU1",
-      "orderIndex": 13,
+      "code": "METU1.CEIT.GRADUATE",
+      "orderIndex": 3,
       "companyCode": "METU.CEIT",
       "department": "Computer Education and Instructional Technologies Department",
       "summary": "Undergraduate degree covering programming (Pascal, C, C++, Java), web and database technologies, networking and several applied projects including 3D educational game development.",
@@ -192,7 +192,7 @@
     },
     {
       "code": "KTL",
-      "orderIndex": 12,
+      "orderIndex": 2,
       "companyCode": "KTL",
       "department": "Computer Programming Branch",
       "summary": "Technical high school program with a strong focus on practical programming, operating systems and software tools; provided solid foundational skills for further studies in computing.",
@@ -229,7 +229,7 @@
     },
     {
       "code": "ATL",
-      "orderIndex": 12,
+      "orderIndex": 1,
       "companyCode": "ATL",
       "department": "Computer Programming Branch",
       "summary": "Vocational high school curriculum emphasizing core programming concepts and hands-on labs that reinforced practical coding and problem-solving skills.",
