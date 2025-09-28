@@ -1,7 +1,10 @@
 import { IBaseModelAdvanced } from "./base/IBaseModelAdvanced";
 
-export interface Domain extends IBaseModelAdvanced {
-  id: number;
+export interface Domain {
+  code: string;
+  orderIndex?: number;
+  title?: string;
+  photoUrl?: string;
   value?: number;
 }
 

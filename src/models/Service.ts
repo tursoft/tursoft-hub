@@ -1,9 +1,10 @@
 export interface ServiceItem {
-  name: string;
+  code: string;
+  orderIndex?: number;
   title?: string;
-  value?: number;
-  iconCss?: string;
+  photoUrl?: string;
   summary?: string;
+  value?: number;
 }
 
 export interface ServicesData {

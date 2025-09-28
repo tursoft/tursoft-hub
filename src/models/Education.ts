@@ -6,11 +6,6 @@ export interface Course {
   content: string;
 }
 
-export interface EducationTechnology {
-  name: string;
-  type: string;
-}
-
 export interface DatePeriod {
   startDate: string;
   endDate: string;
@@ -18,24 +13,15 @@ export interface DatePeriod {
 
 export interface Education extends IBaseModel {
   companyCode: string;
-  url?: string;
-  // Optional runtime fields used by UI components
-  id?: number;
-  name?: string;
-  icon?: string;
   department: string;
   summary?: string;
   level: string;
   period: string;
   datePeriod: DatePeriod;
-  city: string;
   graduateDate: string;
   graduateScore: string;
   courses?: Course[];
-  technologies?: EducationTechnology[];
-  uid: string;
-  coordinates: { lat: number; lng: number };
-  country: string;
+  skillCodes?: string[];
 }
 
 export interface EducationData {
