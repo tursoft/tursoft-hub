@@ -621,5 +621,32 @@
         "lng": 32.8597
       }
     }
+    ,
+    {
+      "code": "KTL",
+      "title": "Kocaeli Technical High School",
+      "photoUrl": "/assets/companies/ktl.logo.png",
+      "city": "Kocaeli",
+      "country": "Turkey",
+      "websiteUrl": "http://izmiteml.meb.k12.tr/",
+      "linkedinUrl": null,
+      "coordinates": {
+        "lat": 40.7654,
+        "lng": 29.9385
+      }
+    },
+    {
+      "code": "ATL",
+      "title": "Atatürk Mesleki ve Teknik Anadolu Lisesi",
+      "photoUrl": "/assets/companies/atl.logo.png",
+      "city": "Kocaeli",
+      "country": "Turkey",
+      "websiteUrl": "http://ataturkmtal.meb.k12.tr/",
+      "linkedinUrl": null,
+      "coordinates": {
+        "lat": 40.7654,
+        "lng": 29.9385
+      }
+    }
   ]
 }
