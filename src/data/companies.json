@@ -3,7 +3,7 @@
     {
       "code": "infrion",
       "title": "Infrion",
-      "photoUrl": "/assets/logos/companies/infrion.png",
+      "photoUrl": "/assets/companies/infrion.logo.png",
       "city": "New York",
       "country": "United States",
       "websiteUrl": "https://www.infrion.com",
@@ -16,7 +16,7 @@
     {
       "code": "jengai",
       "title": "Jengai",
-      "photoUrl": "/assets/logos/companies/jengai.png",
+      "photoUrl": "/assets/projects/_logos/companies/jengai.png",
       "city": "New York",
       "country": "United States",
       "websiteUrl": "https://www.jengai.com",
@@ -29,7 +29,7 @@
     {
       "code": "gamyte",
       "title": "Gamyte",
-      "photoUrl": "/assets/logos/companies/gamyte.png",
+      "photoUrl": "/assets/projects/_logos/companies/gamyte.png",
       "city": "New York",
       "country": "United States",
       "websiteUrl": "https://www.jengai.com",
@@ -42,7 +42,7 @@
     {
       "code": "ERC",
       "title": "ERC Group Engineering, Consultancy, R&D",
-      "photoUrl": "/assets/logos/companies/erc.png",
+      "photoUrl": "/assets/companies/erc.logo.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": "https://www.ercgroup.com.tr",
@@ -55,7 +55,7 @@
     {
       "code": "DATASEL",
       "title": "DataSel Information Systems Co.",
-      "photoUrl": "/assets/logos/companies/datasel.png",
+      "photoUrl": "/assets/companies/datasel.logo.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": "https://www.datasel.com.tr",
@@ -68,7 +68,7 @@
     {
       "code": "FONET",
       "title": "Fonet Software Co.",
-      "photoUrl": "/assets/logos/companies/fonet.png",
+      "photoUrl": "/assets/projects/_logos/companies/fonet.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": "https://www.fonet.com.tr",
@@ -81,7 +81,7 @@
     {
       "code": "JANDARMA",
       "title": "Gendarmerie Training Command",
-      "photoUrl": "/assets/logos/companies/jandarma.egitim.png",
+      "photoUrl": "/assets/companies/jandarma.egitim.logo.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": "https://www.jandarma.gov.tr",
@@ -94,7 +94,7 @@
     {
       "code": "HALICI",
       "title": "Halici Informatics & Software Co.",
-      "photoUrl": "/assets/logos/companies/halici.png",
+      "photoUrl": "/assets/companies/halici.logo.png",
       "city": "Istanbul",
       "country": "Turkey",
       "websiteUrl": "https://www.halici.com.tr",
@@ -107,7 +107,7 @@
     {
       "code": "METU.CEIT",
       "title": "METU Computer Education and Instructional Tech. Dep.",
-      "photoUrl": "/assets/logos/companies/metu.png",
+      "photoUrl": "/assets/companies/metu.ceit.logo.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": "https://www.metu.edu.tr",
@@ -120,7 +120,7 @@
     {
       "code": "METU.II",
       "title": "METU Informatics Institute",
-      "photoUrl": "/assets/logos/companies/metu.png",
+      "photoUrl": "/assets/companies/metu.ii.logo.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": "https://www.metu.edu.tr",
@@ -133,7 +133,7 @@
     {
       "code": "LABRIS",
       "title": "Labris Technology",
-      "photoUrl": "/assets/logos/companies/labris.png",
+      "photoUrl": "/assets/companies/labris.logo.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": "https://www.labris.com.tr",
@@ -146,7 +146,7 @@
     {
       "code": "METU.IEEE",
       "title": "IEEE METU Student Club",
-      "photoUrl": "/assets/logos/companies/metu.png",
+      "photoUrl": "/assets/companies/metu.ieee.logo.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": "https://ieee.metu.edu.tr",
@@ -172,7 +172,7 @@
     {
       "code": "NETTEYIM",
       "title": "Netteyim.net",
-      "photoUrl": "/assets/logos/companies/netteyim.png",
+      "photoUrl": "/assets/companies/netteyim.logo.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": "https://www.netteyim.net",
@@ -185,7 +185,7 @@
     {
       "code": "TBD.GENC",
       "title": "Informatics Association of Turkey / Youth Branch",
-      "photoUrl": "/assets/logos/companies/tbd.genc.png",
+      "photoUrl": "/assets/companies/tbd.genc.logo.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": "https://www.tbd.org.tr",
@@ -198,7 +198,7 @@
     {
       "code": "CEIT",
       "title": "CEIT / METU",
-      "photoUrl": "/assets/logos/companies/ceit.png",
+      "photoUrl": "/assets/companies/metu.ceit.logo.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": "https://www.metu.edu.tr",
@@ -211,7 +211,7 @@
     {
       "code": "Halici",
       "title": "Halici Informatics & Software Co.",
-      "photoUrl": "/assets/logos/companies/halici.png",
+      "photoUrl": "/assets/companies/halici.logo.png",
       "city": "Istanbul",
       "country": "Turkey",
       "websiteUrl": "https://www.halici.com.tr",
@@ -224,7 +224,7 @@
     {
       "code": "Tursoft",
       "title": "Tursoft",
-      "photoUrl": "/assets/logos/companies/tursoft.png",
+      "photoUrl": "/assets/projects/GrafikTasarimDenemelerim/screenshoots/small/tursoft.jpg",
       "city": null,
       "country": null,
       "websiteUrl": null,
@@ -247,7 +247,7 @@
     {
       "code": "MOI.KSA",
       "title": "KSA Ministry of Interior",
-      "photoUrl": "/assets/files/customers/moi-ksa/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Riyadh",
       "country": "Saudi Arabia",
       "websiteUrl": null,
@@ -273,7 +273,7 @@
     {
       "code": "TTNET",
       "title": "Türk Telekom - TTNET",
-      "photoUrl": "/assets/files/customers/tr_turktelekom/logo/turktelekom.jpg",
+      "photoUrl": "/assets/projects/_logos/partners/ttnet.png",
       "city": "Istanbul",
       "country": "Turkey",
       "websiteUrl": null,
@@ -286,7 +286,7 @@
     {
       "code": "ECZACIBASI",
       "title": "Eczacıbaşı Sağlık Hizmetleri",
-      "photoUrl": "/assets/files/customers/tr_eczacibasi/eczacibasi_saglik.jpg",
+      "photoUrl": "/assets/companies/eczacibasi.logo.jpg",
       "city": "Istanbul",
       "country": "Turkey",
       "websiteUrl": null,
@@ -299,7 +299,7 @@
     {
       "code": "Avea",
       "title": "Türk Telekom - Avea",
-      "photoUrl": "/assets/files/customers/tr_avea/logo/avea.png",
+      "photoUrl": "/assets/companies/avea.logo.png",
       "city": "Istanbul",
       "country": "Turkey",
       "websiteUrl": null,
@@ -351,7 +351,7 @@
     {
       "code": "UCELL.UZ",
       "title": "Ucell - Uzbekistan Telecommunications",
-      "photoUrl": "/assets/files/customers/uz_ucell/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Tashkent",
       "country": "Uzbekistan",
       "websiteUrl": null,
@@ -377,7 +377,7 @@
     {
       "code": "AXIS.INT",
       "title": "Axis Interior Systems - Cincinnati, OH",
-      "photoUrl": "/assets/files/customers/axis-interior-systems/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Cincinnati",
       "country": "United States",
       "websiteUrl": null,
@@ -390,7 +390,7 @@
     {
       "code": "SSG.NY",
       "title": "Silver Slate Group - New York, NY",
-      "photoUrl": "/assets/files/customers/silver-slate-group/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "New York",
       "country": "United States",
       "websiteUrl": null,
@@ -403,7 +403,7 @@
     {
       "code": "PRO.UNITED",
       "title": "Pro-United Inc - New Hampshire",
-      "photoUrl": "/assets/files/customers/pro-united-inc/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "New Hampshire",
       "country": "United States",
       "websiteUrl": null,
@@ -416,7 +416,7 @@
     {
       "code": "TRANSYL.FL",
       "title": "Transylvania Flooring Professionals",
-      "photoUrl": "/assets/files/customers/transylvania-flooring-professionals/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Pennsylvania",
       "country": "United States",
       "websiteUrl": null,
@@ -429,7 +429,7 @@
     {
       "code": "BONITZ",
       "title": "Bonitz Flooring Contractor",
-      "photoUrl": "/assets/files/customers/bonitz/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Atlanta",
       "country": "United States",
       "websiteUrl": null,
@@ -442,7 +442,7 @@
     {
       "code": "DMA.FLOORS",
       "title": "DMA Floors",
-      "photoUrl": "/assets/files/customers/dma-floors/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Philadelphia",
       "country": "United States",
       "websiteUrl": null,
@@ -455,7 +455,7 @@
     {
       "code": "SERGENIANS",
       "title": "Sergenian's Flooring",
-      "photoUrl": "/assets/files/customers/sergenians/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Boston",
       "country": "United States",
       "websiteUrl": null,
@@ -468,7 +468,7 @@
     {
       "code": "GARMON",
       "title": "Garmon Flooring",
-      "photoUrl": "/assets/files/customers/garmon/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Phoenix",
       "country": "United States",
       "websiteUrl": null,
@@ -481,7 +481,7 @@
     {
       "code": "MF.HIGGINS",
       "title": "MF Higgins Flooring",
-      "photoUrl": "/assets/files/customers/mf-higgins/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Seattle",
       "country": "United States",
       "websiteUrl": null,
@@ -494,7 +494,7 @@
     {
       "code": "GOMEZ.FC",
       "title": "Gomez Floor Covering",
-      "photoUrl": "/assets/files/customers/gomez-floor-covering/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Dallas",
       "country": "United States",
       "websiteUrl": null,
@@ -507,7 +507,7 @@
     {
       "code": "DESOTO",
       "title": "Desoto Flooring",
-      "photoUrl": "/assets/files/customers/desoto/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Atlanta",
       "country": "United States",
       "websiteUrl": null,
@@ -520,7 +520,7 @@
     {
       "code": "PROFLOORS",
       "title": "ProFloors, LLC",
-      "photoUrl": "/assets/files/customers/profloors-llc/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Los Angeles",
       "country": "United States",
       "websiteUrl": null,
@@ -533,7 +533,7 @@
     {
       "code": "ROUSE.CO",
       "title": "The Rouse Company",
-      "photoUrl": "/assets/files/customers/the-rouse-company/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "New York",
       "country": "United States",
       "websiteUrl": null,
@@ -546,7 +546,7 @@
     {
       "code": "SHAFAFIYA.UAE",
       "title": "Shafafiya - Department of Health - Abu Dhabi",
-      "photoUrl": "/assets/files/customers/shafafiya/logo.png",
+      "photoUrl": "/assets/projects/SCPR/logos/logo.png",
       "city": "Abu Dhabi",
       "country": "United Arab Emirates",
       "websiteUrl": null,
@@ -559,7 +559,7 @@
     {
       "code": "EGM.TR",
       "title": "Directorate General of Security - Ministry of Interior",
-      "photoUrl": "/assets/files/customers/egm/egm.png",
+      "photoUrl": "/assets/projects/_logos/EGM.png",
       "city": "Ankara",
       "country": "Turkey",
       "websiteUrl": null,
