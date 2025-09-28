@@ -1,7 +1,7 @@
 {
   "items": [
     {
-      "code": "infrion",
+      "code": "INFRION",
       "orderIndex": 3,
       "title": "Infrion",
       "photoUrl": "/assets/companies/infrion.logo.png",
@@ -15,7 +15,7 @@
       }
     },
     {
-      "code": "jengai",
+      "code": "JENGAI",
       "orderIndex": 1,
       "title": "Jengai",
       "photoUrl": "/assets/companies/jengai.logo.png",
@@ -29,7 +29,7 @@
       }
     },
     {
-      "code": "gamyte",
+      "code": "GAMYTE",
       "orderIndex": 2,
       "title": "Gamyte",
       "photoUrl": "/assets/companies/gamyte.logo.png",
