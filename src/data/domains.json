@@ -4,50 +4,43 @@
       "code": "constructionit",
       "orderIndex": 1,
       "title": "Construction",
-      "photoUrl": "/assets/domains/construction.png",
-      "value": 100
+      "photoUrl": "/assets/domains/construction.png"
     },
     {
       "code": "healthcareit",
       "orderIndex": 2,
       "title": "Healthcare Informatics",
-      "photoUrl": "/assets/domains/healthcareit.png",
-      "value": 100
+      "photoUrl": "/assets/domains/healthcareit.png"
     },
     {
       "code": "elearning",
       "orderIndex": 3,
       "title": "E-Learning",
-      "photoUrl": "/assets/domains/elearning.png",
-      "value": 100
+      "photoUrl": "/assets/domains/elearning.png"
     },
     {
       "code": "ecommerce",
       "orderIndex": 4,
       "title": "E-Commerce",
-      "photoUrl": "/assets/domains/ecommerce.png",
-      "value": 100
+      "photoUrl": "/assets/domains/ecommerce.png"
     },
     {
       "code": "cms",
       "orderIndex": 5,
       "title": "Content Management Systems",
-      "photoUrl": "/assets/domains/cms.png",
-      "value": 100
+      "photoUrl": "/assets/domains/cms.png"
     },
     {
       "code": "gaming",
       "orderIndex": 6,
       "title": "Game Development",
-      "photoUrl": "/assets/domains/gaming.png",
-      "value": 100
+      "photoUrl": "/assets/domains/gaming.png"
     },
     {
       "code": "videostreaming",
       "orderIndex": 7,
       "title": "Video Streaming",
-      "photoUrl": "/assets/domains/video.png",
-      "value": 100
+      "photoUrl": "/assets/domains/video.png"
     }
   ]
 }
