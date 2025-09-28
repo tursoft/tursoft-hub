@@ -3,29 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, GraduationCap, ShoppingCart, Play, FileText, Gamepad2 } from "lucide-react";
 
-// Define interface for domain data
-interface Domain {
-  id: number;
-  name: string;
-  title: string;
-  value: number;
-  iconCss: string;
-}
-
-interface DomainsData {
-  items: Domain[];
-}
-
-// Icon mapping
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Heart,
-  GraduationCap,
-  ShoppingCart,
-  Play,
-  FileText,
-  Gamepad2,
-};
-
 const DomainsSection = () => {
   const [domainsData, setDomainsData] = useState<DomainsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
