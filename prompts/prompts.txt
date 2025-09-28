@@ -1,0 +1,7 @@
+output bulleted list of code fields of items in projects.json. 
+order the list by orderIndex field ascending.
+save list to projects.codes.txt next to json file
+
+read list of projects.codes.txt next to json file and order items in projects.json based on order of codes in codes file.
+also set orderIndex correspondingly.
+
