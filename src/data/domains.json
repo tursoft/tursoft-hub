@@ -4,63 +4,56 @@
       "id": 1,
       "code": "healthcareit",
       "title": "Healthcare Informatics",
-      "photoUrl": "Heart",
+      "photoUrl": "/assets/domains/healthcareit.png",
       "value": 100
     },
     {
       "id": 2,
       "code": "elearning",
       "title": "E-Learning",
-      "photoUrl": "GraduationCap",
+      "photoUrl": "/assets/domains/elearning.png",
       "value": 100
     },
     {
       "id": 3,
       "code": "ecommerce",
       "title": "E-Commerce",
-      "photoUrl": "ShoppingCart",
+      "photoUrl": "/assets/domains/ecommerce.png",
       "value": 100
     },
     {
       "id": 4,
       "code": "video",
       "title": "Video Streaming",
-      "photoUrl": "Play",
+      "photoUrl": "/assets/domains/video.png",
       "value": 100
     },
     {
       "id": 5,
       "code": "cms",
       "title": "Content Management Systems",
-      "photoUrl": "FileText",
+      "photoUrl": "/assets/domains/cms.png",
       "value": 100
     },
     {
       "id": 6,
       "code": "gaming",
       "title": "Game Development",
-      "photoUrl": "Gamepad2",
-      "value": 100
-    },
-    {
-      "id": 7,
-      "code": "certifications",
-      "title": "Digital Certifications",
-      "photoUrl": "Certificate",
+      "photoUrl": "/assets/domains/gaming.png",
       "value": 100
     },
     {
       "id": 8,
       "code": "shopping",
       "title": "Shopping",
-      "photoUrl": "ShoppingBag",
+      "photoUrl": "/assets/domains/shopping.png",
       "value": 100
     },
     {
       "id": 9,
       "code": "construction",
       "title": "Construction",
-      "photoUrl": "Building",
+      "photoUrl": "/assets/domains/construction.png",
       "value": 100
     }
   ]
