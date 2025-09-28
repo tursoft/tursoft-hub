@@ -11,7 +11,7 @@
       "companyCode": "infrion",
       "positions": [
         {
-          "id": 2150,
+          "orderIndex": 1,
           "title": "Senior Software Architect",
           "startDate": "01.01.2018",
           "endDate": "30.07.2019",
@@ -51,7 +51,7 @@
       "companyCode": "jengai",
       "positions": [
         {
-          "id": 2020,
+          "orderIndex": 1,
           "title": "Director of Technology & Senior Software Architect",
           "startDate": "01.12.2023",
           "endDate": null,
@@ -98,7 +98,7 @@
       "companyCode": "gamyte",
       "positions": [
         {
-          "id": 2019,
+          "orderIndex": 1,
           "title": "Director of Technology & Senior Software Architect",
           "startDate": "04.09.2019",
           "endDate": "01.12.2023",
@@ -145,7 +145,7 @@
       "companyCode": "ERC",
       "positions": [
         {
-          "id": 2011,
+          "orderIndex": 1,
           "title": "Senior Software Architect and Group Leader",
           "startDate": "20.05.2013",
           "endDate": "03.09.2019",
@@ -254,7 +254,7 @@
       "companyCode": "DATASEL",
       "positions": [
         {
-          "id": 2021,
+          "orderIndex": 1,
           "title": "Senior Software Architect and Group Leader",
           "startDate": "01.01.2012",
           "endDate": "20.05.2013",
@@ -334,7 +334,7 @@
           ]
         },
         {
-          "id": 2022,
+          "orderIndex": 2,
           "title": "Senior Software Developer",
           "startDate": "16.08.2011",
           "endDate": "01.01.2012",
@@ -383,7 +383,7 @@
       "companyCode": "FONET",
       "positions": [
         {
-          "id": 2031,
+          "orderIndex": 1,
           "title": "Research & Development Director",
           "startDate": "01.01.2010",
           "endDate": "13.08.2011",
@@ -419,7 +419,7 @@
           ]
         },
         {
-          "id": 2032,
+          "orderIndex": 2,
           "title": "Software Team Leader",
           "startDate": "16.09.2009",
           "endDate": "01.01.2010",
@@ -461,7 +461,7 @@
       "companyCode": "JANDARMA",
       "positions": [
         {
-          "id": 2131,
+          "orderIndex": 1,
           "title": "Lieutenant",
           "startDate": "15.09.2008",
           "endDate": "15.09.2009",
@@ -483,7 +483,7 @@
       "companyCode": "HALICI",
       "positions": [
         {
-          "id": 2041,
+          "orderIndex": 1,
           "title": "Software Production and Planning Director",
           "startDate": "01.01.2007",
           "endDate": "01.09.2008",
@@ -516,7 +516,7 @@
           ]
         },
         {
-          "id": 2042,
+          "orderIndex": 2,
           "title": "Project Manager and System Analyst",
           "startDate": "01.01.2005",
           "endDate": "01.01.2007",
@@ -551,7 +551,7 @@
           ]
         },
         {
-          "id": 2043,
+          "orderIndex": 3,
           "title": ".NET Application Developer",
           "startDate": "01.01.2004",
           "endDate": "01.01.2005",
@@ -590,7 +590,7 @@
       "companyCode": "METU.CEIT",
       "positions": [
         {
-          "id": 2051,
+          "orderIndex": 1,
           "title": "Web Programmer and Designer",
           "startDate": "01.09.2003",
           "endDate": "01.06.2004",
@@ -624,7 +624,7 @@
       "companyCode": "METU.II",
       "positions": [
         {
-          "id": 2061,
+          "orderIndex": 1,
           "title": "Software Developer",
           "startDate": "01.05.2003",
           "endDate": "01.08.2004",
@@ -643,7 +643,7 @@
           ]
         },
         {
-          "id": 2062,
+          "orderIndex": 2,
           "title": "Web Developer & Designer",
           "startDate": "01.01.2002",
           "endDate": "01.01.2003",
@@ -668,7 +668,7 @@
       "companyCode": "METU.II",
       "positions": [
         {
-          "id": 2071,
+          "orderIndex": 1,
           "title": "Web Developer & Designer",
           "startDate": "01.10.2001",
           "endDate": "01.06.2003",
@@ -692,7 +692,7 @@
       "companyCode": "LABRIS",
       "positions": [
         {
-          "id": 2081,
+          "orderIndex": 1,
           "title": "Web Developer & Designer",
           "startDate": "01.01.2003",
           "endDate": "01.01.2004",
@@ -719,7 +719,7 @@
       "companyCode": "METU.IEEE",
       "positions": [
         {
-          "id": 2091,
+          "orderIndex": 1,
           "title": "Chief of Web Team",
           "startDate": "01.10.2001",
           "endDate": "01.07.2002",
@@ -743,7 +743,7 @@
       "companyCode": "METU.COM",
       "positions": [
         {
-          "id": 2101,
+          "orderIndex": 1,
           "title": "Web Developer & Designer",
           "startDate": "01.01.2002",
           "endDate": "01.01.2003",
@@ -767,7 +767,7 @@
       "companyCode": "NETTEYIM",
       "positions": [
         {
-          "id": 2111,
+          "orderIndex": 1,
           "title": "Webmaster",
           "startDate": "01.06.2000",
           "endDate": "01.09.2002",
@@ -791,7 +791,7 @@
       "companyCode": "TBD.GENC",
       "positions": [
         {
-          "id": 2121,
+          "orderIndex": 1,
           "title": "Webmaster",
           "startDate": "01.05.2000",
           "endDate": "01.05.2001",
