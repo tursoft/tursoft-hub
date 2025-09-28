@@ -207,9 +207,9 @@
     {
       "id": 1,
       "code": ".NET",
+      "orderIndex": 1,
       "title": ".NET",
       "photoUrl": "/assets/skills/net.png",
-      "orderIndex": 1,
       "group": "Framework",
       "value": 0,
       "projects": 35,
@@ -219,9 +219,9 @@
     {
       "id": 2,
       "code": ".NETCore",
+      "orderIndex": 1,
       "title": ".NETCore",
       "photoUrl": "/assets/skills/netcore.png",
-      "orderIndex": 1,
       "group": "Framework",
       "value": 0,
       "projects": 15,
@@ -231,9 +231,9 @@
     {
       "id": 3,
       "code": "Java",
+      "orderIndex": 2,
       "title": "Java",
       "photoUrl": "/assets/skills/java.png",
-      "orderIndex": 2,
       "group": "Programming Language",
       "value": 0,
       "projects": 18,
@@ -243,9 +243,9 @@
     {
       "id": 4,
       "code": "C#",
+      "orderIndex": 3,
       "title": "C#",
       "photoUrl": "/assets/skills/csharp.png",
-      "orderIndex": 3,
       "group": "Programming Language",
       "value": 0,
       "projects": 35,
@@ -255,9 +255,9 @@
     {
       "id": 5,
       "code": "Typescript",
+      "orderIndex": 4,
       "title": "Typescript",
       "photoUrl": "/assets/skills/typescript.png",
-      "orderIndex": 4,
       "group": "Frontend",
       "value": 0,
       "projects": 1,
@@ -267,9 +267,9 @@
     {
       "id": 6,
       "code": "AngularJS",
+      "orderIndex": 5,
       "title": "AngularJS",
       "photoUrl": "/assets/skills/angularjs.png",
-      "orderIndex": 5,
       "group": "Frontend",
       "value": 0,
       "projects": 18,
@@ -279,9 +279,9 @@
     {
       "id": 7,
       "code": "Angular",
+      "orderIndex": 5,
       "title": "Angular",
       "photoUrl": "/assets/skills/angular.png",
-      "orderIndex": 5,
       "group": "Frontend",
       "value": 0,
       "projects": 20,
@@ -291,9 +291,9 @@
     {
       "id": 8,
       "code": "Kubernetes",
+      "orderIndex": 6,
       "title": "Kubernetes",
       "photoUrl": "/assets/skills/kubernetes.png",
-      "orderIndex": 6,
       "group": "Virtualization",
       "value": 0,
       "projects": 0,
@@ -303,9 +303,9 @@
     {
       "id": 9,
       "code": "Docker",
+      "orderIndex": 6,
       "title": "Docker",
       "photoUrl": "/assets/skills/docker.png",
-      "orderIndex": 6,
       "group": "Virtualization",
       "value": 0,
       "projects": 13,
@@ -315,9 +315,9 @@
     {
       "id": 10,
       "code": "Gitlab",
+      "orderIndex": 7,
       "title": "Gitlab",
       "photoUrl": "/assets/skills/gitlab.png",
-      "orderIndex": 7,
       "group": "Source Control",
       "value": 0,
       "projects": 14,
@@ -327,9 +327,9 @@
     {
       "id": 11,
       "code": "Jenkins",
+      "orderIndex": 8,
       "title": "Jenkins",
       "photoUrl": "/assets/skills/jenkins.png",
-      "orderIndex": 8,
       "group": "DevOps",
       "value": 0,
       "projects": 13,
@@ -339,6 +339,7 @@
     {
       "id": 12,
       "code": "HTML5",
+      "orderIndex": 141,
       "title": "HTML5",
       "photoUrl": "/assets/skills/html5.png",
       "group": "Frontend",
@@ -350,6 +351,7 @@
     {
       "id": 13,
       "code": "JS",
+      "orderIndex": 140,
       "title": "JS",
       "photoUrl": "/assets/skills/js.png",
       "group": "Frontend",
@@ -361,6 +363,7 @@
     {
       "id": 14,
       "code": "CSS",
+      "orderIndex": 139,
       "title": "CSS",
       "photoUrl": "/assets/skills/css.png",
       "group": "Frontend",
@@ -372,6 +375,7 @@
     {
       "id": 15,
       "code": "MS SQL",
+      "orderIndex": 138,
       "title": "MS SQL",
       "photoUrl": "/assets/skills/mssql.png",
       "group": "Database",
@@ -383,6 +387,7 @@
     {
       "id": 16,
       "code": "MS Project",
+      "orderIndex": 137,
       "title": "MS Project",
       "photoUrl": "/assets/skills/msproject.png",
       "group": "Project Management",
@@ -394,6 +399,7 @@
     {
       "id": 17,
       "code": "Nodejs",
+      "orderIndex": 136,
       "title": "Nodejs",
       "photoUrl": "/assets/skills/nodejs.png",
       "group": "Backend",
@@ -405,6 +411,7 @@
     {
       "id": 18,
       "code": "Ionic",
+      "orderIndex": 135,
       "title": "Ionic",
       "photoUrl": "/assets/skills/ionic.png",
       "group": "Frontend",
@@ -416,6 +423,7 @@
     {
       "id": 19,
       "code": "Photoshop",
+      "orderIndex": 134,
       "title": "Photoshop",
       "photoUrl": "/assets/skills/photoshop.png",
       "group": "Graphics Design",
@@ -426,6 +434,7 @@
     {
       "id": 20,
       "code": "ASP.NET",
+      "orderIndex": 133,
       "title": "ASP.NET",
       "photoUrl": "/assets/skills/aspnet.png",
       "group": "Web",
@@ -436,6 +445,7 @@
     {
       "id": 21,
       "code": "LINQ",
+      "orderIndex": 132,
       "title": "LINQ",
       "photoUrl": "/assets/skills/linq.png",
       "group": "Database",
@@ -446,6 +456,7 @@
     {
       "id": 22,
       "code": "CSS3",
+      "orderIndex": 131,
       "title": "CSS3",
       "photoUrl": "/assets/skills/css3.png",
       "group": "Frontend",
@@ -456,6 +467,7 @@
     {
       "id": 23,
       "code": "TFS",
+      "orderIndex": 130,
       "title": "TFS",
       "photoUrl": "/assets/skills/tfs.png",
       "group": "Source Control",
@@ -466,6 +478,7 @@
     {
       "id": 24,
       "code": "JQuery",
+      "orderIndex": 129,
       "title": "JQuery",
       "photoUrl": "/assets/skills/jquery.png",
       "group": "Frontend",
@@ -476,6 +489,7 @@
     {
       "id": 25,
       "code": "Git",
+      "orderIndex": 128,
       "title": "Git",
       "photoUrl": "/assets/skills/git.png",
       "group": "Source Control",
@@ -486,6 +500,7 @@
     {
       "id": 26,
       "code": "ASP.NET MVC",
+      "orderIndex": 127,
       "title": "ASP.NET MVC",
       "photoUrl": "/assets/skills/aspnetmvc.png",
       "group": "Web",
@@ -496,6 +511,7 @@
     {
       "id": 27,
       "code": "Hangfire",
+      "orderIndex": 126,
       "title": "Hangfire",
       "photoUrl": "/assets/skills/hangfire.png",
       "group": "Scheduled Tasks",
@@ -506,6 +522,7 @@
     {
       "id": 28,
       "code": "Entity Framework Core",
+      "orderIndex": 125,
       "title": "Entity Framework Core",
       "photoUrl": "/assets/skills/entityframeworkcore.png",
       "group": "ORM",
@@ -516,6 +533,7 @@
     {
       "id": 29,
       "code": "MySQL",
+      "orderIndex": 124,
       "title": "MySQL",
       "photoUrl": "/assets/skills/mysql.png",
       "group": "Database",
@@ -526,6 +544,7 @@
     {
       "id": 30,
       "code": "PHP",
+      "orderIndex": 123,
       "title": "PHP",
       "photoUrl": "/assets/skills/php.png",
       "group": "Backend",
@@ -536,6 +555,7 @@
     {
       "id": 31,
       "code": "npm",
+      "orderIndex": 122,
       "title": "npm",
       "photoUrl": "/assets/skills/npm.png",
       "group": "Dependency Management",
@@ -546,6 +566,7 @@
     {
       "id": 32,
       "code": "NuGet",
+      "orderIndex": 121,
       "title": "NuGet",
       "photoUrl": "/assets/skills/nuget.png",
       "group": "Dependency Management",
@@ -556,6 +577,7 @@
     {
       "id": 33,
       "code": "ProGet",
+      "orderIndex": 120,
       "title": "ProGet",
       "photoUrl": "/assets/skills/proget.png",
       "group": "Dependency Management",
@@ -566,6 +588,7 @@
     {
       "id": 34,
       "code": "Visual Studio",
+      "orderIndex": 119,
       "title": "Visual Studio",
       "photoUrl": "/assets/skills/visualstudio.png",
       "group": "IDE",
@@ -576,6 +599,7 @@
     {
       "id": 35,
       "code": "Oracle",
+      "orderIndex": 118,
       "title": "Oracle",
       "photoUrl": "/assets/skills/oracle.png",
       "group": "Database",
@@ -586,6 +610,7 @@
     {
       "id": 36,
       "code": "Telerik UI for Silverlight",
+      "orderIndex": 117,
       "title": "Telerik UI for Silverlight",
       "photoUrl": "/assets/skills/telerikuiforsilverlight.png",
       "group": "Web",
@@ -596,6 +621,7 @@
     {
       "id": 37,
       "code": "Silverlight",
+      "orderIndex": 116,
       "title": "Silverlight",
       "photoUrl": "/assets/skills/silverlight.png",
       "group": "Web",
@@ -606,6 +632,7 @@
     {
       "id": 38,
       "code": "WCF",
+      "orderIndex": 115,
       "title": "WCF",
       "photoUrl": "/assets/skills/wcf.png",
       "group": "Webservices",
@@ -616,6 +643,7 @@
     {
       "id": 39,
       "code": "EntityFramework",
+      "orderIndex": 114,
       "title": "EntityFramework",
       "photoUrl": "/assets/skills/entityframework.png",
       "group": "ORM",
@@ -626,6 +654,7 @@
     {
       "id": 40,
       "code": "Fiddler",
+      "orderIndex": 113,
       "title": "Fiddler",
       "photoUrl": "/assets/skills/fiddler.png",
       "group": "Sniffing Tool",
@@ -636,6 +665,7 @@
     {
       "id": 41,
       "code": "XAML",
+      "orderIndex": 112,
       "title": "XAML",
       "photoUrl": "/assets/skills/xaml.png",
       "group": "File Format",
@@ -646,6 +676,7 @@
     {
       "id": 42,
       "code": "MVVM",
+      "orderIndex": 111,
       "title": "MVVM",
       "photoUrl": "/assets/skills/mvvm.png",
       "group": "Design Pattern",
@@ -656,6 +687,7 @@
     {
       "id": 43,
       "code": "MS Blend",
+      "orderIndex": 110,
       "title": "MS Blend",
       "photoUrl": "/assets/skills/msblend.png",
       "group": "Graphics Design",
@@ -666,6 +698,7 @@
     {
       "id": 44,
       "code": "PDFWCore",
+      "orderIndex": 109,
       "title": "PDFWCore",
       "photoUrl": "/assets/skills/pdfwcore.png",
       "group": "Framework",
@@ -676,6 +709,7 @@
     {
       "id": 45,
       "code": "Pascal",
+      "orderIndex": 108,
       "title": "Pascal",
       "photoUrl": "/assets/skills/pascal.png",
       "group": "Programming Language",
@@ -686,6 +720,7 @@
     {
       "id": 46,
       "code": "XML",
+      "orderIndex": 107,
       "title": "XML",
       "photoUrl": "/assets/skills/xml.png",
       "group": "File Format",
@@ -696,6 +731,7 @@
     {
       "id": 47,
       "code": "Adobe Flash",
+      "orderIndex": 106,
       "title": "Adobe Flash",
       "photoUrl": "/assets/skills/adobeflash.png",
       "group": "Graphics Design",
@@ -706,6 +742,7 @@
     {
       "id": 48,
       "code": "Redmine",
+      "orderIndex": 105,
       "title": "Redmine",
       "photoUrl": "/assets/skills/redmine.png",
       "group": "Project Management",
@@ -716,6 +753,7 @@
     {
       "id": 49,
       "code": "Azure",
+      "orderIndex": 104,
       "title": "Azure",
       "photoUrl": "/assets/skills/azure.png",
       "group": "Cloud Hosting",
@@ -726,6 +764,7 @@
     {
       "id": 50,
       "code": "SOAP",
+      "orderIndex": 103,
       "title": "SOAP",
       "photoUrl": "/assets/skills/soap.png",
       "group": "Web Services",
@@ -736,6 +775,7 @@
     {
       "id": 51,
       "code": "VB.NET",
+      "orderIndex": 102,
       "title": "VB.NET",
       "photoUrl": "/assets/skills/vbnet.png",
       "group": "Backend",
@@ -746,6 +786,7 @@
     {
       "id": 52,
       "code": "Bootstrap",
+      "orderIndex": 101,
       "title": "Bootstrap",
       "photoUrl": "/assets/skills/bootstrap.png",
       "group": "Frontend",
@@ -756,6 +797,7 @@
     {
       "id": 53,
       "code": "DB2",
+      "orderIndex": 100,
       "title": "DB2",
       "photoUrl": "/assets/skills/db2.png",
       "group": "Database",
@@ -766,6 +808,7 @@
     {
       "id": 54,
       "code": "Bash Scripting",
+      "orderIndex": 99,
       "title": "Bash Scripting",
       "photoUrl": "/assets/skills/bashscripting.png",
       "group": "Scripting",
@@ -776,6 +819,7 @@
     {
       "id": 55,
       "code": "Nexus",
+      "orderIndex": 98,
       "title": "Nexus",
       "photoUrl": "/assets/skills/nexus.png",
       "group": "Dependency Management",
@@ -786,6 +830,7 @@
     {
       "id": 56,
       "code": "Source Tree",
+      "orderIndex": 97,
       "title": "Source Tree",
       "photoUrl": "/assets/skills/sourcetree.png",
       "group": "Source Control",
@@ -796,6 +841,7 @@
     {
       "id": 57,
       "code": "Tortoise Hg",
+      "orderIndex": 96,
       "title": "Tortoise Hg",
       "photoUrl": "/assets/skills/tortoisehg.png",
       "group": "Source Control",
@@ -806,6 +852,7 @@
     {
       "id": 58,
       "code": "ubuntu",
+      "orderIndex": 95,
       "title": "ubuntu",
       "photoUrl": "/assets/skills/ubuntu.png",
       "group": "OS",
@@ -816,6 +863,7 @@
     {
       "id": 59,
       "code": "Apache Ant",
+      "orderIndex": 94,
       "title": "Apache Ant",
       "photoUrl": "/assets/skills/apacheant.png",
       "group": "Task Runner",
@@ -826,6 +874,7 @@
     {
       "id": 60,
       "code": "Visual Basic",
+      "orderIndex": 93,
       "title": "Visual Basic",
       "photoUrl": "/assets/skills/visualbasic.png",
       "group": "Programming Language",
@@ -836,6 +885,7 @@
     {
       "id": 61,
       "code": "VMware",
+      "orderIndex": 92,
       "title": "VMware",
       "photoUrl": "/assets/skills/vmware.png",
       "group": "Virtualization",
@@ -846,6 +896,7 @@
     {
       "id": 62,
       "code": "Express",
+      "orderIndex": 91,
       "title": "Express",
       "photoUrl": "/assets/skills/express.png",
       "group": "Backend",
@@ -856,6 +907,7 @@
     {
       "id": 63,
       "code": "EJS",
+      "orderIndex": 90,
       "title": "EJS",
       "photoUrl": "/assets/skills/ejs.png",
       "group": "Backend",
@@ -866,6 +918,7 @@
     {
       "id": 64,
       "code": "3Ds Max",
+      "orderIndex": 89,
       "title": "3Ds Max",
       "photoUrl": "/assets/skills/3dsmax.png",
       "group": "3D Modeling Tool",
@@ -876,6 +929,7 @@
     {
       "id": 65,
       "code": "Scorm",
+      "orderIndex": 88,
       "title": "Scorm",
       "photoUrl": "/assets/skills/scorm.png",
       "group": "E-Learning Standart",
@@ -886,6 +940,7 @@
     {
       "id": 66,
       "code": "MS Access",
+      "orderIndex": 87,
       "title": "MS Access",
       "photoUrl": "/assets/skills/msaccess.png",
       "group": "Database",
@@ -896,6 +951,7 @@
     {
       "id": 67,
       "code": "iReports",
+      "orderIndex": 86,
       "title": "iReports",
       "photoUrl": "/assets/skills/ireports.png",
       "group": "Reporting",
@@ -906,6 +962,7 @@
     {
       "id": 68,
       "code": "VB Script",
+      "orderIndex": 85,
       "title": "VB Script",
       "photoUrl": "/assets/skills/vbscript.png",
       "group": "Programming Language",
@@ -916,6 +973,7 @@
     {
       "id": 69,
       "code": "Jasper Reports",
+      "orderIndex": 84,
       "title": "Jasper Reports",
       "photoUrl": "/assets/skills/jasperreports.png",
       "group": "Reporting",
@@ -926,6 +984,7 @@
     {
       "id": 70,
       "code": "Jasper BI",
+      "orderIndex": 83,
       "title": "Jasper BI",
       "photoUrl": "/assets/skills/jasperbi.png",
       "group": "Business Intelligence",
@@ -936,6 +995,7 @@
     {
       "id": 71,
       "code": "Animate.css",
+      "orderIndex": 82,
       "title": "Animate.css",
       "photoUrl": "/assets/skills/animatecss.png",
       "group": "Frontend",
@@ -946,6 +1006,7 @@
     {
       "id": 72,
       "code": "HyperV",
+      "orderIndex": 81,
       "title": "HyperV",
       "photoUrl": "/assets/skills/hyperv.png",
       "group": "Virtualization",
@@ -956,6 +1017,7 @@
     {
       "id": 73,
       "code": "Mercurial",
+      "orderIndex": 80,
       "title": "Mercurial",
       "photoUrl": "/assets/skills/mercurial.png",
       "group": "Source Control",
@@ -966,6 +1028,7 @@
     {
       "id": 74,
       "code": "Spring",
+      "orderIndex": 79,
       "title": "Spring",
       "photoUrl": "/assets/skills/spring.png",
       "group": "Framework",
@@ -976,6 +1039,7 @@
     {
       "id": 75,
       "code": "Hibernate",
+      "orderIndex": 78,
       "title": "Hibernate",
       "photoUrl": "/assets/skills/hibernate.png",
       "group": "ORM",
@@ -986,6 +1050,7 @@
     {
       "id": 76,
       "code": "WPF",
+      "orderIndex": 77,
       "title": "WPF",
       "photoUrl": "/assets/skills/wpf.png",
       "group": "Desktop",
@@ -996,6 +1061,7 @@
     {
       "id": 77,
       "code": "Eclipse",
+      "orderIndex": 76,
       "title": "Eclipse",
       "photoUrl": "/assets/skills/eclipse.png",
       "group": "IDE",
@@ -1006,9 +1072,9 @@
     {
       "id": 78,
       "code": "Maven",
+      "orderIndex": 2,
       "title": "Maven",
       "photoUrl": "/assets/skills/maven.png",
-      "orderIndex": 2,
       "group": "Dependency Management",
       "value": 0,
       "projects": 0,
@@ -1018,6 +1084,7 @@
     {
       "id": 79,
       "code": "Oracle BI",
+      "orderIndex": 74,
       "title": "Oracle BI",
       "photoUrl": "/assets/skills/oraclebi.png",
       "group": "Business Intelligence",
@@ -1028,6 +1095,7 @@
     {
       "id": 80,
       "code": "AWS",
+      "orderIndex": 73,
       "title": "AWS",
       "photoUrl": "/assets/skills/aws.png",
       "group": "Cloud Hosting",
@@ -1038,6 +1106,7 @@
     {
       "id": 81,
       "code": "SQL Lite",
+      "orderIndex": 72,
       "title": "SQL Lite",
       "photoUrl": "/assets/skills/sqllite.png",
       "group": "Database",
@@ -1048,6 +1117,7 @@
     {
       "id": 82,
       "code": "My SQL",
+      "orderIndex": 71,
       "title": "My SQL",
       "photoUrl": "/assets/skills/mysql.png",
       "group": "Database",
@@ -1058,6 +1128,7 @@
     {
       "id": 83,
       "code": "Timelinejs3",
+      "orderIndex": 70,
       "title": "Timelinejs3",
       "photoUrl": "/assets/skills/timelinejs3.png",
       "group": "Frontend",
@@ -1068,6 +1139,7 @@
     {
       "id": 84,
       "code": "Json",
+      "orderIndex": 69,
       "title": "Json",
       "photoUrl": "/assets/skills/json.png",
       "group": "File Format",
@@ -1078,6 +1150,7 @@
     {
       "id": 85,
       "code": "APM",
+      "orderIndex": 68,
       "title": "APM",
       "photoUrl": "/assets/skills/APM.png",
       "group": "Project Management",
@@ -1088,6 +1161,7 @@
     {
       "id": 86,
       "code": "Heroku",
+      "orderIndex": 67,
       "title": "Heroku",
       "photoUrl": "/assets/skills/heroku.png",
       "group": "Cloud Hosting",
@@ -1098,6 +1172,7 @@
     {
       "id": 87,
       "code": "Paypal",
+      "orderIndex": 66,
       "title": "Paypal",
       "photoUrl": "/assets/skills/paypal.png",
       "group": "E-Commerce",
@@ -1108,6 +1183,7 @@
     {
       "id": 88,
       "code": "Microsoft Dynamics NAV",
+      "orderIndex": 65,
       "title": "Microsoft Dynamics NAV",
       "photoUrl": "/assets/skills/microsoftdynamicsnav.png",
       "group": "ERP",
@@ -1118,6 +1194,7 @@
     {
       "id": 89,
       "code": "PDFW",
+      "orderIndex": 64,
       "title": "PDFW",
       "photoUrl": "/assets/skills/pdfw.png",
       "group": "Framework",
@@ -1128,6 +1205,7 @@
     {
       "id": 90,
       "code": "Alibaba Cloud",
+      "orderIndex": 63,
       "title": "Alibaba Cloud",
       "photoUrl": "/assets/skills/alibabacloud.png",
       "group": "Cloud Hosting",
@@ -1138,6 +1216,7 @@
     {
       "id": 91,
       "code": "Google Cloud",
+      "orderIndex": 62,
       "title": "Google Cloud",
       "photoUrl": "/assets/skills/googlecloud.png",
       "group": "Cloud Hosting",
@@ -1148,6 +1227,7 @@
     {
       "id": 92,
       "code": "dom-to-image",
+      "orderIndex": 61,
       "title": "dom-to-image",
       "photoUrl": "/assets/skills/domtoimage.png",
       "group": "Frontend",
@@ -1158,6 +1238,7 @@
     {
       "id": 93,
       "code": "jspdf",
+      "orderIndex": 60,
       "title": "jspdf",
       "photoUrl": "/assets/skills/jspdf.png",
       "group": "Frontend",
@@ -1168,6 +1249,7 @@
     {
       "id": 94,
       "code": "Windows Forms",
+      "orderIndex": 59,
       "title": "Windows Forms",
       "photoUrl": "/assets/skills/windowsforms.png",
       "group": "Frontend",
@@ -1178,6 +1260,7 @@
     {
       "id": 95,
       "code": "Digital Ocean",
+      "orderIndex": 58,
       "title": "Digital Ocean",
       "photoUrl": "/assets/skills/digitalocean.png",
       "group": "Cloud Hosting",
@@ -1188,6 +1271,7 @@
     {
       "id": 96,
       "code": "Adobe Atmosphere",
+      "orderIndex": 57,
       "title": "Adobe Atmosphere",
       "photoUrl": "/assets/skills/adobeatmosphere.png",
       "group": "Gaming Engine",
@@ -1198,6 +1282,7 @@
     {
       "id": 97,
       "code": "Fontawesome",
+      "orderIndex": 56,
       "title": "Fontawesome",
       "photoUrl": "/assets/skills/fontawesome.png",
       "group": "Frontend",
@@ -1208,6 +1293,7 @@
     {
       "id": 98,
       "code": "Dark Basic",
+      "orderIndex": 55,
       "title": "Dark Basic",
       "photoUrl": "/assets/skills/darkbasic.png",
       "group": "Gaming Engine",
@@ -1218,6 +1304,7 @@
     {
       "id": 99,
       "code": "MomentJS",
+      "orderIndex": 54,
       "title": "MomentJS",
       "photoUrl": "/assets/skills/momentjs.png",
       "group": "Frontend",
@@ -1228,6 +1315,7 @@
     {
       "id": 100,
       "code": "PrimeNG",
+      "orderIndex": 53,
       "title": "PrimeNG",
       "photoUrl": "/assets/skills/primeng.png",
       "group": "Frontend",
@@ -1238,6 +1326,7 @@
     {
       "id": 101,
       "code": "Angular Material",
+      "orderIndex": 52,
       "title": "Angular Material",
       "photoUrl": "/assets/skills/angularmaterial.png",
       "group": "Frontend",
@@ -1248,6 +1337,7 @@
     {
       "id": 102,
       "code": "Github",
+      "orderIndex": 51,
       "title": "Github",
       "photoUrl": "/assets/skills/github.png",
       "group": "Source Control",
@@ -1258,6 +1348,7 @@
     {
       "id": 139,
       "code": "VisualBasic.NET",
+      "orderIndex": 50,
       "title": "VisualBasic.NET",
       "photoUrl": "/assets/skills/visualbasicnet.png",
       "group": "Programming Language",
@@ -1268,6 +1359,7 @@
     {
       "id": 103,
       "code": "Design Patterns",
+      "orderIndex": 49,
       "title": "Design Patterns",
       "photoUrl": "/assets/skills/designpatterns.png",
       "group": "Approach",
@@ -1278,6 +1370,7 @@
     {
       "id": 104,
       "code": "Fastify",
+      "orderIndex": 48,
       "title": "Fastify",
       "photoUrl": "/assets/skills/fastify.png",
       "group": "Framework",
@@ -1288,6 +1381,7 @@
     {
       "id": 105,
       "code": "VS Code",
+      "orderIndex": 47,
       "title": "VS Code",
       "photoUrl": "/assets/skills/vscode.png",
       "group": "IDE",
@@ -1298,6 +1392,7 @@
     {
       "id": 106,
       "code": "React",
+      "orderIndex": 46,
       "title": "React",
       "photoUrl": "/assets/skills/c.png",
       "group": "Frontend",
@@ -1308,6 +1403,7 @@
     {
       "id": 107,
       "code": "StencilJS",
+      "orderIndex": 45,
       "title": "StencilJS",
       "photoUrl": "/assets/skills/c.png",
       "group": "Frontend",
@@ -1318,6 +1414,7 @@
     {
       "id": 108,
       "code": "Postgres",
+      "orderIndex": 44,
       "title": "Postgres",
       "photoUrl": "/assets/skills/postgresql.png",
       "group": "Database",
@@ -1328,6 +1425,7 @@
     {
       "id": 109,
       "code": "OAuth",
+      "orderIndex": 43,
       "title": "OAuth",
       "photoUrl": "/assets/skills/oauth.png",
       "group": "File Format",
@@ -1338,6 +1436,7 @@
     {
       "id": 110,
       "code": "JWT",
+      "orderIndex": 42,
       "title": "JWT",
       "photoUrl": "/assets/skills/jwt.png",
       "group": "File Format",
@@ -1348,6 +1447,7 @@
     {
       "id": 111,
       "code": "Google Analytics",
+      "orderIndex": 41,
       "title": "Google Analytics",
       "photoUrl": "/assets/skills/googleanalytics.png",
       "group": "Web",
@@ -1358,6 +1458,7 @@
     {
       "id": 112,
       "code": "VS Code Insiders",
+      "orderIndex": 40,
       "title": "VS Code Insiders",
       "photoUrl": "/assets/skills/vscodeinsiders.png",
       "group": "IDE",
@@ -1368,6 +1469,7 @@
     {
       "id": 113,
       "code": "Azure DevOps",
+      "orderIndex": 39,
       "title": "Azure DevOps",
       "photoUrl": "/assets/skills/azuredevops.png",
       "group": "Cloud Hosting",
@@ -1378,6 +1480,7 @@
     {
       "id": 114,
       "code": "ASP.NET Core",
+      "orderIndex": 38,
       "title": "ASP.NET Core",
       "photoUrl": "/assets/skills/aspnetcore.png",
       "group": "Backend",
@@ -1388,6 +1491,7 @@
     {
       "id": 115,
       "code": "ASP.NET WebAPI",
+      "orderIndex": 37,
       "title": "ASP.NET WebAPI",
       "photoUrl": "/assets/skills/aspnetwebapi.png",
       "group": "Backend",
@@ -1398,6 +1502,7 @@
     {
       "id": 116,
       "code": "Redis",
+      "orderIndex": 36,
       "title": "Redis",
       "photoUrl": "/assets/skills/redis.png",
       "group": "Backend",
@@ -1408,6 +1513,7 @@
     {
       "id": 117,
       "code": "RabbitMQ",
+      "orderIndex": 35,
       "title": "RabbitMQ",
       "photoUrl": "/assets/skills/rabbitmq.png",
       "group": "Backend",
@@ -1418,6 +1524,7 @@
     {
       "id": 118,
       "code": "Quartz Scheduler",
+      "orderIndex": 34,
       "title": "Quartz Scheduler",
       "photoUrl": "/assets/skills/quartzscheduler.png",
       "group": "Scheduled Tasks",
@@ -1428,6 +1535,7 @@
     {
       "id": 119,
       "code": "Portainer",
+      "orderIndex": 33,
       "title": "Portainer",
       "photoUrl": "/assets/skills/portainer.png",
       "group": "Virtualization",
@@ -1438,6 +1546,7 @@
     {
       "id": 120,
       "code": "PowerShell",
+      "orderIndex": 32,
       "title": "PowerShell",
       "photoUrl": "/assets/skills/powershell.png",
       "group": "Scripting",
@@ -1448,6 +1557,7 @@
     {
       "id": 121,
       "code": "Wordpress",
+      "orderIndex": 31,
       "title": "Wordpress",
       "photoUrl": "/assets/skills/wordpress.png",
       "group": "Web",
@@ -1458,6 +1568,7 @@
     {
       "id": 122,
       "code": "Cordova",
+      "orderIndex": 30,
       "title": "Cordova",
       "photoUrl": "/assets/skills/cordova.png",
       "group": "Frontend",
@@ -1468,6 +1579,7 @@
     {
       "id": 123,
       "code": "MongoDB",
+      "orderIndex": 29,
       "title": "MongoDB",
       "photoUrl": "/assets/skills/mongodb.png",
       "group": "Database",
@@ -1478,6 +1590,7 @@
     {
       "id": 124,
       "code": "Grunt",
+      "orderIndex": 28,
       "title": "Grunt",
       "photoUrl": "/assets/skills/grunt.png",
       "group": "Task Runner",
@@ -1488,6 +1601,7 @@
     {
       "id": 125,
       "code": "Visual SourceSafe",
+      "orderIndex": 27,
       "title": "Visual SourceSafe",
       "photoUrl": "/assets/skills/visualsourcesafe.png",
       "group": "Source Control",
@@ -1498,6 +1612,7 @@
     {
       "id": 126,
       "code": "Crystal Reports",
+      "orderIndex": 26,
       "title": "Crystal Reports",
       "photoUrl": "/assets/skills/crystalreports.png",
       "group": "Reporting",
@@ -1508,6 +1623,7 @@
     {
       "id": 127,
       "code": "Fast Reports",
+      "orderIndex": 25,
       "title": "Fast Reports",
       "photoUrl": "/assets/skills/fastreports.png",
       "group": "Reporting",
@@ -1518,6 +1634,7 @@
     {
       "id": 128,
       "code": "PMP",
+      "orderIndex": 24,
       "title": "PMP",
       "photoUrl": "/assets/skills/pmp.png",
       "group": "Project Management",
@@ -1528,6 +1645,7 @@
     {
       "id": 129,
       "code": "Project Management",
+      "orderIndex": 23,
       "title": "Project Management",
       "photoUrl": "/assets/skills/c.png",
       "group": "Project Management",
@@ -1538,6 +1656,7 @@
     {
       "id": 130,
       "code": "Time Management",
+      "orderIndex": 22,
       "title": "Time Management",
       "photoUrl": "",
       "group": "Project Management",
@@ -1548,6 +1667,7 @@
     {
       "id": 131,
       "code": "Cost Management",
+      "orderIndex": 21,
       "title": "Cost Management",
       "photoUrl": "/assets/skills/c.png",
       "group": "Project Management",
@@ -1558,6 +1678,7 @@
     {
       "id": 132,
       "code": "Software Estimation",
+      "orderIndex": 20,
       "title": "Software Estimation",
       "photoUrl": "",
       "group": "Project Management",
@@ -1568,6 +1689,7 @@
     {
       "id": 133,
       "code": "C",
+      "orderIndex": 19,
       "title": "C",
       "photoUrl": "/assets/skills/c.png",
       "group": "Programming Language",
@@ -1578,6 +1700,7 @@
     {
       "id": 134,
       "code": "C++",
+      "orderIndex": 18,
       "title": "C++",
       "photoUrl": "/assets/skills/cplusplus.jpg",
       "group": "Programming Language",
@@ -1588,6 +1711,7 @@
     {
       "id": 135,
       "code": "Web Development",
+      "orderIndex": 17,
       "title": "Web Development",
       "photoUrl": "",
       "group": "Web",
@@ -1598,6 +1722,7 @@
     {
       "id": 136,
       "code": "Networking",
+      "orderIndex": 16,
       "title": "Networking",
       "photoUrl": "/assets/skills/networking.png",
       "group": "OS",
@@ -1608,6 +1733,7 @@
     {
       "id": 137,
       "code": "OOP",
+      "orderIndex": 15,
       "title": "OOP",
       "photoUrl": "/assets/skills/oop.png",
       "group": "Approach",
@@ -1618,6 +1744,7 @@
     {
       "id": 138,
       "code": "UML",
+      "orderIndex": 14,
       "title": "UML",
       "photoUrl": "/assets/skills/uml.png",
       "group": "Design Pattern",
@@ -1628,6 +1755,7 @@
     {
       "id": 140,
       "code": "Web API",
+      "orderIndex": 13,
       "title": "Web API",
       "photoUrl": "/assets/skills/aspnetwebapi.png",
       "group": "Backend",
@@ -1638,6 +1766,7 @@
     {
       "id": 141,
       "code": "Web Forms",
+      "orderIndex": 12,
       "title": "Web Forms",
       "photoUrl": "",
       "group": "Web",
@@ -1648,6 +1777,7 @@
     {
       "id": 142,
       "code": "Database Solutions",
+      "orderIndex": 11,
       "title": "Database Solutions",
       "photoUrl": "",
       "group": "Database",
@@ -1658,6 +1788,7 @@
     {
       "id": 143,
       "code": "Database Design",
+      "orderIndex": 10,
       "title": "Database Design",
       "photoUrl": "",
       "group": "Database",
@@ -1668,6 +1799,7 @@
     {
       "id": 144,
       "code": "Database Management",
+      "orderIndex": 9,
       "title": "Database Management",
       "photoUrl": "",
       "group": "Database",
@@ -1678,6 +1810,7 @@
     {
       "id": 145,
       "code": "Database Migration",
+      "orderIndex": 8,
       "title": "Database Migration",
       "photoUrl": "",
       "group": "Database",
@@ -1688,6 +1821,7 @@
     {
       "id": 146,
       "code": "Mobile Solutions",
+      "orderIndex": 7,
       "title": "Mobile Solutions",
       "photoUrl": "",
       "group": "Frontend",
@@ -1698,6 +1832,7 @@
     {
       "id": 147,
       "code": "Database Systems",
+      "orderIndex": 6,
       "title": "Database Systems",
       "photoUrl": "",
       "group": "Database",
@@ -1708,6 +1843,7 @@
     {
       "id": 148,
       "code": "Distributed Systems",
+      "orderIndex": 5,
       "title": "Distributed Systems",
       "photoUrl": "",
       "group": "Backend",
@@ -1718,6 +1854,7 @@
     {
       "id": 149,
       "code": "Integration Solutions",
+      "orderIndex": 4,
       "title": "Integration Solutions",
       "photoUrl": "",
       "group": "Webservices",
@@ -1728,6 +1865,7 @@
     {
       "id": 150,
       "code": "Mobile Apps",
+      "orderIndex": 3,
       "title": "Mobile Apps",
       "photoUrl": "",
       "group": "Frontend",
@@ -1738,6 +1876,7 @@
     {
       "id": 151,
       "code": "Enterprise Solutions",
+      "orderIndex": 2,
       "title": "Enterprise Solutions",
       "photoUrl": "",
       "group": "Approach",
@@ -1748,6 +1887,7 @@
     {
       "id": 152,
       "code": "Integration Platforms",
+      "orderIndex": 1,
       "title": "Integration Platforms",
       "photoUrl": "",
       "group": "Webservices",

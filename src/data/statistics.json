@@ -6,28 +6,32 @@
       "name": "professional",
       "value": 20,
       "subTitle": "years of",
-      "iconCss": "fa fa-handshake"
+      "iconCss": "fa fa-handshake",
+      "orderIndex": 4
     },
     {
       "title": "Management Experience",
       "name": "management",
       "value": 15,
       "subTitle": "years of",
-      "iconCss": "fa fa-briefcase"
+      "iconCss": "fa fa-briefcase",
+      "orderIndex": 3
     },
     {
       "title": ".NET Experience",
       "name": "net",
       "value": 17,
       "subTitle": "years of",
-      "iconCss": "fa fa-hashtag"
+      "iconCss": "fa fa-hashtag",
+      "orderIndex": 2
     },
     {
       "title": "Web Experience",
       "name": "web",
       "value": 20,
       "subTitle": "years of",
-      "iconCss": "fa fa-code"
+      "iconCss": "fa fa-code",
+      "orderIndex": 1
     }
   ],
   "subItems": [

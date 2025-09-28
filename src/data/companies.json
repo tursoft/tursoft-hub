@@ -2,6 +2,7 @@
   "items": [
     {
       "code": "infrion",
+      "orderIndex": 50,
       "title": "Infrion",
       "photoUrl": "/assets/companies/infrion.logo.png",
       "city": "New York",
@@ -15,6 +16,7 @@
     },
     {
       "code": "jengai",
+      "orderIndex": 49,
       "title": "Jengai",
       "photoUrl": "/assets/companies/jengai.logo.png",
       "city": "New York",
@@ -28,6 +30,7 @@
     },
     {
       "code": "gamyte",
+      "orderIndex": 48,
       "title": "Gamyte",
       "photoUrl": "/assets/companies/gamyte.logo.png",
       "city": "New York",
@@ -41,6 +44,7 @@
     },
     {
       "code": "ERC",
+      "orderIndex": 47,
       "title": "ERC Group Engineering, Consultancy, R&D",
       "photoUrl": "/assets/companies/erc.logo.png",
       "city": "Ankara",
@@ -54,6 +58,7 @@
     },
     {
       "code": "DATASEL",
+      "orderIndex": 46,
       "title": "DataSel Information Systems Co.",
       "photoUrl": "/assets/companies/datasel.logo.png",
       "city": "Ankara",
@@ -67,6 +72,7 @@
     },
     {
       "code": "FONET",
+      "orderIndex": 45,
       "title": "Fonet Software Co.",
       "photoUrl": "/assets/companies/fonet.logo.png",
       "city": "Ankara",
@@ -80,6 +86,7 @@
     },
     {
       "code": "JANDARMA",
+      "orderIndex": 44,
       "title": "Gendarmerie Training Command",
       "photoUrl": "/assets/companies/jandarma.egitim.logo.png",
       "city": "Ankara",
@@ -93,6 +100,7 @@
     },
     {
       "code": "HALICI",
+      "orderIndex": 43,
       "title": "Halici Informatics & Software Co.",
       "photoUrl": "/assets/companies/halici.logo.png",
       "city": "Istanbul",
@@ -106,6 +114,7 @@
     },
     {
       "code": "METU.CEIT",
+      "orderIndex": 42,
       "title": "METU Computer Education and Instructional Tech. Dep.",
       "photoUrl": "/assets/companies/metu.ceit.logo.png",
       "city": "Ankara",
@@ -119,6 +128,7 @@
     },
     {
       "code": "METU.II",
+      "orderIndex": 41,
       "title": "METU Informatics Institute",
       "photoUrl": "/assets/companies/metu.ii.logo.png",
       "city": "Ankara",
@@ -132,6 +142,7 @@
     },
     {
       "code": "LABRIS",
+      "orderIndex": 40,
       "title": "Labris Technology",
       "photoUrl": "/assets/companies/labris.logo.png",
       "city": "Ankara",
@@ -145,6 +156,7 @@
     },
     {
       "code": "METU.IEEE",
+      "orderIndex": 39,
       "title": "IEEE METU Student Club",
       "photoUrl": "/assets/companies/metu.ieee.logo.png",
       "city": "Ankara",
@@ -158,6 +170,7 @@
     },
     {
       "code": "METU.COM",
+      "orderIndex": 38,
       "title": "METU Communication Club",
       "photoUrl": "/assets/companies/ieee_metu.logo.png",
       "city": "Ankara",
@@ -171,6 +184,7 @@
     },
     {
       "code": "NETTEYIM",
+      "orderIndex": 37,
       "title": "Netteyim.net",
       "photoUrl": "/assets/companies/netteyim.logo.png",
       "city": "Ankara",
@@ -184,6 +198,7 @@
     },
     {
       "code": "TBD.GENC",
+      "orderIndex": 36,
       "title": "Informatics Association of Turkey / Youth Branch",
       "photoUrl": "/assets/companies/tbd.genc.logo.png",
       "city": "Ankara",
@@ -197,6 +212,7 @@
     },
     {
       "code": "CEIT",
+      "orderIndex": 35,
       "title": "CEIT / METU",
       "photoUrl": "/assets/companies/metu.ceit.logo.png",
       "city": "Ankara",
@@ -210,6 +226,7 @@
     },
     {
       "code": "Halici",
+      "orderIndex": 34,
       "title": "Halici Informatics & Software Co.",
       "photoUrl": "/assets/companies/halici.logo.png",
       "city": "Istanbul",
@@ -223,6 +240,7 @@
     },
     {
       "code": "Tursoft",
+      "orderIndex": 33,
       "title": "Tursoft",
       "photoUrl": "/assets/companies/tursoft.logo.png",
       "city": null,
@@ -233,6 +251,7 @@
     },
     {
       "code": "MOH.TR",
+      "orderIndex": 32,
       "title": "Turkish Ministry of Health",
       "photoUrl": "/assets/companies/turkey_moh.logo.jpg",
       "city": "Ankara",
@@ -246,6 +265,7 @@
     },
     {
       "code": "MOI.KSA",
+      "orderIndex": 31,
       "title": "KSA Ministry of Interior",
       "photoUrl": "/assets/companies/almakassed.logo.jpg",
       "city": "Riyadh",
@@ -259,6 +279,7 @@
     },
     {
       "code": "MOH.KSA",
+      "orderIndex": 30,
       "title": "KSA Ministry of Health",
       "photoUrl": "/assets/companies/ksa_moh.logo.jpg",
       "city": "Riyadh",
@@ -272,6 +293,7 @@
     },
     {
       "code": "TTNET",
+      "orderIndex": 29,
       "title": "Türk Telekom - TTNET",
       "photoUrl": "/assets/companies/ttnet.logo.png",
       "city": "Istanbul",
@@ -285,6 +307,7 @@
     },
     {
       "code": "ECZACIBASI",
+      "orderIndex": 28,
       "title": "Eczacıbaşı Sağlık Hizmetleri",
       "photoUrl": "/assets/companies/eczacibasi.logo.jpg",
       "city": "Istanbul",
@@ -298,6 +321,7 @@
     },
     {
       "code": "Avea",
+      "orderIndex": 27,
       "title": "Türk Telekom - Avea",
       "photoUrl": "/assets/companies/avea.logo.png",
       "city": "Istanbul",
@@ -311,6 +335,7 @@
     },
     {
       "code": "H.IbniSina",
+      "orderIndex": 26,
       "title": "Ibni Sina Hastanesi",
       "photoUrl": "/assets/companies/ibnisina.logo.png",
       "city": "Ankara",
@@ -324,6 +349,7 @@
     },
     {
       "code": "MOH.PAL",
+      "orderIndex": 25,
       "title": "Palestine Ministry of Health",
       "photoUrl": "/assets/companies/palestine_moh.logo.jpg",
       "city": "Ramallah",
@@ -337,6 +363,7 @@
     },
     {
       "code": "LIFEWATCH.CH",
+      "orderIndex": 24,
       "title": "Lifewatch AG - Switzerland",
       "photoUrl": "/assets/companies/tr_lifewatch.logo.png",
       "city": "Neuhausen",
@@ -350,6 +377,7 @@
     },
     {
       "code": "UCELL.UZ",
+      "orderIndex": 23,
       "title": "Ucell - Uzbekistan Telecommunications",
       "photoUrl": "/assets/companies/almakassed.logo.jpg",
       "city": "Tashkent",
@@ -363,6 +391,7 @@
     },
     {
       "code": "SPMS.PT",
+      "orderIndex": 22,
       "title": "SPMS - Portugal Ministry of Health",
       "photoUrl": "/assets/companies/moh_portugal_spms.logo.png",
       "city": "Lisbon",
@@ -376,6 +405,7 @@
     },
     {
       "code": "AXIS.INT",
+      "orderIndex": 21,
       "title": "Axis Interior Systems - Cincinnati, OH",
       "photoUrl": "/assets/companies/almakassed.logo.jpg",
       "city": "Cincinnati",
@@ -389,6 +419,7 @@
     },
     {
       "code": "SSG.NY",
+      "orderIndex": 20,
       "title": "Silver Slate Group - New York, NY",
       "photoUrl": "/assets/companies/almakassed.logo.jpg",
       "city": "New York",
@@ -402,6 +433,7 @@
     },
     {
       "code": "PRO.UNITED",
+      "orderIndex": 19,
       "title": "Pro-United Inc - New Hampshire",
       "photoUrl": "/assets/companies/prounited.logo.png",
       "city": "New Hampshire",
@@ -415,6 +447,7 @@
     },
     {
       "code": "TRANSYL.FL",
+      "orderIndex": 18,
       "title": "Transylvania Flooring Professionals",
       "photoUrl": "/assets/companies/almakassed.logo.jpg",
       "city": "Pennsylvania",
@@ -428,6 +461,7 @@
     },
     {
       "code": "BONITZ",
+      "orderIndex": 17,
       "title": "Bonitz Flooring Contractor",
       "photoUrl": "/assets/companies/bonitz.logo.png",
       "city": "Atlanta",
@@ -441,6 +475,7 @@
     },
     {
       "code": "DMA.FLOORS",
+      "orderIndex": 16,
       "title": "DMA Floors",
       "photoUrl": "/assets/companies/dma.floors.logo.png",
       "city": "Philadelphia",
@@ -454,6 +489,7 @@
     },
     {
       "code": "SERGENIANS",
+      "orderIndex": 15,
       "title": "Sergenian's Flooring",
       "photoUrl": "/assets/companies/almakassed.logo.jpg",
       "city": "Boston",
@@ -467,6 +503,7 @@
     },
     {
       "code": "GARMON",
+      "orderIndex": 14,
       "title": "Garmon Flooring",
       "photoUrl": "/assets/companies/garmon.logo.png",
       "city": "Phoenix",
@@ -480,6 +517,7 @@
     },
     {
       "code": "MF.HIGGINS",
+      "orderIndex": 13,
       "title": "MF Higgins Flooring",
       "photoUrl": "/assets/companies/almakassed.logo.jpg",
       "city": "Seattle",
@@ -493,6 +531,7 @@
     },
     {
       "code": "GOMEZ.FC",
+      "orderIndex": 12,
       "title": "Gomez Floor Covering",
       "photoUrl": "/assets/companies/almakassed.logo.jpg",
       "city": "Dallas",
@@ -506,6 +545,7 @@
     },
     {
       "code": "DESOTO",
+      "orderIndex": 11,
       "title": "Desoto Flooring",
       "photoUrl": "/assets/companies/desoto.logo.png",
       "city": "Atlanta",
@@ -519,6 +559,7 @@
     },
     {
       "code": "PROFLOORS",
+      "orderIndex": 10,
       "title": "ProFloors, LLC",
       "photoUrl": "/assets/companies/profloors.logo.png",
       "city": "Los Angeles",
@@ -532,6 +573,7 @@
     },
     {
       "code": "ROUSE.CO",
+      "orderIndex": 9,
       "title": "The Rouse Company",
       "photoUrl": "/assets/companies/almakassed.logo.jpg",
       "city": "New York",
@@ -545,6 +587,7 @@
     },
     {
       "code": "SHAFAFIYA.UAE",
+      "orderIndex": 8,
       "title": "Shafafiya - Department of Health - Abu Dhabi",
       "photoUrl": "/assets/companies/almakassed.logo.jpg",
       "city": "Abu Dhabi",
@@ -558,6 +601,7 @@
     },
     {
       "code": "EGM.TR",
+      "orderIndex": 7,
       "title": "Directorate General of Security - Ministry of Interior",
       "photoUrl": "/assets/companies/egm.logo.png",
       "city": "Ankara",
@@ -571,6 +615,7 @@
     },
     {
       "code": "DPT.TR",
+      "orderIndex": 6,
       "title": "State Planning Organization (DPT)",
       "photoUrl": "/assets/companies/dpt.logo.png",
       "city": "Ankara",
@@ -584,6 +629,7 @@
     },
     {
       "code": "AU.TR",
+      "orderIndex": 5,
       "title": "Ankara University",
       "photoUrl": "/assets/companies/ankara.universitesi.logo.png",
       "city": "Ankara",
@@ -597,6 +643,7 @@
     },
     {
       "code": "TUBITAK.TR",
+      "orderIndex": 4,
       "title": "TUBITAK",
       "photoUrl": "/assets/companies/tubitak.logo.png",
       "city": "Ankara",
@@ -610,6 +657,7 @@
     },
     {
       "code": "IEEE.METU",
+      "orderIndex": 3,
       "title": "IEEE METU",
       "photoUrl": "/assets/companies/ieee_metu.logo.png",
       "city": "Ankara",
@@ -620,10 +668,10 @@
         "lat": 39.9334,
         "lng": 32.8597
       }
-    }
-    ,
+    },
     {
       "code": "KTL",
+      "orderIndex": 2,
       "title": "Kocaeli Technical High School",
       "photoUrl": "/assets/companies/ktl.logo.png",
       "city": "Kocaeli",
@@ -637,6 +685,7 @@
     },
     {
       "code": "ATL",
+      "orderIndex": 1,
       "title": "Atatürk Mesleki ve Teknik Anadolu Lisesi",
       "photoUrl": "/assets/companies/atl.logo.png",
       "city": "Kocaeli",

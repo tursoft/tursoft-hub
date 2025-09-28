@@ -8,8 +8,8 @@
       "id": 101,
       "uid": "education.101.metu3",
       "code": "METU3",
-      "companyCode": "METU.II",
       "orderIndex": 15,
+      "companyCode": "METU.II",
       "department": "Department of Software Management",
       "summary": "One-year postgraduate program in Software Management emphasizing project management, software estimation, cost/time management and applied PMP practices through coursework and project work.",
       "level": "Graduate School",
@@ -27,7 +27,6 @@
         "startDate": "01.09.2012",
         "endDate": "01.02.2013"
       },
-      
       "courses": [
         {
           "title": "Project Management",
@@ -40,8 +39,8 @@
       "id": 102,
       "uid": "education.102.metu2",
       "code": "METU2",
-      "companyCode": "METU.CEIT",
       "orderIndex": 14,
+      "companyCode": "METU.CEIT",
       "department": "Computer Education and Instructional Technologies Department",
       "summary": "Graduate studies focused on instructional design, multimedia information systems and educational technologies, combining theory and hands-on software development and multimedia coursework.",
       "level": "Graduate School",
@@ -71,7 +70,6 @@
         "startDate": "15.09.2004",
         "endDate": "15.09.2007"
       },
-      
       "courses": [
         {
           "title": "Design Patterns",
@@ -104,8 +102,8 @@
       "id": 103,
       "uid": "education.103.metu1",
       "code": "METU1",
-      "companyCode": "METU.CEIT",
       "orderIndex": 13,
+      "companyCode": "METU.CEIT",
       "department": "Computer Education and Instructional Technologies Department",
       "summary": "Undergraduate degree covering programming (Pascal, C, C++, Java), web and database technologies, networking and several applied projects including 3D educational game development.",
       "level": "Undergraduate School",
@@ -130,7 +128,6 @@
         "startDate": "15.09.1999",
         "endDate": "15.06.2004"
       },
-      
       "courses": [
         {
           "title": "Programming Languages I",
@@ -203,8 +200,8 @@
       "id": 104,
       "uid": "education.104.ktl",
       "code": "KTL",
-      "companyCode": "KTL",
       "orderIndex": 12,
+      "companyCode": "KTL",
       "department": "Computer Programming Branch",
       "summary": "Technical high school program with a strong focus on practical programming, operating systems and software tools; provided solid foundational skills for further studies in computing.",
       "level": "High School",
@@ -220,7 +217,6 @@
         "startDate": "15.09.1996",
         "endDate": "15.06.1999"
       },
-      
       "courses": [
         {
           "title": "Programming Languages I",
@@ -243,8 +239,8 @@
       "id": 105,
       "uid": "education.105.atl",
       "code": "ATL",
-      "companyCode": "ATL",
       "orderIndex": 12,
+      "companyCode": "ATL",
       "department": "Computer Programming Branch",
       "summary": "Vocational high school curriculum emphasizing core programming concepts and hands-on labs that reinforced practical coding and problem-solving skills.",
       "level": "High School",
@@ -255,7 +251,6 @@
         "startDate": "15.09.1995",
         "endDate": "15.06.1996"
       },
-      
       "courses": []
     }
   ]

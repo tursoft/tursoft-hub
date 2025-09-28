@@ -1,4 +1,4 @@
-import { IBaseModelAdvanced } from "./base/IBaseModelAdvanced";
+import { IBaseModel } from "./base/IBaseModel";
 
 export interface Course {
   name: string;
@@ -16,9 +16,8 @@ export interface DatePeriod {
   endDate: string;
 }
 
-export interface Education extends IBaseModelAdvanced {
-  id: number;
-  orderIndex: number;
+export interface Education extends IBaseModel {
+  companyCode: string;
   url?: string;
   department: string;
   summary?: string;

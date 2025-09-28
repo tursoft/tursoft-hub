@@ -3,6 +3,7 @@
     {
       "uid": "customer.MOH.TR",
       "code": "MOH.TR",
+      "orderIndex": 30,
       "companyCode": "MOH.TR",
       "description": "Leading healthcare digitization initiatives across Turkey with comprehensive health information systems and patient care solutions.",
       "location": "Ankara, Turkey",
@@ -38,6 +39,7 @@
     {
       "uid": "customer.MOI.KSA",
       "code": "MOI.KSA",
+      "orderIndex": 29,
       "companyCode": "MOI.KSA",
       "description": "Saudi Arabia's Ministry of Interior managing national security and civil affairs through advanced digital systems.",
       "location": "Riyadh, Saudi Arabia",
@@ -69,6 +71,7 @@
     {
       "uid": "customer.MOH.KSA",
       "code": "MOH.KSA",
+      "orderIndex": 28,
       "companyCode": "MOH.KSA",
       "description": "Saudi Arabia's Ministry of Health leading healthcare transformation with comprehensive digital health solutions.",
       "location": "Riyadh, Saudi Arabia",
@@ -101,6 +104,7 @@
     {
       "uid": "customer.TTNET",
       "code": "TTNET",
+      "orderIndex": 27,
       "companyCode": "TTNET",
       "description": "Turkey's largest telecommunications company providing internet and digital services to millions of customers.",
       "location": "Istanbul, Turkey",
@@ -132,6 +136,7 @@
     {
       "uid": "customer.ECZACIBASI",
       "code": "ECZACIBASI",
+      "orderIndex": 26,
       "companyCode": "ECZACIBASI",
       "description": "Leading healthcare conglomerate in Turkey providing comprehensive medical services and pharmaceutical solutions.",
       "location": "Istanbul, Turkey",
@@ -163,6 +168,7 @@
     {
       "uid": "customer.Avea",
       "code": "Avea",
+      "orderIndex": 25,
       "companyCode": "Avea",
       "description": "Major mobile telecommunications operator in Turkey providing innovative mobile services and digital solutions.",
       "location": "Istanbul, Turkey",
@@ -194,6 +200,7 @@
     {
       "uid": "customer.H.IbniSina",
       "code": "H.IbniSina",
+      "orderIndex": 24,
       "companyCode": "H.IbniSina",
       "description": "Premier private hospital in Turkey known for advanced medical care and innovative healthcare solutions.",
       "location": "Ankara, Turkey",
@@ -227,6 +234,7 @@
     {
       "uid": "customer.MOH.PAL",
       "code": "MOH.PAL",
+      "orderIndex": 23,
       "companyCode": "MOH.PAL",
       "description": "Palestinian Ministry of Health working to improve healthcare infrastructure and patient care across Palestine.",
       "location": "Ramallah, Palestine",
@@ -259,6 +267,7 @@
     {
       "uid": "customer.LIFEWATCH.CH",
       "code": "LIFEWATCH.CH",
+      "orderIndex": 22,
       "companyCode": "LIFEWATCH.CH",
       "description": "Swiss medical technology company specializing in remote cardiac monitoring and telemedicine solutions.",
       "location": "Neuhausen, Switzerland",
@@ -290,6 +299,7 @@
     {
       "uid": "customer.UCELL.UZ",
       "code": "UCELL.UZ",
+      "orderIndex": 21,
       "companyCode": "UCELL.UZ",
       "description": "Leading mobile network operator in Uzbekistan providing comprehensive telecommunications services.",
       "location": "Tashkent, Uzbekistan",
@@ -320,6 +330,7 @@
     {
       "uid": "customer.SPMS.PT",
       "code": "SPMS.PT",
+      "orderIndex": 20,
       "companyCode": "SPMS.PT",
       "description": "Portuguese health services organization managing digital health transformation and healthcare information systems.",
       "location": "Lisbon, Portugal",
@@ -351,6 +362,7 @@
     {
       "uid": "customer.AXIS.INT",
       "code": "AXIS.INT",
+      "orderIndex": 19,
       "companyCode": "AXIS.INT",
       "description": "Professional interior construction company specializing in commercial and residential interior systems in Ohio.",
       "location": "Cincinnati, Ohio, USA",
@@ -376,6 +388,7 @@
     {
       "uid": "customer.SSG.NY",
       "code": "SSG.NY",
+      "orderIndex": 18,
       "companyCode": "SSG.NY",
       "description": "Premium flooring contractor serving the New York metropolitan area with high-end residential and commercial projects.",
       "location": "New York, NY, USA",
@@ -402,6 +415,7 @@
     {
       "uid": "customer.PRO.UNITED",
       "code": "PRO.UNITED",
+      "orderIndex": 17,
       "companyCode": "PRO.UNITED",
       "description": "Professional contracting company in New Hampshire providing comprehensive construction and renovation services.",
       "location": "New Hampshire, USA",
@@ -426,6 +440,7 @@
     {
       "uid": "customer.TRANSYL.FL",
       "code": "TRANSYL.FL",
+      "orderIndex": 16,
       "companyCode": "TRANSYL.FL",
       "description": "Specialized flooring contractor providing professional installation and renovation services in Pennsylvania.",
       "location": "Pennsylvania, USA",
@@ -451,6 +466,7 @@
     {
       "uid": "customer.BONITZ",
       "code": "BONITZ",
+      "orderIndex": 15,
       "companyCode": "BONITZ",
       "description": "Established flooring contractor providing professional installation services for commercial and residential projects.",
       "location": "Southeast USA",
@@ -475,6 +491,7 @@
     {
       "uid": "customer.DMA.FLOORS",
       "code": "DMA.FLOORS",
+      "orderIndex": 14,
       "companyCode": "DMA.FLOORS",
       "description": "Professional flooring company specializing in residential and light commercial flooring solutions.",
       "location": "Mid-Atlantic USA",
@@ -499,6 +516,7 @@
     {
       "uid": "customer.SERGENIANS",
       "code": "SERGENIANS",
+      "orderIndex": 13,
       "companyCode": "SERGENIANS",
       "description": "Family-owned flooring business providing high-quality installation and renovation services for decades.",
       "location": "Northeast USA",
@@ -523,6 +541,7 @@
     {
       "uid": "customer.GARMON",
       "code": "GARMON",
+      "orderIndex": 12,
       "companyCode": "GARMON",
       "description": "Specialized flooring contractor focused on high-end residential and commercial flooring installations.",
       "location": "Southwest USA",
@@ -547,6 +566,7 @@
     {
       "uid": "customer.MF.HIGGINS",
       "code": "MF.HIGGINS",
+      "orderIndex": 11,
       "companyCode": "MF.HIGGINS",
       "description": "Professional flooring contractor offering comprehensive flooring solutions for residential and commercial clients.",
       "location": "Pacific Northwest USA",
@@ -571,6 +591,7 @@
     {
       "uid": "customer.GOMEZ.FC",
       "code": "GOMEZ.FC",
+      "orderIndex": 10,
       "companyCode": "GOMEZ.FC",
       "description": "Established floor covering company providing quality installation services across multiple states.",
       "location": "South Central USA",
@@ -595,6 +616,7 @@
     {
       "uid": "customer.DESOTO",
       "code": "DESOTO",
+      "orderIndex": 9,
       "companyCode": "DESOTO",
       "description": "Regional flooring contractor specializing in commercial and institutional flooring projects.",
       "location": "Southern USA",
@@ -619,6 +641,7 @@
     {
       "uid": "customer.PROFLOORS",
       "code": "PROFLOORS",
+      "orderIndex": 8,
       "companyCode": "PROFLOORS",
       "description": "Professional flooring company providing expert installation and consultation services for diverse projects.",
       "location": "Western USA",
@@ -643,6 +666,7 @@
     {
       "uid": "customer.ROUSE.CO",
       "code": "ROUSE.CO",
+      "orderIndex": 7,
       "companyCode": "ROUSE.CO",
       "description": "Established construction and development company managing large-scale commercial and residential projects.",
       "location": "Eastern USA",
@@ -668,6 +692,7 @@
     {
       "uid": "customer.SHAFAFIYA.UAE",
       "code": "SHAFAFIYA.UAE",
+      "orderIndex": 6,
       "companyCode": "SHAFAFIYA.UAE",
       "description": "Shafafiya portal contains the key standards that govern how healthcare information is exchanged and used in accordance with the Regulator Policy Manual chapter VIII Data Management, and hosts the information exchange. Documents published here describe the standard language used to exchange data (codes, licenses, etc.) as well as technical specifications of related data exchange systems.",
       "location": "Abu Dhabi",
@@ -698,6 +723,7 @@
     {
       "uid": "customer.EGM.TR",
       "code": "EGM.TR",
+      "orderIndex": 5,
       "companyCode": "EGM.TR",
       "description": "Turkey's national police force managing public security, crime prevention, and law enforcement through advanced information systems.",
       "location": "Ankara, Turkey",
@@ -726,6 +752,7 @@
     {
       "uid": "customer.DPT.TR",
       "code": "DPT.TR",
+      "orderIndex": 4,
       "companyCode": "DPT.TR",
       "description": "Turkey's former State Planning Organization responsible for national economic planning and development strategies.",
       "location": "Ankara, Turkey",
@@ -754,6 +781,7 @@
     {
       "uid": "customer.AU.TR",
       "code": "AU.TR",
+      "orderIndex": 3,
       "companyCode": "AU.TR",
       "description": "Turkey's first modern university, established in 1946, leading in education, research, and technology innovation.",
       "location": "Ankara, Turkey",
@@ -783,6 +811,7 @@
     {
       "uid": "customer.TUBITAK.TR",
       "code": "TUBITAK.TR",
+      "orderIndex": 2,
       "companyCode": "TUBITAK.TR",
       "description": "Turkey's leading scientific and technological research institution supporting innovation and R&D projects nationwide.",
       "location": "Ankara, Turkey",
@@ -812,6 +841,7 @@
     {
       "uid": "customer.IEEE.METU",
       "code": "IEEE.METU",
+      "orderIndex": 1,
       "companyCode": "IEEE.METU",
       "description": "IEEE Middle East Technical University student branch promoting engineering excellence and professional development.",
       "location": "Ankara, Turkey",

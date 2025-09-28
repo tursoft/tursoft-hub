@@ -1,6 +1,9 @@
 import { IBaseModel } from "@/models/base/IBaseModel";
+import { IBaseRepoAdvanced } from "./IBaseRepoAdvanced";
 
-export default class BaseRepo<TItem extends IBaseModel, TData extends { items: TItem[] } = { items: TItem[] }> {
+export default abstract class BaseRepo<TItem extends IBaseModel, TData extends { items: TItem[] } = { items: TItem[] }>
+implements IBaseRepoAdvanced
+{
   protected jsonPath: string;
   protected data: TData | null = null;
   protected loadingPromise: Promise<void> | null = null;
@@ -86,4 +89,7 @@ export default class BaseRepo<TItem extends IBaseModel, TData extends { items: T
 
     return this.data.items.filter((it) => JSON.stringify(it).toLowerCase().includes(q));
   }
+
+  abstract getTitleByCode(code: string | null | undefined): Promise<string | null> ;
+  abstract getPhotoUrlByCode(code: string | null | undefined): Promise<string | null>;
 }
