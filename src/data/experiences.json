@@ -7,47 +7,7 @@
   },
   "items": [
     {
-      "orderIndex": 18,
-      "companyCode": "INFRION",
-      "positions": [
-        {
-          "orderIndex": 1,
-          "title": "Senior Software Architect",
-          "startDate": "01.01.2018",
-          "endDate": "30.07.2019",
-          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-          "domainCodes": [
-            "healthcareit",
-            "certifications"
-          ],
-          "skillCodes": [
-            "Nodejs",
-            "Fastify",
-            "VS Code",
-            "Google Cloud",
-            "Gitlab",
-            "Git",
-            "npm",
-            "React",
-            "StencilJS",
-            "Typescript",
-            "Postgres",
-            "HTML5",
-            "JS",
-            "CSS",
-            "OAuth",
-            "JWT",
-            "Json",
-            "Google Analytics"
-          ],
-          "projects": [
-            "certify.health"
-          ]
-        }
-      ]
-    },
-    {
-      "orderIndex": 17,
+      "orderIndex": 1,
       "companyCode": "JENGAI",
       "positions": [
         {
@@ -94,7 +54,7 @@
       ]
     },
     {
-      "orderIndex": 16,
+      "orderIndex": 2,
       "companyCode": "GAMYTE",
       "positions": [
         {
@@ -141,7 +101,47 @@
       ]
     },
     {
-      "orderIndex": 15,
+      "orderIndex": 3,
+      "companyCode": "INFRION",
+      "positions": [
+        {
+          "orderIndex": 1,
+          "title": "Senior Software Architect",
+          "startDate": "01.01.2018",
+          "endDate": "30.07.2019",
+          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+          "domainCodes": [
+            "healthcareit",
+            "certifications"
+          ],
+          "skillCodes": [
+            "Nodejs",
+            "Fastify",
+            "VS Code",
+            "Google Cloud",
+            "Gitlab",
+            "Git",
+            "npm",
+            "React",
+            "StencilJS",
+            "Typescript",
+            "Postgres",
+            "HTML5",
+            "JS",
+            "CSS",
+            "OAuth",
+            "JWT",
+            "Json",
+            "Google Analytics"
+          ],
+          "projects": [
+            "certify.health"
+          ]
+        }
+      ]
+    },
+    {
+      "orderIndex": 4,
       "companyCode": "ERC",
       "positions": [
         {
@@ -250,7 +250,7 @@
       ]
     },
     {
-      "orderIndex": 14,
+      "orderIndex": 5,
       "companyCode": "DATASEL",
       "positions": [
         {
@@ -379,7 +379,7 @@
       ]
     },
     {
-      "orderIndex": 13,
+      "orderIndex": 6,
       "companyCode": "FONET",
       "positions": [
         {
@@ -457,7 +457,7 @@
       ]
     },
     {
-      "orderIndex": 11,
+      "orderIndex": 7,
       "companyCode": "JANDARMA",
       "positions": [
         {
@@ -479,7 +479,7 @@
       ]
     },
     {
-      "orderIndex": 11,
+      "orderIndex": 8,
       "companyCode": "HALICI",
       "positions": [
         {
@@ -487,7 +487,7 @@
           "title": "Software Production and Planning Director",
           "startDate": "01.01.2007",
           "endDate": "01.09.2008",
-          "summary": "Production Planning, Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
+          "summary": "Production Planning, Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Hal\u0131c\u0131 LMS, Hal\u0131c\u0131 Enterprise Portal System, Hal\u0131c\u0131 EDIS - SCORM Content Authoring Tool, Hal\u0131c\u0131 Frizbi",
           "domainCodes": [
             "elearning",
             "ecommerce",
@@ -520,7 +520,7 @@
           "title": "Project Manager and System Analyst",
           "startDate": "01.01.2005",
           "endDate": "01.01.2007",
-          "summary": "Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
+          "summary": "Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Hal\u0131c\u0131 LMS, Hal\u0131c\u0131 Enterprise Portal System, Hal\u0131c\u0131 EDIS - SCORM Content Authoring Tool, Hal\u0131c\u0131 Frizbi",
           "domainCodes": [
             "elearning",
             "ecommerce",
@@ -555,7 +555,7 @@
           "title": ".NET Application Developer",
           "startDate": "01.01.2004",
           "endDate": "01.01.2005",
-          "summary": "Design & Imlementation of Software Project Architectures.<br/> Tool, Halıcı Frizbi",
+          "summary": "Design & Imlementation of Software Project Architectures.<br/> Tool, Hal\u0131c\u0131 Frizbi",
           "domainCodes": [
             "elearning",
             "cms"
@@ -586,41 +586,22 @@
       ]
     },
     {
-      "orderIndex": 10,
-      "companyCode": "METU.CEIT",
+      "orderIndex": 9,
+      "companyCode": "MILLIYET.BILISIM",
       "positions": [
         {
           "orderIndex": 1,
-          "title": "Web Programmer and Designer",
-          "startDate": "01.09.2003",
-          "endDate": "01.06.2004",
-          "summary": "I have developed a LMS portal system. Technologies: ASP.NET, C#,  VB.NET, MS SQL, HTML, CSS, JS",
-          "domainCodes": [
-            "elearning"
-          ],
-          "skillCodes": [
-            ".NET",
-            "C#",
-            "VB.NET",
-            "Visual Studio",
-            "ASP.NET",
-            "ASP.NET WebAPI",
-            "ASP.NET MVC",
-            "MS SQL",
-            "HTML5",
-            "JS",
-            "CSS",
-            "Photoshop"
-          ],
-          "projects": [
-            "BotebOnline",
-            "EGM"
-          ]
+          "title": "Technology Editor",
+          "startDate": "01.02.2005",
+          "endDate": "01.06.2005",
+          "summary": "I have wroked as technology editor on popular media portal",
+          "domainCodes": [],
+          "skillCodes": []
         }
       ]
     },
     {
-      "orderIndex": 9,
+      "orderIndex": 10,
       "companyCode": "METU.II",
       "positions": [
         {
@@ -664,7 +645,7 @@
       ]
     },
     {
-      "orderIndex": 7,
+      "orderIndex": 11,
       "companyCode": "LABRIS",
       "positions": [
         {
@@ -691,7 +672,41 @@
       ]
     },
     {
-      "orderIndex": 6,
+      "orderIndex": 12,
+      "companyCode": "METU.CEIT",
+      "positions": [
+        {
+          "orderIndex": 1,
+          "title": "Web Programmer and Designer",
+          "startDate": "01.09.2003",
+          "endDate": "01.06.2004",
+          "summary": "I have developed a LMS portal system. Technologies: ASP.NET, C#,  VB.NET, MS SQL, HTML, CSS, JS",
+          "domainCodes": [
+            "elearning"
+          ],
+          "skillCodes": [
+            ".NET",
+            "C#",
+            "VB.NET",
+            "Visual Studio",
+            "ASP.NET",
+            "ASP.NET WebAPI",
+            "ASP.NET MVC",
+            "MS SQL",
+            "HTML5",
+            "JS",
+            "CSS",
+            "Photoshop"
+          ],
+          "projects": [
+            "BotebOnline",
+            "EGM"
+          ]
+        }
+      ]
+    },
+    {
+      "orderIndex": 13,
       "companyCode": "METU.IEEE",
       "positions": [
         {
@@ -715,23 +730,7 @@
       ]
     },
     {
-      "orderIndex": 5,
-      "companyCode": "MILLIYET.BILISIM",
-      "positions": [
-        {
-          "orderIndex": 1,
-          "title": "Technology Editor",
-          "startDate": "01.02.2005",
-          "endDate": "01.06.2005",
-          "summary": "I have wroked as technology editor on popular media portal",
-          "domainCodes": [],
-          "skillCodes": []
-        }
-      ]
-    },    
-
-    {
-      "orderIndex": 4,
+      "orderIndex": 14,
       "companyCode": "NETTEYIM",
       "positions": [
         {
@@ -755,7 +754,7 @@
       ]
     },
     {
-      "orderIndex": 3,
+      "orderIndex": 15,
       "companyCode": "TBD.GENC",
       "positions": [
         {
