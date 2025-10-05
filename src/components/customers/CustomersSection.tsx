@@ -104,34 +104,6 @@ const CustomersSection = () => {
   const statsRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  // Extract industry/category from customer industry or description
-  const categorizeCustomer = (customer: Customer): string => {
-    const industry = (customer.industry || '').toLowerCase();
-    const description = (customer.description || '').toLowerCase();
-    const code = customer.companyCode?.toLowerCase() || '';
-    
-    if (industry.includes('government') || industry.includes('ministry') || code.includes('moh') || code.includes('moi')) {
-      return 'Government';
-    }
-    if (industry.includes('health') || industry.includes('medical') || description.includes('hospital')) {
-      return 'Healthcare';
-    }
-    if (industry.includes('telecom') || code.includes('ttnet') || code.includes('ucell') || code.includes('avea')) {
-      return 'Telecommunications';
-    }
-    if (industry.includes('floor') || industry.includes('interior') || industry.includes('construction')) {
-      return 'Construction & Flooring';
-    }
-    if (industry.includes('technology') || industry.includes('software') || description.includes('platform')) {
-      return 'Technology';
-    }
-    if (code.includes('lifewatch')) {
-      return 'Medical Technology';
-    }
-    
-    return 'Other';
-  };
-
   // Load customer, experiences, and projects data from JSON files
   useEffect(() => {
     const loadData = async () => {
@@ -153,16 +125,13 @@ const CustomersSection = () => {
         setExperiencesData(experiencesData);
         setProjectsData(projectsData);
 
-        // Add categories based on customer info and fix logo paths
-        const categorizedCustomers = customersData.items.map(customer => ({
-          ...customer,
-          category: categorizeCustomer(customer)
-        }));
+        // Customers already have categories in JSON, no need to compute them
+        const customers = customersData.items;
         
         // Create customer logo map by fetching company photoUrl from companiesRepo
         const customerLogos: { [key: string]: string } = {};
         const companyTitles: { [key: string]: string } = {};
-        for (const customer of categorizedCustomers) {
+        for (const customer of customers) {
           if (customer.companyCode) {
             const photoUrl = await companiesRepo.getPhotoUrlByCode(customer.companyCode);
             if (photoUrl) {
@@ -177,10 +146,7 @@ const CustomersSection = () => {
         setCustomerLogoMap(customerLogos);
         setCompanyTitlesMap(companyTitles);
         
-        setCustomerData({
-          ...customersData,
-          items: categorizedCustomers
-        });
+        setCustomerData(customersData);
 
       } catch (error) {
         console.error('Failed to load data:', error);

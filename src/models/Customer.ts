@@ -7,6 +7,7 @@ export interface Customer extends IBaseModel {
   industry?: string | null;
   relationship?: string | null;
   location?: string | null;
+  category?: string | null; // Now stored in JSON, not just runtime
 
   skillCodes?: string[];
   experienceCodes?: string[];
@@ -18,9 +19,6 @@ export interface Customer extends IBaseModel {
     endDate?: string;
     status?: string;
   } | null;
-  
-  // Runtime-added fields (not in JSON, added by component)
-  category?: string;
 }
 
 export interface CustomerData {
