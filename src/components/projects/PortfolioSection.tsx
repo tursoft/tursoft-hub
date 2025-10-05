@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Filter, Grid, List, RotateCcw, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import ProjectDetailDialog from './ProjectDetailDialog';
-import dataHelper from '@/lib/datahelper';
 
 // Define interfaces for type safety
 interface Project {

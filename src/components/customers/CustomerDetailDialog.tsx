@@ -25,79 +25,71 @@ import {
   Mail,
   Clock
 } from "lucide-react";
-import { getProjectLogo, getTechnologyLogo } from '@/lib/utils';
-
-interface Customer {
-  name: string;
-  title: string;
-  logoPath: string;
-  category?: string;
-  description?: string;
-  website?: string;
-  location?: string;
-  industry?: string;
-  relationship?: string;
-  projects?: string[];
-  companyCodes?: string[];
-  projectNames?: string[];
-  resolvedCompanyNames?: string[];
-  resolvedProjectTitles?: string[];
-  technologies?: string[];
-  partnership?: {
-    startDate?: string;
-    endDate?: string;
-    status?: 'active' | 'completed' | 'ongoing';
-  };
-  contact?: {
-    email?: string;
-    phone?: string;
-    address?: string;
-  };
-  services?: string[];
-  achievements?: string[];
-  testimonial?: {
-    text: string;
-    author: string;
-    position: string;
-  };
-}
+import { projectsRepo } from '@/repositories/ProjectsRepo';
+import { skillsRepo } from '@/repositories/SkillsRepo';
+import type { Customer } from '@/models/Customer';
 
 interface CustomerDetailDialogProps {
   customer: Customer | null;
   isOpen: boolean;
   onClose: () => void;
   customerLogo?: string;
+  companyTitle?: string;
 }
 
 const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
   customer,
   isOpen,
   onClose,
-  customerLogo
+  customerLogo,
+  companyTitle
 }) => {
   const [projectLogos, setProjectLogos] = useState<Record<string, string>>({});
+  const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
 
   // Fetch project logos when customer changes
   useEffect(() => {
     const fetchLogos = async () => {
-      if (!customer?.projectNames) return;
+      if (!customer?.projectCodes) return;
       
       const logos: Record<string, string> = {};
-      for (const projectName of customer.projectNames) {
-        if (projectName) {
-          const logo = await getProjectLogo(projectName);
+      for (const projectCode of customer.projectCodes) {
+        if (projectCode) {
+          const logo = await projectsRepo.getPhotoUrlByCode(projectCode);
           if (logo) {
-            logos[projectName] = logo;
+            logos[projectCode] = logo;
           }
         }
       }
       setProjectLogos(logos);
     };
 
-    if (customer?.projectNames && customer.projectNames.length > 0) {
+    if (customer?.projectCodes && customer.projectCodes.length > 0) {
       fetchLogos();
     }
-  }, [customer?.projectNames]);
+  }, [customer?.projectCodes]);
+
+  // Fetch technology logos when customer changes
+  useEffect(() => {
+    const fetchLogos = async () => {
+      if (!customer?.skillCodes) return;
+      
+      const logos: Record<string, string> = {};
+      for (const skillCode of customer.skillCodes) {
+        if (skillCode) {
+          const logo = await skillsRepo.getPhotoUrlByCode(skillCode);
+          if (logo) {
+            logos[skillCode] = logo;
+          }
+        }
+      }
+      setTechnologyLogos(logos);
+    };
+
+    if (customer?.skillCodes && customer.skillCodes.length > 0) {
+      fetchLogos();
+    }
+  }, [customer?.skillCodes]);
 
   if (!customer) return null;
 
@@ -139,7 +131,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">
-                  {customer.title}
+                  {companyTitle || customer.companyCode || customer.code}
                 </DialogTitle>
                 {customer.category && (
                   <Badge variant="outline" className="text-xs">
@@ -166,7 +158,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
               <div className="w-16 h-16 flex-shrink-0">
                 <img 
                   src={customerLogo} 
-                  alt={`${customer.title} logo`}
+                  alt={`${companyTitle || customer.companyCode} logo`}
                   className="w-full h-full object-contain rounded-lg"
                   onError={(e) => {
                     // Try with /src/assets/ prefix for development fallback
@@ -475,7 +467,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                 <div className="px-4 py-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                     {customer.technologies.map((tech, index) => {
-                      const logoPath = getTechnologyLogo(tech);
+                      const logoPath = technologyLogos[tech] || "";
                       const isEven = index % 2 === 0;
                       const isLastInColumn = index === customer.technologies.length - 1 || 
                         (isEven && index === customer.technologies.length - 2 && customer.technologies.length % 2 === 0);

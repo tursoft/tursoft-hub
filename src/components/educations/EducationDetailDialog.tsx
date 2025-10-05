@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -21,7 +21,7 @@ import {
   ExternalLink,
   Clock
 } from "lucide-react";
-import { getTechnologyLogo } from '@/lib/utils';
+import { skillsRepo } from '@/repositories/SkillsRepo';
 
 interface Course {
   name: string;
@@ -70,6 +70,29 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
   onClose,
   educationIcon
 }) => {
+  const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
+
+  // Fetch technology logos when education changes
+  useEffect(() => {
+    const fetchLogos = async () => {
+      if (!education?.technologies) return;
+      
+      const logos: Record<string, string> = {};
+      for (const tech of education.technologies) {
+        if (tech.name) {
+          const logo = await skillsRepo.getPhotoUrlByCode(tech.name);
+          if (logo) {
+            logos[tech.name] = logo;
+          }
+        }
+      }
+      setTechnologyLogos(logos);
+    };
+
+    if (education?.technologies && education.technologies.length > 0) {
+      fetchLogos();
+    }
+  }, [education?.technologies]);
 
 
   if (!education) return null;
@@ -273,7 +296,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                 <div className="px-4 py-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                     {education.technologies.map((tech, index) => {
-                      const logoPath = getTechnologyLogo(tech.name);
+                      const logoPath = technologyLogos[tech.name] || "";
                       const isEven = index % 2 === 0;
                       const isLastInColumn = index === education.technologies.length - 1 || 
                         (isEven && index === education.technologies.length - 2 && education.technologies.length % 2 === 0);

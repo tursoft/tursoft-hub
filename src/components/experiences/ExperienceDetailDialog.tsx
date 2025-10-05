@@ -23,7 +23,8 @@ import {
   Linkedin,
   Briefcase
 } from "lucide-react";
-import { getTechnologyLogo, getProjectLogo } from '@/lib/utils';
+import { projectsRepo } from '@/repositories/ProjectsRepo';
+import { skillsRepo } from '@/repositories/SkillsRepo';
 
 interface Technology {
   name: string;
@@ -76,6 +77,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
   onClose
 }) => {
   const [projectLogos, setProjectLogos] = useState<Record<string, string>>({});
+  const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
 
   // Get all projects from all positions
   const getAllProjects = () => {
@@ -111,7 +113,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
       const logos: Record<string, string> = {};
       for (const project of allProjects) {
         if (project.name) {
-          const logo = await getProjectLogo(project.name);
+          const logo = await projectsRepo.getPhotoUrlByCode(project.name);
           if (logo) {
             logos[project.name] = logo;
           }
@@ -124,6 +126,48 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
       fetchLogos();
     }
   }, [allProjects.length]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Get all unique technologies
+  const getAllUniqueTechnologies = () => {
+    if (!experience) return [];
+    const allTechs: Technology[] = [];
+    experience.positions.forEach(position => {
+      allTechs.push(...position.technologies);
+    });
+    // Deduplicate by name
+    const seen = new Set<string>();
+    const unique: Technology[] = [];
+    for (const tech of allTechs) {
+      const key = tech.name.toUpperCase();
+      if (!seen.has(key)) {
+        seen.add(key);
+        unique.push(tech);
+      }
+    }
+    return unique;
+  };
+
+  const allTechnologies = getAllUniqueTechnologies();
+
+  // Fetch technology logos when technologies change
+  useEffect(() => {
+    const fetchLogos = async () => {
+      const logos: Record<string, string> = {};
+      for (const tech of allTechnologies) {
+        if (tech.name) {
+          const logo = await skillsRepo.getPhotoUrlByCode(tech.name);
+          if (logo) {
+            logos[tech.name] = logo;
+          }
+        }
+      }
+      setTechnologyLogos(logos);
+    };
+
+    if (allTechnologies.length > 0) {
+      fetchLogos();
+    }
+  }, [allTechnologies.length]); // eslint-disable-line react-hooks/exhaustive-deps
   
   if (!experience) return null;
 
@@ -340,7 +384,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
               <div className="px-4 py-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                   {Object.values(groupedTechnologies).flat().map((tech, index, allTechs) => {
-                    const logoPath = getTechnologyLogo(tech.name);
+                    const logoPath = technologyLogos[tech.name] || "";
                     const isEven = index % 2 === 0;
                     const isLastInColumn = index === allTechs.length - 1 || 
                       (isEven && index === allTechs.length - 2 && allTechs.length % 2 === 0);

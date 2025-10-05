@@ -3,10 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Filter, Grid, List, RotateCcw, ChevronLeft, ChevronRight, Search, Building2, Globe, Users } from "lucide-react";
+import { Filter, Grid, List, RotateCcw, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import CustomerDetailDialog from './CustomerDetailDialog';
 import type { Customer, CustomerData } from '@/models/Customer';
-import dataHelper from '@/lib/datahelper';
+import { companiesRepo } from '@/repositories/CompaniesRepo';
 
 interface Experience {
   companyCode: string;
@@ -94,6 +94,7 @@ const CustomersSection = () => {
   const [projectsData, setProjectsData] = useState<ProjectsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [customerLogoMap, setCustomerLogoMap] = useState<{ [key: string]: string }>({});
+  const [companyTitlesMap, setCompanyTitlesMap] = useState<{ [key: string]: string }>({});
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -103,27 +104,28 @@ const CustomersSection = () => {
   const statsRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  // Extract industry/category from customer name or title
+  // Extract industry/category from customer industry or description
   const categorizeCustomer = (customer: Customer): string => {
-    const title = customer.title.toLowerCase();
-    const name = customer.name.toLowerCase();
+    const industry = (customer.industry || '').toLowerCase();
+    const description = (customer.description || '').toLowerCase();
+    const code = customer.companyCode?.toLowerCase() || '';
     
-    if (title.includes('ministry') || title.includes('moh') || title.includes('government')) {
+    if (industry.includes('government') || industry.includes('ministry') || code.includes('moh') || code.includes('moi')) {
       return 'Government';
     }
-    if (title.includes('health') || title.includes('hospital') || title.includes('medical')) {
+    if (industry.includes('health') || industry.includes('medical') || description.includes('hospital')) {
       return 'Healthcare';
     }
-    if (title.includes('telecom') || title.includes('telekom') || name.includes('ttnet') || name.includes('ucell') || name.includes('avea')) {
+    if (industry.includes('telecom') || code.includes('ttnet') || code.includes('ucell') || code.includes('avea')) {
       return 'Telecommunications';
     }
-    if (title.includes('floor') || title.includes('interior') || title.includes('construction')) {
+    if (industry.includes('floor') || industry.includes('interior') || industry.includes('construction')) {
       return 'Construction & Flooring';
     }
-    if (title.includes('technology') || title.includes('software') || title.includes('platform')) {
+    if (industry.includes('technology') || industry.includes('software') || description.includes('platform')) {
       return 'Technology';
     }
-    if (title.includes('lifewatch')) {
+    if (code.includes('lifewatch')) {
       return 'Medical Technology';
     }
     
@@ -157,14 +159,23 @@ const CustomersSection = () => {
           category: categorizeCustomer(customer)
         }));
         
-        // Create customer logo map using proper asset paths
+        // Create customer logo map by fetching company photoUrl from companiesRepo
         const customerLogos: { [key: string]: string } = {};
+        const companyTitles: { [key: string]: string } = {};
         for (const customer of categorizedCustomers) {
-          if (customer.logoPath) {
-            customerLogos[customer.name] = customer.logoPath;
+          if (customer.companyCode) {
+            const photoUrl = await companiesRepo.getPhotoUrlByCode(customer.companyCode);
+            if (photoUrl) {
+              customerLogos[customer.code] = photoUrl;
+            }
+            const title = await companiesRepo.getTitleByCode(customer.companyCode);
+            if (title) {
+              companyTitles[customer.code] = title;
+            }
           }
         }
         setCustomerLogoMap(customerLogos);
+        setCompanyTitlesMap(companyTitles);
         
         setCustomerData({
           ...customersData,
@@ -216,8 +227,8 @@ const CustomersSection = () => {
     if (searchText.trim()) {
       const searchLower = searchText.toLowerCase();
       filtered = filtered.filter(customer => 
-        customer.title.toLowerCase().includes(searchLower) ||
-        customer.name.toLowerCase().includes(searchLower) ||
+        customer.companyCode.toLowerCase().includes(searchLower) ||
+        customer.description.toLowerCase().includes(searchLower) ||
         customer.category?.toLowerCase().includes(searchLower)
       );
     }
@@ -241,9 +252,7 @@ const CustomersSection = () => {
   const handleCustomerClick = (customer: Customer) => {
     // Create customer object with resolved company names and project titles
     const customerWithResolvedData: Customer = {
-      ...customer,
-      resolvedCompanyNames: dataHelper.resolveCompanyNames(customer.companyCodes),
-      resolvedProjectTitles: dataHelper.resolveProjectTitles(customer.projectNames)
+      ...customer
     };
     
     setSelectedCustomer(customerWithResolvedData);
@@ -299,23 +308,24 @@ const CustomersSection = () => {
     variant?: 'default' | 'list' | 'carousel'; 
     style?: React.CSSProperties 
   }> = ({ customer, index, variant = 'default', style }) => {
-    const isHovered = hoveredCard === customer.name;
+    const isHovered = hoveredCard === customer.code;
+    const companyTitle = companyTitlesMap[customer.code] || customer.companyCode || customer.code;
     
     if (variant === 'list') {
       return (
         <div
           className="group flex items-center gap-4 p-4 bg-card border border-border rounded-lg cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-card/80 animate-fade-in"
           style={{ animationDelay: `${index * 50}ms`, ...style }}
-          onMouseEnter={() => setHoveredCard(customer.name)}
+          onMouseEnter={() => setHoveredCard(customer.code)}
           onMouseLeave={() => setHoveredCard(null)}
           onClick={() => handleCustomerClick(customer)}
         >
           {/* Customer Logo */}
-          {customerLogoMap[customer.name] && (
+          {customerLogoMap[customer.code] && (
             <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
               <img 
-                src={customerLogoMap[customer.name]} 
-                alt={`${customer.title} logo`}
+                src={customerLogoMap[customer.code]} 
+                alt={`${companyTitle} logo`}
                 className="w-14 h-14 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300 rounded-lg"
                 onError={(e) => {
                   // Try with /src/assets/ prefix for development fallback
@@ -335,7 +345,7 @@ const CustomersSection = () => {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <h3 className="font-semibold text-lg text-foreground truncate group-hover:text-primary transition-colors">
-                {customer.title}
+                {companyTitle}
               </h3>
               {customer.category && (
                 <Badge variant="outline" className="text-xs flex-shrink-0">
@@ -344,14 +354,12 @@ const CustomersSection = () => {
               )}
             </div>            
             
-            {/* Associated Companies */}
-            {customer.companyCodes && customer.companyCodes.length > 0 && (
+            {/* Associated Companies - Display companyCode */}
+            {customer.companyCode && (
               <div className="flex flex-wrap gap-1 mb-2">
-                {dataHelper.resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
-                  <Badge key={index} variant="secondary" className="text-xs">
-                    {companyName}
-                  </Badge>
-                ))}
+                <Badge variant="secondary" className="text-xs">
+                  {customer.companyCode}
+                </Badge>
               </div>
             )}
             
@@ -375,7 +383,7 @@ const CustomersSection = () => {
         <Card 
           className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in transition-all duration-300 cursor-pointer"
           style={{ animationDelay: `${index * 100}ms`, ...style }}
-          onMouseEnter={() => setHoveredCard(customer.name)}
+          onMouseEnter={() => setHoveredCard(customer.code)}
           onMouseLeave={() => setHoveredCard(null)}
           onClick={() => handleCustomerClick(customer)}
         >
@@ -389,11 +397,11 @@ const CustomersSection = () => {
               )}
               
               {/* Customer Logo - Smaller for carousel */}
-              {customerLogoMap[customer.name] && (
+              {customerLogoMap[customer.code] && (
                 <div className="w-20 h-20 flex items-center justify-center mb-2">
                   <img 
-                    src={customerLogoMap[customer.name]} 
-                    alt={`${customer.title} logo`}
+                    src={customerLogoMap[customer.code]} 
+                    alt={`${companyTitle} logo`}
                     className="w-16 h-16 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300 rounded-lg"
                     onError={(e) => {
                       // Try with /src/assets/ prefix for development fallback
@@ -412,17 +420,15 @@ const CustomersSection = () => {
               {/* Customer Info */}
               <div className="w-full">
                 <CardTitle className="text-base leading-tight group-hover:text-primary transition-colors mb-1">
-                  {customer.title}
+                  {companyTitle}
                 </CardTitle>
                 
-                {/* Associated Companies */}
-                {customer.companyCodes && customer.companyCodes.length > 0 && (
+                {/* Associated Companies - Display companyCode */}
+                {customer.companyCode && (
                   <div className="flex flex-wrap gap-1 mt-2 justify-center">
-                    {dataHelper.resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
-                        {companyName}
-                      </Badge>
-                    ))}
+                    <Badge variant="secondary" className="text-xs">
+                      {customer.companyCode}
+                    </Badge>
                   </div>
                 )}
               </div>
@@ -447,7 +453,7 @@ const CustomersSection = () => {
       <Card 
         className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:shadow-xl"
         style={{ animationDelay: `${index * 100}ms`, ...style }}
-        onMouseEnter={() => setHoveredCard(customer.name)}
+        onMouseEnter={() => setHoveredCard(customer.code)}
         onMouseLeave={() => setHoveredCard(null)}
         onClick={() => handleCustomerClick(customer)}
       >
@@ -461,11 +467,11 @@ const CustomersSection = () => {
             )}
             
             {/* Customer Logo */}
-            {customerLogoMap[customer.name] && (
+            {customerLogoMap[customer.code] && (
               <div className="w-36 h-36 flex items-center justify-center mb-3">
                 <img 
-                  src={customerLogoMap[customer.name]} 
-                  alt={`${customer.title} logo`}
+                  src={customerLogoMap[customer.code]} 
+                  alt={`${companyTitle} logo`}
                   className="w-32 h-32 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300 rounded-lg"
                   onError={(e) => {
                     // Try with /src/assets/ prefix for development fallback
@@ -484,17 +490,15 @@ const CustomersSection = () => {
             {/* Customer Info */}
             <div className="w-full">
               <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors mb-1">
-                {customer.title}
+                {companyTitle}
               </CardTitle>
               
-              {/* Associated Companies */}
-              {customer.companyCodes && customer.companyCodes.length > 0 && (
+              {/* Associated Companies - Display companyCode */}
+              {customer.companyCode && (
                 <div className="flex flex-wrap gap-1 mt-3 justify-center">
-                  {dataHelper.resolveCompanyNames(customer.companyCodes).map((companyName, index) => (
-                    <Badge key={index} variant="secondary" className="text-xs">
-                      {companyName}
-                    </Badge>
-                  ))}
+                  <Badge variant="secondary" className="text-xs">
+                    {customer.companyCode}
+                  </Badge>
                 </div>
               )}
             </div>
@@ -612,7 +616,7 @@ const CustomersSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredCustomers.map((customer, index) => (
               <CustomerCard 
-                key={customer.name} 
+                key={customer.code} 
                 customer={customer} 
                 index={index} 
                 variant="default"
@@ -625,7 +629,7 @@ const CustomersSection = () => {
           <div className="space-y-4">
             {filteredCustomers.map((customer, index) => (
               <CustomerCard 
-                key={customer.name} 
+                key={customer.code} 
                 customer={customer} 
                 index={index} 
                 variant="list"
@@ -686,7 +690,7 @@ const CustomersSection = () => {
                 
                 return (
                   <div
-                    key={customer.name}
+                    key={customer.code}
                     className="absolute cursor-pointer transition-all duration-700 ease-out"
                     style={{
                       transform,
@@ -800,7 +804,8 @@ const CustomersSection = () => {
         customer={selectedCustomer}
         isOpen={isDialogOpen}
         onClose={handleDialogClose}
-        customerLogo={selectedCustomer ? customerLogoMap[selectedCustomer.name] : undefined}
+        customerLogo={selectedCustomer ? customerLogoMap[selectedCustomer.code] : undefined}
+        companyTitle={selectedCustomer ? companyTitlesMap[selectedCustomer.code] : undefined}
       />
     </section>
   );

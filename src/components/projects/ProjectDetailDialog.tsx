@@ -19,7 +19,7 @@ import {
   User,
   Clock
 } from "lucide-react";
-import { getTechnologyLogo } from '@/lib/utils';
+import { skillsRepo } from '@/repositories/SkillsRepo';
 
 interface Customer {
   name: string;
@@ -65,6 +65,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 }) => {
   const [customersData, setCustomersData] = useState<Customer[]>([]);
   const [isLoadingCustomers, setIsLoadingCustomers] = useState(false);
+  const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
 
   // Load customers data when dialog opens
   useEffect(() => {
@@ -98,6 +99,28 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
       setCustomersData([]);
     }
   }, [isOpen, project?.customerNames]);
+
+  // Fetch technology logos when project changes
+  useEffect(() => {
+    const fetchLogos = async () => {
+      if (!project?.technologies) return;
+      
+      const logos: Record<string, string> = {};
+      for (const tech of project.technologies) {
+        if (tech.name) {
+          const logo = await skillsRepo.getPhotoUrlByCode(tech.name);
+          if (logo) {
+            logos[tech.name] = logo;
+          }
+        }
+      }
+      setTechnologyLogos(logos);
+    };
+
+    if (project?.technologies && project.technologies.length > 0) {
+      fetchLogos();
+    }
+  }, [project?.technologies]);
 
   if (!project) return null;
 
@@ -269,7 +292,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               <div className="px-4 py-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                   {project.technologies.map((tech, index) => {
-                    const logoPath = getTechnologyLogo(tech.name);
+                    const logoPath = technologyLogos[tech.name] || "";
                     const isEven = index % 2 === 0;
                     const isLastInColumn = index === project.technologies.length - 1 || 
                       (isEven && index === project.technologies.length - 2 && project.technologies.length % 2 === 0);

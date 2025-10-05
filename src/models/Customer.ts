@@ -1,11 +1,12 @@
 import { IBaseModel } from "./base/IBaseModel";
 
 export interface Customer extends IBaseModel {
-  // many fields are optional in JSON
+  // Fields from JSON
   companyCode?: string | null;
   description?: string;
   industry?: string | null;
   relationship?: string | null;
+  location?: string | null;
 
   skillCodes?: string[];
   experienceCodes?: string[];
@@ -17,6 +18,9 @@ export interface Customer extends IBaseModel {
     endDate?: string;
     status?: string;
   } | null;
+  
+  // Runtime-added fields (not in JSON, added by component)
+  category?: string;
 }
 
 export interface CustomerData {
