@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -13,9 +12,8 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
-  GraduationCap, 
   MapPin, 
   Building2, 
   Code, 
@@ -23,7 +21,7 @@ import {
   ExternalLink,
   Clock
 } from "lucide-react";
-import { getTechnologyLogo } from "@/lib/technologyLogos";
+import { getTechnologyLogo } from '@/lib/utils';
 
 interface Course {
   name: string;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -23,8 +23,7 @@ import {
   Linkedin,
   Briefcase
 } from "lucide-react";
-import { getTechnologyLogo } from "@/lib/technologyLogos";
-import dataHelper from '@/lib/datahelper';
+import { getTechnologyLogo, getProjectLogo } from '@/lib/utils';
 
 interface Technology {
   name: string;
@@ -76,6 +75,56 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
   isOpen,
   onClose
 }) => {
+  const [projectLogos, setProjectLogos] = useState<Record<string, string>>({});
+
+  // Get all projects from all positions
+  const getAllProjects = () => {
+    if (!experience) return [];
+    
+    const allProjects: Project[] = [];
+    experience.positions.forEach(position => {
+      if (position.projects) {
+        allProjects.push(...position.projects);
+      }
+    });
+
+    // Deduplicate by normalized project.name (case-insensitive, trimmed)
+    const seen = new Set<string>();
+    const unique: Project[] = [];
+    for (const p of allProjects) {
+      const key = (p?.name || '').toString().trim().toUpperCase();
+      if (!key) continue;
+      if (!seen.has(key)) {
+        seen.add(key);
+        unique.push(p);
+      }
+    }
+
+    return unique;
+  };
+
+  const allProjects = getAllProjects();
+
+  // Fetch project logos when projects change
+  useEffect(() => {
+    const fetchLogos = async () => {
+      const logos: Record<string, string> = {};
+      for (const project of allProjects) {
+        if (project.name) {
+          const logo = await getProjectLogo(project.name);
+          if (logo) {
+            logos[project.name] = logo;
+          }
+        }
+      }
+      setProjectLogos(logos);
+    };
+
+    if (allProjects.length > 0) {
+      fetchLogos();
+    }
+  }, [allProjects.length]); // eslint-disable-line react-hooks/exhaustive-deps
+  
   if (!experience) return null;
 
   // Helper function to format date period
@@ -149,32 +198,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
     }, {} as Record<string, Technology[]>);
   };
 
-  // Get all projects from all positions
-  const getAllProjects = () => {
-    const allProjects: Project[] = [];
-    experience.positions.forEach(position => {
-      if (position.projects) {
-        allProjects.push(...position.projects);
-      }
-    });
-
-    // Deduplicate by normalized project.name (case-insensitive, trimmed)
-    const seen = new Set<string>();
-    const unique: Project[] = [];
-    for (const p of allProjects) {
-      const key = (p?.name || '').toString().trim().toUpperCase();
-      if (!key) continue;
-      if (!seen.has(key)) {
-        seen.add(key);
-        unique.push(p);
-      }
-    }
-
-    return unique;
-  };
-
   const groupedTechnologies = getAllTechnologies();
-  const allProjects = getAllProjects();
   const totalTechCount = Object.values(groupedTechnologies).flat().length;
   const hasCurrentPosition = experience.positions.some(pos => !pos.endDate);
 
@@ -354,7 +378,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                 {allProjects.length > 0 ? (
                   <div className="space-y-3">
                     {allProjects.map((project, index) => {
-                      const logoPath = dataHelper.resolveProjectLogo(project.name);
+                      const logoPath = projectLogos[project.name] || "";
 
                       return (
                         <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">

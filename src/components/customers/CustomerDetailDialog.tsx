@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -25,7 +25,7 @@ import {
   Mail,
   Clock
 } from "lucide-react";
-import dataHelper from '@/lib/datahelper';
+import { getProjectLogo, getTechnologyLogo } from '@/lib/utils';
 
 interface Customer {
   name: string;
@@ -40,8 +40,8 @@ interface Customer {
   projects?: string[];
   companyCodes?: string[];
   projectNames?: string[];
-  // resolvedCompanyNames?: string[];
-  // resolvedProjectTitles?: string[];
+  resolvedCompanyNames?: string[];
+  resolvedProjectTitles?: string[];
   technologies?: string[];
   partnership?: {
     startDate?: string;
@@ -75,7 +75,29 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
   onClose,
   customerLogo
 }) => {
+  const [projectLogos, setProjectLogos] = useState<Record<string, string>>({});
 
+  // Fetch project logos when customer changes
+  useEffect(() => {
+    const fetchLogos = async () => {
+      if (!customer?.projectNames) return;
+      
+      const logos: Record<string, string> = {};
+      for (const projectName of customer.projectNames) {
+        if (projectName) {
+          const logo = await getProjectLogo(projectName);
+          if (logo) {
+            logos[projectName] = logo;
+          }
+        }
+      }
+      setProjectLogos(logos);
+    };
+
+    if (customer?.projectNames && customer.projectNames.length > 0) {
+      fetchLogos();
+    }
+  }, [customer?.projectNames]);
 
   if (!customer) return null;
 
@@ -327,7 +349,8 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                   <div className="space-y-3">
                     {customer.companyCodes.map((companyCode, index) => {
                         const companyName = customer.resolvedCompanyNames?.[index];
-                        const logoPath = dataHelper.resolveCompanyLogo(companyCode);
+                        // TODO: Implement company logo resolution using CompaniesRepo
+                        const logoPath = ""; // dataHelper.resolveCompanyLogo(companyCode);
                         
                         // Only show company if we have a resolved name (don't show raw codes)
                         if (!companyName) return null;
@@ -381,7 +404,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                   <div className="space-y-3">
                     {customer.projectNames.map((projectName, index) => {
                         const projectTitle = customer.resolvedProjectTitles?.[index] || projectName;
-                        const logoPath = dataHelper.resolveProjectLogo(projectName);
+                        const logoPath = projectLogos[projectName] || "";
                         
                         return (
                           <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
@@ -452,7 +475,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                 <div className="px-4 py-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                     {customer.technologies.map((tech, index) => {
-                      const logoPath = dataHelper.resolveTechnologyLogo(tech);
+                      const logoPath = getTechnologyLogo(tech);
                       const isEven = index % 2 === 0;
                       const isLastInColumn = index === customer.technologies.length - 1 || 
                         (isEven && index === customer.technologies.length - 2 && customer.technologies.length % 2 === 0);

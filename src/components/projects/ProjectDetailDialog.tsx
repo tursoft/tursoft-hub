@@ -13,14 +13,13 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Users, 
+import { Card, CardContent, CardDescription } from "@/components/ui/card";
+import {
   Building2, 
   User,
   Clock
 } from "lucide-react";
-import { getTechnologyLogo } from "@/lib/technologyLogos";
+import { getTechnologyLogo } from '@/lib/utils';
 
 interface Customer {
   name: string;
