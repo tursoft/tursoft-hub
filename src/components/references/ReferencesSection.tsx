@@ -3,83 +3,42 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Quote, Phone, Mail, Linkedin, Twitter, Facebook, ExternalLink, Globe, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react";
-import referencesData from "@/data/references.json";
+import { referencesRepo } from "@/repositories/ReferencesRepo";
+import type { Reference } from "@/models/Reference";
 
-// Import all reference photos
-import antonisPhoto from "@/assets/references/andonis.philippidis.jpg";
-import nuraliPhoto from "@/assets/references/nurali.unal.jpg";
-import myozdenPhoto from "@/assets/references/myozden.jpg";
-import cetinPhoto from "@/assets/references/cetin.balanuye.jpg";
-import kursatPhoto from "@/assets/references/kursat.cagiltay.png";
-import alexanderPhoto from "@/assets/references/alexander.berler.jpg";
-import umutPhoto from "@/assets/references/umut.huseyinoglu.jpg";
-import gulpembePhoto from "@/assets/references/gulpembe.ergin.jpg";
-import firatPhoto from "@/assets/references/firat.ozerden.jpg";
-import johanPhoto from "@/assets/references/johan.sellstrom.jpg";
-import aslakPhoto from "@/assets/references/aslak.felin.jpg";
-import uwePhoto from "@/assets/references/uwe.weimer.jpg";
-import mehmetAlpPhoto from "@/assets/references/mehmet.alp.karabas.jpg";
-import eleftheriaPhoto from "@/assets/references/eleftheria.polychronidou.jpg";
-import kostasPhoto from "@/assets/references/kostas.karkaletsis.jpg";
-import veliPhoto from "@/assets/references/veli.bicer.jpg";
-import erolPhoto from "@/assets/references/erol.ozcelik.jpg";
-import mesutPhoto from "@/assets/references/mesut.demirer.jpg";
-import davutPhoto from "@/assets/references/davut.gurbuz.jpg";
-
-// Photo mapping object
-const photoMap: { [key: string]: string } = {
-  "andonis.philippidis.jpg": antonisPhoto,
-  "nurali.unal.jpg": nuraliPhoto,
-  "myozden.jpg": myozdenPhoto,
-  "cetin.balanuye.jpg": cetinPhoto,
-  "kursat.cagiltay.png": kursatPhoto,
-  "alexander.berler.jpg": alexanderPhoto,
-  "umut.huseyinoglu.jpg": umutPhoto,
-  "gulpembe.ergin.jpg": gulpembePhoto,
-  "firat.ozerden.jpg": firatPhoto,
-  "johan.sellstrom.jpg": johanPhoto,
-  "aslak.felin.jpg": aslakPhoto,
-  "uwe.weimer.jpg": uwePhoto,
-  "mehmet.alp.karabas.jpg": mehmetAlpPhoto,
-  "eleftheria.polychronidou.jpg": eleftheriaPhoto,
-  "kostas.karkaletsis.jpg": kostasPhoto,
-  "veli.bicer.jpg": veliPhoto,
-  "erol.ozcelik.jpg": erolPhoto,
-  "mesut.demirer.jpg": mesutPhoto,
-  "davut.gurbuz.jpg": davutPhoto,
-};
-
-interface Reference {
-  code: string;
-  photoUrl: string;
-  company: string;
-  position: string;
-  testimonial: string;
-  date: string;
-  contacts: Array<{ code: string; value: string }>;
-  rating: number;
-  isActive: boolean;
+// Extended reference with photo field for rendering
+interface ReferenceWithPhoto extends Reference {
+  photo: string;
 }
 
 const ReferencesSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [references, setReferences] = useState<Reference[]>([]);
+  const [references, setReferences] = useState<ReferenceWithPhoto[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Load references from JSON and map photos
-    try {
-      const loadedReferences = referencesData
-        .filter((ref: Reference) => ref.isActive)
-        .map((ref: Reference) => ({
-          ...ref,
-          photo: photoMap[ref.photoUrl] || '',
-        }));
-      setReferences(loadedReferences);
-    } catch (error) {
-      console.error('Error loading references:', error);
-      setReferences([]);
-    }
+    // Load references from repository with photos
+    const loadReferences = async () => {
+      try {
+        const allReferences = await referencesRepo.getList();
+        
+        // Filter active references and load photos
+        const activeReferences = allReferences.filter((ref) => ref.isActive);
+        const referencesWithPhotos = await Promise.all(
+          activeReferences.map(async (ref) => ({
+            ...ref,
+            photo: (await referencesRepo.getPhotoUrlByCode(ref.code)) || '',
+          }))
+        );
+        
+        setReferences(referencesWithPhotos);
+      } catch (error) {
+        console.error('Error loading references:', error);
+        setReferences([]);
+      }
+    };
+
+    loadReferences();
   }, []);
 
   const nextSlide = () => {
@@ -204,7 +163,7 @@ const ReferencesSection = () => {
               
               return (
                 <Card 
-                  key={reference.id}
+                  key={reference.code}
                   className="absolute w-[36rem] h-[28rem] border-border bg-card cursor-pointer transition-all duration-500 ease-in-out flex flex-col"
                   style={cardStyle}
                   onClick={() => goToSlide(index)}
@@ -216,7 +175,7 @@ const ReferencesSection = () => {
                         <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-background shadow-lg">
                           <img 
                             src={reference.photo} 
-                            alt={reference.name}
+                            alt={reference.title}
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -224,7 +183,7 @@ const ReferencesSection = () => {
 
                       {/* Reference Info */}
                       <div className="w-full">
-                        <h3 className="text-xl font-bold mb-2">{reference.name}</h3>
+                        <h3 className="text-xl font-bold mb-2">{reference.title}</h3>
                         <p className="text-primary font-semibold text-sm">
                           {reference.position}
                         </p>
