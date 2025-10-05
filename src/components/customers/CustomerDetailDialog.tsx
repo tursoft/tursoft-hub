@@ -27,7 +27,11 @@ import {
 } from "lucide-react";
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
+import { companiesRepo } from '@/repositories/CompaniesRepo';
+import { referencesRepo } from '@/repositories/ReferencesRepo';
 import type { Customer } from '@/models/Customer';
+import type { Company } from '@/models/Companies';
+import type { Reference } from '@/models/Reference';
 
 interface CustomerDetailDialogProps {
   customer: Customer | null;
@@ -46,6 +50,8 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
 }) => {
   const [projectLogos, setProjectLogos] = useState<Record<string, string>>({});
   const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
+  const [companyData, setCompanyData] = useState<Company | null>(null);
+  const [customerReferences, setCustomerReferences] = useState<Reference[]>([]);
 
   // Fetch project logos when customer changes
   useEffect(() => {
@@ -90,6 +96,39 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
       fetchLogos();
     }
   }, [customer?.skillCodes]);
+
+  // Fetch company data when customer changes
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      if (!customer?.companyCode) return;
+      
+      const company = await companiesRepo.getByCode(customer.companyCode);
+      setCompanyData(company);
+    };
+
+    if (customer?.companyCode) {
+      fetchCompanyData();
+    }
+  }, [customer?.companyCode]);
+
+  // Fetch testimonials/references related to customer's company
+  useEffect(() => {
+    const fetchReferences = async () => {
+      if (!customer?.companyCode) return;
+      
+      const allReferences = await referencesRepo.getList();
+      // Find references from people who worked at this company
+      const relatedRefs = allReferences.filter(
+        ref => ref.isActive && 
+        ref.company.toLowerCase().includes(companyData?.title.toLowerCase() || customer.companyCode?.toLowerCase() || '')
+      );
+      setCustomerReferences(relatedRefs.slice(0, 3)); // Show up to 3 testimonials
+    };
+
+    if (customer?.companyCode && companyData) {
+      fetchReferences();
+    }
+  }, [customer?.companyCode, companyData]);
 
   if (!customer) return null;
 
@@ -181,9 +220,9 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
             <TabsTrigger value="overview">
               <span className="flex items-center gap-2">
                 Overview
-                {((customer.companyCodes && customer.companyCodes.length > 0) || (customer.projectNames && customer.projectNames.length > 0)) && (
+                {(customer.projectCodes && customer.projectCodes.length > 0) && (
                   <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {(customer.companyCodes?.length || 0) + (customer.projectNames?.length || 0)}
+                    {customer.projectCodes.length}
                   </Badge>
                 )}
               </span>
@@ -191,9 +230,9 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
             <TabsTrigger value="technologies">
               <span className="flex items-center gap-2">
                 Technologies
-                {customer.technologies && (
+                {customer.skillCodes && (
                   <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {customer.technologies.length}
+                    {customer.skillCodes.length}
                   </Badge>
                 )}
               </span>
@@ -201,9 +240,9 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
             <TabsTrigger value="services">
               <span className="flex items-center gap-2">
                 Services
-                {customer.services && (
+                {customer.serviceCodes && (
                   <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {customer.services.length}
+                    {customer.serviceCodes.length}
                   </Badge>
                 )}
               </span>
@@ -236,167 +275,103 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                 </div>
               )}
 
-              {/* Contact Information */}
-              {customer.contact && (
+              {/* Company Information Card */}
+              {companyData && (
                 <Card className="mx-4">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-base">
-                      <Phone className="w-4 h-4" />
-                      Contact Information
+                      <Building2 className="w-4 h-4" />
+                      Company Details
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {customer.contact.email && (
-                        <div className="flex items-center gap-3">
-                          <Mail className="w-4 h-4 text-muted-foreground" />
-                          <span className="text-sm">{customer.contact.email}</span>
-                        </div>
-                      )}
-                      {customer.contact.phone && (
-                        <div className="flex items-center gap-3">
-                          <Phone className="w-4 h-4 text-muted-foreground" />
-                          <span className="text-sm">{customer.contact.phone}</span>
-                        </div>
-                      )}
-                      {customer.contact.address && (
-                        <div className="flex items-center gap-3">
-                          <MapPin className="w-4 h-4 text-muted-foreground" />
-                          <span className="text-sm">{customer.contact.address}</span>
-                        </div>
-                      )}
-                    </div>
+                  <CardContent className="space-y-3">
+                    {companyData.city && companyData.country && (
+                      <div className="flex items-center gap-3">
+                        <MapPin className="w-4 h-4 text-muted-foreground" />
+                        <span className="text-sm">{companyData.city}, {companyData.country}</span>
+                      </div>
+                    )}
+                    {companyData.websiteUrl && (
+                      <div className="flex items-center gap-3">
+                        <Globe className="w-4 h-4 text-muted-foreground" />
+                        <a 
+                          href={companyData.websiteUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-primary hover:underline"
+                        >
+                          Visit Website
+                        </a>
+                      </div>
+                    )}
+                    {companyData.linkedinUrl && (
+                      <div className="flex items-center gap-3">
+                        <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                        <a 
+                          href={companyData.linkedinUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-primary hover:underline"
+                        >
+                          LinkedIn Profile
+                        </a>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               )}
 
-              {/* Website Link */}
-              {customer.website && (
-                <div className="px-4 py-2">
-                  <a 
-                    href={customer.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-                  >
-                    <Globe className="w-4 h-4" />
-                    <span className="text-sm font-medium">Visit Website</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-              )}
-
-              {/* Testimonial */}
-              {customer.testimonial && (
+              {/* Testimonials Section */}
+              {customerReferences.length > 0 && (
                 <Card className="mx-4">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-base">
                       <Star className="w-4 h-4 text-yellow-500" />
-                      Testimonial
+                      Testimonials
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <blockquote className="text-sm italic text-muted-foreground mb-3">
-                      "{customer.testimonial.text}"
-                    </blockquote>
-                    <div className="text-sm">
-                      <div className="font-semibold">{customer.testimonial.author}</div>
-                      <div className="text-muted-foreground">{customer.testimonial.position}</div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Achievements */}
-              {customer.achievements && customer.achievements.length > 0 && (
-                <Card className="mx-4">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-base">
-                      <Star className="w-4 h-4" />
-                      Key Achievements
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="list-disc list-inside space-y-2">
-                      {customer.achievements.map((achievement, index) => (
-                        <li key={index} className="text-sm text-muted-foreground">
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Associated Companies */}
-              {customer.companyCodes && customer.companyCodes.length > 0 && (
-                <div className="px-4 py-2">
-                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                    <Building2 className="w-4 h-4" />
-                    <span>Associated Companies</span>
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {customer.companyCodes.length}
-                    </Badge>
-                  </h4>
-                  <div className="space-y-3">
-                    {customer.companyCodes.map((companyCode, index) => {
-                        const companyName = customer.resolvedCompanyNames?.[index];
-                        // TODO: Implement company logo resolution using CompaniesRepo
-                        const logoPath = ""; // dataHelper.resolveCompanyLogo(companyCode);
-                        
-                        // Only show company if we have a resolved name (don't show raw codes)
-                        if (!companyName) return null;
-                        
-                        return (
-                          <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
-                            {/* Company Logo */}
-                            {logoPath && (
-                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                                <img 
-                                  src={logoPath}
-                                  alt={`${companyName} logo`}
-                                  className="w-7 h-7 object-contain rounded"
-                                  onError={(e) => {
-                                    // Try with /assets/ prefix for production fallback
-                                    const currentSrc = e.currentTarget.src;
-                                    if (currentSrc.includes('/src/assets/')) {
-                                      e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
-                                    } else {
-                                      // Hide image if it fails to load
-                                      e.currentTarget.style.display = 'none';
-                                    }
-                                  }}
-                                />
-                              </div>
-                            )}
-                            
-                            {/* Company Name */}
-                            <div className="flex-1 min-w-0">
-                              <div className="text-sm font-medium text-foreground truncate">
-                                {companyName}
-                              </div>
-                            </div>
+                  <CardContent className="space-y-4">
+                    {customerReferences.map((reference, index) => (
+                      <div key={index} className="space-y-2">
+                        <blockquote 
+                          className="text-sm italic text-muted-foreground leading-relaxed"
+                          dangerouslySetInnerHTML={{ __html: `"${reference.testimonial}"` }}
+                        />
+                        <div className="flex items-center gap-2 pt-2">
+                          {reference.photoUrl && (
+                            <img 
+                              src={reference.photoUrl}
+                              alt={reference.title}
+                              className="w-8 h-8 rounded-full object-cover"
+                            />
+                          )}
+                          <div className="text-sm">
+                            <div className="font-semibold">{reference.title}</div>
+                            <div className="text-muted-foreground text-xs">{reference.position} at {reference.company}</div>
                           </div>
-                        );
-                      }).filter(Boolean)}
-                  </div>
-                </div>
+                        </div>
+                        {index < customerReferences.length - 1 && (
+                          <div className="border-b border-border/50 mt-3"></div>
+                        )}
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
               )}
 
               {/* Related Projects */}
-              {customer.projectNames && customer.projectNames.length > 0 && (
+              {customer.projectCodes && customer.projectCodes.length > 0 && (
                 <div className="px-4 py-2">
                   <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                     <Briefcase className="w-4 h-4" />
                     <span>Related Projects</span>
                     <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {customer.projectNames.length}
+                      {customer.projectCodes.length}
                     </Badge>
                   </h4>
                   <div className="space-y-3">
-                    {customer.projectNames.map((projectName, index) => {
-                        const projectTitle = customer.resolvedProjectTitles?.[index] || projectName;
-                        const logoPath = projectLogos[projectName] || "";
+                    {customer.projectCodes.map((projectCode, index) => {
+                        const logoPath = projectLogos[projectCode] || "";
                         
                         return (
                           <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
@@ -405,7 +380,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                               <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
                                 <img 
                                   src={logoPath}
-                                  alt={`${projectTitle} logo`}
+                                  alt={`${projectCode} logo`}
                                   className="w-7 h-7 object-contain rounded"
                                   onError={(e) => {
                                     // Try with /assets/ prefix for production fallback
@@ -424,7 +399,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                             {/* Project Details */}
                             <div className="flex-1 min-w-0">
                               <div className="text-sm font-medium text-foreground truncate">
-                                {projectTitle}
+                                {projectCode}
                               </div>
                             </div>
                           </div>
@@ -437,16 +412,16 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
 
             <TabsContent value="services" className="space-y-6 min-h-[400px]">
               <div className="p-4">
-                {customer.services && customer.services.length > 0 ? (
+                {customer.serviceCodes && customer.serviceCodes.length > 0 ? (
                   <>
                     <div className="flex items-center gap-2 mb-4">
                       <Briefcase className="w-5 h-5" />
                       <h3 className="text-lg font-semibold">Services Provided</h3>
                     </div>
                     <div className="grid grid-cols-1 gap-3">
-                      {customer.services.map((service, index) => (
+                      {customer.serviceCodes.map((serviceCode, index) => (
                         <div key={index} className="p-3 bg-muted/30 rounded-lg border border-border/50">
-                          <div className="text-sm font-medium text-foreground">{service}</div>
+                          <div className="text-sm font-medium text-foreground">{serviceCode}</div>
                         </div>
                       ))}
                     </div>
@@ -463,14 +438,14 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
             </TabsContent>
 
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
-              {customer.technologies && customer.technologies.length > 0 ? (
+              {customer.skillCodes && customer.skillCodes.length > 0 ? (
                 <div className="px-4 py-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                    {customer.technologies.map((tech, index) => {
-                      const logoPath = technologyLogos[tech] || "";
+                    {customer.skillCodes.map((skillCode, index) => {
+                      const logoPath = technologyLogos[skillCode] || "";
                       const isEven = index % 2 === 0;
-                      const isLastInColumn = index === customer.technologies.length - 1 || 
-                        (isEven && index === customer.technologies.length - 2 && customer.technologies.length % 2 === 0);
+                      const isLastInColumn = index === customer.skillCodes.length - 1 || 
+                        (isEven && index === customer.skillCodes.length - 2 && customer.skillCodes.length % 2 === 0);
                       
                       return (
                         <div key={index}>
@@ -479,7 +454,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                             {logoPath && (
                               <img 
                                 src={logoPath}
-                                alt={`${tech} logo`}
+                                alt={`${skillCode} logo`}
                                 className="w-5 h-5 object-contain flex-shrink-0"
                                 onError={(e) => {
                                   // Try with /assets/ prefix for production fallback
@@ -496,7 +471,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                             
                             {/* Technology Name */}
                             <span className="text-sm font-medium text-foreground">
-                              {tech}
+                              {skillCode}
                             </span>
                           </div>
                           {!isLastInColumn && (
