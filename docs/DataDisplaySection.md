@@ -254,7 +254,7 @@ fieldMapping={{
 <DataDisplaySection<ReferenceWithPhoto>
   data={references}
   defaultViewMode="carousel"
-  title="What Colleagues Say"
+  title="What <span className='bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4'>Colleagues</span> Say"
   subtitle="Professional testimonials"
   badge="References"
   fieldMapping={{

@@ -82,7 +82,7 @@ const ReferencesSection = () => {
       emptyMessage="No references available"
       defaultViewMode="carousel"
       enabledModes={['card', 'list', 'carousel']}
-      title="What Colleagues Say"
+      title="What<span class='bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4'>Colleagues</span> Say"
       subtitle="Testimonials from industry leaders and colleagues who have worked closely with me throughout my professional career."
       badge="Professional References"
       fieldMapping={{

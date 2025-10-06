@@ -473,9 +473,10 @@ const DataDisplaySection = <T = any>({
               <Badge variant="outline" className="mb-4">{badge}</Badge>
             )}
             {title && (
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                {title}
-              </h2>
+              <h2 
+                className="text-4xl lg:text-5xl font-bold mb-6"
+                dangerouslySetInnerHTML={{ __html: title }}
+              />
             )}
             {subtitle && (
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
