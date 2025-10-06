@@ -80,7 +80,7 @@ const PortfolioSection = () => {
   const [projectData, setProjectData] = useState<ProjectsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [projectIconMap, setProjectIconMap] = useState<{ [key: string]: string }>({});
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'card' | 'list' | 'carousel'>('card');
@@ -261,14 +261,14 @@ const PortfolioSection = () => {
     variant?: 'default' | 'list' | 'carousel'; 
     style?: React.CSSProperties 
   }> = ({ project, index, variant = 'default', style }) => {
-    const isHovered = hoveredCard === (project.id || 0);
+    const isHovered = hoveredCard === project.code;
     
     if (variant === 'list') {
       return (
         <div
           className="group flex items-center gap-4 p-4 bg-card border border-border rounded-lg cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:bg-card/80 animate-fade-in"
           style={{ animationDelay: `${index * 50}ms`, ...style }}
-          onMouseEnter={() => setHoveredCard(project.id)}
+          onMouseEnter={() => setHoveredCard(project.code)}
           onMouseLeave={() => setHoveredCard(null)}
           onClick={() => handleProjectClick(project)}
         >
@@ -339,7 +339,7 @@ const PortfolioSection = () => {
         <Card 
           className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in transition-all duration-300 cursor-pointer"
           style={{ animationDelay: `${index * 100}ms`, ...style }}
-          onMouseEnter={() => setHoveredCard(project.id)}
+          onMouseEnter={() => setHoveredCard(project.code)}
           onMouseLeave={() => setHoveredCard(null)}
           onClick={() => handleProjectClick(project)}
         >
@@ -422,7 +422,7 @@ const PortfolioSection = () => {
       <Card 
         className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:shadow-xl"
         style={{ animationDelay: `${index * 100}ms`, ...style }}
-        onMouseEnter={() => setHoveredCard(project.id)}
+        onMouseEnter={() => setHoveredCard(project.code)}
         onMouseLeave={() => setHoveredCard(null)}
         onClick={() => handleProjectClick(project)}
       >
@@ -601,7 +601,7 @@ const PortfolioSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProjects.map((project, index) => (
               <ProjectCard 
-                key={project.id} 
+                key={project.code} 
                 project={project} 
                 index={index} 
                 variant="default"
@@ -614,7 +614,7 @@ const PortfolioSection = () => {
           <div className="space-y-4">
             {filteredProjects.map((project, index) => (
               <ProjectCard 
-                key={project.id} 
+                key={project.code} 
                 project={project} 
                 index={index} 
                 variant="list"
@@ -675,7 +675,7 @@ const PortfolioSection = () => {
                 
                 return (
                   <div
-                    key={project.id}
+                    key={project.code}
                     className="absolute cursor-pointer transition-all duration-700 ease-out"
                     style={{
                       transform,
@@ -729,9 +729,9 @@ const PortfolioSection = () => {
 
             {/* Dots Indicator */}
             <div className="flex justify-center space-x-2 mt-8">
-              {filteredProjects.map((_, index) => (
+              {filteredProjects.map((project, index) => (
                 <button
-                  key={index}
+                  key={`dot-${project.code}`}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     index === carouselIndex 
                       ? 'bg-primary scale-125' 
