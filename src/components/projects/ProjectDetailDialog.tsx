@@ -238,7 +238,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               <span className="flex items-center gap-2">
                 Team
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                  {project.team.length}
+                  {project.team?.length || 0}
                 </Badge>
               </span>
             </TabsTrigger>
