@@ -24,9 +24,15 @@ import {
 } from "lucide-react";
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
+import { domainsRepo } from '@/repositories/DomainsRepo';
+import { companiesRepo } from '@/repositories/CompaniesRepo';
 
 
 import type { Experience, Position } from '@/models/Experience';
+import type { ProjectEntry } from '@/models/Project';
+import type { SkillItem } from '@/models/Skills';
+import type { Domain } from '@/models/Domain';
+import type { Company } from '@/models/Companies';
 
 interface ExperienceDetailDialogProps {
   experience: Experience | null;
@@ -39,98 +45,94 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
   isOpen,
   onClose
 }) => {
-  const [projectLogos, setProjectLogos] = useState<Record<string, string>>({});
-  const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
+  const [projects, setProjects] = useState<ProjectEntry[]>([]);
+  const [skills, setSkills] = useState<SkillItem[]>([]);
+  const [domains, setDomains] = useState<Record<string, Domain[]>>({});
+  const [company, setCompany] = useState<Company | null>(null);
+  const [isLoadingData, setIsLoadingData] = useState(true);
 
-  // Get all projects from all positions
-  const getAllProjects = () => {
-    if (!experience) return [];
-    
-    const allProjects: Project[] = [];
-    experience.positions.forEach(position => {
-      if (position.projects) {
-        allProjects.push(...position.projects);
-      }
-    });
-
-    // Deduplicate by normalized project.name (case-insensitive, trimmed)
-    const seen = new Set<string>();
-    const unique: Project[] = [];
-    for (const p of allProjects) {
-      const key = (p?.name || '').toString().trim().toUpperCase();
-      if (!key) continue;
-      if (!seen.has(key)) {
-        seen.add(key);
-        unique.push(p);
-      }
-    }
-
-    return unique;
-  };
-
-  const allProjects = getAllProjects();
-
-  // Fetch project logos when projects change
+  // Resolve all codes to actual objects when experience changes
   useEffect(() => {
-    const fetchLogos = async () => {
-      const logos: Record<string, string> = {};
-      for (const project of allProjects) {
-        if (project.name) {
-          const logo = await projectsRepo.getPhotoUrlByCode(project.name);
-          if (logo) {
-            logos[project.name] = logo;
+    const loadData = async () => {
+      if (!experience) {
+        setProjects([]);
+        setSkills([]);
+        setDomains({});
+        setCompany(null);
+        setIsLoadingData(false);
+        return;
+      }
+
+      setIsLoadingData(true);
+
+      try {
+        // Resolve company code to company object
+        if (experience.companyCode) {
+          const companyData = await companiesRepo.getByCode(experience.companyCode);
+          setCompany(companyData);
+        } else {
+          setCompany(null);
+        }
+
+        // Collect all unique project codes
+        const projectCodesSet = new Set<string>();
+        experience.positions.forEach(position => {
+          position.projectCodes?.forEach(code => projectCodesSet.add(code));
+        });
+
+        // Resolve project codes to project objects
+        const projectsArray: ProjectEntry[] = [];
+        for (const code of projectCodesSet) {
+          const project = await projectsRepo.getByCode(code);
+          if (project) {
+            projectsArray.push(project);
           }
         }
-      }
-      setProjectLogos(logos);
-    };
+        setProjects(projectsArray);
 
-    if (allProjects.length > 0) {
-      fetchLogos();
-    }
-  }, [allProjects.length]); // eslint-disable-line react-hooks/exhaustive-deps
+        // Collect all unique skill codes
+        const skillCodesSet = new Set<string>();
+        experience.positions.forEach(position => {
+          position.skillCodes?.forEach(code => skillCodesSet.add(code));
+        });
 
-  // Get all unique technologies
-  const getAllUniqueTechnologies = () => {
-    if (!experience) return [];
-    const allTechs: Technology[] = [];
-    experience.positions.forEach(position => {
-      allTechs.push(...position.technologies);
-    });
-    // Deduplicate by name
-    const seen = new Set<string>();
-    const unique: Technology[] = [];
-    for (const tech of allTechs) {
-      const key = tech.name.toUpperCase();
-      if (!seen.has(key)) {
-        seen.add(key);
-        unique.push(tech);
-      }
-    }
-    return unique;
-  };
-
-  const allTechnologies = getAllUniqueTechnologies();
-
-  // Fetch technology logos when technologies change
-  useEffect(() => {
-    const fetchLogos = async () => {
-      const logos: Record<string, string> = {};
-      for (const tech of allTechnologies) {
-        if (tech.name) {
-          const logo = await skillsRepo.getPhotoUrlByCode(tech.name);
-          if (logo) {
-            logos[tech.name] = logo;
+        // Resolve skill codes to skill objects
+        const skillsArray: SkillItem[] = [];
+        for (const code of skillCodesSet) {
+          const skill = await skillsRepo.getByCode(code);
+          if (skill) {
+            skillsArray.push(skill);
           }
         }
+        setSkills(skillsArray);
+
+        // Resolve domain codes for each position
+        const domainsMap: Record<string, Domain[]> = {};
+        for (const position of experience.positions) {
+          if (position.domainCodes && position.domainCodes.length > 0) {
+            const positionDomains: Domain[] = [];
+            for (const code of position.domainCodes) {
+              const domain = await domainsRepo.getByCode(code);
+              if (domain) {
+                positionDomains.push(domain);
+              }
+            }
+            domainsMap[position.title] = positionDomains;
+          }
+        }
+        setDomains(domainsMap);
+      } catch (error) {
+        console.error('Failed to load experience data:', error);
+        setProjects([]);
+        setSkills([]);
+        setDomains({});
+      } finally {
+        setIsLoadingData(false);
       }
-      setTechnologyLogos(logos);
     };
 
-    if (allTechnologies.length > 0) {
-      fetchLogos();
-    }
-  }, [allTechnologies.length]); // eslint-disable-line react-hooks/exhaustive-deps
+    loadData();
+  }, [experience]);
   
   if (!experience) return null;
 
@@ -184,29 +186,17 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
     return duration || '< 1 month';
   };
 
-  // Group all technologies from all positions by type
-  const getAllTechnologies = () => {
-    const allTechs: Technology[] = [];
-    experience.positions.forEach(position => {
-      allTechs.push(...position.technologies);
-    });
-    
-    // Remove duplicates
-    const uniqueTechs = allTechs.filter((tech, index, self) => 
-      index === self.findIndex(t => t.name === tech.name && t.type === tech.type)
-    );
-    
-    return uniqueTechs.reduce((acc, tech) => {
-      if (!acc[tech.type]) {
-        acc[tech.type] = [];
-      }
-      acc[tech.type].push(tech);
-      return acc;
-    }, {} as Record<string, Technology[]>);
-  };
+  // Group all skills by group
+  const groupedSkills = skills.reduce((acc, skill) => {
+    const group = skill.group || 'Other';
+    if (!acc[group]) {
+      acc[group] = [];
+    }
+    acc[group].push(skill);
+    return acc;
+  }, {} as Record<string, SkillItem[]>);
 
-  const groupedTechnologies = getAllTechnologies();
-  const totalTechCount = Object.values(groupedTechnologies).flat().length;
+  const totalTechCount = skills.length;
   const hasCurrentPosition = experience.positions.some(pos => !pos.endDate);
 
   return (
@@ -217,7 +207,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">
-                  {experience.companyName}
+                  {company?.title || experience.code || 'Company'}
                 </DialogTitle>
                 {hasCurrentPosition && (
                   <Badge variant="default" className="bg-primary text-primary-foreground text-xs">
@@ -234,11 +224,11 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                   <MapPin className="w-4 h-4" />
                   <span>Turkey</span>
                 </div>
-                {(experience.websiteUrl || experience.linkedinUrl) && (
+                {(company?.websiteUrl || company?.linkedinUrl) && (
                   <div className="flex items-center gap-3 mt-3">
-                    {experience.websiteUrl && (
+                    {company.websiteUrl && (
                       <a 
-                        href={experience.websiteUrl} 
+                        href={company.websiteUrl} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="flex items-center gap-1 text-primary hover:text-primary/80 transition-colors text-sm"
@@ -247,9 +237,9 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                         <span>Website</span>
                       </a>
                     )}
-                    {experience.linkedinUrl && (
+                    {company.linkedinUrl && (
                       <a 
-                        href={experience.linkedinUrl} 
+                        href={company.linkedinUrl} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="flex items-center gap-1 text-primary hover:text-primary/80 transition-colors text-sm"
@@ -262,13 +252,15 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                 )}
               </div>
             </div>
-            <div className="w-16 h-16 flex-shrink-0">
-              <img 
-                src={`/assets/logos/companies/${experience.icon}`} 
-                alt={`${experience.companyName} logo`}
-                className="w-full h-full object-contain rounded-lg"
-              />
-            </div>
+            {company?.photoUrl && (
+              <div className="w-16 h-16 flex-shrink-0">
+                <img 
+                  src={company.photoUrl} 
+                  alt={`${company.title} logo`}
+                  className="w-full h-full object-contain rounded-lg"
+                />
+              </div>
+            )}
           </div>
         </DialogHeader>
 
@@ -294,7 +286,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
               <span className="flex items-center gap-2">
                 Projects
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                  {allProjects.length}
+                  {projects.length}
                 </Badge>
               </span>
             </TabsTrigger>
@@ -303,7 +295,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
           <div className="max-h-[60vh] overflow-y-auto mt-4">
             <TabsContent value="positions" className="space-y-3 min-h-[400px]">
               {experience.positions.map((position, index) => (
-                <div key={position.id} className="px-4 py-2">
+                <div key={index} className="px-4 py-2">
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold text-primary">{position.title}</h3>
@@ -324,11 +316,11 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                     dangerouslySetInnerHTML={{ __html: position.summary.replace(/<br\/>/g, '<br/>') }}
                   />
                   
-                  {position.domains && position.domains.length > 0 && (
+                  {domains[position.title] && domains[position.title].length > 0 && (
                     <div className="mb-3">
                       <div className="flex flex-wrap gap-2">
-                        {position.domains.map((domain, i) => (
-                          <Badge key={i} variant="secondary" className="text-xs">
+                        {domains[position.title].map((domain) => (
+                          <Badge key={domain.code} variant="secondary" className="text-xs">
                             {domain.title}
                           </Badge>
                         ))}
@@ -345,51 +337,57 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
 
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
               <div className="px-4 py-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                  {Object.values(groupedTechnologies).flat().map((tech, index, allTechs) => {
-                    const logoPath = technologyLogos[tech.name] || "";
-                    const isEven = index % 2 === 0;
-                    const isLastInColumn = index === allTechs.length - 1 || 
-                      (isEven && index === allTechs.length - 2 && allTechs.length % 2 === 0);
-                    
-                    return (
-                      <div key={index}>
-                        <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
-                          {logoPath && (
-                            <img 
-                              src={logoPath} 
-                              alt={`${tech.name} logo`} 
-                              className="w-5 h-5 object-contain flex-shrink-0" 
-                              onError={(e) => {
-                                // Hide image if it fails to load
-                                e.currentTarget.style.display = 'none';
-                              }}
-                            />
+                {isLoadingData ? (
+                  <div className="text-center text-muted-foreground py-8">Loading skills...</div>
+                ) : skills.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                    {skills.map((skill, index, allSkills) => {
+                      const logoPath = skill.photoUrl || "";
+                      const isEven = index % 2 === 0;
+                      const isLastInColumn = index === allSkills.length - 1 || 
+                        (isEven && index === allSkills.length - 2 && allSkills.length % 2 === 0);
+                      
+                      return (
+                        <div key={skill.code}>
+                          <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
+                            {logoPath && (
+                              <img 
+                                src={logoPath} 
+                                alt={`${skill.title} logo`} 
+                                className="w-5 h-5 object-contain flex-shrink-0" 
+                                onError={(e) => {
+                                  e.currentTarget.style.display = 'none';
+                                }}
+                              />
+                            )}
+                            <span className="text-sm font-medium text-foreground">
+                              {skill.title}
+                            </span>
+                          </div>
+                          {!isLastInColumn && (
+                            <div className="border-b border-dashed border-border/50 mx-4"></div>
                           )}
-                          <span className="text-sm font-medium text-foreground">
-                            {tech.name}
-                          </span>
                         </div>
-                        {!isLastInColumn && (
-                          <div className="border-b border-dashed border-border/50 mx-4"></div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <p className="text-muted-foreground">No skills listed for this experience.</p>
+                )}
               </div>
             </TabsContent>
 
             <TabsContent value="projects" className="space-y-3 min-h-[400px]">
               <div className="px-4 py-2">
-                {allProjects.length > 0 ? (
+                {isLoadingData ? (
+                  <div className="text-center text-muted-foreground py-8">Loading projects...</div>
+                ) : projects.length > 0 ? (
                   <div className="space-y-3">
-                    {allProjects.map((project, index) => {
-                      const logoPath = projectLogos[project.name] || "";
+                    {projects.map((project) => {
+                      const logoPath = project.photoUrl || "";
 
                       return (
-                        <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
-                          {/* Project Logo (fallback to /src/assets during development if needed) */}
+                        <div key={project.code} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
                           {logoPath ? (
                             <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
                               <img
@@ -397,12 +395,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                                 alt={`${project.title} logo`}
                                 className="w-7 h-7 object-contain rounded"
                                 onError={(e) => {
-                                  const current = e.currentTarget.src;
-                                  if (current.includes('/assets/') && !current.includes('/src/assets/')) {
-                                    e.currentTarget.src = current.replace('/assets/', '/src/assets/');
-                                  } else {
-                                    e.currentTarget.style.display = 'none';
-                                  }
+                                  e.currentTarget.style.display = 'none';
                                 }}
                               />
                             </div>
