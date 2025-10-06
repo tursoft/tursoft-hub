@@ -746,11 +746,16 @@
       "team": [
         {
           "orderIndex": 0,
+          "personCode": "cetinbalanuye",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 1,
           "personCode": "muhammettursak",
           "position": "Team Leader"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 2,
           "personCode": "mustafauysal",
           "position": "Software Developer"
         }
@@ -833,11 +838,16 @@
       "team": [
         {
           "orderIndex": 0,
+          "personCode": "cetinbalanuye",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 1,
           "personCode": "muhammettursak",
           "position": "Team Leader"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 2,
           "personCode": "mustafauysal",
           "position": "Software Developer"
         }
@@ -876,16 +886,21 @@
       "team": [
         {
           "orderIndex": 0,
+          "personCode": "cetinbalanuye",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 1,
           "personCode": "muhammettursak",
           "position": "Team Leader"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 2,
           "personCode": "mustafauysal",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 4,
           "personCode": "evrimbaran",
           "position": "Software Analyst"
         }
@@ -925,26 +940,26 @@
       "team": [
         {
           "orderIndex": 0,
+          "personCode": "cetinbalanuye",
+          "position": "CEO"
+        },     
+        {
+          "orderIndex": 1,
           "personCode": "muhammettursak",
           "position": "Team Leader"
         },
         {
-          "orderIndex": 0,
-          "personCode": "myasarozden",
-          "position": "Academic Consultant"
-        },
-        {
-          "orderIndex": 1,
+          "orderIndex": 2,
           "personCode": "mustafauysal",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 2,
+          "orderIndex": 3,
           "personCode": "ugurumutluoglu",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 2,
+          "orderIndex": 4,
           "personCode": "erhandurust",
           "position": "Software Developer"
         }
@@ -981,30 +996,40 @@
         "endDate": "01.09.2008"
       },
       "team": [
-        {
+{
           "orderIndex": 0,
+          "personCode": "cetinbalanuye",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 1,
+          "personCode": "myasarozden",
+          "position": "Academic Consultant"
+        },        
+        {
+          "orderIndex": 2,
           "personCode": "muhammettursak",
           "position": "Team Leader"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 3,
           "personCode": "mustafauysal",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 2,
-          "personCode": null,
-          "position": "Software Developer"
-        },
-        {
-          "orderIndex": 2,
+          "orderIndex": 4,
           "personCode": "ugurumutluoglu",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 2,
+          "orderIndex": 5,
           "personCode": "erhandurust",
           "position": "Software Developer"
+        },
+        {
+          "orderIndex": 6,
+          "personCode": "evrimbaran",
+          "position": "Software Analyst"
         }
       ],
       "props": [
@@ -2749,14 +2774,19 @@
         "startDate": "01.01.2005",
         "endDate": "01.01.2006"
       },
-      "team": [
+      "team": [        
         {
           "orderIndex": 0,
+          "personCode": "cetinbalanuye",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 1,
           "personCode": "muhammettursak",
           "position": "Team Leader"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 2,
           "personCode": "mustafauysal",
           "position": "Software Developer"
         }
@@ -2830,21 +2860,26 @@
       "team": [
         {
           "orderIndex": 0,
+          "personCode": "cetinbalanuye",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 1,
           "personCode": "myasarozden",
           "position": "Project Manager"
         },
         {
-          "orderIndex": 0,
+          "orderIndex": 2,
           "personCode": "muhammettursak",
           "position": "Team Leader"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 3,
           "personCode": "mustafauysal",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 4,
           "personCode": "alpercetinkaya",
           "position": "Testing Specialist"
         }

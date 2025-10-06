@@ -533,17 +533,27 @@
       "code": "erhandurust",
       "orderIndex": 38,
       "title": "Erhan Dürüst",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/erhan.durust.jpg",
       "company": "Halıcı",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/erhan-d%C3%BCr%C3%BCst-08250a64"
+        }
+      ]
     },
     {
       "code": "ugurumutluoglu",
       "orderIndex": 39,
       "title": "Uğur Umutluoğlu",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/ugur.umutluoglu.jpg",
       "company": "Halıcı",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/ugurumutluoglu"
+        }
+      ]
     },
     {
       "code": "selceniyisever",
@@ -776,6 +786,19 @@
           "value": "https://www.linkedin.com/in/arifcakir"
         }
       ]
-    }    
+    },    
+    {
+      "code": "evrimbaran",
+      "orderIndex": 60,
+      "title": "Evrim Baran",
+      "photoUrl": "/assets/people/evrim.baran.png",
+      "company": "Iowa Stte University College of Human Sciences",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/evrimbaran"
+        }
+      ]
+    }
   ]
 }
