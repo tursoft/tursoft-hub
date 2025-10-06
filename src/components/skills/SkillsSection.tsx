@@ -132,7 +132,7 @@ const SkillsSectionRefactored = () => {
           defaultViewMode="card"
           enabledModes={['card', 'list']}
           enableShowMore={true}
-          visibleMajorItemCount={30}
+          visibleMajorItemCount={16}
           fieldMapping={{
             code: 'code',
             title: 'title',
