@@ -313,9 +313,9 @@ const PortfolioSection = () => {
             <div className={`flex flex-wrap gap-1 mt-2 overflow-hidden transition-all duration-300 ${
               isHovered ? 'max-h-20 opacity-100' : 'max-h-8 opacity-80'
             }`}>
-              {(isHovered ? (project.skillCodes || []) : (project.skillCodes || []).slice(0, 4)).map((tech) => (
+              {(isHovered ? (project.skillCodes || []) : (project.skillCodes || []).slice(0, 4)).map((tech, i) => (
                 <Badge 
-                  key={tech} 
+                  key={`${project.code}-skill-${tech}-${i}`} 
                   variant="secondary" 
                   className="text-xs hover:bg-primary/10 transition-colors"
                 >
@@ -394,9 +394,9 @@ const PortfolioSection = () => {
             
             {/* Technologies - Always shown in carousel */}
             <div className="flex flex-wrap gap-1 justify-center">
-              {(project.skillCodes || []).slice(0, 4).map((tech) => (
+              {(project.skillCodes || []).slice(0, 4).map((tech, i) => (
                 <Badge 
-                  key={tech} 
+                  key={`${project.code}-skill-${tech}-${i}`} 
                   variant="secondary" 
                   className="text-xs hover:bg-primary/10 transition-colors"
                 >
@@ -481,9 +481,9 @@ const PortfolioSection = () => {
             isHovered ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
           }`}>
             <div className="flex flex-wrap gap-1 justify-center">
-              {(project.skillCodes || []).slice(0, 5).map((tech) => (
+              {(project.skillCodes || []).slice(0, 5).map((tech, i) => (
                 <Badge 
-                  key={tech} 
+                  key={`${project.code}-skill-${tech}-${i}`} 
                   variant="secondary" 
                   className="text-xs hover:bg-primary/10 transition-colors"
                 >

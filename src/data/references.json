@@ -104,7 +104,7 @@
       "contacts": [
         {
           "code": "linkedin",
-          "value": "https://www.linkedin.com/in/aslakfelin"
+          "value": "https://www.linkedin.com/in/afelin"
         }
       ]
     },
@@ -130,7 +130,7 @@
         },
         {
           "code": "website",
-          "value": "http://www.balanuye.net/main/"
+          "value": "https://www.balanuye.net"
         },
         {
           "code": "linkedin",
@@ -168,7 +168,7 @@
         },
         {
           "code": "website",
-          "value": "https://ceit.metu.edu.tr/tr/kursat-cagiltay"
+          "value": "https://avesis.metu.edu.tr/kursat"
         },
         {
           "code": "linkedin",
@@ -232,7 +232,7 @@
         },
         {
           "code": "website",
-          "value": "http://aes.hacettepe.edu.tr/uhus"
+          "value": "https://uhus.bilkent.edu.tr"
         },
         {
           "code": "linkedin",
@@ -267,14 +267,6 @@
         {
           "code": "email",
           "value": "firatozerden@gmail.com"
-        },
-        {
-          "code": "skype",
-          "value": "firat.oezerden"
-        },
-        {
-          "code": "linkedin",
-          "value": "https://www.linkedin.com/in/firatozerden"
         }
       ]
     },
@@ -310,7 +302,7 @@
       "contacts": [
         {
           "code": "linkedin",
-          "value": "https://www.linkedin.com/in/eleftheriapolychronidou"
+          "value": "https://www.linkedin.com/in/polychronidou"
         }
       ]
     },
@@ -328,7 +320,7 @@
       "contacts": [
         {
           "code": "linkedin",
-          "value": "https://www.linkedin.com/in/kostaskarkaletsis"
+          "value": "https://www.linkedin.com/in/kostas-karkaletsis"
         }
       ]
     },
@@ -382,7 +374,7 @@
       "contacts": [
         {
           "code": "linkedin",
-          "value": "https://www.linkedin.com/in/mesutdemirer"
+          "value": "https://www.linkedin.com/in/mesut-demirer-pmp-itil-76b5a38"
         }
       ]
     },
@@ -400,7 +392,7 @@
       "contacts": [
         {
           "code": "linkedin",
-          "value": "https://www.linkedin.com/in/erolozcelik"
+          "value": "https://www.linkedin.com/in/erol-ozcelik-10508534"
         }
       ]
     },
@@ -452,7 +444,7 @@
       "contacts": [
         {
           "code": "linkedin",
-          "value": "https://www.linkedin.com/in/mehmetalpkarabas"
+          "value": "https://www.linkedin.com/in/dr-alp-karabas"
         }
       ]
     }

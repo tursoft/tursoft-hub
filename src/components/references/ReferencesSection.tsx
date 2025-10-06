@@ -94,7 +94,6 @@ const ReferencesSection = () => {
     switch (code) {
       case 'phone': return `tel:${value.replace(/\D/g, '')}`;
       case 'email': return `mailto:${value}`;
-      case 'skype': return `skype:${value}?chat`;
       default: return value.startsWith('http') ? value : `https://${value}`;
     }
   };
@@ -107,7 +106,6 @@ const ReferencesSection = () => {
       case 'twitter': return 'Twitter';
       case 'facebook': return 'Facebook';
       case 'website': return 'Website';
-      case 'skype': return 'Skype';
       default: return value;
     }
   };
