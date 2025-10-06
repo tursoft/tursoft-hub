@@ -799,6 +799,19 @@
           "value": "https://www.linkedin.com/in/evrimbaran"
         }
       ]
+    },
+    {
+      "code": "olivieaoliveira",
+      "orderIndex": 61,
+      "title": "Olívia Oliveira",
+      "photoUrl": "/assets/people/olivia.oliveira.jpg",
+      "company": "Promptly",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/oliviaoliveira"
+        }
+      ]
     }
   ]
 }

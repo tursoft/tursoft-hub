@@ -17,7 +17,8 @@ import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import {
   Building2, 
   User,
-  Clock
+  Clock,
+  Linkedin
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
@@ -424,36 +425,54 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
                 {teamMembers.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {teamMembers.map((member, index) => (
-                      <div key={member.personCode || index} className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
-                        {member.person?.photoUrl ? (
-                          <div className="w-10 h-10 flex-shrink-0 relative">
-                            <img
-                              src={member.person.photoUrl}
-                              alt={member.person.title}
-                              className="w-full h-full object-cover rounded-full border-2 border-primary/20"
-                              onError={(e) => {
-                                // Replace with fallback User icon if image fails to load
-                                const parent = e.currentTarget.parentElement;
-                                if (parent) {
-                                  parent.innerHTML = '<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>';
-                                }
-                              }}
-                            />
+                    {teamMembers.map((member, index) => {
+                      // Find LinkedIn contact if available
+                      const linkedinContact = member.person?.contacts?.find(
+                        contact => contact.code === 'linkedin'
+                      );
+                      
+                      return (
+                        <div key={member.personCode || index} className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
+                          {member.person?.photoUrl ? (
+                            <div className="w-10 h-10 flex-shrink-0 relative">
+                              <img
+                                src={member.person.photoUrl}
+                                alt={member.person.title}
+                                className="w-full h-full object-cover rounded-full border-2 border-primary/20"
+                                onError={(e) => {
+                                  // Replace with fallback User icon if image fails to load
+                                  const parent = e.currentTarget.parentElement;
+                                  if (parent) {
+                                    parent.innerHTML = '<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>';
+                                  }
+                                }}
+                              />
+                            </div>
+                          ) : (
+                            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                              <User className="w-5 h-5 text-primary" />
+                            </div>
+                          )}
+                          <div className="flex-1">
+                            <div className="font-medium">
+                              {member.person?.title || member.personCode}
+                            </div>
+                            <div className="text-sm text-muted-foreground">{member.position}</div>
                           </div>
-                        ) : (
-                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                            <User className="w-5 h-5 text-primary" />
-                          </div>
-                        )}
-                        <div>
-                          <div className="font-medium">
-                            {member.person?.title || member.personCode}
-                          </div>
-                          <div className="text-sm text-muted-foreground">{member.position}</div>
+                          {linkedinContact?.value && (
+                            <a
+                              href={linkedinContact.value}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
+                              title="LinkedIn Profile"
+                            >
+                              <Linkedin className="w-4 h-4" />
+                            </a>
+                          )}
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
                   <p className="text-muted-foreground">No team information available.</p>

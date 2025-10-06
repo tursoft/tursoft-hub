@@ -267,15 +267,19 @@
       ],
       "customerCodes": [
         "MOH.TR",
-        "SPMS.PT"
+        "SPMS.PT", 
+        "SORESA",
+        "serviciomurcianodesalud",
+        "empirica",
+        "Ümraniye Eğitim ve Araştırma Hastanesi"        
       ],
       "partnerCodes": [
-        "ERC / Turkey",
-        "Gnomon / Greece",
-        "CERTH / Greece",
-        "GPI / Italy",
-        "Promptly / Portugal",
-        "Medisante / Switzerland"
+        "ERC",        
+        "Gnomon",
+        "CERTH",
+        "GPI",
+        "Promptly",
+        "Medisante"
       ],
       "skillCodes": [
         "C"
@@ -300,6 +304,38 @@
         {
           "code": "db",
           "title": "Multi Database Support"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "nuraliunal",
+          "position": "Project Manager"
+        },
+        {
+          "orderIndex": 1,
+          "personCode": "alexanderberler",
+          "position": "Project Manager"          
+        },
+        {
+          "orderIndex": 2,
+          "personCode": "muhammettursak",
+          "position": "Software Architect"
+        },        
+        {
+          "orderIndex": 3,
+          "personCode": "ertemyazici",
+          "position": "Software Developer"
+        },
+        {
+          "orderIndex": 4,
+          "personCode": "olivieaoliveira",
+          "position": "Partner - Consultant"
+        },
+        {
+          "orderIndex": 5,
+          "personCode": "uweweimer",
+          "position": "Partner - Consultant"
         }
       ]
     },

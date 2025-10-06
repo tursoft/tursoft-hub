@@ -710,6 +710,65 @@
         "lat": 41.0606776,
         "lng": 28.8438003
       }
+    },
+
+    {
+      "code": "Promptly",
+      "orderIndex": 0,
+      "title": "Promptly Health",
+      "photoUrl": "/assets/companies/promptly.logo.png",
+      "city": "Porto",
+      "country": "Portugal",
+      "websiteUrl": "https://www.promptly.com",
+      "linkedinUrl": "https://www.linkedin.com/company/promptlyhealth",
+      "coordinates": {
+        "lat": 41.1488717,
+        "lng": -8.6559022
+      }
+    },
+
+      {
+        "code": "serviciomurcianodesalud",
+        "orderIndex": 99,
+        "title": "Servicio Murciano de Salud",
+        "photoUrl": "/assets/companies/moh_spain_murcia.logo.png",
+        "city": "Murcia",
+        "country": "Spain",
+        "websiteUrl": "https://www.murciasalud.es/en",
+        "linkedinUrl": null,
+        "coordinates": {
+          "lat": 37.9875007,
+          "lng": -1.1317383
+        }
+      },
+      {
+        "code": "SORESA",
+        "orderIndex": 98,
+        "title": "SORESA",
+        "photoUrl": "/assets/companies/moh_italy_soresa.logo.png",
+        "city": "Campania",
+        "country": "Italy",
+        "websiteUrl": "https://portale.soresa.it",
+        "linkedinUrl": null,
+        "coordinates": {
+          "lat": 40.8570776,
+          "lng": 14.2746742
+        }
+      },
+
+    {
+      "code": "empirica",
+      "orderIndex": 100,
+      "title": "Empirica",
+      "photoUrl": "/assets/companies/empirica.png",
+      "city": "Köln",
+      "country": "Germany",
+      "websiteUrl": "http://www.empirica.com/",
+      "linkedinUrl": null,
+      "coordinates": {
+        "lat": 50.9375,
+        "lng": 6.8025174
+      }
     }
   ]
 }
