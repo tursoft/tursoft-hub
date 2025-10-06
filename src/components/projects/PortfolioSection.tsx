@@ -163,6 +163,8 @@ const PortfolioSectionRefactored = () => {
           emptyMessage="No projects found."
           defaultViewMode="card"
           enabledModes={['card', 'list', 'carousel']}
+          enableShowMore={true}
+          visibleMajorItemCount={30}
           fieldMapping={{
             code: 'code',
             title: 'title',
