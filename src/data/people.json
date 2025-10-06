@@ -8,9 +8,14 @@
       "code": "muhammettursak",
       "orderIndex": 1,
       "title": "Muhammet Turşak",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/muhammet.tursak.jpg",
       "company": "Jengai",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/tursoft"
+        }   
+      ]
     },
     {
       "code": "myasarozden",
@@ -33,7 +38,7 @@
         },
         {
           "code": "linkedin",
-          "value": "https://www.linkedin.com/in/m-yasar-ozden-903a725a/"
+          "value": "https://www.linkedin.com/in/m-yasar-ozden-903a725a"
         },
         {
           "code": "twitter",
@@ -78,9 +83,14 @@
       "code": "mikaelkaron",
       "orderIndex": 4,
       "title": "Mikael Karon",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/mikael.karon.jpg",
       "company": "Infrion",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/mikaelkaron"
+        }
+      ]
     },
     {
       "code": "aslakfelin",
@@ -309,9 +319,14 @@
       "code": "alexanderkjeldaas",
       "orderIndex": 17,
       "title": "Alexander Kjeldaas",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/alexander.kjeldaas.jpg",
       "company": "Infrion",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/astor"
+        }
+      ]
     },
     {
       "code": "davutgurbuz",
@@ -619,14 +634,6 @@
       "contacts": []
     },
     {
-      "code": "esraertunc",
-      "orderIndex": 51,
-      "title": "Esra Ertunç",
-      "photoUrl": null,
-      "company": "Datasel",
-      "contacts": []
-    },
-    {
       "code": "kemalbirer",
       "orderIndex": 52,
       "title": "Kemal Birer",
@@ -667,10 +674,23 @@
       "contacts": []
     },
     {
+      "code": "esraertunc",
+      "orderIndex": 57,
+      "title": "Esra Ertunç",
+      "photoUrl": "/assets/people/esra.ertunc.jpg",
+      "company": "ERC",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/esra-ertun%C3%A7-arab-06455947"
+        }
+      ]
+    },
+    {
       "code": "cankatabaci",
       "orderIndex": 57,
       "title": "Cankat Abacı",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/cankat.abaci.jpg",
       "company": "ERC",
       "contacts": []
     },
@@ -678,17 +698,66 @@
       "code": "ekremyildiz",
       "orderIndex": 58,
       "title": "Ekrem Yıldız",
-      "photoUrl": null,
-      "company": "ERC",
-      "contacts": []
+      "photoUrl": "/assets/people/ekrem.yildiz.jpg",
+      "company": "Lifewatch",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/ekrem-y-69140528"
+        }
+      ]
     },
+    {
+      "code": "nuraliunal",
+      "orderIndex": 59,
+      "title": "Nurali Ünal",
+      "photoUrl": "/assets/people/nurali.unal.jpg",
+      "company": "ERC",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/nurali-%C3%BCnal-3b719568"
+        }
+      ]
+    },    
     {
       "code": "ertemyazici",
       "orderIndex": 59,
       "title": "Ertem Yazıcı",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/ertem.yazici.jpg",
       "company": "ERC",
-      "contacts": []
-    }
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/ertemyazici"
+        }
+      ]
+    },
+    {
+      "code": "umutbariskorkut",
+      "orderIndex": 59,
+      "title": "Umut Barış Korkut",
+      "photoUrl": "/assets/people/umut.baris.korkut.jpg",
+      "company": "ERC",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/ubkorkut"
+        }
+      ]
+    },
+   {
+      "code": "huseyinsurat",
+      "orderIndex": 59,
+      "title": "Hüseyin Onur Surat",
+      "photoUrl": "/assets/people/huseyin.surat.jpg",
+      "company": "Jengai",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/huseyin-onur-surat-7b182790"
+        }
+      ]
+    }  
   ]
 }
