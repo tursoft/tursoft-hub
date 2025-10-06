@@ -3,39 +3,60 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Calendar, MapPin } from "lucide-react";
 import EducationDetailDialog from './EducationDetailDialog';
+import { educationRepo } from '@/repositories/EducationRepo';
+import { companiesRepo } from '@/repositories/CompaniesRepo';
 import type { 
   Education, 
   EducationData, 
   Course, 
-  EducationTechnology as Technology,
   DatePeriod 
 } from '@/models/Education';
+import type { Company } from '@/models/Companies';
+
+// Helper type for processed education with company details
+type ProcessedEducation = Education & {
+  companyName?: string;
+  companyPhotoUrl?: string | null;
+  companyCity?: string | null;
+};
 
 const EducationSection = () => {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [educationData, setEducationData] = useState<EducationData | null>(null);
+  const [processedEducations, setProcessedEducations] = useState<ProcessedEducation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedEducation, setSelectedEducation] = useState<Education | null>(null);
+  const [selectedEducation, setSelectedEducation] = useState<ProcessedEducation | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [educationIconMap, setEducationIconMap] = useState<{ [key: string]: string }>({});
 
-  // Load education data from JSON file
+  // Load education data and process with company details
   useEffect(() => {
     const loadEducationData = async () => {
       try {
-        const response = await fetch('/data/education.json');
-        const data: EducationData = await response.json();
+        // Load education data from repository
+        const educations = await educationRepo.getList();
+        
+        // Get general info
+        const response = await fetch('/src/data/education.json');
+        const fullData = await response.json();
+        const data: EducationData = {
+          general: fullData.general,
+          items: educations
+        };
         setEducationData(data);
 
-        // Create education icon map using direct asset paths
-        const educationIcons: { [key: string]: string } = {};
-        for (const education of data.items) {
-          if (education.icon) {
-            // Use direct asset path for reliable loading in production
-            educationIcons[education.code] = `/assets/logos/companies/${education.icon}`;
-          }
-        }
-        setEducationIconMap(educationIcons);
+        // Process educations with company details
+        const processed = await Promise.all(
+          educations.map(async (edu) => {
+            const company = await companiesRepo.getByCode(edu.companyCode);
+            return {
+              ...edu,
+              companyName: company?.title,
+              companyPhotoUrl: company?.photoUrl,
+              companyCity: company?.city
+            } as ProcessedEducation;
+          })
+        );
+        setProcessedEducations(processed);
 
       } catch (error) {
         console.error('Failed to load education data:', error);
@@ -48,7 +69,7 @@ const EducationSection = () => {
   }, []);
 
   // Handle education card click
-  const handleEducationClick = (education: Education) => {
+  const handleEducationClick = (education: ProcessedEducation) => {
     setSelectedEducation(education);
     setIsDialogOpen(true);
   };
@@ -96,13 +117,13 @@ const EducationSection = () => {
 
             {/* Timeline Container with Overlapping Items */}
             <div className="relative">
-              {[...educationData.items].slice().reverse().map((edu, index) => {
-                const isHovered = hoveredCard === edu.id;
+              {[...processedEducations].slice().reverse().map((edu, index) => {
+                const isHovered = hoveredCard === edu.code;
                 const isLeft = index % 2 === 0;
                 
                 return (
                   <div 
-                    key={edu.id}
+                    key={edu.code}
                     className={`relative animate-slide-in mb-8 lg:mb-6`}
                     style={{ 
                       animationDelay: `${index * 0.2}s`,
@@ -153,18 +174,18 @@ const EducationSection = () => {
                         className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card border-border transition-all duration-500 cursor-pointer hover:scale-[1.01] hover:shadow-xl hover:shadow-primary/10 lg:ml-0 relative z-10 ${
                           isHovered ? 'shadow-xl shadow-primary/20 scale-[1.005]' : ''
                         } ${isLeft ? 'lg:text-right' : 'lg:text-left'}`}
-                        onMouseEnter={() => setHoveredCard(edu.id)}
+                        onMouseEnter={() => setHoveredCard(edu.code)}
                         onMouseLeave={() => setHoveredCard(null)}
                         onClick={() => handleEducationClick(edu)}
                       >
                         <CardHeader className="pb-4">
                           <div className={`flex items-start gap-4 ${isLeft ? 'lg:flex-row-reverse lg:text-right' : ''}`}>
-                            {educationIconMap[edu.code] && (
+                            {edu.companyPhotoUrl && (
                               <div className="flex-shrink-0">
                                 <div className="w-16 h-16">
                                   <img 
-                                    src={educationIconMap[edu.code]} 
-                                    alt={`${edu.name} logo`}
+                                    src={edu.companyPhotoUrl} 
+                                    alt={`${edu.companyName} logo`}
                                     className="w-full h-full object-contain"
                                   />
                                 </div>
@@ -179,7 +200,7 @@ const EducationSection = () => {
                                   {edu.department}
                                 </h3>
                                 <h4 className="text-lg font-semibold text-primary mb-2">
-                                  {edu.name}
+                                  {edu.companyName}
                                 </h4>
                               </div>
                               
@@ -192,13 +213,13 @@ const EducationSection = () => {
                                 </div>
                                 <div className="flex items-center gap-1.5 bg-muted/50 rounded-full px-2 py-1">
                                   <MapPin className="h-3 w-3" />
-                                  <span className="font-medium">{edu.city}</span>
+                                  <span className="font-medium">{edu.companyCity}</span>
                                 </div>
                               </div>
 
                               {/* Graduation info - Hidden in compact view */}
                               <div className={`text-sm text-primary font-medium transition-all duration-300 ${
-                                hoveredCard === edu.id ? 'max-h-8 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0 overflow-hidden'
+                                hoveredCard === edu.code ? 'max-h-8 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0 overflow-hidden'
                               } ${isLeft ? 'lg:text-right' : ''}`}>
                                 <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs">
                                   Graduated: {edu.graduateDate} • GPA: {edu.graduateScore}
@@ -211,7 +232,7 @@ const EducationSection = () => {
                         <CardContent className="pt-0">
                           {/* Description - Hidden in compact view */}
                           <div className={`overflow-hidden transition-all duration-500 ${
-                            hoveredCard === edu.id ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
+                            hoveredCard === edu.code ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
                           }`}>
                             <div className={`p-4 bg-gradient-to-r from-primary/5 to-transparent rounded-lg border-l-4 border-primary/30 ${
                               isLeft ? 'lg:text-right lg:border-r-4 lg:border-l-0 lg:bg-gradient-to-l' : ''
@@ -224,22 +245,22 @@ const EducationSection = () => {
 
                           {/* Technologies - Hidden in compact view */}
                           <div className={`overflow-hidden transition-all duration-500 ${
-                            hoveredCard === edu.id ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                            hoveredCard === edu.code ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
                           }`}>
                             <div className={`${isLeft ? 'lg:text-right' : ''}`}>
                               <div className={`flex flex-wrap gap-1.5 ${isLeft ? 'lg:justify-end' : ''}`}>
-                                {edu.technologies?.slice(0, 8).map((tech, i) => (
+                                {edu.skillCodes?.slice(0, 8).map((skillCode, i) => (
                                   <Badge 
-                                    key={i} 
+                                    key={`${edu.code}-skill-${skillCode}-${i}`} 
                                     variant="outline" 
                                     className="text-xs bg-primary/5 border-primary/20 text-primary hover:bg-primary/10 transition-colors"
                                   >
-                                    {tech.name}
+                                    {skillCode}
                                   </Badge>
                                 ))}
-                                {edu.technologies && edu.technologies.length > 8 && (
+                                {edu.skillCodes && edu.skillCodes.length > 8 && (
                                   <Badge variant="outline" className="text-xs border-dashed bg-muted/20">
-                                    +{edu.technologies.length - 8} more
+                                    +{edu.skillCodes.length - 8} more
                                   </Badge>
                                 )}
                               </div>
@@ -279,7 +300,7 @@ const EducationSection = () => {
         education={selectedEducation}
         isOpen={isDialogOpen}
         onClose={handleDialogClose}
-        educationIcon={selectedEducation ? educationIconMap[selectedEducation.code] : undefined}
+        educationIcon={selectedEducation?.companyPhotoUrl || undefined}
       />
     </section>
   );

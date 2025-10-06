@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Heart, GraduationCap, ShoppingCart, Play, FileText, Gamepad2 } from "lucide-react";
+import { domainsRepo } from '@/repositories/DomainsRepo';
+import type { Domain, DomainsData } from '@/models/Domain';
 
 const DomainsSection = () => {
   const [domainsData, setDomainsData] = useState<DomainsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load domains data from JSON file
+  // Load domains data using repository
   useEffect(() => {
     const loadDomainsData = async () => {
       try {
-        const response = await fetch('/data/domains.json');
-        const data: DomainsData = await response.json();
-        setDomainsData(data);
+        const domains = await domainsRepo.getList();
+        setDomainsData({ items: domains });
       } catch (error) {
         console.error('Failed to load domains data:', error);
       } finally {
@@ -60,23 +60,25 @@ const DomainsSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {domains.map((domain, index) => (
               <Card 
-                key={domain.id}
+                key={domain.code}
                 className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in hover:shadow-lg transition-all duration-300"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <CardContent className="pt-6">
                   <div className="flex flex-col items-center text-center space-y-4">
-                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      {(() => {
-                        const IconComponent = iconMap[domain.iconCss];
-                        return IconComponent ? (
-                          <IconComponent className="w-8 h-8 text-primary" />
-                        ) : (
-                          <div className="text-2xl font-bold text-primary">
-                            {domain.title.charAt(0)}
-                          </div>
-                        );
-                      })()}
+                    {/* Domain Icon/Image */}
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors overflow-hidden">
+                      {domain.photoUrl ? (
+                        <img 
+                          src={domain.photoUrl} 
+                          alt={`${domain.title} icon`}
+                          className="w-12 h-12 object-contain"
+                        />
+                      ) : (
+                        <div className="text-2xl font-bold text-primary">
+                          {domain.title?.charAt(0) || '?'}
+                        </div>
+                      )}
                     </div>
                     <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                       {domain.title}

@@ -54,19 +54,10 @@ interface Position {
   technologies: Technology[];
 }
 
-interface ExperienceItem {
-  id: number;
-  orderIndex: number;
-  icon: string;
-  companyCode: string;
-  companyName: string;
-  websiteUrl?: string;
-  linkedinUrl?: string;
-  positions: Position[];
-}
+import type { Experience, Position } from '@/models/Experience';
 
 interface ExperienceDetailDialogProps {
-  experience: ExperienceItem | null;
+  experience: Experience | null;
   isOpen: boolean;
   onClose: () => void;
 }

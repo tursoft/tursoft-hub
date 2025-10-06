@@ -1,7 +1,7 @@
 import { IBaseModel } from "./base/IBaseModel";
 
 export interface Course {
-  name: string;
+  title: string;
   score: string;
   content: string;
 }

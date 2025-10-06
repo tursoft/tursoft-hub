@@ -22,43 +22,17 @@ import {
   Clock
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
+import type { Education, Course, DatePeriod } from '@/models/Education';
 
-interface Course {
-  name: string;
-  score: string;
-  content: string;
-}
-
-interface Technology {
-  name: string;
-  type: string;
-}
-
-interface DatePeriod {
-  startDate: string;
-  endDate: string;
-}
-
-interface Education {
-  id: number;
-  orderIndex: number;
-  icon: string;
-  url?: string;
-  code: string;
-  name: string;
-  department: string;
-  level: string;
-  period: string;
-  datePeriod: DatePeriod;
-  city: string;
-  graduateDate: string;
-  graduateScore: string;
-  courses?: Course[];
-  technologies?: Technology[];
-}
+// ProcessedEducation type with company details
+type ProcessedEducation = Education & {
+  companyName?: string;
+  companyPhotoUrl?: string | null;
+  companyCity?: string | null;
+};
 
 interface EducationDetailDialogProps {
-  education: Education | null;
+  education: ProcessedEducation | null;
   isOpen: boolean;
   onClose: () => void;
   educationIcon?: string;
@@ -75,24 +49,24 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
   // Fetch technology logos when education changes
   useEffect(() => {
     const fetchLogos = async () => {
-      if (!education?.technologies) return;
+      if (!education?.skillCodes) return;
       
       const logos: Record<string, string> = {};
-      for (const tech of education.technologies) {
-        if (tech.name) {
-          const logo = await skillsRepo.getPhotoUrlByCode(tech.name);
+      for (const skillCode of education.skillCodes) {
+        if (skillCode) {
+          const logo = await skillsRepo.getPhotoUrlByCode(skillCode);
           if (logo) {
-            logos[tech.name] = logo;
+            logos[skillCode] = logo;
           }
         }
       }
       setTechnologyLogos(logos);
     };
 
-    if (education?.technologies && education.technologies.length > 0) {
+    if (education?.skillCodes && education.skillCodes.length > 0) {
       fetchLogos();
     }
-  }, [education?.technologies]);
+  }, [education?.skillCodes]);
 
 
   if (!education) return null;
@@ -145,7 +119,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
               <div className="w-16 h-16 flex-shrink-0">
                 <img 
                   src={educationIcon} 
-                  alt={`${education.name} logo`}
+                  alt={`${education.companyName} logo`}
                   className="w-full h-full object-contain rounded-lg"
                 />
               </div>
@@ -162,17 +136,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
               <div className="text-base text-muted-foreground">
                 <div className="flex items-center gap-2 mb-2">
                   <Building2 className="w-4 h-4" />
-                  <span>{education.name}</span>
-                  {education.url && (
-                    <a 
-                      href={education.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-primary hover:text-primary/80"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  )}
+                  <span>{education.companyName}</span>
                 </div>
                 <div className="flex items-center gap-4 text-sm">
                   <div className="flex items-center gap-2">
@@ -181,7 +145,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                   </div>
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4" />
-                    <span>{education.city}</span>
+                    <span>{education.companyCity}</span>
                   </div>
                 </div>
               </div>
@@ -204,7 +168,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
               <span className="flex items-center gap-2">
                 Technologies
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                  {education.technologies?.length || 0}
+                  {education.skillCodes?.length || 0}
                 </Badge>
               </span>
             </TabsTrigger>
@@ -231,7 +195,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                       </div>
                       <div>
                         <div className="text-sm font-medium text-muted-foreground">Institution</div>
-                        <div className="text-lg font-semibold">{education.name}</div>
+                        <div className="text-lg font-semibold">{education.companyName}</div>
                       </div>
                     </div>
                     <div className="space-y-4">
@@ -249,7 +213,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                         <div className="text-sm font-medium text-muted-foreground">Location</div>
                         <div className="text-lg font-semibold flex items-center gap-2">
                           <MapPin className="w-4 h-4" />
-                          {education.city}
+                          {education.companyCity}
                         </div>
                       </div>
                     </div>
@@ -263,11 +227,11 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
               {education.courses && education.courses.length > 0 ? (
                 <div className="space-y-4">
                       {education.courses.map((course, index) => (
-                        <div key={index} className="p-4 bg-muted/20 rounded-lg border border-border/50">
+                        <div key={`course-${index}`} className="p-4 bg-muted/20 rounded-lg border border-border/50">
                           <div className="flex items-start justify-between mb-2">
                             <h4 className="font-semibold text-foreground flex items-center gap-2">
                               <BookOpen className="w-4 h-4 text-muted-foreground" />
-                              {course.name}
+                              {course.title}
                             </h4>
                             <Badge className={getScoreBadgeColor(course.score)}>
                               {course.score}
@@ -292,22 +256,22 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
             </TabsContent>
 
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
-              {education.technologies && education.technologies.length > 0 ? (
+              {education.skillCodes && education.skillCodes.length > 0 ? (
                 <div className="px-4 py-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                    {education.technologies.map((tech, index) => {
-                      const logoPath = technologyLogos[tech.name] || "";
+                    {education.skillCodes.map((skillCode, index) => {
+                      const logoPath = technologyLogos[skillCode] || "";
                       const isEven = index % 2 === 0;
-                      const isLastInColumn = index === education.technologies.length - 1 || 
-                        (isEven && index === education.technologies.length - 2 && education.technologies.length % 2 === 0);
+                      const isLastInColumn = index === education.skillCodes.length - 1 || 
+                        (isEven && index === education.skillCodes.length - 2 && education.skillCodes.length % 2 === 0);
                       
                       return (
-                        <div key={index}>
+                        <div key={`skill-${skillCode}-${index}`}>
                           <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
                             {logoPath && (
                               <img 
                                 src={logoPath} 
-                                alt={`${tech.name} logo`} 
+                                alt={`${skillCode} logo`} 
                                 className="w-5 h-5 object-contain flex-shrink-0" 
                                 onError={(e) => {
                                   // Hide image if it fails to load
@@ -316,7 +280,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                               />
                             )}
                             <span className="text-sm font-medium text-foreground">
-                              {tech.name}
+                              {skillCode}
                             </span>
                           </div>
                           {!isLastInColumn && (

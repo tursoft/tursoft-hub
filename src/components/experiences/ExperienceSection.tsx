@@ -3,13 +3,12 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building, ExternalLink, Linkedin } from "lucide-react";
 import ExperienceDetailDialog from './ExperienceDetailDialog';
+import { experienceRepo } from '@/repositories/ExperienceRepo';
+import { companiesRepo } from '@/repositories/CompaniesRepo';
 import type { 
   Experience, 
   ExperiencesData, 
-  Position, 
-  ExperienceTechnology as Technology,
-  Project,
-  Domain 
+  Position
 } from '@/models/Experience';
 
 const ExperienceSection = () => {
@@ -18,6 +17,29 @@ const ExperienceSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  
+  // State for processed experiences
+  interface ProcessedPosition {
+    title: string;
+    duration: string;
+    years: string;
+    description: string[];
+    skillCodes: string[];
+    current: boolean;
+    startDate: string;
+  }
+
+  interface ProcessedExperience {
+    companyCode: string;
+    company: string;
+    logo?: string;
+    websiteUrl?: string;
+    linkedinUrl?: string;
+    positions: ProcessedPosition[];
+    location: string;
+  }
+  
+  const [processedExperiences, setProcessedExperiences] = useState<ProcessedExperience[]>([]);
 
   const handleExperienceClick = (experience: Experience) => {
     setSelectedExperience(experience);
@@ -45,6 +67,19 @@ const ExperienceSection = () => {
 
     loadExperiencesData();
   }, []);
+  
+  // Process experiences when data is loaded
+  useEffect(() => {
+    const processExperiences = async () => {
+      if (!experiencesData) return;
+      
+      const experiences = await getProcessedExperiences();
+      setProcessedExperiences(experiences);
+    };
+    
+    processExperiences();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [experiencesData]);
 
   // Helper function to format date ranges and calculate duration
   const formatDateRange = (startDate: string, endDate: string | null) => {
@@ -80,7 +115,7 @@ const ExperienceSection = () => {
   };
 
   // Process experiences to group positions by company
-  const getProcessedExperiences = () => {
+  const getProcessedExperiences = async () => {
     if (!experiencesData) return [];
 
     interface ProcessedPosition {
@@ -88,14 +123,15 @@ const ExperienceSection = () => {
       duration: string;
       years: string;
       description: string[];
-      technologies: string[];
+      skillCodes: string[];
       current: boolean;
       startDate: string;
     }
 
     interface ProcessedExperience {
+      companyCode: string;
       company: string;
-      logo: string;
+      logo?: string;
       websiteUrl?: string;
       linkedinUrl?: string;
       positions: ProcessedPosition[];
@@ -104,10 +140,11 @@ const ExperienceSection = () => {
 
     const processedExperiences: ProcessedExperience[] = [];
     
-    experiencesData.items.forEach(company => {
+    // Use async forEach to load company data
+    const promises = experiencesData.items.map(async (expItem) => {
       const positions: ProcessedPosition[] = [];
       
-      company.positions.forEach(position => {
+      expItem.positions.forEach(position => {
         const dateInfo = formatDateRange(position.startDate, position.endDate);
         
         // Process description - handle both HTML and plain text
@@ -123,7 +160,7 @@ const ExperienceSection = () => {
           duration: dateInfo.range,
           years: dateInfo.duration,
           description: description,
-          technologies: position.technologies.slice(0, 6).map(tech => tech.name),
+          skillCodes: (position.skillCodes || []).slice(0, 6),
           current: dateInfo.current,
           startDate: position.startDate
         });
@@ -132,15 +169,23 @@ const ExperienceSection = () => {
       // Sort positions by start date (most recent first)
       positions.sort((a, b) => new Date(b.startDate.split('.').reverse().join('-')).getTime() - new Date(a.startDate.split('.').reverse().join('-')).getTime());
       
-      processedExperiences.push({
-        company: company.companyName,
-        logo: `/assets/logos/companies/${company.icon}`,
-        websiteUrl: company.websiteUrl,
-        linkedinUrl: company.linkedinUrl,
+      // Get company details from repository
+      const companyData = expItem.companyCode ? await companiesRepo.getByCode(expItem.companyCode) : null;
+      
+      return {
+        companyCode: expItem.companyCode || '',
+        company: companyData?.title || expItem.companyCode || 'Unknown',
+        logo: companyData?.photoUrl,
+        websiteUrl: companyData?.websiteUrl || undefined,
+        linkedinUrl: companyData?.linkedinUrl || undefined,
         positions: positions,
-        location: "Turkey" // Default location from original data
-      });
+        location: companyData?.city && companyData?.country ? `${companyData.city}, ${companyData.country}` : "Turkey"
+      };
     });
+
+    // Wait for all promises to resolve
+    const results = await Promise.all(promises);
+    processedExperiences.push(...results);
 
     // Sort companies by the most recent position's start date
     return processedExperiences.sort((a, b) => {
@@ -164,8 +209,6 @@ const ExperienceSection = () => {
     );
   }
 
-  const experiences = getProcessedExperiences();
-
   return (
     <section id="experience" className="py-20 gradient-bg">
       <div className="container mx-auto px-6">
@@ -184,7 +227,7 @@ const ExperienceSection = () => {
 
           {/* Experience Timeline */}
           <div className="space-y-8 pl-6">
-            {experiences.map((exp, index) => {
+            {processedExperiences.map((exp, index) => {
               const hasCurrent = exp.positions.some(pos => pos.current);
               const isHovered = hoveredCard === index;
               
@@ -209,10 +252,10 @@ const ExperienceSection = () => {
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
                   onClick={() => {
-                    // Find the original experience item by uid or companyName to avoid index mismatch
-                    const uidMatch = experiencesData.items.find(item => item.companyName === exp.company || item.uid === exp.company);
-                    const byUid = uidMatch ? uidMatch : experiencesData.items[index];
-                    handleExperienceClick(byUid);
+                    // Find the original experience item by companyCode
+                    const matchingExperience = experiencesData.items.find(item => item.companyCode === exp.companyCode);
+                    const experienceToShow = matchingExperience || experiencesData.items[index];
+                    handleExperienceClick(experienceToShow);
                   }}
                 >
                   {/* Company Logo - Horizontally centered based on years/daterange cells */}
@@ -320,7 +363,7 @@ const ExperienceSection = () => {
                             isHovered ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
                           }`}>
                             <div className="flex flex-wrap gap-2">
-                              {position.technologies.map((tech, i) => (
+                              {position.skillCodes.map((tech, i) => (
                                 <Badge key={i} variant="outline" className="text-xs">
                                   {tech}
                                 </Badge>

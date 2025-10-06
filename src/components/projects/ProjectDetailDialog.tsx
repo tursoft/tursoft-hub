@@ -20,6 +20,8 @@ import {
   Clock
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
+import { companiesRepo } from '@/repositories/CompaniesRepo';
+import type { ProjectEntry } from '@/models/Project';
 
 interface Customer {
   name: string;
@@ -30,28 +32,8 @@ interface Customer {
   industry?: string;
 }
 
-interface ProjectItem {
-  id: number;
-  name: string;
-  title: string;
-  group: string;
-  company: string;
-  value: number;
-  icon: string;
-  summary: string;
-  fulltext?: string | string[];
-  datePeriod: { startDate: string; endDate: string | null };
-  props: { name: string; title: string }[];
-  domains?: { name: string; title: string; value: number; iconCss: string }[];
-  team: { position: string; name: string; contactNo: string }[];
-  modules?: string[];
-  customerNames?: string[];
-  partners?: string[];
-  technologies: { name: string; type: string }[];
-}
-
 interface ProjectDetailDialogProps {
-  project: ProjectItem | null;
+  project: ProjectEntry | null;
   isOpen: boolean;
   onClose: () => void;
   projectIcon?: string;
@@ -66,22 +48,36 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
   const [customersData, setCustomersData] = useState<Customer[]>([]);
   const [isLoadingCustomers, setIsLoadingCustomers] = useState(false);
   const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
+  const [companyName, setCompanyName] = useState<string>('');
+
+  // Load company name from companyCode
+  useEffect(() => {
+    if (project?.companyCode) {
+      const loadCompany = async () => {
+        const company = await companiesRepo.getByCode(project.companyCode);
+        if (company) {
+          setCompanyName(company.title);
+        }
+      };
+      loadCompany();
+    } else {
+      setCompanyName('');
+    }
+  }, [project?.companyCode]);
 
   // Load customers data when dialog opens
   useEffect(() => {
-    if (isOpen && project?.customerNames && project.customerNames.length > 0) {
+    if (isOpen && project?.customerCodes && project.customerCodes.length > 0) {
       const loadCustomers = async () => {
         setIsLoadingCustomers(true);
         try {
           const response = await fetch('/data/customers.json');
           const data = await response.json();
           
-          // Filter customers that match the project's customer names
-          // Use case-insensitive partial matching to handle variations like "Lifewatch" vs "LIFEWATCH.CH"
-          const projectCustomers = data.items.filter((customer: Customer) => 
-            project.customerNames?.some(customerName => 
-              customer.name.toLowerCase().includes(customerName.toLowerCase()) ||
-              customer.title.toLowerCase().includes(customerName.toLowerCase())
+          // Filter customers by customer codes
+          const projectCustomers = data.items.filter((customer: Customer & { code: string }) => 
+            project.customerCodes?.some(customerCode => 
+              customer.code?.toLowerCase() === customerCode.toLowerCase()
             )
           );
           
@@ -98,34 +94,34 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
     } else {
       setCustomersData([]);
     }
-  }, [isOpen, project?.customerNames]);
+  }, [isOpen, project?.customerCodes]);
 
   // Fetch technology logos when project changes
   useEffect(() => {
     const fetchLogos = async () => {
-      if (!project?.technologies) return;
+      if (!project?.skillCodes) return;
       
       const logos: Record<string, string> = {};
-      for (const tech of project.technologies) {
-        if (tech.name) {
-          const logo = await skillsRepo.getPhotoUrlByCode(tech.name);
+      for (const techCode of project.skillCodes) {
+        if (techCode) {
+          const logo = await skillsRepo.getPhotoUrlByCode(techCode);
           if (logo) {
-            logos[tech.name] = logo;
+            logos[techCode] = logo;
           }
         }
       }
       setTechnologyLogos(logos);
     };
 
-    if (project?.technologies && project.technologies.length > 0) {
+    if (project?.skillCodes && project.skillCodes.length > 0) {
       fetchLogos();
     }
-  }, [project?.technologies]);
+  }, [project?.skillCodes]);
 
   if (!project) return null;
 
   // Helper function to format date period
-  const formatDatePeriod = (datePeriod: { startDate: string; endDate: string | null }) => {
+  const formatDatePeriod = (datePeriod?: { startDate?: string; endDate?: string }) => {
     if (!datePeriod?.startDate) return '';
     
     const formatDate = (dateStr: string) => {
@@ -162,10 +158,10 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                 </Badge>
               </div>
               <DialogDescription className="text-base text-muted-foreground">
-                {project.company && (
+                {companyName && (
                   <div className="flex items-center gap-2 mb-2">
                     <Building2 className="w-4 h-4" />
-                    <span>{project.company}</span>
+                    <span>{companyName}</span>
                   </div>
                 )}
                 <div className="flex items-center gap-2">
@@ -187,22 +183,22 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
         </DialogHeader>
 
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className={`grid w-full ${project.customerNames && project.customerNames.length > 0 ? 'grid-cols-4' : 'grid-cols-3'}`}>
+          <TabsList className={`grid w-full ${project.customerCodes && project.customerCodes.length > 0 ? 'grid-cols-4' : 'grid-cols-3'}`}>
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="technologies">
               <span className="flex items-center gap-2">
                 Technologies
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                  {project.technologies.length}
+                  {project.skillCodes?.length || 0}
                 </Badge>
               </span>
             </TabsTrigger>
-            {project.customerNames && project.customerNames.length > 0 && (
+            {project.customerCodes && project.customerCodes.length > 0 && (
               <TabsTrigger value="customers">
                 <span className="flex items-center gap-2">
                   Customers
                   <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {project.customerNames.length}
+                    {project.customerCodes.length}
                   </Badge>
                 </span>
               </TabsTrigger>
@@ -275,12 +271,12 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               )}
 
               {/* Domains */}
-              {project.domains && project.domains.length > 0 && (
+              {project.domainCodes && project.domainCodes.length > 0 && (
                 <div className="px-4 py-2">
                   <div className="flex flex-wrap gap-2">
-                    {project.domains.map((domain, index) => (
+                    {project.domainCodes.map((domainCode, index) => (
                       <Badge key={index} variant="secondary">
-                        {domain.title}
+                        {domainCode}
                       </Badge>
                     ))}
                   </div>
@@ -291,11 +287,11 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
               <div className="px-4 py-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                  {project.technologies.map((tech, index) => {
-                    const logoPath = technologyLogos[tech.name] || "";
+                  {(project.skillCodes || []).map((techCode, index) => {
+                    const logoPath = technologyLogos[techCode] || "";
                     const isEven = index % 2 === 0;
-                    const isLastInColumn = index === project.technologies.length - 1 || 
-                      (isEven && index === project.technologies.length - 2 && project.technologies.length % 2 === 0);
+                    const isLastInColumn = index === (project.skillCodes || []).length - 1 || 
+                      (isEven && index === (project.skillCodes || []).length - 2 && (project.skillCodes || []).length % 2 === 0);
                     
                     return (
                       <div key={index}>
@@ -303,7 +299,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                           {logoPath && (
                             <img 
                               src={logoPath} 
-                              alt={`${tech.name} logo`} 
+                              alt={`${techCode} logo`} 
                               className="w-5 h-5 object-contain flex-shrink-0" 
                               onError={(e) => {
                                 // Hide image if it fails to load
@@ -312,7 +308,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                             />
                           )}
                           <span className="text-sm font-medium text-foreground">
-                            {tech.name}
+                            {techCode}
                           </span>
                         </div>
                         {!isLastInColumn && (
@@ -325,7 +321,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               </div>
             </TabsContent>
 
-            {project.customerNames && project.customerNames.length > 0 && (
+            {project.customerCodes && project.customerCodes.length > 0 && (
               <TabsContent value="customers" className="space-y-2 min-h-[400px]">
                 <div className="px-4 py-2">
                   {isLoadingCustomers ? (
@@ -399,7 +395,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                           <User className="w-5 h-5 text-primary" />
                         </div>
                         <div>
-                          <div className="font-medium">{member.name}</div>
+                          <div className="font-medium">{member.personCode || 'Unknown'}</div>
                           <div className="text-sm text-muted-foreground">{member.position}</div>
                         </div>
                       </div>

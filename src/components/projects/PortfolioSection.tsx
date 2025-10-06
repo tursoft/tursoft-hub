@@ -5,58 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Filter, Grid, List, RotateCcw, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import ProjectDetailDialog from './ProjectDetailDialog';
+import { projectsRepo } from '@/repositories/ProjectsRepo';
+import type { ProjectEntry, ProjectsData } from '@/models/Project';
 
-// Define interfaces for type safety
-interface Project {
-  id: number;
-  title: string;
-  category: string;
-  description: string;
-  technologies: string[];
-  year: string;
-  logo?: string;
-  companyLogo?: string;
-  techIcons?: string[];
-}
-
-// Updated interface for the new projects.json structure
-interface ProjectItem {
-  id: number;
-  name: string;
-  title: string;
-  group: string;
-  company: string;
-  value: number;
-  icon: string;
-  summary: string;
-  fulltext?: string | string[];
-  datePeriod: { startDate: string; endDate: string | null };
-  props: { name: string; title: string }[];
-  domains?: { name: string; title: string; value: number; iconCss: string }[];
-  team: { position: string; name: string; contactNo: string }[];
-  modules?: string[];
-  customers?: string[];
-  partners?: string[];
-  technologies: { name: string; type: string }[];
-}
-
-interface NewProjectData {
-  general: {
-    title: string;
-    summary: string;
-    groups: { name: string; title: string; value: number; iconCss: string }[];
-  };
-  items: ProjectItem[];
-}
-
-interface ProjectData {
-  projects: Project[];
-  categories: string[];
-  companyLogos: { [key: string]: string };
-  companyLogosUrl?: { [key: string]: string };
-  techIcons: { [key: string]: string };
-  techIconNames: { [key: string]: string };
-}
+// Helper type that extends ProjectEntry with computed fields for display
+type ProjectItemDisplay = ProjectEntry & {
+  company?: string;
+  technologies?: Array<{ name: string; type?: string }>;
+};
 
 // Animated Counter Component
 const AnimatedCounter: React.FC<{ end: number; duration?: number; suffix?: string; isVisible?: boolean }> = ({ 
@@ -121,11 +77,11 @@ const PortfolioSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [showFilters, setShowFilters] = useState(false);
   const [statsVisible, setStatsVisible] = useState(false);
-  const [projectData, setProjectData] = useState<NewProjectData | null>(null);
+  const [projectData, setProjectData] = useState<ProjectsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [projectIconMap, setProjectIconMap] = useState<{ [key: string]: string }>({});
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'card' | 'list' | 'carousel'>('card');
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -159,9 +115,33 @@ const PortfolioSection = () => {
   useEffect(() => {
     const loadProjectData = async () => {
       try {
-        const projectData = await dataHelper.getProjectsData();
-        const projectIcons = await dataHelper.getProjectIconMap(projectData);
-        setProjectIconMap(projectIcons);
+        // Load projects data from repository
+        const data = await projectsRepo.getList();
+        const projectsData: ProjectsData = {
+          general: {
+            title: 'Portfolio',
+            summary: 'Projects showcase',
+            groups: []
+          },
+          items: data
+        };
+        
+        // Get general info if available (with groups)
+        const fullData = await fetch('/src/data/projects.json').then(r => r.json());
+        if (fullData.general) {
+          projectsData.general = fullData.general;
+        }
+        
+        setProjectData(projectsData);
+        
+        // Build project icon map from photoUrl
+        const iconMap: { [key: string]: string } = {};
+        data.forEach(project => {
+          if (project.code && project.photoUrl) {
+            iconMap[project.code] = project.photoUrl;
+          }
+        });
+        setProjectIconMap(iconMap);
 
       } catch (error) {
         console.error('Failed to load project data:', error);
@@ -207,12 +187,13 @@ const PortfolioSection = () => {
     // Apply search text filter
     if (searchText.trim()) {
       const searchLower = searchText.toLowerCase();
-      filtered = filtered.filter(project => 
-        project.title.toLowerCase().includes(searchLower) ||
-        project.summary.toLowerCase().includes(searchLower) ||
-        project.company?.toLowerCase().includes(searchLower) ||
-        project.technologies.some(tech => tech.name.toLowerCase().includes(searchLower))
-      );
+      filtered = filtered.filter(project => {
+        const titleMatch = project.title?.toLowerCase().includes(searchLower);
+        const summaryMatch = project.summary?.toLowerCase().includes(searchLower);
+        const companyMatch = project.companyCode?.toLowerCase().includes(searchLower);
+        const techMatch = project.skillCodes?.some(tech => tech.toLowerCase().includes(searchLower));
+        return titleMatch || summaryMatch || companyMatch || techMatch;
+      });
     }
     
     return filtered;
@@ -225,7 +206,7 @@ const PortfolioSection = () => {
   };
 
   // Handle project card click
-  const handleProjectClick = (project: ProjectItem) => {
+  const handleProjectClick = (project: ProjectEntry) => {
     setSelectedProject(project);
     setIsDialogOpen(true);
   };
@@ -271,16 +252,16 @@ const PortfolioSection = () => {
   }
 
   const { items: projects, general } = projectData;
-  const categories = ["All", ...general.groups.map(group => group.name)];
+  const categories = ["All", ...(general?.groups?.map(group => group.code) || [])];
 
   // Project Card Component
   const ProjectCard: React.FC<{ 
-    project: ProjectItem; 
+    project: ProjectEntry; 
     index: number; 
     variant?: 'default' | 'list' | 'carousel'; 
     style?: React.CSSProperties 
   }> = ({ project, index, variant = 'default', style }) => {
-    const isHovered = hoveredCard === project.id;
+    const isHovered = hoveredCard === (project.id || 0);
     
     if (variant === 'list') {
       return (
@@ -292,10 +273,10 @@ const PortfolioSection = () => {
           onClick={() => handleProjectClick(project)}
         >
           {/* Project Icon */}
-          {project.icon && projectIconMap[project.name] && (
+          {project.photoUrl && projectIconMap[project.code] && (
             <div className="w-16 h-16 flex items-center justify-center flex-shrink-0">
               <img 
-                src={projectIconMap[project.name]} 
+                src={projectIconMap[project.code]} 
                 alt={`${project.title} icon`}
                 className="w-14 h-14 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300"
               />
@@ -313,9 +294,12 @@ const PortfolioSection = () => {
               </Badge>
             </div>
             
-            {project.company && (
+            {project.companyCode && (
               <div className="text-sm text-muted-foreground mb-2">
-                {project.company} • {project.datePeriod?.startDate && formatDateToYears(project.datePeriod)}
+                {project.companyCode} • {project.datePeriod?.startDate && project.datePeriod?.endDate !== undefined && formatDateToYears({
+                  startDate: project.datePeriod.startDate,
+                  endDate: project.datePeriod.endDate || ''
+                })}
               </div>
             )}
             
@@ -323,24 +307,24 @@ const PortfolioSection = () => {
               className={`text-sm text-muted-foreground overflow-hidden transition-all duration-300 ${
                 isHovered ? 'line-clamp-none' : 'line-clamp-2'
               }`}
-              dangerouslySetInnerHTML={{ __html: project.summary }}
+              dangerouslySetInnerHTML={{ __html: project.summary || '' }}
             />
             
             <div className={`flex flex-wrap gap-1 mt-2 overflow-hidden transition-all duration-300 ${
               isHovered ? 'max-h-20 opacity-100' : 'max-h-8 opacity-80'
             }`}>
-              {(isHovered ? project.technologies : project.technologies.slice(0, 4)).map((tech) => (
+              {(isHovered ? (project.skillCodes || []) : (project.skillCodes || []).slice(0, 4)).map((tech) => (
                 <Badge 
-                  key={tech.name} 
+                  key={tech} 
                   variant="secondary" 
                   className="text-xs hover:bg-primary/10 transition-colors"
                 >
-                  {tech.name}
+                  {tech}
                 </Badge>
               ))}
-              {!isHovered && project.technologies.length > 4 && (
+              {!isHovered && (project.skillCodes || []).length > 4 && (
                 <Badge variant="outline" className="text-xs border-dashed">
-                  +{project.technologies.length - 4} more
+                  +{(project.skillCodes || []).length - 4} more
                 </Badge>
               )}
             </div>
@@ -367,10 +351,10 @@ const PortfolioSection = () => {
               </Badge>
               
               {/* Project Icon - Smaller for carousel */}
-              {project.icon && projectIconMap[project.name] && (
+              {project.photoUrl && projectIconMap[project.code] && (
                 <div className="w-20 h-20 flex items-center justify-center mb-2">
                   <img 
-                    src={projectIconMap[project.name]} 
+                    src={projectIconMap[project.code]} 
                     alt={`${project.title} icon`}
                     className="w-16 h-16 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300"
                   />
@@ -382,17 +366,20 @@ const PortfolioSection = () => {
                 <CardTitle className="text-base leading-tight group-hover:text-primary transition-colors mb-1">
                   {project.title}
                 </CardTitle>
-                {project.company && (
+                {project.companyCode && (
                   <div className="text-xs text-muted-foreground/80 font-medium">
-                    {project.company}
+                    {project.companyCode}
                   </div>
                 )}
               </div>
             </div>
             {/* Date - Always shown in carousel */}
-            {project.datePeriod?.startDate && (
+            {project.datePeriod?.startDate && project.datePeriod?.endDate !== undefined && (
               <div className="text-xs text-muted-foreground text-center mb-2">
-                {formatDateToYears(project.datePeriod)}
+                {formatDateToYears({
+                  startDate: project.datePeriod.startDate,
+                  endDate: project.datePeriod.endDate || ''
+                })}
               </div>
             )}
           </CardHeader>
@@ -401,27 +388,27 @@ const PortfolioSection = () => {
             <div className="mb-3">
               <CardDescription 
                 className="text-xs leading-relaxed text-center line-clamp-4"
-                dangerouslySetInnerHTML={{ __html: project.summary }}
+                dangerouslySetInnerHTML={{ __html: project.summary || '' }}
               />
             </div>
             
             {/* Technologies - Always shown in carousel */}
             <div className="flex flex-wrap gap-1 justify-center">
-              {project.technologies.slice(0, 4).map((tech) => (
+              {(project.skillCodes || []).slice(0, 4).map((tech) => (
                 <Badge 
-                  key={tech.name} 
+                  key={tech} 
                   variant="secondary" 
                   className="text-xs hover:bg-primary/10 transition-colors"
                 >
-                  {tech.name}
+                  {tech}
                 </Badge>
               ))}
-              {project.technologies.length > 4 && (
+              {(project.skillCodes || []).length > 4 && (
                 <Badge 
                   variant="outline" 
                   className="text-xs text-muted-foreground border-dashed"
                 >
-                  +{project.technologies.length - 4} more
+                  +{(project.skillCodes || []).length - 4} more
                 </Badge>
               )}
             </div>
@@ -447,10 +434,10 @@ const PortfolioSection = () => {
             </Badge>
             
             {/* Project Icon */}
-            {project.icon && projectIconMap[project.name] && (
+            {project.photoUrl && projectIconMap[project.code] && (
               <div className="w-36 h-36 flex items-center justify-center mb-3">
                 <img 
-                  src={projectIconMap[project.name]} 
+                  src={projectIconMap[project.code]} 
                   alt={`${project.title} icon`}
                   className="w-32 h-32 object-contain hover:brightness-110 hover:scale-105 transition-all duration-300"
                 />
@@ -462,9 +449,9 @@ const PortfolioSection = () => {
               <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors mb-1">
                 {project.title}
               </CardTitle>
-              {project.company && (
+              {project.companyCode && (
                 <div className="text-sm text-muted-foreground/80 font-medium">
-                  {project.company}
+                  {project.companyCode}
                 </div>
               )}
             </div>
@@ -472,7 +459,10 @@ const PortfolioSection = () => {
           <div className={`text-sm text-muted-foreground text-center overflow-hidden transition-all duration-300 ${
             isHovered ? 'max-h-32 opacity-100 mb-3' : 'max-h-0 opacity-0 mb-0'
           }`}>
-            {project.datePeriod?.startDate && formatDateToYears(project.datePeriod)}
+            {project.datePeriod?.startDate && project.datePeriod?.endDate !== undefined && formatDateToYears({
+              startDate: project.datePeriod.startDate,
+              endDate: project.datePeriod.endDate || ''
+            })}
           </div>
         </CardHeader>
         <CardContent className="pt-0">
@@ -482,7 +472,7 @@ const PortfolioSection = () => {
           }`}>
             <CardDescription 
               className="text-sm leading-relaxed text-center"
-              dangerouslySetInnerHTML={{ __html: project.summary }}
+              dangerouslySetInnerHTML={{ __html: project.summary || '' }}
             />
           </div>
           
@@ -491,21 +481,21 @@ const PortfolioSection = () => {
             isHovered ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
           }`}>
             <div className="flex flex-wrap gap-1 justify-center">
-              {project.technologies.slice(0, 5).map((tech) => (
+              {(project.skillCodes || []).slice(0, 5).map((tech) => (
                 <Badge 
-                  key={tech.name} 
+                  key={tech} 
                   variant="secondary" 
                   className="text-xs hover:bg-primary/10 transition-colors"
                 >
-                  {tech.name}
+                  {tech}
                 </Badge>
               ))}
-              {project.technologies.length > 5 && (
+              {(project.skillCodes || []).length > 5 && (
                 <Badge 
                   variant="outline" 
                   className="text-xs text-muted-foreground border-dashed"
                 >
-                  +{project.technologies.length - 5} more
+                  +{(project.skillCodes || []).length - 5} more
                 </Badge>
               )}
             </div>
@@ -799,7 +789,7 @@ const PortfolioSection = () => {
         project={selectedProject}
         isOpen={isDialogOpen}
         onClose={handleDialogClose}
-        projectIcon={selectedProject ? projectIconMap[selectedProject.name] : undefined}
+        projectIcon={selectedProject ? projectIconMap[selectedProject.code] : undefined}
       />
     </section>
   );
