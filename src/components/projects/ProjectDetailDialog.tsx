@@ -26,6 +26,7 @@ import type { ProjectEntry } from '@/models/Project';
 import type { Person } from '@/models/People';
 
 interface Customer {
+  code: string;
   name: string;
   title: string;
   logoPath: string;
@@ -362,7 +363,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                   ) : customersData.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {customersData.map((customer, index) => (
-                        <div key={customer.name} className="flex items-center gap-3 p-4 bg-muted/20 rounded-lg border border-border/30 hover:bg-muted/30 hover:shadow-sm transition-all duration-200">
+                        <div key={customer.code} className="flex items-center gap-3 p-4 bg-muted/20 rounded-lg border border-border/30 hover:bg-muted/30 hover:shadow-sm transition-all duration-200">
                           {/* Customer Logo */}
                           {customer.logoPath && (
                             <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
