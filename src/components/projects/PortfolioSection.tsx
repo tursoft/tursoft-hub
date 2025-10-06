@@ -164,7 +164,7 @@ const PortfolioSectionRefactored = () => {
           defaultViewMode="card"
           enabledModes={['card', 'list', 'carousel']}
           enableShowMore={true}
-          visibleMajorItemCount={16}
+          visibleMajorItemCount={21}
           fieldMapping={{
             code: 'code',
             title: 'title',

@@ -645,9 +645,14 @@
       "code": "tolgaaktan",
       "orderIndex": 53,
       "title": "Tolga Aktan",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/tolga.aktan.jpg",
       "company": "Datasel",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/tolga-aktan-74358a98"
+        }
+      ]
     },
     {
       "code": "alpercetinkaya",
@@ -745,7 +750,7 @@
           "value": "https://www.linkedin.com/in/ubkorkut"
         }
       ]
-    },
+   },
    {
       "code": "huseyinsurat",
       "orderIndex": 59,
@@ -758,6 +763,19 @@
           "value": "https://www.linkedin.com/in/huseyin-onur-surat-7b182790"
         }
       ]
-    }  
+   },
+   {
+      "code": "arifcakir",
+      "orderIndex": 59,
+      "title": "Arif Çakır",
+      "photoUrl": "/assets/people/arif.cakir.jpg",
+      "company": "Lifewatch",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/arifcakir"
+        }
+      ]
+    }    
   ]
 }

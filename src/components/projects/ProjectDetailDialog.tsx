@@ -202,12 +202,15 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                 </div>
               </div>
             </div>
-            {projectIcon && (
+            {(projectIcon || project.photoUrl) && (
               <div className="w-16 h-16 flex-shrink-0">
                 <img 
-                  src={projectIcon} 
-                  alt={`${project.title} icon`}
+                  src={projectIcon || project.photoUrl} 
+                  alt={`${project.title} logo`}
                   className="w-full h-full object-contain rounded-lg"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
                 />
               </div>
             )}

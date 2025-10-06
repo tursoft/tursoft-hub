@@ -1136,6 +1136,11 @@
           "orderIndex": 2,
           "personCode": "ekremyildiz",
           "position": "IT Manager"
+        },
+        {
+          "orderIndex": 3,
+          "personCode": "arifcakir",
+          "position": "Testing Specialist"
         }
       ],
       "modules": [

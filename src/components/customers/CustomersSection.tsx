@@ -145,7 +145,7 @@ const CustomersSectionRefactored = () => {
           defaultViewMode="card"
           enabledModes={['card', 'list', 'carousel']}
           enableShowMore={true}
-          visibleMajorItemCount={16}
+          visibleMajorItemCount={21}
           fieldMapping={{
             code: 'code',
             title: (customer) => customer.companyTitle,
