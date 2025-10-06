@@ -16,7 +16,6 @@ import { Badge } from "@/components/ui/badge";
 import { CardDescription } from "@/components/ui/card";
 import { 
   Calendar, 
-  Building2, 
   Clock,
   MapPin,
   ExternalLink,
@@ -26,33 +25,6 @@ import {
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
 
-interface Technology {
-  name: string;
-  type: string;
-}
-
-interface Project {
-  name: string;
-  title: string;
-}
-
-interface Domain {
-  name: string;
-  title: string;
-  value: number;
-  iconCss: string;
-}
-
-interface Position {
-  id: number;
-  title: string;
-  startDate: string;
-  endDate: string | null;
-  summary: string;
-  domains?: Domain[];
-  projects?: Project[];
-  technologies: Technology[];
-}
 
 import type { Experience, Position } from '@/models/Experience';
 
