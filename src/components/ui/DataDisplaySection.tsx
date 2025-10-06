@@ -66,6 +66,9 @@ export interface DataDisplaySectionProps<T = Record<string, unknown>> {
     xl?: number;
   };
   
+  // Image styling
+  imageRounded?: boolean; // If true, images will use rounded-full (circular)
+  
   // Callbacks
   onItemClick?: (item: T) => void;
   
@@ -99,6 +102,7 @@ const DataDisplaySection = <T = any>({
   carouselCardWidth = '36rem',
   carouselCardHeight = '28rem',
   gridCols = { sm: 1, md: 2, lg: 3, xl: 4 },
+  imageRounded = false,
   onItemClick,
   footer,
   isLoading = false,
@@ -194,7 +198,9 @@ const DataDisplaySection = <T = any>({
           <div className="flex flex-col items-center text-center">
             {image && (
               <div className="flex-shrink-0 mb-3">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-background shadow-lg">
+                <div className={`w-24 overflow-hidden border-background shadow-lg ${
+                  imageRounded ? 'rounded-full border-4' : 'rounded-lg'
+                }`}>
                   <img 
                     src={image} 
                     alt={title}
@@ -286,7 +292,9 @@ const DataDisplaySection = <T = any>({
           <div className="flex gap-6 items-start">
             {image && (
               <div className="flex-shrink-0">
-                <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-background shadow-lg">
+                <div className={`w-24 overflow-hidden border-background shadow-lg ${
+                  imageRounded ? 'rounded-full border-4' : 'rounded-lg'
+                }`}>
                   <img 
                     src={image} 
                     alt={title}
@@ -381,7 +389,9 @@ const DataDisplaySection = <T = any>({
           <div className="flex flex-col items-center text-center">
             {image && (
               <div className="flex-shrink-0 mb-2 -mt-8">
-                <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-background shadow-lg">
+                <div className={`w-20 overflow-hidden border-background shadow-lg ${
+                  imageRounded ? 'rounded-full border-4' : 'rounded-lg'
+                }`}>
                   <img 
                     src={image} 
                     alt={title}
@@ -498,7 +508,6 @@ const DataDisplaySection = <T = any>({
                   className="h-8 px-3"
                 >
                   <Grid className="w-4 h-4" />
-                  <span className="hidden sm:inline ml-1">Cards</span>
                 </Button>
               )}
               {enabledModes.includes('list') && (
@@ -509,7 +518,6 @@ const DataDisplaySection = <T = any>({
                   className="h-8 px-3"
                 >
                   <List className="w-4 h-4" />
-                  <span className="hidden sm:inline ml-1">List</span>
                 </Button>
               )}
               {enabledModes.includes('carousel') && (
@@ -520,7 +528,6 @@ const DataDisplaySection = <T = any>({
                   className="h-8 px-3"
                 >
                   <RotateCcw className="w-4 h-4" />
-                  <span className="hidden sm:inline ml-1">Carousel</span>
                 </Button>
               )}
             </div>

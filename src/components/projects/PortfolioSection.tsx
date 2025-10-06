@@ -103,7 +103,7 @@ const PortfolioSectionRefactored = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Featured <span className="text-primary">Projects</span>
+            Featured<span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Projects</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A showcase of innovative solutions and successful implementations across various domains and technologies

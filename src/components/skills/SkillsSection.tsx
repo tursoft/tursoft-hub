@@ -19,11 +19,6 @@ const SkillsSectionRefactored = () => {
   const [searchText, setSearchText] = useState("");
   const [groups, setGroups] = useState<string[]>([]);
 
-  // Helper function to get technology image
-  const getTechnologyImage = (skillCode: string): string => {
-    return `/assets/logos/technologies/small_50x50/${skillCode.toLowerCase()}.png`;
-  };
-
   // Load skills data
   useEffect(() => {
     const loadData = async () => {
@@ -37,7 +32,7 @@ const SkillsSectionRefactored = () => {
         // Process skills with icons
         const processedSkills = data.map((skill) => ({
           ...skill,
-          icon: getTechnologyImage(skill.code),
+          icon: skill.photoUrl
         }));
 
         setSkills(processedSkills);
@@ -76,7 +71,7 @@ const SkillsSectionRefactored = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Technical <span className="text-primary">Skills</span>
+            Technical<span className="text-primary bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Skills</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A comprehensive overview of programming languages, frameworks, databases, and tools I've mastered throughout my career
