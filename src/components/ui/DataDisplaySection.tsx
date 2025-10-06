@@ -69,6 +69,10 @@ export interface DataDisplaySectionProps<T = Record<string, unknown>> {
   // Image styling
   imageRounded?: boolean; // If true, images will use rounded-full (circular)
   
+  // Show More functionality
+  enableShowMore?: boolean; // If true, enables show more/less functionality
+  visibleMajorItemCount?: number; // Number of items to show initially when enableShowMore is true
+  
   // Callbacks
   onItemClick?: (item: T) => void;
   
@@ -103,6 +107,8 @@ const DataDisplaySection = <T = any>({
   carouselCardHeight = '28rem',
   gridCols = { sm: 1, md: 2, lg: 3, xl: 4 },
   imageRounded = false,
+  enableShowMore = false,
+  visibleMajorItemCount,
   onItemClick,
   footer,
   isLoading = false,
@@ -112,6 +118,7 @@ const DataDisplaySection = <T = any>({
 }: DataDisplaySectionProps<T>) => {
   const [viewMode, setViewMode] = useState<ViewMode>(defaultViewMode);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showAll, setShowAll] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Helper to get field value
@@ -119,6 +126,17 @@ const DataDisplaySection = <T = any>({
     if (!field) return '';
     return typeof field === 'function' ? field(item) : String(item[field as keyof T] || '');
   };
+
+  // Get visible data based on showAll state
+  const getVisibleData = () => {
+    if (!enableShowMore || showAll || !visibleMajorItemCount) {
+      return data;
+    }
+    return data.slice(0, visibleMajorItemCount);
+  };
+
+  const visibleData = getVisibleData();
+  const hasMore = enableShowMore && visibleMajorItemCount && data.length > visibleMajorItemCount;
 
   // Carousel navigation
   const nextSlide = () => {
@@ -536,16 +554,44 @@ const DataDisplaySection = <T = any>({
 
         {/* Card View */}
         {viewMode === 'card' && (
-          <div className={getGridClasses()}>
-            {data.map((item, index) => renderCard(item, index))}
-          </div>
+          <>
+            <div className={getGridClasses()}>
+              {visibleData.map((item, index) => renderCard(item, index))}
+            </div>
+            {hasMore && (
+              <div className="flex justify-center mt-8">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => setShowAll(!showAll)}
+                  className="transition-all duration-300 hover:scale-105"
+                >
+                  {showAll ? 'Show Less' : `Show All (${data.length})`}
+                </Button>
+              </div>
+            )}
+          </>
         )}
 
         {/* List View */}
         {viewMode === 'list' && (
-          <div className="space-y-4 max-w-5xl mx-auto">
-            {data.map((item, index) => renderListItem(item, index))}
-          </div>
+          <>
+            <div className="space-y-4 max-w-5xl mx-auto">
+              {visibleData.map((item, index) => renderListItem(item, index))}
+            </div>
+            {hasMore && (
+              <div className="flex justify-center mt-8">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => setShowAll(!showAll)}
+                  className="transition-all duration-300 hover:scale-105"
+                >
+                  {showAll ? 'Show Less' : `Show All (${data.length})`}
+                </Button>
+              </div>
+            )}
+          </>
         )}
 
         {/* Carousel View */}
