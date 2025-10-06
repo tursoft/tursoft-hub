@@ -270,7 +270,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                         (isEven && index === project.modules.length - 2 && project.modules.length % 2 === 0);
                       
                       return (
-                        <div key={index}>
+                        <div key={`${module}-${index}`}>
                           <div className="flex items-start gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
                             <div className="w-2 h-2 bg-primary/60 rounded-full flex-shrink-0 mt-2" />
                             <span className="text-sm text-foreground leading-relaxed">
@@ -306,7 +306,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                 <div className="px-4 py-2">
                   <div className="flex flex-wrap gap-2">
                     {project.domainCodes.map((domainCode, index) => (
-                      <Badge key={index} variant="secondary">
+                      <Badge key={domainCode} variant="secondary">
                         {domainCode}
                       </Badge>
                     ))}
@@ -325,7 +325,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                       (isEven && index === (project.skillCodes || []).length - 2 && (project.skillCodes || []).length % 2 === 0);
                     
                     return (
-                      <div key={index}>
+                      <div key={techCode}>
                         <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
                           {logoPath && (
                             <img 
