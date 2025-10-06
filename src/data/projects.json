@@ -92,7 +92,12 @@
         {
           "orderIndex": 0,
           "personCode": "muhammettursak",
-          "position": "Team Leader"
+          "position": "Software Architect"
+        },
+        {
+          "orderIndex": 1,
+          "personCode": "huseyinsurat",
+          "position": "Software Developer"
         }
       ],
       "modules": []
@@ -130,6 +135,16 @@
           "orderIndex": 0,
           "personCode": "muhammettursak",
           "position": "Team Leader"
+        },
+        {
+          "orderIndex": 1,
+          "personCode": "ertemyazici",
+          "position": "Software Developer"
+        },
+        {
+          "orderIndex": 3,
+          "personCode": "umutbariskorkut",
+          "position": "Software Developer"
         }
       ],
       "modules": []
@@ -1118,7 +1133,7 @@
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 2,
           "personCode": "ekremyildiz",
           "position": "IT Manager"
         }
