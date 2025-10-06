@@ -144,6 +144,8 @@ const CustomersSectionRefactored = () => {
           emptyMessage="No customers found in this category."
           defaultViewMode="card"
           enabledModes={['card', 'list', 'carousel']}
+          enableShowMore={true}
+          visibleMajorItemCount={30}
           fieldMapping={{
             code: 'code',
             title: (customer) => customer.companyTitle,

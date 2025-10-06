@@ -131,6 +131,8 @@ const SkillsSectionRefactored = () => {
           emptyMessage="No skills found."
           defaultViewMode="card"
           enabledModes={['card', 'list']}
+          enableShowMore={true}
+          visibleMajorItemCount={30}
           fieldMapping={{
             code: 'code',
             title: 'title',
