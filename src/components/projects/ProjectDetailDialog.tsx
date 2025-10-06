@@ -21,7 +21,9 @@ import {
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
+import { peopleRepo } from '@/repositories/PeopleRepo';
 import type { ProjectEntry } from '@/models/Project';
+import type { Person } from '@/models/People';
 
 interface Customer {
   name: string;
@@ -49,6 +51,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
   const [isLoadingCustomers, setIsLoadingCustomers] = useState(false);
   const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
   const [companyName, setCompanyName] = useState<string>('');
+  const [teamMembers, setTeamMembers] = useState<Array<{ person: Person | null; position: string; personCode: string }>>([]);
 
   // Load company name from companyCode
   useEffect(() => {
@@ -118,6 +121,34 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
     }
   }, [project?.skillCodes]);
 
+  // Resolve team member names from personCodes
+  useEffect(() => {
+    const loadTeamMembers = async () => {
+      if (!project?.team || project.team.length === 0) {
+        setTeamMembers([]);
+        return;
+      }
+
+      const resolvedTeam = await Promise.all(
+        project.team.map(async (member) => {
+          const person = member.personCode 
+            ? await peopleRepo.getByCode(member.personCode)
+            : null;
+          
+          return {
+            person,
+            position: member.position || 'Team Member',
+            personCode: member.personCode || 'Unknown'
+          };
+        })
+      );
+
+      setTeamMembers(resolvedTeam);
+    };
+
+    loadTeamMembers();
+  }, [project?.team]);
+
   if (!project) return null;
 
   // Helper function to format date period
@@ -157,7 +188,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                   {project.group}
                 </Badge>
               </div>
-              <DialogDescription className="text-base text-muted-foreground">
+              <div className="text-base text-muted-foreground">
                 {companyName && (
                   <div className="flex items-center gap-2 mb-2">
                     <Building2 className="w-4 h-4" />
@@ -168,7 +199,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                   <Clock className="w-4 h-4" />
                   <span>{formatDatePeriod(project.datePeriod)}</span>
                 </div>
-              </DialogDescription>
+              </div>
             </div>
             {projectIcon && (
               <div className="w-16 h-16 flex-shrink-0">
@@ -387,15 +418,34 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
             <TabsContent value="team" className="space-y-6 min-h-[400px]">
               <div className="p-4">
 
-                {project.team.length > 0 ? (
+                {teamMembers.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {project.team.map((member, index) => (
-                      <div key={index} className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
-                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                          <User className="w-5 h-5 text-primary" />
-                        </div>
+                    {teamMembers.map((member, index) => (
+                      <div key={member.personCode || index} className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
+                        {member.person?.photoUrl ? (
+                          <div className="w-10 h-10 flex-shrink-0 relative">
+                            <img
+                              src={member.person.photoUrl}
+                              alt={member.person.title}
+                              className="w-full h-full object-cover rounded-full border-2 border-primary/20"
+                              onError={(e) => {
+                                // Replace with fallback User icon if image fails to load
+                                const parent = e.currentTarget.parentElement;
+                                if (parent) {
+                                  parent.innerHTML = '<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>';
+                                }
+                              }}
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                            <User className="w-5 h-5 text-primary" />
+                          </div>
+                        )}
                         <div>
-                          <div className="font-medium">{member.personCode || 'Unknown'}</div>
+                          <div className="font-medium">
+                            {member.person?.title || member.personCode}
+                          </div>
                           <div className="text-sm text-muted-foreground">{member.position}</div>
                         </div>
                       </div>
