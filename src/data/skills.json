@@ -1594,6 +1594,16 @@
       "value": 0,
       "projects": 0,
       "jobs": 0
+    },
+    {
+      "code": "graphql",
+      "orderIndex": 153,
+      "title": "GraphQL",
+      "photoUrl": "/assets/skills/graphql.png",
+      "group": "GraphQL",
+      "value": 0,
+      "projects": 1,
+      "jobs": 1
     }
   ]
 }

@@ -176,7 +176,7 @@
       "companyLogoUrl": "halici",
       "technologies": [
         "ASP.NET",
-        "JavaScript",
+        "js",
         "MySQL",
         "Adobe Flash"
       ],
@@ -197,7 +197,7 @@
         "VBScript",
         "Access",
         "HTML",
-        "JavaScript"
+        "js"
       ],
       "techIcons": [
         "mysql"
@@ -213,7 +213,7 @@
       "technologies": [
         "PHP",
         "MySQL",
-        "JavaScript",
+        "js",
         "CSS"
       ],
       "techIcons": [
