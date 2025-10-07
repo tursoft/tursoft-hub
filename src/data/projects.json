@@ -98,7 +98,7 @@
         "mssql"
       ],
       "datePeriod": {
-        "startDate": "01.12.2023",
+        "startDate": "01.12.2022",
         "endDate": null
       },
       "props": [
@@ -160,7 +160,7 @@
       ],
       "datePeriod": {
         "startDate": "04.09.2019",
-        "endDate": "01.12.2023"
+        "endDate": "01.12.2022"
       },
       "props": [
         {
