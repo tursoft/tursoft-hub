@@ -137,7 +137,26 @@
       "customerCodes": [],
       "partnerCodes": [],
       "skillCodes": [
-        "C"
+        "C#",
+        ".net",
+        "angular",
+        "typescript",
+        "js",
+        "html5",
+        "css",
+        "docker",
+        "python",
+        "azure",
+        "azure-appservices",
+        "azure-entra",
+        "azure-blobstorage",
+        "azure-vm",
+        "azure-vmss",
+        "azure-compute-gallery",
+        "azure-function-app",
+        "azure-sql",
+        "tsql",
+        "mssql"
       ],
       "datePeriod": {
         "startDate": "04.09.2019",
@@ -278,7 +297,12 @@
         "IBNISINA"
       ],
       "skillCodes": [
-        "C"
+        "java",
+        "maven",
+        "spring",
+        "oracle",
+        "db2",
+        "plsql"
       ],
       "datePeriod": {
         "startDate": "01.01.2015",
@@ -296,6 +320,33 @@
         {
           "code": "lang",
           "title": "Multi Language Support (Turkish, English, Arabic, Albanian)"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "nuraliunal",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 1,
+          "personCode": "muhammettursak",
+          "position": "Software Group Leader"
+        },
+        {
+          "orderIndex": 2,
+          "personCode": "uguresmer",
+          "position": "Software Group Leader"
+        },
+        {
+          "orderIndex": 2,
+          "personCode": "mesutdemirer",
+          "position": "Project Manager"
+        },
+        {
+          "orderIndex": 4,
+          "personCode": "davutgurbuz",
+          "position": "Senior Software Developer"
         }
       ]
     },
@@ -328,7 +379,21 @@
         "Medisante"
       ],
       "skillCodes": [
-        "C"
+        "C#",
+        ".net",
+        "angular",
+        "typescript",
+        "js",
+        "html5",
+        "css",
+        "docker",
+        "dockercompose",
+        "azure",
+        "azure-appservices",
+        "azure-vm",
+        "azure-sql",
+        "tsql",
+        "mssql"
       ],
       "datePeriod": {
         "startDate": "01.03.2018",
@@ -375,11 +440,21 @@
         },
         {
           "orderIndex": 4,
-          "personCode": "olivieaoliveira",
+          "personCode": "eleftheria.polychronidou",
           "position": "Partner - Consultant"
         },
         {
           "orderIndex": 5,
+          "personCode": "kostas.karkaletsis",
+          "position": "Partner - Software Architect"
+        },
+        {
+          "orderIndex": 6,
+          "personCode": "olivieaoliveira",
+          "position": "Partner - Consultant"
+        },
+        {
+          "orderIndex": 7,
           "personCode": "uweweimer",
           "position": "Partner - Consultant"
         }
@@ -461,12 +536,17 @@
           "position": "Project Manager"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 2,
+          "personCode": "davutgurbuz",
+          "position": "Senior Software Developer"
+        },
+        {
+          "orderIndex": 3,
           "personCode": "ertemyazici",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 4,
           "personCode": "onurkipel",
           "position": "Software Developer"
         }
@@ -579,22 +659,27 @@
           "position": "Project Manager"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 2,
           "personCode": "tolgaaktan",
           "position": "Project Manager"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 3,
           "personCode": "davutgurbuz",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 4,
+          "personCode": "mehmetalicicek",
+          "position": "Software Developer"
+        },
+        {
+          "orderIndex": 5,
           "personCode": "cankatabaci",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 6,
           "personCode": "alpercetinkaya",
           "position": "Testing Specialist"
         }
@@ -672,7 +757,12 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "java",
+        "maven",
+        "spring",
+        "oracle",
+        "db2",
+        "plsql"
       ],
       "datePeriod": {
         "startDate": "01.01.2015",
@@ -792,7 +882,7 @@
       ],
       "team": [
         {
-          "orderIndex": 1,
+          "orderIndex": 0,
           "personCode": "muhammettursak",
           "position": "Project Manager"
         },

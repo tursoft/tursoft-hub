@@ -569,7 +569,12 @@
       "title": "M. Mustafa Uysal",
       "photoUrl": null,
       "company": "Halıcı",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/mustafa-uysal-9955927b"
+        }
+      ]
     },
     {
       "code": "fatihekici",
@@ -670,7 +675,9 @@
       "title": "Alper Çetinkaya",
       "photoUrl": null,
       "company": "Datasel",
-      "contacts": []
+      "contacts": [
+        
+      ]
     },
     {
       "code": "mehmetalicicek",
@@ -678,7 +685,12 @@
       "title": "Mehmet Ali Çiçek",
       "photoUrl": null,
       "company": "Datasel",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/mehmet-ali-cicek-332b2a48"
+        }
+      ]
     },
     {
       "code": "onurkipel",
@@ -810,6 +822,20 @@
         {
           "code": "linkedin",
           "value": "https://www.linkedin.com/in/oliviaoliveira"
+        }
+      ]
+    },
+
+    {
+      "code": "uguresmer",
+      "orderIndex": 62,
+      "title": "Uğur Esmer",
+      "photoUrl": "/assets/people/ugur.esmer.jpg",
+      "company": "ERC",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/u%C4%9Fur-esmer-b625848"
         }
       ]
     }

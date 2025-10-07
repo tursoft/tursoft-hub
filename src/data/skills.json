@@ -1604,6 +1604,127 @@
       "value": 0,
       "projects": 1,
       "jobs": 1
+    },
+    {
+      "code": "python",
+      "orderIndex": 145,
+      "title": "Python",
+      "photoUrl": "/assets/skills/python.png",
+      "group": "Programming Languages",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "azure-appservices",
+      "orderIndex": 146,
+      "title": "Azure App Services",
+      "photoUrl": "/assets/skills/azure-appservices.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "azure-entra",
+      "orderIndex": 147,
+      "title": "Azure Entra",
+      "photoUrl": "/assets/skills/azure-entra.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "azure-blobstorage",
+      "orderIndex": 148,
+      "title": "Azure Blob Storage",
+      "photoUrl": "/assets/skills/azure-blobstorage.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "azure-vm",
+      "orderIndex": 149,
+      "title": "Azure VM",
+      "photoUrl": "/assets/skills/azure-vm.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "azure-vmss",
+      "orderIndex": 150,
+      "title": "Azure VMSS",
+      "photoUrl": "/assets/skills/azure-vmss.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "azure-compute-gallery",
+      "orderIndex": 151,
+      "title": "Azure Compute Gallery",
+      "photoUrl": "/assets/skills/azure-compute-gallery.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "azure-function-app",
+      "orderIndex": 152,
+      "title": "Azure Function App",
+      "photoUrl": "/assets/skills/azure-function-app.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "azure-sql",
+      "orderIndex": 153,
+      "title": "Azure SQL",
+      "photoUrl": "/assets/skills/azure-sql.png",
+      "group": "Databases",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "tsql",
+      "orderIndex": 154,
+      "title": "T-SQL",
+      "photoUrl": "/assets/skills/tsql.png",
+      "group": "Databases",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "mssql",
+      "orderIndex": 155,
+      "title": "MS SQL",
+      "photoUrl": "/assets/skills/mssql.png",
+      "group": "Databases",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
     }
   ]
 }
