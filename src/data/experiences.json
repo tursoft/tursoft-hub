@@ -47,7 +47,7 @@
             "Json",
             "Google Analytics"
           ],
-          "projects": [
+          "projectCodes": [
             "JENGAIAPP"
           ]
         }
@@ -94,7 +94,7 @@
             "Json",
             "Google Analytics"
           ],
-          "projects": [
+          "projectCodes": [
             "GAMYTEAPP"
           ]
         }
@@ -134,7 +134,7 @@
             "Json",
             "Google Analytics"
           ],
-          "projects": [
+          "projectCodes": [
             "certify.health"
           ]
         }
@@ -231,7 +231,7 @@
             "Google Analytics",
             "Grunt"
           ],
-          "projects": [
+          "projectCodes": [
             "ProEmpower",
             "PDFWCore",
             "PDFW",
@@ -319,7 +319,7 @@
             "Photoshop",
             "MS Blend"
           ],
-          "projects": [
+          "projectCodes": [
             "PDFW",
             "Avicenna2x",
             "AHIN",
@@ -367,7 +367,7 @@
             "Photoshop",
             "MS Blend"
           ],
-          "projects": [
+          "projectCodes": [
             "PDFWSL",
             "CMS",
             "FastEyes",
@@ -410,7 +410,7 @@
             "CSS",
             "Photoshop"
           ],
-          "projects": [
+          "projectCodes": [
             "FonetFW",
             "FonetStudio",
             "FonetHBYS",
@@ -446,7 +446,7 @@
             "CSS",
             "Photoshop"
           ],
-          "projects": [
+          "projectCodes": [
             "FonetFW",
             "FonetHBYS",
             "FonetInventory",
@@ -471,7 +471,7 @@
             "MS Access",
             "Photoshop"
           ],
-          "projects": [
+          "projectCodes": [
             "JandarmaBYS",
             "JandarmaATS"
           ]
@@ -511,7 +511,7 @@
             "CSS",
             "Photoshop"
           ],
-          "projects": [
+          "projectCodes": [
             "HEP"
           ]
         },
@@ -544,7 +544,7 @@
             "CSS",
             "Photoshop"
           ],
-          "projects": [
+          "projectCodes": [
             "HEP",
             "UNHCR",
             "EDISA"
@@ -577,7 +577,7 @@
             "CSS",
             "Photoshop"
           ],
-          "projects": [
+          "projectCodes": [
             "HEP",
             "EDISA",
             "Frizbi"
@@ -665,7 +665,7 @@
             "CSS",
             "Photoshop"
           ],
-          "projects": [
+          "projectCodes": [
             "CSC"
           ]
         }
@@ -698,7 +698,7 @@
             "CSS",
             "Photoshop"
           ],
-          "projects": [
+          "projectCodes": [
             "BotebOnline",
             "EGM"
           ]
