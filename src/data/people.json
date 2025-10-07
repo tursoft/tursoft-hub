@@ -598,7 +598,12 @@
       "title": "Hasan Turunç",
       "photoUrl": null,
       "company": "Fonet",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/hasan-turun%C3%A7-42279448"
+        }
+      ]
     },
     {
       "code": "engincelik",
@@ -628,33 +633,53 @@
       "code": "ahmetbeskonaklioglu",
       "orderIndex": 48,
       "title": "Ahmet Beşkonaklıoğlu",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/ahmet.beskonaklioglu.jpg",
       "company": "ERC",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/ahmet-beskonaklioglu-927b0214"
+        }
+      ]
     },
     {
       "code": "eserkalac",
       "orderIndex": 49,
       "title": "Eser Kalaç",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/eser.kalac.jpg",
       "company": "ERC",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/eser-kalac-373720137"
+        }
+      ]
     },
     {
       "code": "duranturemis",
       "orderIndex": 50,
       "title": "Duran Türemiş",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/duran.turemis.jpg",
       "company": "ERC",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/duran-t%C3%BCremi%C5%9F-477513133"
+        }        
+      ]
     },
     {
       "code": "kemalbirer",
       "orderIndex": 52,
       "title": "Kemal Birer",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/kemal.birer.jpg",
       "company": "Datasel",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/kemal-birer-27480419a"
+        }
+      ]
     },
     {
       "code": "tolgaaktan",
@@ -673,17 +698,20 @@
       "code": "alpercetinkaya",
       "orderIndex": 54,
       "title": "Alper Çetinkaya",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/alper.cetinkaya.jpg",
       "company": "Datasel",
       "contacts": [
-        
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/alper-cetinkaya"
+        }        
       ]
     },
     {
       "code": "mehmetalicicek",
       "orderIndex": 55,
       "title": "Mehmet Ali Çiçek",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/mehmet.ali.cicek.jpg",
       "company": "Datasel",
       "contacts": [
         {
@@ -696,9 +724,14 @@
       "code": "onurkipel",
       "orderIndex": 56,
       "title": "Onur Kipel",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/onur.kipel.jpg",
       "company": "Datasel",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/onur-kipel"
+        }
+      ]
     },
     {
       "code": "esraertunc",

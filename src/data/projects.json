@@ -347,6 +347,11 @@
           "orderIndex": 4,
           "personCode": "davutgurbuz",
           "position": "Senior Software Developer"
+        },
+        {
+          "orderIndex": 5,
+          "personCode": "duranturemis",
+          "position": "Software Developer"
         }
       ]
     },
@@ -475,7 +480,17 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "C#",
+        ".net",
+        "angular",
+        "typescript",
+        "js",
+        "html5",
+        "css",
+        "docker",
+        "dockercompose",
+        "tsql",
+        "mssql"
       ],
       "datePeriod": {
         "startDate": "01.02.2015",
@@ -485,6 +500,13 @@
         {
           "code": "type",
           "title": "Tubitak Project"
+        }
+      ],
+      "team":[
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Team Leader"
         }
       ]
     },
@@ -504,7 +526,16 @@
         "MOH.KSA"
       ],
       "skillCodes": [
-        "C"
+        "C#",
+        ".net",
+        "js",
+        "html5",
+        "css",
+        "tsql",
+        "mssql",
+        "silverlight",        
+        "wpf",
+        "xaml"
       ],
       "datePeriod": {
         "startDate": "01.04.2014",
@@ -532,21 +563,26 @@
         },
         {
           "orderIndex": 1,
+          "personCode": "nuraliunal",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 2,
           "personCode": "mesutdemirer",
           "position": "Project Manager"
         },
         {
-          "orderIndex": 2,
+          "orderIndex": 3,
           "personCode": "davutgurbuz",
           "position": "Senior Software Developer"
         },
         {
-          "orderIndex": 3,
+          "orderIndex": 4,
           "personCode": "ertemyazici",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 4,
+          "orderIndex": 5,
           "personCode": "onurkipel",
           "position": "Software Developer"
         }
@@ -566,7 +602,17 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "C#",
+        ".net",
+        "angular",
+        "typescript",
+        "js",
+        "html5",
+        "css",
+        "docker",
+        "dockercompose",
+        "tsql",
+        "mssql"
       ],
       "datePeriod": {
         "startDate": "01.06.2015",
@@ -591,10 +637,15 @@
         }
       ],
       "team": [
-        {
+		    {
           "orderIndex": 0,
           "personCode": "muhammettursak",
           "position": "Team Leader"
+        },
+        {
+          "orderIndex": 1,
+          "personCode": "nuraliunal",
+          "position": "CEO"
         },
         {
           "orderIndex": 1,
@@ -655,12 +706,12 @@
         },
         {
           "orderIndex": 1,
-          "personCode": "mesutdemirer",
-          "position": "Project Manager"
+          "personCode": "nuraliunal",
+          "position": "CEO"
         },
         {
           "orderIndex": 2,
-          "personCode": "tolgaaktan",
+          "personCode": "mesutdemirer",
           "position": "Project Manager"
         },
         {
@@ -670,16 +721,26 @@
         },
         {
           "orderIndex": 4,
-          "personCode": "mehmetalicicek",
+          "personCode": "duranturemis",
           "position": "Software Developer"
         },
         {
           "orderIndex": 5,
+          "personCode": "esraertunc",
+          "position": "Software Developer"
+        },      
+        {
+          "orderIndex": 6,
+          "personCode": "mehmetalicicek",
+          "position": "Software Developer"
+        },
+        {
+          "orderIndex": 7,
           "personCode": "cankatabaci",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 6,
+          "orderIndex": 8,
           "personCode": "alpercetinkaya",
           "position": "Testing Specialist"
         }
@@ -699,7 +760,16 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "C#",
+        ".net",
+        "js",
+        "html5",
+        "css",
+        "tsql",
+        "mssql",
+        "silverlight",
+        "wpf",
+        "xaml"
       ],
       "datePeriod": {
         "startDate": "01.03.2013",
@@ -720,6 +790,11 @@
           "orderIndex": 0,
           "personCode": "muhammettursak",
           "position": "Team Leader"
+        },
+        {
+          "orderIndex": 1,
+          "personCode": "nuraliunal",
+          "position": "CEO"
         },
         {
           "orderIndex": 1,
@@ -772,6 +847,23 @@
         {
           "code": "platforms",
           "title": "Desktop"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Team Leader"
+        },
+        {
+          "orderIndex": 1,
+          "personCode": "nuraliunal",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 2,
+          "personCode": "uguresmer",
+          "position": "Software Group Leader"
         }
       ]
     },
@@ -888,6 +980,16 @@
         },
         {
           "orderIndex": 1,
+          "personCode": "nuraliunal",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 2,
+          "personCode": "mesutdemirer",
+          "position": "Project Manager"
+        },
+        {
+          "orderIndex": 3,
           "personCode": "davutgurbuz",
           "position": "Mobile Developer"
         }
@@ -1271,7 +1373,19 @@
       "value": 100,
       "summary": "Enterprise Level Web-based Rapid Application Development Framework",
       "skillCodes": [
-        "C"
+        "C#",
+        ".net",
+        "angular",
+        "typescript",
+        "js",
+        "html5",
+        "css",
+        "docker",
+        "dockercompose",
+        "tsql",
+        "mssql",
+        "postgres",
+        "oracle"
       ],
       "datePeriod": {
         "startDate": "01.03.2011",
@@ -1302,7 +1416,17 @@
       ],
       "partnerCodes": [],
       "skillCodes": [
-        "C"
+        "C#",
+        ".net",
+        "angular",
+        "typescript",
+        "js",
+        "html5",
+        "css",
+        "docker",
+        "dockercompose",
+        "tsql",
+        "mssql"
       ],
       "datePeriod": {
         "startDate": "24.02.2016",
@@ -1363,7 +1487,16 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "C#",
+        ".net",
+        "js",
+        "html5",
+        "css",
+        "tsql",
+        "mssql",
+        "silverlight",
+        "wpf",
+        "xaml"
       ],
       "datePeriod": {
         "startDate": "01.08.2011",
@@ -1387,36 +1520,46 @@
         },
         {
           "orderIndex": 1,
+          "personCode": "nuraliunal",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 2,
           "personCode": "mesutdemirer",
           "position": "Project Manager"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 3,
           "personCode": "duranturemis",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 4,
           "personCode": "esraertunc",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 5,
+          "personCode": "mehmetalicicek",
+          "position": "Software Developer"
+        },
+        {
+          "orderIndex": 6,
           "personCode": "onurkipel",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 7,
           "personCode": "eserkalac",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 8,
           "personCode": "ahmetbeskonaklioglu",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 10,
           "personCode": "alpercetinkaya",
           "position": "Testing Specialist"
         }
@@ -1436,7 +1579,15 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "C#",
+        ".net",
+        "js",
+        "html5",
+        "css",
+        "tsql",
+        "mssql",
+        "silverlight",
+        "xaml"
       ],
       "datePeriod": {
         "startDate": "01.01.2014",
@@ -1464,11 +1615,16 @@
         },
         {
           "orderIndex": 1,
+          "personCode": "nuraliunal",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 2,
           "personCode": "mesutdemirer",
           "position": "Project Manager"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 3,
           "personCode": "davutgurbuz",
           "position": "Software Developer"
         }
@@ -1773,6 +1929,11 @@
         {
           "orderIndex": 1,
           "personCode": "davutgurbuz",
+          "position": "Software Developer"
+        },
+        {
+          "orderIndex": 3,
+          "personCode": "esraertunc",
           "position": "Software Developer"
         }
       ]
