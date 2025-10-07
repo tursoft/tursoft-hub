@@ -64,7 +64,7 @@ const AboutSection = () => {
                   I bring a unique combination of <span className="text-primary font-semibold">technical expertise</span> and <span className="text-primary font-semibold">leadership experience</span> to every project.
                 </p>
                 <p>
-                  Currently serving as <span className="text-primary font-semibold">Director of Technology</span> & <span className="text-primary font-semibold">Senior Software Architect</span> at Gamyte,
+                  Currently serving as <span className="text-primary font-semibold">Director of Technology</span> & <span className="text-primary font-semibold">Senior Software Architect</span> at Jengai,
                   I continue to push the boundaries of what's possible in <span className="text-primary font-semibold">enterprise software development</span> and <span className="text-primary font-semibold">gaming technology</span>.
                 </p>
               </div>
