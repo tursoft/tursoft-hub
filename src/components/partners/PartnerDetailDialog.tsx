@@ -138,7 +138,27 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
               <Maximize2 className="w-4 h-4" />
             )}
           </Button>
-          <div className="flex items-start gap-4 pr-20">
+          {/* Logo positioned below buttons */}
+          {partnerLogo && (
+            <div className="absolute top-14 right-4 z-10 w-16 h-16">
+              <img 
+                src={partnerLogo} 
+                alt={`${companyTitle || partner.companyCode} logo`}
+                className="w-full h-full object-contain rounded-lg"
+                onError={(e) => {
+                  // Try with /src/assets/ prefix for development fallback
+                  const currentSrc = e.currentTarget.src;
+                  if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
+                    e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
+                  } else {
+                    // Hide image if it fails to load even with fallback
+                    e.currentTarget.style.display = 'none';
+                  }
+                }}
+              />
+            </div>
+          )}
+          <div className="flex items-start gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">
@@ -157,25 +177,6 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
                 )}
               </div>
             </div>
-            {partnerLogo && (
-              <div className="w-16 h-16 flex-shrink-0">
-                <img 
-                  src={partnerLogo} 
-                  alt={`${companyTitle || partner.companyCode} logo`}
-                  className="w-full h-full object-contain rounded-lg"
-                  onError={(e) => {
-                    // Try with /src/assets/ prefix for development fallback
-                    const currentSrc = e.currentTarget.src;
-                    if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
-                      e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
-                    } else {
-                      // Hide image if it fails to load even with fallback
-                      e.currentTarget.style.display = 'none';
-                    }
-                  }}
-                />
-              </div>
-            )}
           </div>
         </DialogHeader>
 

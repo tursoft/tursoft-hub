@@ -130,16 +130,17 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
               <Maximize2 className="w-4 h-4" />
             )}
           </Button>
-          <div className="flex items-start gap-4 pr-20">
-            {educationIcon && (
-              <div className="w-16 h-16 flex-shrink-0">
-                <img 
-                  src={educationIcon} 
-                  alt={`${education.companyName} logo`}
-                  className="w-full h-full object-contain rounded-lg"
-                />
-              </div>
-            )}
+          {/* Logo positioned below buttons */}
+          {educationIcon && (
+            <div className="absolute top-14 right-4 z-10 w-16 h-16">
+              <img 
+                src={educationIcon} 
+                alt={`${education.companyName} logo`}
+                className="w-full h-full object-contain rounded-lg"
+              />
+            </div>
+          )}
+          <div className="flex items-start gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">

@@ -196,7 +196,20 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               <Maximize2 className="w-4 h-4" />
             )}
           </Button>
-          <div className="flex items-start gap-4 pr-20">
+          {/* Logo positioned below buttons */}
+          {(projectIcon || project.photoUrl) && (
+            <div className="absolute top-14 right-4 z-10 w-16 h-16">
+              <img 
+                src={projectIcon || project.photoUrl} 
+                alt={`${project.title} logo`}
+                className="w-full h-full object-contain rounded-lg"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            </div>
+          )}
+          <div className="flex items-start gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">
@@ -219,18 +232,6 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                 </div>
               </div>
             </div>
-            {(projectIcon || project.photoUrl) && (
-              <div className="w-16 h-16 flex-shrink-0">
-                <img 
-                  src={projectIcon || project.photoUrl} 
-                  alt={`${project.title} logo`}
-                  className="w-full h-full object-contain rounded-lg"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </div>
-            )}
           </div>
         </DialogHeader>
 
