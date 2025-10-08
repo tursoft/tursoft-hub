@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css'
 import { Card } from '../ui/card'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { Map, Grid, Maximize2, Minimize2, Briefcase, GraduationCap, Users, Handshake } from 'lucide-react'
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog'
@@ -665,76 +666,92 @@ export default function MapSection() {
           </p>
         </div>
 
-        {/* View Mode Toggle */}
-        <div className="flex justify-center mb-6">
-          <div className="flex bg-secondary rounded-lg p-1">
-            <Button
-              variant={viewMode === 'map' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => setViewMode('map')}
-              className="flex items-center gap-2"
+        {/* Combined Filters and View Mode Toggle */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+          {/* Category Filters - Left Side */}
+          <div className="flex flex-wrap gap-3">
+            <button
+              onClick={() => toggleFilter('experience')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+                selectedFilters.includes('experience')
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-secondary text-muted-foreground hover:bg-blue-100'
+              }`}
             >
-              <Map className="w-4 h-4" />
-              Map View
-            </Button>
-            <Button
-              variant={viewMode === 'grid' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => setViewMode('grid')}
-              className="flex items-center gap-2"
+              <Briefcase className="w-4 h-4" />
+              Experience ({experiencesData.items.length})
+            </button>
+            <button
+              onClick={() => toggleFilter('education')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+                selectedFilters.includes('education')
+                  ? 'bg-green-600 text-white'
+                  : 'bg-secondary text-muted-foreground hover:bg-green-100'
+              }`}
             >
-              <Grid className="w-4 h-4" />
-              Grid View
-            </Button>
+              <GraduationCap className="w-4 h-4" />
+              Education ({educationData.items.length})
+            </button>
+            <button
+              onClick={() => toggleFilter('customer')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+                selectedFilters.includes('customer')
+                  ? 'bg-red-600 text-white'
+                  : 'bg-secondary text-muted-foreground hover:bg-red-100'
+              }`}
+            >
+              <Users className="w-4 h-4" />
+              Customers ({customersData.items.length})
+            </button>
+            <button
+              onClick={() => toggleFilter('partner')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+                selectedFilters.includes('partner')
+                  ? 'bg-orange-500 text-white'
+                  : 'bg-secondary text-muted-foreground hover:bg-orange-100'
+              }`}
+            >
+              <Handshake className="w-4 h-4" />
+              Partners ({partnersData.items.length})
+            </button>
           </div>
-        </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          <button
-            onClick={() => toggleFilter('experience')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-              selectedFilters.includes('experience')
-                ? 'bg-blue-500 text-white'
-                : 'bg-secondary text-muted-foreground hover:bg-blue-100'
-            }`}
-          >
-            <Briefcase className="w-4 h-4" />
-            Experience ({experiencesData.items.length})
-          </button>
-          <button
-            onClick={() => toggleFilter('education')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-              selectedFilters.includes('education')
-                ? 'bg-green-600 text-white'
-                : 'bg-secondary text-muted-foreground hover:bg-green-100'
-            }`}
-          >
-            <GraduationCap className="w-4 h-4" />
-            Education ({educationData.items.length})
-          </button>
-          <button
-            onClick={() => toggleFilter('customer')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-              selectedFilters.includes('customer')
-                ? 'bg-red-600 text-white'
-                : 'bg-secondary text-muted-foreground hover:bg-red-100'
-            }`}
-          >
-            <Users className="w-4 h-4" />
-            Customers ({customersData.items.length})
-          </button>
-          <button
-            onClick={() => toggleFilter('partner')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-              selectedFilters.includes('partner')
-                ? 'bg-orange-500 text-white'
-                : 'bg-secondary text-muted-foreground hover:bg-orange-100'
-            }`}
-          >
-            <Handshake className="w-4 h-4" />
-            Partners ({partnersData.items.length})
-          </button>
+          {/* View Mode Toggle - Right Side */}
+          <TooltipProvider>
+            <div className="flex bg-secondary rounded-lg p-1">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={viewMode === 'map' ? 'default' : 'ghost'}
+                    size="sm"
+                    onClick={() => setViewMode('map')}
+                    className="flex items-center"
+                  >
+                    <Map className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Map View</p>
+                </TooltipContent>
+              </Tooltip>
+              
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                    size="sm"
+                    onClick={() => setViewMode('grid')}
+                    className="flex items-center"
+                  >
+                    <Grid className="w-4 h-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Grid View</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          </TooltipProvider>
         </div>
 
         {/* Map or Grid View */}
@@ -874,7 +891,7 @@ export default function MapSection() {
         </Card>
 
         {/* Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
           <Card className="p-6 text-center">
             <div className="text-3xl font-bold text-blue-500 mb-2">{experiencesData.items.length}</div>
             <div className="text-muted-foreground">Companies Worked With</div>
@@ -895,7 +912,7 @@ export default function MapSection() {
             </div>
             <div className="text-muted-foreground">Strategic Partners</div>
           </Card>
-        </div>
+        </div> */}
 
         {/* Detail Dialogs */}
         <ExperienceDetailDialog
