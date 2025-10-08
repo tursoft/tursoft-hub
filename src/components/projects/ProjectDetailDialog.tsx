@@ -196,9 +196,9 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               <Maximize2 className="w-4 h-4" />
             )}
           </Button>
-          {/* Logo positioned below buttons */}
+          {/* Logo positioned on the far left */}
           {(projectIcon || project.photoUrl) && (
-            <div className="absolute top-14 right-4 z-10 w-16 h-16">
+            <div className="absolute top-4 left-4 z-10 w-16 h-16">
               <img 
                 src={projectIcon || project.photoUrl} 
                 alt={`${project.title} logo`}
@@ -209,7 +209,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               />
             </div>
           )}
-          <div className="flex items-start gap-4">
+          <div className="flex items-start gap-4 pl-20">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">
