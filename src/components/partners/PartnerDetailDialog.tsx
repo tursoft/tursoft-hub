@@ -22,7 +22,9 @@ import {
   ExternalLink,
   Rocket,
   Maximize2,
-  Minimize2
+  Minimize2,
+  Info,
+  FolderKanban
 } from "lucide-react";
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
@@ -183,10 +185,14 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
         <Tabs defaultValue="overview" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="overview">
-              Overview
+              <span className="flex items-center gap-2">
+                <Info className="w-4 h-4" />
+                Overview
+              </span>
             </TabsTrigger>
             <TabsTrigger value="projects">
               <span className="flex items-center gap-2">
+                <FolderKanban className="w-4 h-4" />
                 Projects
                 {partnerProjects.length > 0 && (
                   <Badge variant="secondary" className="text-xs px-1.5 py-0.5">

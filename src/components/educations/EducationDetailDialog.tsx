@@ -22,7 +22,9 @@ import {
   ExternalLink,
   Clock,
   Maximize2,
-  Minimize2
+  Minimize2,
+  Info,
+  Wrench
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import type { Education, Course, DatePeriod } from '@/models/Education';
@@ -172,9 +174,15 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
 
         <Tabs defaultValue="overview" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="overview">
+              <span className="flex items-center gap-2">
+                <Info className="w-4 h-4" />
+                Overview
+              </span>
+            </TabsTrigger>
             <TabsTrigger value="courses">
               <span className="flex items-center gap-2">
+                <BookOpen className="w-4 h-4" />
                 Courses
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                   {education.courses?.length || 0}
@@ -183,6 +191,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
             </TabsTrigger>
             <TabsTrigger value="technologies">
               <span className="flex items-center gap-2">
+                <Wrench className="w-4 h-4" />
                 Technologies
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                   {education.skillCodes?.length || 0}

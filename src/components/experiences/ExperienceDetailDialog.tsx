@@ -23,7 +23,9 @@ import {
   Linkedin,
   Briefcase,
   Maximize2,
-  Minimize2
+  Minimize2,
+  Wrench,
+  FolderKanban
 } from "lucide-react";
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
@@ -286,6 +288,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="positions">
               <span className="flex items-center gap-2">
+                <Briefcase className="w-4 h-4" />
                 Positions
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                   {experience.positions.length}
@@ -294,6 +297,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
             </TabsTrigger>
             <TabsTrigger value="technologies">
               <span className="flex items-center gap-2">
+                <Wrench className="w-4 h-4" />
                 Technologies
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                   {totalTechCount}
@@ -302,6 +306,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
             </TabsTrigger>
             <TabsTrigger value="projects">
               <span className="flex items-center gap-2">
+                <FolderKanban className="w-4 h-4" />
                 Projects
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                   {projects.length}

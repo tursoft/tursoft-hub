@@ -26,7 +26,10 @@ import {
   Mail,
   Clock,
   Maximize2,
-  Minimize2
+  Minimize2,
+  Info,
+  Wrench,
+  Cog
 } from "lucide-react";
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
@@ -236,6 +239,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="overview">
               <span className="flex items-center gap-2">
+                <Info className="w-4 h-4" />
                 Overview
                 {(customer.projectCodes && customer.projectCodes.length > 0) && (
                   <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
@@ -246,6 +250,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
             </TabsTrigger>
             <TabsTrigger value="technologies">
               <span className="flex items-center gap-2">
+                <Wrench className="w-4 h-4" />
                 Technologies
                 {customer.skillCodes && (
                   <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
@@ -256,6 +261,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
             </TabsTrigger>
             <TabsTrigger value="services">
               <span className="flex items-center gap-2">
+                <Cog className="w-4 h-4" />
                 Services
                 {customer.serviceCodes && (
                   <Badge variant="secondary" className="text-xs px-1.5 py-0.5">

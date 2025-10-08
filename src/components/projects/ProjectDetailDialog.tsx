@@ -21,7 +21,11 @@ import {
   Clock,
   Linkedin,
   Maximize2,
-  Minimize2
+  Minimize2,
+  Info,
+  Wrench,
+  Users,
+  UserCheck
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
@@ -237,9 +241,15 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
         <Tabs defaultValue="overview" className="w-full">
           <TabsList className={`grid w-full ${project.customerCodes && project.customerCodes.length > 0 ? 'grid-cols-4' : 'grid-cols-3'}`}>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="overview">
+              <span className="flex items-center gap-2">
+                <Info className="w-4 h-4" />
+                Overview
+              </span>
+            </TabsTrigger>
             <TabsTrigger value="technologies">
               <span className="flex items-center gap-2">
+                <Wrench className="w-4 h-4" />
                 Technologies
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                   {project.skillCodes?.length || 0}
@@ -249,6 +259,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
             {project.customerCodes && project.customerCodes.length > 0 && (
               <TabsTrigger value="customers">
                 <span className="flex items-center gap-2">
+                  <Users className="w-4 h-4" />
                   Customers
                   <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                     {project.customerCodes.length}
@@ -258,6 +269,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
             )}
             <TabsTrigger value="team">
               <span className="flex items-center gap-2">
+                <UserCheck className="w-4 h-4" />
                 Team
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                   {project.team?.length || 0}
