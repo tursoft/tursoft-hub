@@ -5,13 +5,13 @@
       "orderIndex": 3,
       "title": "Infrion",
       "photoUrl": "/assets/companies/infrion.logo.png",
-      "city": "New York",
-      "country": "United States",
+      "city": "Stockholm",
+      "country": "Sweden",
       "websiteUrl": "https://www.infrion.com",
       "linkedinUrl": "https://www.linkedin.com/company/infrion/",
       "coordinates": {
-        "lat": 40.7128,
-        "lng": -74.006
+        "lat": 59.3293,
+        "lng": 18.0686
       }
     },
     {
