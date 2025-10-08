@@ -66,15 +66,15 @@ L.Icon.Default.mergeOptions({
 // Create custom icons for different marker types
 const createIcon = (color: string, type: string, logoUrl?: string) => {
   const logoHtml = logoUrl 
-    ? `<img src="${logoUrl}" alt="logo" style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    ? `<img src="${logoUrl}" alt="logo" style="width: 30px; height: 30px; border-radius: 10%; object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
        <span style="display: none; font-size: 10px; color: white; font-weight: bold;">${type.charAt(0).toUpperCase()}</span>`
     : `<span style="font-size: 10px; color: white; font-weight: bold;">${type.charAt(0).toUpperCase()}</span>`
 
   return L.divIcon({
     className: 'custom-div-icon',
-    html: `<div style="background-color: ${logoUrl ? 'white' : color}; width: 30px; height: 30px; border-radius: 50%; border: 3px solid ${color}; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.4); overflow: hidden; position: relative;">${logoHtml}</div>`,
-    iconSize: [30, 30],
-    iconAnchor: [15, 15],
+    html: `<div style="background-color: ${logoUrl ? 'white' : color}; width: 40px; height: 40px; border-radius: 10%; border: 2px solid ${logoUrl ? 'white' : color}; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.4); overflow: hidden; position: relative;">${logoHtml}</div>`,
+    iconSize: [50, 50],
+    iconAnchor: [15, 5],
   })
 }
 
@@ -282,7 +282,7 @@ function HoverMarker({
       >
         <div className="p-2 bg-background text-foreground rounded-lg relative">
           {marker.logo && (
-            <div className="absolute top-2 right-2 w-8 h-8 flex-shrink-0">
+            <div className="absolute top-2 right-2 w-12 h-12 flex-shrink-0">
               <img 
                 src={marker.logo}
                 alt={`${marker.title} logo`}
@@ -294,7 +294,7 @@ function HoverMarker({
               />
             </div>
           )}
-          <h3 className="font-semibold text-lg mb-1 text-foreground pr-10">{marker.title}</h3>
+          <h3 className="font-semibold text-lg mb-1 text-foreground pr-14">{marker.title}</h3>
           {marker.subtitle && (
             <p className="text-sm text-muted-foreground mb-2">{marker.subtitle}</p>
           )}
