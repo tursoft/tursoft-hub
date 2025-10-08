@@ -48,6 +48,11 @@ const darkPopupStyles = `
 import experiencesData from '@/data/experiences.json'
 import educationData from '@/data/education.json'
 import customersData from '@/data/customers.json'
+import companiesData from '@/data/companies.json'
+import type { CompaniesData } from '@/models/Companies'
+
+// Cast companies data to proper type
+const companies = companiesData as CompaniesData
 
 // Fix default markers
 delete (L.Icon.Default.prototype as unknown as { _getIconUrl: unknown })._getIconUrl
@@ -74,25 +79,14 @@ const createIcon = (color: string, type: string, logoUrl?: string) => {
 }
 
 // Function to create icon with logo
-const createIconWithLogo = (type: 'experience' | 'education' | 'customer', logoFileName?: string) => {
+const createIconWithLogo = (type: 'experience' | 'education' | 'customer', logoUrl?: string) => {
   const colors = {
     experience: '#3b82f6',
     education: '#059669',
     customer: '#dc2626'
   }
   
-  let logoUrl: string | undefined
-  
-  if (logoFileName) {
-    if (type === 'customer') {
-      // Customer logos use full path from logoPath
-      logoUrl = logoFileName
-    } else if ((type === 'experience' || type === 'education') && logoFileName.endsWith('.png')) {
-      // Experience and education logos are in companies folder
-      logoUrl = `/assets/logos/companies/${logoFileName}`
-    }
-  }
-  
+  // logoUrl is now the full path from companies.json photoUrl
   return createIcon(colors[type], type, logoUrl)
 }
 
@@ -124,22 +118,21 @@ interface MapMarker {
 }
 
 // Helper functions to transform data into MapItem objects
-const transformExperienceToMapItem = (company: Experience, index: number): MapItem | null => {
-  // Use coordinates directly from the JSON data
-  if (!company.coordinates) return null
+const transformExperienceToMapItem = (experience: Experience, index: number): MapItem | null => {
+  // Get company data from companyCode
+  const company = companies.items.find(c => c.code === experience.companyCode)
+  if (!company || !company.coordinates) return null
 
-  const latestPosition = company.positions?.sort((a, b) => 
+  const latestPosition = experience.positions?.sort((a, b) => 
     new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
   )?.[0]
 
-  const logoUrl = company.icon && company.icon.endsWith('.png') 
-    ? `/assets/logos/companies/${company.icon}` 
-    : undefined
+  const logoUrl = company.photoUrl || undefined
 
   return {
-    uid: company.uid || `experience.${company.id}.${company.companyCode}`,
+    uid: `experience.${experience.companyCode}.${index}`,
     type: 'experience',
-    title: company.companyName || '',
+    title: company.title || '',
     coordinate: company.coordinates,
     logoUrl,
     category: latestPosition?.title || 'Professional Experience',
@@ -154,44 +147,49 @@ const transformExperienceToMapItem = (company: Experience, index: number): MapIt
 }
 
 const transformEducationToMapItem = (school: Education, index: number): MapItem | null => {
-  // Use coordinates, city, and country directly from the JSON data
-  if (!school.coordinates) return null
+  // Get company data from companyCode
+  const company = companies.items.find(c => c.code === school.companyCode)
+  if (!company || !company.coordinates) return null
 
-  const logoUrl = school.icon && school.icon.endsWith('.png') 
-    ? `/assets/logos/companies/${school.icon}` 
-    : undefined
+  const logoUrl = company.photoUrl || undefined
 
   return {
-    uid: school.uid || `education.${school.id}.${school.code}`,
+    uid: `education.${school.code}.${index}`,
     type: 'education',
-    title: school.name || '',
-    coordinate: school.coordinates,
+    title: company.title || '',
+    coordinate: company.coordinates,
     logoUrl,
     category: school.level || 'Education',
     summarytext: school.department || '',
-    city: school.city || '',
-    country: school.country || '',
+    city: company.city || '',
+    country: company.country || '',
     daterange: {
-      start: school.period?.split(' - ')[0] || '',
-      end: school.period?.split(' - ')[1]
+      start: school.period?.split(' - ')[0] || school.datePeriod?.startDate || '',
+      end: school.period?.split(' - ')[1] || school.datePeriod?.endDate
     }
   }
 }
 
 const transformCustomerToMapItem = (customer: Customer, index: number): MapItem | null => {
-  // Use coordinates directly from the JSON data
-  if (!customer.coordinates) return null
+  // Get company data from companyCode
+  const company = companies.items.find(c => c.code === customer.companyCode)
+  if (!company || !company.coordinates) return null
+
+  // Parse location if available (format: "City, Country")
+  const locationParts = customer.location?.split(',').map(s => s.trim()) || []
+  const city = locationParts[0] || company.city
+  const country = locationParts[1] || company.country
 
   return {
-    uid: customer.uid || `customer.${customer.name}`,
+    uid: `customer.${customer.code}.${index}`,
     type: 'customer',
-    title: customer.title || '',
-    coordinate: customer.coordinates,
-    logoUrl: customer.logoPath,
+    title: company.title || '',
+    coordinate: company.coordinates,
+    logoUrl: company.photoUrl,
     category: customer.industry || 'Client',
     summarytext: customer.description || '',
-    city: customer.city || '',
-    country: customer.country || '',
+    city: city || '',
+    country: country || '',
     daterange: {
       start: customer.partnership?.startDate || '',
       end: customer.partnership?.endDate
@@ -286,7 +284,7 @@ function HoverMarker({
           {marker.logo && (
             <div className="absolute top-2 right-2 w-8 h-8 flex-shrink-0">
               <img 
-                src={marker.type === 'customer' ? marker.logo : `/assets/logos/companies/${marker.logo}`}
+                src={marker.logo}
                 alt={`${marker.title} logo`}
                 className="w-full h-full object-contain rounded"
                 onError={(e) => {
@@ -470,14 +468,20 @@ export default function MapSection() {
       const offsetIndex = coordinateCount[coordKey] || 0
       coordinateCount[coordKey] = offsetIndex + 1
 
-      // Find original data object for dialogs
+      // Find original data object for dialogs by extracting code from uid
       let originalData: unknown = null
       if (mapItem.type === 'experience') {
-        originalData = experiencesData.items.find(item => (item as Record<string, unknown>).uid === mapItem.uid)
+        // uid format: experience.{companyCode}.{index}
+        const companyCode = mapItem.uid.split('.')[1]
+        originalData = experiencesData.items.find(item => item.companyCode === companyCode)
       } else if (mapItem.type === 'education') {
-        originalData = educationData.items.find(item => (item as Record<string, unknown>).uid === mapItem.uid)
+        // uid format: education.{code}.{index}
+        const code = mapItem.uid.split('.')[1]
+        originalData = educationData.items.find(item => item.code === code)
       } else if (mapItem.type === 'customer') {
-        originalData = customersData.items.find(item => (item as Record<string, unknown>).uid === mapItem.uid)
+        // uid format: customer.{code}.{index}
+        const code = mapItem.uid.split('.')[1]
+        originalData = customersData.items.find(item => item.code === code)
       }
 
       const period = mapItem.daterange.end 
@@ -494,7 +498,7 @@ export default function MapSection() {
         location: `${mapItem.city}, ${mapItem.country}`,
         period,
         technologies: [], // Technologies would need to be extracted from original data if needed
-        logo: mapItem.logoUrl?.replace('/assets/logos/companies/', ''),
+        logo: mapItem.logoUrl, // Keep full path as is
         data: originalData
       })
     })
@@ -530,14 +534,20 @@ export default function MapSection() {
 
   // Handle grid row click to open appropriate dialog
   const handleRowClick = (item: MapItem) => {
-    // Find the original data object for dialogs
+    // Find the original data object for dialogs by extracting code from uid
     let originalData: unknown = null
     if (item.type === 'experience') {
-      originalData = experiencesData.items.find(exp => (exp as Record<string, unknown>).uid === item.uid)
+      // uid format: experience.{companyCode}.{index}
+      const companyCode = item.uid.split('.')[1]
+      originalData = experiencesData.items.find(exp => exp.companyCode === companyCode)
     } else if (item.type === 'education') {
-      originalData = educationData.items.find(edu => (edu as Record<string, unknown>).uid === item.uid)
+      // uid format: education.{code}.{index}
+      const code = item.uid.split('.')[1]
+      originalData = educationData.items.find(edu => edu.code === code)
     } else if (item.type === 'customer') {
-      originalData = customersData.items.find(cust => (cust as Record<string, unknown>).uid === item.uid)
+      // uid format: customer.{code}.{index}
+      const code = item.uid.split('.')[1]
+      originalData = customersData.items.find(cust => cust.code === code)
     }
 
     switch (item.type) {
