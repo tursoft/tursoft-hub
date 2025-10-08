@@ -10,6 +10,7 @@ import { Map, Grid } from 'lucide-react'
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog'
 import EducationDetailDialog from '../educations/EducationDetailDialog'
 import CustomerDetailDialog from '../customers/CustomerDetailDialog'
+import PartnerDetailDialog from '../partners/PartnerDetailDialog'
 
 // Import specific interfaces from models for type safety
 import type { Education } from '@/models/Education'
@@ -212,7 +213,7 @@ const transformPartnerToMapItem = (partner: Partner, index: number): MapItem | n
     coordinate: company.coordinates,
     logoUrl: company.photoUrl,
     category: 'Strategic Partner',
-    summarytext: `Partnership with ${company.title}`,
+    summarytext: partner.description || `Partnership with ${company.title}`,
     city: company.city || '',
     country: company.country || '',
     daterange: {
@@ -432,9 +433,11 @@ export default function MapSection() {
   const [selectedExperience, setSelectedExperience] = useState<unknown | null>(null)
   const [selectedEducation, setSelectedEducation] = useState<unknown | null>(null)
   const [selectedCustomer, setSelectedCustomer] = useState<unknown | null>(null)
+  const [selectedPartner, setSelectedPartner] = useState<unknown | null>(null)
   const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false)
   const [isEducationDialogOpen, setIsEducationDialogOpen] = useState(false)
   const [isCustomerDialogOpen, setIsCustomerDialogOpen] = useState(false)
+  const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false)
 
   // Inject dark theme styles
   useEffect(() => {
@@ -526,10 +529,8 @@ export default function MapSection() {
         // uid format: partner.{partnerCode}.{index}
         const partnerCode = mapItem.uid.split('.')[1]
         const partner = partnersData.items.find(item => item.partnerCode === partnerCode)
-        if (partner) {
-          // Find the company for display purposes
-          originalData = companies.items.find(c => c.code === partner.companyCode)
-        }
+        // For partners, we pass the partner object (not company) so the dialog can access description
+        originalData = partner
       }
 
       const period = mapItem.daterange.end 
@@ -578,8 +579,8 @@ export default function MapSection() {
         setIsCustomerDialogOpen(true)
         break
       case 'partner':
-        setSelectedCustomer(marker.data)
-        setIsCustomerDialogOpen(true)
+        setSelectedPartner(marker.data)
+        setIsPartnerDialogOpen(true)
         break
     }
   }
@@ -604,10 +605,8 @@ export default function MapSection() {
       // uid format: partner.{partnerCode}.{index}
       const partnerCode = item.uid.split('.')[1]
       const partner = partnersData.items.find(p => p.partnerCode === partnerCode)
-      if (partner) {
-        // Find the company for display purposes
-        originalData = companies.items.find(c => c.code === partner.companyCode)
-      }
+      // For partners, we pass the partner object (not company) so the dialog can access description
+      originalData = partner
     }
 
     switch (item.type) {
@@ -624,8 +623,8 @@ export default function MapSection() {
         setIsCustomerDialogOpen(true)
         break
       case 'partner':
-        setSelectedCustomer(originalData)
-        setIsCustomerDialogOpen(true)
+        setSelectedPartner(originalData)
+        setIsPartnerDialogOpen(true)
         break
     }
   }
@@ -884,6 +883,17 @@ export default function MapSection() {
             setSelectedCustomer(null)
           }}
           customerLogo={(selectedCustomer as Record<string, unknown>)?.logoPath as string}
+        />
+        
+        <PartnerDetailDialog
+          partner={selectedPartner as Partner}
+          isOpen={isPartnerDialogOpen}
+          onClose={() => {
+            setIsPartnerDialogOpen(false)
+            setSelectedPartner(null)
+          }}
+          partnerLogo={(selectedPartner as Partner)?.companyCode ? companies.items.find(c => c.code === (selectedPartner as Partner).companyCode)?.photoUrl : undefined}
+          companyTitle={(selectedPartner as Partner)?.companyCode ? companies.items.find(c => c.code === (selectedPartner as Partner).companyCode)?.title : undefined}
         />
       </div>
     </section>
