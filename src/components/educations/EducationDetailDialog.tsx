@@ -12,6 +12,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   MapPin, 
@@ -19,7 +20,9 @@ import {
   Code, 
   BookOpen,
   ExternalLink,
-  Clock
+  Clock,
+  Maximize2,
+  Minimize2
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import type { Education, Course, DatePeriod } from '@/models/Education';
@@ -45,6 +48,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
   educationIcon
 }) => {
   const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
+  const [isMaximized, setIsMaximized] = useState(false);
 
   // Fetch technology logos when education changes
   useEffect(() => {
@@ -112,9 +116,21 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] min-h-[400px] overflow-hidden">
+      <DialogContent className={`${isMaximized ? 'max-w-full max-h-full w-full h-full rounded-none' : 'max-w-full max-h-full w-full h-full rounded-none sm:max-w-[35vw] sm:max-h-[90vh] sm:w-[35vw] sm:h-auto sm:rounded-lg'} overflow-hidden`}>
         <DialogHeader className="pb-6">
-          <div className="flex items-start gap-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsMaximized(!isMaximized)}
+            className="absolute top-4 right-12 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
+          >
+            {isMaximized ? (
+              <Minimize2 className="w-4 h-4" />
+            ) : (
+              <Maximize2 className="w-4 h-4" />
+            )}
+          </Button>
+          <div className="flex items-start gap-4 pr-20">
             {educationIcon && (
               <div className="w-16 h-16 flex-shrink-0">
                 <img 

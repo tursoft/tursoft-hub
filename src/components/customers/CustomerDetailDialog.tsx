@@ -13,6 +13,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   Building2, 
@@ -23,7 +24,9 @@ import {
   ExternalLink,
   Phone,
   Mail,
-  Clock
+  Clock,
+  Maximize2,
+  Minimize2
 } from "lucide-react";
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
@@ -52,6 +55,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
   const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
   const [companyData, setCompanyData] = useState<Company | null>(null);
   const [customerReferences, setCustomerReferences] = useState<Reference[]>([]);
+  const [isMaximized, setIsMaximized] = useState(false);
 
   // Fetch project logos when customer changes
   useEffect(() => {
@@ -164,9 +168,21 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-full max-h-full w-full h-full rounded-none sm:max-w-[35vw] sm:max-h-[90vh] sm:w-[35vw] sm:h-auto sm:rounded-lg overflow-hidden">
+      <DialogContent className={`${isMaximized ? 'max-w-full max-h-full w-full h-full rounded-none' : 'max-w-full max-h-full w-full h-full rounded-none sm:max-w-[35vw] sm:max-h-[90vh] sm:w-[35vw] sm:h-auto sm:rounded-lg'} overflow-hidden`}>
         <DialogHeader className="pb-6 pl-6">
-          <div className="flex items-start gap-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsMaximized(!isMaximized)}
+            className="absolute top-4 right-12 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
+          >
+            {isMaximized ? (
+              <Minimize2 className="w-4 h-4" />
+            ) : (
+              <Maximize2 className="w-4 h-4" />
+            )}
+          </Button>
+          <div className="flex items-start gap-4 pr-20">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">

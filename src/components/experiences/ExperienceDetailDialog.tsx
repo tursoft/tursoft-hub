@@ -13,6 +13,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { CardDescription } from "@/components/ui/card";
 import { 
   Calendar, 
@@ -20,7 +21,9 @@ import {
   MapPin,
   ExternalLink,
   Linkedin,
-  Briefcase
+  Briefcase,
+  Maximize2,
+  Minimize2
 } from "lucide-react";
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
@@ -50,6 +53,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
   const [domains, setDomains] = useState<Record<string, Domain[]>>({});
   const [company, setCompany] = useState<Company | null>(null);
   const [isLoadingData, setIsLoadingData] = useState(true);
+  const [isMaximized, setIsMaximized] = useState(false);
 
   // Resolve all codes to actual objects when experience changes
   useEffect(() => {
@@ -201,9 +205,22 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-full max-h-full w-full h-full rounded-none sm:max-w-[35vw] sm:max-h-[90vh] sm:w-[35vw] sm:h-auto sm:rounded-lg overflow-hidden">
+      <DialogContent className={`${isMaximized ? 'max-w-full max-h-full w-full h-full rounded-none' : 'max-w-full max-h-full w-full h-full rounded-none sm:max-w-[35vw] sm:max-h-[90vh] sm:w-[35vw] sm:h-auto sm:rounded-lg'} overflow-hidden`}>
         <DialogHeader className="pb-6 pl-6">
-          <div className="flex items-start gap-4">
+          {/* Maximize/Minimize Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsMaximized(!isMaximized)}
+            className="absolute top-4 right-12 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
+          >
+            {isMaximized ? (
+              <Minimize2 className="w-4 h-4" />
+            ) : (
+              <Maximize2 className="w-4 h-4" />
+            )}
+          </Button>
+          <div className="flex items-start gap-4 pr-20">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">
