@@ -6,7 +6,7 @@ import { Card } from '../ui/card'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
-import { Map, Grid } from 'lucide-react'
+import { Map, Grid, Maximize2, Minimize2, Briefcase, GraduationCap, Users, Handshake } from 'lucide-react'
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog'
 import EducationDetailDialog from '../educations/EducationDetailDialog'
 import CustomerDetailDialog from '../customers/CustomerDetailDialog'
@@ -44,6 +44,11 @@ const darkPopupStyles = `
     transform: scale(1.1);
     transition: transform 0.2s ease;
   }
+  .map-marker:hover {
+    border-color: white !important;
+    box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.5), 0 3px 6px rgba(0,0,0,0.4) !important;
+    transform: scale(1.05);
+  }
 `
 
 // Import data
@@ -75,7 +80,7 @@ const createIcon = (color: string, type: string, logoUrl?: string) => {
 
   return L.divIcon({
     className: 'custom-div-icon',
-    html: `<div style="background-color: ${logoUrl ? 'white' : color}; width: 40px; height: 40px; border-radius: 10%; border: 2px solid ${logoUrl ? 'white' : color}; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.4); overflow: hidden; position: relative;">${logoHtml}</div>`,
+    html: `<div class="map-marker" style="background-color: ${logoUrl ? 'white' : color}; width: 40px; height: 40px; border-radius: 10%; border: 2px solid ${color}; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.4); overflow: hidden; position: relative; transition: all 0.2s ease;">${logoHtml}</div>`,
     iconSize: [50, 50],
     iconAnchor: [15, 5],
   })
@@ -328,6 +333,21 @@ function HoverMarker({
             </div>
           )}
           <h3 className="font-semibold text-lg mb-1 text-foreground pr-14">{marker.title}</h3>
+          <div className="mb-2">
+            <Badge 
+              variant="secondary" 
+              className="text-xs"
+              style={{
+                backgroundColor: marker.type === 'experience' ? '#3b82f6' : 
+                                marker.type === 'education' ? '#059669' : 
+                                marker.type === 'customer' ? '#dc2626' : '#f59e0b',
+                color: 'white',
+                textTransform: 'capitalize'
+              }}
+            >
+              {marker.type}
+            </Badge>
+          </div>
           {marker.subtitle && (
             <p className="text-sm text-muted-foreground mb-2">{marker.subtitle}</p>
           )}
@@ -427,6 +447,7 @@ function MapBounds({ markers }: { markers: MapMarker[] }) {
 export default function MapSection() {
   const [selectedFilters, setSelectedFilters] = useState<string[]>(['experience', 'education', 'customer', 'partner'])
   const [viewMode, setViewMode] = useState<'map' | 'grid'>('map')
+  const [isMaximized, setIsMaximized] = useState(false)
   const mapRef = useRef<L.Map | null>(null)
   
   // Dialog state management
@@ -678,7 +699,7 @@ export default function MapSection() {
                 : 'bg-secondary text-muted-foreground hover:bg-blue-100'
             }`}
           >
-            <div className="w-4 h-4 rounded-full bg-blue-500"></div>
+            <Briefcase className="w-4 h-4" />
             Experience ({experiencesData.items.length})
           </button>
           <button
@@ -689,7 +710,7 @@ export default function MapSection() {
                 : 'bg-secondary text-muted-foreground hover:bg-green-100'
             }`}
           >
-            <div className="w-4 h-4 rounded-full bg-green-600"></div>
+            <GraduationCap className="w-4 h-4" />
             Education ({educationData.items.length})
           </button>
           <button
@@ -700,7 +721,7 @@ export default function MapSection() {
                 : 'bg-secondary text-muted-foreground hover:bg-red-100'
             }`}
           >
-            <div className="w-4 h-4 rounded-full bg-red-600"></div>
+            <Users className="w-4 h-4" />
             Customers ({customersData.items.length})
           </button>
           <button
@@ -711,15 +732,35 @@ export default function MapSection() {
                 : 'bg-secondary text-muted-foreground hover:bg-orange-100'
             }`}
           >
-            <div className="w-4 h-4 rounded-full bg-orange-500"></div>
+            <Handshake className="w-4 h-4" />
             Partners ({partnersData.items.length})
           </button>
         </div>
 
         {/* Map or Grid View */}
-        <Card className="overflow-hidden">
+        <Card className={`overflow-hidden relative ${isMaximized ? 'fixed inset-0 z-50 rounded-none' : ''}`}>
+          {/* Maximize/Minimize Button */}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsMaximized(!isMaximized)}
+            className="absolute top-4 right-4 z-10 bg-background/80 backdrop-blur-sm hover:bg-background"
+          >
+            {isMaximized ? (
+              <>
+                <Minimize2 className="w-4 h-4 mr-2" />
+                Minimize
+              </>
+            ) : (
+              <>
+                <Maximize2 className="w-4 h-4 mr-2" />
+                Maximize
+              </>
+            )}
+          </Button>
+          
           {viewMode === 'map' ? (
-            <div className="h-[600px] w-full">
+            <div className={isMaximized ? 'h-screen w-full' : 'h-[600px] w-full'}>
               <MapContainer
                 center={[40, 0]}
                 zoom={2}
@@ -748,7 +789,7 @@ export default function MapSection() {
               </MapContainer>
             </div>
           ) : (
-            <div className="max-h-[600px] overflow-auto">
+            <div className={isMaximized ? 'h-screen overflow-auto' : 'max-h-[600px] overflow-auto'}>
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -764,7 +805,8 @@ export default function MapSection() {
                     const typeColors = {
                       experience: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
                       education: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-                      customer: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                      customer: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
+                      partner: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
                     }
                     
                     const dateRange = item.daterange.end 
