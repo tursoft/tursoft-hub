@@ -68,7 +68,7 @@
       "companyCode": "JENGAI",
       "group": "Misc",
       "value": 900,
-      "summary": "Web platform for Jengai",
+      "summary": "SaaS platform for subcontractors. Jengai is the only AI CRM-Estimation and Pricing Suite built for Commercial specialty contractors that fully transforms your estimating and bidding processes, enabling unprecedented precision and speed.",
       "fulltext": "",
       "domainCodes": [
         "constructionit"
@@ -111,15 +111,41 @@
         {
           "orderIndex": 0,
           "personCode": "muhammettursak",
-          "position": "Software Architect"
+          "position": "Software Architect & IT Manager"
         },
         {
           "orderIndex": 1,
           "personCode": "huseyinsurat",
           "position": "Software Developer"
+        },
+        {
+          "orderIndex": 2,
+          "personCode": "alekpaterson",
+          "position": "Software Developer"
+        },
+        {
+          "orderIndex": 3,
+          "personCode": "amitsamata",
+          "position": "Software Developer"
+        },
+        {
+          "orderIndex": 4,
+          "personCode": "vaibhavsontakke",
+          "position": "Software Developer"
+        },
+        {
+          "orderIndex": 5,
+          "personCode": "silakeskin",
+          "position": "Business Analyst & Tester"
         }
       ],
-      "modules": []
+      "modules": [
+        "CRM",
+        "Bidding",
+        "Integrations",
+        "JobRunner",
+        "DocumentAnalyzer"
+      ]
     },
     {
       "code": "GAMYTEAPP",
@@ -129,7 +155,7 @@
       "companyCode": "GAMYTE",
       "group": "Misc",
       "value": 900,
-      "summary": "Web platform for Gamyte",
+      "summary": "SaaS platform for subcontractors. Gamyte is the only AI CRM-Estimation and Pricing Suite built for Commercial specialty contractors that fully transforms your estimating and bidding processes, enabling unprecedented precision and speed.",
       "fulltext": "",
       "domainCodes": [
         "constructionit"
@@ -172,7 +198,7 @@
         {
           "orderIndex": 0,
           "personCode": "muhammettursak",
-          "position": "Team Leader"
+          "position": "Software Architect & IT Manager"
         },
         {
           "orderIndex": 1,
@@ -183,9 +209,25 @@
           "orderIndex": 3,
           "personCode": "umutbariskorkut",
           "position": "Software Developer"
+        },
+        {
+          "orderIndex": 5,
+          "personCode": "silakeskin",
+          "position": "Business Analyst & Tester"
+        },
+        {
+          "orderIndex": 6,
+          "personCode": "sinakaraoglu",
+          "position": "Business Analyst & Tester"
         }
       ],
-      "modules": []
+      "modules": [
+        "CRM",
+        "Bidding",
+        "Integrations",
+        "JobRunner",
+        "DocumentAnalyzer"
+      ]
     },
     {
       "code": "CERTIFY.HEALTH",

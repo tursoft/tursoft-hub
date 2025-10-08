@@ -871,6 +871,64 @@
           "value": "https://www.linkedin.com/in/u%C4%9Fur-esmer-b625848"
         }
       ]
+    },
+
+    {
+      "code": "silakeskin",
+      "orderIndex": 63,
+      "title": "Sıla Keskin",
+      "photoUrl": "/assets/people/sila.keskin.jpg",
+      "company": "Jengai",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/s%C4%B1la-keskin-0bb605177"
+        }
+      ]
+    },
+
+    {
+      "code": "sinakaraoglu",
+      "orderIndex": 64,
+      "title": "Sina Karaoğlu",
+      "photoUrl": "/assets/people/sina.karaoglu.jpg",
+      "company": "Jengai",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/sinakaraoglu"
+        }
+      ]
+    },
+
+    {
+      "code": "alekpaterson",
+      "orderIndex": 65,
+      "title": "Alek Paterson",
+      "photoUrl": null,
+      "company": "Jengai",
+      "contacts": [
+      ]
+    },
+
+    {
+      "code": "amitsamata",
+      "orderIndex": 66,
+      "title": "Amit Samata",
+      "photoUrl": null,
+      "company": "Jengai",
+      "contacts": [
+      ]
+    },
+
+    {
+      "code": "vaibhavsontakke",
+      "orderIndex": 67,
+      "title": "Vaibhav Sontakke",
+      "photoUrl": null,
+      "company": "Jengai",
+      "contacts": [
+      ]
     }
   ]
 }
