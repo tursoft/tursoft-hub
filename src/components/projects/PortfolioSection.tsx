@@ -6,7 +6,7 @@ import { Filter, Search, ExternalLink } from "lucide-react";
 import ProjectDetailDialog from './ProjectDetailDialog';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import type { ProjectEntry } from '@/models/Project';
-import DataDisplaySection from '@/components/ui/DataDisplaySection';
+import ListViewer from '@/components/ui/ListViewer';
 
 interface ProjectWithIcon extends ProjectEntry {
   icon: string;
@@ -155,8 +155,8 @@ const PortfolioSectionRefactored = () => {
           </div>
         </div>
 
-        {/* DataDisplaySection */}
-        <DataDisplaySection<ProjectWithIcon>
+        {/* ListViewer */}
+        <ListViewer<ProjectWithIcon>
           data={filteredProjects}
           isLoading={isLoading}
           loadingMessage="Loading projects..."

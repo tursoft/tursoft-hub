@@ -6,7 +6,7 @@ import { Filter, Search } from "lucide-react";
 import CustomerDetailDialog from './CustomerDetailDialog';
 import type { Customer, CustomerData } from '@/models/Customer';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
-import DataDisplaySection from '@/components/ui/DataDisplaySection';
+import ListViewer from '@/components/ui/ListViewer';
 
 interface CustomerWithLogo extends Customer {
   logo: string;
@@ -136,8 +136,8 @@ const CustomersSectionRefactored = () => {
           </div>
         </div>
 
-        {/* DataDisplaySection */}
-        <DataDisplaySection<CustomerWithLogo>
+        {/* ListViewer */}
+        <ListViewer<CustomerWithLogo>
           data={filteredCustomers}
           isLoading={isLoading}
           loadingMessage="Loading customers..."

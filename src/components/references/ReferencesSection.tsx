@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Phone, Mail, Linkedin, Twitter, Facebook, ExternalLink, Globe, MessageSquare } from "lucide-react";
 import { referencesRepo } from "@/repositories/ReferencesRepo";
 import type { Reference } from "@/models/Reference";
-import DataDisplaySection from "@/components/ui/DataDisplaySection";
+import ListViewer from "@/components/ui/ListViewer";
 
 // Extended reference with photo field for rendering
 interface ReferenceWithPhoto extends Reference {
@@ -76,7 +76,7 @@ const ReferencesSection = () => {
 
   return (
     <section id="references">
-      <DataDisplaySection<ReferenceWithPhoto>
+      <ListViewer<ReferenceWithPhoto>
         data={references}
         isLoading={isLoading}
         loadingMessage="Loading references..."

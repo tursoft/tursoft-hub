@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Filter, Search } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import type { SkillItem } from '@/models/Skills';
-import DataDisplaySection from '@/components/ui/DataDisplaySection';
+import ListViewer from '@/components/ui/ListViewer';
 
 interface SkillWithIcon extends SkillItem {
   icon: string;
@@ -123,8 +123,8 @@ const SkillsSectionRefactored = () => {
           </div>
         </div>
 
-        {/* DataDisplaySection */}
-        <DataDisplaySection<SkillWithIcon>
+        {/* ListViewer */}
+        <ListViewer<SkillWithIcon>
           data={filteredSkills}
           isLoading={isLoading}
           loadingMessage="Loading skills..."

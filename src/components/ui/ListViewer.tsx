@@ -32,7 +32,7 @@ export interface FieldMapping<T = Record<string, unknown>> {
   }>;
 }
 
-export interface DataDisplaySectionProps<T = Record<string, unknown>> {
+export interface ListViewerProps<T = Record<string, unknown>> {
   // Data
   data: T[];
   
@@ -91,7 +91,7 @@ export interface DataDisplaySectionProps<T = Record<string, unknown>> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const DataDisplaySection = <T = any>({
+const ListViewer = <T = any>({
   data,
   fieldMapping,
   defaultViewMode = 'carousel',
@@ -115,7 +115,7 @@ const DataDisplaySection = <T = any>({
   loadingMessage = 'Loading...',
   emptyMessage = 'No items to display',
   enableAnimation = true,
-}: DataDisplaySectionProps<T>) => {
+}: ListViewerProps<T>) => {
   const [viewMode, setViewMode] = useState<ViewMode>(defaultViewMode);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAll, setShowAll] = useState(false);
@@ -657,4 +657,4 @@ const DataDisplaySection = <T = any>({
   );
 };
 
-export default DataDisplaySection;
+export default ListViewer;
