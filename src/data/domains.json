@@ -3,13 +3,13 @@
     {
       "code": "constructionit",
       "orderIndex": 1,
-      "title": "Construction",
+      "title": "Construction IT",
       "photoUrl": "/assets/domains/construction.png"
     },
     {
       "code": "healthcareit",
       "orderIndex": 2,
-      "title": "Healthcare Informatics",
+      "title": "Healthcare IT",
       "photoUrl": "/assets/domains/healthcareit.png"
     },
     {
@@ -35,12 +35,6 @@
       "orderIndex": 6,
       "title": "Game Development",
       "photoUrl": "/assets/domains/gaming.png"
-    },
-    {
-      "code": "videostreaming",
-      "orderIndex": 7,
-      "title": "Video Streaming",
-      "photoUrl": "/assets/domains/video.png"
     }
   ]
 }
