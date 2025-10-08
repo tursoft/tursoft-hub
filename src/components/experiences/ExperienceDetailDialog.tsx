@@ -224,7 +224,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
           </Button>
           {/* Logo positioned on the far left */}
           {company?.photoUrl && (
-            <div className="absolute top-4 left-4 z-10 w-16 h-16">
+            <div className="absolute top-4 left-8 z-10 w-16 h-16">
               <img 
                 src={company.photoUrl} 
                 alt={`${company.title} logo`}
@@ -232,12 +232,15 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
               />
             </div>
           )}
-          <div className="flex items-start gap-4 pl-20">
+          <div className="flex items-start gap-4 pl-24">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">
                   {company?.title || experience.code || 'Company'}
                 </DialogTitle>
+                <Badge variant="outline" className="text-xs bg-blue-500/10 text-blue-500 border-blue-500/20">
+                  Experience
+                </Badge>
                 {hasCurrentPosition && (
                   <Badge variant="default" className="bg-primary text-primary-foreground text-xs">
                     Current
@@ -298,7 +301,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
             <TabsTrigger value="technologies">
               <span className="flex items-center gap-2">
                 <Wrench className="w-4 h-4" />
-                Technologies
+                Skills
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                   {totalTechCount}
                 </Badge>
@@ -363,12 +366,9 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                 {isLoadingData ? (
                   <div className="text-center text-muted-foreground py-8">Loading skills...</div>
                 ) : skills.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                    {skills.map((skill, index, allSkills) => {
+                  <div className={`grid grid-cols-1 gap-x-4 ${isMaximized ? 'md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'md:grid-cols-2'}`}>
+                    {skills.map((skill, index) => {
                       const logoPath = skill.photoUrl || "";
-                      const isEven = index % 2 === 0;
-                      const isLastInColumn = index === allSkills.length - 1 || 
-                        (isEven && index === allSkills.length - 2 && allSkills.length % 2 === 0);
                       
                       return (
                         <div key={skill.code}>
@@ -387,7 +387,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                               {skill.title}
                             </span>
                           </div>
-                          {!isLastInColumn && (
+                          {index < skills.length - 1 && (
                             <div className="border-b border-dashed border-border/50 mx-4"></div>
                           )}
                         </div>

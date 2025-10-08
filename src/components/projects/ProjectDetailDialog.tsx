@@ -202,7 +202,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
           </Button>
           {/* Logo positioned on the far left */}
           {(projectIcon || project.photoUrl) && (
-            <div className="absolute top-4 left-4 z-10 w-16 h-16">
+            <div className="absolute top-4 left-8 z-10 w-16 h-16">
               <img 
                 src={projectIcon || project.photoUrl} 
                 alt={`${project.title} logo`}
@@ -213,12 +213,15 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               />
             </div>
           )}
-          <div className="flex items-start gap-4 pl-20">
+          <div className="flex items-start gap-4 pl-24">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">
                   {project.title}
                 </DialogTitle>
+                <Badge variant="outline" className="text-xs bg-cyan-500/10 text-cyan-500 border-cyan-500/20">
+                  Project
+                </Badge>
                 <Badge variant="outline" className="text-xs">
                   {project.group}
                 </Badge>
@@ -250,7 +253,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
             <TabsTrigger value="technologies">
               <span className="flex items-center gap-2">
                 <Wrench className="w-4 h-4" />
-                Technologies
+                Skills
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                   {project.skillCodes?.length || 0}
                 </Badge>

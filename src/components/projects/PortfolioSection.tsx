@@ -174,12 +174,6 @@ const PortfolioSectionRefactored = () => {
             badge: 'group',
             date: 'formattedYears',
             actions: [
-              {
-                label: 'View Details',
-                icon: ExternalLink,
-                onClick: (project) => handleProjectClick(project),
-                variant: 'outline',
-              },
             ],
           }}
           gridCols={{ sm: 1, md: 2, lg: 3, xl: 4 }}

@@ -134,7 +134,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
           </Button>
           {/* Logo positioned on the far left */}
           {educationIcon && (
-            <div className="absolute top-4 left-4 z-10 w-16 h-16">
+            <div className="absolute top-4 left-8 z-10 w-16 h-16">
               <img 
                 src={educationIcon} 
                 alt={`${education.companyName} logo`}
@@ -142,12 +142,15 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
               />
             </div>
           )}
-          <div className="flex items-start gap-4 pl-20">
+          <div className="flex items-start gap-4 pl-24">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">
                   {education.department}
                 </DialogTitle>
+                <Badge variant="outline" className="text-xs bg-purple-500/10 text-purple-500 border-purple-500/20">
+                  Education
+                </Badge>
                 <Badge variant="outline" className="text-xs">
                   {education.level}
                 </Badge>
@@ -192,7 +195,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
             <TabsTrigger value="technologies">
               <span className="flex items-center gap-2">
                 <Wrench className="w-4 h-4" />
-                Technologies
+                Skills
                 <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                   {education.skillCodes?.length || 0}
                 </Badge>
@@ -284,12 +287,9 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
               {education.skillCodes && education.skillCodes.length > 0 ? (
                 <div className="px-4 py-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                  <div className={`grid grid-cols-1 gap-x-4 ${isMaximized ? 'md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'md:grid-cols-2'}`}>
                     {education.skillCodes.map((skillCode, index) => {
                       const logoPath = technologyLogos[skillCode] || "";
-                      const isEven = index % 2 === 0;
-                      const isLastInColumn = index === education.skillCodes.length - 1 || 
-                        (isEven && index === education.skillCodes.length - 2 && education.skillCodes.length % 2 === 0);
                       
                       return (
                         <div key={`skill-${skillCode}-${index}`}>
@@ -309,7 +309,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                               {skillCode}
                             </span>
                           </div>
-                          {!isLastInColumn && (
+                          {index < education.skillCodes.length - 1 && (
                             <div className="border-b border-dashed border-border/50 mx-4"></div>
                           )}
                         </div>

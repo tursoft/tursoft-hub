@@ -142,7 +142,7 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
           </Button>
           {/* Logo positioned on the far left */}
           {partnerLogo && (
-            <div className="absolute top-4 left-4 z-10 w-16 h-16">
+            <div className="absolute top-4 left-8 z-10 w-16 h-16">
               <img 
                 src={partnerLogo} 
                 alt={`${companyTitle || partner.companyCode} logo`}
@@ -160,14 +160,14 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
               />
             </div>
           )}
-          <div className="flex items-start gap-4 pl-20">
+          <div className="flex items-start gap-4 pl-24">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">
                   {companyTitle || companyData?.title || partner.companyCode}
                 </DialogTitle>
                 <Badge variant="outline" className="text-xs bg-orange-500/10 text-orange-500 border-orange-500/20">
-                  Strategic Partner
+                  Partner
                 </Badge>
               </div>
               <div className="text-base text-muted-foreground">

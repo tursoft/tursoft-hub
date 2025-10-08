@@ -187,7 +187,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
           </Button>
           {/* Logo positioned on the far left */}
           {customerLogo && (
-            <div className="absolute top-4 left-4 z-10 w-16 h-16">
+            <div className="absolute top-4 left-8 z-10 w-16 h-16">
               <img 
                 src={customerLogo} 
                 alt={`${companyTitle || customer.companyCode} logo`}
@@ -205,12 +205,15 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
               />
             </div>
           )}
-          <div className="flex items-start gap-4 pl-20">
+          <div className="flex items-start gap-4 pl-24">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-2">
                 <DialogTitle className="text-2xl font-bold text-foreground">
                   {companyTitle || customer.companyCode || customer.code}
                 </DialogTitle>
+                <Badge variant="outline" className="text-xs bg-green-500/10 text-green-500 border-green-500/20">
+                  Customer
+                </Badge>
                 {customer.category && (
                   <Badge variant="outline" className="text-xs">
                     {customer.category}
@@ -251,7 +254,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
             <TabsTrigger value="technologies">
               <span className="flex items-center gap-2">
                 <Wrench className="w-4 h-4" />
-                Technologies
+                Skills
                 {customer.skillCodes && (
                   <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                     {customer.skillCodes.length}
@@ -296,53 +299,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                     )}
                   </div>
                 </div>
-              )}
-
-              {/* Company Information Card */}
-              {companyData && (
-                <Card className="mx-4">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-base">
-                      <Building2 className="w-4 h-4" />
-                      Company Details
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    {companyData.city && companyData.country && (
-                      <div className="flex items-center gap-3">
-                        <MapPin className="w-4 h-4 text-muted-foreground" />
-                        <span className="text-sm">{companyData.city}, {companyData.country}</span>
-                      </div>
-                    )}
-                    {companyData.websiteUrl && (
-                      <div className="flex items-center gap-3">
-                        <Globe className="w-4 h-4 text-muted-foreground" />
-                        <a 
-                          href={companyData.websiteUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-primary hover:underline"
-                        >
-                          Visit Website
-                        </a>
-                      </div>
-                    )}
-                    {companyData.linkedinUrl && (
-                      <div className="flex items-center gap-3">
-                        <ExternalLink className="w-4 h-4 text-muted-foreground" />
-                        <a 
-                          href={companyData.linkedinUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-primary hover:underline"
-                        >
-                          LinkedIn Profile
-                        </a>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              )}
+              )}              
 
               {/* Testimonials Section */}
               {customerReferences.length > 0 && (
