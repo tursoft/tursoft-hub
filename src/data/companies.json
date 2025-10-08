@@ -769,6 +769,62 @@
         "lat": 50.9375,
         "lng": 6.8025174
       }
+    },
+    {
+      "code": "GNOMON",
+      "orderIndex": 101,
+      "title": "Gnomon Informatics SA",
+      "photoUrl": "/assets/companies/gnomon.logo.png",
+      "city": "Athens",
+      "country": "Greece",
+      "websiteUrl": "https://www.gnomon.com.gr",
+      "linkedinUrl": "https://www.linkedin.com/company/gnomon-informatics-sa",
+      "coordinates": {
+        "lat": 37.9838,
+        "lng": 23.7275
+      }
+    },
+    {
+      "code": "CERTH",
+      "orderIndex": 102,
+      "title": "Centre for Research and Technology Hellas",
+      "photoUrl": "/assets/companies/certh.logo.png",
+      "city": "Thessaloniki",
+      "country": "Greece",
+      "websiteUrl": "https://www.certh.gr/root.en.aspx",
+      "linkedinUrl": "https://www.linkedin.com/company/certh",
+      "coordinates": {
+        "lat": 40.6401,
+        "lng": 22.9444
+      }
+    },
+    {
+      "code": "GPI",
+      "orderIndex": 103,
+      "title": "GPI Spa",
+      "photoUrl": "/assets/companies/gpi.logo.png",
+      "city": "Trento",
+      "country": "Italy",
+      "websiteUrl": "https://www.gpigroup.com/en/",
+      "linkedinUrl": null,
+      "coordinates": {
+        "lat": 45.2707223,
+        "lng": 10.5275654
+      }
+    },
+    {
+      "code": "MEDISANTE",
+      "orderIndex": 104,
+      "title": "Medisanté",
+      "photoUrl": "/assets/companies/medisante.logo.png",
+      "city": "Luzern",
+      "country": "Switzerland",
+      "websiteUrl": "http://www.medisante-group.com",
+      "linkedinUrl": "https://www.linkedin.com/company/medisante",
+      "coordinates": {
+        "lat": 47.0597596,
+        "lng": 8.3084951
+      }
     }
   ]
 }

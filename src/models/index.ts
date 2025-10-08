@@ -5,6 +5,7 @@ export * from './Customer';
 export * from './Domain';
 export * from './Education';
 export * from './Experience';
+export * from './Partner';
 export * from './People';
 export * from './Project';
 export * from './ProjectFiles';

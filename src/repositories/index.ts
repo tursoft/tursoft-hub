@@ -8,3 +8,4 @@ export { default as skillsRepo, SkillsRepo } from './SkillsRepo';
 export { default as domainsRepo, DomainsRepo } from './DomainsRepo';
 export { default as educationRepo, EducationRepo } from './EducationRepo';
 export { default as experienceRepo, ExperienceRepo } from './ExperienceRepo';
+export { default as partnersRepo, PartnersRepo } from './PartnersRepo';

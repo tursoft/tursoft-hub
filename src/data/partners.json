@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "partnerCode": "GNOMON",
+      "companyCode": "GNOMON",
+      "orderIndex": 1
+    },
+    {
+      "partnerCode": "PROMPTLY",
+      "companyCode": "Promptly",
+      "orderIndex": 2
+    },
+    {
+      "partnerCode": "CERTH",
+      "companyCode": "CERTH",
+      "orderIndex": 3
+    },
+    {
+      "partnerCode": "GPI",
+      "companyCode": "GPI",
+      "orderIndex": 4
+    },
+    {
+      "partnerCode": "MEDISANTE",
+      "companyCode": "MEDISANTE",
+      "orderIndex": 5
+    }
+  ]
+}

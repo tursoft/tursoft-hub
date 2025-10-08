@@ -15,6 +15,7 @@ import CustomerDetailDialog from '../customers/CustomerDetailDialog'
 import type { Education } from '@/models/Education'
 import type { Experience, Position } from '@/models/Experience'
 import type { Customer } from '@/models/Customer'
+import type { Partner } from '@/models/Partner'
 
 // Custom CSS for dark theme popups
 const darkPopupStyles = `
@@ -48,6 +49,7 @@ const darkPopupStyles = `
 import experiencesData from '@/data/experiences.json'
 import educationData from '@/data/education.json'
 import customersData from '@/data/customers.json'
+import partnersData from '@/data/partners.json'
 import companiesData from '@/data/companies.json'
 import type { CompaniesData } from '@/models/Companies'
 
@@ -198,29 +200,24 @@ const transformCustomerToMapItem = (customer: Customer, index: number): MapItem 
   }
 }
 
-const transformPartnerToMapItem = (partner: Customer, index: number): MapItem | null => {
+const transformPartnerToMapItem = (partner: Partner, index: number): MapItem | null => {
   // Get company data from companyCode
   const company = companies.items.find(c => c.code === partner.companyCode)
   if (!company || !company.coordinates) return null
 
-  // Parse location if available (format: "City, Country")
-  const locationParts = partner.location?.split(',').map(s => s.trim()) || []
-  const city = locationParts[0] || company.city
-  const country = locationParts[1] || company.country
-
   return {
-    uid: `partner.${partner.code}.${index}`,
+    uid: `partner.${partner.partnerCode}.${index}`,
     type: 'partner',
     title: company.title || '',
     coordinate: company.coordinates,
     logoUrl: company.photoUrl,
-    category: partner.relationship || 'Partner',
-    summarytext: partner.description || '',
-    city: city || '',
-    country: country || '',
+    category: 'Strategic Partner',
+    summarytext: `Partnership with ${company.title}`,
+    city: company.city || '',
+    country: company.country || '',
     daterange: {
-      start: partner.partnership?.startDate || '',
-      end: partner.partnership?.endDate
+      start: '',
+      end: undefined
     }
   }
 }
@@ -245,21 +242,15 @@ const createMapItemsFromData = (filters: string[] = ['experience', 'education', 
 
   if (filters.includes('customer')) {
     customersData.items.forEach((customer, index) => {
-      // Only include non-partner customers
-      if (!customer.relationship?.toLowerCase().includes('partner')) {
-        const mapItem = transformCustomerToMapItem(customer as Customer, index)
-        if (mapItem) result.push(mapItem)
-      }
+      const mapItem = transformCustomerToMapItem(customer as Customer, index)
+      if (mapItem) result.push(mapItem)
     })
   }
 
   if (filters.includes('partner')) {
-    customersData.items.forEach((partner, index) => {
-      // Only include partners
-      if (partner.relationship?.toLowerCase().includes('partner')) {
-        const mapItem = transformPartnerToMapItem(partner as Customer, index)
-        if (mapItem) result.push(mapItem)
-      }
+    partnersData.items.forEach((partner, index) => {
+      const mapItem = transformPartnerToMapItem(partner as Partner, index)
+      if (mapItem) result.push(mapItem)
     })
   }
 
@@ -487,23 +478,19 @@ export default function MapSection() {
       })
     }
 
-    // Transform Customer data to MapItems (excluding partners)
+    // Transform Customer data to MapItems
     if (selectedFilters.includes('customer')) {
       customersData.items.forEach((customer, index) => {
-        if (!customer.relationship?.toLowerCase().includes('partner')) {
-          const mapItem = transformCustomerToMapItem(customer as Customer, index)
-          if (mapItem) result.push(mapItem)
-        }
+        const mapItem = transformCustomerToMapItem(customer as Customer, index)
+        if (mapItem) result.push(mapItem)
       })
     }
 
     // Transform Partner data to MapItems
     if (selectedFilters.includes('partner')) {
-      customersData.items.forEach((partner, index) => {
-        if (partner.relationship?.toLowerCase().includes('partner')) {
-          const mapItem = transformPartnerToMapItem(partner as Customer, index)
-          if (mapItem) result.push(mapItem)
-        }
+      partnersData.items.forEach((partner, index) => {
+        const mapItem = transformPartnerToMapItem(partner as Partner, index)
+        if (mapItem) result.push(mapItem)
       })
     }
 
@@ -536,9 +523,13 @@ export default function MapSection() {
         const code = mapItem.uid.split('.')[1]
         originalData = customersData.items.find(item => item.code === code)
       } else if (mapItem.type === 'partner') {
-        // uid format: partner.{code}.{index}
-        const code = mapItem.uid.split('.')[1]
-        originalData = customersData.items.find(item => item.code === code)
+        // uid format: partner.{partnerCode}.{index}
+        const partnerCode = mapItem.uid.split('.')[1]
+        const partner = partnersData.items.find(item => item.partnerCode === partnerCode)
+        if (partner) {
+          // Find the company for display purposes
+          originalData = companies.items.find(c => c.code === partner.companyCode)
+        }
       }
 
       const period = mapItem.daterange.end 
@@ -610,9 +601,13 @@ export default function MapSection() {
       const code = item.uid.split('.')[1]
       originalData = customersData.items.find(cust => cust.code === code)
     } else if (item.type === 'partner') {
-      // uid format: partner.{code}.{index}
-      const code = item.uid.split('.')[1]
-      originalData = customersData.items.find(cust => cust.code === code)
+      // uid format: partner.{partnerCode}.{index}
+      const partnerCode = item.uid.split('.')[1]
+      const partner = partnersData.items.find(p => p.partnerCode === partnerCode)
+      if (partner) {
+        // Find the company for display purposes
+        originalData = companies.items.find(c => c.code === partner.companyCode)
+      }
     }
 
     switch (item.type) {
@@ -707,7 +702,7 @@ export default function MapSection() {
             }`}
           >
             <div className="w-4 h-4 rounded-full bg-red-600"></div>
-            Customers ({customersData.items.filter(c => !c.relationship?.toLowerCase().includes('partner')).length})
+            Customers ({customersData.items.length})
           </button>
           <button
             onClick={() => toggleFilter('partner')}
@@ -718,7 +713,7 @@ export default function MapSection() {
             }`}
           >
             <div className="w-4 h-4 rounded-full bg-orange-500"></div>
-            Partners ({customersData.items.filter(c => c.relationship?.toLowerCase().includes('partner')).length})
+            Partners ({partnersData.items.length})
           </button>
         </div>
 
@@ -849,13 +844,13 @@ export default function MapSection() {
           </Card>
           <Card className="p-6 text-center">
             <div className="text-3xl font-bold text-red-600 mb-2">
-              {customersData.items.filter(c => !c.relationship?.toLowerCase().includes('partner')).length}
+              {customersData.items.length}
             </div>
             <div className="text-muted-foreground">Clients Served</div>
           </Card>
           <Card className="p-6 text-center">
             <div className="text-3xl font-bold text-orange-500 mb-2">
-              {customersData.items.filter(c => c.relationship?.toLowerCase().includes('partner')).length}
+              {partnersData.items.length}
             </div>
             <div className="text-muted-foreground">Strategic Partners</div>
           </Card>
