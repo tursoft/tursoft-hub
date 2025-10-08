@@ -75,11 +75,12 @@ const ReferencesSection = () => {
   };
 
   return (
-    <DataDisplaySection<ReferenceWithPhoto>
-      data={references}
-      isLoading={isLoading}
-      loadingMessage="Loading references..."
-      emptyMessage="No references available"
+    <section id="references">
+      <DataDisplaySection<ReferenceWithPhoto>
+        data={references}
+        isLoading={isLoading}
+        loadingMessage="Loading references..."
+        emptyMessage="No references available"
       defaultViewMode="carousel"
       enabledModes={['card', 'list', 'carousel']}
       title="What<span class='bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4'>Colleagues</span> Say"
@@ -126,6 +127,7 @@ const ReferencesSection = () => {
         </div>
       }
     />
+    </section>
   );
 };
 
