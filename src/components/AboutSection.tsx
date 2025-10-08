@@ -45,9 +45,7 @@ const AboutSection = () => {
               <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Digital Reality</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              I specialize in developing huge sector-leader enterprise systems characterized by 
-              their world-class features like functionality, performance, scalability, security, 
-              manageability, robustness, agility, and extensibility.
+              I lead development of enterprise systems that deliver world-class functionality and performance while prioritizing scalability, maintainability, fault tolerance, and rapid extensibility.
             </p>
           </div>
 
@@ -66,7 +64,7 @@ const AboutSection = () => {
                   I bring a unique combination of <span className="text-primary font-semibold">technical expertise</span> and <span className="text-primary font-semibold">leadership experience</span> to every project.
                 </p>
                 <p>
-                  Currently serving as <span className="text-primary font-semibold">Director of Technology</span> & <span className="text-primary font-semibold">Senior Software Architect</span> at Gamyte,
+                  Currently serving as <span className="text-primary font-semibold">Director of Technology</span> & <span className="text-primary font-semibold">Senior Software Architect</span> at Jengai,
                   I continue to push the boundaries of what's possible in <span className="text-primary font-semibold">enterprise software development</span> and <span className="text-primary font-semibold">gaming technology</span>.
                 </p>
               </div>

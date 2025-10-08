@@ -1,0 +1,84 @@
+{
+  "items": [
+    {
+      "code": "leadership",
+      "title": "Leadership"
+    },
+    {
+      "code": "r-and-d-strategic-management",
+      "title": "R&D Strategic Management"
+    },
+    {
+      "code": "devops-implementation-and-management",
+      "title": "DevOps Implementation & Management"
+    },
+    {
+      "code": "configuration-management",
+      "title": "Configuration Management"
+    },
+    {
+      "code": "software-lifecycle-management",
+      "title": "Software Lifecycle Management"
+    },
+    {
+      "code": "bussiness-oriented-strategic-planning",
+      "title": "Bussiness Oriented Strategic Planning"
+    },
+    {
+      "code": "architectural-design",
+      "title": "Architectural Design"
+    },
+    {
+      "code": "technology-transfer",
+      "title": "Technology Transfer"
+    },
+    {
+      "code": "optimization-and-performance-improvements",
+      "title": "Optimization and Performance Improvements"
+    },
+    {
+      "code": "systematic-problem-solving",
+      "title": "Systematic Problem Solving"
+    },
+    {
+      "code": "software-craftsman",
+      "title": "Software Craftsman"
+    },
+    {
+      "code": "agile-enthusiast",
+      "title": "Agile Enthusiast"
+    },
+    {
+      "code": "technical-architect",
+      "title": "Technical Architect"
+    },
+    {
+      "code": "passionate-developer",
+      "title": "Passionate Developer"
+    },
+    {
+      "code": "agile-culture-cultivator",
+      "title": "Agile Culture cultivator"
+    },
+    {
+      "code": "agile-coach",
+      "title": "Agile Coach"
+    },
+    {
+      "code": "scrum-master",
+      "title": "Scrum Master"
+    },
+    {
+      "code": "engineering-booster",
+      "title": "Engineering Booster"
+    },
+    {
+      "code": "clean-coder",
+      "title": "Clean Coder"
+    },
+    {
+      "code": "non-stop-learner",
+      "title": "Non-stop Learner"
+    }
+  ]
+}

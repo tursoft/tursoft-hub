@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "partnerCode": "GNOMON",
+      "companyCode": "GNOMON",
+      "orderIndex": 1,
+      "description": "Strategic technology partner specializing in healthcare informatics and digital transformation solutions."
+    },
+    {
+      "partnerCode": "PROMPTLY",
+      "companyCode": "Promptly",
+      "orderIndex": 2,
+      "description": "Healthcare innovation partner focused on patient engagement and digital health solutions."
+    },
+    {
+      "partnerCode": "CERTH",
+      "companyCode": "CERTH",
+      "orderIndex": 3,
+      "description": "Research and technology partner driving innovation in health informatics and AI applications."
+    },
+    {
+      "partnerCode": "GPI",
+      "companyCode": "GPI",
+      "orderIndex": 4,
+      "description": "Leading healthcare IT partner providing comprehensive digital health solutions across Europe."
+    },
+    {
+      "partnerCode": "MEDISANTE",
+      "companyCode": "MEDISANTE",
+      "orderIndex": 5,
+      "description": "Healthcare partner specializing in medical data management and interoperability solutions."
+    }
+  ]
+}

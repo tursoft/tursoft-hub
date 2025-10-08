@@ -1,0 +1,74 @@
+{
+  "general": {},
+  "items": [
+    {
+      "title": "Professional Experiences",
+      "name": "professional",
+      "value": 20,
+      "subTitle": "years of",
+      "iconCss": "fa fa-handshake",
+      "orderIndex": 4
+    },
+    {
+      "title": "Management Experience",
+      "name": "management",
+      "value": 15,
+      "subTitle": "years of",
+      "iconCss": "fa fa-briefcase",
+      "orderIndex": 3
+    },
+    {
+      "title": ".NET Experience",
+      "name": "net",
+      "value": 17,
+      "subTitle": "years of",
+      "iconCss": "fa fa-hashtag",
+      "orderIndex": 2
+    },
+    {
+      "title": "Web Experience",
+      "name": "web",
+      "value": 20,
+      "subTitle": "years of",
+      "iconCss": "fa fa-code",
+      "orderIndex": 1
+    }
+  ],
+  "subItems": [
+    {
+      "title": "Software Projects",
+      "name": "software",
+      "value": 50,
+      "subTitle": "",
+      "iconCss": ""
+    },
+    {
+      "title": "Research & Development Projects",
+      "name": "rd",
+      "value": 10,
+      "subTitle": "",
+      "iconCss": ""
+    },
+    {
+      "title": "International Projects",
+      "name": "international",
+      "value": 10,
+      "subTitle": "",
+      "iconCss": ""
+    },
+    {
+      "title": "National Projects",
+      "name": "national",
+      "value": 5,
+      "subTitle": "",
+      "iconCss": ""
+    },
+    {
+      "title": "Major Domains",
+      "name": "major-domains",
+      "value": 5,
+      "subTitle": "",
+      "iconCss": ""
+    }
+  ]
+}

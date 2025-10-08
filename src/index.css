@@ -510,6 +510,34 @@
     z-index: 1;
     pointer-events: none;
   }
+
+  /* Education section subtle textured background */
+  .education-bg {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .education-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/assets/backgrounds/education-bg.svg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.28; /* subtle texture */
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .education-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, hsl(var(--background) / 0.94), rgba(0,0,0,0) 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
 }
 
 /* Tag cloud animations */
@@ -551,4 +579,28 @@
     line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  /* Background Animation */
+  .background-animation {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    transition: opacity 0.3s ease;
+    will-change: transform;
+  }
+
+  .firework {
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: 0 0 10px currentColor;
+    transition: opacity 0.3s ease;
+    will-change: transform;
   }

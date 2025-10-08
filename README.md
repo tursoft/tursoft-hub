@@ -1,22 +1,8 @@
-# Welcome to Muhammet Turşak's Website
-
-## Project info
-
-**URL**: https://lovable.dev/projects/7f7b6612-9ece-490f-aeda-4b118f08696a
+# Welcome to Muhammet Turşak's Website (v2025)
 
 ## How can I edit this code?
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/7f7b6612-9ece-490f-aeda-4b118f08696a) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+If you want to work locally using your own IDE, you can clone this repo and push changes.
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -60,14 +46,59 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/7f7b6612-9ece-490f-aeda-4b118f08696a) and click on Share -> Publish.
 
-## Can I connect a custom domain to my Lovable project?
+## Todos
 
-Yes, you can!
+* remove highlight box on detail popups which initially selected
+* remove dublicated fields from education detail popup
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+* add domain details page (projects, experiences)
+* add skills detail page (years, experiencs, projects etc.)
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+* techs: sort
+* projects: sort
+* projects: show major items first, load minors on demand
+* improve texts (project, experience, education etc.)
+* fix project texts and linkds
+* add language support (tr, en)
+* auto translate texts, including reference texts etc.
+* refactor json files and make relations more concrete
+
+* improve map
+* fix highlight animations
+* add animation to switch between map & grid
+* add animation to switch between card, list and carosel views
+* use better design and animation for download cv button
+* use better design and animation for map buttons
+
+* store data in db and develop admin panel
+* add missing relations between entities
+experience => projects
+experience => customers
+project => customers
+project => modules
+
+* check and fix dates
+
+* add photos of collegues
+* add generic customers => vkbs => 80 tr hospitals
+* add jengai customers
+* add fonet customers
+* add datasel customers
+* add erc customers
+* add halici customers
+* add/relate halici projects
+
+* improve texts, keep short
+* add highlights to texts
+* microsoft dynamics nav
+
+* add more recent techs: kubernetes, docker, cloud, serverless, azure, google cloud, aws
+* mark projects as major and minor
+* mark customers as major and minor
+* mark skills as major and minor
+
+
+* sort skills
+* reorganize skills carousel

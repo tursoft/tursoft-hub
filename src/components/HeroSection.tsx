@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Github, Linkedin, Mail, Phone, Download, ExternalLink } from "lucide-react";
 import heroImage from "@/assets/hero-bg.jpg";
+import cvData from "@/data/cv.json";
 const HeroSection = () => {
   const socialLinks = [{
     icon: Github,
@@ -58,10 +59,10 @@ const HeroSection = () => {
             <Button size="lg" className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] hover:scale-105 text-primary-foreground px-8 py-3 text-lg glow-on-hover transition-all duration-300 border-2 border-primary/30 hover:border-primary/60" onClick={() => document.getElementById("portfolio")?.scrollIntoView({
             behavior: "smooth"
           })}>
-              View My Work
+              View My Portfolio
               <ExternalLink className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-gradient-to-r hover:from-[hsl(var(--navy-deep))] hover:via-[hsl(var(--primary))] hover:to-[hsl(var(--primary-light))] hover:text-primary-foreground px-8 py-3 text-lg transition-all duration-300" onClick={() => window.open("https://tursoft.net/assets/files/downloads/CV/CV_MuhammetTursak_v52.20200304.pdf", "_blank")}>
+            <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-gradient-to-r hover:from-[hsl(var(--navy-deep))] hover:via-[hsl(var(--primary))] hover:to-[hsl(var(--primary-light))] hover:text-primary-foreground px-8 py-3 text-lg transition-all duration-300" onClick={() => window.open(cvData.general.downloadUrl, "_blank")}>
               <Download className="mr-2 h-5 w-5" />
               Download CV
             </Button>
