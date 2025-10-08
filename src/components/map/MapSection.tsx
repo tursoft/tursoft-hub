@@ -79,11 +79,12 @@ const createIcon = (color: string, type: string, logoUrl?: string) => {
 }
 
 // Function to create icon with logo
-const createIconWithLogo = (type: 'experience' | 'education' | 'customer', logoUrl?: string) => {
+const createIconWithLogo = (type: 'experience' | 'education' | 'customer' | 'partner', logoUrl?: string) => {
   const colors = {
     experience: '#3b82f6',
     education: '#059669',
-    customer: '#dc2626'
+    customer: '#dc2626',
+    partner: '#f59e0b'
   }
   
   // logoUrl is now the full path from companies.json photoUrl
@@ -92,7 +93,7 @@ const createIconWithLogo = (type: 'experience' | 'education' | 'customer', logoU
 
 export interface MapItem {
   uid: string
-  type: 'education' | 'experience' | 'customer'
+  type: 'education' | 'experience' | 'customer' | 'partner'
   title: string
   coordinate: { lat: number; lng: number }
   logoUrl?: string
@@ -106,7 +107,7 @@ export interface MapItem {
 interface MapMarker {
   id: string
   position: [number, number]
-  type: 'experience' | 'education' | 'customer'
+  type: 'experience' | 'education' | 'customer' | 'partner'
   title: string
   subtitle?: string
   description: string
@@ -197,8 +198,35 @@ const transformCustomerToMapItem = (customer: Customer, index: number): MapItem 
   }
 }
 
+const transformPartnerToMapItem = (partner: Customer, index: number): MapItem | null => {
+  // Get company data from companyCode
+  const company = companies.items.find(c => c.code === partner.companyCode)
+  if (!company || !company.coordinates) return null
+
+  // Parse location if available (format: "City, Country")
+  const locationParts = partner.location?.split(',').map(s => s.trim()) || []
+  const city = locationParts[0] || company.city
+  const country = locationParts[1] || company.country
+
+  return {
+    uid: `partner.${partner.code}.${index}`,
+    type: 'partner',
+    title: company.title || '',
+    coordinate: company.coordinates,
+    logoUrl: company.photoUrl,
+    category: partner.relationship || 'Partner',
+    summarytext: partner.description || '',
+    city: city || '',
+    country: country || '',
+    daterange: {
+      start: partner.partnership?.startDate || '',
+      end: partner.partnership?.endDate
+    }
+  }
+}
+
 // Utility function to create all MapItems from data sources
-const createMapItemsFromData = (filters: string[] = ['experience', 'education', 'customer']): MapItem[] => {
+const createMapItemsFromData = (filters: string[] = ['experience', 'education', 'customer', 'partner']): MapItem[] => {
   const result: MapItem[] = []
 
   if (filters.includes('experience')) {
@@ -217,8 +245,21 @@ const createMapItemsFromData = (filters: string[] = ['experience', 'education', 
 
   if (filters.includes('customer')) {
     customersData.items.forEach((customer, index) => {
-      const mapItem = transformCustomerToMapItem(customer as Customer, index)
-      if (mapItem) result.push(mapItem)
+      // Only include non-partner customers
+      if (!customer.relationship?.toLowerCase().includes('partner')) {
+        const mapItem = transformCustomerToMapItem(customer as Customer, index)
+        if (mapItem) result.push(mapItem)
+      }
+    })
+  }
+
+  if (filters.includes('partner')) {
+    customersData.items.forEach((partner, index) => {
+      // Only include partners
+      if (partner.relationship?.toLowerCase().includes('partner')) {
+        const mapItem = transformPartnerToMapItem(partner as Customer, index)
+        if (mapItem) result.push(mapItem)
+      }
     })
   }
 
@@ -392,7 +433,7 @@ function MapBounds({ markers }: { markers: MapMarker[] }) {
 }
 
 export default function MapSection() {
-  const [selectedFilters, setSelectedFilters] = useState<string[]>(['experience', 'education', 'customer'])
+  const [selectedFilters, setSelectedFilters] = useState<string[]>(['experience', 'education', 'customer', 'partner'])
   const [viewMode, setViewMode] = useState<'map' | 'grid'>('map')
   const mapRef = useRef<L.Map | null>(null)
   
@@ -446,11 +487,23 @@ export default function MapSection() {
       })
     }
 
-    // Transform Customer data to MapItems
+    // Transform Customer data to MapItems (excluding partners)
     if (selectedFilters.includes('customer')) {
       customersData.items.forEach((customer, index) => {
-        const mapItem = transformCustomerToMapItem(customer as Customer, index)
-        if (mapItem) result.push(mapItem)
+        if (!customer.relationship?.toLowerCase().includes('partner')) {
+          const mapItem = transformCustomerToMapItem(customer as Customer, index)
+          if (mapItem) result.push(mapItem)
+        }
+      })
+    }
+
+    // Transform Partner data to MapItems
+    if (selectedFilters.includes('partner')) {
+      customersData.items.forEach((partner, index) => {
+        if (partner.relationship?.toLowerCase().includes('partner')) {
+          const mapItem = transformPartnerToMapItem(partner as Customer, index)
+          if (mapItem) result.push(mapItem)
+        }
       })
     }
 
@@ -480,6 +533,10 @@ export default function MapSection() {
         originalData = educationData.items.find(item => item.code === code)
       } else if (mapItem.type === 'customer') {
         // uid format: customer.{code}.{index}
+        const code = mapItem.uid.split('.')[1]
+        originalData = customersData.items.find(item => item.code === code)
+      } else if (mapItem.type === 'partner') {
+        // uid format: partner.{code}.{index}
         const code = mapItem.uid.split('.')[1]
         originalData = customersData.items.find(item => item.code === code)
       }
@@ -529,6 +586,10 @@ export default function MapSection() {
         setSelectedCustomer(marker.data)
         setIsCustomerDialogOpen(true)
         break
+      case 'partner':
+        setSelectedCustomer(marker.data)
+        setIsCustomerDialogOpen(true)
+        break
     }
   }
 
@@ -548,6 +609,10 @@ export default function MapSection() {
       // uid format: customer.{code}.{index}
       const code = item.uid.split('.')[1]
       originalData = customersData.items.find(cust => cust.code === code)
+    } else if (item.type === 'partner') {
+      // uid format: partner.{code}.{index}
+      const code = item.uid.split('.')[1]
+      originalData = customersData.items.find(cust => cust.code === code)
     }
 
     switch (item.type) {
@@ -560,6 +625,10 @@ export default function MapSection() {
         setIsEducationDialogOpen(true)
         break
       case 'customer':
+        setSelectedCustomer(originalData)
+        setIsCustomerDialogOpen(true)
+        break
+      case 'partner':
         setSelectedCustomer(originalData)
         setIsCustomerDialogOpen(true)
         break
@@ -638,7 +707,18 @@ export default function MapSection() {
             }`}
           >
             <div className="w-4 h-4 rounded-full bg-red-600"></div>
-            Customers ({customersData.items.length})
+            Customers ({customersData.items.filter(c => !c.relationship?.toLowerCase().includes('partner')).length})
+          </button>
+          <button
+            onClick={() => toggleFilter('partner')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+              selectedFilters.includes('partner')
+                ? 'bg-orange-500 text-white'
+                : 'bg-secondary text-muted-foreground hover:bg-orange-100'
+            }`}
+          >
+            <div className="w-4 h-4 rounded-full bg-orange-500"></div>
+            Partners ({customersData.items.filter(c => c.relationship?.toLowerCase().includes('partner')).length})
           </button>
         </div>
 
@@ -758,7 +838,7 @@ export default function MapSection() {
         </Card>
 
         {/* Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
           <Card className="p-6 text-center">
             <div className="text-3xl font-bold text-blue-500 mb-2">{experiencesData.items.length}</div>
             <div className="text-muted-foreground">Companies Worked With</div>
@@ -768,8 +848,16 @@ export default function MapSection() {
             <div className="text-muted-foreground">Educational Institutions</div>
           </Card>
           <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-red-600 mb-2">{customersData.items.length}</div>
+            <div className="text-3xl font-bold text-red-600 mb-2">
+              {customersData.items.filter(c => !c.relationship?.toLowerCase().includes('partner')).length}
+            </div>
             <div className="text-muted-foreground">Clients Served</div>
+          </Card>
+          <Card className="p-6 text-center">
+            <div className="text-3xl font-bold text-orange-500 mb-2">
+              {customersData.items.filter(c => c.relationship?.toLowerCase().includes('partner')).length}
+            </div>
+            <div className="text-muted-foreground">Strategic Partners</div>
           </Card>
         </div>
 
