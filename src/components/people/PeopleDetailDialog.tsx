@@ -70,18 +70,25 @@ const PeopleDetailDialog: React.FC<PeopleDetailDialogProps> = ({
         );
         setProjects(personProjects);
 
-        // Fetch all experiences (for now, we'll show all experiences from the person's company if available)
-        // This is a placeholder - you might want to add a more sophisticated relationship
-        const allExperiences = await experienceRepo.getList();
-        // For now, we don't have a direct link, but we could filter by company
-        setExperiences([]);
-
-        // Load companies for projects
+        // Get distinct company codes from person's projects
         const companyCodes = new Set<string>();
         personProjects.forEach(project => {
           if (project.companyCode) companyCodes.add(project.companyCode);
         });
 
+        // Fetch all experiences and filter by company codes from person's projects
+        const allExperiences = await experienceRepo.getList();
+        const personExperiences = allExperiences.filter(experience => 
+          experience.companyCode && companyCodes.has(experience.companyCode)
+        );
+        
+        // Remove duplicates based on experience code
+        const uniqueExperiences = Array.from(
+          new Map(personExperiences.map(exp => [exp.code, exp])).values()
+        );
+        setExperiences(uniqueExperiences);
+
+        // Load companies for projects and experiences
         const companiesData: { [key: string]: Company } = {};
         for (const code of companyCodes) {
           const company = await companiesRepo.getByCode(code);
@@ -334,9 +341,24 @@ const PeopleDetailDialog: React.FC<PeopleDetailDialogProps> = ({
                           const company = companies[experience.companyCode || ''];
                           const logoPath = company?.photoUrl || "";
                           
+                          // Find the person's position(s) from projects at this company
+                          const personPositions = projects
+                            .filter(project => project.companyCode === experience.companyCode)
+                            .map(project => {
+                              const teamMember = project.team?.find(member => member.personCode === person.code);
+                              return teamMember?.position;
+                            })
+                            .filter(Boolean); // Remove undefined values
+                          
+                          // Get unique positions
+                          const uniquePositions = [...new Set(personPositions)];
+                          const positionText = uniquePositions.length > 0 
+                            ? uniquePositions.join(', ') 
+                            : 'Team Member';
+                          
                           return (
                             <Card 
-                              key={experience.companyCode}
+                              key={experience.code}
                               className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
                               onClick={() => {
                                 setSelectedExperience(experience);
@@ -361,11 +383,9 @@ const PeopleDetailDialog: React.FC<PeopleDetailDialogProps> = ({
                                     <h3 className="font-semibold text-foreground mb-1">
                                       {company?.title || experience.companyCode}
                                     </h3>
-                                    {experience.positions && experience.positions.length > 0 && (
-                                      <CardDescription className="text-sm line-clamp-2">
-                                        {experience.positions[0].title}
-                                      </CardDescription>
-                                    )}
+                                    <CardDescription className="text-sm line-clamp-2">
+                                      {positionText}
+                                    </CardDescription>
                                   </div>
                                 </div>
                               </CardContent>

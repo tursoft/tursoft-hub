@@ -665,6 +665,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                               rel="noopener noreferrer"
                               className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
                               title="LinkedIn Profile"
+                              onClick={(e) => e.stopPropagation()}
                             >
                               <Linkedin className="w-4 h-4" />
                             </a>
