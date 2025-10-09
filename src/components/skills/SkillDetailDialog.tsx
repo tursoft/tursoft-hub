@@ -18,7 +18,6 @@ import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import {
   Maximize2,
   Minimize2,
-  Info,
   Briefcase,
   FolderKanban
 } from "lucide-react";
@@ -178,25 +177,8 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
 
         {/* Content */}
         <div className="flex-1 overflow-hidden pl-24 pt-2">
-          <Tabs defaultValue="overview" className="h-full flex flex-col">
-            <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-3">
-              <TabsTrigger value="overview">
-                <span className="flex items-center gap-2">
-                  <Info className="w-4 h-4" />
-                  Overview
-                </span>
-              </TabsTrigger>
-              {experiences.length > 0 && (
-                <TabsTrigger value="experiences">
-                  <span className="flex items-center gap-2">
-                    <Briefcase className="w-4 h-4" />
-                    Experiences
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {experiences.length}
-                    </Badge>
-                  </span>
-                </TabsTrigger>
-              )}
+          <Tabs defaultValue="projects" className="h-full flex flex-col">
+            <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-2">
               {projects.length > 0 && (
                 <TabsTrigger value="projects">
                   <span className="flex items-center gap-2">
@@ -208,105 +190,20 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                   </span>
                 </TabsTrigger>
               )}
+              {experiences.length > 0 && (
+                <TabsTrigger value="experiences">
+                  <span className="flex items-center gap-2">
+                    <Briefcase className="w-4 h-4" />
+                    Experiences
+                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                      {experiences.length}
+                    </Badge>
+                  </span>
+                </TabsTrigger>
+              )}
             </TabsList>
 
             <div className="flex-1 overflow-y-auto">
-              <TabsContent value="overview" className="space-y-4 min-h-[400px] mt-0 h-full overflow-y-auto">
-                <div className="px-4 py-2">
-                  {/* Statistics */}
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <Card>
-                      <CardContent className="pt-6">
-                        <div className="text-center">
-                          <div className="text-3xl font-bold text-primary mb-2">
-                            {experiences.length}
-                          </div>
-                          <div className="text-sm text-muted-foreground">Experience{experiences.length !== 1 ? 's' : ''}</div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardContent className="pt-6">
-                        <div className="text-center">
-                          <div className="text-3xl font-bold text-primary mb-2">
-                            {projects.length}
-                          </div>
-                          <div className="text-sm text-muted-foreground">Project{projects.length !== 1 ? 's' : ''}</div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* Additional Info */}
-                  {skill.value && (
-                    <div className="mb-6">
-                      <h3 className="text-lg font-semibold mb-3">Proficiency</h3>
-                      <div className="flex items-center gap-2">
-                        <div className="flex-1 bg-muted rounded-full h-2">
-                          <div 
-                            className="bg-primary rounded-full h-2 transition-all duration-500"
-                            style={{ width: `${skill.value}%` }}
-                          />
-                        </div>
-                        <span className="text-sm font-medium text-muted-foreground">{skill.value}%</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="experiences" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
-                <div className="px-4 py-2">
-                  {isLoadingData ? (
-                    <div className="text-center text-muted-foreground py-8">Loading experiences...</div>
-                  ) : experiences.length > 0 ? (
-                    <div className="space-y-3">
-                      {experiences.map((experience) => {
-                        const company = companies[experience.companyCode || ''];
-                        const logoPath = company?.photoUrl || "";
-                        
-                        return (
-                          <Card 
-                            key={experience.companyCode}
-                            className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
-                            onClick={() => onOpenExperience?.(experience)}
-                          >
-                            <CardContent className="p-4">
-                              <div className="flex items-start gap-4">
-                                {logoPath && (
-                                  <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                    <img 
-                                      src={logoPath} 
-                                      alt={`${company?.title} logo`} 
-                                      className="w-full h-full object-contain p-1"
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                                <div className="flex-1 min-w-0">
-                                  <h3 className="font-semibold text-foreground mb-1">
-                                    {company?.title || experience.companyCode}
-                                  </h3>
-                                  {experience.positions && experience.positions.length > 0 && (
-                                    <CardDescription className="text-sm line-clamp-2">
-                                      {experience.positions[0].title}
-                                    </CardDescription>
-                                  )}
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="text-muted-foreground">No experiences found.</p>
-                  )}
-                </div>
-              </TabsContent>
-
               <TabsContent value="projects" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
                 <div className="px-4 py-2">
                   {isLoadingData ? (
@@ -362,6 +259,58 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                     </div>
                   ) : (
                     <p className="text-muted-foreground">No projects found.</p>
+                  )}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="experiences" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
+                <div className="px-4 py-2">
+                  {isLoadingData ? (
+                    <div className="text-center text-muted-foreground py-8">Loading experiences...</div>
+                  ) : experiences.length > 0 ? (
+                    <div className="space-y-3">
+                      {experiences.map((experience) => {
+                        const company = companies[experience.companyCode || ''];
+                        const logoPath = company?.photoUrl || "";
+                        
+                        return (
+                          <Card 
+                            key={experience.companyCode}
+                            className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
+                            onClick={() => onOpenExperience?.(experience)}
+                          >
+                            <CardContent className="p-4">
+                              <div className="flex items-start gap-4">
+                                {logoPath && (
+                                  <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
+                                    <img 
+                                      src={logoPath} 
+                                      alt={`${company?.title} logo`} 
+                                      className="w-full h-full object-contain p-1"
+                                      onError={(e) => {
+                                        e.currentTarget.style.display = 'none';
+                                      }}
+                                    />
+                                  </div>
+                                )}
+                                <div className="flex-1 min-w-0">
+                                  <h3 className="font-semibold text-foreground mb-1">
+                                    {company?.title || experience.companyCode}
+                                  </h3>
+                                  {experience.positions && experience.positions.length > 0 && (
+                                    <CardDescription className="text-sm line-clamp-2">
+                                      {experience.positions[0].title}
+                                    </CardDescription>
+                                  )}
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <p className="text-muted-foreground">No experiences found.</p>
                   )}
                 </div>
               </TabsContent>
