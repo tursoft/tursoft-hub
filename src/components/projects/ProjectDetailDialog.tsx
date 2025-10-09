@@ -26,7 +26,9 @@ import {
   Wrench,
   Users,
   UserCheck,
-  Image
+  Image,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
@@ -90,6 +92,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
   const [isPeopleDialogOpen, setIsPeopleDialogOpen] = useState(false);
   const [screenshots, setScreenshots] = useState<ScreenshotItem[]>([]);
   const [selectedScreenshot, setSelectedScreenshot] = useState<string | null>(null);
+  const [currentScreenshotIndex, setCurrentScreenshotIndex] = useState<number>(0);
   const [isScreenshotFullscreen, setIsScreenshotFullscreen] = useState(false);
 
   // Load company name from companyCode
@@ -295,6 +298,28 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
     fetchScreenshots();
   }, [project?.code]);
+
+  // Keyboard navigation for fullscreen screenshots
+  useEffect(() => {
+    if (!isScreenshotFullscreen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft' && currentScreenshotIndex > 0) {
+        const newIndex = currentScreenshotIndex - 1;
+        setCurrentScreenshotIndex(newIndex);
+        setSelectedScreenshot(screenshots[newIndex].file_big || screenshots[newIndex].file_small || '');
+      } else if (e.key === 'ArrowRight' && currentScreenshotIndex < screenshots.length - 1) {
+        const newIndex = currentScreenshotIndex + 1;
+        setCurrentScreenshotIndex(newIndex);
+        setSelectedScreenshot(screenshots[newIndex].file_big || screenshots[newIndex].file_small || '');
+      } else if (e.key === 'Escape') {
+        setIsScreenshotFullscreen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isScreenshotFullscreen, currentScreenshotIndex, screenshots]);
 
   if (!project) return null;
 
@@ -797,6 +822,8 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                   }}
                   gridCols={{ sm: 1, md: 2, lg: 3 }}
                   onItemClick={(screenshot) => {
+                    const index = screenshots.indexOf(screenshot);
+                    setCurrentScreenshotIndex(index);
                     setSelectedScreenshot(screenshot.file_big || screenshot.file_small || '');
                     setIsScreenshotFullscreen(true);
                   }}
@@ -850,7 +877,8 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
       {isScreenshotFullscreen && selectedScreenshot && (
         <Dialog open={isScreenshotFullscreen} onOpenChange={setIsScreenshotFullscreen}>
           <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-black/95">
-            <div className="relative w-full h-full flex items-center justify-center">
+            <div className="relative w-full h-full flex flex-col items-center justify-center">
+              {/* Close Button */}
               <Button
                 variant="ghost"
                 size="icon"
@@ -859,12 +887,64 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               >
                 <Minimize2 className="h-6 w-6" />
               </Button>
+
+              {/* Previous Button */}
+              {screenshots.length > 1 && currentScreenshotIndex > 0 && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => {
+                    const newIndex = currentScreenshotIndex - 1;
+                    setCurrentScreenshotIndex(newIndex);
+                    setSelectedScreenshot(screenshots[newIndex].file_big || screenshots[newIndex].file_small || '');
+                  }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                >
+                  <ChevronLeft className="h-8 w-8" />
+                </Button>
+              )}
+
+              {/* Next Button */}
+              {screenshots.length > 1 && currentScreenshotIndex < screenshots.length - 1 && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => {
+                    const newIndex = currentScreenshotIndex + 1;
+                    setCurrentScreenshotIndex(newIndex);
+                    setSelectedScreenshot(screenshots[newIndex].file_big || screenshots[newIndex].file_small || '');
+                  }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                >
+                  <ChevronRight className="h-8 w-8" />
+                </Button>
+              )}
+
+              {/* Image */}
               <img 
                 src={selectedScreenshot} 
                 alt="Full screen screenshot"
-                className="max-w-full max-h-full object-contain"
+                className="max-w-full max-h-[85vh] object-contain"
                 onClick={(e) => e.stopPropagation()}
               />
+
+              {/* Title and Counter */}
+              {(screenshots[currentScreenshotIndex]?.title || screenshots.length > 1) && (
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-6 pt-12">
+                  <div className="text-center">
+                    {screenshots[currentScreenshotIndex]?.title && (
+                      <h3 className="text-white text-xl font-semibold mb-2">
+                        {screenshots[currentScreenshotIndex].title}
+                      </h3>
+                    )}
+                    {screenshots.length > 1 && (
+                      <p className="text-white/70 text-sm">
+                        {currentScreenshotIndex + 1} / {screenshots.length}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </DialogContent>
         </Dialog>
