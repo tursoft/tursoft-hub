@@ -878,6 +878,29 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
         <Dialog open={isScreenshotFullscreen} onOpenChange={setIsScreenshotFullscreen}>
           <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-black/95">
             <div className="relative w-full h-full flex flex-col items-center justify-center">
+              {/* Project Info at Top */}
+              {project && (
+                <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 via-black/60 to-transparent p-6 pb-12 z-10">
+                  <div className="flex items-center justify-center gap-4">
+                    {projectIcon && (
+                      <div className="w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-white/10 border border-white/20">
+                        <img 
+                          src={projectIcon} 
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.src = '/placeholder.svg';
+                          }}
+                        />
+                      </div>
+                    )}
+                    <h2 className="text-white text-2xl font-bold">
+                      {project.title}
+                    </h2>
+                  </div>
+                </div>
+              )}
+
               {/* Close Button */}
               <Button
                 variant="ghost"
@@ -924,11 +947,11 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               <img 
                 src={selectedScreenshot} 
                 alt="Full screen screenshot"
-                className="max-w-full max-h-[85vh] object-contain"
+                className="max-w-full max-h-[75vh] object-contain"
                 onClick={(e) => e.stopPropagation()}
               />
 
-              {/* Title and Counter */}
+              {/* Screenshot Title and Counter */}
               {(screenshots[currentScreenshotIndex]?.title || screenshots.length > 1) && (
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-6 pt-12">
                   <div className="text-center">
