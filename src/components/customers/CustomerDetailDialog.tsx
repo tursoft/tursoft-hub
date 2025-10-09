@@ -35,9 +35,13 @@ import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
 import { referencesRepo } from '@/repositories/ReferencesRepo';
+import SkillDetailDialog from '../skills/SkillDetailDialog';
+import ProjectDetailDialog from '../projects/ProjectDetailDialog';
 import type { Customer } from '@/models/Customer';
 import type { Company } from '@/models/Companies';
 import type { Reference } from '@/models/Reference';
+import type SkillItem from '@/models/Skills';
+import type { ProjectEntry } from '@/models/Project';
 
 interface CustomerDetailDialogProps {
   customer: Customer | null;
@@ -59,48 +63,68 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
   const [companyData, setCompanyData] = useState<Company | null>(null);
   const [customerReferences, setCustomerReferences] = useState<Reference[]>([]);
   const [isMaximized, setIsMaximized] = useState(false);
+  const [skills, setSkills] = useState<SkillItem[]>([]);
+  const [projects, setProjects] = useState<ProjectEntry[]>([]);
+  const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
+  const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
+  const [isProjectDialogOpen, setIsProjectDialogOpen] = useState(false);
 
-  // Fetch project logos when customer changes
+  // Fetch project objects and logos when customer changes
   useEffect(() => {
-    const fetchLogos = async () => {
+    const fetchProjects = async () => {
       if (!customer?.projectCodes) return;
       
       const logos: Record<string, string> = {};
+      const projectItems: ProjectEntry[] = [];
+      
       for (const projectCode of customer.projectCodes) {
         if (projectCode) {
-          const logo = await projectsRepo.getPhotoUrlByCode(projectCode);
-          if (logo) {
-            logos[projectCode] = logo;
+          const project = await projectsRepo.getByCode(projectCode);
+          if (project) {
+            projectItems.push(project);
+            if (project.photoUrl) {
+              logos[projectCode] = project.photoUrl;
+            }
           }
         }
       }
+      
+      setProjects(projectItems);
       setProjectLogos(logos);
     };
 
     if (customer?.projectCodes && customer.projectCodes.length > 0) {
-      fetchLogos();
+      fetchProjects();
     }
   }, [customer?.projectCodes]);
 
-  // Fetch technology logos when customer changes
+  // Fetch technology objects and logos when customer changes
   useEffect(() => {
-    const fetchLogos = async () => {
+    const fetchSkills = async () => {
       if (!customer?.skillCodes) return;
       
       const logos: Record<string, string> = {};
+      const skillItems: SkillItem[] = [];
+      
       for (const skillCode of customer.skillCodes) {
         if (skillCode) {
-          const logo = await skillsRepo.getPhotoUrlByCode(skillCode);
-          if (logo) {
-            logos[skillCode] = logo;
+          const skill = await skillsRepo.getByCode(skillCode);
+          if (skill) {
+            skillItems.push(skill);
+            if (skill.photoUrl) {
+              logos[skillCode] = skill.photoUrl;
+            }
           }
         }
       }
+      
+      setSkills(skillItems);
       setTechnologyLogos(logos);
     };
 
     if (customer?.skillCodes && customer.skillCodes.length > 0) {
-      fetchLogos();
+      fetchSkills();
     }
   }, [customer?.skillCodes]);
 
@@ -350,27 +374,27 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                     </Badge>
                   </h4>
                   <div className="space-y-3">
-                    {customer.projectCodes.map((projectCode, index) => {
-                        const logoPath = projectLogos[projectCode] || "";
+                    {projects.map((project) => {
+                        const logoPath = project.photoUrl || "";
                         
                         return (
-                          <div key={index} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
+                          <div 
+                            key={project.code} 
+                            className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors"
+                            onClick={() => {
+                              setSelectedProject(project);
+                              setIsProjectDialogOpen(true);
+                            }}
+                          >
                             {/* Project Logo */}
                             {logoPath && (
                               <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
                                 <img 
                                   src={logoPath}
-                                  alt={`${projectCode} logo`}
+                                  alt={`${project.title} logo`}
                                   className="w-7 h-7 object-contain rounded"
                                   onError={(e) => {
-                                    // Try with /assets/ prefix for production fallback
-                                    const currentSrc = e.currentTarget.src;
-                                    if (currentSrc.includes('/src/assets/')) {
-                                      e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
-                                    } else {
-                                      // Hide image if it fails to load
-                                      e.currentTarget.style.display = 'none';
-                                    }
+                                    e.currentTarget.style.display = 'none';
                                   }}
                                 />
                               </div>
@@ -379,7 +403,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                             {/* Project Details */}
                             <div className="flex-1 min-w-0">
                               <div className="text-sm font-medium text-foreground truncate">
-                                {projectCode}
+                                {project.title}
                               </div>
                             </div>
                           </div>
@@ -418,40 +442,39 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
             </TabsContent>
 
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
-              {customer.skillCodes && customer.skillCodes.length > 0 ? (
+              {skills.length > 0 ? (
                 <div className="px-4 py-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                    {customer.skillCodes.map((skillCode, index) => {
-                      const logoPath = technologyLogos[skillCode] || "";
+                    {skills.map((skill, index) => {
+                      const logoPath = skill.photoUrl || "";
                       const isEven = index % 2 === 0;
-                      const isLastInColumn = index === customer.skillCodes.length - 1 || 
-                        (isEven && index === customer.skillCodes.length - 2 && customer.skillCodes.length % 2 === 0);
+                      const isLastInColumn = index === skills.length - 1 || 
+                        (isEven && index === skills.length - 2 && skills.length % 2 === 0);
                       
                       return (
-                        <div key={index}>
-                          <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
+                        <div key={skill.code}>
+                          <div 
+                            className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-pointer"
+                            onClick={() => {
+                              setSelectedSkill(skill);
+                              setIsSkillDialogOpen(true);
+                            }}
+                          >
                             {/* Technology Logo */}
                             {logoPath && (
                               <img 
                                 src={logoPath}
-                                alt={`${skillCode} logo`}
+                                alt={`${skill.title} logo`}
                                 className="w-5 h-5 object-contain flex-shrink-0"
                                 onError={(e) => {
-                                  // Try with /assets/ prefix for production fallback
-                                  const currentSrc = e.currentTarget.src;
-                                  if (currentSrc.includes('/src/assets/')) {
-                                    e.currentTarget.src = currentSrc.replace('/src/assets/', '/assets/');
-                                  } else {
-                                    // Hide image if it fails to load
-                                    e.currentTarget.style.display = 'none';
-                                  }
+                                  e.currentTarget.style.display = 'none';
                                 }}
                               />
                             )}
                             
                             {/* Technology Name */}
                             <span className="text-sm font-medium text-foreground">
-                              {skillCode}
+                              {skill.title}
                             </span>
                           </div>
                           {!isLastInColumn && (
@@ -476,6 +499,30 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
           </div>
         </Tabs>
       </DialogContent>
+
+      {/* Skill Detail Dialog */}
+      <SkillDetailDialog
+        skill={selectedSkill}
+        isOpen={isSkillDialogOpen}
+        onClose={() => {
+          setIsSkillDialogOpen(false);
+          setSelectedSkill(null);
+        }}
+        onOpenProject={(project) => {
+          setSelectedProject(project);
+          setIsProjectDialogOpen(true);
+        }}
+      />
+
+      {/* Project Detail Dialog */}
+      <ProjectDetailDialog
+        project={selectedProject}
+        isOpen={isProjectDialogOpen}
+        onClose={() => {
+          setIsProjectDialogOpen(false);
+          setSelectedProject(null);
+        }}
+      />
     </Dialog>
   );
 };

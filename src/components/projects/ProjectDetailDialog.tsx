@@ -30,8 +30,14 @@ import {
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
 import { peopleRepo } from '@/repositories/PeopleRepo';
+import { partnersRepo } from '@/repositories/PartnersRepo';
+import SkillDetailDialog from '../skills/SkillDetailDialog';
+import PartnerDetailDialog from '../partners/PartnerDetailDialog';
 import type { ProjectEntry } from '@/models/Project';
 import type { Person } from '@/models/People';
+import type SkillItem from '@/models/Skills';
+import type { Partner } from '@/models/Partner';
+import type { Company } from '@/models/Companies';
 
 interface Customer {
   code: string;
@@ -62,6 +68,13 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
   const [companyName, setCompanyName] = useState<string>('');
   const [teamMembers, setTeamMembers] = useState<Array<{ person: Person | null; position: string; personCode: string }>>([]);
   const [isMaximized, setIsMaximized] = useState(false);
+  const [skills, setSkills] = useState<SkillItem[]>([]);
+  const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
+  const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
+  const [partners, setPartners] = useState<Partner[]>([]);
+  const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
+  const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
+  const [partnerCompanies, setPartnerCompanies] = useState<{ [key: string]: Company }>({});
 
   // Load company name from companyCode
   useEffect(() => {
@@ -109,27 +122,67 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
     }
   }, [isOpen, project?.customerCodes]);
 
-  // Fetch technology logos when project changes
+  // Fetch technology logos and skill objects when project changes
   useEffect(() => {
-    const fetchLogos = async () => {
+    const fetchSkills = async () => {
       if (!project?.skillCodes) return;
       
       const logos: Record<string, string> = {};
-      for (const techCode of project.skillCodes) {
-        if (techCode) {
-          const logo = await skillsRepo.getPhotoUrlByCode(techCode);
-          if (logo) {
-            logos[techCode] = logo;
+      const skillItems: SkillItem[] = [];
+      
+      for (const skillCode of project.skillCodes) {
+        if (skillCode) {
+          const skill = await skillsRepo.getByCode(skillCode);
+          if (skill) {
+            skillItems.push(skill);
+            if (skill.photoUrl) {
+              logos[skillCode] = skill.photoUrl;
+            }
           }
         }
       }
+      
+      setSkills(skillItems);
       setTechnologyLogos(logos);
     };
 
     if (project?.skillCodes && project.skillCodes.length > 0) {
-      fetchLogos();
+      fetchSkills();
     }
   }, [project?.skillCodes]);
+
+  // Load partners when project changes
+  useEffect(() => {
+    const fetchPartners = async () => {
+      if (!project?.partnerCodes) return;
+      
+      const partnerItems: Partner[] = [];
+      const companies: { [key: string]: Company } = {};
+      
+      for (const partnerCode of project.partnerCodes) {
+        if (partnerCode) {
+          const partner = await partnersRepo.getByCode(partnerCode);
+          if (partner) {
+            partnerItems.push(partner);
+            // Load company data for the partner
+            if (partner.companyCode) {
+              const company = await companiesRepo.getByCode(partner.companyCode);
+              if (company) {
+                companies[partner.code || ''] = company;
+              }
+            }
+          }
+        }
+      }
+      
+      setPartners(partnerItems);
+      setPartnerCompanies(companies);
+    };
+
+    if (project?.partnerCodes && project.partnerCodes.length > 0) {
+      fetchPartners();
+    }
+  }, [project?.partnerCodes]);
 
   // Resolve team member names from personCodes
   useEffect(() => {
@@ -279,6 +332,17 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                 </Badge>
               </span>
             </TabsTrigger>
+            {partners.length > 0 && (
+              <TabsTrigger value="partners">
+                <span className="flex items-center gap-2">
+                  <Building2 className="w-4 h-4" />
+                  Partners
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {partners.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
+            )}
           </TabsList>
 
           <div className="max-h-[60vh] overflow-y-auto mt-4">
@@ -355,28 +419,33 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
               <div className="px-4 py-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                  {(project.skillCodes || []).map((techCode, index) => {
-                    const logoPath = technologyLogos[techCode] || "";
+                  {skills.map((skill, index) => {
+                    const logoPath = skill.photoUrl || "";
                     const isEven = index % 2 === 0;
-                    const isLastInColumn = index === (project.skillCodes || []).length - 1 || 
-                      (isEven && index === (project.skillCodes || []).length - 2 && (project.skillCodes || []).length % 2 === 0);
+                    const isLastInColumn = index === skills.length - 1 || 
+                      (isEven && index === skills.length - 2 && skills.length % 2 === 0);
                     
                     return (
-                      <div key={techCode}>
-                        <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
+                      <div key={skill.code}>
+                        <div 
+                          className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-pointer"
+                          onClick={() => {
+                            setSelectedSkill(skill);
+                            setIsSkillDialogOpen(true);
+                          }}
+                        >
                           {logoPath && (
                             <img 
                               src={logoPath} 
-                              alt={`${techCode} logo`} 
+                              alt={`${skill.title} logo`} 
                               className="w-5 h-5 object-contain flex-shrink-0" 
                               onError={(e) => {
-                                // Hide image if it fails to load
                                 e.currentTarget.style.display = 'none';
                               }}
                             />
                           )}
                           <span className="text-sm font-medium text-foreground">
-                            {techCode}
+                            {skill.title}
                           </span>
                         </div>
                         {!isLastInColumn && (
@@ -511,9 +580,81 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                 )}
               </div>
             </TabsContent>
+
+            {/* Partners Tab */}
+            {partners.length > 0 && (
+              <TabsContent value="partners" className="space-y-3 min-h-[400px]">
+                <div className="px-4 py-2">
+                  <div className="space-y-3">
+                    {partners.map((partner) => {
+                      const company = partnerCompanies[partner.code || ''];
+                      const logoPath = company?.photoUrl || "";
+                      
+                      return (
+                        <Card 
+                          key={partner.code}
+                          className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
+                          onClick={() => {
+                            setSelectedPartner(partner);
+                            setIsPartnerDialogOpen(true);
+                          }}
+                        >
+                          <CardContent className="p-4">
+                            <div className="flex items-start gap-4">
+                              {logoPath && (
+                                <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
+                                  <img 
+                                    src={logoPath} 
+                                    alt={`${company?.title} logo`} 
+                                    className="w-full h-full object-contain p-1"
+                                    onError={(e) => {
+                                      e.currentTarget.style.display = 'none';
+                                    }}
+                                  />
+                                </div>
+                              )}
+                              <div className="flex-1 min-w-0">
+                                <h3 className="font-semibold text-foreground mb-1">
+                                  {company?.title || partner.code}
+                                </h3>
+                                {partner.description && (
+                                  <CardDescription className="text-sm line-clamp-2">
+                                    {partner.description}
+                                  </CardDescription>
+                                )}
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                </div>
+              </TabsContent>
+            )}
           </div>
         </Tabs>
       </DialogContent>
+
+      {/* Skill Detail Dialog */}
+      <SkillDetailDialog
+        skill={selectedSkill}
+        isOpen={isSkillDialogOpen}
+        onClose={() => {
+          setIsSkillDialogOpen(false);
+          setSelectedSkill(null);
+        }}
+      />
+
+      {/* Partner Detail Dialog */}
+      <PartnerDetailDialog
+        partner={selectedPartner}
+        isOpen={isPartnerDialogOpen}
+        onClose={() => {
+          setIsPartnerDialogOpen(false);
+          setSelectedPartner(null);
+        }}
+      />
     </Dialog>
   );
 };

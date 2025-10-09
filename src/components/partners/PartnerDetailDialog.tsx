@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
+import ProjectDetailDialog from '../projects/ProjectDetailDialog';
 import type { Partner } from '@/models/Partner';
 import type { Company } from '@/models/Companies';
 import type { ProjectEntry } from '@/models/Project';
@@ -38,6 +39,7 @@ interface PartnerDetailDialogProps {
   onClose: () => void;
   partnerLogo?: string;
   companyTitle?: string;
+  onOpenProject?: (project: ProjectEntry) => void;
 }
 
 const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
@@ -45,10 +47,14 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
   isOpen,
   onClose,
   partnerLogo,
-  companyTitle
+  companyTitle,
+  onOpenProject
 }) => {
   const [projectLogos, setProjectLogos] = useState<Record<string, string>>({});
   const [companyData, setCompanyData] = useState<Company | null>(null);
+  const [projects, setProjects] = useState<ProjectEntry[]>([]);
+  const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
+  const [isProjectDialogOpen, setIsProjectDialogOpen] = useState(false);
   const [partnerProjects, setPartnerProjects] = useState<ProjectEntry[]>([]);
   const [isMaximized, setIsMaximized] = useState(false);
 
@@ -276,7 +282,15 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
                     {partnerProjects.map((project) => (
                       <div
                         key={project.code}
-                        className="flex items-start gap-3 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
+                        className="flex items-start gap-3 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors cursor-pointer"
+                        onClick={() => {
+                          if (onOpenProject) {
+                            onOpenProject(project);
+                          } else {
+                            setSelectedProject(project);
+                            setIsProjectDialogOpen(true);
+                          }
+                        }}
                       >
                         {projectLogos[project.code] && (
                           <div className="w-12 h-12 flex-shrink-0">
@@ -320,6 +334,16 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
           </TabsContent>
         </Tabs>
       </DialogContent>
+
+      {/* Project Detail Dialog */}
+      <ProjectDetailDialog
+        project={selectedProject}
+        isOpen={isProjectDialogOpen}
+        onClose={() => {
+          setIsProjectDialogOpen(false);
+          setSelectedProject(null);
+        }}
+      />
     </Dialog>
   );
 };

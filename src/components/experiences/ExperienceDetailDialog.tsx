@@ -31,6 +31,7 @@ import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { domainsRepo } from '@/repositories/DomainsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
+import SkillDetailDialog from '../skills/SkillDetailDialog';
 
 
 import type { Experience, Position } from '@/models/Experience';
@@ -43,12 +44,14 @@ interface ExperienceDetailDialogProps {
   experience: Experience | null;
   isOpen: boolean;
   onClose: () => void;
+  onOpenProject?: (project: ProjectEntry) => void;
 }
 
 const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
   experience,
   isOpen,
-  onClose
+  onClose,
+  onOpenProject
 }) => {
   const [projects, setProjects] = useState<ProjectEntry[]>([]);
   const [skills, setSkills] = useState<SkillItem[]>([]);
@@ -56,6 +59,8 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
   const [company, setCompany] = useState<Company | null>(null);
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [isMaximized, setIsMaximized] = useState(false);
+  const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
+  const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
 
   // Resolve all codes to actual objects when experience changes
   useEffect(() => {
@@ -372,7 +377,13 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                       
                       return (
                         <div key={skill.code}>
-                          <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
+                          <div 
+                            className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-pointer"
+                            onClick={() => {
+                              setSelectedSkill(skill);
+                              setIsSkillDialogOpen(true);
+                            }}
+                          >
                             {logoPath && (
                               <img 
                                 src={logoPath} 
@@ -410,7 +421,11 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                       const logoPath = project.photoUrl || "";
 
                       return (
-                        <div key={project.code} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
+                        <div 
+                          key={project.code} 
+                          className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors"
+                          onClick={() => onOpenProject?.(project)}
+                        >
                           {logoPath ? (
                             <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
                               <img
@@ -443,6 +458,18 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
           </div>
         </Tabs>
       </DialogContent>
+
+      {/* Skill Detail Dialog */}
+      <SkillDetailDialog
+        skill={selectedSkill}
+        isOpen={isSkillDialogOpen}
+        onClose={() => {
+          setIsSkillDialogOpen(false);
+          setSelectedSkill(null);
+        }}
+        onOpenExperience={() => {}}
+        onOpenProject={onOpenProject}
+      />
     </Dialog>
   );
 };

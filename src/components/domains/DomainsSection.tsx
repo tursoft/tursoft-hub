@@ -3,10 +3,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { domainsRepo } from '@/repositories/DomainsRepo';
 import type { Domain, DomainsData } from '@/models/Domain';
+import DomainDetailDialog from './DomainDetailDialog';
+import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog';
+import ProjectDetailDialog from '../projects/ProjectDetailDialog';
+import type { Experience } from '@/models/Experience';
+import type { ProjectEntry } from '@/models/Project';
 
 const DomainsSection = () => {
   const [domainsData, setDomainsData] = useState<DomainsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedDomain, setSelectedDomain] = useState<Domain | null>(null);
+  const [isDomainDialogOpen, setIsDomainDialogOpen] = useState(false);
+  const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
+  const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
+  const [isProjectDialogOpen, setIsProjectDialogOpen] = useState(false);
 
   // Load domains data using repository
   useEffect(() => {
@@ -38,6 +49,21 @@ const DomainsSection = () => {
 
   const { items: domains } = domainsData;
 
+  const handleDomainClick = (domain: Domain) => {
+    setSelectedDomain(domain);
+    setIsDomainDialogOpen(true);
+  };
+
+  const handleOpenExperience = (experience: Experience) => {
+    setSelectedExperience(experience);
+    setIsExperienceDialogOpen(true);
+  };
+
+  const handleOpenProject = (project: ProjectEntry) => {
+    setSelectedProject(project);
+    setIsProjectDialogOpen(true);
+  };
+
   return (
     <section id="domains" className="py-20 bg-background/50">
       <div className="container mx-auto px-6">
@@ -61,8 +87,9 @@ const DomainsSection = () => {
             {domains.map((domain, index) => (
               <Card 
                 key={domain.code}
-                className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in hover:shadow-lg transition-all duration-300"
+                className="portfolio-card portfolio-light-streak portfolio-glow-pulse group animate-fade-in hover:shadow-lg transition-all duration-300 cursor-pointer"
                 style={{ animationDelay: `${index * 100}ms` }}
+                onClick={() => handleDomainClick(domain)}
               >
                 <CardContent className="pt-6">
                   <div className="flex flex-col items-center text-center space-y-4">
@@ -90,6 +117,39 @@ const DomainsSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Domain Detail Dialog */}
+      <DomainDetailDialog
+        domain={selectedDomain}
+        isOpen={isDomainDialogOpen}
+        onClose={() => {
+          setIsDomainDialogOpen(false);
+          setSelectedDomain(null);
+        }}
+        onOpenExperience={handleOpenExperience}
+        onOpenProject={handleOpenProject}
+      />
+
+      {/* Experience Detail Dialog */}
+      <ExperienceDetailDialog
+        experience={selectedExperience}
+        isOpen={isExperienceDialogOpen}
+        onClose={() => {
+          setIsExperienceDialogOpen(false);
+          setSelectedExperience(null);
+        }}
+        onOpenProject={handleOpenProject}
+      />
+
+      {/* Project Detail Dialog */}
+      <ProjectDetailDialog
+        project={selectedProject}
+        isOpen={isProjectDialogOpen}
+        onClose={() => {
+          setIsProjectDialogOpen(false);
+          setSelectedProject(null);
+        }}
+      />
     </section>
   );
 };

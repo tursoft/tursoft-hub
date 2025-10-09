@@ -27,7 +27,9 @@ import {
   Wrench
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
+import SkillDetailDialog from '../skills/SkillDetailDialog';
 import type { Education, Course, DatePeriod } from '@/models/Education';
+import type SkillItem from '@/models/Skills';
 
 // ProcessedEducation type with company details
 type ProcessedEducation = Education & {
@@ -51,26 +53,36 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
 }) => {
   const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
   const [isMaximized, setIsMaximized] = useState(false);
+  const [skills, setSkills] = useState<SkillItem[]>([]);
+  const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
+  const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
 
-  // Fetch technology logos when education changes
+  // Fetch technology logos and skills when education changes
   useEffect(() => {
-    const fetchLogos = async () => {
+    const fetchData = async () => {
       if (!education?.skillCodes) return;
       
       const logos: Record<string, string> = {};
+      const skillItems: SkillItem[] = [];
+      
       for (const skillCode of education.skillCodes) {
         if (skillCode) {
-          const logo = await skillsRepo.getPhotoUrlByCode(skillCode);
-          if (logo) {
-            logos[skillCode] = logo;
+          const skill = await skillsRepo.getByCode(skillCode);
+          if (skill) {
+            skillItems.push(skill);
+            if (skill.photoUrl) {
+              logos[skillCode] = skill.photoUrl;
+            }
           }
         }
       }
+      
+      setSkills(skillItems);
       setTechnologyLogos(logos);
     };
 
     if (education?.skillCodes && education.skillCodes.length > 0) {
-      fetchLogos();
+      fetchData();
     }
   }, [education?.skillCodes]);
 
@@ -285,31 +297,36 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
             </TabsContent>
 
             <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
-              {education.skillCodes && education.skillCodes.length > 0 ? (
+              {skills.length > 0 ? (
                 <div className="px-4 py-2">
                   <div className={`grid grid-cols-1 gap-x-4 ${isMaximized ? 'md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'md:grid-cols-2'}`}>
-                    {education.skillCodes.map((skillCode, index) => {
-                      const logoPath = technologyLogos[skillCode] || "";
+                    {skills.map((skill, index) => {
+                      const logoPath = skill.photoUrl || "";
                       
                       return (
-                        <div key={`skill-${skillCode}-${index}`}>
-                          <div className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
+                        <div key={skill.code}>
+                          <div 
+                            className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-pointer"
+                            onClick={() => {
+                              setSelectedSkill(skill);
+                              setIsSkillDialogOpen(true);
+                            }}
+                          >
                             {logoPath && (
                               <img 
                                 src={logoPath} 
-                                alt={`${skillCode} logo`} 
+                                alt={`${skill.title} logo`} 
                                 className="w-5 h-5 object-contain flex-shrink-0" 
                                 onError={(e) => {
-                                  // Hide image if it fails to load
                                   e.currentTarget.style.display = 'none';
                                 }}
                               />
                             )}
                             <span className="text-sm font-medium text-foreground">
-                              {skillCode}
+                              {skill.title}
                             </span>
                           </div>
-                          {index < education.skillCodes.length - 1 && (
+                          {index < skills.length - 1 && (
                             <div className="border-b border-dashed border-border/50 mx-4"></div>
                           )}
                         </div>
@@ -329,6 +346,16 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
           </div>
         </Tabs>
       </DialogContent>
+
+      {/* Skill Detail Dialog */}
+      <SkillDetailDialog
+        skill={selectedSkill}
+        isOpen={isSkillDialogOpen}
+        onClose={() => {
+          setIsSkillDialogOpen(false);
+          setSelectedSkill(null);
+        }}
+      />
     </Dialog>
   );
 };
