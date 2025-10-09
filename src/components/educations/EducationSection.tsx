@@ -36,7 +36,7 @@ const EducationSection = () => {
         const educations = await educationRepo.getList();
         
         // Get general info
-        const response = await fetch('/src/data/education.json');
+        const response = await fetch('/data/education.json');
         const fullData = await response.json();
         const data: EducationData = {
           general: fullData.general,

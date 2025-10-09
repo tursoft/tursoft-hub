@@ -4,7 +4,7 @@ import { companiesRepo } from './CompaniesRepo';
 
 class EducationRepo extends BaseRepo<Education, EducationData> {
   constructor() {
-    super('/src/data/education.json');
+    super('/data/education.json');
   }
   
   async getTitleByCode(code: string | null | undefined): Promise<string | null> {

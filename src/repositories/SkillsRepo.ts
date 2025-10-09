@@ -3,7 +3,7 @@ import BaseRepoAdvanced from './base/BaseRepoAdvanced';
 
 class SkillsRepo extends BaseRepoAdvanced<SkillItem, SkillsData> {
   constructor() {
-    super('/src/data/skills.json');
+    super('/data/skills.json');
   }
 }
 

@@ -3,7 +3,7 @@ import BaseRepoAdvanced from './base/BaseRepoAdvanced';
 
 class CompaniesRepo extends BaseRepoAdvanced<Company, CompaniesData> {
 	constructor() {
-		super('/src/data/companies.json');
+		super('/data/companies.json');
 	}
 }
 

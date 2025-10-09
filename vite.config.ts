@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(), 
     // mode === "development" && componentTagger(),
-    // Auto-copy assets from src to public during build
+    // Copy files for both dev and production
     viteStaticCopy({
       targets: [
         {
@@ -22,10 +22,14 @@ export default defineConfig(({ mode }) => ({
           dest: 'assets'
         },
         {
-          src: 'src/data/**/*',
+          src: 'src/data/**/*.json',
           dest: 'data'
         }
-      ]
+      ],
+      // Copy during dev and build
+      watch: {
+        reloadPageOnChange: true
+      }
     })
   ].filter(Boolean),
   resolve: {
@@ -33,4 +37,6 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // Ensure public dir is served
+  publicDir: 'public',
 }));
