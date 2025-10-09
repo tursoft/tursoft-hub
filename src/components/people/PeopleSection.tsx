@@ -1,8 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Filter, Search } from "lucide-react";
 import { peopleRepo } from '@/repositories/PeopleRepo';
 import type { Person } from '@/models/People';
 import ListViewer from '@/components/ui/ListViewer';
@@ -13,10 +9,8 @@ interface PersonWithIcon extends Person {
 }
 
 const PeopleSection = () => {
-  const [showFilters, setShowFilters] = useState(false);
   const [people, setPeople] = useState<PersonWithIcon[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchText, setSearchText] = useState("");
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
   const [isPeopleDialogOpen, setIsPeopleDialogOpen] = useState(false);
 
@@ -44,63 +38,24 @@ const PeopleSection = () => {
     loadData();
   }, []);
 
-  // Filter people by search
-  const filteredPeople = people.filter((person) => {
-    const matchesSearch = !searchText.trim() ||
-      person.title.toLowerCase().includes(searchText.toLowerCase()) ||
-      person.code.toLowerCase().includes(searchText.toLowerCase()) ||
-      String(person.company || '').toLowerCase().includes(searchText.toLowerCase());
-    return matchesSearch;
-  });
-
   return (
     <section id="people" className="py-20 bg-background/50">
       <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Team<span className="text-primary bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Members</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Talented professionals I've had the privilege to work with throughout my career
-          </p>
-        </div>
-
-        {/* Filter Controls */}
-        <div className="space-y-4 mb-8">
-          {/* Mobile Filter Toggle */}
-          <div className="lg:hidden">
-            <Button
-              variant="outline"
-              onClick={() => setShowFilters(!showFilters)}
-            >
-              <Filter className="w-4 h-4 mr-2" />
-              Filters ({filteredPeople.length})
-            </Button>
-          </div>
-
-          {/* Search Input */}
-          <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            <Input
-              placeholder="Search people, companies..."
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              className="pl-10 h-10"
-            />
-          </div>
-        </div>
-
-        {/* ListViewer */}
+        {/* ListViewer with built-in search */}
         <ListViewer<PersonWithIcon>
-          data={filteredPeople}
+          data={people}
           isLoading={isLoading}
           loadingMessage="Loading people..."
           emptyMessage="No people found."
+          title='Team<span class="text-primary bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Members</span>'
+          subtitle="Talented professionals I've had the privilege to work with throughout my career"
           defaultViewMode="card"
           enabledModes={['card', 'list']}
           enableShowMore={true}
           visibleMajorItemCount={12}
+          enableSearch={true}
+          searchFields={['title', 'code', 'company']}
+          searchPlaceholder="Search people, companies..."
           onItemClick={(person) => {
             setSelectedPerson(person);
             setIsPeopleDialogOpen(true);

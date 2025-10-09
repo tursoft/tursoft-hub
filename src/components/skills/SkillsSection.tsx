@@ -1,8 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Filter, Search } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import type { SkillItem } from '@/models/Skills';
 import ListViewer from '@/components/ui/ListViewer';
@@ -13,12 +9,8 @@ interface SkillWithIcon extends SkillItem {
 }
 
 const SkillsSectionRefactored = () => {
-  const [selectedGroup, setSelectedGroup] = useState("All");
-  const [showFilters, setShowFilters] = useState(false);
   const [skills, setSkills] = useState<SkillWithIcon[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchText, setSearchText] = useState("");
-  const [groups, setGroups] = useState<string[]>([]);
   const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
   const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
 
@@ -27,10 +19,6 @@ const SkillsSectionRefactored = () => {
     const loadData = async () => {
       try {
         const data = await skillsRepo.getList();
-
-        // Get unique groups
-        const uniqueGroups = [...new Set(data.map(s => String(s.group)).filter(Boolean))].sort();
-        setGroups(uniqueGroups);
 
         // Process skills with icons
         const processedSkills = data.map((skill) => ({
@@ -50,92 +38,29 @@ const SkillsSectionRefactored = () => {
     loadData();
   }, []);
 
-  // Filter skills by group and search
-  const filteredSkills = skills.filter((skill) => {
-    const matchesGroup = selectedGroup === "All" || String(skill.group) === selectedGroup;
-    const matchesSearch = !searchText.trim() ||
-      skill.title.toLowerCase().includes(searchText.toLowerCase()) ||
-      skill.code.toLowerCase().includes(searchText.toLowerCase()) ||
-      String(skill.group || '').toLowerCase().includes(searchText.toLowerCase());
-    return matchesGroup && matchesSearch;
-  });
-
-  // Get unique groups/categories
-  const categories = ['All', ...groups];
-
-  const getGroupCount = (group: string) => {
-    if (group === "All") return skills.length;
-    return skills.filter(s => String(s.group) === group).length;
-  };
+  // Get unique groups for statistics
+  const groups = [...new Set(skills.map(s => String(s.group)).filter(Boolean))];
 
   return (
     <section id="skills" className="py-20 bg-background/50">
       <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Technical<span className="text-primary bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Skills</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A comprehensive overview of programming languages, frameworks, databases, and tools I've mastered throughout my career
-          </p>
-        </div>
-
-        {/* Filter Controls */}
-        <div className="space-y-4 mb-8">
-          {/* Mobile Filter Toggle */}
-          <div className="lg:hidden">
-            <Button
-              variant="outline"
-              onClick={() => setShowFilters(!showFilters)}
-            >
-              <Filter className="w-4 h-4 mr-2" />
-              Filters ({getGroupCount(selectedGroup)})
-            </Button>
-          </div>
-
-          {/* Filter Categories */}
-          <div className={`${showFilters ? 'block' : 'hidden lg:block'}`}>
-            <div className="flex flex-wrap gap-2 w-full">
-              {categories.map((category) => (
-                <Button
-                  key={category}
-                  variant={selectedGroup === category ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedGroup(category)}
-                  className="flex-1 min-w-fit transition-all duration-200 hover:scale-105"
-                >
-                  {category}
-                  <Badge variant="secondary" className="ml-2 text-xs">
-                    {getGroupCount(category)}
-                  </Badge>
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Search Input */}
-          <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            <Input
-              placeholder="Search skills, technologies, or categories..."
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              className="pl-10 h-10"
-            />
-          </div>
-        </div>
-
-        {/* ListViewer */}
+        {/* ListViewer with built-in filters */}
         <ListViewer<SkillWithIcon>
-          data={filteredSkills}
+          data={skills}
           isLoading={isLoading}
           loadingMessage="Loading skills..."
           emptyMessage="No skills found."
+          title='Technical<span class="text-primary bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Skills</span>'
+          subtitle="A comprehensive overview of programming languages, frameworks, databases, and tools I've mastered throughout my career"
           defaultViewMode="small-card"
           enabledModes={['small-card', 'card', 'list']}
           enableShowMore={true}
           visibleMajorItemCount={16}
+          enableCategoryFilter={true}
+          categoryField="group"
+          enableSearch={true}
+          searchFields={['title', 'code', 'group']}
+          searchPlaceholder="Search skills, technologies, or categories..."
           onItemClick={(skill) => {
             setSelectedSkill(skill);
             setIsSkillDialogOpen(true);

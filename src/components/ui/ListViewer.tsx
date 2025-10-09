@@ -1,8 +1,9 @@
-import { useState, useRef, ReactNode } from "react";
+import { useState, useRef, ReactNode, useMemo, useCallback } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Grid, List, RotateCcw, Grid3x3 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ChevronLeft, ChevronRight, Grid, List, RotateCcw, Grid3x3, Filter, Search } from "lucide-react";
 
 export type ViewMode = 'small-card' | 'card' | 'list' | 'carousel';
 
@@ -47,6 +48,14 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   title?: string;
   subtitle?: string;
   badge?: string;
+  
+  // Filtering
+  enableCategoryFilter?: boolean;
+  categoryField?: string | ((item: T) => string); // Field name or function to extract category
+  categoryLabels?: Record<string, string>; // Optional custom labels for categories
+  enableSearch?: boolean;
+  searchFields?: string[] | ((item: T) => string[]); // Fields to search in
+  searchPlaceholder?: string;
   
   // Rendering customization
   renderCardContent?: (item: T) => ReactNode;
@@ -100,6 +109,12 @@ const ListViewer = <T = any>({
   title,
   subtitle,
   badge,
+  enableCategoryFilter = false,
+  categoryField,
+  categoryLabels,
+  enableSearch = false,
+  searchFields,
+  searchPlaceholder = 'Search...',
   renderCardContent,
   renderListContent,
   renderCarouselContent,
@@ -121,24 +136,79 @@ const ListViewer = <T = any>({
   const [viewMode, setViewMode] = useState<ViewMode>(defaultViewMode);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAll, setShowAll] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [searchText, setSearchText] = useState<string>('');
+  const [showFilters, setShowFilters] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Helper to get field value
-  const getFieldValue = (item: T, field: string | ((item: T) => string) | undefined): string => {
+  const getFieldValue = useCallback((item: T, field: string | ((item: T) => string) | undefined): string => {
     if (!field) return '';
     return typeof field === 'function' ? field(item) : String(item[field as keyof T] || '');
-  };
+  }, []);
+
+  // Extract categories from data
+  const categories = useMemo(() => {
+    if (!enableCategoryFilter || !categoryField) return [];
+    const categorySet = new Set<string>();
+    data.forEach(item => {
+      const category = getFieldValue(item, categoryField);
+      if (category) categorySet.add(category);
+    });
+    return ['All', ...Array.from(categorySet).sort()];
+  }, [data, enableCategoryFilter, categoryField, getFieldValue]);
+
+  // Get category count
+  const getCategoryCount = useCallback((category: string) => {
+    if (category === 'All') return data.length;
+    return data.filter(item => {
+      const itemCategory = getFieldValue(item, categoryField);
+      return itemCategory === category;
+    }).length;
+  }, [data, categoryField, getFieldValue]);
+
+  // Apply filters to data
+  const filteredData = useMemo(() => {
+    let result = [...data];
+
+    // Apply category filter
+    if (enableCategoryFilter && categoryField && selectedCategory !== 'All') {
+      result = result.filter(item => {
+        const itemCategory = getFieldValue(item, categoryField);
+        return itemCategory === selectedCategory;
+      });
+    }
+
+    // Apply search filter
+    if (enableSearch && searchText) {
+      const searchLower = searchText.toLowerCase();
+      result = result.filter(item => {
+        // Get search fields
+        const fieldsToSearch = typeof searchFields === 'function' 
+          ? searchFields(item)
+          : searchFields || [fieldMapping.title, fieldMapping.subtitle].filter(Boolean) as string[];
+        
+        // Check if any field matches search text
+        return fieldsToSearch.some(field => {
+          const value = getFieldValue(item, field);
+          return value.toLowerCase().includes(searchLower);
+        });
+      });
+    }
+
+    return result;
+  }, [data, enableCategoryFilter, categoryField, selectedCategory, enableSearch, searchText, searchFields, fieldMapping, getFieldValue]);
 
   // Get visible data based on showAll state
   const getVisibleData = () => {
     if (!enableShowMore || showAll || !visibleMajorItemCount) {
-      return data;
+      return filteredData;
     }
-    return data.slice(0, visibleMajorItemCount);
+    return filteredData.slice(0, visibleMajorItemCount);
   };
 
   const visibleData = getVisibleData();
-  const hasMore = enableShowMore && visibleMajorItemCount && data.length > visibleMajorItemCount;
+  const hasMore = enableShowMore && visibleMajorItemCount && filteredData.length > visibleMajorItemCount;
 
   // Carousel navigation
   const nextSlide = () => {
@@ -572,6 +642,63 @@ const ListViewer = <T = any>({
                 {subtitle}
               </p>
             )}
+          </div>
+        )}
+
+        {/* Filters */}
+        {(enableCategoryFilter || enableSearch) && (
+          <div className="mb-8">
+            {/* Mobile Filter Toggle */}
+            <div className="md:hidden flex justify-center mb-4">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowFilters(!showFilters)}
+                className="gap-2"
+              >
+                <Filter className="w-4 h-4" />
+                {showFilters ? 'Hide Filters' : 'Show Filters'}
+              </Button>
+            </div>
+
+            {/* Filter Controls */}
+            <div className={`space-y-4 ${showFilters ? 'block' : 'hidden'} md:block`}>
+              {/* Category Filter */}
+              {enableCategoryFilter && categoryField && categories.length > 0 && (
+                <div className="flex flex-wrap justify-center gap-2">
+                  {categories.map((category) => (
+                    <Button
+                      key={category}
+                      variant={selectedCategory === category ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setSelectedCategory(category)}
+                      className="gap-2"
+                    >
+                      {categoryLabels?.[category] || category}
+                      <Badge variant={selectedCategory === category ? 'secondary' : 'outline'}>
+                        {getCategoryCount(category)}
+                      </Badge>
+                    </Button>
+                  ))}
+                </div>
+              )}
+
+              {/* Search Input */}
+              {enableSearch && (
+                <div className="flex justify-center">
+                  <div className="relative w-full max-w-md">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                      type="text"
+                      placeholder={searchPlaceholder}
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                      className="pl-10"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
