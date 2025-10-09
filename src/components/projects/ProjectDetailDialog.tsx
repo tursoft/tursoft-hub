@@ -25,13 +25,15 @@ import {
   Info,
   Wrench,
   Users,
-  UserCheck
+  UserCheck,
+  Image
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
 import { peopleRepo } from '@/repositories/PeopleRepo';
 import { partnersRepo } from '@/repositories/PartnersRepo';
 import { experienceRepo } from '@/repositories/ExperienceRepo';
+import { projectFilesRepo } from '@/repositories/ProjectFilesRepo';
 import SkillDetailDialog from '../skills/SkillDetailDialog';
 import PartnerDetailDialog from '../partners/PartnerDetailDialog';
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog';
@@ -42,6 +44,7 @@ import type SkillItem from '@/models/Skills';
 import type { Partner } from '@/models/Partner';
 import type { Company } from '@/models/Companies';
 import type { Experience } from '@/models/Experience';
+import type { ScreenshotItem } from '@/models/ProjectFiles';
 
 interface Customer {
   code: string;
@@ -84,6 +87,9 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
   const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
   const [isPeopleDialogOpen, setIsPeopleDialogOpen] = useState(false);
+  const [screenshots, setScreenshots] = useState<ScreenshotItem[]>([]);
+  const [selectedScreenshot, setSelectedScreenshot] = useState<string | null>(null);
+  const [isScreenshotFullscreen, setIsScreenshotFullscreen] = useState(false);
 
   // Load company name from companyCode
   useEffect(() => {
@@ -261,6 +267,34 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
     fetchExperience();
   }, [project?.companyCode]);
 
+  // Fetch screenshots for the project
+  useEffect(() => {
+    const fetchScreenshots = async () => {
+      if (!project?.code) {
+        setScreenshots([]);
+        return;
+      }
+
+      try {
+        const projectFiles = await projectFilesRepo.getByProjectCode(project.code);
+        if (projectFiles?.screenshoots) {
+          // Sort by orderindex
+          const sorted = [...projectFiles.screenshoots].sort(
+            (a, b) => (a.orderindex || 0) - (b.orderindex || 0)
+          );
+          setScreenshots(sorted);
+        } else {
+          setScreenshots([]);
+        }
+      } catch (error) {
+        console.error('Failed to fetch screenshots:', error);
+        setScreenshots([]);
+      }
+    };
+
+    fetchScreenshots();
+  }, [project?.code]);
+
   if (!project) return null;
 
   // Helper function to format date period
@@ -347,7 +381,11 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
         </div>
 
         <Tabs defaultValue="overview" className="w-full pt-2">
-          <TabsList className={`grid w-full ${project.customerCodes && project.customerCodes.length > 0 ? 'grid-cols-4' : 'grid-cols-3'}`}>
+          <TabsList className={`grid w-full ${
+            screenshots.length > 0 
+              ? (project.customerCodes && project.customerCodes.length > 0 ? 'grid-cols-5' : 'grid-cols-4')
+              : (project.customerCodes && project.customerCodes.length > 0 ? 'grid-cols-4' : 'grid-cols-3')
+          }`}>
             <TabsTrigger value="overview">
               <span className="flex items-center gap-2">
                 <Info className="w-4 h-4" />
@@ -383,6 +421,17 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                 </Badge>
               </span>
             </TabsTrigger>
+            {screenshots.length > 0 && (
+              <TabsTrigger value="screenshots">
+                <span className="flex items-center gap-2">
+                  <Image className="w-4 h-4" />
+                  Screenshots
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {screenshots.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
+            )}
             {partners.length > 0 && (
               <TabsTrigger value="partners">
                 <span className="flex items-center gap-2">
@@ -731,9 +780,69 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                 </div>
               </TabsContent>
             )}
+
+            {/* Screenshots Tab */}
+            {screenshots.length > 0 && (
+              <TabsContent value="screenshots" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
+                <div className="px-4 py-2">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {screenshots.map((screenshot, index) => (
+                      <Card 
+                        key={index}
+                        className="cursor-pointer hover:shadow-lg transition-all duration-200 hover:border-primary/50 overflow-hidden group"
+                        onClick={() => {
+                          setSelectedScreenshot(screenshot.file_big || screenshot.file_small || '');
+                          setIsScreenshotFullscreen(true);
+                        }}
+                      >
+                        <div className="relative aspect-video bg-muted">
+                          <img 
+                            src={screenshot.file_small || screenshot.file_big || ''} 
+                            alt={screenshot.title || `Screenshot ${index + 1}`}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                            onError={(e) => {
+                              e.currentTarget.src = '/placeholder.svg';
+                            }}
+                          />
+                          {screenshot.title && (
+                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-2">
+                              <p className="text-white text-xs line-clamp-1">{screenshot.title}</p>
+                            </div>
+                          )}
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </TabsContent>
+            )}
           </div>
         </Tabs>
       </DialogContent>
+
+      {/* Fullscreen Screenshot Modal */}
+      {isScreenshotFullscreen && selectedScreenshot && (
+        <Dialog open={isScreenshotFullscreen} onOpenChange={setIsScreenshotFullscreen}>
+          <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-black/95">
+            <div className="relative w-full h-full flex items-center justify-center">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsScreenshotFullscreen(false)}
+                className="absolute top-4 right-4 z-20 h-10 w-10 rounded-full bg-black/50 hover:bg-black/70 text-white"
+              >
+                <Minimize2 className="h-6 w-6" />
+              </Button>
+              <img 
+                src={selectedScreenshot} 
+                alt="Full screen screenshot"
+                className="max-w-full max-h-full object-contain"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
 
       {/* Skill Detail Dialog */}
       <SkillDetailDialog

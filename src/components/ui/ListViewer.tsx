@@ -579,6 +579,16 @@ const ListViewer = <T = any>({
         {enabledModes.length > 1 && (
           <div className="flex justify-center mb-8">
             <div className="flex gap-1 bg-muted/30 p-1 rounded-lg">
+              {enabledModes.includes('small-card') && (
+                <Button
+                  variant={viewMode === 'small-card' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setViewMode('small-card')}
+                  className="h-8 px-3"
+                >
+                  <Grid3x3 className="w-4 h-4" />
+                </Button>
+              )}
               {enabledModes.includes('card') && (
                 <Button
                   variant={viewMode === 'card' ? 'default' : 'ghost'}
@@ -597,16 +607,6 @@ const ListViewer = <T = any>({
                   className="h-8 px-3"
                 >
                   <List className="w-4 h-4" />
-                </Button>
-              )}
-              {enabledModes.includes('small-card') && (
-                <Button
-                  variant={viewMode === 'small-card' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('small-card')}
-                  className="h-8 px-3"
-                >
-                  <Grid3x3 className="w-4 h-4" />
                 </Button>
               )}
               {enabledModes.includes('carousel') && (

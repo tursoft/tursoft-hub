@@ -142,8 +142,8 @@ const CustomersSectionRefactored = () => {
           isLoading={isLoading}
           loadingMessage="Loading customers..."
           emptyMessage="No customers found in this category."
-          defaultViewMode="card"
-          enabledModes={['card', 'list', 'carousel']}
+          defaultViewMode="small-card"
+          enabledModes={['small-card', 'card', 'list', 'carousel']}
           enableShowMore={true}
           visibleMajorItemCount={21}
           fieldMapping={{
