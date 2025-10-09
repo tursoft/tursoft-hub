@@ -38,6 +38,7 @@ import SkillDetailDialog from '../skills/SkillDetailDialog';
 import PartnerDetailDialog from '../partners/PartnerDetailDialog';
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog';
 import PeopleDetailDialog from '../people/PeopleDetailDialog';
+import ListViewer from '@/components/ui/ListViewer';
 import type { ProjectEntry } from '@/models/Project';
 import type { Person } from '@/models/People';
 import type SkillItem from '@/models/Skills';
@@ -783,37 +784,62 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
             {/* Screenshots Tab */}
             {screenshots.length > 0 && (
-              <TabsContent value="screenshots" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
-                <div className="px-4 py-2">
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {screenshots.map((screenshot, index) => (
-                      <Card 
-                        key={index}
-                        className="cursor-pointer hover:shadow-lg transition-all duration-200 hover:border-primary/50 overflow-hidden group"
-                        onClick={() => {
-                          setSelectedScreenshot(screenshot.file_big || screenshot.file_small || '');
-                          setIsScreenshotFullscreen(true);
-                        }}
-                      >
-                        <div className="relative aspect-video bg-muted">
-                          <img 
-                            src={screenshot.file_small || screenshot.file_big || ''} 
-                            alt={screenshot.title || `Screenshot ${index + 1}`}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-                            onError={(e) => {
-                              e.currentTarget.src = '/placeholder.svg';
-                            }}
-                          />
-                          {screenshot.title && (
-                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-2">
-                              <p className="text-white text-xs line-clamp-1">{screenshot.title}</p>
-                            </div>
-                          )}
-                        </div>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
+              <TabsContent value="screenshots" className="h-full overflow-y-auto">
+                <ListViewer<ScreenshotItem>
+                  data={screenshots}
+                  defaultViewMode="card"
+                  enabledModes={['card', 'list']}
+                  fieldMapping={{
+                    code: (item) => item.file_small || item.file_big || `screenshot-${screenshots.indexOf(item)}`,
+                    title: (item) => item.title || `Screenshot ${screenshots.indexOf(item) + 1}`,
+                    image: (item) => item.file_small || item.file_big || '/placeholder.svg',
+                    description: (item) => item.title ? '' : 'Click to view full size',
+                  }}
+                  gridCols={{ sm: 1, md: 2, lg: 3 }}
+                  onItemClick={(screenshot) => {
+                    setSelectedScreenshot(screenshot.file_big || screenshot.file_small || '');
+                    setIsScreenshotFullscreen(true);
+                  }}
+                  renderCardContent={(screenshot) => (
+                    <div className="cursor-pointer group">
+                      <div className="relative aspect-video bg-muted overflow-hidden">
+                        <img 
+                          src={screenshot.file_small || screenshot.file_big || '/placeholder.svg'} 
+                          alt={screenshot.title || 'Screenshot'}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                          onError={(e) => {
+                            e.currentTarget.src = '/placeholder.svg';
+                          }}
+                        />
+                        {screenshot.title && (
+                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-2">
+                            <p className="text-white text-xs line-clamp-1">{screenshot.title}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  renderListContent={(screenshot) => (
+                    <div className="flex items-center gap-4 cursor-pointer">
+                      <div className="w-32 h-20 flex-shrink-0 bg-muted rounded overflow-hidden">
+                        <img 
+                          src={screenshot.file_small || screenshot.file_big || '/placeholder.svg'} 
+                          alt={screenshot.title || 'Screenshot'}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.src = '/placeholder.svg';
+                          }}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-sm">
+                          {screenshot.title || `Screenshot ${screenshots.indexOf(screenshot) + 1}`}
+                        </h4>
+                        <p className="text-xs text-muted-foreground mt-1">Click to view full size</p>
+                      </div>
+                    </div>
+                  )}
+                />
               </TabsContent>
             )}
           </div>
