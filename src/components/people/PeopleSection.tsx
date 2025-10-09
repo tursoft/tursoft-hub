@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { peopleRepo } from '@/repositories/PeopleRepo';
 import type { Person } from '@/models/People';
-import ListViewer from '@/components/ui/ListViewer';
+import ListViewer from '@/components/ui/listviewer';
 import PeopleDetailDialog from './PeopleDetailDialog';
 
 interface PersonWithIcon extends Person {
@@ -41,7 +41,7 @@ const PeopleSection = () => {
   return (
     <section id="people" className="py-20 bg-background/50">
       <div className="container mx-auto px-4">
-        {/* ListViewer with built-in search */}
+        {/* listviewer with built-in search */}
         <ListViewer<PersonWithIcon>
           data={people}
           isLoading={isLoading}

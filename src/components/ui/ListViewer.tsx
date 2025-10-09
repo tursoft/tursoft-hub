@@ -288,13 +288,13 @@ const ListViewer = <T = any>({
           <div className="flex flex-col items-center text-center">
             {image && (
               <div className="flex-shrink-0 mb-3">
-                <div className={`w-24 overflow-hidden border-background shadow-lg ${
+                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden border-background shadow-lg ${
                   imageRounded ? 'rounded-full border-4' : 'rounded-lg'
                 }`}>
                   <img 
                     src={image} 
                     alt={title}
-                    className="w-full h-full object-cover"
+                    className="max-h-full max-w-full object-contain"
                   />
                 </div>
               </div>
@@ -382,13 +382,13 @@ const ListViewer = <T = any>({
           <div className="flex gap-6 items-start">
             {image && (
               <div className="flex-shrink-0">
-                <div className={`w-24 overflow-hidden border-background shadow-lg ${
+                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden border-background shadow-lg ${
                   imageRounded ? 'rounded-full border-4' : 'rounded-lg'
                 }`}>
                   <img 
                     src={image} 
                     alt={title}
-                    className="w-full h-full object-cover"
+                    className="max-h-full max-w-full object-contain"
                   />
                 </div>
               </div>
@@ -538,13 +538,13 @@ const ListViewer = <T = any>({
           <div className="flex flex-col items-center text-center">
             {image && (
               <div className="flex-shrink-0 mb-2 -mt-8">
-                <div className={`w-20 overflow-hidden border-background shadow-lg ${
+                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden border-background shadow-lg ${
                   imageRounded ? 'rounded-full border-4' : 'rounded-lg'
                 }`}>
                   <img 
                     src={image} 
                     alt={title}
-                    className="w-full h-full object-cover"
+                    className="max-h-full max-w-full object-contain"
                   />
                 </div>
               </div>

@@ -40,7 +40,7 @@ import SkillDetailDialog from '../skills/SkillDetailDialog';
 import PartnerDetailDialog from '../partners/PartnerDetailDialog';
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog';
 import PeopleDetailDialog from '../people/PeopleDetailDialog';
-import ListViewer from '@/components/ui/ListViewer';
+import ListViewer from '@/components/ui/listviewer';
 import type { ProjectEntry } from '@/models/Project';
 import type { Person } from '@/models/People';
 import type SkillItem from '@/models/Skills';

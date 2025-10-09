@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import CustomerDetailDialog from './CustomerDetailDialog';
 import type { Customer, CustomerData } from '@/models/Customer';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
-import ListViewer from '@/components/ui/ListViewer';
+import ListViewer from '@/components/ui/listviewer';
 
 interface CustomerWithLogo extends Customer {
   logo: string;
@@ -59,7 +59,7 @@ const CustomersSectionRefactored = () => {
   return (
     <section id="customers" className="py-20 bg-background/50">
       <div className="container mx-auto px-4">
-        {/* ListViewer with built-in filters */}
+        {/* listviewer with built-in filters */}
         <ListViewer<CustomerWithLogo>
           data={customers}
           isLoading={isLoading}
