@@ -136,16 +136,6 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
         <DialogHeader className="flex-shrink-0 pl-24">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-2 flex-wrap">
-                <Badge variant="outline" className="text-xs bg-indigo-500/10 text-indigo-500 border-indigo-500/20">
-                  Skill
-                </Badge>
-                {skill.isMajor && (
-                  <Badge variant="default" className="text-xs">
-                    Major
-                  </Badge>
-                )}
-              </div>
               <DialogTitle className="text-2xl font-bold pr-4">
                 {skill.title}
               </DialogTitle>
@@ -174,10 +164,22 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
           </Button>
         </div>
 
+        {/* Type Badge - positioned below buttons */}
+        <div className="absolute top-14 right-4 flex gap-2 flex-wrap justify-end z-10">
+          <Badge variant="outline" className="text-xs bg-indigo-500/10 text-indigo-500 border-indigo-500/20">
+            Skill
+          </Badge>
+          {skill.isMajor && (
+            <Badge variant="default" className="text-xs">
+              Major
+            </Badge>
+          )}
+        </div>
+
         {/* Content */}
-        <div className="flex-1 overflow-hidden pl-24">
+        <div className="flex-1 overflow-hidden pl-24 pt-2">
           <Tabs defaultValue="overview" className="h-full flex flex-col">
-            <TabsList className="flex-shrink-0 mb-4">
+            <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-3">
               <TabsTrigger value="overview">
                 <span className="flex items-center gap-2">
                   <Info className="w-4 h-4" />
@@ -209,7 +211,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
             </TabsList>
 
             <div className="flex-1 overflow-y-auto">
-              <TabsContent value="overview" className="space-y-4 min-h-[400px] mt-0">
+              <TabsContent value="overview" className="space-y-4 min-h-[400px] mt-0 h-full overflow-y-auto">
                 <div className="px-4 py-2">
                   {/* Statistics */}
                   <div className="grid grid-cols-2 gap-4 mb-6">
@@ -253,7 +255,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                 </div>
               </TabsContent>
 
-              <TabsContent value="experiences" className="space-y-3 min-h-[400px] mt-0">
+              <TabsContent value="experiences" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
                 <div className="px-4 py-2">
                   {isLoadingData ? (
                     <div className="text-center text-muted-foreground py-8">Loading experiences...</div>
@@ -305,7 +307,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                 </div>
               </TabsContent>
 
-              <TabsContent value="projects" className="space-y-3 min-h-[400px] mt-0">
+              <TabsContent value="projects" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
                 <div className="px-4 py-2">
                   {isLoadingData ? (
                     <div className="text-center text-muted-foreground py-8">Loading projects...</div>

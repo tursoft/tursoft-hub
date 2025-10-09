@@ -31,13 +31,16 @@ import { skillsRepo } from '@/repositories/SkillsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
 import { peopleRepo } from '@/repositories/PeopleRepo';
 import { partnersRepo } from '@/repositories/PartnersRepo';
+import { experienceRepo } from '@/repositories/ExperienceRepo';
 import SkillDetailDialog from '../skills/SkillDetailDialog';
 import PartnerDetailDialog from '../partners/PartnerDetailDialog';
+import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog';
 import type { ProjectEntry } from '@/models/Project';
 import type { Person } from '@/models/People';
 import type SkillItem from '@/models/Skills';
 import type { Partner } from '@/models/Partner';
 import type { Company } from '@/models/Companies';
+import type { Experience } from '@/models/Experience';
 
 interface Customer {
   code: string;
@@ -75,6 +78,9 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
   const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [partnerCompanies, setPartnerCompanies] = useState<{ [key: string]: Company }>({});
+  const [experience, setExperience] = useState<Experience | null>(null);
+  const [experienceCompany, setExperienceCompany] = useState<Company | null>(null);
+  const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false);
 
   // Load company name from companyCode
   useEffect(() => {
@@ -212,6 +218,46 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
     loadTeamMembers();
   }, [project?.team]);
 
+  // Fetch experience data based on project's companyCode
+  useEffect(() => {
+    const fetchExperience = async () => {
+      if (!project?.companyCode) {
+        setExperience(null);
+        setExperienceCompany(null);
+        return;
+      }
+
+      try {
+        // Fetch all experiences
+        const allExperiences = await experienceRepo.getList();
+        
+        // Find the experience that matches the project's companyCode
+        const matchedExperience = allExperiences.find(
+          exp => exp.companyCode?.toLowerCase() === project.companyCode?.toLowerCase()
+        );
+
+        if (matchedExperience) {
+          setExperience(matchedExperience);
+          
+          // Fetch the company details
+          if (matchedExperience.companyCode) {
+            const company = await companiesRepo.getByCode(matchedExperience.companyCode);
+            setExperienceCompany(company);
+          }
+        } else {
+          setExperience(null);
+          setExperienceCompany(null);
+        }
+      } catch (error) {
+        console.error('Failed to fetch experience:', error);
+        setExperience(null);
+        setExperienceCompany(null);
+      }
+    };
+
+    fetchExperience();
+  }, [project?.companyCode]);
+
   if (!project) return null;
 
   // Helper function to format date period
@@ -268,17 +314,9 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
           )}
           <div className="flex items-start gap-4 pl-24">
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-2">
-                <DialogTitle className="text-2xl font-bold text-foreground">
-                  {project.title}
-                </DialogTitle>
-                <Badge variant="outline" className="text-xs bg-cyan-500/10 text-cyan-500 border-cyan-500/20">
-                  Project
-                </Badge>
-                <Badge variant="outline" className="text-xs">
-                  {project.group}
-                </Badge>
-              </div>
+              <DialogTitle className="text-2xl font-bold text-foreground mb-2">
+                {project.title}
+              </DialogTitle>
               <div className="text-base text-muted-foreground">
                 {companyName && (
                   <div className="flex items-center gap-2 mb-2">
@@ -295,7 +333,17 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
           </div>
         </DialogHeader>
 
-        <Tabs defaultValue="overview" className="w-full">
+        {/* Type badges positioned below action buttons */}
+        <div className="absolute top-14 right-4 flex gap-2 flex-wrap justify-end z-10">
+          <Badge variant="outline" className="text-xs bg-cyan-500/10 text-cyan-500 border-cyan-500/20">
+            Project
+          </Badge>
+          <Badge variant="outline" className="text-xs">
+            {project.group}
+          </Badge>
+        </div>
+
+        <Tabs defaultValue="overview" className="w-full pt-2">
           <TabsList className={`grid w-full ${project.customerCodes && project.customerCodes.length > 0 ? 'grid-cols-4' : 'grid-cols-3'}`}>
             <TabsTrigger value="overview">
               <span className="flex items-center gap-2">
@@ -346,7 +394,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
           </TabsList>
 
           <div className="max-h-[60vh] overflow-y-auto mt-4">
-            <TabsContent value="overview" className="space-y-3 min-h-[400px]">
+            <TabsContent value="overview" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
               {/* Project Summary */}
               <div className="px-4 py-2">
                 <CardDescription 
@@ -354,6 +402,44 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                   dangerouslySetInnerHTML={{ __html: project.summary }}
                 />
               </div>
+
+              {/* Experience/Company Box */}
+              {experience && experienceCompany && (
+                <div className="px-4 py-2">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Building2 className="w-4 h-4" />
+                    <span>Experience</span>
+                  </h4>
+                  <div 
+                    className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-pointer border border-border/50"
+                    onClick={() => setIsExperienceDialogOpen(true)}
+                  >
+                    {experienceCompany.photoUrl && (
+                      <img 
+                        src={experienceCompany.photoUrl} 
+                        alt={`${experienceCompany.title} logo`} 
+                        className="w-10 h-10 object-contain flex-shrink-0 rounded" 
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium text-foreground">
+                        {experienceCompany.title}
+                      </div>
+                      {experience.positions && experience.positions.length > 0 && (
+                        <div className="text-xs text-muted-foreground mt-1">
+                          {experience.positions.length} position{experience.positions.length > 1 ? 's' : ''}
+                        </div>
+                      )}
+                    </div>
+                    <Badge variant="outline" className="text-xs bg-blue-500/10 text-blue-500 border-blue-500/20">
+                      Experience
+                    </Badge>
+                  </div>
+                </div>
+              )}
 
               {/* Modules */}
               {project.modules && project.modules.length > 0 && (
@@ -416,7 +502,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               )}
             </TabsContent>
 
-            <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
+            <TabsContent value="technologies" className="space-y-2 min-h-[400px] h-full overflow-y-auto">
               <div className="px-4 py-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                   {skills.map((skill, index) => {
@@ -459,7 +545,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
             </TabsContent>
 
             {project.customerCodes && project.customerCodes.length > 0 && (
-              <TabsContent value="customers" className="space-y-2 min-h-[400px]">
+              <TabsContent value="customers" className="space-y-2 min-h-[400px] h-full overflow-y-auto">
                 <div className="px-4 py-2">
                   {isLoadingCustomers ? (
                     <div className="flex items-center justify-center py-8">
@@ -521,7 +607,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               </TabsContent>
             )}
 
-            <TabsContent value="team" className="space-y-6 min-h-[400px]">
+            <TabsContent value="team" className="space-y-6 min-h-[400px] h-full overflow-y-auto">
               <div className="p-4">
 
                 {teamMembers.length > 0 ? (
@@ -583,7 +669,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
             {/* Partners Tab */}
             {partners.length > 0 && (
-              <TabsContent value="partners" className="space-y-3 min-h-[400px]">
+              <TabsContent value="partners" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
                 <div className="px-4 py-2">
                   <div className="space-y-3">
                     {partners.map((partner) => {
@@ -653,6 +739,15 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
         onClose={() => {
           setIsPartnerDialogOpen(false);
           setSelectedPartner(null);
+        }}
+      />
+
+      {/* Experience Detail Dialog */}
+      <ExperienceDetailDialog
+        experience={experience as never}
+        isOpen={isExperienceDialogOpen}
+        onClose={() => {
+          setIsExperienceDialogOpen(false);
         }}
       />
     </Dialog>

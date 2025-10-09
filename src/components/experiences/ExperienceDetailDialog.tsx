@@ -239,19 +239,9 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
           )}
           <div className="flex items-start gap-4 pl-24">
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-2">
-                <DialogTitle className="text-2xl font-bold text-foreground">
-                  {company?.title || experience.code || 'Company'}
-                </DialogTitle>
-                <Badge variant="outline" className="text-xs bg-blue-500/10 text-blue-500 border-blue-500/20">
-                  Experience
-                </Badge>
-                {hasCurrentPosition && (
-                  <Badge variant="default" className="bg-primary text-primary-foreground text-xs">
-                    Current
-                  </Badge>
-                )}
-              </div>
+              <DialogTitle className="text-2xl font-bold text-foreground mb-2">
+                {company?.title || experience.code || 'Company'}
+              </DialogTitle>
               <div className="text-base text-muted-foreground">
                 <div className="flex items-center gap-2 mb-2">
                   <Clock className="w-4 h-4" />
@@ -292,7 +282,19 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
           </div>
         </DialogHeader>
 
-        <Tabs defaultValue="positions" className="w-full">
+        {/* Type badges positioned below action buttons */}
+        <div className="absolute top-14 right-4 flex gap-2 flex-wrap justify-end z-10">
+          <Badge variant="outline" className="text-xs bg-blue-500/10 text-blue-500 border-blue-500/20">
+            Experience
+          </Badge>
+          {hasCurrentPosition && (
+            <Badge variant="default" className="bg-primary text-primary-foreground text-xs">
+              Current
+            </Badge>
+          )}
+        </div>
+
+        <Tabs defaultValue="positions" className="w-full pt-2">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="positions">
               <span className="flex items-center gap-2">
@@ -324,7 +326,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
           </TabsList>
 
           <div className="max-h-[60vh] overflow-y-auto mt-4">
-            <TabsContent value="positions" className="space-y-3 min-h-[400px]">
+            <TabsContent value="positions" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
               {experience.positions.map((position, index) => (
                 <div key={index} className="px-4 py-2">
                   <div className="flex items-start justify-between mb-2">
@@ -366,7 +368,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
               ))}
             </TabsContent>
 
-            <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
+            <TabsContent value="technologies" className="space-y-2 min-h-[400px] h-full overflow-y-auto">
               <div className="px-4 py-2">
                 {isLoadingData ? (
                   <div className="text-center text-muted-foreground py-8">Loading skills...</div>
@@ -411,7 +413,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
               </div>
             </TabsContent>
 
-            <TabsContent value="projects" className="space-y-3 min-h-[400px]">
+            <TabsContent value="projects" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
               <div className="px-4 py-2">
                 {isLoadingData ? (
                   <div className="text-center text-muted-foreground py-8">Loading projects...</div>

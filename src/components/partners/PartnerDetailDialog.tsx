@@ -168,14 +168,9 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
           )}
           <div className="flex items-start gap-4 pl-24">
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-2">
-                <DialogTitle className="text-2xl font-bold text-foreground">
-                  {companyTitle || companyData?.title || partner.companyCode}
-                </DialogTitle>
-                <Badge variant="outline" className="text-xs bg-orange-500/10 text-orange-500 border-orange-500/20">
-                  Partner
-                </Badge>
-              </div>
+              <DialogTitle className="text-2xl font-bold text-foreground mb-2">
+                {companyTitle || companyData?.title || partner.companyCode}
+              </DialogTitle>
               <div className="text-base text-muted-foreground">
                 {companyData?.city && companyData?.country && (
                   <div className="flex items-center gap-2 mb-2">
@@ -188,7 +183,14 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
           </div>
         </DialogHeader>
 
-        <Tabs defaultValue="overview" className="w-full">
+        {/* Type badge positioned below action buttons */}
+        <div className="absolute top-14 right-4 z-10">
+          <Badge variant="outline" className="text-xs bg-orange-500/10 text-orange-500 border-orange-500/20">
+            Partner
+          </Badge>
+        </div>
+
+        <Tabs defaultValue="overview" className="w-full pt-2">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="overview">
               <span className="flex items-center gap-2">
@@ -210,7 +212,7 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
           </TabsList>
 
           {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-4">
+          <TabsContent value="overview" className="space-y-4 h-full overflow-y-auto">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -261,7 +263,7 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
           </TabsContent>
 
           {/* Projects Tab */}
-          <TabsContent value="projects" className="space-y-4">
+          <TabsContent value="projects" className="space-y-4 h-full overflow-y-auto">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">

@@ -135,14 +135,12 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
         <DialogHeader className="flex-shrink-0 pl-24">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-2 flex-wrap">
-                <Badge variant="outline" className="text-xs bg-amber-500/10 text-amber-500 border-amber-500/20">
-                  Domain
-                </Badge>
-              </div>
               <DialogTitle className="text-2xl font-bold pr-4">
                 {domain.title}
               </DialogTitle>
+              <DialogDescription className="mt-2 text-base">
+                {domain.code}
+              </DialogDescription>
             </div>
           </div>
         </DialogHeader>
@@ -163,10 +161,17 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
           </Button>
         </div>
 
+        {/* Type Badge - positioned below buttons */}
+        <div className="absolute top-14 right-4 z-10">
+          <Badge variant="outline" className="text-xs bg-amber-500/10 text-amber-500 border-amber-500/20">
+            Domain
+          </Badge>
+        </div>
+
         {/* Content */}
-        <div className="flex-1 overflow-hidden pl-24">
+        <div className="flex-1 overflow-hidden pl-24 pt-2">
           <Tabs defaultValue="experiences" className="h-full flex flex-col">
-            <TabsList className="flex-shrink-0 mb-4">
+            <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-2">
               {experiences.length > 0 && (
                 <TabsTrigger value="experiences">
                   <span className="flex items-center gap-2">
@@ -192,7 +197,7 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
             </TabsList>
 
             <div className="flex-1 overflow-y-auto">
-              <TabsContent value="experiences" className="space-y-3 min-h-[400px] mt-0">
+              <TabsContent value="experiences" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
                 <div className="px-4 py-2">
                   {isLoadingData ? (
                     <div className="text-center text-muted-foreground py-8">Loading experiences...</div>
@@ -244,7 +249,7 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
                 </div>
               </TabsContent>
 
-              <TabsContent value="projects" className="space-y-3 min-h-[400px] mt-0">
+              <TabsContent value="projects" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
                 <div className="px-4 py-2">
                   {isLoadingData ? (
                     <div className="text-center text-muted-foreground py-8">Loading projects...</div>

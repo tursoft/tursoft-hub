@@ -231,19 +231,9 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
           )}
           <div className="flex items-start gap-4 pl-24">
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-2">
-                <DialogTitle className="text-2xl font-bold text-foreground">
-                  {companyTitle || customer.companyCode || customer.code}
-                </DialogTitle>
-                <Badge variant="outline" className="text-xs bg-green-500/10 text-green-500 border-green-500/20">
-                  Customer
-                </Badge>
-                {customer.category && (
-                  <Badge variant="outline" className="text-xs">
-                    {customer.category}
-                  </Badge>
-                )}
-              </div>
+              <DialogTitle className="text-2xl font-bold text-foreground mb-2">
+                {companyTitle || customer.companyCode || customer.code}
+              </DialogTitle>
               <div className="text-base text-muted-foreground">
                 {customer.location && (
                   <div className="flex items-center gap-2 mb-2">
@@ -262,7 +252,19 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
           </div>
         </DialogHeader>
 
-        <Tabs defaultValue="overview" className="w-full">
+        {/* Type badges positioned below action buttons */}
+        <div className="absolute top-14 right-4 flex gap-2 flex-wrap justify-end z-10">
+          <Badge variant="outline" className="text-xs bg-green-500/10 text-green-500 border-green-500/20">
+            Customer
+          </Badge>
+          {customer.category && (
+            <Badge variant="outline" className="text-xs">
+              {customer.category}
+            </Badge>
+          )}
+        </div>
+
+        <Tabs defaultValue="overview" className="w-full pt-2">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="overview">
               <span className="flex items-center gap-2">
@@ -300,7 +302,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
           </TabsList>
 
           <div className="max-h-[60vh] overflow-y-auto mt-4">
-            <TabsContent value="overview" className="space-y-3 min-h-[400px]">
+            <TabsContent value="overview" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
               {/* Customer Description */}
               {customer.description && (
                 <div className="px-4 py-2">
@@ -414,7 +416,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
               )}
             </TabsContent>
 
-            <TabsContent value="services" className="space-y-6 min-h-[400px]">
+            <TabsContent value="services" className="space-y-6 min-h-[400px] h-full overflow-y-auto">
               <div className="p-4">
                 {customer.serviceCodes && customer.serviceCodes.length > 0 ? (
                   <>
@@ -441,7 +443,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
               </div>
             </TabsContent>
 
-            <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
+            <TabsContent value="technologies" className="space-y-2 min-h-[400px] h-full overflow-y-auto">
               {skills.length > 0 ? (
                 <div className="px-4 py-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">

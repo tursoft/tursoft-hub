@@ -156,17 +156,9 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
           )}
           <div className="flex items-start gap-4 pl-24">
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-2">
-                <DialogTitle className="text-2xl font-bold text-foreground">
-                  {education.department}
-                </DialogTitle>
-                <Badge variant="outline" className="text-xs bg-purple-500/10 text-purple-500 border-purple-500/20">
-                  Education
-                </Badge>
-                <Badge variant="outline" className="text-xs">
-                  {education.level}
-                </Badge>
-              </div>
+              <DialogTitle className="text-2xl font-bold text-foreground mb-2">
+                {education.department}
+              </DialogTitle>
               <div className="text-base text-muted-foreground">
                 <div className="flex items-center gap-2 mb-2">
                   <Building2 className="w-4 h-4" />
@@ -187,7 +179,17 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
           </div>
         </DialogHeader>
 
-        <Tabs defaultValue="overview" className="w-full">
+        {/* Type badges positioned below action buttons */}
+        <div className="absolute top-14 right-4 flex gap-2 flex-wrap justify-end z-10">
+          <Badge variant="outline" className="text-xs bg-purple-500/10 text-purple-500 border-purple-500/20">
+            Education
+          </Badge>
+          <Badge variant="outline" className="text-xs">
+            {education.level}
+          </Badge>
+        </div>
+
+        <Tabs defaultValue="overview" className="w-full pt-2">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="overview">
               <span className="flex items-center gap-2">
@@ -216,7 +218,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
           </TabsList>
 
           <div className="max-h-[60vh] overflow-y-auto mt-4">
-            <TabsContent value="overview" className="space-y-6">
+            <TabsContent value="overview" className="space-y-6 h-full overflow-y-auto">
               {/* Educational Summary */}
               <Card>
                 <CardHeader>
@@ -264,7 +266,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
 
             </TabsContent>
 
-            <TabsContent value="courses" className="space-y-6">
+            <TabsContent value="courses" className="space-y-6 h-full overflow-y-auto">
               {education.courses && education.courses.length > 0 ? (
                 <div className="space-y-4">
                       {education.courses.map((course, index) => (
@@ -296,7 +298,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
               )}
             </TabsContent>
 
-            <TabsContent value="technologies" className="space-y-2 min-h-[400px]">
+            <TabsContent value="technologies" className="space-y-2 min-h-[400px] h-full overflow-y-auto">
               {skills.length > 0 ? (
                 <div className="px-4 py-2">
                   <div className={`grid grid-cols-1 gap-x-4 ${isMaximized ? 'md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'md:grid-cols-2'}`}>

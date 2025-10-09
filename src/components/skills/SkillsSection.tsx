@@ -137,7 +137,7 @@ const SkillsSectionRefactored = () => {
             code: 'code',
             title: 'title',
             subtitle: (skill) => String(skill.group || ''),
-            description: (skill) => `${skill.projects} projects • ${skill.jobs} jobs • Level: ${skill.value}/100`,
+            description: (skill) => `${skill.projects} projects • ${skill.jobs} jobs`,
             image: 'icon',
             badge: (skill) => skill.isMajor ? 'Major' : '',
           }}
