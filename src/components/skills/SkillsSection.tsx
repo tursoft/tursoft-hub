@@ -6,6 +6,7 @@ import { Filter, Search } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import type { SkillItem } from '@/models/Skills';
 import ListViewer from '@/components/ui/ListViewer';
+import SkillDetailDialog from './SkillDetailDialog';
 
 interface SkillWithIcon extends SkillItem {
   icon: string;
@@ -18,6 +19,8 @@ const SkillsSectionRefactored = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
   const [groups, setGroups] = useState<string[]>([]);
+  const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
+  const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
 
   // Load skills data
   useEffect(() => {
@@ -133,6 +136,10 @@ const SkillsSectionRefactored = () => {
           enabledModes={['card', 'list']}
           enableShowMore={true}
           visibleMajorItemCount={16}
+          onItemClick={(skill) => {
+            setSelectedSkill(skill);
+            setIsSkillDialogOpen(true);
+          }}
           fieldMapping={{
             code: 'code',
             title: 'title',
@@ -172,6 +179,16 @@ const SkillsSectionRefactored = () => {
           }
         />
       </div>
+
+      {/* Skill Detail Dialog */}
+      <SkillDetailDialog
+        skill={selectedSkill}
+        isOpen={isSkillDialogOpen}
+        onClose={() => {
+          setIsSkillDialogOpen(false);
+          setSelectedSkill(null);
+        }}
+      />
     </section>
   );
 };
