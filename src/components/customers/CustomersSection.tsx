@@ -149,7 +149,6 @@ const CustomersSectionRefactored = () => {
           fieldMapping={{
             code: 'code',
             title: (customer) => customer.companyTitle,
-            subtitle: (customer) => customer.companyCode,
             description: 'description',
             image: 'logo',
             badge: 'category',
