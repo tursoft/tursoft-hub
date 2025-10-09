@@ -9,7 +9,7 @@ interface CustomerWithLogo extends Customer {
   companyTitle: string;
 }
 
-const CustomersSectionRefactored = () => {
+const CustomersSection = () => {
   const [customers, setCustomers] = useState<CustomerWithLogo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
@@ -134,4 +134,4 @@ const CustomersSectionRefactored = () => {
   );
 };
 
-export default CustomersSectionRefactored;
+export default CustomersSection;

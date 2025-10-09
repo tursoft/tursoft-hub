@@ -9,7 +9,7 @@ interface ProjectWithIcon extends ProjectEntry {
   formattedYears: string;
 }
 
-const PortfolioSectionRefactored = () => {
+const PortfolioSection = () => {
   const [projects, setProjects] = useState<ProjectWithIcon[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
@@ -148,4 +148,4 @@ const PortfolioSectionRefactored = () => {
   );
 };
 
-export default PortfolioSectionRefactored;
+export default PortfolioSection;

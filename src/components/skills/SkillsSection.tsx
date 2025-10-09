@@ -8,7 +8,7 @@ interface SkillWithIcon extends SkillItem {
   icon: string;
 }
 
-const SkillsSectionRefactored = () => {
+const SkillsSection = () => {
   const [skills, setSkills] = useState<SkillWithIcon[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
@@ -118,4 +118,4 @@ const SkillsSectionRefactored = () => {
   );
 };
 
-export default SkillsSectionRefactored;
+export default SkillsSection;
