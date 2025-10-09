@@ -19,15 +19,18 @@ import {
   Maximize2,
   Minimize2,
   Briefcase,
-  FolderKanban
+  FolderKanban,
+  GraduationCap
 } from "lucide-react";
 import type SkillItem from '@/models/Skills';
 import { experienceRepo } from '@/repositories/ExperienceRepo';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
+import { educationRepo } from '@/repositories/EducationRepo';
 import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
 import type { Company } from '@/models/Companies';
+import type { Education } from '@/models/Education';
 
 interface SkillDetailDialogProps {
   skill: SkillItem | null;
@@ -48,6 +51,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [projects, setProjects] = useState<ProjectEntry[]>([]);
+  const [educations, setEducations] = useState<Education[]>([]);
   const [companies, setCompanies] = useState<{ [key: string]: Company }>({});
 
   const loadRelatedData = async () => {
@@ -69,13 +73,23 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
       );
       setProjects(filteredProjects);
 
-      // Load companies for experiences and projects
+      // Load educations that use this skill
+      const allEducations = await educationRepo.getList();
+      const filteredEducations = allEducations.filter(edu => 
+        edu.skillCodes?.includes(skill.code || '')
+      );
+      setEducations(filteredEducations);
+
+      // Load companies for experiences, projects, and educations
       const companyCodes = new Set<string>();
       filteredExperiences.forEach(exp => {
         if (exp.companyCode) companyCodes.add(exp.companyCode);
       });
       filteredProjects.forEach(project => {
         if (project.companyCode) companyCodes.add(project.companyCode);
+      });
+      filteredEducations.forEach(edu => {
+        if (edu.companyCode) companyCodes.add(edu.companyCode);
       });
 
       const companiesData: { [key: string]: Company } = {};
@@ -178,7 +192,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
         {/* Content */}
         <div className="flex-1 overflow-hidden pl-24 pr-16 pt-2">
           <Tabs defaultValue="experiences" className="h-full flex flex-col">
-            <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-2">
+            <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-3">
               {projects.length > 0 && (
                 <TabsTrigger value="projects">
                   <span className="flex items-center gap-2">
@@ -197,6 +211,17 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                     Experiences
                     <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
                       {experiences.length}
+                    </Badge>
+                  </span>
+                </TabsTrigger>
+              )}
+              {educations.length > 0 && (
+                <TabsTrigger value="educations">
+                  <span className="flex items-center gap-2">
+                    <GraduationCap className="w-4 h-4" />
+                    Educations
+                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                      {educations.length}
                     </Badge>
                   </span>
                 </TabsTrigger>
@@ -311,6 +336,58 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                     </div>
                   ) : (
                     <p className="text-muted-foreground">No experiences found.</p>
+                  )}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="educations" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
+                <div className="px-4 py-2">
+                  {isLoadingData ? (
+                    <div className="text-center text-muted-foreground py-8">Loading educations...</div>
+                  ) : educations.length > 0 ? (
+                    <div className="space-y-3">
+                      {educations.map((education) => {
+                        const company = companies[education.companyCode || ''];
+                        const logoPath = company?.photoUrl || "";
+                        
+                        return (
+                          <Card 
+                            key={education.code}
+                            className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
+                          >
+                            <CardContent className="p-4">
+                              <div className="flex items-start gap-4">
+                                {logoPath && (
+                                  <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
+                                    <img 
+                                      src={logoPath} 
+                                      alt={`${company?.title} logo`} 
+                                      className="w-full h-full object-contain p-1"
+                                      onError={(e) => {
+                                        e.currentTarget.style.display = 'none';
+                                      }}
+                                    />
+                                  </div>
+                                )}
+                                <div className="flex-1 min-w-0">
+                                  <h3 className="font-semibold text-foreground mb-1">
+                                    {company?.title || education.companyCode}
+                                  </h3>
+                                  <CardDescription className="text-sm">
+                                    {education.department}
+                                  </CardDescription>
+                                  <CardDescription className="text-xs text-muted-foreground mt-1">
+                                    {education.level} • {education.period}
+                                  </CardDescription>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <p className="text-muted-foreground">No educations found.</p>
                   )}
                 </div>
               </TabsContent>
