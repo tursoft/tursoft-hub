@@ -379,6 +379,23 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                                   <CardDescription className="text-xs text-muted-foreground mt-1">
                                     {education.level} • {education.period}
                                   </CardDescription>
+                                  {education.courses && education.courses.length > 0 && (
+                                    <div className="mt-2 pt-2 border-t border-border/50">
+                                      <p className="text-xs font-medium text-muted-foreground mb-1">Courses:</p>
+                                      <div className="flex flex-wrap gap-1">
+                                        {education.courses.slice(0, 3).map((course, idx) => (
+                                          <Badge key={idx} variant="outline" className="text-xs">
+                                            {course.title}
+                                          </Badge>
+                                        ))}
+                                        {education.courses.length > 3 && (
+                                          <Badge variant="secondary" className="text-xs">
+                                            +{education.courses.length - 3} more
+                                          </Badge>
+                                        )}
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
                               </div>
                             </CardContent>
