@@ -1,14 +1,102 @@
 {
-    "items": [
-        { "code": "tr", "name": "Turkey", "orderIndex": 1, "icon": "turkey_flag.png", "location": { "lat": 39.9192490141359, "long": 32.85369157791138 } },
-        { "code": "eu", "name": "European Union", "orderIndex": 2, "icon": "eu_flag.png", "location": { "lat": 39.9192490141359, "long": 32.85369157791138 } },
-        { "code": "usa", "name": "United States of America", "orderIndex": 3, "icon": "usa_flag.png" },
-        { "code": "ksa", "name": "Kingdom of Saudi Arabia", "orderIndex": 4, "icon": "ksa_flag.png" },        
-        { "code": "palestine", "name": "Palestine", "orderIndex": 5, "icon": "palestine_flag.png" },
-        { "code": "kosovo", "name": "Kosovo", "orderIndex": 6, "icon": "kosovo_flag.png" },
-        { "code": "spain", "name": "Spain", "orderIndex": 7, "icon": "spain_flag.png" },
-        { "code": "italy", "name": "Italy", "orderIndex": 8, "icon": "italy_flag.png" },
-        { "code": "portugal", "name": "Portugal", "orderIndex": 9, "icon": "portugal_flag.png" },        
-        { "code": "uzbekistan", "name": "Uzbekistan", "orderIndex": 10, "icon": "uzbekistan_flag.png" }
-    ]
+  "items": [
+    {
+      "code": "tr",
+      "orderIndex": 1,
+      "title": "Turkey",
+      "photoUrl": "turkey_flag.png",
+      "isactive": null,
+      "companyCode": null,
+      "description": null,
+      "coordinates": {
+        "lat": 39.9192490141359,
+        "long": 32.85369157791138
+      }
+    },
+    {
+      "code": "eu",
+      "orderIndex": 2,
+      "title": "European Union",
+      "photoUrl": "eu_flag.png",
+      "isactive": null,
+      "companyCode": null,
+      "description": null,
+      "coordinates": {
+        "lat": 39.9192490141359,
+        "long": 32.85369157791138
+      }
+    },
+    {
+      "code": "usa",
+      "orderIndex": 3,
+      "title": "United States of America",
+      "photoUrl": "usa_flag.png",
+      "isactive": null,
+      "companyCode": null,
+      "description": null
+    },
+    {
+      "code": "ksa",
+      "orderIndex": 4,
+      "title": "Kingdom of Saudi Arabia",
+      "photoUrl": "ksa_flag.png",
+      "isactive": null,
+      "companyCode": null,
+      "description": null
+    },
+    {
+      "code": "palestine",
+      "orderIndex": 5,
+      "title": "Palestine",
+      "photoUrl": "palestine_flag.png",
+      "isactive": null,
+      "companyCode": null,
+      "description": null
+    },
+    {
+      "code": "kosovo",
+      "orderIndex": 6,
+      "title": "Kosovo",
+      "photoUrl": "kosovo_flag.png",
+      "isactive": null,
+      "companyCode": null,
+      "description": null
+    },
+    {
+      "code": "spain",
+      "orderIndex": 7,
+      "title": "Spain",
+      "photoUrl": "spain_flag.png",
+      "isactive": null,
+      "companyCode": null,
+      "description": null
+    },
+    {
+      "code": "italy",
+      "orderIndex": 8,
+      "title": "Italy",
+      "photoUrl": "italy_flag.png",
+      "isactive": null,
+      "companyCode": null,
+      "description": null
+    },
+    {
+      "code": "portugal",
+      "orderIndex": 9,
+      "title": "Portugal",
+      "photoUrl": "portugal_flag.png",
+      "isactive": null,
+      "companyCode": null,
+      "description": null
+    },
+    {
+      "code": "uzbekistan",
+      "orderIndex": 10,
+      "title": "Uzbekistan",
+      "photoUrl": "uzbekistan_flag.png",
+      "isactive": null,
+      "companyCode": null,
+      "description": null
+    }
+  ]
 }

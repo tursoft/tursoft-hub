@@ -1,0 +1,532 @@
+import React, { useEffect, useState } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { 
+  Building2, 
+  Globe, 
+  MapPin, 
+  Briefcase,
+  Star,
+  ExternalLink,
+  Phone,
+  Mail,
+  Clock,
+  Maximize2,
+  Minimize2,
+  Info,
+  Wrench,
+  Cog
+} from "lucide-react";
+import { projectsRepo } from '@/repositories/ProjectsRepo';
+import { skillsRepo } from '@/repositories/SkillsRepo';
+import { companiesRepo } from '@/repositories/CompaniesRepo';
+import { referencesRepo } from '@/repositories/ReferencesRepo';
+import SkillDetailDialog from '../skills/SkillDetailDialog';
+import ProjectDetailDialog from '../projects/ProjectDetailDialog';
+import type { Customer } from '@/models/Customer';
+import type { Company } from '@/models/Companies';
+import type { Reference } from '@/models/Reference';
+import type SkillItem from '@/models/Skills';
+import type { ProjectEntry } from '@/models/Project';
+
+interface CustomerDetailDialogProps {
+  customer: Customer | null;
+  isOpen: boolean;
+  onClose: () => void;
+  customerLogo?: string;
+  companyTitle?: string;
+}
+
+const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
+  customer,
+  isOpen,
+  onClose,
+  customerLogo,
+  companyTitle
+}) => {
+  const [projectLogos, setProjectLogos] = useState<Record<string, string>>({});
+  const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
+  const [companyData, setCompanyData] = useState<Company | null>(null);
+  const [customerReferences, setCustomerReferences] = useState<Reference[]>([]);
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [skills, setSkills] = useState<SkillItem[]>([]);
+  const [projects, setProjects] = useState<ProjectEntry[]>([]);
+  const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
+  const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
+  const [isProjectDialogOpen, setIsProjectDialogOpen] = useState(false);
+
+  // Fetch project objects and logos when customer changes
+  useEffect(() => {
+    const fetchProjects = async () => {
+      if (!customer?.projectCodes) return;
+      
+      const logos: Record<string, string> = {};
+      const projectItems: ProjectEntry[] = [];
+      
+      for (const projectCode of customer.projectCodes) {
+        if (projectCode) {
+          const project = await projectsRepo.getByCode(projectCode);
+          if (project) {
+            projectItems.push(project);
+            if (project.photoUrl) {
+              logos[projectCode] = project.photoUrl;
+            }
+          }
+        }
+      }
+      
+      setProjects(projectItems);
+      setProjectLogos(logos);
+    };
+
+    if (customer?.projectCodes && customer.projectCodes.length > 0) {
+      fetchProjects();
+    }
+  }, [customer?.projectCodes]);
+
+  // Fetch technology objects and logos when customer changes
+  useEffect(() => {
+    const fetchSkills = async () => {
+      if (!customer?.skillCodes) return;
+      
+      const logos: Record<string, string> = {};
+      const skillItems: SkillItem[] = [];
+      
+      for (const skillCode of customer.skillCodes) {
+        if (skillCode) {
+          const skill = await skillsRepo.getByCode(skillCode);
+          if (skill) {
+            skillItems.push(skill);
+            if (skill.photoUrl) {
+              logos[skillCode] = skill.photoUrl;
+            }
+          }
+        }
+      }
+      
+      setSkills(skillItems);
+      setTechnologyLogos(logos);
+    };
+
+    if (customer?.skillCodes && customer.skillCodes.length > 0) {
+      fetchSkills();
+    }
+  }, [customer?.skillCodes]);
+
+  // Fetch company data when customer changes
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      if (!customer?.companyCode) return;
+      
+      const company = await companiesRepo.getByCode(customer.companyCode);
+      setCompanyData(company);
+    };
+
+    if (customer?.companyCode) {
+      fetchCompanyData();
+    }
+  }, [customer?.companyCode]);
+
+  // Fetch testimonials/references related to customer's company
+  useEffect(() => {
+    const fetchReferences = async () => {
+      if (!customer?.companyCode) return;
+      
+      const allReferences = await referencesRepo.getList();
+      // Find references from people who worked at this company
+      const relatedRefs = allReferences.filter(
+        ref => ref.isActive && 
+        ref.company.toLowerCase().includes(companyData?.title.toLowerCase() || customer.companyCode?.toLowerCase() || '')
+      );
+      setCustomerReferences(relatedRefs.slice(0, 3)); // Show up to 3 testimonials
+    };
+
+    if (customer?.companyCode && companyData) {
+      fetchReferences();
+    }
+  }, [customer?.companyCode, companyData]);
+
+  if (!customer) return null;
+
+  // Helper function to format dates
+  const formatDate = (dateStr?: string) => {
+    if (!dateStr) return '';
+    try {
+      // Assume format is dd.mm.yyyy or similar
+      const [day, month, year] = dateStr.split('.');
+      const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      return date.toLocaleDateString('en-US', { 
+        month: 'long', 
+        year: 'numeric' 
+      });
+    } catch {
+      return dateStr;
+    }
+  };
+
+  // Helper function to format partnership period
+  const formatPartnershipPeriod = () => {
+    if (!customer.partnership?.startDate) return '';
+    
+    const startFormatted = formatDate(customer.partnership.startDate);
+    
+    if (!customer.partnership.endDate) {
+      return `${startFormatted} - Present`;
+    }
+    
+    const endFormatted = formatDate(customer.partnership.endDate);
+    return `${startFormatted} - ${endFormatted}`;
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className={`${isMaximized ? 'max-w-full max-h-full w-full h-full rounded-none' : 'max-w-full max-h-full w-full h-full rounded-none sm:max-w-[35vw] sm:max-h-[90vh] sm:w-[35vw] sm:h-auto sm:rounded-lg'} overflow-hidden`}>
+        <DialogHeader className="pb-6 pl-6">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsMaximized(!isMaximized)}
+            className="absolute top-4 right-12 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
+          >
+            {isMaximized ? (
+              <Minimize2 className="w-4 h-4" />
+            ) : (
+              <Maximize2 className="w-4 h-4" />
+            )}
+          </Button>
+          {/* Logo positioned on the far left */}
+          {customerLogo && (
+            <div className="absolute top-4 left-8 z-10 w-16 h-16">
+              <img 
+                src={customerLogo} 
+                alt={`${companyTitle || customer.companyCode} logo`}
+                className="w-full h-full object-contain rounded-lg"
+                onError={(e) => {
+                  // Try with /src/assets/ prefix for development fallback
+                  const currentSrc = e.currentTarget.src;
+                  if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
+                    e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
+                  } else {
+                    // Hide image if it fails to load even with fallback
+                    e.currentTarget.style.display = 'none';
+                  }
+                }}
+              />
+            </div>
+          )}
+          <div className="flex items-start gap-4 pl-24">
+            <div className="flex-1 min-w-0">
+              <DialogTitle className="text-2xl font-bold text-foreground mb-2">
+                {companyTitle || customer.companyCode || customer.code}
+              </DialogTitle>
+              <div className="text-base text-muted-foreground">
+                {customer.location && (
+                  <div className="flex items-center gap-2 mb-2">
+                    <MapPin className="w-4 h-4" />
+                    <span>{customer.location}</span>
+                  </div>
+                )}
+                {customer.partnership && (
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    <span>{formatPartnershipPeriod()}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </DialogHeader>
+
+        {/* Type badges positioned below action buttons */}
+        <div className="absolute top-14 right-4 flex gap-2 flex-wrap justify-end z-10">
+          <Badge variant="outline" className="text-xs bg-green-500/10 text-green-500 border-green-500/20">
+            Customer
+          </Badge>
+          {customer.category && (
+            <Badge variant="outline" className="text-xs">
+              {customer.category}
+            </Badge>
+          )}
+        </div>
+
+        <Tabs defaultValue="overview" className="w-full pt-2">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="overview">
+              <span className="flex items-center gap-2">
+                <Info className="w-4 h-4" />
+                Overview
+                {(customer.projectCodes && customer.projectCodes.length > 0) && (
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {customer.projectCodes.length}
+                  </Badge>
+                )}
+              </span>
+            </TabsTrigger>
+            <TabsTrigger value="technologies">
+              <span className="flex items-center gap-2">
+                <Wrench className="w-4 h-4" />
+                Skills
+                {customer.skillCodes && (
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {customer.skillCodes.length}
+                  </Badge>
+                )}
+              </span>
+            </TabsTrigger>
+            <TabsTrigger value="services">
+              <span className="flex items-center gap-2">
+                <Cog className="w-4 h-4" />
+                Services
+                {customer.serviceCodes && (
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {customer.serviceCodes.length}
+                  </Badge>
+                )}
+              </span>
+            </TabsTrigger>
+          </TabsList>
+
+          <div className="max-h-[60vh] overflow-y-auto mt-4">
+            <TabsContent value="overview" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
+              {/* Customer Description */}
+              {customer.description && (
+                <div className="px-4 py-2">
+                  <CardDescription 
+                    className="text-sm leading-relaxed text-foreground"
+                    dangerouslySetInnerHTML={{ __html: customer.description }}
+                  />
+                </div>
+              )}
+
+              {/* Industry & Category */}
+              {(customer.industry || customer.relationship) && (
+                <div className="px-4 py-2">
+                  <div className="flex flex-wrap gap-3">
+                    {customer.industry && (
+                      <Badge variant="outline">{customer.industry}</Badge>
+                    )}
+                    {customer.relationship && (
+                      <Badge variant="outline">{customer.relationship}</Badge>
+                    )}
+                  </div>
+                </div>
+              )}              
+
+              {/* Testimonials Section */}
+              {customerReferences.length > 0 && (
+                <Card className="mx-4">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Star className="w-4 h-4 text-yellow-500" />
+                      Testimonials
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {customerReferences.map((reference, index) => (
+                      <div key={index} className="space-y-2">
+                        <blockquote 
+                          className="text-sm italic text-muted-foreground leading-relaxed"
+                          dangerouslySetInnerHTML={{ __html: `"${reference.testimonial}"` }}
+                        />
+                        <div className="flex items-center gap-2 pt-2">
+                          {reference.photoUrl && (
+                            <img 
+                              src={reference.photoUrl}
+                              alt={reference.title}
+                              className="w-8 h-8 rounded-full object-cover"
+                            />
+                          )}
+                          <div className="text-sm">
+                            <div className="font-semibold">{reference.title}</div>
+                            <div className="text-muted-foreground text-xs">{reference.position} at {reference.company}</div>
+                          </div>
+                        </div>
+                        {index < customerReferences.length - 1 && (
+                          <div className="border-b border-border/50 mt-3"></div>
+                        )}
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Related Projects */}
+              {customer.projectCodes && customer.projectCodes.length > 0 && (
+                <div className="px-4 py-2">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Briefcase className="w-4 h-4" />
+                    <span>Related Projects</span>
+                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                      {customer.projectCodes.length}
+                    </Badge>
+                  </h4>
+                  <div className="space-y-3">
+                    {projects.map((project) => {
+                        const logoPath = project.photoUrl || "";
+                        
+                        return (
+                          <div 
+                            key={project.code} 
+                            className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors"
+                            onClick={() => {
+                              setSelectedProject(project);
+                              setIsProjectDialogOpen(true);
+                            }}
+                          >
+                            {/* Project Logo */}
+                            {logoPath && (
+                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+                                <img 
+                                  src={logoPath}
+                                  alt={`${project.title} logo`}
+                                  className="w-7 h-7 object-contain rounded"
+                                  onError={(e) => {
+                                    e.currentTarget.style.display = 'none';
+                                  }}
+                                />
+                              </div>
+                            )}
+                            
+                            {/* Project Details */}
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-medium text-foreground truncate">
+                                {project.title}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="services" className="space-y-6 min-h-[400px] h-full overflow-y-auto">
+              <div className="p-4">
+                {customer.serviceCodes && customer.serviceCodes.length > 0 ? (
+                  <>
+                    <div className="flex items-center gap-2 mb-4">
+                      <Briefcase className="w-5 h-5" />
+                      <h3 className="text-lg font-semibold">Services Provided</h3>
+                    </div>
+                    <div className="grid grid-cols-1 gap-3">
+                      {customer.serviceCodes.map((serviceCode, index) => (
+                        <div key={index} className="p-3 bg-muted/30 rounded-lg border border-border/50">
+                          <div className="text-sm font-medium text-foreground">{serviceCode}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <Card>
+                    <CardContent className="p-8 text-center">
+                      <Briefcase className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                      <p className="text-muted-foreground">No service information available.</p>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="technologies" className="space-y-2 min-h-[400px] h-full overflow-y-auto">
+              {skills.length > 0 ? (
+                <div className="px-4 py-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                    {skills.map((skill, index) => {
+                      const logoPath = skill.photoUrl || "";
+                      const isEven = index % 2 === 0;
+                      const isLastInColumn = index === skills.length - 1 || 
+                        (isEven && index === skills.length - 2 && skills.length % 2 === 0);
+                      
+                      return (
+                        <div key={skill.code}>
+                          <div 
+                            className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-pointer"
+                            onClick={() => {
+                              setSelectedSkill(skill);
+                              setIsSkillDialogOpen(true);
+                            }}
+                          >
+                            {/* Technology Logo */}
+                            {logoPath && (
+                              <img 
+                                src={logoPath}
+                                alt={`${skill.title} logo`}
+                                className="w-5 h-5 object-contain flex-shrink-0"
+                                onError={(e) => {
+                                  e.currentTarget.style.display = 'none';
+                                }}
+                              />
+                            )}
+                            
+                            {/* Technology Name */}
+                            <span className="text-sm font-medium text-foreground">
+                              {skill.title}
+                            </span>
+                          </div>
+                          {!isLastInColumn && (
+                            <div className="border-b border-dashed border-border/50 mx-4"></div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                <div className="p-4">
+                  <Card>
+                    <CardContent className="p-8 text-center">
+                      <Star className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                      <p className="text-muted-foreground">No technology information available.</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+            </TabsContent>
+          </div>
+        </Tabs>
+      </DialogContent>
+
+      {/* Skill Detail Dialog */}
+      <SkillDetailDialog
+        skill={selectedSkill}
+        isOpen={isSkillDialogOpen}
+        onClose={() => {
+          setIsSkillDialogOpen(false);
+          setSelectedSkill(null);
+        }}
+        onOpenProject={(project) => {
+          setSelectedProject(project);
+          setIsProjectDialogOpen(true);
+        }}
+      />
+
+      {/* Project Detail Dialog */}
+      <ProjectDetailDialog
+        project={selectedProject}
+        isOpen={isProjectDialogOpen}
+        onClose={() => {
+          setIsProjectDialogOpen(false);
+          setSelectedProject(null);
+        }}
+      />
+    </Dialog>
+  );
+};
+
+export default CustomerDetailDialog;

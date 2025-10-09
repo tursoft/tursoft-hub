@@ -1,52 +1,28 @@
-export interface ExperienceTechnology {
-  name: string;
-  type: string;
-}
-
-export interface Project {
-  name: string;
-  title: string;
-}
-
-export interface Domain {
-  name: string;
-  title: string;
-  value: number;
-  iconCss: string;
-}
+import { IBaseModel } from "./base/IBaseModel";
 
 export interface Position {
-  id: number;
+  orderIndex?: number;
   title: string;
   startDate: string;
   endDate: string | null;
   summary: string;
-  domains?: Domain[];
-  projects?: Project[];
-  technologies: ExperienceTechnology[];
+  domainCodes?: string[];
+  projectCodes?: string[];
+  skillCodes?: string[];
 }
 
-export interface Experience {
-  id: number;
+export interface Experience extends IBaseModel {
   orderIndex: number;
-  icon: string;
-  companyCode: string;
-  companyName: string;
-  websiteUrl?: string;
-  linkedinUrl?: string;
+  companyCode?: string;
   positions: Position[];
-  uid: string;
-  coordinates: { lat: number; lng: number };
-  city: string;
-  country: string;
 }
 
 export interface ExperiencesData {
-  general: {
-    title: string;
-    summary: string;
-    total_years: number;
-    prop_subitems: string;
+  general?: {
+    title?: string;
+    summary?: string;
+    total_years?: number;
+    prop_subitems?: string;
   };
   items: Experience[];
 }

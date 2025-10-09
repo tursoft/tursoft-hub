@@ -1,10 +1,40 @@
 {
-    "items": [
-       { "id": 1, "name": "healthcareit", "title": "Healthcare Informatics", "value":100, "iconCss": "Heart" },
-       { "id": 2, "name": "elearning", "title": "E-Learning", "value":100, "iconCss": "GraduationCap" },
-       { "id": 3, "name": "ecommerce", "title": "E-Commerce", "value":100, "iconCss": "ShoppingCart" },
-       { "id": 4, "name": "video", "title": "Video Streaming", "value":100, "iconCss": "Play" },
-       { "id": 5, "name": "cms", "title": "Content Management Systems", "value":100, "iconCss": "FileText" },
-       { "id": 6, "name": "gaming", "title": "Game Development", "value":100, "iconCss": "Gamepad2" }
-   ]
+  "items": [
+    {
+      "code": "constructionit",
+      "orderIndex": 1,
+      "title": "Construction IT",
+      "photoUrl": "/assets/domains/construction.png"
+    },
+    {
+      "code": "healthcareit",
+      "orderIndex": 2,
+      "title": "Healthcare IT",
+      "photoUrl": "/assets/domains/healthcareit.png"
+    },
+    {
+      "code": "elearning",
+      "orderIndex": 3,
+      "title": "E-Learning",
+      "photoUrl": "/assets/domains/elearning.png"
+    },
+    {
+      "code": "ecommerce",
+      "orderIndex": 4,
+      "title": "E-Commerce",
+      "photoUrl": "/assets/domains/ecommerce.png"
+    },
+    {
+      "code": "cms",
+      "orderIndex": 5,
+      "title": "Content Management Systems",
+      "photoUrl": "/assets/domains/cms.png"
+    },
+    {
+      "code": "gaming",
+      "orderIndex": 6,
+      "title": "Game Development",
+      "photoUrl": "/assets/domains/gaming.png"
+    }
+  ]
 }

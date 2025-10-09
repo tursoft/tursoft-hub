@@ -1,12 +1,9 @@
+import { IBaseModel } from "./base/IBaseModel";
+
 export interface Course {
-  name: string;
+  title: string;
   score: string;
   content: string;
-}
-
-export interface EducationTechnology {
-  name: string;
-  type: string;
 }
 
 export interface DatePeriod {
@@ -14,26 +11,17 @@ export interface DatePeriod {
   endDate: string;
 }
 
-export interface Education {
-  id: number;
-  orderIndex: number;
-  icon: string;
-  url?: string;
-  code: string;
-  name: string;
+export interface Education extends IBaseModel {
+  companyCode: string;
   department: string;
   summary?: string;
   level: string;
   period: string;
   datePeriod: DatePeriod;
-  city: string;
   graduateDate: string;
   graduateScore: string;
   courses?: Course[];
-  technologies?: EducationTechnology[];
-  uid: string;
-  coordinates: { lat: number; lng: number };
-  country: string;
+  skillCodes?: string[];
 }
 
 export interface EducationData {
