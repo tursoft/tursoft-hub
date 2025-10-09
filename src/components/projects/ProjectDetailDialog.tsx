@@ -35,6 +35,7 @@ import { experienceRepo } from '@/repositories/ExperienceRepo';
 import SkillDetailDialog from '../skills/SkillDetailDialog';
 import PartnerDetailDialog from '../partners/PartnerDetailDialog';
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog';
+import PeopleDetailDialog from '../people/PeopleDetailDialog';
 import type { ProjectEntry } from '@/models/Project';
 import type { Person } from '@/models/People';
 import type SkillItem from '@/models/Skills';
@@ -81,6 +82,8 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
   const [experience, setExperience] = useState<Experience | null>(null);
   const [experienceCompany, setExperienceCompany] = useState<Company | null>(null);
   const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false);
+  const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
+  const [isPeopleDialogOpen, setIsPeopleDialogOpen] = useState(false);
 
   // Load company name from companyCode
   useEffect(() => {
@@ -619,7 +622,16 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                       );
                       
                       return (
-                        <div key={member.personCode || index} className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
+                        <div 
+                          key={member.personCode || index} 
+                          className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 hover:shadow-md transition-all duration-200 hover:border-primary/50 border border-transparent"
+                          onClick={() => {
+                            if (member.person) {
+                              setSelectedPerson(member.person);
+                              setIsPeopleDialogOpen(true);
+                            }
+                          }}
+                        >
                           {member.person?.photoUrl ? (
                             <div className="w-10 h-10 flex-shrink-0 relative">
                               <img
@@ -748,6 +760,16 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
         isOpen={isExperienceDialogOpen}
         onClose={() => {
           setIsExperienceDialogOpen(false);
+        }}
+      />
+
+      {/* People Detail Dialog */}
+      <PeopleDetailDialog
+        person={selectedPerson}
+        isOpen={isPeopleDialogOpen}
+        onClose={() => {
+          setIsPeopleDialogOpen(false);
+          setSelectedPerson(null);
         }}
       />
     </Dialog>
