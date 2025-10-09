@@ -115,7 +115,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
           isMaximized 
             ? 'max-w-[95vw] h-[95vh]' 
             : 'max-w-4xl max-h-[90vh]'
-        } overflow-hidden flex flex-col z-[100] pr-16`}
+        } overflow-hidden flex flex-col z-[100]`}
       >
         {/* Logo */}
         {logoPath && (
@@ -132,7 +132,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
         )}
 
         {/* Header */}
-        <DialogHeader className="flex-shrink-0 pl-24">
+        <DialogHeader className="flex-shrink-0 pl-24 pr-16">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
               <DialogTitle className="text-2xl font-bold pr-4">
@@ -176,8 +176,8 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-hidden pl-24 pt-2">
-          <Tabs defaultValue="projects" className="h-full flex flex-col">
+        <div className="flex-1 overflow-hidden pl-24 pr-16 pt-2">
+          <Tabs defaultValue="experiences" className="h-full flex flex-col">
             <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-2">
               {projects.length > 0 && (
                 <TabsTrigger value="projects">

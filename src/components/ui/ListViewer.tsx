@@ -438,7 +438,13 @@ const ListViewer = <T = any>({
           key={code}
           className="absolute border-border bg-card cursor-pointer transition-all duration-500 ease-in-out flex flex-col"
           style={{ ...cardStyle, width: carouselCardWidth, height: carouselCardHeight }}
-          onClick={() => goToSlide(index)}
+          onClick={() => {
+            if (index === currentIndex) {
+              onItemClick?.(item);
+            } else {
+              goToSlide(index);
+            }
+          }}
         >
           {renderCarouselContent(item)}
         </Card>
@@ -450,7 +456,13 @@ const ListViewer = <T = any>({
         key={code}
         className="absolute border-border bg-card cursor-pointer transition-all duration-500 ease-in-out flex flex-col"
         style={{ ...cardStyle, width: carouselCardWidth, height: carouselCardHeight }}
-        onClick={() => goToSlide(index)}
+        onClick={() => {
+          if (index === currentIndex) {
+            onItemClick?.(item);
+          } else {
+            goToSlide(index);
+          }
+        }}
       >
         <CardHeader className="pb-4 relative">
           <div className="flex flex-col items-center text-center">
