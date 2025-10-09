@@ -683,10 +683,10 @@ const ListViewer = <T = any>({
                 </div>
               )}
 
-              {/* Search Input */}
+              {/* Search Input with View Mode Toggle */}
               {enableSearch && (
-                <div className="flex justify-center">
-                  <div className="relative w-full max-w-md">
+                <div className="flex flex-col sm:flex-row justify-center items-center gap-3">
+                  <div className="relative flex-1 w-full sm:max-w-2xl">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       type="text"
@@ -696,14 +696,59 @@ const ListViewer = <T = any>({
                       className="pl-10"
                     />
                   </div>
+                  {/* View Mode Toggle inline with search */}
+                  {enabledModes.length > 1 && (
+                    <div className="flex gap-1 bg-muted/30 p-1 rounded-lg flex-shrink-0">
+                      {enabledModes.includes('small-card') && (
+                        <Button
+                          variant={viewMode === 'small-card' ? 'default' : 'ghost'}
+                          size="sm"
+                          onClick={() => setViewMode('small-card')}
+                          className="h-8 px-3"
+                        >
+                          <Grid3x3 className="w-4 h-4" />
+                        </Button>
+                      )}
+                      {enabledModes.includes('card') && (
+                        <Button
+                          variant={viewMode === 'card' ? 'default' : 'ghost'}
+                          size="sm"
+                          onClick={() => setViewMode('card')}
+                          className="h-8 px-3"
+                        >
+                          <Grid className="w-4 h-4" />
+                        </Button>
+                      )}
+                      {enabledModes.includes('list') && (
+                        <Button
+                          variant={viewMode === 'list' ? 'default' : 'ghost'}
+                          size="sm"
+                          onClick={() => setViewMode('list')}
+                          className="h-8 px-3"
+                        >
+                          <List className="w-4 h-4" />
+                        </Button>
+                      )}
+                      {enabledModes.includes('carousel') && (
+                        <Button
+                          variant={viewMode === 'carousel' ? 'default' : 'ghost'}
+                          size="sm"
+                          onClick={() => setViewMode('carousel')}
+                          className="h-8 px-3"
+                        >
+                          <RotateCcw className="w-4 h-4" />
+                        </Button>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
           </div>
         )}
 
-        {/* View Mode Toggle */}
-        {enabledModes.length > 1 && (
+        {/* View Mode Toggle - Standalone (when search is not enabled) */}
+        {!enableSearch && enabledModes.length > 1 && (
           <div className="flex justify-center mb-8">
             <div className="flex gap-1 bg-muted/30 p-1 rounded-lg">
               {enabledModes.includes('small-card') && (
