@@ -5,7 +5,7 @@ import { referencesRepo } from "@/repositories/ReferencesRepo";
 import { peopleRepo } from "@/repositories/PeopleRepo";
 import type { Reference } from "@/models/Reference";
 import type { Person } from "@/models/People";
-import ListViewer from "@/components/ui/ListViewer";
+import ListViewer from "@/components/ui/listviewer";
 import PeopleDetailDialog from "@/components/people/PeopleDetailDialog";
 
 // Extended reference with photo field for rendering

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import ProjectDetailDialog from './ProjectDetailDialog';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import type { ProjectEntry } from '@/models/Project';
-import ListViewer from '@/components/ui/ListViewer';
+import ListViewer from '@/components/ui/listviewer';
 
 interface ProjectWithIcon extends ProjectEntry {
   icon: string;
@@ -71,7 +71,7 @@ const PortfolioSectionRefactored = () => {
   return (
     <section id="portfolio" className="py-20 bg-background/50">
       <div className="container mx-auto px-4">
-        {/* ListViewer with built-in filters */}
+        {/* listviewer with built-in filters */}
         <ListViewer<ProjectWithIcon>
           data={projects}
           isLoading={isLoading}

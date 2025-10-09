@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import type { SkillItem } from '@/models/Skills';
-import ListViewer from '@/components/ui/ListViewer';
+import ListViewer from '@/components/ui/listviewer';
 import SkillDetailDialog from './SkillDetailDialog';
 
 interface SkillWithIcon extends SkillItem {
@@ -44,7 +44,7 @@ const SkillsSectionRefactored = () => {
   return (
     <section id="skills" className="py-20 bg-background/50">
       <div className="container mx-auto px-4">
-        {/* ListViewer with built-in filters */}
+        {/* listviewer with built-in filters */}
         <ListViewer<SkillWithIcon>
           data={skills}
           isLoading={isLoading}
