@@ -132,8 +132,8 @@ const SkillsSectionRefactored = () => {
           isLoading={isLoading}
           loadingMessage="Loading skills..."
           emptyMessage="No skills found."
-          defaultViewMode="card"
-          enabledModes={['card', 'list']}
+          defaultViewMode="small-card"
+          enabledModes={['small-card', 'card', 'list']}
           enableShowMore={true}
           visibleMajorItemCount={16}
           onItemClick={(skill) => {

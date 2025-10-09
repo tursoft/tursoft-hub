@@ -2,9 +2,9 @@ import { useState, useRef, ReactNode } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Grid, List, RotateCcw } from "lucide-react";
+import { ChevronLeft, ChevronRight, Grid, List, RotateCcw, Grid3x3 } from "lucide-react";
 
-export type ViewMode = 'card' | 'list' | 'carousel';
+export type ViewMode = 'small-card' | 'card' | 'list' | 'carousel';
 
 export interface FieldMapping<T = Record<string, unknown>> {
   // Core fields
@@ -52,6 +52,7 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   renderCardContent?: (item: T) => ReactNode;
   renderListContent?: (item: T) => ReactNode;
   renderCarouselContent?: (item: T) => ReactNode;
+  renderSmallCardContent?: (item: T) => ReactNode;
   
   // Carousel settings
   carouselHeight?: string;
@@ -102,6 +103,7 @@ const ListViewer = <T = any>({
   renderCardContent,
   renderListContent,
   renderCarouselContent,
+  renderSmallCardContent,
   carouselHeight = '500px',
   carouselCardWidth = '36rem',
   carouselCardHeight = '28rem',
@@ -372,6 +374,53 @@ const ListViewer = <T = any>({
     );
   };
 
+  // Render small card item
+  const renderSmallCard = (item: T, index: number) => {
+    const code = getFieldValue(item, fieldMapping.code);
+    const title = getFieldValue(item, fieldMapping.title);
+    const image = getFieldValue(item, fieldMapping.image);
+
+    if (renderSmallCardContent) {
+      return (
+        <div
+          key={code}
+          className="cursor-pointer"
+          style={enableAnimation ? { animationDelay: `${index * 30}ms` } : undefined}
+          onClick={() => onItemClick?.(item)}
+        >
+          {renderSmallCardContent(item)}
+        </div>
+      );
+    }
+
+    return (
+      <div
+        key={code}
+        className="group cursor-pointer"
+        style={enableAnimation ? { animationDelay: `${index * 30}ms` } : undefined}
+        onClick={() => onItemClick?.(item)}
+        title={title}
+      >
+        <div className="bg-card border border-border rounded-lg p-3 hover:shadow-lg hover:border-primary/50 transition-all duration-300 flex items-center justify-center aspect-square">
+          {image ? (
+            <img 
+              src={image} 
+              alt={title}
+              className="w-full h-full object-contain p-2"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          ) : (
+            <div className="text-center text-xs font-medium text-muted-foreground line-clamp-2 px-1">
+              {title}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   // Render carousel item
   const renderCarouselItem = (item: T, index: number) => {
     const code = getFieldValue(item, fieldMapping.code);
@@ -538,6 +587,16 @@ const ListViewer = <T = any>({
                   <List className="w-4 h-4" />
                 </Button>
               )}
+              {enabledModes.includes('small-card') && (
+                <Button
+                  variant={viewMode === 'small-card' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setViewMode('small-card')}
+                  className="h-8 px-3"
+                >
+                  <Grid3x3 className="w-4 h-4" />
+                </Button>
+              )}
               {enabledModes.includes('carousel') && (
                 <Button
                   variant={viewMode === 'carousel' ? 'default' : 'ghost'}
@@ -578,6 +637,27 @@ const ListViewer = <T = any>({
           <>
             <div className="space-y-4 max-w-5xl mx-auto">
               {visibleData.map((item, index) => renderListItem(item, index))}
+            </div>
+            {hasMore && (
+              <div className="flex justify-center mt-8">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => setShowAll(!showAll)}
+                  className="transition-all duration-300 hover:scale-105"
+                >
+                  {showAll ? 'Show Less' : `Show All (${data.length})`}
+                </Button>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Small Cards View */}
+        {viewMode === 'small-card' && (
+          <>
+            <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-8 gap-4">
+              {visibleData.map((item, index) => renderSmallCard(item, index))}
             </div>
             {hasMore && (
               <div className="flex justify-center mt-8">
