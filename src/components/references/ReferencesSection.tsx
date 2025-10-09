@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, Linkedin, Twitter, Facebook, ExternalLink, Globe, MessageSquare } from "lucide-react";
 import { referencesRepo } from "@/repositories/ReferencesRepo";
+import { peopleRepo } from "@/repositories/PeopleRepo";
 import type { Reference } from "@/models/Reference";
+import type { Person } from "@/models/People";
 import ListViewer from "@/components/ui/ListViewer";
+import PeopleDetailDialog from "@/components/people/PeopleDetailDialog";
 
 // Extended reference with photo field for rendering
 interface ReferenceWithPhoto extends Reference {
@@ -13,6 +16,8 @@ interface ReferenceWithPhoto extends Reference {
 const ReferencesSection = () => {
   const [references, setReferences] = useState<ReferenceWithPhoto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
+  const [isPeopleDialogOpen, setIsPeopleDialogOpen] = useState(false);
 
   useEffect(() => {
     // Load references from repository with photos
@@ -87,6 +92,17 @@ const ReferencesSection = () => {
       subtitle="Testimonials from industry leaders and colleagues who have worked closely with me throughout my professional career."
       badge="Professional References"
       imageRounded={true}
+      onItemClick={async (ref) => {
+        try {
+          const person = await peopleRepo.getByCode(ref.code);
+          if (person) {
+            setSelectedPerson(person);
+            setIsPeopleDialogOpen(true);
+          }
+        } catch (error) {
+          console.error('Failed to load person:', error);
+        }
+      }}
       fieldMapping={{
         code: 'code',
         title: 'title',
@@ -126,6 +142,16 @@ const ReferencesSection = () => {
           </Button>
         </div>
       }
+    />
+
+    {/* People Detail Dialog */}
+    <PeopleDetailDialog
+      person={selectedPerson}
+      isOpen={isPeopleDialogOpen}
+      onClose={() => {
+        setIsPeopleDialogOpen(false);
+        setSelectedPerson(null);
+      }}
     />
     </section>
   );
