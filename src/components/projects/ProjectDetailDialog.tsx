@@ -881,22 +881,46 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               {/* Project Info at Top */}
               {project && (
                 <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 via-black/60 to-transparent p-6 pb-12 z-10">
-                  <div className="flex items-center justify-center gap-4">
-                    {projectIcon && (
-                      <div className="w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-white/10 border border-white/20">
-                        <img 
-                          src={projectIcon} 
-                          alt={project.title}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.currentTarget.src = '/placeholder.svg';
-                          }}
-                        />
-                      </div>
-                    )}
-                    <h2 className="text-white text-2xl font-bold">
-                      {project.title}
-                    </h2>
+                  <div className="flex flex-col items-center justify-center gap-3">
+                    <div className="flex items-center gap-4">
+                      {projectIcon && (
+                        <div className="w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-white/10 border border-white/20">
+                          <img 
+                            src={projectIcon} 
+                            alt={project.title}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.src = '/placeholder.svg';
+                            }}
+                          />
+                        </div>
+                      )}
+                      <h2 className="text-white text-2xl font-bold">
+                        {project.title}
+                      </h2>
+                    </div>
+                    {/* Company and Date Range */}
+                    <div className="flex items-center gap-3 text-white/80 text-sm">
+                      {companyName && (
+                        <div className="flex items-center gap-2">
+                          <Building2 className="w-4 h-4" />
+                          <span>{companyName}</span>
+                        </div>
+                      )}
+                      {project.datePeriod && (project.datePeriod.startDate || project.datePeriod.endDate) && (
+                        <>
+                          {companyName && <span className="text-white/40">•</span>}
+                          <div className="flex items-center gap-2">
+                            <Clock className="w-4 h-4" />
+                            <span>
+                              {project.datePeriod.startDate || '...'}
+                              {' - '}
+                              {project.datePeriod.endDate || 'Present'}
+                            </span>
+                          </div>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
