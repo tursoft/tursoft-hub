@@ -113,14 +113,28 @@
       }
     },
     {
+      "code": "METU",
+      "orderIndex": 42,
+      "title": "Middle East Technical University",
+      "photoUrl": "/assets/companies/metu.logo.png",
+      "city": "Ankara",
+      "country": "Turkey",
+      "websiteUrl": "https://www.metu.edu.tr",
+      "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
+      "coordinates": {
+        "lat": 39.8939,
+        "lng": 32.7816
+      }
+    },
+    {
       "code": "METU.CEIT",
       "orderIndex": 42,
       "title": "METU Computer Education and Instructional Tech. Dep.",
       "photoUrl": "/assets/companies/metu.ceit.logo.png",
       "city": "Ankara",
       "country": "Turkey",
-      "websiteUrl": "https://www.metu.edu.tr",
-      "linkedinUrl": "https://www.linkedin.com/school/middle-east-technical-university/",
+      "websiteUrl": "https://ceit.metu.edu.tr/en",
+      "linkedinUrl": null,
       "coordinates": {
         "lat": 39.8939,
         "lng": 32.7816

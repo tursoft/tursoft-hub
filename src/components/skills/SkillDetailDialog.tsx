@@ -27,6 +27,7 @@ import { experienceRepo } from '@/repositories/ExperienceRepo';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
 import { educationRepo } from '@/repositories/EducationRepo';
+import { skillsRepo } from '@/repositories/SkillsRepo';
 import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
 import type { Company } from '@/models/Companies';
@@ -60,25 +61,14 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
     
     setIsLoadingData(true);
     try {
-      // Load experiences that use this skill
-      const allExperiences = await experienceRepo.getList();
-      const filteredExperiences = allExperiences.filter(exp => 
-        exp.positions?.some(pos => pos.skillCodes?.includes(skill.code || ''))
-      );
+      // Use SkillsRepo methods to load related data
+      const filteredExperiences = await skillsRepo.getExperiencesBySkillCode(skill.code);
       setExperiences(filteredExperiences);
 
-      // Load projects that use this skill
-      const allProjects = await projectsRepo.getList();
-      const filteredProjects = allProjects.filter(project => 
-        project.skillCodes?.includes(skill.code || '')
-      );
+      const filteredProjects = await skillsRepo.getProjectsBySkillCode(skill.code);
       setProjects(filteredProjects);
 
-      // Load educations that use this skill
-      const allEducations = await educationRepo.getList();
-      const filteredEducations = allEducations.filter(edu => 
-        edu.skillCodes?.includes(skill.code || '')
-      );
+      const filteredEducations = await skillsRepo.getEducationsBySkillCode(skill.code);
       setEducations(filteredEducations);
 
       // Load companies for experiences, projects, and educations
@@ -217,67 +207,30 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
               </TabsTrigger>
             </TabsList>
 
-            <div className="flex-1 overflow-y-auto">
-              <TabsContent value="projects" className="h-[55%] overflow-y-auto">
-                <div className="px-4 py-2">
-                  {isLoadingData ? (
-                    <div className="text-center text-muted-foreground py-8">Loading projects...</div>
-                  ) : projects.length > 0 ? (
-                    <div className="space-y-3">
-                      {projects.map((project) => {
-                        const company = companies[project.companyCode || ''];
-                        const logoPath = project.photoUrl || "";
-                        
-                        return (
-                          <Card 
-                            key={project.code}
-                            className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
-                            onClick={() => onOpenProject?.(project)}
-                          >
-                            <CardContent className="p-4">
-                              <div className="flex items-start gap-4">
-                                {logoPath && (
-                                  <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                    <img 
-                                      src={logoPath} 
-                                      alt={`${project.title} logo`} 
-                                      className="w-full h-full object-contain p-1"
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                                <div className="flex-1 min-w-0">
-                                  <h3 className="font-semibold text-foreground mb-1">
-                                    {project.title}
-                                  </h3>
-                                  {project.summary && (
-                                    <CardDescription className="text-sm line-clamp-2">
-                                      {project.summary}
-                                    </CardDescription>
-                                  )}
-                                  {company && (
-                                    <div className="mt-1">
-                                      <Badge variant="secondary" className="text-xs">
-                                        {company.title}
-                                      </Badge>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="text-muted-foreground"></p>
-                  )}
-                </div>
+            <div>
+              <TabsContent value="projects" className="max-h-[60vh] overflow-y-auto">
+                <ListViewer<ProjectEntry>
+                  data={projects}
+                  isLoading={isLoadingData}
+                  loadingMessage="Loading projects..."
+                  emptyMessage=""
+                  defaultViewMode="list"
+                  enabledModes={['list']}
+                  fieldMapping={{
+                    code: (project) => project.code || '',
+                    title: (project) => project.title || '',
+                    subtitle: (project) => {
+                      const company = companies[project.companyCode || ''];
+                      return company?.title || '';
+                    },
+                    description: (project) => '',
+                    image: (project) => project.photoUrl || '',
+                  }}
+                  onItemClick={(project) => onOpenProject?.(project)}
+                />
               </TabsContent>
 
-              <TabsContent value="experiences" className="h-[55%] overflow-y-auto">
+              <TabsContent value="experiences" className="max-h-[60vh] overflow-y-auto">
                 <ListViewer<Experience>
                   data={experiences}
                   isLoading={isLoadingData}
@@ -309,73 +262,30 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                 />
               </TabsContent>
 
-              <TabsContent value="educations" className="h-[55%] overflow-y-auto">
-                <div className="px-4 py-2">
-                  {isLoadingData ? (
-                    <div className="text-center text-muted-foreground py-8">Loading educations...</div>
-                  ) : educations.length > 0 ? (
-                    <div className="space-y-3">
-                      {educations.map((education) => {
-                        const company = companies[education.companyCode || ''];
-                        const logoPath = company?.photoUrl || "";
-                        
-                        return (
-                          <Card 
-                            key={education.code}
-                            className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
-                          >
-                            <CardContent className="p-4">
-                              <div className="flex items-start gap-4">
-                                {logoPath && (
-                                  <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                    <img 
-                                      src={logoPath} 
-                                      alt={`${company?.title} logo`} 
-                                      className="w-full h-full object-contain p-1"
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                                <div className="flex-1 min-w-0">
-                                  <h3 className="font-semibold text-foreground mb-1">
-                                    {company?.title || education.companyCode}
-                                  </h3>
-                                  <CardDescription className="text-sm">
-                                    {education.department}
-                                  </CardDescription>
-                                  <CardDescription className="text-xs text-muted-foreground mt-1">
-                                    {education.level} • {education.period}
-                                  </CardDescription>
-                                  {education.courses && education.courses.length > 0 && (
-                                    <div className="mt-2 pt-2 border-t border-border/50">
-                                      <p className="text-xs font-medium text-muted-foreground mb-1">Courses:</p>
-                                      <div className="flex flex-wrap gap-1">
-                                        {education.courses.slice(0, 3).map((course, idx) => (
-                                          <Badge key={idx} variant="outline" className="text-xs">
-                                            {course.title}
-                                          </Badge>
-                                        ))}
-                                        {education.courses.length > 3 && (
-                                          <Badge variant="secondary" className="text-xs">
-                                            +{education.courses.length - 3} more
-                                          </Badge>
-                                        )}
-                                      </div>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="text-muted-foreground"></p>
-                  )}
-                </div>
+              <TabsContent value="educations" className="max-h-[60vh] overflow-y-auto">
+                <ListViewer<Education>
+                  data={educations}
+                  isLoading={isLoadingData}
+                  loadingMessage="Loading educations..."
+                  emptyMessage=""
+                  defaultViewMode="list"
+                  enabledModes={['list']}
+                  fieldMapping={{
+                    code: (edu) => edu.code || '',
+                    title: (edu) => {
+                      const company = companies[edu.companyCode || ''];
+                      return company?.title || edu.companyCode || '';
+                    },
+                    subtitle: (edu) => edu.department || '',
+                    description: (edu) => {                                            
+                      return "";
+                    },
+                    image: (edu) => {
+                      const company = companies[edu.companyCode || ''];
+                      return company?.photoUrl || '';
+                    },
+                  }}
+                />
               </TabsContent>
             </div>
           </Tabs>
