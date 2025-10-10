@@ -152,11 +152,6 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
               <DialogTitle className="text-2xl font-bold pr-4">
                 {skill.title}
               </DialogTitle>
-              {skill.code && (
-                <DialogDescription className="mt-2 text-base">
-                  {skill.code}
-                </DialogDescription>
-              )}
             </div>
           </div>
         </DialogHeader>
@@ -182,11 +177,6 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
           <Badge variant="outline" className="text-xs bg-indigo-500/10 text-indigo-500 border-indigo-500/20">
             Skill
           </Badge>
-          {skill.isMajor && (
-            <Badge variant="default" className="text-xs">
-              Major
-            </Badge>
-          )}
         </div>
 
         {/* Content */}
