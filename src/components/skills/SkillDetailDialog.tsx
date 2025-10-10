@@ -140,6 +140,93 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
 
   const logoPath = skill.photoUrl || "";
 
+  // Calculate total experience duration using min start date and max end date
+  const calculateTotalExperience = (): string => {
+    let minStartDate: Date | null = null;
+    let maxEndDate: Date | null = null;
+
+    // Process experiences
+    experiences.forEach(exp => {
+      exp.positions?.forEach(pos => {
+        if (pos.startDate) {
+          const start = new Date(pos.startDate);
+          if (!isNaN(start.getTime())) {
+            if (!minStartDate || start < minStartDate) {
+              minStartDate = start;
+            }
+          }
+
+          const end = pos.endDate ? new Date(pos.endDate) : new Date();
+          if (!isNaN(end.getTime())) {
+            if (!maxEndDate || end > maxEndDate) {
+              maxEndDate = end;
+            }
+          }
+        }
+      });
+    });
+
+    // Process projects
+    projects.forEach(project => {
+      if (project.datePeriod?.startDate) {
+        const start = new Date(project.datePeriod.startDate);
+        if (!isNaN(start.getTime())) {
+          if (!minStartDate || start < minStartDate) {
+            minStartDate = start;
+          }
+        }
+
+        const end = project.datePeriod.endDate ? new Date(project.datePeriod.endDate) : new Date();
+        if (!isNaN(end.getTime())) {
+          if (!maxEndDate || end > maxEndDate) {
+            maxEndDate = end;
+          }
+        }
+      }
+    });
+
+    // Process educations
+    educations.forEach(edu => {
+      if (edu.datePeriod?.startDate) {
+        const start = new Date(edu.datePeriod.startDate);
+        if (!isNaN(start.getTime())) {
+          if (!minStartDate || start < minStartDate) {
+            minStartDate = start;
+          }
+        }
+
+        const end = edu.datePeriod?.endDate ? new Date(edu.datePeriod.endDate) : new Date();
+        if (!isNaN(end.getTime())) {
+          if (!maxEndDate || end > maxEndDate) {
+            maxEndDate = end;
+          }
+        }
+      }
+    });
+
+    // Calculate duration between min start and max end
+    if (!minStartDate || !maxEndDate) return '';
+
+    const months = (maxEndDate.getFullYear() - minStartDate.getFullYear()) * 12 + 
+                   (maxEndDate.getMonth() - minStartDate.getMonth());
+    
+    if (months <= 0) return '';
+
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+
+    if (years > 0 && remainingMonths > 0) {
+      return `${years} yr${years > 1 ? 's' : ''} ${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
+    } else if (years > 0) {
+      return `${years} yr${years > 1 ? 's' : ''}`;
+    } else if (remainingMonths > 0) {
+      return `${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
+    }
+    return '';
+  };
+
+  const totalExperience = calculateTotalExperience();
+
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent 
@@ -172,6 +259,11 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                 <DialogTitle className="text-2xl font-bold pr-4">
                   {skill.title}
                 </DialogTitle>
+                {totalExperience && (
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Total Experience: {totalExperience}
+                  </p>
+                )}
               </div>
             </div>
           </DialogHeader>
