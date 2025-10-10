@@ -94,6 +94,8 @@
         "azure-compute-gallery",
         "azure-function-app",
         "azure-sql",
+        "docker",
+        "kubernetes",
         "tsql",
         "mssql"
       ],
@@ -348,7 +350,7 @@
       ],
       "datePeriod": {
         "startDate": "01.01.2015",
-        "endDate": null
+        "endDate": "03.09.2019"
       },
       "props": [
         {
@@ -444,7 +446,7 @@
       ],
       "datePeriod": {
         "startDate": "01.03.2018",
-        "endDate": null
+        "endDate": "03.09.2019"
       },
       "props": [
         {

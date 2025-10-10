@@ -56,15 +56,51 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
   const [educations, setEducations] = useState<Education[]>([]);
   const [companies, setCompanies] = useState<{ [key: string]: Company }>({});
 
+  // Helper function to parse DD.MM.YYYY or YYYY-MM dates
+  const parseDate = (dateString: string | undefined | null): Date | null => {
+    if (!dateString) return null;
+    
+    // Try DD.MM.YYYY format first
+    if (dateString.includes('.')) {
+      const parts = dateString.split('.');
+      if (parts.length === 3) {
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
+        const year = parseInt(parts[2], 10);
+        const date = new Date(year, month, day);
+        if (!isNaN(date.getTime())) {
+          return date;
+        }
+      }
+    }
+    
+    // Try YYYY-MM format
+    if (dateString.includes('-')) {
+      const parts = dateString.split('-');
+      if (parts.length === 2) {
+        const year = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
+        const date = new Date(year, month, 1);
+        if (!isNaN(date.getTime())) {
+          return date;
+        }
+      }
+    }
+    
+    // Fallback to standard Date parsing
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? null : date;
+  };
+
   // Helper function to calculate duration between two dates
   const calculateDuration = (startDate: string | undefined, endDate: string | null | undefined): string => {
     if (!startDate) return '';
     
     try {
-      const start = new Date(startDate);
-      const end = endDate ? new Date(endDate) : new Date();
+      const start = parseDate(startDate);
+      const end = endDate ? parseDate(endDate) : new Date();
       
-      if (isNaN(start.getTime()) || isNaN(end.getTime())) return '';
+      if (!start || !end || isNaN(end.getTime())) return '';
       
       const months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
       const years = Math.floor(months / 12);
@@ -149,15 +185,15 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
     experiences.forEach(exp => {
       exp.positions?.forEach(pos => {
         if (pos.startDate) {
-          const start = new Date(pos.startDate);
-          if (!isNaN(start.getTime())) {
+          const start = parseDate(pos.startDate);
+          if (start && !isNaN(start.getTime())) {
             if (!minStartDate || start < minStartDate) {
               minStartDate = start;
             }
           }
 
-          const end = pos.endDate ? new Date(pos.endDate) : new Date();
-          if (!isNaN(end.getTime())) {
+          const end = pos.endDate ? parseDate(pos.endDate) : new Date();
+          if (end && !isNaN(end.getTime())) {
             if (!maxEndDate || end > maxEndDate) {
               maxEndDate = end;
             }
@@ -169,15 +205,15 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
     // Process projects
     projects.forEach(project => {
       if (project.datePeriod?.startDate) {
-        const start = new Date(project.datePeriod.startDate);
-        if (!isNaN(start.getTime())) {
+        const start = parseDate(project.datePeriod.startDate);
+        if (start && !isNaN(start.getTime())) {
           if (!minStartDate || start < minStartDate) {
             minStartDate = start;
           }
         }
 
-        const end = project.datePeriod.endDate ? new Date(project.datePeriod.endDate) : new Date();
-        if (!isNaN(end.getTime())) {
+        const end = project.datePeriod.endDate ? parseDate(project.datePeriod.endDate) : new Date();
+        if (end && !isNaN(end.getTime())) {
           if (!maxEndDate || end > maxEndDate) {
             maxEndDate = end;
           }
@@ -188,15 +224,15 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
     // Process educations
     educations.forEach(edu => {
       if (edu.datePeriod?.startDate) {
-        const start = new Date(edu.datePeriod.startDate);
-        if (!isNaN(start.getTime())) {
+        const start = parseDate(edu.datePeriod.startDate);
+        if (start && !isNaN(start.getTime())) {
           if (!minStartDate || start < minStartDate) {
             minStartDate = start;
           }
         }
 
-        const end = edu.datePeriod?.endDate ? new Date(edu.datePeriod.endDate) : new Date();
-        if (!isNaN(end.getTime())) {
+        const end = edu.datePeriod?.endDate ? parseDate(edu.datePeriod.endDate) : new Date();
+        if (end && !isNaN(end.getTime())) {
           if (!maxEndDate || end > maxEndDate) {
             maxEndDate = end;
           }
@@ -240,7 +276,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
         <div className="flex-shrink-0 min-h-[80px] relative">
           {/* Logo */}
           {logoPath && (
-            <div className="absolute top-4 left-8 z-10 w-16 h-16">
+            <div className="absolute top-4 left-4 z-10 w-16 h-16">
               <img 
                 src={logoPath} 
                 alt={`${skill.title} logo`} 
