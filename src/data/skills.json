@@ -34,24 +34,29 @@
         "orderIndex": 6
       },
       {
-        "code": "Web & APIs",
-        "title": "Web & APIs",
+        "code": "Tools & IDEs",
+        "title": "Tools & IDEs",
         "orderIndex": 7
       },
       {
-        "code": "Tools & IDEs",
-        "title": "Tools & IDEs",
+        "code": "Security",
+        "title": "Security",
         "orderIndex": 8
       },
       {
-        "code": "Project & Reporting",
-        "title": "Project & Reporting",
+        "code": "Project Management",
+        "title": "Project Management",
         "orderIndex": 9
       },
       {
-        "code": "Scripting & Automation",
-        "title": "Scripting & Automation",
+        "code": "Reporting & BI",
+        "title": "Reporting & BI",
         "orderIndex": 10
+      },      
+      {
+        "code": "Others",
+        "title": "Others",
+        "orderIndex": 11
       }
     ]
   },
@@ -287,7 +292,7 @@
       "orderIndex": 22,
       "title": "Web Forms",
       "photoUrl": "",
-      "group": "Web & APIs",
+      "group": "Frontend",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -337,7 +342,7 @@
       "orderIndex": 27,
       "title": "Silverlight",
       "photoUrl": "/assets/skills/silverlight.png",
-      "group": "Web & APIs",
+      "group": "Frontend",
       "value": 0,
       "projects": 14,
       "jobs": 0
@@ -357,7 +362,7 @@
       "orderIndex": 29,
       "title": "WCF",
       "photoUrl": "/assets/skills/wcf.png",
-      "group": "Web & APIs",
+      "group": "Backend",
       "value": 0,
       "projects": 14,
       "jobs": 0
@@ -367,7 +372,7 @@
       "orderIndex": 30,
       "title": "Telerik UI for Silverlight",
       "photoUrl": "/assets/skills/telerikuiforsilverlight.png",
-      "group": "Web & APIs",
+      "group": "Frontend",
       "value": 0,
       "projects": 14,
       "jobs": 0
@@ -387,7 +392,7 @@
       "orderIndex": 32,
       "title": "Google Analytics",
       "photoUrl": "/assets/skills/googleanalytics.png",
-      "group": "Web & APIs",
+      "group": "Others",
       "value": 0,
       "projects": 16,
       "jobs": 0
@@ -397,7 +402,7 @@
       "orderIndex": 33,
       "title": "UML",
       "photoUrl": "/assets/skills/uml.png",
-      "group": "Project & Reporting",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -407,7 +412,7 @@
       "orderIndex": 34,
       "title": "OOP",
       "photoUrl": "/assets/skills/oop.png",
-      "group": "Project & Reporting",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -437,7 +442,7 @@
       "orderIndex": 37,
       "title": "PMP",
       "photoUrl": "/assets/skills/pmp.png",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -457,7 +462,7 @@
       "orderIndex": 39,
       "title": "Fast Reports",
       "photoUrl": "/assets/skills/fastreports.png",
-      "group": "Project & Reporting",
+      "group": "Others",
       "value": 0,
       "projects": 6,
       "jobs": 0
@@ -467,7 +472,7 @@
       "orderIndex": 40,
       "title": "Crystal Reports",
       "photoUrl": "/assets/skills/crystalreports.png",
-      "group": "Project & Reporting",
+      "group": "Others",
       "value": 0,
       "projects": 10,
       "jobs": 0
@@ -517,7 +522,7 @@
       "orderIndex": 45,
       "title": "Wordpress",
       "photoUrl": "/assets/skills/wordpress.png",
-      "group": "Web & APIs",
+      "group": "Others",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -567,7 +572,7 @@
       "orderIndex": 50,
       "title": "JWT",
       "photoUrl": "/assets/skills/jwt.png",
-      "group": "Scripting & Automation",
+      "group": "Security",
       "value": 0,
       "projects": 3,
       "jobs": 0
@@ -577,7 +582,7 @@
       "orderIndex": 51,
       "title": "OAuth",
       "photoUrl": "/assets/skills/oauth.png",
-      "group": "Scripting & Automation",
+      "group": "Security",
       "value": 0,
       "projects": 16,
       "jobs": 0
@@ -828,7 +833,7 @@
       "orderIndex": 76,
       "title": "APM",
       "photoUrl": "/assets/skills/APM.png",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -878,7 +883,7 @@
       "orderIndex": 81,
       "title": "Oracle BI",
       "photoUrl": "/assets/skills/oraclebi.png",
-      "group": "Project & Reporting",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 24,
       "jobs": 0
@@ -898,7 +903,7 @@
       "orderIndex": 83,
       "title": "WPF",
       "photoUrl": "/assets/skills/wpf.png",
-      "group": "Tools & IDEs",
+      "group": "Frontend",
       "value": 0,
       "projects": 14,
       "jobs": 0
@@ -908,7 +913,7 @@
       "orderIndex": 84,
       "title": "Hibernate",
       "photoUrl": "/assets/skills/hibernate.png",
-      "group": "Databases",
+      "group": "Backend",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -918,7 +923,7 @@
       "orderIndex": 85,
       "title": "Spring",
       "photoUrl": "/assets/skills/spring.png",
-      "group": "Frameworks",
+      "group": "Backend",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -958,7 +963,7 @@
       "orderIndex": 89,
       "title": "Jasper BI",
       "photoUrl": "/assets/skills/jasperbi.png",
-      "group": "Project & Reporting",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -968,7 +973,7 @@
       "orderIndex": 90,
       "title": "Jasper Reports",
       "photoUrl": "/assets/skills/jasperreports.png",
-      "group": "Project & Reporting",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -988,7 +993,7 @@
       "orderIndex": 92,
       "title": "iReports",
       "photoUrl": "/assets/skills/ireports.png",
-      "group": "Project & Reporting",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -1008,7 +1013,7 @@
       "orderIndex": 94,
       "title": "Scorm",
       "photoUrl": "/assets/skills/scorm.png",
-      "group": "Tools & IDEs",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1078,7 +1083,7 @@
       "orderIndex": 101,
       "title": "ubuntu",
       "photoUrl": "/assets/skills/ubuntu.png",
-      "group": "Tools & IDEs",
+      "group": "Others",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -1148,7 +1153,7 @@
       "orderIndex": 108,
       "title": "SOAP",
       "photoUrl": "/assets/skills/soap.png",
-      "group": "Web & APIs",
+      "group": "Backend",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1158,7 +1163,7 @@
       "orderIndex": 109,
       "title": "Redmine",
       "photoUrl": "/assets/skills/redmine.png",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -1218,7 +1223,7 @@
       "orderIndex": 115,
       "title": "MVVM",
       "photoUrl": "/assets/skills/mvvm.png",
-      "group": "Project & Reporting",
+      "group": "Frontend",
       "value": 0,
       "projects": 23,
       "jobs": 0
@@ -1228,7 +1233,7 @@
       "orderIndex": 116,
       "title": "Fiddler",
       "photoUrl": "/assets/skills/fiddler.png",
-      "group": "Cloud & DevOps",
+      "group": "Tools & IDEs",
       "value": 0,
       "projects": 14,
       "jobs": 0
@@ -1328,7 +1333,7 @@
       "orderIndex": 126,
       "title": "ASP.NET MVC",
       "photoUrl": "/assets/skills/aspnetmvc.png",
-      "group": "Web & APIs",
+      "group": "Backend",
       "value": 0,
       "projects": 33,
       "jobs": 0
@@ -1388,7 +1393,7 @@
       "orderIndex": 132,
       "title": "ASP.NET",
       "photoUrl": "/assets/skills/aspnet.png",
-      "group": "Web & APIs",
+      "group": "Backend",
       "value": 0,
       "projects": 35,
       "jobs": 0
@@ -1419,7 +1424,7 @@
       "orderIndex": 135,
       "title": "MS Project",
       "photoUrl": "/assets/skills/msproject.png",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 13,
       "jobs": 0,
@@ -1430,7 +1435,7 @@
       "orderIndex": 136,
       "title": "Design Patterns",
       "photoUrl": "/assets/skills/designpatterns.png",
-      "group": "Project & Reporting",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1440,7 +1445,7 @@
       "orderIndex": 137,
       "title": "Integration Platforms",
       "photoUrl": "",
-      "group": "Web & APIs",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1450,7 +1455,7 @@
       "orderIndex": 138,
       "title": "Enterprise Solutions",
       "photoUrl": "",
-      "group": "Project & Reporting",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1460,7 +1465,7 @@
       "orderIndex": 139,
       "title": "Integration Solutions",
       "photoUrl": "",
-      "group": "Web & APIs",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1530,7 +1535,7 @@
       "orderIndex": 146,
       "title": "Software Estimation",
       "photoUrl": "",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1540,7 +1545,7 @@
       "orderIndex": 147,
       "title": "Cost Management",
       "photoUrl": "/assets/skills/c.png",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1550,7 +1555,7 @@
       "orderIndex": 148,
       "title": "Time Management",
       "photoUrl": "",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1560,7 +1565,7 @@
       "orderIndex": 149,
       "title": "Project Management",
       "photoUrl": "/assets/skills/c.png",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1570,7 +1575,7 @@
       "orderIndex": 150,
       "title": "Web Development",
       "photoUrl": "",
-      "group": "Web & APIs",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1600,7 +1605,7 @@
       "orderIndex": 153,
       "title": "GraphQL",
       "photoUrl": "/assets/skills/graphql.png",
-      "group": "GraphQL",
+      "group": "Backend",
       "value": 0,
       "projects": 1,
       "jobs": 1

@@ -1397,8 +1397,8 @@
         "C"
       ],
       "datePeriod": {
-        "startDate": "01.02.2018",
-        "endDate": null
+        "startDate": "01.02.2017",
+        "endDate": "03.09.2019"
       },
       "props": [
         {
@@ -1433,7 +1433,7 @@
       ],
       "datePeriod": {
         "startDate": "01.03.2011",
-        "endDate": null
+        "endDate": "03.09.2019"
       },
       "props": [
         {

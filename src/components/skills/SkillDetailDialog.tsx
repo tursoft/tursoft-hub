@@ -408,6 +408,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                       const company = companies[edu.companyCode || ''];
                       return company?.photoUrl || '';
                     },
+                    badge: (edu) => edu.level || '',
                     date: (edu) => {
                       if (edu.datePeriod) {
                         const start = edu.datePeriod.startDate || '';
