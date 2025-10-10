@@ -11,6 +11,7 @@ import PortfolioSection from "@/components/projects/PortfolioSection";
 import CustomersSection from "@/components/customers/CustomersSection";
 import ReferencesSection from "@/components/references/ReferencesSection";
 import ContactSection from "@/components/contact/ContactSection";
+import { Separator } from "@/components/ui/separator";
 import profilePhoto from "@/assets/profile-photo.jpg";
 
 const Index = () => {
@@ -52,15 +53,25 @@ const Index = () => {
       <Navigation />
       <main>
         <HeroSection />
+        <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <AboutSection />
+        <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <ExperienceSection />
+        <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <DomainsSection />
+        <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <SkillsSection />
+        <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <PortfolioSection />
+        <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <CustomersSection />
+        <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <ReferencesSection />
+        <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <EducationSection />
+        <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <MapSection />
+        <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <ContactSection />
       </main>
     </div>
