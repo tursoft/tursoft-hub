@@ -712,8 +712,8 @@ const ListViewer = <T = any>({
 
               {/* Search Input with View Mode Toggle */}
               {enableSearch && (
-                <div className="flex flex-col sm:flex-row justify-center items-center gap-3">
-                  <div className="relative flex-1 w-full sm:max-w-2xl">
+                <div className="flex flex-row justify-center items-center gap-3 w-full">
+                  <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       type="text"
