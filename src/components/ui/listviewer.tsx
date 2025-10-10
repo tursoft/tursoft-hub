@@ -405,7 +405,7 @@ const ListViewer = <T = any>({
                   )}
                 </div>
                 {date && (
-                  <div className="text-xs text-muted-foreground/70 font-light whitespace-nowrap">
+                  <div className="text-xs text-muted-foreground/70 font-light whitespace-pre-line text-right">
                     {date}
                   </div>
                 )}

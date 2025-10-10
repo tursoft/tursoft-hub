@@ -56,6 +56,33 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
   const [educations, setEducations] = useState<Education[]>([]);
   const [companies, setCompanies] = useState<{ [key: string]: Company }>({});
 
+  // Helper function to calculate duration between two dates
+  const calculateDuration = (startDate: string | undefined, endDate: string | null | undefined): string => {
+    if (!startDate) return '';
+    
+    try {
+      const start = new Date(startDate);
+      const end = endDate ? new Date(endDate) : new Date();
+      
+      if (isNaN(start.getTime()) || isNaN(end.getTime())) return '';
+      
+      const months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+      const years = Math.floor(months / 12);
+      const remainingMonths = months % 12;
+      
+      if (years > 0 && remainingMonths > 0) {
+        return `${years} yr${years > 1 ? 's' : ''} ${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
+      } else if (years > 0) {
+        return `${years} yr${years > 1 ? 's' : ''}`;
+      } else if (remainingMonths > 0) {
+        return `${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
+      }
+      return '';
+    } catch (error) {
+      return '';
+    }
+  };
+
   const loadRelatedData = async () => {
     if (!skill) return;
     
@@ -225,6 +252,23 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                     },
                     description: (project) => '',
                     image: (project) => project.photoUrl || '',
+                    date: (project) => {
+                      if (project.datePeriod) {
+                        const start = project.datePeriod.startDate || '';
+                        const end = project.datePeriod.endDate || 'Present';
+                        const dateRange = start && end ? `${start} - ${end}` : '';
+                        
+                        if (dateRange && project.datePeriod.startDate) {
+                          const duration = calculateDuration(
+                            project.datePeriod.startDate,
+                            project.datePeriod.endDate
+                          );
+                          return duration ? `${dateRange}\n${duration}` : dateRange;
+                        }
+                        return dateRange;
+                      }
+                      return '';
+                    },
                   }}
                   onItemClick={(project) => onOpenProject?.(project)}
                 />
@@ -250,12 +294,25 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                       }
                       return '';
                     },
-                    description: (exp) => {
-                      return '';
-                    },
+                    description: (exp) => '',
                     image: (exp) => {
                       const company = companies[exp.companyCode || ''];
                       return company?.photoUrl || '';
+                    },
+                    date: (exp) => {
+                      if (exp.positions && exp.positions.length > 0) {
+                        const position = exp.positions[0];
+                        const start = position.startDate || '';
+                        const end = position.endDate || 'Present';
+                        const dateRange = start && end ? `${start} - ${end}` : '';
+                        
+                        if (dateRange && position.startDate) {
+                          const duration = calculateDuration(position.startDate, position.endDate);
+                          return duration ? `${dateRange}\n${duration}` : dateRange;
+                        }
+                        return dateRange;
+                      }
+                      return '';
                     },
                   }}
                   onItemClick={(experience) => onOpenExperience?.(experience)}
@@ -277,12 +334,27 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                       return company?.title || edu.companyCode || '';
                     },
                     subtitle: (edu) => edu.department || '',
-                    description: (edu) => {                                            
-                      return "";
-                    },
+                    description: (edu) => '',
                     image: (edu) => {
                       const company = companies[edu.companyCode || ''];
                       return company?.photoUrl || '';
+                    },
+                    date: (edu) => {
+                      if (edu.datePeriod) {
+                        const start = edu.datePeriod.startDate || '';
+                        const end = edu.datePeriod.endDate || '';
+                        const dateRange = start && end ? `${start} - ${end}` : edu.period || '';
+                        
+                        if (dateRange && edu.datePeriod.startDate) {
+                          const duration = calculateDuration(
+                            edu.datePeriod.startDate,
+                            edu.datePeriod.endDate
+                          );
+                          return duration ? `${dateRange}\n${duration}` : dateRange;
+                        }
+                        return dateRange;
+                      }
+                      return edu.period || '';
                     },
                   }}
                 />
