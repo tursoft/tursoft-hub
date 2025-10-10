@@ -90,7 +90,7 @@ const CustomersSection = () => {
               </div>
               <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300">
                 <div className="text-3xl font-bold text-primary mb-2">
-                  <AnimatedCounter end={15} suffix="+" />
+                  <AnimatedCounter end={25} suffix="+" />
                 </div>
                 <div className="text-sm text-muted-foreground">Years Experience</div>
               </div>
