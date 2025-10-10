@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -14,7 +13,6 @@ import {
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import {
   Maximize2,
   Minimize2,
@@ -23,10 +21,7 @@ import {
   GraduationCap
 } from "lucide-react";
 import type SkillItem from '@/models/Skills';
-import { experienceRepo } from '@/repositories/ExperienceRepo';
-import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
-import { educationRepo } from '@/repositories/EducationRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
@@ -64,23 +59,83 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
     try {
       // Use SkillsRepo methods to load related data
       const filteredExperiences = await skillsRepo.getExperiencesBySkillCode(skill.code);
-      setExperiences(filteredExperiences);
+      
+      // Sort experiences by end date (most recent first)
+      const sortedExperiences = filteredExperiences.sort((a, b) => {
+        const aEndDate = a.positions?.[0]?.endDate || '';
+        const bEndDate = b.positions?.[0]?.endDate || '';
+        
+        // Treat empty end dates as current (most recent)
+        if (!aEndDate && !bEndDate) return 0;
+        if (!aEndDate) return -1; // a is current, so it comes first
+        if (!bEndDate) return 1; // b is current, so it comes first
+        
+        const aDate = parseDate(aEndDate);
+        const bDate = parseDate(bEndDate);
+        
+        if (!aDate && !bDate) return 0;
+        if (!aDate) return 1;
+        if (!bDate) return -1;
+        
+        return bDate.getTime() - aDate.getTime(); // Descending order
+      });
+      setExperiences(sortedExperiences);
 
       const filteredProjects = await skillsRepo.getProjectsBySkillCode(skill.code);
-      setProjects(filteredProjects);
+      
+      // Sort projects by end date (most recent first)
+      const sortedProjects = filteredProjects.sort((a, b) => {
+        const aEndDate = a.datePeriod?.endDate || '';
+        const bEndDate = b.datePeriod?.endDate || '';
+        
+        // Treat empty end dates as current (most recent)
+        if (!aEndDate && !bEndDate) return 0;
+        if (!aEndDate) return -1; // a is current, so it comes first
+        if (!bEndDate) return 1; // b is current, so it comes first
+        
+        const aDate = parseDate(aEndDate);
+        const bDate = parseDate(bEndDate);
+        
+        if (!aDate && !bDate) return 0;
+        if (!aDate) return 1;
+        if (!bDate) return -1;
+        
+        return bDate.getTime() - aDate.getTime(); // Descending order
+      });
+      setProjects(sortedProjects);
 
       const filteredEducations = await skillsRepo.getEducationsBySkillCode(skill.code);
-      setEducations(filteredEducations);
+      
+      // Sort educations by end date (most recent first)
+      const sortedEducations = filteredEducations.sort((a, b) => {
+        const aEndDate = a.datePeriod?.endDate || '';
+        const bEndDate = b.datePeriod?.endDate || '';
+        
+        // Treat empty end dates as current (most recent)
+        if (!aEndDate && !bEndDate) return 0;
+        if (!aEndDate) return -1; // a is current, so it comes first
+        if (!bEndDate) return 1; // b is current, so it comes first
+        
+        const aDate = parseDate(aEndDate);
+        const bDate = parseDate(bEndDate);
+        
+        if (!aDate && !bDate) return 0;
+        if (!aDate) return 1;
+        if (!bDate) return -1;
+        
+        return bDate.getTime() - aDate.getTime(); // Descending order
+      });
+      setEducations(sortedEducations);
 
       // Load companies for experiences, projects, and educations
       const companyCodes = new Set<string>();
-      filteredExperiences.forEach(exp => {
+      sortedExperiences.forEach(exp => {
         if (exp.companyCode) companyCodes.add(exp.companyCode);
       });
-      filteredProjects.forEach(project => {
+      sortedProjects.forEach(project => {
         if (project.companyCode) companyCodes.add(project.companyCode);
       });
-      filteredEducations.forEach(edu => {
+      sortedEducations.forEach(edu => {
         if (edu.companyCode) companyCodes.add(edu.companyCode);
       });
 
@@ -268,7 +323,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
 
         {/* Content */}
         <div className="flex-1 pt-2">
-          <Tabs defaultValue="experiences" className="h-full flex flex-col">
+          <Tabs defaultValue="projects" className="h-full flex flex-col">
             <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-3">
 
               <TabsTrigger value="projects">
