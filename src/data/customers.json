@@ -107,7 +107,7 @@
       "companyCode": "TTNET",
       "description": "Turkey's largest telecommunications company providing internet and digital services to millions of customers.",
       "location": "Istanbul, Turkey",
-      "industry": "Telecommunications",
+      "industry": "Other",
       "relationship": "Enterprise Client",
       "skillCodes": [
         ".NET",

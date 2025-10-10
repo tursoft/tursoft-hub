@@ -708,7 +708,7 @@ const ListViewer = <T = any>({
                       variant={selectedCategory === category ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setSelectedCategory(category)}
-                      className={`gap-2 ${index === categories.length - 1 ? 'flex-1' : ''}`}
+                      className="gap-2 flex-1"
                     >
                       {categoryLabels?.[category] || category}
                       <Badge variant={selectedCategory === category ? 'secondary' : 'outline'}>
