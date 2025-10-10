@@ -15,6 +15,7 @@ const PortfolioSection = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [categoryOrder, setCategoryOrder] = useState<string[]>([]);
 
   // Helper function to format date period to years only
   const formatDateToYears = (datePeriod: { startDate?: string; endDate?: string } | undefined) => {
@@ -39,7 +40,17 @@ const PortfolioSection = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
+        // Load full data to get groups with orderIndex
+        const fullData = await projectsRepo.getFullData();
         const data = await projectsRepo.getList();
+
+        // Sort groups by orderIndex and extract their codes
+        if (fullData?.general?.groups) {
+          const sortedGroups = [...fullData.general.groups]
+            .sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
+            .map(group => group.code);
+          setCategoryOrder(sortedGroups);
+        }
 
         // Process projects with icons and formatted years
         const processedProjects = data.map((project) => ({
@@ -108,6 +119,7 @@ const PortfolioSection = () => {
           visibleMajorItemCount={21}
           enableCategoryFilter={true}
           categoryField="group"
+          categoryOrder={categoryOrder}
           enableSearch={true}
           searchFields={['title', 'summary', 'group']}
           searchPlaceholder="Search projects, technologies, or categories..."

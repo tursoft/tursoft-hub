@@ -22,7 +22,7 @@ export interface ProjectsData {
   general?: {
     title?: string;
     summary?: string;
-    groups?: Array<{ code: string; title: string; value?: number; iconCss?: string }>;
+    groups?: Array<{ code: string; title: string; value?: number; iconCss?: string; orderIndex?: number }>;
   };
   items: ProjectEntry[];
 }
