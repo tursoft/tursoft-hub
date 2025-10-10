@@ -13,18 +13,30 @@ const SkillsSection = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
   const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
+  const [categoryOrder, setCategoryOrder] = useState<string[]>([]);
 
   // Load skills data
   useEffect(() => {
     const loadData = async () => {
       try {
         const data = await skillsRepo.getList();
+        const fullData = await skillsRepo.getFullData();
 
-        // Process skills with icons
-        const processedSkills = data.map((skill) => ({
-          ...skill,
-          icon: skill.photoUrl
-        }));
+        // Extract and sort groups by orderIndex
+        if (fullData?.general?.groups) {
+          const sortedGroups = [...fullData.general.groups]
+            .sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
+            .map(g => g.title || g.name || '');
+          setCategoryOrder(sortedGroups);
+        }
+
+        // Process skills with icons and sort by orderIndex
+        const processedSkills = data
+          .map((skill) => ({
+            ...skill,
+            icon: skill.photoUrl
+          }))
+          .sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0));
 
         setSkills(processedSkills);
       } catch (error) {
@@ -55,9 +67,10 @@ const SkillsSection = () => {
           defaultViewMode="small-card"
           enabledModes={['small-card', 'card', 'list']}
           enableShowMore={true}
-          visibleMajorItemCount={16}
+          visibleMajorItemCount={32}
           enableCategoryFilter={true}
           categoryField="group"
+          categoryOrder={categoryOrder}
           enableSearch={true}
           searchFields={['title', 'code', 'group']}
           searchPlaceholder="Search skills, technologies, or categories..."
@@ -76,7 +89,7 @@ const SkillsSection = () => {
           gridCols={{ sm: 2, md: 3, lg: 4, xl: 6 }}
           footer={
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div className="p-6 rounded-lg bg-card border border-border/50">
+              {/* <div className="p-6 rounded-lg bg-card border border-border/50">
                 <div className="text-3xl font-bold text-primary mb-2">
                   {skills.length}+
                 </div>
@@ -99,7 +112,7 @@ const SkillsSection = () => {
                   15+
                 </div>
                 <div className="text-sm text-muted-foreground">Years Experience</div>
-              </div>
+              </div> */}
             </div>
           }
         />

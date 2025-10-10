@@ -13,6 +13,15 @@ class SkillsRepo extends BaseRepoAdvanced<SkillItem, SkillsData> {
   }
 
   /**
+   * Get the full skills data including general information
+   * @returns The complete SkillsData object
+   */
+  async getFullData(): Promise<SkillsData | null> {
+    await this.loadIfNeeded();
+    return this.data;
+  }
+
+  /**
    * Get all projects that use this skill
    * @param skillCode The skill code to search for
    * @returns Array of projects that include this skill in their skillCodes

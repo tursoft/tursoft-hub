@@ -53,6 +53,7 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   enableCategoryFilter?: boolean;
   categoryField?: string | ((item: T) => string); // Field name or function to extract category
   categoryLabels?: Record<string, string>; // Optional custom labels for categories
+  categoryOrder?: string[]; // Optional custom order for categories
   enableSearch?: boolean;
   searchFields?: string[] | ((item: T) => string[]); // Fields to search in
   searchPlaceholder?: string;
@@ -112,6 +113,7 @@ const ListViewer = <T = any>({
   enableCategoryFilter = false,
   categoryField,
   categoryLabels,
+  categoryOrder,
   enableSearch = false,
   searchFields,
   searchPlaceholder = 'Search...',
@@ -155,8 +157,33 @@ const ListViewer = <T = any>({
       const category = getFieldValue(item, categoryField);
       if (category) categorySet.add(category);
     });
-    return ['All', ...Array.from(categorySet).sort()];
-  }, [data, enableCategoryFilter, categoryField, getFieldValue]);
+    
+    const uniqueCategories = Array.from(categorySet);
+    
+    // Sort categories based on custom order if provided
+    if (categoryOrder && categoryOrder.length > 0) {
+      uniqueCategories.sort((a, b) => {
+        const indexA = categoryOrder.indexOf(a);
+        const indexB = categoryOrder.indexOf(b);
+        
+        // If both are in the order list, sort by their position
+        if (indexA !== -1 && indexB !== -1) {
+          return indexA - indexB;
+        }
+        // If only a is in the order list, it comes first
+        if (indexA !== -1) return -1;
+        // If only b is in the order list, it comes first
+        if (indexB !== -1) return 1;
+        // If neither is in the order list, sort alphabetically
+        return a.localeCompare(b);
+      });
+    } else {
+      // Default alphabetical sorting
+      uniqueCategories.sort();
+    }
+    
+    return ['All', ...uniqueCategories];
+  }, [data, enableCategoryFilter, categoryField, categoryOrder, getFieldValue]);
 
   // Get category count
   const getCategoryCount = useCallback((category: string) => {

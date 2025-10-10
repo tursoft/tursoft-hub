@@ -4,33 +4,33 @@
     "summary": "I had experience on various tech stacks in my long career.",
     "groups": [
       {
-        "code": "Frontend",
-        "title": "Frontend",
-        "orderIndex": 1
-      },
-      {
         "code": "Programming Languages",
         "title": "Programming Languages",
-        "orderIndex": 2
-      },
-      {
-        "code": "Frameworks",
-        "title": "Frameworks",
-        "orderIndex": 3
-      },
-      {
-        "code": "Backend",
-        "title": "Backend",
-        "orderIndex": 4
-      },
-      {
-        "code": "Databases",
-        "title": "Databases",
-        "orderIndex": 5
+        "orderIndex": 1
       },
       {
         "code": "Cloud & DevOps",
         "title": "Cloud & DevOps",
+        "orderIndex": 2
+      },
+      {
+        "code": "Backend",
+        "title": "Backend",
+        "orderIndex": 3
+      },
+      {
+        "code": "Frontend",
+        "title": "Frontend",
+        "orderIndex": 4
+      },                  
+      {
+        "code": "Databases",
+        "title": "Databases",
+        "orderIndex": 5
+      },      
+      {
+        "code": "Frameworks",
+        "title": "Frameworks",
         "orderIndex": 6
       },
       {
@@ -39,15 +39,15 @@
         "orderIndex": 7
       },
       {
-        "code": "Security",
-        "title": "Security",
+        "code": "Project Management",
+        "title": "Project Management",
         "orderIndex": 8
       },
       {
-        "code": "Project Management",
-        "title": "Project Management",
+        "code": "Security",
+        "title": "Security",
         "orderIndex": 9
-      },
+      },      
       {
         "code": "Reporting & BI",
         "title": "Reporting & BI",
@@ -352,7 +352,7 @@
       "orderIndex": 28,
       "title": "XAML",
       "photoUrl": "/assets/skills/xaml.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 14,
       "jobs": 0
@@ -462,7 +462,7 @@
       "orderIndex": 39,
       "title": "Fast Reports",
       "photoUrl": "/assets/skills/fastreports.png",
-      "group": "Others",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 6,
       "jobs": 0
@@ -472,7 +472,7 @@
       "orderIndex": 40,
       "title": "Crystal Reports",
       "photoUrl": "/assets/skills/crystalreports.png",
-      "group": "Others",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 10,
       "jobs": 0
@@ -532,7 +532,7 @@
       "orderIndex": 46,
       "title": "PowerShell",
       "photoUrl": "/assets/skills/powershell.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -552,7 +552,7 @@
       "orderIndex": 48,
       "title": "Quartz Scheduler",
       "photoUrl": "/assets/skills/quartzscheduler.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -700,7 +700,7 @@
     },
     {
       "code": "Dark Basic",
-      "orderIndex": 63,
+      "orderIndex": 263,
       "title": "Dark Basic",
       "photoUrl": "/assets/skills/darkbasic.png",
       "group": "Tools & IDEs",
@@ -813,7 +813,7 @@
       "orderIndex": 74,
       "title": "Paypal",
       "photoUrl": "/assets/skills/paypal.png",
-      "group": "Tools & IDEs",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -843,7 +843,7 @@
       "orderIndex": 77,
       "title": "Json",
       "photoUrl": "/assets/skills/json.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 16,
       "jobs": 0
@@ -1123,7 +1123,7 @@
       "orderIndex": 105,
       "title": "Bash Scripting",
       "photoUrl": "/assets/skills/bashscripting.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -1183,7 +1183,7 @@
       "orderIndex": 111,
       "title": "XML",
       "photoUrl": "/assets/skills/xml.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -1323,7 +1323,7 @@
       "orderIndex": 125,
       "title": "Hangfire",
       "photoUrl": "/assets/skills/hangfire.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -1595,7 +1595,7 @@
       "orderIndex": 152,
       "title": "Networking",
       "photoUrl": "/assets/skills/networking.png",
-      "group": "Tools & IDEs",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
