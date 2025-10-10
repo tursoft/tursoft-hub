@@ -89,30 +89,6 @@ const SkillsSection = () => {
           gridCols={{ sm: 2, md: 3, lg: 4, xl: 6 }}
           footer={
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              {/* <div className="p-6 rounded-lg bg-card border border-border/50">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  {skills.length}+
-                </div>
-                <div className="text-sm text-muted-foreground">Technologies</div>
-              </div>
-              <div className="p-6 rounded-lg bg-card border border-border/50">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  {groups.length}
-                </div>
-                <div className="text-sm text-muted-foreground">Categories</div>
-              </div>
-              <div className="p-6 rounded-lg bg-card border border-border/50">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  {skills.filter(s => s.isMajor).length}
-                </div>
-                <div className="text-sm text-muted-foreground">Major Skills</div>
-              </div>
-              <div className="p-6 rounded-lg bg-card border border-border/50">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  15+
-                </div>
-                <div className="text-sm text-muted-foreground">Years Experience</div>
-              </div> */}
             </div>
           }
         />
