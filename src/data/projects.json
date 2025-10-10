@@ -4,58 +4,52 @@
     "summary": "Throughout 25 years of my professional career, I have completed managed various projects with more than million dolars.",
     "groups": [
       {
-        "code": "RD",
-        "title": "Research",
-        "iconCss": "",
-        "orderIndex": 9
-      },
-      {
-        "code": "Framework",
-        "title": "Framework",
-        "iconCss": "",
-        "orderIndex": 8
-      },
-      {
         "code": "HIS",
         "title": "HIS",
         "iconCss": "",
-        "orderIndex": 7
+        "orderIndex": 1
       },
       {
         "code": "Telemedicine",
         "title": "Telemedicine",
         "iconCss": "",
-        "orderIndex": 6
+        "orderIndex": 2
       },
       {
         "code": "LMS",
         "title": "LMS",
         "iconCss": "",
-        "orderIndex": 5
+        "orderIndex": 3
       },
       {
-        "code": "Social Responsibility",
-        "title": "Social Responsibility",
+        "code": "Framework",
+        "title": "Framework",
         "iconCss": "",
         "orderIndex": 4
+      },
+      {
+        "code": "RD",
+        "title": "Research",
+        "iconCss": "",
+        "orderIndex": 5
       },
       {
         "code": "PM",
         "title": "Project Management",
         "iconCss": "",
-        "orderIndex": 3
+        "orderIndex": 6
       },
       {
         "code": "Game",
         "title": "Game",
         "iconCss": "",
-        "orderIndex": 2
+        "orderIndex": 7
       },
       {
         "code": "Misc",
         "title": "Misc",
         "iconCss": "",
-        "orderIndex": 1
+        "orderIndex": 9
       }
     ]
   },
@@ -2526,7 +2520,7 @@
       "title": "Official Website of TechnoParks Summit 2004",
       "photoUrl": "/assets/projects/_logos/teknoparklar_zirvesi2004.jpg",
       "companyCode": "Tursoft",
-      "group": "Social Responsibility",
+      "group": "Misc",
       "value": 100,
       "summary": "Official website of TechnoParks Summit 2004 that is a national level summit for TechnoParks in Turkey. Summit were organized in the cooperation and support of IEEE METU and Tubitak. Website was maintained during next 3 years up to 2007 and used by at least 3 more summits too. <br/>URL:http://teknozirve.org.tr  (not active anymore)<br/>NOT: Since screehshoots taken nowadays that is 14 years later by using web.archive.org, some sections of design are missing. You can access cached version from following url: https://web.archive.org/web/20071013170339/http://teknozirve.org.tr:80/",
       "customerCodes": [
@@ -2631,7 +2625,7 @@
       "title": "Official Website of BiltekOnline",
       "photoUrl": "/assets/projects/_logos/BiltekOnline.png",
       "companyCode": "Tursoft",
-      "group": "Social Responsibility",
+      "group": "Misc",
       "value": 100,
       "summary": "Official website of BiltekOnline that is an online magazine about technology",
       "customerCodes": [],
@@ -2714,7 +2708,7 @@
       "title": "Official Website of METU Communication Club",
       "photoUrl": "/assets/projects/_logos/METU_ILT.png",
       "companyCode": null,
-      "group": "Social Responsibility",
+      "group": "Misc",
       "value": 100,
       "summary": "Official website of METU Communication Club",
       "customerCodes": [],
@@ -3506,7 +3500,7 @@
       "title": "soyagaciniz.net",
       "photoUrl": "/assets/projects/_logos/soyagaciniznet.png",
       "companyCode": "ERC",
-      "group": "Social Responsibility",
+      "group": "Misc",
       "value": 100,
       "summary": "Gönüllü olarak geliştirdiğim bu proje sayesinde e-devlet soyağacınızı görselleştirmek artık çok kolay. Teknolojiler: SPA, Angular4, Angular Material, PrimeNg, ChartJS, MomentJS, FontAwesome, Light Gallery, RxJS, JsPdf. <br/>URL: <a href='http://www.soyagaciniz.net' target='_blank'>http://www.soyagaciniz.net</a>. Kaynak Kod: <a href='https://github.com/tursoft/familytree' target='_blank'>https://github.com/tursoft/familytree</a>",
       "customerCodes": [],
@@ -3667,7 +3661,7 @@
       "title": "Pardus on Docker",
       "photoUrl": "/assets/projects/_logos/PARDUSDOCKER.png",
       "companyCode": "Tursoft",
-      "group": "Social Responsibility",
+      "group": "Misc",
       "value": 100,
       "summary": "Docker için Base-Pardus Image'leri",
       "fulltext": "Bu proje, yerli işletim sistemimizi destek olmak ve docker tabanlı projelerde de kullanımının artmasına katkıda bulunmak amacı ile hazırlanmıştır. <br/> Github: <a href='https://github.com/tursoft/pardus-images' target='_blank'>https://github.com/tursoft/pardus-images</a> <br/> Dockerhub: <a href='https://cloud.docker.com/repository/docker/tursoft/pardus' target='_blank'>https://cloud.docker.com/repository/docker/tursoft/pardus</a>",

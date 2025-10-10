@@ -48,6 +48,7 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   title?: string;
   subtitle?: string;
   badge?: string;
+  summary?: ReactNode;
   
   // Filtering
   enableCategoryFilter?: boolean;
@@ -110,6 +111,7 @@ const ListViewer = <T = any>({
   title,
   subtitle,
   badge,
+  summary,
   enableCategoryFilter = false,
   categoryField,
   categoryLabels,
@@ -672,6 +674,13 @@ const ListViewer = <T = any>({
           </div>
         )}
 
+        {/* Summary Section */}
+        {summary && (
+          <div className="mb-8">
+            {summary}
+          </div>
+        )}
+
         {/* Filters */}
         {(enableCategoryFilter || enableSearch) && (
           <div className="mb-8">
@@ -692,14 +701,14 @@ const ListViewer = <T = any>({
             <div className={`space-y-4 ${showFilters ? 'block' : 'hidden'} md:block`}>
               {/* Category Filter */}
               {enableCategoryFilter && categoryField && categories.length > 0 && (
-                <div className="flex flex-wrap justify-center gap-2">
-                  {categories.map((category) => (
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((category, index) => (
                     <Button
                       key={category}
                       variant={selectedCategory === category ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setSelectedCategory(category)}
-                      className="gap-2"
+                      className={`gap-2 ${index === categories.length - 1 ? 'flex-1' : ''}`}
                     >
                       {categoryLabels?.[category] || category}
                       <Badge variant={selectedCategory === category ? 'secondary' : 'outline'}>
