@@ -33,6 +33,7 @@ import type { ProjectEntry } from '@/models/Project';
 import type { Company } from '@/models/Companies';
 import type { Education } from '@/models/Education';
 import ListViewer from '@/components/ui/listviewer';
+import { parseDate, calculateDuration, type DateRange } from '@/lib/datetimeutils';
 
 interface SkillDetailDialogProps {
   skill: SkillItem | null;
@@ -55,69 +56,6 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
   const [projects, setProjects] = useState<ProjectEntry[]>([]);
   const [educations, setEducations] = useState<Education[]>([]);
   const [companies, setCompanies] = useState<{ [key: string]: Company }>({});
-
-  // Helper function to parse DD.MM.YYYY or YYYY-MM dates
-  const parseDate = (dateString: string | undefined | null): Date | null => {
-    if (!dateString) return null;
-    
-    // Try DD.MM.YYYY format first
-    if (dateString.includes('.')) {
-      const parts = dateString.split('.');
-      if (parts.length === 3) {
-        const day = parseInt(parts[0], 10);
-        const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
-        const year = parseInt(parts[2], 10);
-        const date = new Date(year, month, day);
-        if (!isNaN(date.getTime())) {
-          return date;
-        }
-      }
-    }
-    
-    // Try YYYY-MM format
-    if (dateString.includes('-')) {
-      const parts = dateString.split('-');
-      if (parts.length === 2) {
-        const year = parseInt(parts[0], 10);
-        const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
-        const date = new Date(year, month, 1);
-        if (!isNaN(date.getTime())) {
-          return date;
-        }
-      }
-    }
-    
-    // Fallback to standard Date parsing
-    const date = new Date(dateString);
-    return isNaN(date.getTime()) ? null : date;
-  };
-
-  // Helper function to calculate duration between two dates
-  const calculateDuration = (startDate: string | undefined, endDate: string | null | undefined): string => {
-    if (!startDate) return '';
-    
-    try {
-      const start = parseDate(startDate);
-      const end = endDate ? parseDate(endDate) : new Date();
-      
-      if (!start || !end || isNaN(end.getTime())) return '';
-      
-      const months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
-      const years = Math.floor(months / 12);
-      const remainingMonths = months % 12;
-      
-      if (years > 0 && remainingMonths > 0) {
-        return `${years} yr${years > 1 ? 's' : ''} ${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
-      } else if (years > 0) {
-        return `${years} yr${years > 1 ? 's' : ''}`;
-      } else if (remainingMonths > 0) {
-        return `${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
-      }
-      return '';
-    } catch (error) {
-      return '';
-    }
-  };
 
   const loadRelatedData = async () => {
     if (!skill) return;
@@ -387,10 +325,10 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                         const dateRange = start && end ? `${start} - ${end}` : '';
                         
                         if (dateRange && project.datePeriod.startDate) {
-                          const duration = calculateDuration(
-                            project.datePeriod.startDate,
-                            project.datePeriod.endDate
-                          );
+                          const duration = calculateDuration([{
+                            startDate: project.datePeriod.startDate,
+                            endDate: project.datePeriod.endDate
+                          }]);
                           return duration ? `${dateRange}\n${duration}` : dateRange;
                         }
                         return dateRange;
@@ -435,7 +373,10 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                         const dateRange = start && end ? `${start} - ${end}` : '';
                         
                         if (dateRange && position.startDate) {
-                          const duration = calculateDuration(position.startDate, position.endDate);
+                          const duration = calculateDuration([{
+                            startDate: position.startDate,
+                            endDate: position.endDate
+                          }]);
                           return duration ? `${dateRange}\n${duration}` : dateRange;
                         }
                         return dateRange;
@@ -474,10 +415,10 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                         const dateRange = start && end ? `${start} - ${end}` : edu.period || '';
                         
                         if (dateRange && edu.datePeriod.startDate) {
-                          const duration = calculateDuration(
-                            edu.datePeriod.startDate,
-                            edu.datePeriod.endDate
-                          );
+                          const duration = calculateDuration([{
+                            startDate: edu.datePeriod.startDate,
+                            endDate: edu.datePeriod.endDate
+                          }]);
                           return duration ? `${dateRange}\n${duration}` : dateRange;
                         }
                         return dateRange;
