@@ -184,7 +184,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-hidden pl-24 pr-16 pt-2">
+        <div className="flex-1 overflow-hidden pt-2">
           <Tabs defaultValue="experiences" className="h-full flex flex-col">
             <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-3">
               {projects.length > 0 && (
