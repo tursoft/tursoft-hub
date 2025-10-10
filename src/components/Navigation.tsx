@@ -15,6 +15,7 @@ const navItems = [
   { id: "references", label: "References" },
   { id: "education", label: "Education" },
   { id: "map", label: "Map" },
+  { id: "timeline", label: "Timeline" },
   { id: "contact", label: "Contact" }
 ];
 

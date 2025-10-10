@@ -6,6 +6,7 @@ import ExperienceSection from "@/components/experiences/ExperienceSection";
 import DomainsSection from "@/components/domains/DomainsSection";
 import EducationSection from "@/components/educations/EducationSection";
 import MapSection from "@/components/map/MapSection";
+import TimelineSection from "@/components/timeline/TimelineSection";
 import SkillsSection from "@/components/skills/SkillsSection";
 import PortfolioSection from "@/components/projects/PortfolioSection";
 import CustomersSection from "@/components/customers/CustomersSection";
@@ -71,6 +72,8 @@ const Index = () => {
         <EducationSection />
         <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <MapSection />
+        <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
+        <TimelineSection />
         <Separator className="bg-gradient-to-r from-transparent via-primary to-transparent" />
         <ContactSection />
       </main>
