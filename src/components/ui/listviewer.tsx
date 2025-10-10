@@ -836,7 +836,7 @@ const ListViewer = <T = any>({
                   onClick={() => setShowAll(!showAll)}
                   className="transition-all duration-300 hover:scale-105"
                 >
-                  {showAll ? 'Show Less' : `Show All (${data.length})`}
+                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
                 </Button>
               </div>
             )}
@@ -857,7 +857,7 @@ const ListViewer = <T = any>({
                   onClick={() => setShowAll(!showAll)}
                   className="transition-all duration-300 hover:scale-105"
                 >
-                  {showAll ? 'Show Less' : `Show All (${data.length})`}
+                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
                 </Button>
               </div>
             )}
@@ -878,7 +878,7 @@ const ListViewer = <T = any>({
                   onClick={() => setShowAll(!showAll)}
                   className="transition-all duration-300 hover:scale-105"
                 >
-                  {showAll ? 'Show Less' : `Show All (${data.length})`}
+                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
                 </Button>
               </div>
             )}
