@@ -130,7 +130,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
           isMaximized 
             ? 'max-w-[95vw] h-[95vh]' 
             : 'max-w-4xl max-h-[90vh]'
-        } overflow-hidden flex flex-col z-[100]`}
+        } overflow-hidden flex flex-col z-[100] h-[80%]`}
       >
         {/* Top Panel - Logo and Header */}
         <div className="flex-shrink-0 min-h-[80px] relative">
@@ -184,46 +184,41 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-hidden pt-2">
+        <div className="flex-1 pt-2">
           <Tabs defaultValue="experiences" className="h-full flex flex-col">
             <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-3">
-              {projects.length > 0 && (
-                <TabsTrigger value="projects">
-                  <span className="flex items-center gap-2">
-                    <FolderKanban className="w-4 h-4" />
-                    Projects
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {projects.length}
-                    </Badge>
-                  </span>
-                </TabsTrigger>
-              )}
-              {experiences.length > 0 && (
-                <TabsTrigger value="experiences">
-                  <span className="flex items-center gap-2">
-                    <Briefcase className="w-4 h-4" />
-                    Experiences
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {experiences.length}
-                    </Badge>
-                  </span>
-                </TabsTrigger>
-              )}
-              {educations.length > 0 && (
-                <TabsTrigger value="educations">
-                  <span className="flex items-center gap-2">
-                    <GraduationCap className="w-4 h-4" />
-                    Educations
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {educations.length}
-                    </Badge>
-                  </span>
-                </TabsTrigger>
-              )}
+
+              <TabsTrigger value="projects">
+                <span className="flex items-center gap-2">
+                  <FolderKanban className="w-4 h-4" />
+                  Projects
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {projects.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
+              <TabsTrigger value="experiences">
+                <span className="flex items-center gap-2">
+                  <Briefcase className="w-4 h-4" />
+                  Experiences
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {experiences.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
+              <TabsTrigger value="educations">
+                <span className="flex items-center gap-2">
+                  <GraduationCap className="w-4 h-4" />
+                  Educations
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {educations.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
             </TabsList>
 
             <div className="flex-1 overflow-y-auto">
-              <TabsContent value="projects" className="mt-0 h-full">
+              <TabsContent value="projects" className="h-[55%] overflow-y-auto">
                 <div className="px-4 py-2">
                   {isLoadingData ? (
                     <div className="text-center text-muted-foreground py-8">Loading projects...</div>
@@ -277,17 +272,17 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                       })}
                     </div>
                   ) : (
-                    <p className="text-muted-foreground">No projects found.</p>
+                    <p className="text-muted-foreground"></p>
                   )}
                 </div>
               </TabsContent>
 
-              <TabsContent value="experiences" className="mt-0 h-full overflow-y-auto -mx-4">
+              <TabsContent value="experiences" className="h-[55%] overflow-y-auto">
                 <ListViewer<Experience>
                   data={experiences}
                   isLoading={isLoadingData}
                   loadingMessage="Loading experiences..."
-                  emptyMessage="No experiences found."
+                  emptyMessage=""
                   defaultViewMode="list"
                   enabledModes={['list']}
                   fieldMapping={{
@@ -314,7 +309,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                 />
               </TabsContent>
 
-              <TabsContent value="educations" className="mt-0 h-full">
+              <TabsContent value="educations" className="h-[55%] overflow-y-auto">
                 <div className="px-4 py-2">
                   {isLoadingData ? (
                     <div className="text-center text-muted-foreground py-8">Loading educations...</div>
@@ -378,7 +373,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                       })}
                     </div>
                   ) : (
-                    <p className="text-muted-foreground">No educations found.</p>
+                    <p className="text-muted-foreground"></p>
                   )}
                 </div>
               </TabsContent>
