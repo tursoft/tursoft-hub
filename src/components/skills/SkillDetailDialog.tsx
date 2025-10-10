@@ -31,6 +31,7 @@ import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
 import type { Company } from '@/models/Companies';
 import type { Education } from '@/models/Education';
+import ListViewer from '@/components/ui/listviewer';
 
 interface SkillDetailDialogProps {
   skill: SkillItem | null;
@@ -131,30 +132,33 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
             : 'max-w-4xl max-h-[90vh]'
         } overflow-hidden flex flex-col z-[100]`}
       >
-        {/* Logo */}
-        {logoPath && (
-          <div className="absolute top-4 left-8 z-10 w-16 h-16">
-            <img 
-              src={logoPath} 
-              alt={`${skill.title} logo`} 
-              className="w-full h-full object-contain rounded-lg"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          </div>
-        )}
-
-        {/* Header */}
-        <DialogHeader className="flex-shrink-0 pl-24 pr-16">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1 min-w-0">
-              <DialogTitle className="text-2xl font-bold pr-4">
-                {skill.title}
-              </DialogTitle>
+        {/* Top Panel - Logo and Header */}
+        <div className="flex-shrink-0 min-h-[80px] relative">
+          {/* Logo */}
+          {logoPath && (
+            <div className="absolute top-4 left-8 z-10 w-16 h-16">
+              <img 
+                src={logoPath} 
+                alt={`${skill.title} logo`} 
+                className="w-full h-full object-contain rounded-lg"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
             </div>
-          </div>
-        </DialogHeader>
+          )}
+
+          {/* Header */}
+          <DialogHeader className="pl-24 pr-16 pt-4">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                <DialogTitle className="text-2xl font-bold pr-4">
+                  {skill.title}
+                </DialogTitle>
+              </div>
+            </div>
+          </DialogHeader>
+        </div>
 
         {/* Action Buttons */}
         <div className="absolute top-4 right-4 flex gap-2 z-20">
@@ -219,7 +223,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
             </TabsList>
 
             <div className="flex-1 overflow-y-auto">
-              <TabsContent value="projects" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
+              <TabsContent value="projects" className="mt-0 h-full">
                 <div className="px-4 py-2">
                   {isLoadingData ? (
                     <div className="text-center text-muted-foreground py-8">Loading projects...</div>
@@ -278,59 +282,39 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                 </div>
               </TabsContent>
 
-              <TabsContent value="experiences" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
-                <div className="px-4 py-2">
-                  {isLoadingData ? (
-                    <div className="text-center text-muted-foreground py-8">Loading experiences...</div>
-                  ) : experiences.length > 0 ? (
-                    <div className="space-y-3">
-                      {experiences.map((experience) => {
-                        const company = companies[experience.companyCode || ''];
-                        const logoPath = company?.photoUrl || "";
-                        
-                        return (
-                          <Card 
-                            key={experience.companyCode}
-                            className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
-                            onClick={() => onOpenExperience?.(experience)}
-                          >
-                            <CardContent className="p-4">
-                              <div className="flex items-start gap-4">
-                                {logoPath && (
-                                  <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                    <img 
-                                      src={logoPath} 
-                                      alt={`${company?.title} logo`} 
-                                      className="w-full h-full object-contain p-1"
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                                <div className="flex-1 min-w-0">
-                                  <h3 className="font-semibold text-foreground mb-1">
-                                    {company?.title || experience.companyCode}
-                                  </h3>
-                                  {experience.positions && experience.positions.length > 0 && (
-                                    <CardDescription className="text-sm line-clamp-2">
-                                      {experience.positions[0].title}
-                                    </CardDescription>
-                                  )}
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="text-muted-foreground">No experiences found.</p>
-                  )}
-                </div>
+              <TabsContent value="experiences" className="mt-0 h-full overflow-y-auto -mx-4">
+                <ListViewer<Experience>
+                  data={experiences}
+                  isLoading={isLoadingData}
+                  loadingMessage="Loading experiences..."
+                  emptyMessage="No experiences found."
+                  defaultViewMode="list"
+                  enabledModes={['list']}
+                  fieldMapping={{
+                    code: (exp) => exp.code || exp.companyCode || '',
+                    title: (exp) => {
+                      const company = companies[exp.companyCode || ''];
+                      return company?.title || exp.companyCode || '';
+                    },
+                    subtitle: (exp) => {
+                      if (exp.positions && exp.positions.length > 0) {
+                        return exp.positions[0].title || '';
+                      }
+                      return '';
+                    },
+                    description: (exp) => {
+                      return '';
+                    },
+                    image: (exp) => {
+                      const company = companies[exp.companyCode || ''];
+                      return company?.photoUrl || '';
+                    },
+                  }}
+                  onItemClick={(experience) => onOpenExperience?.(experience)}
+                />
               </TabsContent>
 
-              <TabsContent value="educations" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
+              <TabsContent value="educations" className="mt-0 h-full">
                 <div className="px-4 py-2">
                   {isLoadingData ? (
                     <div className="text-center text-muted-foreground py-8">Loading educations...</div>
