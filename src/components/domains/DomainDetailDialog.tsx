@@ -28,6 +28,7 @@ import { companiesRepo } from '@/repositories/CompaniesRepo';
 import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
 import type { Company } from '@/models/Companies';
+import { calculateDuration } from '@/lib/datetimeutils';
 
 interface DomainDetailDialogProps {
   domain: Domain | null;
@@ -206,7 +207,7 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
                       enabledModes={['list']}
                       onItemClick={(experience) => onOpenExperience?.(experience)}
                       fieldMapping={{
-                        code: (e) => e.code || '',
+                        code: (e) => e.companyCode || '',
                         title: (e: Experience) => companies[e.companyCode || '']?.title || e.companyCode,
                         subtitle: (e: Experience) => e.positions && e.positions.length > 0 ? e.positions[0].title : '',
                         description: (e) => '',
@@ -234,10 +235,29 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
                       fieldMapping={{
                         code: (p) => p.code || '',
                         title: (p) => p.title || '',
-                        subtitle: (p) => '',
-                        description: (p) => '',
-                        image: (p) => p.photoUrl || '',
-                        date: (p) => ''
+                        subtitle: (project) => {
+                          const company = companies[project.companyCode || ''];
+                          return company?.title || '';
+                        },
+                        description: (project) => '',
+                        image: (project) => project.photoUrl || '',
+                        date: (project) => {
+                          if (project.datePeriod) {
+                            const start = project.datePeriod.startDate || '';
+                            const end = project.datePeriod.endDate || 'Present';
+                            const dateRange = start && end ? `${start} - ${end}` : '';
+                            
+                            if (dateRange && project.datePeriod.startDate) {
+                              const duration = calculateDuration([{
+                                startDate: project.datePeriod.startDate,
+                                endDate: project.datePeriod.endDate
+                              }]);
+                              return duration ? `${dateRange}\n${duration}` : dateRange;
+                            }
+                            return dateRange;
+                          }
+                          return '';
+                        },
                       }}
                       imageRounded={false}
                     />
