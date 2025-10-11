@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react';
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import type { SkillItem } from '@/models/Skills';
+import type { Experience } from '@/models/Experience';
+import type { ProjectEntry } from '@/models/Project';
+import type { Education } from '@/models/Education';
 import ListViewer from '@/components/ui/listviewer';
 import SkillDetailDialog from './SkillDetailDialog';
+import ProjectDetailDialog from '@/components/projects/ProjectDetailDialog';
+import ExperienceDetailDialog from '@/components/experiences/ExperienceDetailDialog';
+import EducationDetailDialog from '@/components/educations/EducationDetailDialog';
 
 interface SkillWithIcon extends SkillItem {
   icon: string;
@@ -14,6 +20,14 @@ const SkillsSection = () => {
   const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
   const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
   const [categoryOrder, setCategoryOrder] = useState<string[]>([]);
+  
+  // Dialog states for nested dialogs
+  const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
+  const [isProjectDialogOpen, setIsProjectDialogOpen] = useState(false);
+  const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
+  const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false);
+  const [selectedEducation, setSelectedEducation] = useState<Education | null>(null);
+  const [isEducationDialogOpen, setIsEducationDialogOpen] = useState(false);
 
   // Load skills data
   useEffect(() => {
@@ -101,6 +115,48 @@ const SkillsSection = () => {
         onClose={() => {
           setIsSkillDialogOpen(false);
           setSelectedSkill(null);
+        }}
+        onOpenProject={(project) => {
+          setSelectedProject(project);
+          setIsProjectDialogOpen(true);
+        }}
+        onOpenExperience={(experience) => {
+          setSelectedExperience(experience);
+          setIsExperienceDialogOpen(true);
+        }}
+        onOpenEducation={(education) => {
+          setSelectedEducation(education);
+          setIsEducationDialogOpen(true);
+        }}
+      />
+
+      {/* Project Detail Dialog */}
+      <ProjectDetailDialog
+        project={selectedProject}
+        isOpen={isProjectDialogOpen}
+        onClose={() => {
+          setIsProjectDialogOpen(false);
+          setSelectedProject(null);
+        }}
+      />
+
+      {/* Experience Detail Dialog */}
+      <ExperienceDetailDialog
+        experience={selectedExperience}
+        isOpen={isExperienceDialogOpen}
+        onClose={() => {
+          setIsExperienceDialogOpen(false);
+          setSelectedExperience(null);
+        }}
+      />
+
+      {/* Education Detail Dialog */}
+      <EducationDetailDialog
+        education={selectedEducation}
+        isOpen={isEducationDialogOpen}
+        onClose={() => {
+          setIsEducationDialogOpen(false);
+          setSelectedEducation(null);
         }}
       />
     </section>

@@ -36,6 +36,7 @@ interface SkillDetailDialogProps {
   onClose: () => void;
   onOpenExperience?: (experience: Experience) => void;
   onOpenProject?: (project: ProjectEntry) => void;
+  onOpenEducation?: (education: Education) => void;
 }
 
 const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({ 
@@ -43,7 +44,8 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
   isOpen, 
   onClose,
   onOpenExperience,
-  onOpenProject
+  onOpenProject,
+  onOpenEducation
 }) => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
@@ -482,6 +484,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                       return edu.period || '';
                     },
                   }}
+                  onItemClick={(education) => onOpenEducation?.(education)}
                 />
               </TabsContent>
             </div>
