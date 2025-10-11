@@ -337,77 +337,79 @@ const TimelineSection = () => {
         </div>
 
         {/* Category Filter and View Mode Toggle */}
-        <div className="flex flex-wrap gap-4 justify-between items-center mb-12">
-          {/* Category Filter - Left Aligned */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
+        <div className="max-w-5xl mx-auto mb-12">
+          <div className="flex flex-wrap gap-4 justify-between items-center ml-16">
+            {/* Category Filter - Left Aligned */}
+            <div className="flex flex-wrap gap-2">
+              {categories.map((category) => (
+                <Button
+                  key={category.value}
+                  variant={selectedCategory === category.value ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setSelectedCategory(category.value)}
+                  className="gap-2"
+                >
+                  <category.icon className="w-4 h-4" />
+                  {category.label}
+                  <Badge variant={selectedCategory === category.value ? 'secondary' : 'outline'}>
+                    {getCategoryCount(category.value)}
+                  </Badge>
+                </Button>
+              ))}
+            </div>
+
+            {/* View Mode Toggle and Zoom Controls - Right Aligned */}
+            <div className="flex flex-wrap gap-2 items-center">
+              {/* Zoom Controls (only visible in timeline mode) */}
+              {viewMode === 'timeline' && (
+                <>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleZoomOut}
+                    disabled={zoomLevel === 'year'}
+                    className="gap-2"
+                  >
+                    <ZoomOut className="w-4 h-4" />
+                    Zoom Out
+                  </Button>
+                  <Badge variant="secondary" className="px-4 py-2">
+                    View: {zoomLevel === 'year' ? 'Years' : zoomLevel === 'month' ? 'Months' : 'Days'}
+                  </Badge>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleZoomIn}
+                    disabled={zoomLevel === 'day'}
+                    className="gap-2"
+                  >
+                    <ZoomIn className="w-4 h-4" />
+                    Zoom In
+                  </Button>
+                  <div className="w-px h-6 bg-border mx-1" />
+                </>
+              )}
+              
+              {/* View Mode Toggle */}
               <Button
-                key={category.value}
-                variant={selectedCategory === category.value ? 'default' : 'outline'}
+                variant={viewMode === 'list' ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => setSelectedCategory(category.value)}
+                onClick={() => setViewMode('list')}
                 className="gap-2"
               >
-                <category.icon className="w-4 h-4" />
-                {category.label}
-                <Badge variant={selectedCategory === category.value ? 'secondary' : 'outline'}>
-                  {getCategoryCount(category.value)}
-                </Badge>
+                <List className="w-4 h-4" />
+                List View
               </Button>
-            ))}
-          </div>
-
-          {/* View Mode Toggle and Zoom Controls - Right Aligned */}
-          <div className="flex flex-wrap gap-2 items-center">
-            {/* Zoom Controls (only visible in timeline mode) */}
-            {viewMode === 'timeline' && (
-              <>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleZoomOut}
-                  disabled={zoomLevel === 'year'}
-                  className="gap-2"
-                >
-                  <ZoomOut className="w-4 h-4" />
-                  Zoom Out
-                </Button>
-                <Badge variant="secondary" className="px-4 py-2">
-                  View: {zoomLevel === 'year' ? 'Years' : zoomLevel === 'month' ? 'Months' : 'Days'}
-                </Badge>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleZoomIn}
-                  disabled={zoomLevel === 'day'}
-                  className="gap-2"
-                >
-                  <ZoomIn className="w-4 h-4" />
-                  Zoom In
-                </Button>
-                <div className="w-px h-6 bg-border mx-1" />
-              </>
-            )}
-            
-            {/* View Mode Toggle */}
-            <Button
-              variant={viewMode === 'list' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setViewMode('list')}
-              className="gap-2"
-            >
-              <List className="w-4 h-4" />
-              List View
-            </Button>
-            <Button
-              variant={viewMode === 'timeline' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setViewMode('timeline')}
-              className="gap-2"
-            >
-              <BarChart3 className="w-4 h-4" />
-              Timeline View
-            </Button>
+              <Button
+                variant={viewMode === 'timeline' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setViewMode('timeline')}
+                className="gap-2"
+              >
+                <BarChart3 className="w-4 h-4" />
+                Timeline View
+              </Button>
+            </div>
           </div>
         </div>
 
