@@ -33,30 +33,36 @@
         "title": "Frameworks",
         "orderIndex": 6
       },
+
+       {
+        "code": "AI & ML",
+        "title": "AI & ML",
+        "orderIndex": 7
+      },     
       {
         "code": "Tools & IDEs",
         "title": "Tools & IDEs",
-        "orderIndex": 7
+        "orderIndex": 8
       },
       {
         "code": "Project Management",
         "title": "Project Management",
-        "orderIndex": 8
+        "orderIndex": 9
       },
       {
         "code": "Security",
         "title": "Security",
-        "orderIndex": 9
+        "orderIndex": 10
       },      
       {
         "code": "Reporting & BI",
         "title": "Reporting & BI",
-        "orderIndex": 10
+        "orderIndex": 11
       },      
       {
         "code": "Others",
         "title": "Others",
-        "orderIndex": 11
+        "orderIndex": 12
       }
     ]
   },
@@ -1728,6 +1734,102 @@
       "group": "Databases",
       "value": 0,
       "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "copilot",
+      "orderIndex": 155,
+      "title": "GitHub Copilot",
+      "photoUrl": "/assets/skills/copilot.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "cursor",
+      "orderIndex": 155,
+      "title": "Cursor",
+      "photoUrl": "/assets/skills/cursor.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "claudedesktop",
+      "orderIndex": 155,
+      "title": "Claude Desktop",
+      "photoUrl": "/assets/skills/claude-desktop.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "ChatGPT",
+      "orderIndex": 155,
+      "title": "ChatGPT",
+      "photoUrl": "/assets/skills/chatgpt.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "gemini",
+      "orderIndex": 155,
+      "title": "Gemini",
+      "photoUrl": "/assets/skills/gemini.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "llama3",
+      "orderIndex": 155,
+      "title": "Llama 3",
+      "photoUrl": "/assets/skills/llama3.jpg",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "ollama",
+      "orderIndex": 155,
+      "title": "Ollama",
+      "photoUrl": "/assets/skills/ollama.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "n8n",
+      "orderIndex": 155,
+      "title": "n8n",
+      "photoUrl": "/assets/skills/n8n.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
       "jobs": 0,
       "isMajor": false
     }
