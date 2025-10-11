@@ -354,7 +354,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
             variant="ghost"
             size="sm"
             onClick={() => setIsMaximized(!isMaximized)}
-            className="absolute top-4 right-12 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
+            className="absolute top-4 right-16 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
           >
             {isMaximized ? (
               <Minimize2 className="w-4 h-4" />

@@ -297,7 +297,7 @@ const ListViewer = <T = any>({
       return (
         <Card 
           key={code}
-          className="border-border bg-card hover:shadow-lg transition-all duration-300 cursor-pointer"
+          className="border-border bg-card hover:shadow-lg hover:border-primary/50 hover:scale-[1.02] transition-all duration-300 cursor-pointer"
           style={enableAnimation ? { animationDelay: `${index * 100}ms` } : undefined}
           onClick={() => onItemClick?.(item)}
         >
@@ -309,7 +309,7 @@ const ListViewer = <T = any>({
     return (
       <Card 
         key={code}
-        className="border-border bg-card hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col"
+        className="border-border bg-card hover:shadow-lg hover:border-primary/50 hover:scale-[1.02] transition-all duration-300 cursor-pointer flex flex-col"
         style={enableAnimation ? { animationDelay: `${index * 100}ms` } : undefined}
         onClick={() => onItemClick?.(item)}
       >
