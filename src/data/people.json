@@ -140,6 +140,48 @@
       ]
     },
     {
+      "code": "soneryildirim",
+      "orderIndex": 7,
+      "title": "Soner Yıldırım",
+      "photoUrl": "/assets/people/soner.yildirim.jpg",
+      "company": "Gnomon",
+      "contacts": [
+        {
+          "code": "email",
+          "value": "soner@metu.edu.tr"
+        },
+        {
+          "code": "website",
+          "value": "https://avesis.metu.edu.tr/soner"
+        },
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/soner-yildirim-7a0351b"
+        }
+      ]
+    },
+    {
+      "code": "omerdelialioglu",
+      "orderIndex": 7,
+      "title": "Ömer Delialioğlu",
+      "photoUrl": "/assets/people/omer.delialioglu.jpg",
+      "company": "Gnomon",
+      "contacts": [
+        {
+          "code": "email",
+          "value": "omerd@metu.edu.tr"
+        },
+        {
+          "code": "website",
+          "value": "https://avesis.metu.edu.tr/omerd"
+        },
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/%C3%B6mer-delialio%C4%9Flu-92528822"
+        }
+      ]
+    },
+    {
       "code": "kursatcagiltay",
       "orderIndex": 8,
       "title": "Prof. Dr. Kürşat Çağıltay",
@@ -511,9 +553,14 @@
       "code": "erolisik",
       "orderIndex": 34,
       "title": "Erol Işık",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/erol.isik.jpg",
       "company": "CEIT",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/erolisik"
+        }
+      ]
     },
     {
       "code": "umitkaya",
@@ -527,9 +574,14 @@
       "code": "tayfunyuksel",
       "orderIndex": 36,
       "title": "Tayfun Yüksel",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/tayfun.yuksel.jpg",
       "company": "CEIT",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/tayfunyuksel"
+        }
+      ]
     },
     {
       "code": "evrimbaran",

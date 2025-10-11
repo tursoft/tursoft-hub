@@ -705,7 +705,7 @@
       "jobs": 0
     },
     {
-      "code": "Dark Basic",
+      "code": "darkbasic",
       "orderIndex": 263,
       "title": "Dark Basic",
       "photoUrl": "/assets/skills/darkbasic.png",
@@ -1828,6 +1828,30 @@
       "title": "n8n",
       "photoUrl": "/assets/skills/n8n.png",
       "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "sass",
+      "orderIndex": 155,
+      "title": "sass",
+      "photoUrl": "/assets/skills/sass.png",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "tailwind",
+      "orderIndex": 155,
+      "title": "tailwind",
+      "photoUrl": "/assets/skills/tailwind.png",
+      "group": "Frontend",
       "value": 0,
       "projects": 0,
       "jobs": 0,
