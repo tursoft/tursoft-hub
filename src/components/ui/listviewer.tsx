@@ -498,23 +498,27 @@ const ListViewer = <T = any>({
         className="group cursor-pointer"
         style={enableAnimation ? { animationDelay: `${index * 30}ms` } : undefined}
         onClick={() => onItemClick?.(item)}
-        title={title}
       >
-        <div className="bg-card border border-border rounded-lg p-3 hover:shadow-lg hover:border-primary/50 transition-all duration-300 flex items-center justify-center aspect-square">
-          {image ? (
-            <img 
-              src={image} 
-              alt={title}
-              className="w-full h-full object-contain p-2"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          ) : (
-            <div className="text-center text-xs font-medium text-muted-foreground line-clamp-2 px-1">
-              {title}
-            </div>
-          )}
+        <div className="bg-card border border-border rounded-lg p-3 hover:shadow-lg hover:border-primary/50 transition-all duration-300 flex flex-col items-center justify-center">
+          <div className="w-full aspect-square flex items-center justify-center mb-2">
+            {image ? (
+              <img 
+                src={image} 
+                alt={title}
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            ) : (
+              <div className="text-center text-xs font-medium text-muted-foreground line-clamp-2 px-1">
+                {title}
+              </div>
+            )}
+          </div>
+          <div className="text-xs text-center font-medium text-foreground line-clamp-2 w-full">
+            {title}
+          </div>
         </div>
       </div>
     );
