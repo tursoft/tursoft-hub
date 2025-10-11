@@ -2860,6 +2860,13 @@
           "code": "type",
           "title": "Academic Project"
         }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Developer"
+        }
       ]
     },
     {
@@ -2896,6 +2903,13 @@
           "code": "type",
           "title": "Academic Project"
         }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Developer"
+        }
       ]
     },
     {
@@ -2931,6 +2945,13 @@
         {
           "code": "mode",
           "title": "Interpreter"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Developer"
         }
       ]
     },
@@ -3805,6 +3826,13 @@
           "code": "platforms",
           "title": "Desktop"
         }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Developer"
+        }
       ]
     },
     {
@@ -3831,6 +3859,13 @@
         {
           "code": "platforms",
           "title": "Desktop"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Developer"
         }
       ]
     },
@@ -3984,8 +4019,8 @@
         },
         {
           "orderIndex": 6,
-          "personCode": null,
-          "position": "Developer"
+          "personCode": "mustafauysal",
+          "position": "Software Developer"
         }
       ]
     }

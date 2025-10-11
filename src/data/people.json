@@ -415,15 +415,25 @@
       "title": "Ertan Eyimaya",
       "photoUrl": null,
       "company": "Halıcı",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/ertan-eyimaya-9533b256"
+        }
+      ]
     },
     {
       "code": "serkankayranci",
       "orderIndex": 24,
       "title": "Serkan Kayrancı",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/serkan.kayranci.jpg",
       "company": "Halıcı",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/serkan-kayranci-056ab536"
+        }
+      ]
     },
     {
       "code": "emreusta",
@@ -559,9 +569,14 @@
       "code": "selceniyisever",
       "orderIndex": 40,
       "title": "Selcen İyisever",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/selcen.iyisever.jpg",
       "company": "Halıcı",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/selcen-dev"
+        }
+      ]
     },
     {
       "code": "mustafauysal",
