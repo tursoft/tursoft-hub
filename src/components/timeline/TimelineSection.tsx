@@ -14,6 +14,7 @@ import type { ProjectEntry } from '@/models/Project';
 import type { Experience } from '@/models/Experience';
 import type { Education } from '@/models/Education';
 import { parseDate } from '@/lib/datetimeutils';
+import { getEntityColors, getEntityHexColor } from '@/lib/colors';
 
 type TimelineItemType = 'project' | 'experience' | 'education';
 type ViewMode = 'list' | 'timeline';
@@ -110,7 +111,7 @@ const TimelineSection = () => {
                 endDateObj: endDate || new Date(),
                 category: project.group,
                 icon: Code,
-                color: 'text-blue-500',
+                color: getEntityColors('project').text,
                 logoUrl: project.photoUrl,
                 data: project,
               });
@@ -137,7 +138,7 @@ const TimelineSection = () => {
                   dateObj: startDate,
                   endDateObj: endDate || new Date(),
                   icon: Briefcase,
-                  color: 'text-blue-500',
+                  color: getEntityColors('experience').text,
                   logoUrl: companyLogos[experience.companyCode || ''],
                   data: experience,
                 });
@@ -165,7 +166,7 @@ const TimelineSection = () => {
                 endDateObj: endDate || new Date(),
                 category: education.level,
                 icon: GraduationCap,
-                color: 'text-purple-500',
+                color: getEntityColors('education').text,
                 logoUrl: companyLogos[education.companyCode || ''],
                 data: education,
               });
@@ -611,7 +612,7 @@ const TimelineSection = () => {
             <div
               ref={timelineRef}
               className="relative overflow-x-auto overflow-y-hidden bg-card rounded-lg border border-border p-8"
-              style={{ height: '600px' }}
+              style={{ height: '300px' }}
             >
               <div className="relative" style={{ width: `${getTimelineMetrics().totalWidth}px`, height: '100%' }}>
                 {/* Timeline axis */}
@@ -621,10 +622,18 @@ const TimelineSection = () => {
                 {/* Timeline items */}
                 <div className="absolute top-20 left-0 right-0">
                   {filteredItems.map((item, index) => {
-                    const Icon = item.icon;
                     const metrics = getTimelineMetrics();
                     const { left, width } = calculateItemPosition(item, metrics);
                     const row = index % 3; // Distribute items across 3 rows
+                    
+                    // Build tooltip content
+                    const tooltipContent = [
+                      item.title,
+                      item.subtitle ? `(${item.subtitle})` : '',
+                      formatDateRange(item.startDate, item.endDate),
+                      item.category ? `Category: ${item.category}` : '',
+                      item.description ? `\n${item.description.substring(0, 200)}${item.description.length > 200 ? '...' : ''}` : ''
+                    ].filter(Boolean).join('\n');
 
                     return (
                       <div
@@ -633,26 +642,21 @@ const TimelineSection = () => {
                         style={{
                           left: `${left}px`,
                           width: `${width}px`,
-                          top: `${row * 140}px`,
+                          top: `${row * 40}px`,
                         }}
-                        title={`${item.title} (${formatDateRange(item.startDate, item.endDate)})`}
+                        title={tooltipContent}
                         onClick={() => handleItemClick(item)}
                       >
-                        <div className={`h-24 rounded-lg border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:z-10 ${item.color} bg-card border-current p-2 overflow-hidden`}>
-                          <div className="flex items-start gap-2 h-full">
-                            <Icon className="w-4 h-4 flex-shrink-0" />
-                            <div className="flex-1 min-w-0">
-                              <h4 className="text-xs font-semibold truncate text-foreground">{item.title}</h4>
-                              {item.subtitle && (
-                                <p className="text-[10px] text-muted-foreground truncate">{item.subtitle}</p>
-                              )}
-                              {item.category && (
-                                <Badge variant="secondary" className="text-[10px] mt-1 px-1 py-0">
-                                  {item.category}
-                                </Badge>
-                              )}
-                            </div>
-                          </div>
+                        <div 
+                          className="h-5 rounded transition-all duration-300 hover:scale-y-150 hover:shadow-lg hover:z-10 border-2 flex items-center px-1 overflow-hidden"
+                          style={{
+                            backgroundColor: getEntityHexColor(item.type),
+                            borderColor: '#1e3a8a', // blue-900 for dark blue border
+                          }}
+                        >
+                          <span className="text-[10px] font-medium text-white truncate whitespace-nowrap">
+                            {item.title}
+                          </span>
                         </div>
                       </div>
                     );
