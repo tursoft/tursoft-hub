@@ -147,7 +147,8 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
         </DialogHeader>
 
         {/* Action Buttons */}
-        <div className="absolute top-4 right-4 flex gap-2 z-20">
+        {/* Action Buttons */}
+        <div className="absolute top-4 right-16 flex gap-2 z-20">
           <Button
             variant="ghost"
             size="icon"

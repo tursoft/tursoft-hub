@@ -627,24 +627,54 @@ const TimelineSection = () => {
                     const experienceItems = filteredItems.filter(item => item.type === 'experience');
                     const projectItems = filteredItems.filter(item => item.type === 'project');
                     
-                    // Track row indices for projects (starting from row 2)
-                    let projectRowIndex = 0;
+                    // Helper function to check if two items overlap
+                    const doItemsOverlap = (item1Pos: { left: number; width: number }, item2Pos: { left: number; width: number }) => {
+                      const item1End = item1Pos.left + item1Pos.width;
+                      const item2End = item2Pos.left + item2Pos.width;
+                      return !(item1End <= item2Pos.left || item2End <= item1Pos.left);
+                    };
+
+                    // Helper function to find the best row for an item
+                    const findBestRow = (itemPos: { left: number; width: number }, rowsOccupied: Array<Array<{ left: number; width: number }>>, startRow: number, maxRows: number) => {
+                      for (let row = startRow; row < startRow + maxRows; row++) {
+                        const itemsInRow = rowsOccupied[row] || [];
+                        const hasOverlap = itemsInRow.some(occupiedItem => doItemsOverlap(itemPos, occupiedItem));
+                        
+                        if (!hasOverlap) {
+                          return row;
+                        }
+                      }
+                      // If all rows are occupied, use the last row anyway
+                      return startRow + maxRows - 1;
+                    };
+
+                    const metrics = getTimelineMetrics();
+                    const rowsOccupied: Array<Array<{ left: number; width: number }>> = [];
                     
-                    return [...educationItems, ...experienceItems, ...projectItems].map((item, index) => {
-                      const metrics = getTimelineMetrics();
+                    // Process items and assign rows intelligently
+                    const itemsWithRows = [...educationItems, ...experienceItems, ...projectItems].map((item) => {
                       const { left, width } = calculateItemPosition(item, metrics);
+                      const itemPos = { left, width };
                       
-                      // Assign row based on type
                       let row = 0;
                       if (item.type === 'education') {
-                        row = 0; // First row
+                        row = findBestRow(itemPos, rowsOccupied, 0, 1); // Only row 0 for education
                       } else if (item.type === 'experience') {
-                        row = 1; // Second row
+                        row = findBestRow(itemPos, rowsOccupied, 1, 1); // Only row 1 for experience
                       } else if (item.type === 'project') {
-                        row = 2 + (projectRowIndex % 3); // Rows 2, 3, 4 (cycling)
-                        projectRowIndex++;
+                        row = findBestRow(itemPos, rowsOccupied, 2, 3); // Rows 2, 3, 4 for projects
                       }
                       
+                      // Mark this position as occupied in the assigned row
+                      if (!rowsOccupied[row]) {
+                        rowsOccupied[row] = [];
+                      }
+                      rowsOccupied[row].push(itemPos);
+                      
+                      return { item, row, left, width };
+                    });
+                    
+                    return itemsWithRows.map(({ item, row, left, width }) => {
                       // Build tooltip content
                       const tooltipContent = [
                         item.title,
