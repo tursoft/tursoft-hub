@@ -41,7 +41,7 @@ const TimelineSection = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
-  const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [viewMode, setViewMode] = useState<ViewMode>('timeline');
   const [zoomLevel, setZoomLevel] = useState<ZoomLevel>('year');
   const timelineRef = useRef<HTMLDivElement>(null);
 
