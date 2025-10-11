@@ -411,8 +411,8 @@ const ListViewer = <T = any>({
           <div className="flex gap-6 items-start">
             {image && (
               <div className="flex-shrink-0">
-                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden border-background shadow-lg ${
-                  imageRounded ? 'rounded-full border-4' : 'rounded-lg'
+                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden ${
+                  imageRounded ? 'rounded-full' : 'rounded-lg'
                 }`}>
                   <img 
                     src={image} 
