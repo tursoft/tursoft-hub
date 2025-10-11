@@ -6,6 +6,7 @@ import { Calendar, Briefcase, GraduationCap, Code, ChevronRight, List, BarChart3
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { experienceRepo } from '@/repositories/ExperienceRepo';
 import { educationRepo } from '@/repositories/EducationRepo';
+import { companiesRepo } from '@/repositories/CompaniesRepo';
 import type { ProjectEntry } from '@/models/Project';
 import type { Experience } from '@/models/Experience';
 import type { Education } from '@/models/Education';
@@ -28,6 +29,7 @@ interface TimelineItem {
   category?: string;
   icon: typeof Briefcase;
   color: string;
+  logoUrl?: string;
   data: ProjectEntry | Experience | Education;
 }
 
@@ -58,6 +60,26 @@ const TimelineSection = () => {
 
         const timelineItems: TimelineItem[] = [];
 
+        // Collect all company codes
+        const companyCodes = new Set<string>();
+        experiences.forEach(exp => {
+          if (exp.companyCode) companyCodes.add(exp.companyCode);
+        });
+        educations.forEach(edu => {
+          if (edu.companyCode) companyCodes.add(edu.companyCode);
+        });
+
+        // Load company data
+        const companyLogos: { [key: string]: string } = {};
+        await Promise.all(
+          Array.from(companyCodes).map(async (code) => {
+            const company = await companiesRepo.getByCode(code);
+            if (company?.photoUrl) {
+              companyLogos[code] = company.photoUrl;
+            }
+          })
+        );
+
         // Add projects
         projects.forEach((project) => {
           if (project.datePeriod?.startDate) {
@@ -78,6 +100,7 @@ const TimelineSection = () => {
                 category: project.group,
                 icon: Code,
                 color: 'text-blue-500',
+                logoUrl: project.photoUrl,
                 data: project,
               });
             }
@@ -104,6 +127,7 @@ const TimelineSection = () => {
                   endDateObj: endDate || new Date(),
                   icon: Briefcase,
                   color: 'text-green-500',
+                  logoUrl: companyLogos[experience.companyCode || ''],
                   data: experience,
                 });
               }
@@ -131,6 +155,7 @@ const TimelineSection = () => {
                 category: education.level,
                 icon: GraduationCap,
                 color: 'text-purple-500',
+                logoUrl: companyLogos[education.companyCode || ''],
                 data: education,
               });
             }
@@ -177,6 +202,32 @@ const TimelineSection = () => {
   const getCategoryCount = (category: string) => {
     if (category === 'All') return items.length;
     return items.filter((item) => item.type === category).length;
+  };
+
+  const getTypeLabel = (type: TimelineItemType) => {
+    switch (type) {
+      case 'project':
+        return 'Project';
+      case 'experience':
+        return 'Experience';
+      case 'education':
+        return 'Education';
+      default:
+        return type;
+    }
+  };
+
+  const getTypeBadgeVariant = (type: TimelineItemType): "default" | "secondary" | "destructive" | "outline" => {
+    switch (type) {
+      case 'project':
+        return 'default';
+      case 'experience':
+        return 'secondary';
+      case 'education':
+        return 'outline';
+      default:
+        return 'outline';
+    }
   };
 
   // Timeline mode calculations
@@ -441,18 +492,36 @@ const TimelineSection = () => {
                         <Card className="group hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
                           <CardContent className="p-6">
                             <div className="flex items-start gap-4">
-                              {/* Icon */}
-                              <div className={`flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center ${item.color}`}>
-                                <Icon className="w-5 h-5" />
-                              </div>
+                              {/* Logo or Icon */}
+                              {item.logoUrl ? (
+                                <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden flex items-center justify-center">
+                                  <img 
+                                    src={item.logoUrl} 
+                                    alt={item.title}
+                                    className="w-full h-full object-contain"
+                                    onError={(e) => {
+                                      e.currentTarget.style.display = 'none';
+                                    }}
+                                  />
+                                </div>
+                              ) : (
+                                <div className={`flex-shrink-0 w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center ${item.color}`}>
+                                  <Icon className="w-8 h-8" />
+                                </div>
+                              )}
 
                               {/* Content */}
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-start justify-between gap-4 mb-2">
                                   <div className="flex-1">
-                                    <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                                      {item.title}
-                                    </h3>
+                                    <div className="flex items-center gap-2 mb-1">
+                                      <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                                        {item.title}
+                                      </h3>
+                                      <Badge variant={getTypeBadgeVariant(item.type)} className="text-xs">
+                                        {getTypeLabel(item.type)}
+                                      </Badge>
+                                    </div>
                                     {item.subtitle && (
                                       <p className="text-sm text-muted-foreground">{item.subtitle}</p>
                                     )}
