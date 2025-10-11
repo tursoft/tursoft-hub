@@ -170,7 +170,7 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
 
         {/* Content */}
         <div className="flex-1 overflow-hidden pl-2 pt-2">
-          <Tabs defaultValue="experiences" className="h-full flex flex-col">
+          <Tabs defaultValue="projects" className="h-full flex flex-col">
             <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-2">
               <TabsTrigger value="projects">
                 <span className="flex items-center gap-2">
