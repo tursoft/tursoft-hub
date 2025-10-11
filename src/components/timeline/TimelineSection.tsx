@@ -7,6 +7,9 @@ import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { experienceRepo } from '@/repositories/ExperienceRepo';
 import { educationRepo } from '@/repositories/EducationRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
+import ProjectDetailDialog from '@/components/projects/ProjectDetailDialog';
+import ExperienceDetailDialog from '@/components/experiences/ExperienceDetailDialog';
+import EducationDetailDialog from '@/components/educations/EducationDetailDialog';
 import type { ProjectEntry } from '@/models/Project';
 import type { Experience } from '@/models/Experience';
 import type { Education } from '@/models/Education';
@@ -41,6 +44,14 @@ const TimelineSection = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [zoomLevel, setZoomLevel] = useState<ZoomLevel>('year');
   const timelineRef = useRef<HTMLDivElement>(null);
+
+  // Dialog states
+  const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
+  const [isProjectDialogOpen, setIsProjectDialogOpen] = useState(false);
+  const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
+  const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false);
+  const [selectedEducation, setSelectedEducation] = useState<Education | null>(null);
+  const [isEducationDialogOpen, setIsEducationDialogOpen] = useState(false);
 
   const categories = [
     { value: 'All', label: 'All', icon: Calendar },
@@ -126,7 +137,7 @@ const TimelineSection = () => {
                   dateObj: startDate,
                   endDateObj: endDate || new Date(),
                   icon: Briefcase,
-                  color: 'text-green-500',
+                  color: 'text-blue-500',
                   logoUrl: companyLogos[experience.companyCode || ''],
                   data: experience,
                 });
@@ -227,6 +238,23 @@ const TimelineSection = () => {
         return 'outline';
       default:
         return 'outline';
+    }
+  };
+
+  const handleItemClick = (item: TimelineItem) => {
+    switch (item.type) {
+      case 'project':
+        setSelectedProject(item.data as ProjectEntry);
+        setIsProjectDialogOpen(true);
+        break;
+      case 'experience':
+        setSelectedExperience(item.data as Experience);
+        setIsExperienceDialogOpen(true);
+        break;
+      case 'education':
+        setSelectedEducation(item.data as Education);
+        setIsEducationDialogOpen(true);
+        break;
     }
   };
 
@@ -489,7 +517,10 @@ const TimelineSection = () => {
 
                       {/* Content card */}
                       <div className="ml-16">
-                        <Card className="group hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+                        <Card 
+                          className="group hover:border-primary/50 transition-all duration-300 hover:shadow-lg cursor-pointer"
+                          onClick={() => handleItemClick(item)}
+                        >
                           <CardContent className="p-6">
                             <div className="flex items-start gap-4">
                               {/* Logo or Icon */}
@@ -605,6 +636,7 @@ const TimelineSection = () => {
                           top: `${row * 140}px`,
                         }}
                         title={`${item.title} (${formatDateRange(item.startDate, item.endDate)})`}
+                        onClick={() => handleItemClick(item)}
                       >
                         <div className={`h-24 rounded-lg border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:z-10 ${item.color} bg-card border-current p-2 overflow-hidden`}>
                           <div className="flex items-start gap-2 h-full">
@@ -637,6 +669,34 @@ const TimelineSection = () => {
           </div>
         )}
       </div>
+
+      {/* Detail Dialogs */}
+      <ProjectDetailDialog
+        project={selectedProject}
+        isOpen={isProjectDialogOpen}
+        onClose={() => {
+          setIsProjectDialogOpen(false);
+          setSelectedProject(null);
+        }}
+      />
+
+      <ExperienceDetailDialog
+        experience={selectedExperience}
+        isOpen={isExperienceDialogOpen}
+        onClose={() => {
+          setIsExperienceDialogOpen(false);
+          setSelectedExperience(null);
+        }}
+      />
+
+      <EducationDetailDialog
+        education={selectedEducation}
+        isOpen={isEducationDialogOpen}
+        onClose={() => {
+          setIsEducationDialogOpen(false);
+          setSelectedEducation(null);
+        }}
+      />
     </section>
   );
 };
