@@ -115,7 +115,7 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
           isMaximized 
             ? 'max-w-[95vw] h-[95vh]' 
             : 'max-w-4xl max-h-[90vh]'
-        } overflow-hidden flex flex-col z-[100] pr-16`}
+        } overflow-hidden flex flex-col z-[100] h-[80%]`}
       >
         {/* Logo */}
         {logoPath && (
@@ -169,31 +169,29 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-hidden pl-24 pt-2">
+        <div className="flex-1 overflow-hidden pl-2 pt-2">
           <Tabs defaultValue="experiences" className="h-full flex flex-col">
             <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-2">
-              {experiences.length > 0 && (
-                <TabsTrigger value="experiences">
-                  <span className="flex items-center gap-2">
-                    <Briefcase className="w-4 h-4" />
-                    Experiences
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {experiences.length}
-                    </Badge>
-                  </span>
-                </TabsTrigger>
-              )}
-              {projects.length > 0 && (
-                <TabsTrigger value="projects">
-                  <span className="flex items-center gap-2">
-                    <FolderKanban className="w-4 h-4" />
-                    Projects
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {projects.length}
-                    </Badge>
-                  </span>
-                </TabsTrigger>
-              )}
+              <TabsTrigger value="projects">
+                <span className="flex items-center gap-2">
+                  <FolderKanban className="w-4 h-4" />
+                  Projects
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {projects.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
+
+              <TabsTrigger value="experiences">
+                <span className="flex items-center gap-2">
+                  <Briefcase className="w-4 h-4" />
+                  Experiences
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {experiences.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
+
             </TabsList>
 
             <div className="flex-1 overflow-y-auto">
