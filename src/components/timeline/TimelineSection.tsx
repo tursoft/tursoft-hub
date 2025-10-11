@@ -612,7 +612,7 @@ const TimelineSection = () => {
             <div
               ref={timelineRef}
               className="relative overflow-x-auto overflow-y-hidden bg-card rounded-lg border border-border p-8"
-              style={{ height: '300px' }}
+              style={{ height: '400px' }}
             >
               <div className="relative" style={{ width: `${getTimelineMetrics().totalWidth}px`, height: '100%' }}>
                 {/* Timeline axis */}
@@ -621,46 +621,66 @@ const TimelineSection = () => {
 
                 {/* Timeline items */}
                 <div className="absolute top-20 left-0 right-0">
-                  {filteredItems.map((item, index) => {
-                    const metrics = getTimelineMetrics();
-                    const { left, width } = calculateItemPosition(item, metrics);
-                    const row = index % 3; // Distribute items across 3 rows
+                  {(() => {
+                    // Separate items by type
+                    const educationItems = filteredItems.filter(item => item.type === 'education');
+                    const experienceItems = filteredItems.filter(item => item.type === 'experience');
+                    const projectItems = filteredItems.filter(item => item.type === 'project');
                     
-                    // Build tooltip content
-                    const tooltipContent = [
-                      item.title,
-                      item.subtitle ? `(${item.subtitle})` : '',
-                      formatDateRange(item.startDate, item.endDate),
-                      item.category ? `Category: ${item.category}` : '',
-                      item.description ? `\n${item.description.substring(0, 200)}${item.description.length > 200 ? '...' : ''}` : ''
-                    ].filter(Boolean).join('\n');
+                    // Track row indices for projects (starting from row 2)
+                    let projectRowIndex = 0;
+                    
+                    return [...educationItems, ...experienceItems, ...projectItems].map((item, index) => {
+                      const metrics = getTimelineMetrics();
+                      const { left, width } = calculateItemPosition(item, metrics);
+                      
+                      // Assign row based on type
+                      let row = 0;
+                      if (item.type === 'education') {
+                        row = 0; // First row
+                      } else if (item.type === 'experience') {
+                        row = 1; // Second row
+                      } else if (item.type === 'project') {
+                        row = 2 + (projectRowIndex % 3); // Rows 2, 3, 4 (cycling)
+                        projectRowIndex++;
+                      }
+                      
+                      // Build tooltip content
+                      const tooltipContent = [
+                        item.title,
+                        item.subtitle ? `(${item.subtitle})` : '',
+                        formatDateRange(item.startDate, item.endDate),
+                        item.category ? `Category: ${item.category}` : '',
+                        item.description ? `\n${item.description.substring(0, 200)}${item.description.length > 200 ? '...' : ''}` : ''
+                      ].filter(Boolean).join('\n');
 
-                    return (
-                      <div
-                        key={item.id}
-                        className="absolute group cursor-pointer"
-                        style={{
-                          left: `${left}px`,
-                          width: `${width}px`,
-                          top: `${row * 40}px`,
-                        }}
-                        title={tooltipContent}
-                        onClick={() => handleItemClick(item)}
-                      >
-                        <div 
-                          className="h-5 rounded transition-all duration-300 hover:scale-y-150 hover:shadow-lg hover:z-10 border-2 flex items-center px-1 overflow-hidden"
+                      return (
+                        <div
+                          key={item.id}
+                          className="absolute group cursor-pointer"
                           style={{
-                            backgroundColor: getEntityHexColor(item.type),
-                            borderColor: '#1e3a8a', // blue-900 for dark blue border
+                            left: `${left}px`,
+                            width: `${width}px`,
+                            top: `${row * 40}px`,
                           }}
+                          title={tooltipContent}
+                          onClick={() => handleItemClick(item)}
                         >
-                          <span className="text-[10px] font-medium text-white truncate whitespace-nowrap">
-                            {item.title}
-                          </span>
+                          <div 
+                            className="h-5 rounded transition-all duration-300 hover:scale-y-150 hover:shadow-lg hover:z-10 border-2 flex items-center px-1 overflow-hidden"
+                            style={{
+                              backgroundColor: getEntityHexColor(item.type),
+                              borderColor: '#1e3a8a', // blue-900 for dark blue border
+                            }}
+                          >
+                            <span className="text-[10px] font-medium text-white truncate whitespace-nowrap">
+                              {item.title}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    });
+                  })()}
                 </div>
               </div>
             </div>
