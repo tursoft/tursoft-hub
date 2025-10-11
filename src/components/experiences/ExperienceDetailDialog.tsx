@@ -287,11 +287,11 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
           <Badge variant="outline" className="text-xs bg-blue-500/10 text-blue-500 border-blue-500/20">
             Experience
           </Badge>
-          {hasCurrentPosition && (
+          {/* {hasCurrentPosition && (
             <Badge variant="default" className="bg-primary text-primary-foreground text-xs">
               Current
             </Badge>
-          )}
+          )} */}
         </div>
 
         <Tabs defaultValue="positions" className="w-full pt-2">
