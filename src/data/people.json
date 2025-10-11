@@ -481,17 +481,31 @@
       "code": "emreusta",
       "orderIndex": 25,
       "title": "Emre Usta",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/emre.usta.jpg",
       "company": "Tursoft",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/emreusta1980"
+        }
+      ]
     },
     {
       "code": "nesetmutlu",
       "orderIndex": 26,
       "title": "Neşet Mutlu",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/neset.mutlu.jpg",
       "company": "Tursoft",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "website",
+          "value": "https://avesis.erciyes.edu.tr/neset"
+        },
+        {
+          "code": "email",
+          "value": "neset@erciyes.edu.tr"
+        }
+      ]
     },
     {
       "code": "ercansuat",
