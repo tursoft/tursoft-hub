@@ -80,6 +80,33 @@
       ]
     },
     {
+      "code": "shaynepaterson",
+      "orderIndex": 4,
+      "title": "Shayne Paterson",
+      "photoUrl": "/assets/people/shayne.paterson.jpg",
+      "company": "Jengai",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/shayne-paterson"
+        }
+      ]
+    },    
+    {
+      "code": "petermulvey",
+      "orderIndex": 4,
+      "title": "Peter Mulvey",
+      "photoUrl": "/assets/people/peter.mulvey.jpg",
+      "company": "Gamyte",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/peter-t-mulvey"
+        }
+      ]
+    },
+
+    {
       "code": "mikaelkaron",
       "orderIndex": 4,
       "title": "Mikael Karon",
