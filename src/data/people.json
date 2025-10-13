@@ -1015,6 +1015,20 @@
         }
       ]
     },
+    
+    {
+      "code": "ozdenguven",
+      "orderIndex": 62,
+      "title": "Özden Güven",
+      "photoUrl": "/assets/people/ozden.guven.jpg",
+      "company": "ERC",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/ozdenguven"
+        }
+      ]
+    },
 
     {
       "code": "silakeskin",
@@ -1071,6 +1085,20 @@
       "photoUrl": null,
       "company": "Jengai",
       "contacts": [
+      ]
+    },
+
+    {
+      "code": "emrullahkocamanoglu",
+      "orderIndex": 68,
+      "title": "Emrullah Kocamanoğlu",
+      "photoUrl": "/assets/people/emrullah.kocamanoglu.jpg",
+      "company": "ERC",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/emrullah-kocamano%C4%9Flu-9885a047"
+        }
       ]
     }
   ]
