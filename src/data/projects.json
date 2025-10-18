@@ -2692,7 +2692,15 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "t-sql",
+        "mssql",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        ".netnuke"
       ],
       "datePeriod": {
         "startDate": "01.01.2014",
@@ -2720,7 +2728,12 @@
       "summary": "Official website of METU Communication Club",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "php",
+        "mysql",
+        "js",
+        "html",
+        "css",
+        "photoshop"
       ],
       "datePeriod": {
         "startDate": "01.01.2002",
@@ -2751,7 +2764,12 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "php",
+        "mysql",
+        "js",
+        "html",
+        "css",
+        "photoshop"
       ],
       "datePeriod": {
         "startDate": "01.04.2002",
@@ -2800,7 +2818,8 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "darkbasic",
+        "3d"
       ],
       "datePeriod": {
         "startDate": "15.09.2005",
@@ -2848,7 +2867,7 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "pascal"
       ],
       "datePeriod": {
         "startDate": "15.09.2001",
@@ -2891,7 +2910,9 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "flash",
+        "actionscript",
+        "photoshop"
       ],
       "datePeriod": {
         "startDate": "01.04.2002",
@@ -2934,7 +2955,9 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "visualbasic",
+        "photoshop"
       ],
       "datePeriod": {
         "startDate": "01.09.2001",
@@ -3043,7 +3066,9 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "java",
+        "photoshop",
+        "tcpip"
       ],
       "datePeriod": {
         "startDate": "01.09.2001",
@@ -3145,7 +3170,15 @@
       "summary": "Online Video Streaming Platform",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "aspnet",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql"
       ],
       "datePeriod": {
         "startDate": "01.03.2005",
@@ -3186,7 +3219,15 @@
       "summary": "Official Website of DSP",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "aspnet",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql"
       ],
       "datePeriod": {
         "startDate": "01.01.2005",
@@ -3234,7 +3275,13 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "php",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "mysql",
+        "sql"
       ],
       "datePeriod": {
         "startDate": "01.04.2001",
@@ -3269,7 +3316,14 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql"
       ],
       "datePeriod": {
         "startDate": "01.03.2002",
@@ -3328,7 +3382,12 @@
       "summary": "Customer Support System.",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "php",
+        "html",
+        "js",
+        "css",
+        "mysql",
+        "sql"
       ],
       "datePeriod": {
         "startDate": "01.05.2003",
@@ -3360,7 +3419,13 @@
       "summary": "Web Based Project Management Platform",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "js",
+        "html",
+        "css",
+        "sqlserver",
+        "t-sql"
       ],
       "datePeriod": {
         "startDate": "01.11.2011",
@@ -3407,7 +3472,16 @@
         "healthcareit"
       ],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "silverlight",
+        "xaml",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql"
       ],
       "datePeriod": {
         "startDate": "01.03.2012",
@@ -3470,7 +3544,22 @@
       "summary": "Specialized Web-based ERP for Softwarehouse Workflows",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "angular",
+        "typescript",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql",
+        "docker",
+        "dockercompose",
+        "proget",
+        "jenkins",
+        "nexus",
+        "devops"
       ],
       "datePeriod": {
         "startDate": "01.06.2013",
@@ -3516,7 +3605,22 @@
         "BAYINDIR.TR"
       ],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "angular",
+        "typescript",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql",
+        "docker",
+        "dockercompose",
+        "proget",
+        "jenkins",
+        "nexus",
+        "devops"
       ],
       "datePeriod": {
         "startDate": "01.08.2018",
@@ -3552,7 +3656,16 @@
       "summary": "Gönüllü olarak geliştirdiğim bu proje sayesinde e-devlet soyağacınızı görselleştirmek artık çok kolay. Teknolojiler: SPA, Angular4, Angular Material, PrimeNg, ChartJS, MomentJS, FontAwesome, Light Gallery, RxJS, JsPdf. <br/>URL: <a href='http://www.soyagaciniz.net' target='_blank'>http://www.soyagaciniz.net</a>. Kaynak Kod: <a href='https://github.com/tursoft/familytree' target='_blank'>https://github.com/tursoft/familytree</a>",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "html",
+        "js",
+        "typescript",
+        "angular",
+        "css",
+        "photoshop",
+        "github",
+        "github-actions",
+        "d3js",
+        "chartjs"
       ],
       "datePeriod": {
         "startDate": "01.02.2018",
@@ -3583,7 +3696,22 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "angular",
+        "typescript",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql",
+        "docker",
+        "dockercompose",
+        "proget",
+        "jenkins",
+        "nexus",
+        "devops"
       ],
       "datePeriod": {
         "startDate": "01.02.2018",
@@ -3631,7 +3759,21 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "ionic",
+        "angular",
+        "typescript",
+        "cordova",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "docker",
+        "dockercompose",
+        "proget",
+        "jenkins",
+        "nexus",
+        "devops"
       ],
       "datePeriod": {
         "startDate": "01.05.2018",
@@ -3677,7 +3819,21 @@
         "LIFEWATCH.CH"
       ],
       "skillCodes": [
-        "C"
+        ".net",
+        "ionic",
+        "angular",
+        "typescript",
+        "cordova",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "docker",
+        "dockercompose",
+        "proget",
+        "jenkins",
+        "nexus",
+        "devops"
       ],
       "datePeriod": {
         "startDate": "01.04.2017",
@@ -3716,7 +3872,14 @@
       "customerCodes": [],
       "partnerCodes": [],
       "skillCodes": [
-        "C"
+        "docker",
+        "linux",
+        "pardus",
+        "bash",
+        "yaml",
+        "github",
+        "dockerhub",
+        "ci/cd"
       ],
       "datePeriod": {
         "startDate": "27.02.2019",
@@ -3754,7 +3917,10 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "visualbasic",
+        "tcpip",
+        "sqlserver"
       ],
       "datePeriod": {
         "startDate": "25.09.2001",
@@ -3787,10 +3953,15 @@
       "companyCode": "Tursoft",
       "group": "Misc",
       "value": 100,
-      "summary": "New version of my personal website. I think this is 6th version of tursoft.net",
+      "summary": "New version of my personal website. This is 6th version of tursoft.net",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "html",
+        "css",
+        "js",
+        "nodejs",
+        "express",
+        "photoshop"
       ],
       "datePeriod": {
         "startDate": "29.08.2018",
@@ -3814,7 +3985,11 @@
       "summary": "I have developed my first webpage by using HTML, CSS and Photoshop",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver"
       ],
       "datePeriod": {
         "startDate": "25.11.1999",
@@ -3880,7 +4055,7 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "Pascal"
       ],
       "datePeriod": {
         "startDate": "10.07.1996",
@@ -3914,7 +4089,7 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "Pascal"
       ],
       "datePeriod": {
         "startDate": "10.03.1996",
@@ -3945,7 +4120,7 @@
       "summary": "Basic Animation Tool developed by Pascal on Graphics Mode",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "Pascal"
       ],
       "datePeriod": {
         "startDate": "10.11.1997",
@@ -3969,7 +4144,7 @@
       "summary": "Basic Drawing Application developed by Pascal on Graphics Mode",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "Pascal"
       ],
       "datePeriod": {
         "startDate": "10.07.1997",
@@ -3993,7 +4168,7 @@
       "summary": "Stock Tracking System Application developed by Pascal",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "Pascal"
       ],
       "datePeriod": {
         "startDate": "10.02.1997",
@@ -4029,7 +4204,10 @@
       "summary": "Interactive educational game designed to teach physics concepts through engaging frisbee simulation gameplay.",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "html",
+        "js",
+        "css"
       ],
       "fulltext": [
         "Frizbi is an interactive educational game that teaches physics concepts through engaging frisbee simulation and gameplay mechanics.",

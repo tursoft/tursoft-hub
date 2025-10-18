@@ -294,16 +294,6 @@
       "isMajor": true
     },
     {
-      "code": "Web Forms",
-      "orderIndex": 22,
-      "title": "Web Forms",
-      "photoUrl": "",
-      "group": "Frontend",
-      "value": 0,
-      "projects": 0,
-      "jobs": 0
-    },
-    {
       "code": "Web API",
       "orderIndex": 23,
       "title": "Web API",
@@ -427,7 +417,7 @@
       "code": "C++",
       "orderIndex": 35,
       "title": "C++",
-      "photoUrl": "/assets/skills/cplusplus.jpg",
+      "photoUrl": "/assets/skills/cplusplus.png",
       "group": "Programming Languages",
       "value": 0,
       "projects": 0,
@@ -1802,7 +1792,7 @@
       "code": "llama3",
       "orderIndex": 155,
       "title": "Llama 3",
-      "photoUrl": "/assets/skills/llama3.jpg",
+      "photoUrl": "/assets/skills/llama3.png",
       "group": "AI & ML",
       "value": 0,
       "projects": 0,
@@ -1851,6 +1841,66 @@
       "orderIndex": 155,
       "title": "tailwind",
       "photoUrl": "/assets/skills/tailwind.png",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "flash",
+      "orderIndex": 156,
+      "title": "flash",
+      "photoUrl": "/assets/skills/flash.png",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "dotnetnuke",
+      "orderIndex": 156,
+      "title": "dotnetnuke",
+      "photoUrl": "/assets/skills/dotnetnuke.png",
+      "group": "Backend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "actionscript",
+      "orderIndex": 156,
+      "title": "actionscript",
+      "photoUrl": "/assets/skills/actionscript.png",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "tcpip",
+      "orderIndex": 156,
+      "title": "tcpip",
+      "photoUrl": "/assets/skills/tcpip.png",
+      "group": "Backend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "aspnetwebforms",
+      "orderIndex": 156,
+      "title": "aspnetwebforms",
+      "photoUrl": "/assets/skills/aspnetwebforms.png",
       "group": "Frontend",
       "value": 0,
       "projects": 0,

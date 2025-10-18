@@ -102,3 +102,16 @@ project => modules
 
 * sort skills
 * reorganize skills carousel
+
+* add certify.health => screenshots
+* add gamyte => screenshots
+* add jengai => screenshots
+* add proempower => screenshots
+
+
+# add projects for skills:
+* pascal
+* photohop
+* html
+* css
+* js
