@@ -115,3 +115,8 @@ project => modules
 * html
 * css
 * js
+
+
+# add new skills:
+* flutter
+* go
