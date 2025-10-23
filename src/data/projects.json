@@ -575,9 +575,13 @@
         "css",
         "tsql",
         "mssql",
-        "silverlight",        
+        "silverlight",
+        "wcf",
+        "Telerik UI for Silverlight",
         "wpf",
-        "xaml"
+        "xaml",
+        "wcf",
+        "Telerik UI for Silverlight"
       ],
       "datePeriod": {
         "startDate": "01.04.2014",
@@ -812,7 +816,9 @@
         "mssql",
         "silverlight",
         "wpf",
-        "xaml"
+        "xaml",
+        "wcf",
+        "Telerik UI for Silverlight"
       ],
       "datePeriod": {
         "startDate": "01.03.2013",
@@ -1541,7 +1547,9 @@
         "mssql",
         "silverlight",
         "wpf",
-        "xaml"
+        "xaml",
+        "wcf",
+        "Telerik UI for Silverlight"
       ],
       "datePeriod": {
         "startDate": "01.08.2011",
@@ -1632,7 +1640,9 @@
         "tsql",
         "mssql",
         "silverlight",
-        "xaml"
+        "xaml",
+        "wcf",
+        "Telerik UI for Silverlight"
       ],
       "datePeriod": {
         "startDate": "01.01.2014",
@@ -3481,7 +3491,9 @@
         "css",
         "photoshop",
         "sqlserver",
-        "t-sql"
+        "t-sql",
+        "wcf",
+        "Telerik UI for Silverlight"
       ],
       "datePeriod": {
         "startDate": "01.03.2012",
