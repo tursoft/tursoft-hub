@@ -160,9 +160,31 @@
       "photoUrl": "/assets/skills/docker.png",
       "group": "Cloud & DevOps",
       "value": 0,
-      "projects": 13,
+      "projects": 2,
       "jobs": 0,
       "isMajor": true
+    },
+    {
+      "code": "Helm",
+      "orderIndex": 9,
+      "title": "Helm",
+      "photoUrl": "/assets/skills/helm.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "Go",
+      "orderIndex": 9,
+      "title": "Go",
+      "photoUrl": "/assets/skills/go.png",
+      "group": "Programming Languages",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
     },
     {
       "code": "MS SQL",
