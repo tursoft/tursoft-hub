@@ -1930,6 +1930,61 @@
       "projects": 0,
       "jobs": 0,
       "isMajor": false
-    } 
+    },
+    {
+      "code": "benchmarkdotnet",
+      "orderIndex": 156,
+      "title": "BenchmarkDotNet",
+      "photoUrl": "/assets/skills/benchmarkdotnet.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "githubactions",
+      "orderIndex": 156,
+      "title": "Github Actions",
+      "photoUrl": "/assets/skills/githubactions.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "xunit",
+      "orderIndex": 156,
+      "title": "xUnit",
+      "photoUrl": "/assets/skills/xunit.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },    
+    {
+      "code": "mstest",
+      "orderIndex": 156,
+      "title": "MS Test",
+      "photoUrl": "/assets/skills/mstest.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "testcontainers",
+      "orderIndex": 156,
+      "title": "Test Containers",
+      "photoUrl": "/assets/skills/testcontainers.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    }   
   ]
 }
