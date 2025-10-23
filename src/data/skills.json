@@ -1963,6 +1963,17 @@
       "projects": 0,
       "jobs": 0,
       "isMajor": false
+    },
+    {
+      "code": "nunit",
+      "orderIndex": 156,
+      "title": "NUnit",
+      "photoUrl": "/assets/skills/nunit.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
     },    
     {
       "code": "mstest",
