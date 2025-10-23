@@ -767,16 +767,6 @@
       "jobs": 0
     },
     {
-      "code": "dom-to-image",
-      "orderIndex": 69,
-      "title": "dom-to-image",
-      "photoUrl": "/assets/skills/domtoimage.png",
-      "group": "Frontend",
-      "value": 0,
-      "projects": 0,
-      "jobs": 0
-    },
-    {
       "code": "Google Cloud",
       "orderIndex": 70,
       "title": "Google Cloud",
