@@ -374,16 +374,6 @@
       "jobs": 0
     },
     {
-      "code": "VS Code Insiders",
-      "orderIndex": 31,
-      "title": "VS Code Insiders",
-      "photoUrl": "/assets/skills/vscodeinsiders.png",
-      "group": "Tools & IDEs",
-      "value": 0,
-      "projects": 15,
-      "jobs": 0
-    },
-    {
       "code": "Google Analytics",
       "orderIndex": 32,
       "title": "Google Analytics",
