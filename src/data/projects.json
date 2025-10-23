@@ -92,7 +92,8 @@
         "docker",
         "kubernetes",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.12.2022",
@@ -180,7 +181,8 @@
         "azure-function-app",
         "azure-sql",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "04.09.2019",
@@ -342,7 +344,8 @@
         "spring",
         "oracle",
         "db2",
-        "plsql"
+        "plsql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.01.2015",
@@ -439,7 +442,8 @@
         "azure-vm",
         "azure-sql",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2018",
@@ -532,7 +536,8 @@
         "docker",
         "dockercompose",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.02.2015",
@@ -581,7 +586,8 @@
         "wpf",
         "xaml",
         "wcf",
-        "Telerik UI for Silverlight"
+        "Telerik UI for Silverlight",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.04.2014",
@@ -659,7 +665,8 @@
         "docker",
         "dockercompose",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.06.2015",
@@ -818,7 +825,8 @@
         "wpf",
         "xaml",
         "wcf",
-        "Telerik UI for Silverlight"
+        "Telerik UI for Silverlight",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2013",
@@ -886,7 +894,8 @@
         "spring",
         "oracle",
         "db2",
-        "plsql"
+        "plsql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.01.2015",
@@ -1435,7 +1444,8 @@
         "tsql",
         "mssql",
         "postgres",
-        "oracle"
+        "oracle",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2011",
@@ -1477,7 +1487,8 @@
         "docker",
         "dockercompose",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "24.02.2016",
@@ -1549,7 +1560,8 @@
         "wpf",
         "xaml",
         "wcf",
-        "Telerik UI for Silverlight"
+        "Telerik UI for Silverlight",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.08.2011",
@@ -1642,7 +1654,8 @@
         "silverlight",
         "xaml",
         "wcf",
-        "Telerik UI for Silverlight"
+        "Telerik UI for Silverlight",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.01.2014",
@@ -3078,7 +3091,8 @@
       "skillCodes": [
         "java",
         "photoshop",
-        "tcpip"
+        "tcpip",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.09.2001",
@@ -3188,7 +3202,8 @@
         "css",
         "photoshop",
         "sqlserver",
-        "t-sql"
+        "t-sql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2005",
@@ -3237,7 +3252,8 @@
         "css",
         "photoshop",
         "sqlserver",
-        "t-sql"
+        "t-sql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.01.2005",
@@ -3333,7 +3349,8 @@
         "css",
         "photoshop",
         "sqlserver",
-        "t-sql"
+        "t-sql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2002",
@@ -3435,7 +3452,8 @@
         "html",
         "css",
         "sqlserver",
-        "t-sql"
+        "t-sql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.11.2011",
@@ -3493,7 +3511,8 @@
         "sqlserver",
         "t-sql",
         "wcf",
-        "Telerik UI for Silverlight"
+        "Telerik UI for Silverlight",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2012",
@@ -3571,7 +3590,8 @@
         "proget",
         "jenkins",
         "nexus",
-        "devops"
+        "devops",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.06.2013",
@@ -3632,7 +3652,8 @@
         "proget",
         "jenkins",
         "nexus",
-        "devops"
+        "devops",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.08.2018",
@@ -3723,7 +3744,8 @@
         "proget",
         "jenkins",
         "nexus",
-        "devops"
+        "devops",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.02.2018",
