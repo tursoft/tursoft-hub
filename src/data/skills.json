@@ -1996,6 +1996,17 @@
       "projects": 0,
       "jobs": 0,
       "isMajor": false
-    }   
+    },
+    {
+      "code": "selenium",
+      "orderIndex": 156,
+      "title": "Selenium",
+      "photoUrl": "/assets/skills/selenium.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    }    
   ]
 }
