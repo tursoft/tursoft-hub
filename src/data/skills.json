@@ -1918,6 +1918,28 @@
       "projects": 0,
       "jobs": 0,
       "isMajor": false
-    }
+    },
+    {
+      "code": "postman",
+      "orderIndex": 156,
+      "title": "postman",
+      "photoUrl": "/assets/skills/postman.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "ansible",
+      "orderIndex": 156,
+      "title": "ansible",
+      "photoUrl": "/assets/skills/ansible.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    } 
   ]
 }
