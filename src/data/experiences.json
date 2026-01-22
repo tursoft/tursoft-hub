@@ -100,46 +100,7 @@
         }
       ]
     },
-    {
-      "orderIndex": 3,
-      "companyCode": "INFRION",
-      "positions": [
-        {
-          "orderIndex": 1,
-          "title": "Senior Software Architect",
-          "startDate": "01.01.2018",
-          "endDate": "30.07.2019",
-          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
-          "domainCodes": [
-            "healthcareit",
-            "certifications"
-          ],
-          "skillCodes": [
-            "Nodejs",
-            "Fastify",
-            "VS Code",
-            "Google Cloud",
-            "Gitlab",
-            "Git",
-            "npm",
-            "React",
-            "StencilJS",
-            "Typescript",
-            "Postgres",
-            "HTML5",
-            "JS",
-            "CSS",
-            "OAuth",
-            "JWT",
-            "Json",
-            "Google Analytics"
-          ],
-          "projectCodes": [
-            "certify.health"
-          ]
-        }
-      ]
-    },
+    
     {
       "orderIndex": 4,
       "companyCode": "ERC",
