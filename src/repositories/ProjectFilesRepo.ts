@@ -5,7 +5,7 @@ class ProjectFilesRepo {
   private cache: ProjectFilesData | null = null;
 
   constructor() {
-    this.dataUrl = '/src/data/project_files.json';
+    this.dataUrl = '/data/project_files.json';
   }
 
   private async loadData(): Promise<ProjectFilesData> {

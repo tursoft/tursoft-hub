@@ -3,17 +3,19 @@ import ProjectDetailDialog from './ProjectDetailDialog';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import type { ProjectEntry } from '@/models/Project';
 import ListViewer from '@/components/ui/listviewer';
+import AnimatedCounter from '@/components/ui/animated-counter';
 
 interface ProjectWithIcon extends ProjectEntry {
   icon: string;
   formattedYears: string;
 }
 
-const PortfolioSectionRefactored = () => {
+const PortfolioSection = () => {
   const [projects, setProjects] = useState<ProjectWithIcon[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [categoryOrder, setCategoryOrder] = useState<string[]>([]);
 
   // Helper function to format date period to years only
   const formatDateToYears = (datePeriod: { startDate?: string; endDate?: string } | undefined) => {
@@ -38,7 +40,17 @@ const PortfolioSectionRefactored = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
+        // Load full data to get groups with orderIndex
+        const fullData = await projectsRepo.getFullData();
         const data = await projectsRepo.getList();
+
+        // Sort groups by orderIndex and extract their codes
+        if (fullData?.general?.groups) {
+          const sortedGroups = [...fullData.general.groups]
+            .sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
+            .map(group => group.code);
+          setCategoryOrder(sortedGroups);
+        }
 
         // Process projects with icons and formatted years
         const processedProjects = data.map((project) => ({
@@ -79,12 +91,35 @@ const PortfolioSectionRefactored = () => {
           emptyMessage="No projects found."
           title='Featured<span class="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Projects</span>'
           subtitle="A showcase of innovative solutions and successful implementations across various domains and technologies"
+          summary={
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 text-center">
+              <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300">
+                <div className="text-3xl font-bold text-primary mb-2">
+                  <AnimatedCounter end={projects.length} suffix="+" />
+                </div>
+                <div className="text-sm text-muted-foreground">Total Projects</div>
+              </div>
+              <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300">
+                <div className="text-3xl font-bold text-primary mb-2">
+                  <AnimatedCounter end={groups.length} />
+                </div>
+                <div className="text-sm text-muted-foreground">Categories</div>
+              </div>
+              <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300">
+                <div className="text-3xl font-bold text-primary mb-2">
+                  <AnimatedCounter end={50} suffix="+" />
+                </div>
+                <div className="text-sm text-muted-foreground">Technologies</div>
+              </div>
+            </div>
+          }
           defaultViewMode="card"
           enabledModes={['card', 'list', 'carousel']}
           enableShowMore={true}
           visibleMajorItemCount={21}
           enableCategoryFilter={true}
           categoryField="group"
+          categoryOrder={categoryOrder}
           enableSearch={true}
           searchFields={['title', 'summary', 'group']}
           searchPlaceholder="Search projects, technologies, or categories..."
@@ -104,34 +139,6 @@ const PortfolioSectionRefactored = () => {
           carouselCardWidth="400px"
           carouselCardHeight="480px"
           onItemClick={handleProjectClick}
-          footer={
-            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div className="p-6 rounded-lg bg-card border border-border/50">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  {projects.length}+
-                </div>
-                <div className="text-sm text-muted-foreground">Total Projects</div>
-              </div>
-              <div className="p-6 rounded-lg bg-card border border-border/50">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  {groups.length}
-                </div>
-                <div className="text-sm text-muted-foreground">Categories</div>
-              </div>
-              <div className="p-6 rounded-lg bg-card border border-border/50">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  50+
-                </div>
-                <div className="text-sm text-muted-foreground">Technologies</div>
-              </div>
-              <div className="p-6 rounded-lg bg-card border border-border/50">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  15+
-                </div>
-                <div className="text-sm text-muted-foreground">Years</div>
-              </div>
-            </div>
-          }
         />
       </div>
 
@@ -148,4 +155,4 @@ const PortfolioSectionRefactored = () => {
   );
 };
 
-export default PortfolioSectionRefactored;
+export default PortfolioSection;

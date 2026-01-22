@@ -5,6 +5,8 @@ import { CalendarDays, MapPin, Building, ExternalLink, Linkedin } from "lucide-r
 import ExperienceDetailDialog from './ExperienceDetailDialog';
 import { experienceRepo } from '@/repositories/ExperienceRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
+import { projectsRepo } from '@/repositories/ProjectsRepo';
+import AnimatedCounter from '@/components/ui/animated-counter';
 import type { 
   Experience, 
   ExperiencesData, 
@@ -17,6 +19,7 @@ const ExperienceSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [totalProjects, setTotalProjects] = useState(0);
   
   // State for processed experiences
   interface ProcessedPosition {
@@ -66,6 +69,20 @@ const ExperienceSection = () => {
     };
 
     loadExperiencesData();
+  }, []);
+  
+  // Load total projects count
+  useEffect(() => {
+    const loadProjectsCount = async () => {
+      try {
+        const projects = await projectsRepo.getList();
+        setTotalProjects(projects.length);
+      } catch (error) {
+        console.error('Failed to load projects count:', error);
+      }
+    };
+
+    loadProjectsCount();
   }, []);
   
   // Process experiences when data is loaded
@@ -223,6 +240,46 @@ const ExperienceSection = () => {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               A journey through enterprise software development, team leadership, and architectural excellence
             </p>
+          </div>
+
+          {/* Statistics Boxes */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
+            <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 text-center">
+              <div className="text-3xl font-bold text-primary mb-2">
+                <AnimatedCounter end={processedExperiences.length} />
+              </div>
+              <div className="text-sm text-muted-foreground">Companies</div>
+            </div>
+            <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 text-center">
+              <div className="text-3xl font-bold text-primary mb-2">
+                <AnimatedCounter end={processedExperiences.reduce((total, exp) => total + exp.positions.length, 0)} />
+              </div>
+              <div className="text-sm text-muted-foreground">Positions</div>
+            </div>
+            <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 text-center">
+              <div className="text-3xl font-bold text-primary mb-2">
+                <AnimatedCounter 
+                  end={(() => {
+                    if (processedExperiences.length === 0) return 0;
+                    const allStartDates = processedExperiences.flatMap(exp => 
+                      exp.positions.map(pos => new Date(pos.startDate.split('.').reverse().join('-')))
+                    );
+                    const earliestStart = new Date(Math.min(...allStartDates.map(d => d.getTime())));
+                    const now = new Date();
+                    const years = Math.floor((now.getTime() - earliestStart.getTime()) / (1000 * 60 * 60 * 24 * 365));
+                    return years;
+                  })()}
+                  suffix="+"
+                />
+              </div>
+              <div className="text-sm text-muted-foreground">Years</div>
+            </div>
+            <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 text-center">
+              <div className="text-3xl font-bold text-primary mb-2">
+                <AnimatedCounter end={totalProjects} />
+              </div>
+              <div className="text-sm text-muted-foreground">Projects</div>
+            </div>
           </div>
 
           {/* Experience Timeline */}

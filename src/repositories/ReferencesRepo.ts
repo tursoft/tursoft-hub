@@ -3,7 +3,7 @@ import BaseRepoAdvanced from './base/BaseRepoAdvanced';
 
 class ReferencesRepo extends BaseRepoAdvanced<Reference, ReferencesData> {
 	constructor() {
-		super('/src/data/references.json');
+		super('/data/references.json');
 	}
 }
 

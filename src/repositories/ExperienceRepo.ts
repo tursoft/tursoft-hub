@@ -4,7 +4,7 @@ import companiesRepo from './CompaniesRepo';
 
 class ExperienceRepo extends BaseRepo<Experience, ExperiencesData> {
   constructor() {
-    super('/src/data/experiences.json');
+    super('/data/experiences.json');
   }
 
   async getTitleByCode(code: string | null | undefined): Promise<string | null> {

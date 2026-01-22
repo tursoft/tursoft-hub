@@ -80,6 +80,33 @@
       ]
     },
     {
+      "code": "shaynepaterson",
+      "orderIndex": 4,
+      "title": "Shayne Paterson",
+      "photoUrl": "/assets/people/shayne.paterson.jpg",
+      "company": "Jengai",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/shayne-paterson"
+        }
+      ]
+    },    
+    {
+      "code": "petermulvey",
+      "orderIndex": 4,
+      "title": "Peter Mulvey",
+      "photoUrl": "/assets/people/peter.mulvey.jpg",
+      "company": "Gamyte",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/peter-t-mulvey"
+        }
+      ]
+    },
+
+    {
       "code": "mikaelkaron",
       "orderIndex": 4,
       "title": "Mikael Karon",
@@ -140,10 +167,52 @@
       ]
     },
     {
+      "code": "soneryildirim",
+      "orderIndex": 7,
+      "title": "Soner Yıldırım",
+      "photoUrl": "/assets/people/soner.yildirim.jpg",
+      "company": "Gnomon",
+      "contacts": [
+        {
+          "code": "email",
+          "value": "soner@metu.edu.tr"
+        },
+        {
+          "code": "website",
+          "value": "https://avesis.metu.edu.tr/soner"
+        },
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/soner-yildirim-7a0351b"
+        }
+      ]
+    },
+    {
+      "code": "omerdelialioglu",
+      "orderIndex": 7,
+      "title": "Ömer Delialioğlu",
+      "photoUrl": "/assets/people/omer.delialioglu.jpg",
+      "company": "Gnomon",
+      "contacts": [
+        {
+          "code": "email",
+          "value": "omerd@metu.edu.tr"
+        },
+        {
+          "code": "website",
+          "value": "https://avesis.metu.edu.tr/omerd"
+        },
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/%C3%B6mer-delialio%C4%9Flu-92528822"
+        }
+      ]
+    },
+    {
       "code": "kursatcagiltay",
       "orderIndex": 8,
       "title": "Prof. Dr. Kürşat Çağıltay",
-      "photoUrl": "/assets/people/kursat.cagiltay.png",
+      "photoUrl": "/assets/people/kursat.cagiltay.jpg",
       "company": "Middle East Technical University",
       "contacts": [
         {
@@ -242,9 +311,14 @@
       "code": "zahideyildirim",
       "orderIndex": 11,
       "title": "Prof. Dr. Zahide Yıldırım",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/zahide.yildirim.jpg",
       "company": "METU II",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/zahide-yildirim-283391196"
+        }
+      ]
     },
     {
       "code": "uweweimer",
@@ -415,31 +489,55 @@
       "title": "Ertan Eyimaya",
       "photoUrl": null,
       "company": "Halıcı",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/ertan-eyimaya-9533b256"
+        }
+      ]
     },
     {
       "code": "serkankayranci",
       "orderIndex": 24,
       "title": "Serkan Kayrancı",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/serkan.kayranci.jpg",
       "company": "Halıcı",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/serkan-kayranci-056ab536"
+        }
+      ]
     },
     {
       "code": "emreusta",
       "orderIndex": 25,
       "title": "Emre Usta",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/emre.usta.jpg",
       "company": "Tursoft",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/emreusta1980"
+        }
+      ]
     },
     {
       "code": "nesetmutlu",
       "orderIndex": 26,
       "title": "Neşet Mutlu",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/neset.mutlu.jpg",
       "company": "Tursoft",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "website",
+          "value": "https://avesis.erciyes.edu.tr/neset"
+        },
+        {
+          "code": "email",
+          "value": "neset@erciyes.edu.tr"
+        }
+      ]
     },
     {
       "code": "ercansuat",
@@ -477,9 +575,14 @@
       "code": "cevahirturgut",
       "orderIndex": 31,
       "title": "Cevahir Turgut",
-      "photoUrl": null,
-      "company": "Tursoft",
-      "contacts": []
+      "photoUrl": "/assets/people/cevahir.turgut.jpg",
+      "company": "Euro Control",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/cevahir-turgut-a1448a37"
+        }
+      ]
     },
     {
       "code": "hasanbasaran",
@@ -493,17 +596,27 @@
       "code": "melihtop",
       "orderIndex": 33,
       "title": "Melih Top",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/melih.top.jpg",
       "company": "CEIT",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/melih-top-5354884a"
+        }
+      ]
     },
     {
       "code": "erolisik",
       "orderIndex": 34,
       "title": "Erol Işık",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/erol.isik.jpg",
       "company": "CEIT",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/erolisik"
+        }
+      ]
     },
     {
       "code": "umitkaya",
@@ -517,9 +630,14 @@
       "code": "tayfunyuksel",
       "orderIndex": 36,
       "title": "Tayfun Yüksel",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/tayfun.yuksel.jpg",
       "company": "CEIT",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/tayfunyuksel"
+        }
+      ]
     },
     {
       "code": "evrimbaran",
@@ -559,15 +677,20 @@
       "code": "selceniyisever",
       "orderIndex": 40,
       "title": "Selcen İyisever",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/selcen.iyisever.jpg",
       "company": "Halıcı",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/selcen-dev"
+        }
+      ]
     },
     {
       "code": "mustafauysal",
       "orderIndex": 41,
       "title": "M. Mustafa Uysal",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/mustafauysal.jpg",
       "company": "Halıcı",
       "contacts": [
         {
@@ -580,17 +703,27 @@
       "code": "fatihekici",
       "orderIndex": 42,
       "title": "Fatih Ekici",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/fatih.ekici.jpg",
       "company": "Fonet",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/ekicifatih"
+        }        
+      ]
     },
     {
       "code": "naserarab",
       "orderIndex": 43,
       "title": "Naser Arab",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/naser.arab.jpg",
       "company": "Fonet",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/naserarab"
+        }        
+      ]
     },
     {
       "code": "hasanturunc",
@@ -609,17 +742,27 @@
       "code": "engincelik",
       "orderIndex": 45,
       "title": "Engin Çelik",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/engin.celik.jpg",
       "company": "Fonet",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/engin-%C3%A7elik-79152a137"
+        }
+      ]
     },
     {
       "code": "ozlemtursak",
       "orderIndex": 46,
       "title": "Özlem Turşak",
-      "photoUrl": null,
+      "photoUrl": "/assets/people/ozlem.tursak.jpg",
       "company": "Fonet",
-      "contacts": []
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/ozlemselvettursak"
+        }
+      ]
     },
     {
       "code": "mehmetgoren",
@@ -836,7 +979,7 @@
       "code": "evrimbaran",
       "orderIndex": 60,
       "title": "Evrim Baran",
-      "photoUrl": "/assets/people/evrim.baran.png",
+      "photoUrl": "/assets/people/evrim.baran.jpg",
       "company": "Iowa Stte University College of Human Sciences",
       "contacts": [
         {
@@ -869,6 +1012,20 @@
         {
           "code": "linkedin",
           "value": "https://www.linkedin.com/in/u%C4%9Fur-esmer-b625848"
+        }
+      ]
+    },
+    
+    {
+      "code": "ozdenguven",
+      "orderIndex": 62,
+      "title": "Özden Güven",
+      "photoUrl": "/assets/people/ozden.guven.jpg",
+      "company": "ERC",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/ozdenguven"
         }
       ]
     },
@@ -928,6 +1085,20 @@
       "photoUrl": null,
       "company": "Jengai",
       "contacts": [
+      ]
+    },
+
+    {
+      "code": "emrullahkocamanoglu",
+      "orderIndex": 68,
+      "title": "Emrullah Kocamanoğlu",
+      "photoUrl": "/assets/people/emrullah.kocamanoglu.jpg",
+      "company": "ERC",
+      "contacts": [
+        {
+          "code": "linkedin",
+          "value": "https://www.linkedin.com/in/emrullah-kocamano%C4%9Flu-9885a047"
+        }
       ]
     }
   ]

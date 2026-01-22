@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -14,7 +13,6 @@ import {
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import {
   Maximize2,
   Minimize2,
@@ -23,14 +21,14 @@ import {
   GraduationCap
 } from "lucide-react";
 import type SkillItem from '@/models/Skills';
-import { experienceRepo } from '@/repositories/ExperienceRepo';
-import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
-import { educationRepo } from '@/repositories/EducationRepo';
+import { skillsRepo } from '@/repositories/SkillsRepo';
 import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
 import type { Company } from '@/models/Companies';
 import type { Education } from '@/models/Education';
+import ListViewer from '@/components/ui/listviewer';
+import { parseDate, calculateDuration, type DateRange } from '@/lib/datetimeutils';
 
 interface SkillDetailDialogProps {
   skill: SkillItem | null;
@@ -38,6 +36,7 @@ interface SkillDetailDialogProps {
   onClose: () => void;
   onOpenExperience?: (experience: Experience) => void;
   onOpenProject?: (project: ProjectEntry) => void;
+  onOpenEducation?: (education: Education) => void;
 }
 
 const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({ 
@@ -45,7 +44,8 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
   isOpen, 
   onClose,
   onOpenExperience,
-  onOpenProject
+  onOpenProject,
+  onOpenEducation
 }) => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(false);
@@ -59,36 +59,85 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
     
     setIsLoadingData(true);
     try {
-      // Load experiences that use this skill
-      const allExperiences = await experienceRepo.getList();
-      const filteredExperiences = allExperiences.filter(exp => 
-        exp.positions?.some(pos => pos.skillCodes?.includes(skill.code || ''))
-      );
-      setExperiences(filteredExperiences);
+      // Use SkillsRepo methods to load related data
+      const filteredExperiences = await skillsRepo.getExperiencesBySkillCode(skill.code);
+      
+      // Sort experiences by end date (most recent first)
+      const sortedExperiences = filteredExperiences.sort((a, b) => {
+        const aEndDate = a.positions?.[0]?.endDate || '';
+        const bEndDate = b.positions?.[0]?.endDate || '';
+        
+        // Treat empty end dates as current (most recent)
+        if (!aEndDate && !bEndDate) return 0;
+        if (!aEndDate) return -1; // a is current, so it comes first
+        if (!bEndDate) return 1; // b is current, so it comes first
+        
+        const aDate = parseDate(aEndDate);
+        const bDate = parseDate(bEndDate);
+        
+        if (!aDate && !bDate) return 0;
+        if (!aDate) return 1;
+        if (!bDate) return -1;
+        
+        return bDate.getTime() - aDate.getTime(); // Descending order
+      });
+      setExperiences(sortedExperiences);
 
-      // Load projects that use this skill
-      const allProjects = await projectsRepo.getList();
-      const filteredProjects = allProjects.filter(project => 
-        project.skillCodes?.includes(skill.code || '')
-      );
-      setProjects(filteredProjects);
+      const filteredProjects = await skillsRepo.getProjectsBySkillCode(skill.code);
+      
+      // Sort projects by end date (most recent first)
+      const sortedProjects = filteredProjects.sort((a, b) => {
+        const aEndDate = a.datePeriod?.endDate || '';
+        const bEndDate = b.datePeriod?.endDate || '';
+        
+        // Treat empty end dates as current (most recent)
+        if (!aEndDate && !bEndDate) return 0;
+        if (!aEndDate) return -1; // a is current, so it comes first
+        if (!bEndDate) return 1; // b is current, so it comes first
+        
+        const aDate = parseDate(aEndDate);
+        const bDate = parseDate(bEndDate);
+        
+        if (!aDate && !bDate) return 0;
+        if (!aDate) return 1;
+        if (!bDate) return -1;
+        
+        return bDate.getTime() - aDate.getTime(); // Descending order
+      });
+      setProjects(sortedProjects);
 
-      // Load educations that use this skill
-      const allEducations = await educationRepo.getList();
-      const filteredEducations = allEducations.filter(edu => 
-        edu.skillCodes?.includes(skill.code || '')
-      );
-      setEducations(filteredEducations);
+      const filteredEducations = await skillsRepo.getEducationsBySkillCode(skill.code);
+      
+      // Sort educations by end date (most recent first)
+      const sortedEducations = filteredEducations.sort((a, b) => {
+        const aEndDate = a.datePeriod?.endDate || '';
+        const bEndDate = b.datePeriod?.endDate || '';
+        
+        // Treat empty end dates as current (most recent)
+        if (!aEndDate && !bEndDate) return 0;
+        if (!aEndDate) return -1; // a is current, so it comes first
+        if (!bEndDate) return 1; // b is current, so it comes first
+        
+        const aDate = parseDate(aEndDate);
+        const bDate = parseDate(bEndDate);
+        
+        if (!aDate && !bDate) return 0;
+        if (!aDate) return 1;
+        if (!bDate) return -1;
+        
+        return bDate.getTime() - aDate.getTime(); // Descending order
+      });
+      setEducations(sortedEducations);
 
       // Load companies for experiences, projects, and educations
       const companyCodes = new Set<string>();
-      filteredExperiences.forEach(exp => {
+      sortedExperiences.forEach(exp => {
         if (exp.companyCode) companyCodes.add(exp.companyCode);
       });
-      filteredProjects.forEach(project => {
+      sortedProjects.forEach(project => {
         if (project.companyCode) companyCodes.add(project.companyCode);
       });
-      filteredEducations.forEach(edu => {
+      sortedEducations.forEach(edu => {
         if (edu.companyCode) companyCodes.add(edu.companyCode);
       });
 
@@ -122,6 +171,93 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
 
   const logoPath = skill.photoUrl || "";
 
+  // Calculate total experience duration using min start date and max end date
+  const calculateTotalExperience = (): string => {
+    let minStartDate: Date | null = null;
+    let maxEndDate: Date | null = null;
+
+    // Process experiences
+    experiences.forEach(exp => {
+      exp.positions?.forEach(pos => {
+        if (pos.startDate) {
+          const start = parseDate(pos.startDate);
+          if (start && !isNaN(start.getTime())) {
+            if (!minStartDate || start < minStartDate) {
+              minStartDate = start;
+            }
+          }
+
+          const end = pos.endDate ? parseDate(pos.endDate) : new Date();
+          if (end && !isNaN(end.getTime())) {
+            if (!maxEndDate || end > maxEndDate) {
+              maxEndDate = end;
+            }
+          }
+        }
+      });
+    });
+
+    // Process projects
+    projects.forEach(project => {
+      if (project.datePeriod?.startDate) {
+        const start = parseDate(project.datePeriod.startDate);
+        if (start && !isNaN(start.getTime())) {
+          if (!minStartDate || start < minStartDate) {
+            minStartDate = start;
+          }
+        }
+
+        const end = project.datePeriod.endDate ? parseDate(project.datePeriod.endDate) : new Date();
+        if (end && !isNaN(end.getTime())) {
+          if (!maxEndDate || end > maxEndDate) {
+            maxEndDate = end;
+          }
+        }
+      }
+    });
+
+    // Process educations
+    educations.forEach(edu => {
+      if (edu.datePeriod?.startDate) {
+        const start = parseDate(edu.datePeriod.startDate);
+        if (start && !isNaN(start.getTime())) {
+          if (!minStartDate || start < minStartDate) {
+            minStartDate = start;
+          }
+        }
+
+        const end = edu.datePeriod?.endDate ? parseDate(edu.datePeriod.endDate) : new Date();
+        if (end && !isNaN(end.getTime())) {
+          if (!maxEndDate || end > maxEndDate) {
+            maxEndDate = end;
+          }
+        }
+      }
+    });
+
+    // Calculate duration between min start and max end
+    if (!minStartDate || !maxEndDate) return '';
+
+    const months = (maxEndDate.getFullYear() - minStartDate.getFullYear()) * 12 + 
+                   (maxEndDate.getMonth() - minStartDate.getMonth());
+    
+    if (months <= 0) return '';
+
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+
+    if (years > 0 && remainingMonths > 0) {
+      return `${years} yr${years > 1 ? 's' : ''} ${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
+    } else if (years > 0) {
+      return `${years} yr${years > 1 ? 's' : ''}`;
+    } else if (remainingMonths > 0) {
+      return `${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
+    }
+    return '';
+  };
+
+  const totalExperience = calculateTotalExperience();
+
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent 
@@ -129,40 +265,43 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
           isMaximized 
             ? 'max-w-[95vw] h-[95vh]' 
             : 'max-w-4xl max-h-[90vh]'
-        } overflow-hidden flex flex-col z-[100]`}
+        } overflow-hidden flex flex-col z-[100] h-[80%]`}
       >
-        {/* Logo */}
-        {logoPath && (
-          <div className="absolute top-4 left-8 z-10 w-16 h-16">
-            <img 
-              src={logoPath} 
-              alt={`${skill.title} logo`} 
-              className="w-full h-full object-contain rounded-lg"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          </div>
-        )}
-
-        {/* Header */}
-        <DialogHeader className="flex-shrink-0 pl-24 pr-16">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1 min-w-0">
-              <DialogTitle className="text-2xl font-bold pr-4">
-                {skill.title}
-              </DialogTitle>
-              {skill.code && (
-                <DialogDescription className="mt-2 text-base">
-                  {skill.code}
-                </DialogDescription>
-              )}
+        {/* Top Panel - Logo and Header */}
+        <div className="flex-shrink-0 min-h-[80px] relative">
+          {/* Logo */}
+          {logoPath && (
+            <div className="absolute top-4 left-4 z-10 w-16 h-16">
+              <img 
+                src={logoPath} 
+                alt={`${skill.title} logo`} 
+                className="w-full h-full object-contain rounded-lg"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
             </div>
-          </div>
-        </DialogHeader>
+          )}
+
+          {/* Header */}
+          <DialogHeader className="pl-24 pr-16 pt-4">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                <DialogTitle className="text-2xl font-bold pr-4">
+                  {skill.title}
+                </DialogTitle>
+                {totalExperience && (
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Total Experience: {totalExperience}
+                  </p>
+                )}
+              </div>
+            </div>
+          </DialogHeader>
+        </div>
 
         {/* Action Buttons */}
-        <div className="absolute top-4 right-4 flex gap-2 z-20">
+        <div className="absolute top-4 right-16 flex gap-2 z-20">
           <Button
             variant="ghost"
             size="icon"
@@ -182,231 +321,171 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
           <Badge variant="outline" className="text-xs bg-indigo-500/10 text-indigo-500 border-indigo-500/20">
             Skill
           </Badge>
-          {skill.isMajor && (
-            <Badge variant="default" className="text-xs">
-              Major
-            </Badge>
-          )}
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-hidden pl-24 pr-16 pt-2">
-          <Tabs defaultValue="experiences" className="h-full flex flex-col">
+        <div className="flex-1 pt-2">
+          <Tabs defaultValue="projects" className="h-full flex flex-col">
             <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-3">
-              {projects.length > 0 && (
-                <TabsTrigger value="projects">
-                  <span className="flex items-center gap-2">
-                    <FolderKanban className="w-4 h-4" />
-                    Projects
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {projects.length}
-                    </Badge>
-                  </span>
-                </TabsTrigger>
-              )}
-              {experiences.length > 0 && (
-                <TabsTrigger value="experiences">
-                  <span className="flex items-center gap-2">
-                    <Briefcase className="w-4 h-4" />
-                    Experiences
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {experiences.length}
-                    </Badge>
-                  </span>
-                </TabsTrigger>
-              )}
-              {educations.length > 0 && (
-                <TabsTrigger value="educations">
-                  <span className="flex items-center gap-2">
-                    <GraduationCap className="w-4 h-4" />
-                    Educations
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {educations.length}
-                    </Badge>
-                  </span>
-                </TabsTrigger>
-              )}
+
+              <TabsTrigger value="projects">
+                <span className="flex items-center gap-2">
+                  <FolderKanban className="w-4 h-4" />
+                  Projects
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {projects.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
+              <TabsTrigger value="experiences">
+                <span className="flex items-center gap-2">
+                  <Briefcase className="w-4 h-4" />
+                  Experiences
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {experiences.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
+              <TabsTrigger value="educations">
+                <span className="flex items-center gap-2">
+                  <GraduationCap className="w-4 h-4" />
+                  Educations
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {educations.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
             </TabsList>
 
-            <div className="flex-1 overflow-y-auto">
-              <TabsContent value="projects" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
-                <div className="px-4 py-2">
-                  {isLoadingData ? (
-                    <div className="text-center text-muted-foreground py-8">Loading projects...</div>
-                  ) : projects.length > 0 ? (
-                    <div className="space-y-3">
-                      {projects.map((project) => {
-                        const company = companies[project.companyCode || ''];
-                        const logoPath = project.photoUrl || "";
+            <div>
+              <TabsContent value="projects" className="max-h-[60vh] overflow-y-auto">
+                <ListViewer<ProjectEntry>
+                  data={projects}
+                  isLoading={isLoadingData}
+                  loadingMessage="Loading projects..."
+                  emptyMessage=""
+                  defaultViewMode="list"
+                  enabledModes={['list']}
+                  fieldMapping={{
+                    code: (project) => project.code || '',
+                    title: (project) => project.title || '',
+                    subtitle: (project) => {
+                      const company = companies[project.companyCode || ''];
+                      return company?.title || '';
+                    },
+                    description: (project) => '',
+                    image: (project) => project.photoUrl || '',
+                    date: (project) => {
+                      if (project.datePeriod) {
+                        const start = project.datePeriod.startDate || '';
+                        const end = project.datePeriod.endDate || 'Present';
+                        const dateRange = start && end ? `${start} - ${end}` : '';
                         
-                        return (
-                          <Card 
-                            key={project.code}
-                            className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
-                            onClick={() => onOpenProject?.(project)}
-                          >
-                            <CardContent className="p-4">
-                              <div className="flex items-start gap-4">
-                                {logoPath && (
-                                  <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                    <img 
-                                      src={logoPath} 
-                                      alt={`${project.title} logo`} 
-                                      className="w-full h-full object-contain p-1"
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                                <div className="flex-1 min-w-0">
-                                  <h3 className="font-semibold text-foreground mb-1">
-                                    {project.title}
-                                  </h3>
-                                  {project.summary && (
-                                    <CardDescription className="text-sm line-clamp-2">
-                                      {project.summary}
-                                    </CardDescription>
-                                  )}
-                                  {company && (
-                                    <div className="mt-1">
-                                      <Badge variant="secondary" className="text-xs">
-                                        {company.title}
-                                      </Badge>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="text-muted-foreground">No projects found.</p>
-                  )}
-                </div>
+                        if (dateRange && project.datePeriod.startDate) {
+                          const duration = calculateDuration([{
+                            startDate: project.datePeriod.startDate,
+                            endDate: project.datePeriod.endDate
+                          }]);
+                          return duration ? `${dateRange}\n${duration}` : dateRange;
+                        }
+                        return dateRange;
+                      }
+                      return '';
+                    },
+                  }}
+                  onItemClick={(project) => onOpenProject?.(project)}
+                />
               </TabsContent>
 
-              <TabsContent value="experiences" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
-                <div className="px-4 py-2">
-                  {isLoadingData ? (
-                    <div className="text-center text-muted-foreground py-8">Loading experiences...</div>
-                  ) : experiences.length > 0 ? (
-                    <div className="space-y-3">
-                      {experiences.map((experience) => {
-                        const company = companies[experience.companyCode || ''];
-                        const logoPath = company?.photoUrl || "";
+              <TabsContent value="experiences" className="max-h-[60vh] overflow-y-auto">
+                <ListViewer<Experience>
+                  data={experiences}
+                  isLoading={isLoadingData}
+                  loadingMessage="Loading experiences..."
+                  emptyMessage=""
+                  defaultViewMode="list"
+                  enabledModes={['list']}
+                  fieldMapping={{
+                    code: (exp) => exp.code || exp.companyCode || '',
+                    title: (exp) => {
+                      const company = companies[exp.companyCode || ''];
+                      return company?.title || exp.companyCode || '';
+                    },
+                    subtitle: (exp) => {
+                      if (exp.positions && exp.positions.length > 0) {
+                        return exp.positions[0].title || '';
+                      }
+                      return '';
+                    },
+                    description: (exp) => '',
+                    image: (exp) => {
+                      const company = companies[exp.companyCode || ''];
+                      return company?.photoUrl || '';
+                    },
+                    date: (exp) => {
+                      if (exp.positions && exp.positions.length > 0) {
+                        const position = exp.positions[0];
+                        const start = position.startDate || '';
+                        const end = position.endDate || 'Present';
+                        const dateRange = start && end ? `${start} - ${end}` : '';
                         
-                        return (
-                          <Card 
-                            key={experience.companyCode}
-                            className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
-                            onClick={() => onOpenExperience?.(experience)}
-                          >
-                            <CardContent className="p-4">
-                              <div className="flex items-start gap-4">
-                                {logoPath && (
-                                  <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                    <img 
-                                      src={logoPath} 
-                                      alt={`${company?.title} logo`} 
-                                      className="w-full h-full object-contain p-1"
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                                <div className="flex-1 min-w-0">
-                                  <h3 className="font-semibold text-foreground mb-1">
-                                    {company?.title || experience.companyCode}
-                                  </h3>
-                                  {experience.positions && experience.positions.length > 0 && (
-                                    <CardDescription className="text-sm line-clamp-2">
-                                      {experience.positions[0].title}
-                                    </CardDescription>
-                                  )}
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="text-muted-foreground">No experiences found.</p>
-                  )}
-                </div>
+                        if (dateRange && position.startDate) {
+                          const duration = calculateDuration([{
+                            startDate: position.startDate,
+                            endDate: position.endDate
+                          }]);
+                          return duration ? `${dateRange}\n${duration}` : dateRange;
+                        }
+                        return dateRange;
+                      }
+                      return '';
+                    },
+                  }}
+                  onItemClick={(experience) => onOpenExperience?.(experience)}
+                />
               </TabsContent>
 
-              <TabsContent value="educations" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
-                <div className="px-4 py-2">
-                  {isLoadingData ? (
-                    <div className="text-center text-muted-foreground py-8">Loading educations...</div>
-                  ) : educations.length > 0 ? (
-                    <div className="space-y-3">
-                      {educations.map((education) => {
-                        const company = companies[education.companyCode || ''];
-                        const logoPath = company?.photoUrl || "";
+              <TabsContent value="educations" className="max-h-[60vh] overflow-y-auto">
+                <ListViewer<Education>
+                  data={educations}
+                  isLoading={isLoadingData}
+                  loadingMessage="Loading educations..."
+                  emptyMessage=""
+                  defaultViewMode="list"
+                  enabledModes={['list']}
+                  fieldMapping={{
+                    code: (edu) => edu.code || '',
+                    title: (edu) => {
+                      const company = companies[edu.companyCode || ''];
+                      return company?.title || edu.companyCode || '';
+                    },
+                    subtitle: (edu) => edu.department || '',
+                    description: (edu) => '',
+                    image: (edu) => {
+                      const company = companies[edu.companyCode || ''];
+                      return company?.photoUrl || '';
+                    },
+                    badge: (edu) => edu.level || '',
+                    date: (edu) => {
+                      if (edu.datePeriod) {
+                        const start = edu.datePeriod.startDate || '';
+                        const end = edu.datePeriod.endDate || '';
+                        const dateRange = start && end ? `${start} - ${end}` : edu.period || '';
                         
-                        return (
-                          <Card 
-                            key={education.code}
-                            className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
-                          >
-                            <CardContent className="p-4">
-                              <div className="flex items-start gap-4">
-                                {logoPath && (
-                                  <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                    <img 
-                                      src={logoPath} 
-                                      alt={`${company?.title} logo`} 
-                                      className="w-full h-full object-contain p-1"
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                                <div className="flex-1 min-w-0">
-                                  <h3 className="font-semibold text-foreground mb-1">
-                                    {company?.title || education.companyCode}
-                                  </h3>
-                                  <CardDescription className="text-sm">
-                                    {education.department}
-                                  </CardDescription>
-                                  <CardDescription className="text-xs text-muted-foreground mt-1">
-                                    {education.level} • {education.period}
-                                  </CardDescription>
-                                  {education.courses && education.courses.length > 0 && (
-                                    <div className="mt-2 pt-2 border-t border-border/50">
-                                      <p className="text-xs font-medium text-muted-foreground mb-1">Courses:</p>
-                                      <div className="flex flex-wrap gap-1">
-                                        {education.courses.slice(0, 3).map((course, idx) => (
-                                          <Badge key={idx} variant="outline" className="text-xs">
-                                            {course.title}
-                                          </Badge>
-                                        ))}
-                                        {education.courses.length > 3 && (
-                                          <Badge variant="secondary" className="text-xs">
-                                            +{education.courses.length - 3} more
-                                          </Badge>
-                                        )}
-                                      </div>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="text-muted-foreground">No educations found.</p>
-                  )}
-                </div>
+                        if (dateRange && edu.datePeriod.startDate) {
+                          const duration = calculateDuration([{
+                            startDate: edu.datePeriod.startDate,
+                            endDate: edu.datePeriod.endDate
+                          }]);
+                          return duration ? `${dateRange}\n${duration}` : dateRange;
+                        }
+                        return dateRange;
+                      }
+                      return edu.period || '';
+                    },
+                  }}
+                  onItemClick={(education) => onOpenEducation?.(education)}
+                />
               </TabsContent>
             </div>
           </Tabs>

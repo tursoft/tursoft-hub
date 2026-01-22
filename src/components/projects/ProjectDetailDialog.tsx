@@ -348,13 +348,13 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className={`${isMaximized ? 'max-w-full max-h-full w-full h-full rounded-none' : 'max-w-full max-h-full w-full h-full rounded-none sm:max-w-[35vw] sm:max-h-[90vh] sm:w-[35vw] sm:h-auto sm:rounded-lg'} overflow-hidden`}>
+      <DialogContent className={`transition-all duration-300 ${isMaximized ? 'max-w-[95vw] h-[95vh]' : 'max-w-4xl max-h-[90vh]'} overflow-hidden flex flex-col z-[100] h-[80%]`}>
         <DialogHeader className="pb-6 pl-6">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsMaximized(!isMaximized)}
-            className="absolute top-4 right-12 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
+            className="absolute top-4 right-16 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
           >
             {isMaximized ? (
               <Minimize2 className="w-4 h-4" />

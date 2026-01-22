@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription } from "@/components/ui/card";
+import ListViewer from "@/components/ui/listviewer";
 import {
   Maximize2,
   Minimize2,
@@ -28,6 +28,7 @@ import { companiesRepo } from '@/repositories/CompaniesRepo';
 import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
 import type { Company } from '@/models/Companies';
+import { calculateDuration } from '@/lib/datetimeutils';
 
 interface DomainDetailDialogProps {
   domain: Domain | null;
@@ -115,7 +116,7 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
           isMaximized 
             ? 'max-w-[95vw] h-[95vh]' 
             : 'max-w-4xl max-h-[90vh]'
-        } overflow-hidden flex flex-col z-[100] pr-16`}
+        } overflow-hidden flex flex-col z-[100] h-[80%]`}
       >
         {/* Logo */}
         {logoPath && (
@@ -146,7 +147,8 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
         </DialogHeader>
 
         {/* Action Buttons */}
-        <div className="absolute top-4 right-4 flex gap-2 z-20">
+        {/* Action Buttons */}
+        <div className="absolute top-4 right-16 flex gap-2 z-20">
           <Button
             variant="ghost"
             size="icon"
@@ -169,31 +171,29 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-hidden pl-24 pt-2">
-          <Tabs defaultValue="experiences" className="h-full flex flex-col">
+        <div className="flex-1 overflow-hidden pl-2 pt-2">
+          <Tabs defaultValue="projects" className="h-full flex flex-col">
             <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-2">
-              {experiences.length > 0 && (
-                <TabsTrigger value="experiences">
-                  <span className="flex items-center gap-2">
-                    <Briefcase className="w-4 h-4" />
-                    Experiences
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {experiences.length}
-                    </Badge>
-                  </span>
-                </TabsTrigger>
-              )}
-              {projects.length > 0 && (
-                <TabsTrigger value="projects">
-                  <span className="flex items-center gap-2">
-                    <FolderKanban className="w-4 h-4" />
-                    Projects
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {projects.length}
-                    </Badge>
-                  </span>
-                </TabsTrigger>
-              )}
+              <TabsTrigger value="projects">
+                <span className="flex items-center gap-2">
+                  <FolderKanban className="w-4 h-4" />
+                  Projects
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {projects.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
+
+              <TabsTrigger value="experiences">
+                <span className="flex items-center gap-2">
+                  <Briefcase className="w-4 h-4" />
+                  Experiences
+                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
+                    {experiences.length}
+                  </Badge>
+                </span>
+              </TabsTrigger>
+
             </TabsList>
 
             <div className="flex-1 overflow-y-auto">
@@ -202,47 +202,21 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
                   {isLoadingData ? (
                     <div className="text-center text-muted-foreground py-8">Loading experiences...</div>
                   ) : experiences.length > 0 ? (
-                    <div className="space-y-3">
-                      {experiences.map((experience) => {
-                        const company = companies[experience.companyCode || ''];
-                        const logoPath = company?.photoUrl || "";
-                        
-                        return (
-                          <Card 
-                            key={experience.companyCode}
-                            className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
-                            onClick={() => onOpenExperience?.(experience)}
-                          >
-                            <CardContent className="p-4">
-                              <div className="flex items-start gap-4">
-                                {logoPath && (
-                                  <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                    <img 
-                                      src={logoPath} 
-                                      alt={`${company?.title} logo`} 
-                                      className="w-full h-full object-contain p-1"
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                                <div className="flex-1 min-w-0">
-                                  <h3 className="font-semibold text-foreground mb-1">
-                                    {company?.title || experience.companyCode}
-                                  </h3>
-                                  {experience.positions && experience.positions.length > 0 && (
-                                    <CardDescription className="text-sm line-clamp-2">
-                                      {experience.positions[0].title}
-                                    </CardDescription>
-                                  )}
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
+                    <ListViewer<Experience> 
+                      data={experiences}
+                      defaultViewMode="list"
+                      enabledModes={['list']}
+                      onItemClick={(experience) => onOpenExperience?.(experience)}
+                      fieldMapping={{
+                        code: (e) => e.companyCode || '',
+                        title: (e: Experience) => companies[e.companyCode || '']?.title || e.companyCode,
+                        subtitle: (e: Experience) => e.positions && e.positions.length > 0 ? e.positions[0].title : '',
+                        description: (e) => '',
+                        image: (e) => companies[e.companyCode || '']?.photoUrl || '',
+                        date: (e) => ''
+                      }}
+                      imageRounded={false}
+                    />
                   ) : (
                     <p className="text-muted-foreground">No experiences found.</p>
                   )}
@@ -254,54 +228,40 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
                   {isLoadingData ? (
                     <div className="text-center text-muted-foreground py-8">Loading projects...</div>
                   ) : projects.length > 0 ? (
-                    <div className="space-y-3">
-                      {projects.map((project) => {
-                        const company = companies[project.companyCode || ''];
-                        const logoPath = project.photoUrl || "";
-                        
-                        return (
-                          <Card 
-                            key={project.code}
-                            className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
-                            onClick={() => onOpenProject?.(project)}
-                          >
-                            <CardContent className="p-4">
-                              <div className="flex items-start gap-4">
-                                {logoPath && (
-                                  <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                    <img 
-                                      src={logoPath} 
-                                      alt={`${project.title} logo`} 
-                                      className="w-full h-full object-contain p-1"
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
-                                      }}
-                                    />
-                                  </div>
-                                )}
-                                <div className="flex-1 min-w-0">
-                                  <h3 className="font-semibold text-foreground mb-1">
-                                    {project.title}
-                                  </h3>
-                                  {project.summary && (
-                                    <CardDescription className="text-sm line-clamp-2">
-                                      {project.summary}
-                                    </CardDescription>
-                                  )}
-                                  {company && (
-                                    <div className="mt-1">
-                                      <Badge variant="secondary" className="text-xs">
-                                        {company.title}
-                                      </Badge>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
+                    <ListViewer<ProjectEntry>
+                      data={projects}
+                      defaultViewMode="list"
+                      enabledModes={['list']}
+                      onItemClick={(project) => onOpenProject?.(project)}
+                      fieldMapping={{
+                        code: (p) => p.code || '',
+                        title: (p) => p.title || '',
+                        subtitle: (project) => {
+                          const company = companies[project.companyCode || ''];
+                          return company?.title || '';
+                        },
+                        description: (project) => '',
+                        image: (project) => project.photoUrl || '',
+                        date: (project) => {
+                          if (project.datePeriod) {
+                            const start = project.datePeriod.startDate || '';
+                            const end = project.datePeriod.endDate || 'Present';
+                            const dateRange = start && end ? `${start} - ${end}` : '';
+                            
+                            if (dateRange && project.datePeriod.startDate) {
+                              const duration = calculateDuration([{
+                                startDate: project.datePeriod.startDate,
+                                endDate: project.datePeriod.endDate
+                              }]);
+                              return duration ? `${dateRange}\n${duration}` : dateRange;
+                            }
+                            return dateRange;
+                          }
+                          return '';
+                        },
+                      }}
+                      imageRounded={false}
+                    />
                   ) : (
                     <p className="text-muted-foreground">No projects found.</p>
                   )}

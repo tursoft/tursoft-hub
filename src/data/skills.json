@@ -4,54 +4,65 @@
     "summary": "I had experience on various tech stacks in my long career.",
     "groups": [
       {
-        "code": "Frontend",
-        "title": "Frontend",
-        "orderIndex": 1
-      },
-      {
         "code": "Programming Languages",
         "title": "Programming Languages",
-        "orderIndex": 2
-      },
-      {
-        "code": "Frameworks",
-        "title": "Frameworks",
-        "orderIndex": 3
-      },
-      {
-        "code": "Backend",
-        "title": "Backend",
-        "orderIndex": 4
-      },
-      {
-        "code": "Databases",
-        "title": "Databases",
-        "orderIndex": 5
+        "orderIndex": 1
       },
       {
         "code": "Cloud & DevOps",
         "title": "Cloud & DevOps",
-        "orderIndex": 6
+        "orderIndex": 2
       },
       {
-        "code": "Web & APIs",
-        "title": "Web & APIs",
-        "orderIndex": 7
+        "code": "Backend",
+        "title": "Backend",
+        "orderIndex": 3
       },
+      {
+        "code": "Frontend",
+        "title": "Frontend",
+        "orderIndex": 4
+      },                  
+      {
+        "code": "Databases",
+        "title": "Databases",
+        "orderIndex": 5
+      },      
+      {
+        "code": "Frameworks",
+        "title": "Frameworks",
+        "orderIndex": 6
+      },
+
+       {
+        "code": "AI & ML",
+        "title": "AI & ML",
+        "orderIndex": 7
+      },     
       {
         "code": "Tools & IDEs",
         "title": "Tools & IDEs",
         "orderIndex": 8
       },
       {
-        "code": "Project & Reporting",
-        "title": "Project & Reporting",
+        "code": "Project Management",
+        "title": "Project Management",
         "orderIndex": 9
       },
       {
-        "code": "Scripting & Automation",
-        "title": "Scripting & Automation",
+        "code": "Security",
+        "title": "Security",
         "orderIndex": 10
+      },      
+      {
+        "code": "Reporting & BI",
+        "title": "Reporting & BI",
+        "orderIndex": 11
+      },      
+      {
+        "code": "Others",
+        "title": "Others",
+        "orderIndex": 12
       }
     ]
   },
@@ -149,9 +160,31 @@
       "photoUrl": "/assets/skills/docker.png",
       "group": "Cloud & DevOps",
       "value": 0,
-      "projects": 13,
+      "projects": 2,
       "jobs": 0,
       "isMajor": true
+    },
+    {
+      "code": "Helm",
+      "orderIndex": 9,
+      "title": "Helm",
+      "photoUrl": "/assets/skills/helm.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 2,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "Go",
+      "orderIndex": 9,
+      "title": "Go",
+      "photoUrl": "/assets/skills/go.png",
+      "group": "Programming Languages",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
     },
     {
       "code": "MS SQL",
@@ -283,16 +316,6 @@
       "isMajor": true
     },
     {
-      "code": "Web Forms",
-      "orderIndex": 22,
-      "title": "Web Forms",
-      "photoUrl": "",
-      "group": "Web & APIs",
-      "value": 0,
-      "projects": 0,
-      "jobs": 0
-    },
-    {
       "code": "Web API",
       "orderIndex": 23,
       "title": "Web API",
@@ -337,7 +360,7 @@
       "orderIndex": 27,
       "title": "Silverlight",
       "photoUrl": "/assets/skills/silverlight.png",
-      "group": "Web & APIs",
+      "group": "Frontend",
       "value": 0,
       "projects": 14,
       "jobs": 0
@@ -347,7 +370,7 @@
       "orderIndex": 28,
       "title": "XAML",
       "photoUrl": "/assets/skills/xaml.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 14,
       "jobs": 0
@@ -357,7 +380,7 @@
       "orderIndex": 29,
       "title": "WCF",
       "photoUrl": "/assets/skills/wcf.png",
-      "group": "Web & APIs",
+      "group": "Backend",
       "value": 0,
       "projects": 14,
       "jobs": 0
@@ -367,19 +390,9 @@
       "orderIndex": 30,
       "title": "Telerik UI for Silverlight",
       "photoUrl": "/assets/skills/telerikuiforsilverlight.png",
-      "group": "Web & APIs",
+      "group": "Frontend",
       "value": 0,
       "projects": 14,
-      "jobs": 0
-    },
-    {
-      "code": "VS Code Insiders",
-      "orderIndex": 31,
-      "title": "VS Code Insiders",
-      "photoUrl": "/assets/skills/vscodeinsiders.png",
-      "group": "Tools & IDEs",
-      "value": 0,
-      "projects": 15,
       "jobs": 0
     },
     {
@@ -387,7 +400,7 @@
       "orderIndex": 32,
       "title": "Google Analytics",
       "photoUrl": "/assets/skills/googleanalytics.png",
-      "group": "Web & APIs",
+      "group": "Others",
       "value": 0,
       "projects": 16,
       "jobs": 0
@@ -397,7 +410,7 @@
       "orderIndex": 33,
       "title": "UML",
       "photoUrl": "/assets/skills/uml.png",
-      "group": "Project & Reporting",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -407,7 +420,7 @@
       "orderIndex": 34,
       "title": "OOP",
       "photoUrl": "/assets/skills/oop.png",
-      "group": "Project & Reporting",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -416,7 +429,7 @@
       "code": "C++",
       "orderIndex": 35,
       "title": "C++",
-      "photoUrl": "/assets/skills/cplusplus.jpg",
+      "photoUrl": "/assets/skills/cplusplus.png",
       "group": "Programming Languages",
       "value": 0,
       "projects": 0,
@@ -437,7 +450,7 @@
       "orderIndex": 37,
       "title": "PMP",
       "photoUrl": "/assets/skills/pmp.png",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -446,7 +459,7 @@
       "code": "Mobile Apps",
       "orderIndex": 38,
       "title": "Mobile Apps",
-      "photoUrl": "",
+      "photoUrl": null,
       "group": "Frontend",
       "value": 0,
       "projects": 0,
@@ -457,7 +470,7 @@
       "orderIndex": 39,
       "title": "Fast Reports",
       "photoUrl": "/assets/skills/fastreports.png",
-      "group": "Project & Reporting",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 6,
       "jobs": 0
@@ -467,7 +480,7 @@
       "orderIndex": 40,
       "title": "Crystal Reports",
       "photoUrl": "/assets/skills/crystalreports.png",
-      "group": "Project & Reporting",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 10,
       "jobs": 0
@@ -517,7 +530,7 @@
       "orderIndex": 45,
       "title": "Wordpress",
       "photoUrl": "/assets/skills/wordpress.png",
-      "group": "Web & APIs",
+      "group": "Others",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -527,7 +540,7 @@
       "orderIndex": 46,
       "title": "PowerShell",
       "photoUrl": "/assets/skills/powershell.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -547,7 +560,7 @@
       "orderIndex": 48,
       "title": "Quartz Scheduler",
       "photoUrl": "/assets/skills/quartzscheduler.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -567,7 +580,7 @@
       "orderIndex": 50,
       "title": "JWT",
       "photoUrl": "/assets/skills/jwt.png",
-      "group": "Scripting & Automation",
+      "group": "Security",
       "value": 0,
       "projects": 3,
       "jobs": 0
@@ -577,7 +590,7 @@
       "orderIndex": 51,
       "title": "OAuth",
       "photoUrl": "/assets/skills/oauth.png",
-      "group": "Scripting & Automation",
+      "group": "Security",
       "value": 0,
       "projects": 16,
       "jobs": 0
@@ -596,7 +609,7 @@
       "code": "StencilJS",
       "orderIndex": 53,
       "title": "StencilJS",
-      "photoUrl": "/assets/skills/c.png",
+      "photoUrl": "/assets/skills/stenciljs.png",
       "group": "Frontend",
       "value": 0,
       "projects": 1,
@@ -606,7 +619,7 @@
       "code": "React",
       "orderIndex": 54,
       "title": "React",
-      "photoUrl": "/assets/skills/c.png",
+      "photoUrl": "/assets/skills/react.png",
       "group": "Frontend",
       "value": 0,
       "projects": 1,
@@ -694,8 +707,8 @@
       "jobs": 0
     },
     {
-      "code": "Dark Basic",
-      "orderIndex": 63,
+      "code": "darkbasic",
+      "orderIndex": 263,
       "title": "Dark Basic",
       "photoUrl": "/assets/skills/darkbasic.png",
       "group": "Tools & IDEs",
@@ -754,16 +767,6 @@
       "jobs": 0
     },
     {
-      "code": "dom-to-image",
-      "orderIndex": 69,
-      "title": "dom-to-image",
-      "photoUrl": "/assets/skills/domtoimage.png",
-      "group": "Frontend",
-      "value": 0,
-      "projects": 0,
-      "jobs": 0
-    },
-    {
       "code": "Google Cloud",
       "orderIndex": 70,
       "title": "Google Cloud",
@@ -808,7 +811,7 @@
       "orderIndex": 74,
       "title": "Paypal",
       "photoUrl": "/assets/skills/paypal.png",
-      "group": "Tools & IDEs",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -828,7 +831,7 @@
       "orderIndex": 76,
       "title": "APM",
       "photoUrl": "/assets/skills/APM.png",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -838,7 +841,7 @@
       "orderIndex": 77,
       "title": "Json",
       "photoUrl": "/assets/skills/json.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 16,
       "jobs": 0
@@ -878,7 +881,7 @@
       "orderIndex": 81,
       "title": "Oracle BI",
       "photoUrl": "/assets/skills/oraclebi.png",
-      "group": "Project & Reporting",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 24,
       "jobs": 0
@@ -898,7 +901,7 @@
       "orderIndex": 83,
       "title": "WPF",
       "photoUrl": "/assets/skills/wpf.png",
-      "group": "Tools & IDEs",
+      "group": "Frontend",
       "value": 0,
       "projects": 14,
       "jobs": 0
@@ -908,7 +911,7 @@
       "orderIndex": 84,
       "title": "Hibernate",
       "photoUrl": "/assets/skills/hibernate.png",
-      "group": "Databases",
+      "group": "Backend",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -918,7 +921,7 @@
       "orderIndex": 85,
       "title": "Spring",
       "photoUrl": "/assets/skills/spring.png",
-      "group": "Frameworks",
+      "group": "Backend",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -958,7 +961,7 @@
       "orderIndex": 89,
       "title": "Jasper BI",
       "photoUrl": "/assets/skills/jasperbi.png",
-      "group": "Project & Reporting",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -968,7 +971,7 @@
       "orderIndex": 90,
       "title": "Jasper Reports",
       "photoUrl": "/assets/skills/jasperreports.png",
-      "group": "Project & Reporting",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -988,7 +991,7 @@
       "orderIndex": 92,
       "title": "iReports",
       "photoUrl": "/assets/skills/ireports.png",
-      "group": "Project & Reporting",
+      "group": "Reporting & BI",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -1008,7 +1011,7 @@
       "orderIndex": 94,
       "title": "Scorm",
       "photoUrl": "/assets/skills/scorm.png",
-      "group": "Tools & IDEs",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1078,7 +1081,7 @@
       "orderIndex": 101,
       "title": "ubuntu",
       "photoUrl": "/assets/skills/ubuntu.png",
-      "group": "Tools & IDEs",
+      "group": "Others",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -1118,7 +1121,7 @@
       "orderIndex": 105,
       "title": "Bash Scripting",
       "photoUrl": "/assets/skills/bashscripting.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -1148,7 +1151,7 @@
       "orderIndex": 108,
       "title": "SOAP",
       "photoUrl": "/assets/skills/soap.png",
-      "group": "Web & APIs",
+      "group": "Backend",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1158,7 +1161,7 @@
       "orderIndex": 109,
       "title": "Redmine",
       "photoUrl": "/assets/skills/redmine.png",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -1178,7 +1181,7 @@
       "orderIndex": 111,
       "title": "XML",
       "photoUrl": "/assets/skills/xml.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 13,
       "jobs": 0
@@ -1218,7 +1221,7 @@
       "orderIndex": 115,
       "title": "MVVM",
       "photoUrl": "/assets/skills/mvvm.png",
-      "group": "Project & Reporting",
+      "group": "Frontend",
       "value": 0,
       "projects": 23,
       "jobs": 0
@@ -1228,7 +1231,7 @@
       "orderIndex": 116,
       "title": "Fiddler",
       "photoUrl": "/assets/skills/fiddler.png",
-      "group": "Cloud & DevOps",
+      "group": "Tools & IDEs",
       "value": 0,
       "projects": 14,
       "jobs": 0
@@ -1318,7 +1321,7 @@
       "orderIndex": 125,
       "title": "Hangfire",
       "photoUrl": "/assets/skills/hangfire.png",
-      "group": "Scripting & Automation",
+      "group": "Programming Languages",
       "value": 0,
       "projects": 18,
       "jobs": 0
@@ -1328,7 +1331,7 @@
       "orderIndex": 126,
       "title": "ASP.NET MVC",
       "photoUrl": "/assets/skills/aspnetmvc.png",
-      "group": "Web & APIs",
+      "group": "Backend",
       "value": 0,
       "projects": 33,
       "jobs": 0
@@ -1388,7 +1391,7 @@
       "orderIndex": 132,
       "title": "ASP.NET",
       "photoUrl": "/assets/skills/aspnet.png",
-      "group": "Web & APIs",
+      "group": "Backend",
       "value": 0,
       "projects": 35,
       "jobs": 0
@@ -1419,7 +1422,7 @@
       "orderIndex": 135,
       "title": "MS Project",
       "photoUrl": "/assets/skills/msproject.png",
-      "group": "Project & Reporting",
+      "group": "Project Management",
       "value": 0,
       "projects": 13,
       "jobs": 0,
@@ -1430,7 +1433,7 @@
       "orderIndex": 136,
       "title": "Design Patterns",
       "photoUrl": "/assets/skills/designpatterns.png",
-      "group": "Project & Reporting",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1439,8 +1442,8 @@
       "code": "Integration Platforms",
       "orderIndex": 137,
       "title": "Integration Platforms",
-      "photoUrl": "",
-      "group": "Web & APIs",
+      "photoUrl": null,
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1449,8 +1452,8 @@
       "code": "Enterprise Solutions",
       "orderIndex": 138,
       "title": "Enterprise Solutions",
-      "photoUrl": "",
-      "group": "Project & Reporting",
+      "photoUrl": null,
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1459,8 +1462,8 @@
       "code": "Integration Solutions",
       "orderIndex": 139,
       "title": "Integration Solutions",
-      "photoUrl": "",
-      "group": "Web & APIs",
+      "photoUrl": null,
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1469,7 +1472,7 @@
       "code": "Distributed Systems",
       "orderIndex": 140,
       "title": "Distributed Systems",
-      "photoUrl": "",
+      "photoUrl": null,
       "group": "Backend",
       "value": 0,
       "projects": 0,
@@ -1479,7 +1482,7 @@
       "code": "Database Systems",
       "orderIndex": 141,
       "title": "Database Systems",
-      "photoUrl": "",
+      "photoUrl": null,
       "group": "Databases",
       "value": 0,
       "projects": 0,
@@ -1489,7 +1492,7 @@
       "code": "Database Migration",
       "orderIndex": 142,
       "title": "Database Migration",
-      "photoUrl": "",
+      "photoUrl": null,
       "group": "Databases",
       "value": 0,
       "projects": 0,
@@ -1499,7 +1502,7 @@
       "code": "Database Management",
       "orderIndex": 143,
       "title": "Database Management",
-      "photoUrl": "",
+      "photoUrl": null,
       "group": "Databases",
       "value": 0,
       "projects": 0,
@@ -1509,7 +1512,7 @@
       "code": "Database Design",
       "orderIndex": 144,
       "title": "Database Design",
-      "photoUrl": "",
+      "photoUrl": null,
       "group": "Databases",
       "value": 0,
       "projects": 0,
@@ -1519,7 +1522,7 @@
       "code": "Database Solutions",
       "orderIndex": 145,
       "title": "Database Solutions",
-      "photoUrl": "",
+      "photoUrl": null,
       "group": "Databases",
       "value": 0,
       "projects": 0,
@@ -1529,8 +1532,8 @@
       "code": "Software Estimation",
       "orderIndex": 146,
       "title": "Software Estimation",
-      "photoUrl": "",
-      "group": "Project & Reporting",
+      "photoUrl": null,
+      "group": "Project Management",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1539,8 +1542,8 @@
       "code": "Cost Management",
       "orderIndex": 147,
       "title": "Cost Management",
-      "photoUrl": "/assets/skills/c.png",
-      "group": "Project & Reporting",
+      "photoUrl": null,
+      "group": "Project Management",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1549,8 +1552,8 @@
       "code": "Time Management",
       "orderIndex": 148,
       "title": "Time Management",
-      "photoUrl": "",
-      "group": "Project & Reporting",
+      "photoUrl": null,
+      "group": "Project Management",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1559,8 +1562,8 @@
       "code": "Project Management",
       "orderIndex": 149,
       "title": "Project Management",
-      "photoUrl": "/assets/skills/c.png",
-      "group": "Project & Reporting",
+      "photoUrl": null,
+      "group": "Project Management",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1569,8 +1572,8 @@
       "code": "Web Development",
       "orderIndex": 150,
       "title": "Web Development",
-      "photoUrl": "",
-      "group": "Web & APIs",
+      "photoUrl": null,
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1579,7 +1582,7 @@
       "code": "Mobile Solutions",
       "orderIndex": 151,
       "title": "Mobile Solutions",
-      "photoUrl": "",
+      "photoUrl": null,
       "group": "Frontend",
       "value": 0,
       "projects": 0,
@@ -1590,7 +1593,7 @@
       "orderIndex": 152,
       "title": "Networking",
       "photoUrl": "/assets/skills/networking.png",
-      "group": "Tools & IDEs",
+      "group": "Others",
       "value": 0,
       "projects": 0,
       "jobs": 0
@@ -1600,7 +1603,7 @@
       "orderIndex": 153,
       "title": "GraphQL",
       "photoUrl": "/assets/skills/graphql.png",
-      "group": "GraphQL",
+      "group": "Backend",
       "value": 0,
       "projects": 1,
       "jobs": 1
@@ -1725,6 +1728,285 @@
       "projects": 2,
       "jobs": 0,
       "isMajor": false
-    }
+    },
+
+    {
+      "code": "copilot",
+      "orderIndex": 155,
+      "title": "GitHub Copilot",
+      "photoUrl": "/assets/skills/copilot.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "cursor",
+      "orderIndex": 155,
+      "title": "Cursor",
+      "photoUrl": "/assets/skills/cursor.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "claudedesktop",
+      "orderIndex": 155,
+      "title": "Claude Desktop",
+      "photoUrl": "/assets/skills/claude-desktop.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "ChatGPT",
+      "orderIndex": 155,
+      "title": "ChatGPT",
+      "photoUrl": "/assets/skills/chatgpt.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "gemini",
+      "orderIndex": 155,
+      "title": "Gemini",
+      "photoUrl": "/assets/skills/gemini.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "llama3",
+      "orderIndex": 155,
+      "title": "Llama 3",
+      "photoUrl": "/assets/skills/llama3.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "ollama",
+      "orderIndex": 155,
+      "title": "Ollama",
+      "photoUrl": "/assets/skills/ollama.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "n8n",
+      "orderIndex": 155,
+      "title": "n8n",
+      "photoUrl": "/assets/skills/n8n.png",
+      "group": "AI & ML",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "sass",
+      "orderIndex": 155,
+      "title": "sass",
+      "photoUrl": "/assets/skills/sass.png",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "tailwind",
+      "orderIndex": 155,
+      "title": "tailwind",
+      "photoUrl": "/assets/skills/tailwind.png",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "flash",
+      "orderIndex": 156,
+      "title": "flash",
+      "photoUrl": "/assets/skills/flash.png",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "dotnetnuke",
+      "orderIndex": 156,
+      "title": "dotnetnuke",
+      "photoUrl": "/assets/skills/dotnetnuke.png",
+      "group": "Backend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "actionscript",
+      "orderIndex": 156,
+      "title": "actionscript",
+      "photoUrl": "/assets/skills/actionscript.png",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "tcpip",
+      "orderIndex": 156,
+      "title": "tcpip",
+      "photoUrl": "/assets/skills/tcpip.png",
+      "group": "Backend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+
+    {
+      "code": "aspnetwebforms",
+      "orderIndex": 156,
+      "title": "aspnetwebforms",
+      "photoUrl": "/assets/skills/aspnetwebforms.png",
+      "group": "Frontend",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "postman",
+      "orderIndex": 156,
+      "title": "postman",
+      "photoUrl": "/assets/skills/postman.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "ansible",
+      "orderIndex": 156,
+      "title": "ansible",
+      "photoUrl": "/assets/skills/ansible.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "benchmarkdotnet",
+      "orderIndex": 156,
+      "title": "BenchmarkDotNet",
+      "photoUrl": "/assets/skills/benchmarkdotnet.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "githubactions",
+      "orderIndex": 156,
+      "title": "Github Actions",
+      "photoUrl": "/assets/skills/githubactions.png",
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "xunit",
+      "orderIndex": 156,
+      "title": "xUnit",
+      "photoUrl": "/assets/skills/xunit.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "nunit",
+      "orderIndex": 156,
+      "title": "NUnit",
+      "photoUrl": "/assets/skills/nunit.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },    
+    {
+      "code": "mstest",
+      "orderIndex": 156,
+      "title": "MS Test",
+      "photoUrl": "/assets/skills/mstest.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "testcontainers",
+      "orderIndex": 156,
+      "title": "Test Containers",
+      "photoUrl": "/assets/skills/testcontainers.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "selenium",
+      "orderIndex": 156,
+      "title": "Selenium",
+      "photoUrl": "/assets/skills/selenium.png",
+      "group": "Testing",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    }    
   ]
 }

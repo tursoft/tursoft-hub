@@ -3,7 +3,7 @@ import BaseRepo from './base/BaseRepo';
 
 class PartnersRepo extends BaseRepo<Partner, PartnersData> {
 	constructor() {
-		super('/src/data/partners.json');
+		super('/data/partners.json');
 	}
 
 	async getTitleByCode(code: string | null | undefined): Promise<string | null> {

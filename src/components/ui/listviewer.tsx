@@ -48,11 +48,13 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   title?: string;
   subtitle?: string;
   badge?: string;
+  summary?: ReactNode;
   
   // Filtering
   enableCategoryFilter?: boolean;
   categoryField?: string | ((item: T) => string); // Field name or function to extract category
   categoryLabels?: Record<string, string>; // Optional custom labels for categories
+  categoryOrder?: string[]; // Optional custom order for categories
   enableSearch?: boolean;
   searchFields?: string[] | ((item: T) => string[]); // Fields to search in
   searchPlaceholder?: string;
@@ -109,9 +111,11 @@ const ListViewer = <T = any>({
   title,
   subtitle,
   badge,
+  summary,
   enableCategoryFilter = false,
   categoryField,
   categoryLabels,
+  categoryOrder,
   enableSearch = false,
   searchFields,
   searchPlaceholder = 'Search...',
@@ -155,8 +159,33 @@ const ListViewer = <T = any>({
       const category = getFieldValue(item, categoryField);
       if (category) categorySet.add(category);
     });
-    return ['All', ...Array.from(categorySet).sort()];
-  }, [data, enableCategoryFilter, categoryField, getFieldValue]);
+    
+    const uniqueCategories = Array.from(categorySet);
+    
+    // Sort categories based on custom order if provided
+    if (categoryOrder && categoryOrder.length > 0) {
+      uniqueCategories.sort((a, b) => {
+        const indexA = categoryOrder.indexOf(a);
+        const indexB = categoryOrder.indexOf(b);
+        
+        // If both are in the order list, sort by their position
+        if (indexA !== -1 && indexB !== -1) {
+          return indexA - indexB;
+        }
+        // If only a is in the order list, it comes first
+        if (indexA !== -1) return -1;
+        // If only b is in the order list, it comes first
+        if (indexB !== -1) return 1;
+        // If neither is in the order list, sort alphabetically
+        return a.localeCompare(b);
+      });
+    } else {
+      // Default alphabetical sorting
+      uniqueCategories.sort();
+    }
+    
+    return ['All', ...uniqueCategories];
+  }, [data, enableCategoryFilter, categoryField, categoryOrder, getFieldValue]);
 
   // Get category count
   const getCategoryCount = useCallback((category: string) => {
@@ -268,7 +297,7 @@ const ListViewer = <T = any>({
       return (
         <Card 
           key={code}
-          className="border-border bg-card hover:shadow-lg transition-all duration-300 cursor-pointer"
+          className="border-border bg-card hover:shadow-lg hover:border-primary/50 hover:scale-[1.02] transition-all duration-300 cursor-pointer"
           style={enableAnimation ? { animationDelay: `${index * 100}ms` } : undefined}
           onClick={() => onItemClick?.(item)}
         >
@@ -280,7 +309,7 @@ const ListViewer = <T = any>({
     return (
       <Card 
         key={code}
-        className="border-border bg-card hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col"
+        className="border-border bg-card hover:shadow-lg hover:border-primary/50 hover:scale-[1.02] transition-all duration-300 cursor-pointer flex flex-col"
         style={enableAnimation ? { animationDelay: `${index * 100}ms` } : undefined}
         onClick={() => onItemClick?.(item)}
       >
@@ -362,7 +391,7 @@ const ListViewer = <T = any>({
       return (
         <Card 
           key={code}
-          className="border-border bg-card hover:shadow-lg transition-all duration-300 cursor-pointer"
+          className="border-2 border-border/50 hover:border-primary/50 bg-card hover:shadow-lg transition-all duration-300 cursor-pointer"
           style={enableAnimation ? { animationDelay: `${index * 50}ms` } : undefined}
           onClick={() => onItemClick?.(item)}
         >
@@ -374,7 +403,7 @@ const ListViewer = <T = any>({
     return (
       <Card 
         key={code}
-        className="border-border bg-card hover:shadow-lg transition-all duration-300 cursor-pointer"
+        className="border-2 border-border/50 hover:border-primary/50 bg-card hover:shadow-lg transition-all duration-300 cursor-pointer"
         style={enableAnimation ? { animationDelay: `${index * 50}ms` } : undefined}
         onClick={() => onItemClick?.(item)}
       >
@@ -382,8 +411,8 @@ const ListViewer = <T = any>({
           <div className="flex gap-6 items-start">
             {image && (
               <div className="flex-shrink-0">
-                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden border-background shadow-lg ${
-                  imageRounded ? 'rounded-full border-4' : 'rounded-lg'
+                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden ${
+                  imageRounded ? 'rounded-full' : 'rounded-lg'
                 }`}>
                   <img 
                     src={image} 
@@ -405,7 +434,7 @@ const ListViewer = <T = any>({
                   )}
                 </div>
                 {date && (
-                  <div className="text-xs text-muted-foreground/70 font-light whitespace-nowrap">
+                  <div className="text-xs text-muted-foreground/70 font-light whitespace-pre-line text-right">
                     {date}
                   </div>
                 )}
@@ -469,23 +498,27 @@ const ListViewer = <T = any>({
         className="group cursor-pointer"
         style={enableAnimation ? { animationDelay: `${index * 30}ms` } : undefined}
         onClick={() => onItemClick?.(item)}
-        title={title}
       >
-        <div className="bg-card border border-border rounded-lg p-3 hover:shadow-lg hover:border-primary/50 transition-all duration-300 flex items-center justify-center aspect-square">
-          {image ? (
-            <img 
-              src={image} 
-              alt={title}
-              className="w-full h-full object-contain p-2"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          ) : (
-            <div className="text-center text-xs font-medium text-muted-foreground line-clamp-2 px-1">
-              {title}
-            </div>
-          )}
+        <div className="bg-card border border-border rounded-lg p-3 hover:shadow-lg hover:border-primary/50 transition-all duration-300 flex flex-col items-center justify-center">
+          <div className="w-full aspect-square flex items-center justify-center mb-2">
+            {image ? (
+              <img 
+                src={image} 
+                alt={title}
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            ) : (
+              <div className="text-center text-xs font-medium text-muted-foreground line-clamp-2 px-1">
+                {title}
+              </div>
+            )}
+          </div>
+          <div className="text-xs text-center font-medium text-foreground line-clamp-2 w-full">
+            {title}
+          </div>
         </div>
       </div>
     );
@@ -645,6 +678,13 @@ const ListViewer = <T = any>({
           </div>
         )}
 
+        {/* Summary Section */}
+        {summary && (
+          <div className="mb-8">
+            {summary}
+          </div>
+        )}
+
         {/* Filters */}
         {(enableCategoryFilter || enableSearch) && (
           <div className="mb-8">
@@ -665,14 +705,14 @@ const ListViewer = <T = any>({
             <div className={`space-y-4 ${showFilters ? 'block' : 'hidden'} md:block`}>
               {/* Category Filter */}
               {enableCategoryFilter && categoryField && categories.length > 0 && (
-                <div className="flex flex-wrap justify-center gap-2">
-                  {categories.map((category) => (
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((category, index) => (
                     <Button
                       key={category}
                       variant={selectedCategory === category ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setSelectedCategory(category)}
-                      className="gap-2"
+                      className="gap-2 flex-1"
                     >
                       {categoryLabels?.[category] || category}
                       <Badge variant={selectedCategory === category ? 'secondary' : 'outline'}>
@@ -685,8 +725,8 @@ const ListViewer = <T = any>({
 
               {/* Search Input with View Mode Toggle */}
               {enableSearch && (
-                <div className="flex flex-col sm:flex-row justify-center items-center gap-3">
-                  <div className="relative flex-1 w-full sm:max-w-2xl">
+                <div className="flex flex-row justify-center items-center gap-3 w-full">
+                  <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       type="text"
@@ -809,7 +849,7 @@ const ListViewer = <T = any>({
                   onClick={() => setShowAll(!showAll)}
                   className="transition-all duration-300 hover:scale-105"
                 >
-                  {showAll ? 'Show Less' : `Show All (${data.length})`}
+                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
                 </Button>
               </div>
             )}
@@ -830,7 +870,7 @@ const ListViewer = <T = any>({
                   onClick={() => setShowAll(!showAll)}
                   className="transition-all duration-300 hover:scale-105"
                 >
-                  {showAll ? 'Show Less' : `Show All (${data.length})`}
+                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
                 </Button>
               </div>
             )}
@@ -851,7 +891,7 @@ const ListViewer = <T = any>({
                   onClick={() => setShowAll(!showAll)}
                   className="transition-all duration-300 hover:scale-105"
                 >
-                  {showAll ? 'Show Less' : `Show All (${data.length})`}
+                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
                 </Button>
               </div>
             )}

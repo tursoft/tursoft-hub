@@ -7,7 +7,7 @@
     {
       "code": "METU3.SM",
       "orderIndex": 5,
-      "companyCode": "METU.II",
+      "companyCode": "METU",
       "department": "Department of Software Management",
       "summary": "One-year postgraduate program in Software Management emphasizing project management, software estimation, cost/time management and applied PMP practices through coursework and project work.",
       "level": "Graduate School",
@@ -36,7 +36,7 @@
     {
       "code": "METU2.CEIT.MASTER",
       "orderIndex": 4,
-      "companyCode": "METU.CEIT",
+      "companyCode": "METU",
       "department": "Computer Education and Instructional Technologies Department",
       "summary": "Graduate studies focused on instructional design, multimedia information systems and educational technologies, combining theory and hands-on software development and multimedia coursework.",
       "level": "Graduate School",
@@ -97,7 +97,7 @@
     {
       "code": "METU1.CEIT.GRADUATE",
       "orderIndex": 3,
-      "companyCode": "METU.CEIT",
+      "companyCode": "METU",
       "department": "Computer Education and Instructional Technologies Department",
       "summary": "Undergraduate degree covering programming (Pascal, C, C++, Java), web and database technologies, networking and several applied projects including 3D educational game development.",
       "level": "Undergraduate School",
@@ -106,6 +106,8 @@
       "graduateScore": "3.80 / 4.00",
       "skillCodes": [
         "Visual Basic",
+        ".net",
+        "c#",
         "Pascal",
         "C",
         "C++",

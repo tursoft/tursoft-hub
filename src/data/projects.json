@@ -4,58 +4,52 @@
     "summary": "Throughout 25 years of my professional career, I have completed managed various projects with more than million dolars.",
     "groups": [
       {
-        "code": "RD",
-        "title": "Research",
-        "iconCss": "",
-        "orderIndex": 9
-      },
-      {
-        "code": "Framework",
-        "title": "Framework",
-        "iconCss": "",
-        "orderIndex": 8
-      },
-      {
         "code": "HIS",
         "title": "HIS",
         "iconCss": "",
-        "orderIndex": 7
+        "orderIndex": 1
       },
       {
         "code": "Telemedicine",
         "title": "Telemedicine",
         "iconCss": "",
-        "orderIndex": 6
+        "orderIndex": 2
       },
       {
         "code": "LMS",
         "title": "LMS",
         "iconCss": "",
-        "orderIndex": 5
+        "orderIndex": 3
       },
       {
-        "code": "Social Responsibility",
-        "title": "Social Responsibility",
+        "code": "Framework",
+        "title": "Framework",
         "iconCss": "",
         "orderIndex": 4
+      },
+      {
+        "code": "RD",
+        "title": "Research",
+        "iconCss": "",
+        "orderIndex": 5
       },
       {
         "code": "PM",
         "title": "Project Management",
         "iconCss": "",
-        "orderIndex": 3
+        "orderIndex": 6
       },
       {
         "code": "Game",
         "title": "Game",
         "iconCss": "",
-        "orderIndex": 2
+        "orderIndex": 7
       },
       {
         "code": "Misc",
         "title": "Misc",
         "iconCss": "",
-        "orderIndex": 1
+        "orderIndex": 9
       }
     ]
   },
@@ -83,6 +77,7 @@
         "js",
         "html5",
         "css",
+        "sass",
         "docker",
         "python",
         "azure",
@@ -94,8 +89,11 @@
         "azure-compute-gallery",
         "azure-function-app",
         "azure-sql",
+        "docker",
+        "kubernetes",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.12.2022",
@@ -170,6 +168,7 @@
         "js",
         "html5",
         "css",
+        "sass",
         "docker",
         "python",
         "azure",
@@ -182,7 +181,8 @@
         "azure-function-app",
         "azure-sql",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "04.09.2019",
@@ -257,7 +257,8 @@
         "apollo",
         "koa",
         "typeorm",
-        "stencil",
+        "StencilJS",
+        "react",
         "postgres",
         "sql",
         "html5",
@@ -344,11 +345,12 @@
         "spring",
         "oracle",
         "db2",
-        "plsql"
+        "plsql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.01.2015",
-        "endDate": null
+        "endDate": "03.09.2019"
       },
       "props": [
         {
@@ -433,6 +435,7 @@
         "js",
         "html5",
         "css",
+        "sass",
         "docker",
         "dockercompose",
         "azure",
@@ -440,11 +443,12 @@
         "azure-vm",
         "azure-sql",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2018",
-        "endDate": null
+        "endDate": "03.09.2019"
       },
       "props": [
         {
@@ -529,10 +533,12 @@
         "js",
         "html5",
         "css",
+        "sass",
         "docker",
         "dockercompose",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.02.2015",
@@ -575,9 +581,14 @@
         "css",
         "tsql",
         "mssql",
-        "silverlight",        
+        "silverlight",
+        "wcf",
+        "Telerik UI for Silverlight",
         "wpf",
-        "xaml"
+        "xaml",
+        "wcf",
+        "Telerik UI for Silverlight",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.04.2014",
@@ -651,10 +662,12 @@
         "js",
         "html5",
         "css",
+        "sass",
         "docker",
         "dockercompose",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.06.2015",
@@ -811,7 +824,10 @@
         "mssql",
         "silverlight",
         "wpf",
-        "xaml"
+        "xaml",
+        "wcf",
+        "Telerik UI for Silverlight",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2013",
@@ -879,7 +895,8 @@
         "spring",
         "oracle",
         "db2",
-        "plsql"
+        "plsql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.01.2015",
@@ -1140,7 +1157,7 @@
       "title": "Official Portal of The UN Refugee Agency Turkey",
       "photoUrl": "/assets/projects/_logos/UNHCR.png",
       "companyCode": "CEIT",
-      "group": "EnterpisePortal",
+      "group": "Misc",
       "value": 100,
       "summary": "Official Website of UNHCR Turkey",
       "customerCodes": [],
@@ -1395,8 +1412,8 @@
         "C"
       ],
       "datePeriod": {
-        "startDate": "01.02.2018",
-        "endDate": null
+        "startDate": "01.02.2017",
+        "endDate": "03.09.2019"
       },
       "props": [
         {
@@ -1422,16 +1439,18 @@
         "js",
         "html5",
         "css",
+        "sass",
         "docker",
         "dockercompose",
         "tsql",
         "mssql",
         "postgres",
-        "oracle"
+        "oracle",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2011",
-        "endDate": null
+        "endDate": "03.09.2019"
       },
       "props": [
         {
@@ -1465,10 +1484,12 @@
         "js",
         "html5",
         "css",
+        "sass",
         "docker",
         "dockercompose",
         "tsql",
-        "mssql"
+        "mssql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "24.02.2016",
@@ -1538,7 +1559,10 @@
         "mssql",
         "silverlight",
         "wpf",
-        "xaml"
+        "xaml",
+        "wcf",
+        "Telerik UI for Silverlight",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.08.2011",
@@ -1629,7 +1653,10 @@
         "tsql",
         "mssql",
         "silverlight",
-        "xaml"
+        "xaml",
+        "wcf",
+        "Telerik UI for Silverlight",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.01.2014",
@@ -2524,7 +2551,7 @@
       "title": "Official Website of TechnoParks Summit 2004",
       "photoUrl": "/assets/projects/_logos/teknoparklar_zirvesi2004.jpg",
       "companyCode": "Tursoft",
-      "group": "Social Responsibility",
+      "group": "Misc",
       "value": 100,
       "summary": "Official website of TechnoParks Summit 2004 that is a national level summit for TechnoParks in Turkey. Summit were organized in the cooperation and support of IEEE METU and Tubitak. Website was maintained during next 3 years up to 2007 and used by at least 3 more summits too. <br/>URL:http://teknozirve.org.tr  (not active anymore)<br/>NOT: Since screehshoots taken nowadays that is 14 years later by using web.archive.org, some sections of design are missing. You can access cached version from following url: https://web.archive.org/web/20071013170339/http://teknozirve.org.tr:80/",
       "customerCodes": [
@@ -2629,7 +2656,7 @@
       "title": "Official Website of BiltekOnline",
       "photoUrl": "/assets/projects/_logos/BiltekOnline.png",
       "companyCode": "Tursoft",
-      "group": "Social Responsibility",
+      "group": "Misc",
       "value": 100,
       "summary": "Official website of BiltekOnline that is an online magazine about technology",
       "customerCodes": [],
@@ -2689,7 +2716,15 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "t-sql",
+        "mssql",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        ".netnuke"
       ],
       "datePeriod": {
         "startDate": "01.01.2014",
@@ -2712,12 +2747,17 @@
       "title": "Official Website of METU Communication Club",
       "photoUrl": "/assets/projects/_logos/METU_ILT.png",
       "companyCode": null,
-      "group": "Social Responsibility",
+      "group": "Misc",
       "value": 100,
       "summary": "Official website of METU Communication Club",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "php",
+        "mysql",
+        "js",
+        "html",
+        "css",
+        "photoshop"
       ],
       "datePeriod": {
         "startDate": "01.01.2002",
@@ -2748,7 +2788,12 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "php",
+        "mysql",
+        "js",
+        "html",
+        "css",
+        "photoshop"
       ],
       "datePeriod": {
         "startDate": "01.04.2002",
@@ -2797,7 +2842,8 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "darkbasic",
+        "3d"
       ],
       "datePeriod": {
         "startDate": "15.09.2005",
@@ -2845,7 +2891,7 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "pascal"
       ],
       "datePeriod": {
         "startDate": "15.09.2001",
@@ -2864,6 +2910,13 @@
           "code": "type",
           "title": "Academic Project"
         }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Developer"
+        }
       ]
     },
     {
@@ -2881,7 +2934,9 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "flash",
+        "actionscript",
+        "photoshop"
       ],
       "datePeriod": {
         "startDate": "01.04.2002",
@@ -2900,6 +2955,13 @@
           "code": "type",
           "title": "Academic Project"
         }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Developer"
+        }
       ]
     },
     {
@@ -2917,7 +2979,9 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "visualbasic",
+        "photoshop"
       ],
       "datePeriod": {
         "startDate": "01.09.2001",
@@ -2936,6 +3000,13 @@
           "code": "mode",
           "title": "Interpreter"
         }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Developer"
+        }
       ]
     },
     {
@@ -2952,7 +3023,12 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "js",
+        "html",
+        "css",
+        "actionscript",
+        "photoshop",
+        "flash"
       ],
       "datePeriod": {
         "startDate": "01.03.2002",
@@ -2975,21 +3051,26 @@
       "team": [
         {
           "orderIndex": 0,
+          "personCode": "omerdelialioglu",
+          "position": "Instructor"
+        },
+        {
+          "orderIndex": 1,
           "personCode": "muhammettursak",
           "position": "Team Leader"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 2,
           "personCode": "melihtop",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 3,
           "personCode": "erhandurust",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 4,
           "personCode": "hasanbasaran",
           "position": "Software Developer"
         }
@@ -3009,7 +3090,10 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "java",
+        "photoshop",
+        "tcpip",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.09.2001",
@@ -3053,7 +3137,11 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "darkbasic",
+        "js",
+        "html",
+        "css",
+        "photoshop"
       ],
       "datePeriod": {
         "startDate": "01.02.2004",
@@ -3062,16 +3150,21 @@
       "team": [
         {
           "orderIndex": 0,
+          "personCode": "kursatcagiltay",
+          "position": "Instructor"
+        },        
+        {
+          "orderIndex": 1,
           "personCode": "muhammettursak",
           "position": "Team Leader"
         },
         {
-          "orderIndex": 1,
+          "orderIndex": 2,
           "personCode": "tayfunyuksel",
           "position": "Software Developer"
         },
         {
-          "orderIndex": 2,
+          "orderIndex": 3,
           "personCode": "umitkaya",
           "position": "Software Developer"
         }
@@ -3102,7 +3195,16 @@
       "summary": "Online Video Streaming Platform",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "aspnet",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2005",
@@ -3143,7 +3245,16 @@
       "summary": "Official Website of DSP",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "aspnet",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.01.2005",
@@ -3191,7 +3302,13 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "php",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "mysql",
+        "sql"
       ],
       "datePeriod": {
         "startDate": "01.04.2001",
@@ -3226,7 +3343,15 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2002",
@@ -3285,7 +3410,12 @@
       "summary": "Customer Support System.",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "php",
+        "html",
+        "js",
+        "css",
+        "mysql",
+        "sql"
       ],
       "datePeriod": {
         "startDate": "01.05.2003",
@@ -3317,7 +3447,14 @@
       "summary": "Web Based Project Management Platform",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "js",
+        "html",
+        "css",
+        "sqlserver",
+        "t-sql",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.11.2011",
@@ -3364,7 +3501,19 @@
         "healthcareit"
       ],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "silverlight",
+        "xaml",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql",
+        "wcf",
+        "Telerik UI for Silverlight",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.03.2012",
@@ -3427,7 +3576,23 @@
       "summary": "Specialized Web-based ERP for Softwarehouse Workflows",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "angular",
+        "typescript",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql",
+        "docker",
+        "dockercompose",
+        "proget",
+        "jenkins",
+        "nexus",
+        "devops",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.06.2013",
@@ -3473,7 +3638,23 @@
         "BAYINDIR.TR"
       ],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "angular",
+        "typescript",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql",
+        "docker",
+        "dockercompose",
+        "proget",
+        "jenkins",
+        "nexus",
+        "devops",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.08.2018",
@@ -3504,12 +3685,21 @@
       "title": "soyagaciniz.net",
       "photoUrl": "/assets/projects/_logos/soyagaciniznet.png",
       "companyCode": "ERC",
-      "group": "Social Responsibility",
+      "group": "Misc",
       "value": 100,
       "summary": "Gönüllü olarak geliştirdiğim bu proje sayesinde e-devlet soyağacınızı görselleştirmek artık çok kolay. Teknolojiler: SPA, Angular4, Angular Material, PrimeNg, ChartJS, MomentJS, FontAwesome, Light Gallery, RxJS, JsPdf. <br/>URL: <a href='http://www.soyagaciniz.net' target='_blank'>http://www.soyagaciniz.net</a>. Kaynak Kod: <a href='https://github.com/tursoft/familytree' target='_blank'>https://github.com/tursoft/familytree</a>",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "html",
+        "js",
+        "typescript",
+        "angular",
+        "css",
+        "photoshop",
+        "github",
+        "github-actions",
+        "d3js",
+        "chartjs"
       ],
       "datePeriod": {
         "startDate": "01.02.2018",
@@ -3540,7 +3730,23 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "c#",
+        "angular",
+        "typescript",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver",
+        "t-sql",
+        "docker",
+        "dockercompose",
+        "proget",
+        "jenkins",
+        "nexus",
+        "devops",
+        "oop"
       ],
       "datePeriod": {
         "startDate": "01.02.2018",
@@ -3588,7 +3794,21 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "ionic",
+        "angular",
+        "typescript",
+        "cordova",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "docker",
+        "dockercompose",
+        "proget",
+        "jenkins",
+        "nexus",
+        "devops"
       ],
       "datePeriod": {
         "startDate": "01.05.2018",
@@ -3634,7 +3854,21 @@
         "LIFEWATCH.CH"
       ],
       "skillCodes": [
-        "C"
+        ".net",
+        "ionic",
+        "angular",
+        "typescript",
+        "cordova",
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "docker",
+        "dockercompose",
+        "proget",
+        "jenkins",
+        "nexus",
+        "devops"
       ],
       "datePeriod": {
         "startDate": "01.04.2017",
@@ -3665,7 +3899,7 @@
       "title": "Pardus on Docker",
       "photoUrl": "/assets/projects/_logos/PARDUSDOCKER.png",
       "companyCode": "Tursoft",
-      "group": "Social Responsibility",
+      "group": "Misc",
       "value": 100,
       "summary": "Docker için Base-Pardus Image'leri",
       "fulltext": "Bu proje, yerli işletim sistemimizi destek olmak ve docker tabanlı projelerde de kullanımının artmasına katkıda bulunmak amacı ile hazırlanmıştır. <br/> Github: <a href='https://github.com/tursoft/pardus-images' target='_blank'>https://github.com/tursoft/pardus-images</a> <br/> Dockerhub: <a href='https://cloud.docker.com/repository/docker/tursoft/pardus' target='_blank'>https://cloud.docker.com/repository/docker/tursoft/pardus</a>",
@@ -3673,7 +3907,14 @@
       "customerCodes": [],
       "partnerCodes": [],
       "skillCodes": [
-        "C"
+        "docker",
+        "linux",
+        "pardus",
+        "bash",
+        "yaml",
+        "github",
+        "dockerhub",
+        "ci/cd"
       ],
       "datePeriod": {
         "startDate": "27.02.2019",
@@ -3711,7 +3952,10 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "visualbasic",
+        "tcpip",
+        "sqlserver"
       ],
       "datePeriod": {
         "startDate": "25.09.2001",
@@ -3744,10 +3988,15 @@
       "companyCode": "Tursoft",
       "group": "Misc",
       "value": 100,
-      "summary": "New version of my personal website. I think this is 6th version of tursoft.net",
+      "summary": "New version of my personal website. This is 6th version of tursoft.net",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "html",
+        "css",
+        "js",
+        "nodejs",
+        "express",
+        "photoshop"
       ],
       "datePeriod": {
         "startDate": "29.08.2018",
@@ -3771,7 +4020,11 @@
       "summary": "I have developed my first webpage by using HTML, CSS and Photoshop",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "js",
+        "html",
+        "css",
+        "photoshop",
+        "sqlserver"
       ],
       "datePeriod": {
         "startDate": "25.11.1999",
@@ -3781,6 +4034,45 @@
         {
           "code": "platforms",
           "title": "Web"
+        }
+      ]
+    },
+    {
+      "code": "TursoftWebsite2025",
+      "orderIndex": 76,
+      "title": "Tursoft Website 2025",
+      "photoUrl": "/assets/projects/_logos/tursoft.logo.png",
+      "companyCode": "Tursoft",
+      "group": "Misc",
+      "value": 100,
+      "summary": "My latest website",
+      "customerCodes": [],
+      "skillCodes": [
+        "typescript",
+        "react",
+        "js",
+        "html",
+        "css",
+        "tailwind",
+        "json",
+        "github",
+        "copilot"
+      ],
+      "datePeriod": {
+        "startDate": "01.10.2025",
+        "endDate": "12.10.2025"
+      },
+      "props": [
+        {
+          "code": "platforms",
+          "title": "Web"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Developer"
         }
       ]
     },
@@ -3798,7 +4090,7 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "Pascal"
       ],
       "datePeriod": {
         "startDate": "10.07.1996",
@@ -3808,6 +4100,13 @@
         {
           "code": "platforms",
           "title": "Desktop"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Developer"
         }
       ]
     },
@@ -3825,7 +4124,7 @@
       ],
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "Pascal"
       ],
       "datePeriod": {
         "startDate": "10.03.1996",
@@ -3835,6 +4134,13 @@
         {
           "code": "platforms",
           "title": "Desktop"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Developer"
         }
       ]
     },
@@ -3849,7 +4155,7 @@
       "summary": "Basic Animation Tool developed by Pascal on Graphics Mode",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "Pascal"
       ],
       "datePeriod": {
         "startDate": "10.11.1997",
@@ -3873,7 +4179,7 @@
       "summary": "Basic Drawing Application developed by Pascal on Graphics Mode",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "Pascal"
       ],
       "datePeriod": {
         "startDate": "10.07.1997",
@@ -3897,7 +4203,7 @@
       "summary": "Stock Tracking System Application developed by Pascal",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        "Pascal"
       ],
       "datePeriod": {
         "startDate": "10.02.1997",
@@ -3933,7 +4239,10 @@
       "summary": "Interactive educational game designed to teach physics concepts through engaging frisbee simulation gameplay.",
       "customerCodes": [],
       "skillCodes": [
-        "C"
+        ".net",
+        "html",
+        "js",
+        "css"
       ],
       "fulltext": [
         "Frizbi is an interactive educational game that teaches physics concepts through engaging frisbee simulation and gameplay mechanics.",
@@ -3988,8 +4297,8 @@
         },
         {
           "orderIndex": 6,
-          "personCode": null,
-          "position": "Developer"
+          "personCode": "mustafauysal",
+          "position": "Software Developer"
         }
       ]
     }

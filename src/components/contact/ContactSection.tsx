@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, Globe, MapPin, Github, Linkedin, Twitter, Youtube } from "lucide-react";
+import { Mail, Phone, Globe, MapPin, Github, Linkedin, Twitter } from "lucide-react";
 import cvData from "@/data/cv.json";
 
 const ContactSection = () => {
@@ -45,12 +45,6 @@ const ContactSection = () => {
       name: "GitHub", 
       href: "https://github.com/tursoft",
       color: "text-gray-800 dark:text-gray-200"
-    },
-    {
-      icon: Youtube,
-      name: "YouTube",
-      href: "https://www.youtube.com/channel/UCn3G4uKhXkpwwmrh3Lzu7ww",
-      color: "text-red-600"
     },
     {
       icon: Twitter,
