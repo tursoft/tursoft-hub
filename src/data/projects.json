@@ -250,7 +250,7 @@
         "dockercompose",
         "gitlab",
         "nodejs",
-        "typescript",        
+        "typescript",
         "js",
         "fastify",
         "graphql",
@@ -413,14 +413,14 @@
       ],
       "customerCodes": [
         "MOH.TR",
-        "SPMS.PT", 
+        "SPMS.PT",
         "SORESA",
         "serviciomurcianodesalud",
         "empirica",
-        "Ümraniye Eğitim ve Araştırma Hastanesi"        
+        "Ümraniye Eğitim ve Araştırma Hastanesi"
       ],
       "partnerCodes": [
-        "ERC",        
+        "ERC",
         "Gnomon",
         "CERTH",
         "GPI",
@@ -477,13 +477,13 @@
         {
           "orderIndex": 1,
           "personCode": "alexanderberler",
-          "position": "Project Manager"          
+          "position": "Project Manager"
         },
         {
           "orderIndex": 2,
           "personCode": "muhammettursak",
           "position": "Software Architect"
-        },        
+        },
         {
           "orderIndex": 3,
           "personCode": "ertemyazici",
@@ -550,7 +550,7 @@
           "title": "Tubitak Project"
         }
       ],
-      "team":[
+      "team": [
         {
           "orderIndex": 0,
           "personCode": "muhammettursak",
@@ -692,7 +692,7 @@
         }
       ],
       "team": [
-		    {
+        {
           "orderIndex": 0,
           "personCode": "muhammettursak",
           "position": "Team Leader"
@@ -783,7 +783,7 @@
           "orderIndex": 5,
           "personCode": "esraertunc",
           "position": "Software Developer"
-        },      
+        },
         {
           "orderIndex": 6,
           "personCode": "mehmetalicicek",
@@ -1275,7 +1275,7 @@
           "orderIndex": 0,
           "personCode": "cetinbalanuye",
           "position": "CEO"
-        },     
+        },
         {
           "orderIndex": 1,
           "personCode": "muhammettursak",
@@ -1329,7 +1329,7 @@
         "endDate": "01.09.2008"
       },
       "team": [
-{
+        {
           "orderIndex": 0,
           "personCode": "cetinbalanuye",
           "position": "CEO"
@@ -1338,7 +1338,7 @@
           "orderIndex": 1,
           "personCode": "myasarozden",
           "position": "Academic Consultant"
-        },        
+        },
         {
           "orderIndex": 2,
           "personCode": "muhammettursak",
@@ -3152,7 +3152,7 @@
           "orderIndex": 0,
           "personCode": "kursatcagiltay",
           "position": "Instructor"
-        },        
+        },
         {
           "orderIndex": 1,
           "personCode": "muhammettursak",
@@ -3260,7 +3260,7 @@
         "startDate": "01.01.2005",
         "endDate": "01.01.2006"
       },
-      "team": [        
+      "team": [
         {
           "orderIndex": 0,
           "personCode": "cetinbalanuye",
@@ -4299,6 +4299,41 @@
           "orderIndex": 6,
           "personCode": "mustafauysal",
           "position": "Software Developer"
+        }
+      ]
+    },
+    {
+      "code": "ISLAMIC-ASSISTANT",
+      "orderIndex": 83,
+      "title": "Islamic Assistant",
+      "photoUrl": "/assets/projects/_logos/islamic_assistant.png",
+      "companyCode": "",
+      "group": "Misc",
+      "value": 100,
+      "summary": "A personal Islamic assistant mobile app providing prayer times, Quran reading, dhikr counters, and other Islamic utilities in a clean and minimal interface.",
+      "fulltext": "",
+      "domainCodes": [],
+      "customerCodes": [],
+      "partnerCodes": [],
+      "skillCodes": [
+        "flutter",
+        "sqlite"
+      ],
+      "datePeriod": {
+        "startDate": "01.01.2025",
+        "endDate": null
+      },
+      "props": [
+        {
+          "code": "platforms",
+          "title": "Mobile App"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 1,
+          "personCode": "muhammettursak",
+          "position": "Mobile Developer"
         }
       ]
     }

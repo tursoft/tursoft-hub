@@ -16,7 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import {
-  Building2, 
+  Building2,
   User,
   Clock,
   Linkedin,
@@ -28,7 +28,8 @@ import {
   UserCheck,
   Image,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ShieldCheck
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
@@ -404,6 +405,14 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
           <Badge variant="outline" className="text-xs">
             {project.group}
           </Badge>
+          {project.code === 'ISLAMIC-ASSISTANT' && (
+            <a href="/privacy/islamic-assistant" target="_blank" rel="noopener noreferrer">
+              <Badge variant="outline" className="text-xs bg-emerald-500/10 text-emerald-400 border-emerald-500/20 flex items-center gap-1 cursor-pointer hover:bg-emerald-500/20 transition-colors">
+                <ShieldCheck className="w-3 h-3" />
+                Privacy Policy
+              </Badge>
+            </a>
+          )}
         </div>
 
         <Tabs defaultValue="overview" className="w-full pt-2">
