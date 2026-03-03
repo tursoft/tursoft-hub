@@ -25,6 +25,16 @@
 
   <body>
     <div id="root"></div>
+    <script>
+      // GitHub Pages SPA redirect — restore path from query param set by 404.html
+      (function() {
+        var p = window.location.search.slice(1);
+        if (p.startsWith('p=')) {
+          var path = decodeURIComponent(p.slice(2));
+          window.history.replaceState(null, null, path);
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
