@@ -2,7 +2,7 @@
 
 *Última actualización: marzo de 2025*
 
-Islamic Assistant es una aplicación móvil personal diseñada para ayudar a los musulmanes con sus prácticas islámicas diarias — incluyendo horarios de oración, lectura del Corán, contadores de dhikr y otras utilidades relacionadas. Esta política de privacidad explica cómo la aplicación gestiona tus datos.
+Islamic Assistant es una aplicación móvil personal diseñada para ayudar a los musulmanes con sus prácticas islámicas diarias — incluyendo horarios de oración, días de ayuno, seguimiento de zakat y hajj, gestión de oraciones y ayunos perdidos, recepción de notificaciones necesarias y otras utilidades relacionadas. Esta política de privacidad explica cómo la aplicación gestiona tus datos.
 
 ## Datos que recopilamos
 

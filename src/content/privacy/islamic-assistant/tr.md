@@ -2,7 +2,7 @@
 
 *Son güncelleme: Mart 2025*
 
-İslami Asistan, Müslümanların günlük İslami pratiklerine yardımcı olmak amacıyla geliştirilmiş kişisel bir mobil uygulamadır — namaz vakitleri, Kuran okuma, zikir sayacı ve diğer ilgili araçlar dahil. Bu gizlilik politikası, uygulamanın verilerinizi nasıl işlediğini açıklar.
+İslami Asistan, Müslümanların günlük İslami pratiklerine yardımcı olmak amacıyla geliştirilmiş kişisel bir mobil uygulamadır — namaz vakitleri, oruç günleri, zekat ve hac takibi, kazaya kalan namaz ve oruçların yönetilmesi, gerekli bildirimlerin alınması ve diğer ilgili araçlar dahil. Bu gizlilik politikası, uygulamanın verilerinizi nasıl işlediğini açıklar.
 
 ## Topladığımız Veriler
 

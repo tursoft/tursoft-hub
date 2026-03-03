@@ -2,7 +2,7 @@
 
 *Dikemaskini terakhir: Mac 2025*
 
-Islamic Assistant ialah aplikasi mudah alih peribadi yang dibina untuk membantu umat Islam dengan amalan Islam harian — termasuk waktu solat, pembacaan Al-Quran, kaunter zikir, dan utiliti berkaitan lainnya. Dasar privasi ini menerangkan cara aplikasi mengendalikan data anda.
+Islamic Assistant ialah aplikasi mudah alih peribadi yang dibina untuk membantu umat Islam dengan amalan Islam harian — termasuk waktu solat, hari puasa, penjejakan zakat dan haji, pengurusan solat dan puasa yang tertinggal, penerimaan pemberitahuan yang diperlukan, dan utiliti berkaitan lainnya. Dasar privasi ini menerangkan cara aplikasi mengendalikan data anda.
 
 ## Data yang Kami Kumpulkan
 

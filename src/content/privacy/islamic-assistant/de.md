@@ -2,7 +2,7 @@
 
 *Zuletzt aktualisiert: März 2025*
 
-Islamic Assistant ist eine persönliche mobile Anwendung, die Muslimen bei der täglichen islamischen Praxis helfen soll — einschließlich Gebetszeiten, Koranlesung, Dhikr-Zähler und weiteren islamischen Funktionen. Diese Datenschutzrichtlinie erklärt, wie die App mit Ihren Daten umgeht.
+Islamic Assistant ist eine persönliche mobile Anwendung, die Muslimen bei der täglichen islamischen Praxis helfen soll — einschließlich Gebetszeiten, Fastentagen, Zakat- und Hajj-Verfolgung, Verwaltung versäumter Gebete und Fasten, Empfang notwendiger Benachrichtigungen und weiteren islamischen Funktionen. Diese Datenschutzrichtlinie erklärt, wie die App mit Ihren Daten umgeht.
 
 ## Erhobene Daten
 
