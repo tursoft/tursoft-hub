@@ -1,6 +1,6 @@
 # Politique de Confidentialité
 
-*Dernière mise à jour : mars 2025*
+*Dernière mise à jour : mars 2026*
 
 Islamic Assistant est une application mobile personnelle conçue pour aider les musulmans dans leurs pratiques islamiques quotidiennes — notamment les horaires de prière, les jours de jeûne, le suivi de la zakat et du hajj, la gestion des prières et jeûnes manqués, la réception des notifications nécessaires et d'autres utilitaires connexes. Cette politique de confidentialité explique comment l'application traite vos données.
 
@@ -13,6 +13,7 @@ Islamic Assistant ne collecte, ne transmet ni ne partage **aucune** donnée pers
 L'application peut demander les autorisations suivantes sur votre appareil :
 
 - **Localisation** — utilisée uniquement pour calculer les horaires de prière précis en fonction de votre position actuelle. Les données de localisation sont traitées sur l'appareil et ne sont jamais envoyées à un serveur.
+- **Caméra** — utilisée pour capturer et enregistrer des photos lors des voyages du Hajj. Toutes les photos sont stockées localement sur votre appareil et ne sont jamais téléversées ni partagées avec un serveur.
 - **Notifications** — utilisées pour envoyer des rappels d'horaires de prière localement sur votre appareil.
 
 ## Services tiers

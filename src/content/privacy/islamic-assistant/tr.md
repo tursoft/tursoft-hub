@@ -1,6 +1,6 @@
 # Gizlilik Politikası
 
-*Son güncelleme: Mart 2025*
+*Son güncelleme: Mart 2026*
 
 İslami Asistan, Müslümanların günlük İslami pratiklerine yardımcı olmak amacıyla geliştirilmiş kişisel bir mobil uygulamadır — namaz vakitleri, oruç günleri, zekat ve hac takibi, kazaya kalan namaz ve oruçların yönetilmesi, gerekli bildirimlerin alınması ve diğer ilgili araçlar dahil. Bu gizlilik politikası, uygulamanın verilerinizi nasıl işlediğini açıklar.
 
@@ -13,6 +13,7 @@
 Uygulama aşağıdaki cihaz izinlerini talep edebilir:
 
 - **Konum** — Mevcut konumunuza göre doğru namaz vakitlerini hesaplamak için kullanılır. Konum verileri yalnızca cihaz üzerinde işlenir ve hiçbir sunucuya gönderilmez.
+- **Kamera** — Hac seyahatleri sırasında fotoğraf çekip kaydetmek için kullanılır. Tüm fotoğraflar cihazınızda yerel olarak depolanır ve hiçbir sunucuya yüklenmez veya paylaşılmaz.
 - **Bildirimler** — Namaz vakti hatırlatıcılarını cihazınıza yerel olarak iletmek için kullanılır.
 
 ## Üçüncü Taraf Hizmetler

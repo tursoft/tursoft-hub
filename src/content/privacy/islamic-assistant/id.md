@@ -1,6 +1,6 @@
 # Kebijakan Privasi
 
-*Terakhir diperbarui: Maret 2025*
+*Terakhir diperbarui: Maret 2026*
 
 Islamic Assistant adalah aplikasi mobile pribadi yang dirancang untuk membantu umat Muslim dalam praktik Islam sehari-hari — termasuk waktu shalat, hari puasa, pelacakan zakat dan haji, pengelolaan shalat dan puasa yang terlewat, penerimaan notifikasi penting, dan utilitas terkait lainnya. Kebijakan privasi ini menjelaskan bagaimana aplikasi menangani data Anda.
 
@@ -13,6 +13,7 @@ Islamic Assistant **tidak** mengumpulkan, mengirimkan, atau berbagi data pribadi
 Aplikasi mungkin meminta izin perangkat berikut:
 
 - **Lokasi** — digunakan semata-mata untuk menghitung waktu shalat yang akurat berdasarkan lokasi Anda saat ini. Data lokasi diproses di perangkat dan tidak pernah dikirim ke server mana pun.
+- **Kamera** — digunakan untuk mengambil dan menyimpan foto selama perjalanan haji. Semua foto disimpan secara lokal di perangkat Anda dan tidak pernah diunggah atau dibagikan ke server mana pun.
 - **Notifikasi** — digunakan untuk mengirimkan pengingat waktu shalat secara lokal di perangkat Anda.
 
 ## Layanan Pihak Ketiga

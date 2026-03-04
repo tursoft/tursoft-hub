@@ -1,6 +1,6 @@
 # Datenschutzrichtlinie
 
-*Zuletzt aktualisiert: März 2025*
+*Zuletzt aktualisiert: März 2026*
 
 Islamic Assistant ist eine persönliche mobile Anwendung, die Muslimen bei der täglichen islamischen Praxis helfen soll — einschließlich Gebetszeiten, Fastentagen, Zakat- und Hajj-Verfolgung, Verwaltung versäumter Gebete und Fasten, Empfang notwendiger Benachrichtigungen und weiteren islamischen Funktionen. Diese Datenschutzrichtlinie erklärt, wie die App mit Ihren Daten umgeht.
 
@@ -13,6 +13,7 @@ Islamic Assistant erhebt, überträgt oder teilt **keine** personenbezogenen Dat
 Die App kann folgende Geräteberechtigungen anfordern:
 
 - **Standort** — wird ausschließlich zur Berechnung genauer Gebetszeiten basierend auf Ihrem aktuellen Standort verwendet. Standortdaten werden auf dem Gerät verarbeitet und niemals an einen Server übertragen.
+- **Kamera** — wird verwendet, um Fotos während der Hajj-Reisen aufzunehmen und zu speichern. Alle Fotos werden lokal auf Ihrem Gerät gespeichert und niemals auf einen Server hochgeladen oder geteilt.
 - **Benachrichtigungen** — werden verwendet, um Gebetszeiterinnerungen lokal auf Ihrem Gerät zu liefern.
 
 ## Drittanbieterdienste

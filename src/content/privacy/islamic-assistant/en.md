@@ -1,6 +1,6 @@
 # Privacy Policy
 
-*Last updated: March 2025*
+*Last updated: March 2026*
 
 Islamic Assistant is a personal mobile application built to help Muslims with daily Islamic practices — including prayer times, fasting days, zakat and hajj tracking, managing missed prayers and fasts, receiving necessary notifications, and related utilities. This privacy policy explains how the app handles your data.
 
@@ -13,6 +13,7 @@ Islamic Assistant does **not** collect, transmit, or share any personal data. Al
 The app may request the following device permissions:
 
 - **Location** — used solely to calculate accurate prayer times based on your current location. Location data is processed on-device and is never sent to any server.
+- **Camera** — used to capture and save photos during Hajj travels. All photos are stored locally on your device and are never uploaded or shared with any server.
 - **Notifications** — used to deliver prayer time reminders locally on your device.
 
 ## Third-Party Services

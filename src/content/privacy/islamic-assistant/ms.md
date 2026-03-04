@@ -1,6 +1,6 @@
 # Dasar Privasi
 
-*Dikemaskini terakhir: Mac 2025*
+*Dikemaskini terakhir: Mac 2026*
 
 Islamic Assistant ialah aplikasi mudah alih peribadi yang dibina untuk membantu umat Islam dengan amalan Islam harian — termasuk waktu solat, hari puasa, penjejakan zakat dan haji, pengurusan solat dan puasa yang tertinggal, penerimaan pemberitahuan yang diperlukan, dan utiliti berkaitan lainnya. Dasar privasi ini menerangkan cara aplikasi mengendalikan data anda.
 
@@ -13,6 +13,7 @@ Islamic Assistant **tidak** mengumpul, menghantar, atau berkongsi sebarang data 
 Aplikasi mungkin meminta kebenaran peranti berikut:
 
 - **Lokasi** — digunakan semata-mata untuk mengira waktu solat yang tepat berdasarkan lokasi semasa anda. Data lokasi diproses pada peranti dan tidak pernah dihantar ke mana-mana pelayan.
+- **Kamera** — digunakan untuk mengambil dan menyimpan foto semasa perjalanan haji. Semua foto disimpan secara tempatan pada peranti anda dan tidak pernah dimuat naik atau dikongsi ke mana-mana pelayan.
 - **Pemberitahuan** — digunakan untuk menghantar peringatan waktu solat secara tempatan pada peranti anda.
 
 ## Perkhidmatan Pihak Ketiga
