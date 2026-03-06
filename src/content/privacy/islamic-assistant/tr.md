@@ -16,9 +16,15 @@ Uygulama aşağıdaki cihaz izinlerini talep edebilir:
 - **Kamera** — Hac seyahatleri sırasında fotoğraf çekip kaydetmek için kullanılır. Tüm fotoğraflar cihazınızda yerel olarak depolanır ve hiçbir sunucuya yüklenmez veya paylaşılmaz.
 - **Bildirimler** — Namaz vakti hatırlatıcılarını cihazınıza yerel olarak iletmek için kullanılır.
 
+## Analitik
+
+İslami Asistan, uygulama kullanımını anlamak ve iyileştirmek amacıyla **Firebase Google Analytics** hizmetini kullanmaktadır. Bu hizmet aracılığıyla yalnızca anonim kullanım istatistikleri (ekran görüntülenmeleri, uygulama açılma sayısı, genel kullanım eğilimleri gibi) toplanır. **Hiçbir kişisel bilgi (ad, e-posta, telefon numarası vb.) toplanmaz veya paylaşılmaz.** Toplanan anonim veriler, uygulamanın performansını ve kullanıcı deneyimini geliştirmek için kullanılır.
+
+Daha fazla bilgi için Google'ın gizlilik politikasını inceleyebilirsiniz: [Google Gizlilik Politikası](https://policies.google.com/privacy)
+
 ## Üçüncü Taraf Hizmetler
 
-İslami Asistan herhangi bir üçüncü taraf analitik, reklam SDK'sı veya izleme hizmeti entegre etmez. Hiçbir veri harici bir tarafla paylaşılmaz.
+İslami Asistan, yukarıda belirtilen Firebase Google Analytics dışında herhangi bir üçüncü taraf reklam SDK'sı veya izleme hizmeti entegre etmez. Hiçbir kişisel veri harici bir tarafla paylaşılmaz.
 
 ## Veri Depolama
 

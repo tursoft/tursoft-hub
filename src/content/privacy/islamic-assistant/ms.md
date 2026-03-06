@@ -16,9 +16,15 @@ Aplikasi mungkin meminta kebenaran peranti berikut:
 - **Kamera** — digunakan untuk mengambil dan menyimpan foto semasa perjalanan haji. Semua foto disimpan secara tempatan pada peranti anda dan tidak pernah dimuat naik atau dikongsi ke mana-mana pelayan.
 - **Pemberitahuan** — digunakan untuk menghantar peringatan waktu solat secara tempatan pada peranti anda.
 
+## Analitik
+
+Islamic Assistant menggunakan **Firebase Google Analytics** untuk memahami dan meningkatkan penggunaan aplikasi. Hanya statistik penggunaan tanpa nama (seperti paparan skrin, bilangan pembukaan aplikasi, dan trend penggunaan umum) yang dikumpulkan melalui perkhidmatan ini. **Tiada maklumat peribadi (nama, e-mel, nombor telefon, dll.) yang dikumpulkan atau dikongsi.** Data tanpa nama yang dikumpulkan digunakan untuk meningkatkan prestasi aplikasi dan pengalaman pengguna.
+
+Untuk maklumat lanjut, anda boleh merujuk dasar privasi Google: [Dasar Privasi Google](https://policies.google.com/privacy)
+
 ## Perkhidmatan Pihak Ketiga
 
-Islamic Assistant tidak mengintegrasikan sebarang analitik pihak ketiga, SDK pengiklanan, atau perkhidmatan penjejakan. Tiada data dikongsi dengan mana-mana pihak luar.
+Selain Firebase Google Analytics yang dinyatakan di atas, Islamic Assistant tidak mengintegrasikan sebarang SDK pengiklanan atau perkhidmatan penjejakan pihak ketiga. Tiada data peribadi dikongsi dengan mana-mana pihak luar.
 
 ## Penyimpanan Data
 

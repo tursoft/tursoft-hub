@@ -16,9 +16,15 @@ The app may request the following device permissions:
 - **Camera** — used to capture and save photos during Hajj travels. All photos are stored locally on your device and are never uploaded or shared with any server.
 - **Notifications** — used to deliver prayer time reminders locally on your device.
 
+## Analytics
+
+Islamic Assistant uses **Firebase Google Analytics** to understand and improve app usage. Only anonymous usage statistics (such as screen views, app opens, and general usage trends) are collected through this service. **No personal information (name, email, phone number, etc.) is collected or shared.** The anonymous data collected is used to improve the app's performance and user experience.
+
+For more information, you can review Google's privacy policy: [Google Privacy Policy](https://policies.google.com/privacy)
+
 ## Third-Party Services
 
-Islamic Assistant does not integrate any third-party analytics, advertising SDKs, or tracking services. No data is shared with any external party.
+Apart from Firebase Google Analytics mentioned above, Islamic Assistant does not integrate any third-party advertising SDKs or tracking services. No personal data is shared with any external party.
 
 ## Data Storage
 
