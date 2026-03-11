@@ -2,11 +2,11 @@
 
 *Dernière mise à jour : mars 2026*
 
-Islamic Assistant est une application mobile personnelle conçue pour aider les musulmans dans leurs pratiques islamiques quotidiennes — notamment les horaires de prière, les jours de jeûne, le suivi de la zakat et du hajj, la gestion des prières et jeûnes manqués, la réception des notifications nécessaires et d'autres utilitaires connexes. Cette politique de confidentialité explique comment l'application traite vos données.
+AmelBook est une application mobile personnelle conçue pour aider les musulmans dans leurs pratiques islamiques quotidiennes — notamment les horaires de prière, les jours de jeûne, le suivi de la zakat et du hajj, la gestion des prières et jeûnes manqués, la réception des notifications nécessaires et d'autres utilitaires connexes. Cette politique de confidentialité explique comment l'application traite vos données.
 
 ## Données collectées
 
-Islamic Assistant ne collecte, ne transmet ni ne partage **aucune** donnée personnelle. Toutes les données que vous saisissez ou générez dans l'application (comme les comptages de dhikr, les marque-pages ou les paramètres) sont stockées exclusivement sur votre appareil via SQLite et ne le quittent jamais.
+AmelBook ne collecte, ne transmet ni ne partage **aucune** donnée personnelle. Toutes les données que vous saisissez ou générez dans l'application (comme les comptages de dhikr, les marque-pages ou les paramètres) sont stockées exclusivement sur votre appareil via SQLite et ne le quittent jamais.
 
 ## Autorisations
 
@@ -18,13 +18,13 @@ L'application peut demander les autorisations suivantes sur votre appareil :
 
 ## Analyse
 
-Islamic Assistant utilise **Firebase Google Analytics** pour comprendre et améliorer l'utilisation de l'application. Seules des statistiques d'utilisation anonymes (telles que les vues d'écran, les ouvertures d'application et les tendances générales d'utilisation) sont collectées via ce service. **Aucune information personnelle (nom, e-mail, numéro de téléphone, etc.) n'est collectée ni partagée.** Les données anonymes collectées sont utilisées pour améliorer les performances de l'application et l'expérience utilisateur.
+AmelBook utilise **Firebase Google Analytics** pour comprendre et améliorer l'utilisation de l'application. Seules des statistiques d'utilisation anonymes (telles que les vues d'écran, les ouvertures d'application et les tendances générales d'utilisation) sont collectées via ce service. **Aucune information personnelle (nom, e-mail, numéro de téléphone, etc.) n'est collectée ni partagée.** Les données anonymes collectées sont utilisées pour améliorer les performances de l'application et l'expérience utilisateur.
 
 Pour plus d'informations, vous pouvez consulter la politique de confidentialité de Google : [Politique de confidentialité de Google](https://policies.google.com/privacy)
 
 ## Services tiers
 
-En dehors de Firebase Google Analytics mentionné ci-dessus, Islamic Assistant n'intègre aucun SDK publicitaire ou service de suivi tiers. Aucune donnée personnelle n'est partagée avec une quelconque partie externe.
+En dehors de Firebase Google Analytics mentionné ci-dessus, AmelBook n'intègre aucun SDK publicitaire ou service de suivi tiers. Aucune donnée personnelle n'est partagée avec une quelconque partie externe.
 
 ## Stockage des données
 

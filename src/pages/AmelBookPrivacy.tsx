@@ -2,28 +2,28 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { marked } from "marked";
 import bgImage from "@/assets/bg/bg-islami-assistant.png";
 
-import trMd from "@/content/privacy/islamic-assistant/tr.md?raw";
-import enMd from "@/content/privacy/islamic-assistant/en.md?raw";
-import arMd from "@/content/privacy/islamic-assistant/ar.md?raw";
-import bnMd from "@/content/privacy/islamic-assistant/bn.md?raw";
-import deMd from "@/content/privacy/islamic-assistant/de.md?raw";
-import esMd from "@/content/privacy/islamic-assistant/es.md?raw";
-import frMd from "@/content/privacy/islamic-assistant/fr.md?raw";
-import idMd from "@/content/privacy/islamic-assistant/id.md?raw";
-import msMd from "@/content/privacy/islamic-assistant/ms.md?raw";
-import urMd from "@/content/privacy/islamic-assistant/ur.md?raw";
+import trMd from "@/content/privacy/amelbook/tr.md?raw";
+import enMd from "@/content/privacy/amelbook/en.md?raw";
+import arMd from "@/content/privacy/amelbook/ar.md?raw";
+import bnMd from "@/content/privacy/amelbook/bn.md?raw";
+import deMd from "@/content/privacy/amelbook/de.md?raw";
+import esMd from "@/content/privacy/amelbook/es.md?raw";
+import frMd from "@/content/privacy/amelbook/fr.md?raw";
+import idMd from "@/content/privacy/amelbook/id.md?raw";
+import msMd from "@/content/privacy/amelbook/ms.md?raw";
+import urMd from "@/content/privacy/amelbook/ur.md?raw";
 
 const langs = [
-  { code: "tr", flag: "tr", name: "Türkçe", appName: "İslami Asistan", rtl: false },
-  { code: "en", flag: "gb", name: "English", appName: "Islamic Assistant", rtl: false },
-  { code: "ar", flag: "sa", name: "العربية", appName: "المساعد الإسلامي", rtl: true },
-  { code: "bn", flag: "bd", name: "বাংলা", appName: "ইসলামিক অ্যাসিস্ট্যান্ট", rtl: false },
-  { code: "de", flag: "de", name: "Deutsch", appName: "Islamic Assistant", rtl: false },
-  { code: "es", flag: "es", name: "Español", appName: "Islamic Assistant", rtl: false },
-  { code: "fr", flag: "fr", name: "Français", appName: "Islamic Assistant", rtl: false },
-  { code: "id", flag: "id", name: "Indonesia", appName: "Islamic Assistant", rtl: false },
-  { code: "ms", flag: "my", name: "Melayu", appName: "Islamic Assistant", rtl: false },
-  { code: "ur", flag: "pk", name: "اردو", appName: "اسلامک اسسٹنٹ", rtl: true },
+  { code: "tr", flag: "tr", name: "Türkçe", appName: "Amel Defteri", rtl: false },
+  { code: "en", flag: "gb", name: "English", appName: "AmelBook", rtl: false },
+  { code: "ar", flag: "sa", name: "العربية", appName: "AmelBook", rtl: true },
+  { code: "bn", flag: "bd", name: "বাংলা", appName: "AmelBook", rtl: false },
+  { code: "de", flag: "de", name: "Deutsch", appName: "AmelBook", rtl: false },
+  { code: "es", flag: "es", name: "Español", appName: "AmelBook", rtl: false },
+  { code: "fr", flag: "fr", name: "Français", appName: "AmelBook", rtl: false },
+  { code: "id", flag: "id", name: "Indonesia", appName: "AmelBook", rtl: false },
+  { code: "ms", flag: "my", name: "Melayu", appName: "AmelBook", rtl: false },
+  { code: "ur", flag: "pk", name: "اردو", appName: "AmelBook", rtl: true },
 ] as const;
 
 const FlagImg = ({ code }: { code: string }) => (
@@ -51,7 +51,7 @@ const content: Record<LangCode, string> = {
   ur: urMd,
 };
 
-const IslamicAssistantPrivacy = () => {
+const AmelBookPrivacy = () => {
   const [lang, setLang] = useState<LangCode>("tr");
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -144,4 +144,4 @@ const IslamicAssistantPrivacy = () => {
   );
 };
 
-export default IslamicAssistantPrivacy;
+export default AmelBookPrivacy;

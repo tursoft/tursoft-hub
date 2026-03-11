@@ -2,11 +2,11 @@
 
 *Terakhir diperbarui: Maret 2026*
 
-Islamic Assistant adalah aplikasi mobile pribadi yang dirancang untuk membantu umat Muslim dalam praktik Islam sehari-hari — termasuk waktu shalat, hari puasa, pelacakan zakat dan haji, pengelolaan shalat dan puasa yang terlewat, penerimaan notifikasi penting, dan utilitas terkait lainnya. Kebijakan privasi ini menjelaskan bagaimana aplikasi menangani data Anda.
+AmelBook adalah aplikasi mobile pribadi yang dirancang untuk membantu umat Muslim dalam praktik Islam sehari-hari — termasuk waktu shalat, hari puasa, pelacakan zakat dan haji, pengelolaan shalat dan puasa yang terlewat, penerimaan notifikasi penting, dan utilitas terkait lainnya. Kebijakan privasi ini menjelaskan bagaimana aplikasi menangani data Anda.
 
 ## Data yang Kami Kumpulkan
 
-Islamic Assistant **tidak** mengumpulkan, mengirimkan, atau berbagi data pribadi apa pun. Semua data yang Anda masukkan atau hasilkan dalam aplikasi (seperti jumlah dzikir, bookmark, atau pengaturan) disimpan secara eksklusif di perangkat Anda menggunakan SQLite dan tidak pernah meninggalkan perangkat Anda.
+AmelBook **tidak** mengumpulkan, mengirimkan, atau berbagi data pribadi apa pun. Semua data yang Anda masukkan atau hasilkan dalam aplikasi (seperti jumlah dzikir, bookmark, atau pengaturan) disimpan secara eksklusif di perangkat Anda menggunakan SQLite dan tidak pernah meninggalkan perangkat Anda.
 
 ## Izin
 
@@ -18,13 +18,13 @@ Aplikasi mungkin meminta izin perangkat berikut:
 
 ## Analitik
 
-Islamic Assistant menggunakan **Firebase Google Analytics** untuk memahami dan meningkatkan penggunaan aplikasi. Hanya statistik penggunaan anonim (seperti tampilan layar, jumlah pembukaan aplikasi, dan tren penggunaan umum) yang dikumpulkan melalui layanan ini. **Tidak ada informasi pribadi (nama, email, nomor telepon, dll.) yang dikumpulkan atau dibagikan.** Data anonim yang dikumpulkan digunakan untuk meningkatkan kinerja aplikasi dan pengalaman pengguna.
+AmelBook menggunakan **Firebase Google Analytics** untuk memahami dan meningkatkan penggunaan aplikasi. Hanya statistik penggunaan anonim (seperti tampilan layar, jumlah pembukaan aplikasi, dan tren penggunaan umum) yang dikumpulkan melalui layanan ini. **Tidak ada informasi pribadi (nama, email, nomor telepon, dll.) yang dikumpulkan atau dibagikan.** Data anonim yang dikumpulkan digunakan untuk meningkatkan kinerja aplikasi dan pengalaman pengguna.
 
 Untuk informasi lebih lanjut, Anda dapat meninjau kebijakan privasi Google: [Kebijakan Privasi Google](https://policies.google.com/privacy)
 
 ## Layanan Pihak Ketiga
 
-Selain Firebase Google Analytics yang disebutkan di atas, Islamic Assistant tidak mengintegrasikan SDK iklan atau layanan pelacakan pihak ketiga apa pun. Tidak ada data pribadi yang dibagikan kepada pihak eksternal mana pun.
+Selain Firebase Google Analytics yang disebutkan di atas, AmelBook tidak mengintegrasikan SDK iklan atau layanan pelacakan pihak ketiga apa pun. Tidak ada data pribadi yang dibagikan kepada pihak eksternal mana pun.
 
 ## Penyimpanan Data
 

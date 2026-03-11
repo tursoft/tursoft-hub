@@ -4303,14 +4303,14 @@
       ]
     },
     {
-      "code": "ISLAMIC-ASSISTANT",
+      "code": "AMELBOOK",
       "orderIndex": 83,
-      "title": "Islamic Assistant",
+      "title": "AmelBook",
       "photoUrl": "/assets/projects/_logos/islamic_assistant.png",
       "companyCode": "",
       "group": "Misc",
       "value": 100,
-      "summary": "A personal Islamic assistant mobile app providing prayer times, Quran reading, dhikr counters, and other Islamic utilities in a clean and minimal interface.",
+      "summary": "A personal Islamic practice mobile app providing prayer times, Quran reading, dhikr counters, and other Islamic utilities in a clean and minimal interface.",
       "fulltext": "",
       "domainCodes": [],
       "customerCodes": [],
