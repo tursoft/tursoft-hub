@@ -88,7 +88,7 @@ const AmelBookPrivacy = () => {
         {/* App logo + name */}
         <div className="flex flex-col items-center gap-4 mb-8">
           <img
-            src="/assets/projects/_logos/islamic_assistant.png"
+            src="/assets/projects/_logos/amelbook.png"
             alt={current.appName}
             className="w-28 h-28 object-contain rounded-2xl"
           />
