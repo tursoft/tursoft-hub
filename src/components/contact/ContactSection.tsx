@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, Globe, MapPin, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, Globe, MapPin, Github, Linkedin, Twitter, FileText, FileDown } from "lucide-react";
 import cvData from "@/data/cv.json";
 
 const ContactSection = () => {
@@ -158,12 +158,21 @@ const ContactSection = () => {
                         Start a Conversation
                       </Button>
                       
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
+                        className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                        onClick={() => window.open(cvData.general.compactDownloadUrl, '_blank')}
+                      >
+                        <FileDown className="mr-2 h-4 w-4" />
+                        CV - Compact
+                      </Button>
+                      <Button
+                        variant="outline"
                         className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                         onClick={() => window.open(cvData.general.downloadUrl, '_blank')}
                       >
-                        Download My CV
+                        <FileText className="mr-2 h-4 w-4" />
+                        CV - Detailed
                       </Button>
                     </div>
                   </div>

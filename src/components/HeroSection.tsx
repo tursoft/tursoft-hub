@@ -1,6 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Github, Linkedin, Mail, Phone, Download, ExternalLink } from "lucide-react";
+import { Github, Linkedin, Mail, Phone, Download, ExternalLink, ChevronDown, FileText, FileDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import heroImage from "@/assets/hero-bg.jpg";
 import cvData from "@/data/cv.json";
 const HeroSection = () => {
@@ -62,10 +68,25 @@ const HeroSection = () => {
               View My Portfolio
               <ExternalLink className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-gradient-to-r hover:from-[hsl(var(--navy-deep))] hover:via-[hsl(var(--primary))] hover:to-[hsl(var(--primary-light))] hover:text-primary-foreground px-8 py-3 text-lg transition-all duration-300" onClick={() => window.open(cvData.general.downloadUrl, "_blank")}>
-              <Download className="mr-2 h-5 w-5" />
-              Download CV
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-gradient-to-r hover:from-[hsl(var(--navy-deep))] hover:via-[hsl(var(--primary))] hover:to-[hsl(var(--primary-light))] hover:text-primary-foreground px-8 py-3 text-lg transition-all duration-300">
+                  <Download className="mr-2 h-5 w-5" />
+                  Download CV
+                  <ChevronDown className="ml-2 h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => window.open(cvData.general.compactDownloadUrl, "_blank")} className="cursor-pointer">
+                  <FileDown className="mr-2 h-4 w-4" />
+                  Compact Version
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => window.open(cvData.general.downloadUrl, "_blank")} className="cursor-pointer">
+                  <FileText className="mr-2 h-4 w-4" />
+                  Detailed Version
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Social Links */}

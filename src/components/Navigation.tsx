@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download, ChevronDown, FileText, FileDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import tursoftLogo from "@/assets/tursoft-logo.png";
 import cvData from "@/data/cv.json";
 
@@ -108,12 +114,25 @@ const Navigation = () => {
           </div>
 
           {/* Desktop Download CV Button */}
-          <Button 
-            className="hidden lg:flex bg-primary hover:bg-primary/90 text-primary-foreground glow-on-hover"
-            onClick={() => window.open(cvData.general.downloadUrl, "_blank")}
-          >
-            Download CV
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="hidden lg:flex bg-primary hover:bg-primary/90 text-primary-foreground glow-on-hover">
+                <Download className="mr-2 h-4 w-4" />
+                Download CV
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => window.open(cvData.general.compactDownloadUrl, "_blank")} className="cursor-pointer">
+                <FileDown className="mr-2 h-4 w-4" />
+                Compact Version
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => window.open(cvData.general.downloadUrl, "_blank")} className="cursor-pointer">
+                <FileText className="mr-2 h-4 w-4" />
+                Detailed Version
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* Mobile Hamburger Menu Button */}
           <Button
@@ -156,16 +175,30 @@ const Navigation = () => {
               </Button>
             ))}
             
-            {/* Mobile Download CV Button */}
-            <Button 
-              className="justify-start mt-4 bg-primary hover:bg-primary/90 text-primary-foreground"
-              onClick={() => {
-                window.open(cvData.general.downloadUrl, "_blank");
-                setIsMobileMenuOpen(false);
-              }}
-            >
-              Download CV
-            </Button>
+            {/* Mobile Download CV Buttons */}
+            <div className="mt-4 flex flex-col space-y-2">
+              <Button
+                className="justify-start bg-primary hover:bg-primary/90 text-primary-foreground"
+                onClick={() => {
+                  window.open(cvData.general.compactDownloadUrl, "_blank");
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                <FileDown className="mr-2 h-4 w-4" />
+                CV - Compact
+              </Button>
+              <Button
+                variant="outline"
+                className="justify-start border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                onClick={() => {
+                  window.open(cvData.general.downloadUrl, "_blank");
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                <FileText className="mr-2 h-4 w-4" />
+                CV - Detailed
+              </Button>
+            </div>
           </div>
         </div>
       </div>
