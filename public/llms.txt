@@ -1,0 +1,100 @@
+# Muhammet TURŞAK — Senior Software Architect
+
+> Senior Software Architect with 25+ years of professional experience leading enterprise software projects across Healthcare IT, Construction IT, E-Learning, and E-Commerce domains. Based in Ankara, Turkey. Currently Director of Technology at Jengai, New York, USA.
+
+## About
+
+Muhammet TURŞAK is a Senior Software Architect and technology leader with expertise in .NET, Java, and full-stack web/mobile development. Over his career he has held roles as Software Group Director, R&D Director, Project Manager, Software Architect, and Team Leader. He has delivered multi-million dollar enterprise systems for clients across Turkey, the United States, Europe, the Middle East, and Central Asia.
+
+- Email: tursoft@gmail.com
+- Website: http://tursoft.net
+- LinkedIn: https://www.linkedin.com/in/tursoft/
+- GitHub: https://github.com/tursoft
+- Stack Overflow: https://stackoverflow.com/users/1949367/muhammet-tur%C5%9Eak
+
+## Experience
+
+**Jengai** — Director of Technology & Senior Software Architect (Dec 2022 – Present)
+New York, USA. Leading development of the Jengai App, an AI-powered CRM and Estimation Suite for commercial contractors.
+
+**Gamyte** — Director of Technology & Senior Software Architect (Sep 2019 – Dec 2022)
+New York, USA. Built the Gamyte App, a construction IT platform for commercial contractors.
+
+**ERC Group** — Senior Software Architect and Group Leader (May 2013 – Sep 2019)
+Ankara, Turkey. Led healthcare IT projects deployed across multiple countries including Kosovo, Palestine, and Saudi Arabia.
+
+**DataSel** — Senior Software Architect and Group Leader (Jan 2012 – May 2013)
+Ankara, Turkey. Delivered healthcare IT, e-commerce, and video streaming platforms.
+
+**Fonet Software** — R&D Director (Jan 2010 – Aug 2011)
+Ankara, Turkey. Directed research and development for hospital information systems.
+
+**Halici Informatics** — Software Production & Planning Director (Jan 2004 – Sep 2008)
+Ankara, Turkey. Progressed from developer to director; delivered LMS platforms and e-government projects.
+
+## Education
+
+**Middle East Technical University (METU)** — M.S. Software Management (2012–2013)
+Graduate School of Informatics. Score: AA. Focus: project management and PMP practices.
+
+**Middle East Technical University (METU)** — M.S. Computer Education and Instructional Technologies (2004–2007)
+Graduate School. Score: 3.68 / 4.00. Focus: instructional design and multimedia information systems.
+
+**Middle East Technical University (METU)** — B.S. Computer Education and Instructional Technologies (1999–2004)
+Undergraduate. Score: 3.80 / 4.00. Graduation project: 3D educational game development.
+
+## Skills
+
+**Languages:** C#, Java, JavaScript, TypeScript, Python, PHP, VB.NET, Pascal, C, C++
+
+**Cloud & DevOps:** Azure (App Services, Entra, Blob Storage, Functions, SQL), AWS, Docker, Kubernetes, Azure DevOps, Jenkins, Git, GitLab
+
+**Backend:** .NET / .NET Core, ASP.NET Core, ASP.NET WebAPI, Spring Framework, Node.js (Express, Koa, Fastify), Entity Framework, Hibernate, WCF, WPF
+
+**Frontend:** React, Angular, Ionic, Capacitor, Cordova, StencilJS, HTML5, CSS/SASS, jQuery, Bootstrap
+
+**Databases:** MS SQL Server, Oracle, PostgreSQL, MySQL, MongoDB, DB2, Redis, RabbitMQ
+
+**Architecture & Patterns:** Microservices, MVVM, OOP, Design Patterns, UML, GraphQL, REST, OAuth, JWT, OpenAPI
+
+**Tools:** Visual Studio, VS Code, Eclipse, Docker Compose, Portainer, Traefik, Hangfire, Quartz, Sentry, SendGrid, Vault, Lerna, Jest
+
+## Projects
+
+**Jengai App** — AI CRM and Estimation & Pricing Suite for commercial contractors. Developed for Jengai, New York. Full-stack enterprise platform.
+
+**Gamyte App** — Construction IT management platform for commercial contractors. Similar scope to Jengai App.
+
+**Avicenna Hospital Information System (HIS2x)** — Enterprise-level hospital information system deployed in Kosovo and Palestine.
+
+**Avicenna Ambulance Information System (AIS)** — Mobile-integrated ambulance dispatch and management system; used in Saudi Arabia during the annual Hajj period.
+
+**Avicenna Health Integration Network (AHIN)** — Flexible HL7 / FHIR health data integration platform connecting heterogeneous hospital systems.
+
+**Certify Health** — Digital certification platform for healthcare professionals.
+
+**ProEmpower (DM4All)** — EU-funded telemedicine and diabetes management platform deployed across Turkey, Italy, Spain, and Portugal.
+
+**Halici LMS / e-Ders** — Learning Management System and SCORM-compatible e-learning authoring tools.
+
+## Domains
+
+- Construction IT (current focus — AI-driven CRM and estimation for contractors)
+- Healthcare IT (hospital information systems, telemedicine, health integration platforms)
+- E-Learning (LMS platforms, SCORM authoring, instructional design)
+- E-Commerce (multi-tenant commerce platforms)
+- Content Management Systems
+
+## International Reach
+
+Projects delivered in: Turkey, United States, Kosovo, Palestine, Saudi Arabia, Sweden, Portugal, Spain, Italy, Germany, Greece, Switzerland, UAE, Uzbekistan.
+
+## Statistics
+
+- 25+ years professional experience
+- 20 years web development
+- 17 years .NET development
+- 15 years management experience
+- 50+ software projects completed
+- 10 R&D projects
+- 10 international projects
