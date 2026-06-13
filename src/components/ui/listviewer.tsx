@@ -662,7 +662,7 @@ const ListViewer = <T = any>({
         {(title || subtitle || badge) && (
           <div className="text-center mb-12">
             {badge && (
-              <Badge variant="outline" className="mb-4">{badge}</Badge>
+              <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">{badge}</Badge>
             )}
             {title && (
               <h2 

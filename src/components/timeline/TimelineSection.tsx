@@ -406,7 +406,7 @@ const TimelineSection = () => {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-12 animate-fade-in">
-          <Badge variant="outline" className="mb-4">Career Journey</Badge>
+          <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Career Journey</Badge>
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             Professional
             <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Timeline</span>
