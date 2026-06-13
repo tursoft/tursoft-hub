@@ -655,7 +655,7 @@ export default function MapSection() {
     <section id="map" className="py-20 bg-gradient-to-b from-background via-secondary/50 to-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <Badge variant="outline" className="mb-4">Global Presence</Badge>
+          <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Global Presence</Badge>
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             Global
             <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Footprint</span>

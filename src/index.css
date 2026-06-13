@@ -2,60 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Professional Portfolio Design System - Dark Tech Theme */
+/* ============================================================
+   Midnight Aurora Design System
+   Deep indigo base · violet → cyan gradient accents · glass UI
+   ============================================================ */
 
 @layer base {
   :root {
     /* Core Theme Colors */
-    --background: 222 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 244 35% 5%;
+    --foreground: 226 30% 96%;
 
     /* Card & Surface Colors */
-    --card: 222 84% 6%;
-    --card-foreground: 210 40% 98%;
-    --card-hover: 222 84% 8%;
+    --card: 244 30% 7.5%;
+    --card-foreground: 226 30% 96%;
+    --card-hover: 244 28% 11%;
 
     /* Interactive Elements */
-    --popover: 222 84% 6%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 244 30% 8%;
+    --popover-foreground: 226 30% 96%;
 
-    /* Brand Colors - TURSOFT Logo Scheme - Azure Tones */
-    --primary: 200 100% 45%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 190 85% 55%;
-    --primary-variant: 210 80% 40%;
-    --primary-light: 180 75% 50%;
-    --navy-deep: 230 45% 25%;
+    /* Brand Colors - Aurora Scheme (indigo → violet → cyan) */
+    --primary: 254 92% 66%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 262 90% 70%;
+    --primary-variant: 246 80% 58%;
+    --primary-light: 190 95% 58%;
+    --navy-deep: 250 70% 42%;
 
     /* Secondary Colors */
-    --secondary: 217 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --secondary-hover: 217 32.6% 22%;
+    --secondary: 244 24% 14%;
+    --secondary-foreground: 226 30% 96%;
+    --secondary-hover: 244 24% 18%;
 
     /* Muted Elements */
-    --muted: 217 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 244 24% 14%;
+    --muted-foreground: 234 18% 70%;
 
-    /* Accent Colors - Azure Theme */
-    --accent: 195 100% 55%;
-    --accent-foreground: 222 84% 4.9%;
-    --accent-glow: 185 90% 65%;
+    /* Accent Colors - Cyan */
+    --accent: 190 95% 55%;
+    --accent-foreground: 244 35% 5%;
+    --accent-glow: 180 90% 65%;
 
     /* Status Colors */
-    --destructive: 0 62.8% 50%;
-    --destructive-foreground: 210 40% 98%;
-    --success: 142 76% 36%;
-    --warning: 38 92% 50%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 226 30% 96%;
+    --success: 152 70% 42%;
+    --warning: 38 92% 55%;
 
     /* Border & Input */
-    --border: 217 32.6% 17.5%;
-    --input: 217 32.6% 17.5%;
-    --ring: 187 100% 42%;
+    --border: 244 22% 17%;
+    --input: 244 22% 17%;
+    --ring: 254 92% 66%;
 
     /* Layout */
-    --radius: 0.75rem;
+    --radius: 0.875rem;
 
-    /* Gradients - TURSOFT Brand */
+    /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--navy-deep)), hsl(var(--primary)), hsl(var(--primary-light)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%);
     --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--card-hover)));
@@ -63,10 +66,10 @@
     --gradient-logo: linear-gradient(135deg, hsl(var(--navy-deep)) 0%, hsl(var(--primary)) 50%, hsl(var(--primary-light)) 100%);
 
     /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.3);
-    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.4);
-    --shadow-card: 0 8px 32px 0 hsl(var(--background) / 0.37);
-    --shadow-card-hover: 0 16px 48px 0 hsl(var(--primary) / 0.15);
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.35);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.35);
+    --shadow-card: 0 8px 32px 0 hsl(var(--background) / 0.4);
+    --shadow-card-hover: 0 20px 50px -12px hsl(var(--primary) / 0.22);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -87,9 +90,14 @@
     scroll-behavior: smooth;
   }
 
+  ::selection {
+    background: hsl(var(--primary) / 0.35);
+    color: hsl(var(--foreground));
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 9px;
   }
 
   ::-webkit-scrollbar-track {
@@ -97,16 +105,71 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary/30 rounded-full;
+    border-radius: 9999px;
+    background: linear-gradient(180deg, hsl(var(--primary) / 0.5), hsl(var(--accent) / 0.5));
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary/50;
+    background: linear-gradient(180deg, hsl(var(--primary) / 0.8), hsl(var(--accent) / 0.8));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
 @layer components {
-  /* Interactive Elements */
+  /* ---------- Surfaces ---------- */
+  .glass {
+    background: hsl(var(--card) / 0.55);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid hsl(var(--foreground) / 0.08);
+  }
+
+  .gradient-bg {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .hero-overlay {
+    background:
+      radial-gradient(ellipse 80% 55% at 50% -10%, hsl(var(--primary) / 0.16), transparent),
+      linear-gradient(135deg, hsl(var(--background) / 0.92) 0%, hsl(var(--background) / 0.75) 50%, hsl(var(--card) / 0.92) 100%);
+  }
+
+  /* ---------- Typography ---------- */
+  .text-gradient {
+    background: linear-gradient(110deg, hsl(var(--primary-glow)), hsl(var(--primary)) 40%, hsl(var(--accent)) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-animated {
+    background: linear-gradient(110deg,
+      hsl(var(--primary-glow)), hsl(var(--primary)), hsl(var(--accent)),
+      hsl(var(--primary)), hsl(var(--primary-glow)));
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-pan 7s linear infinite;
+  }
+
+  /* ---------- Interactive Elements ---------- */
   .link-hover {
     @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
   }
@@ -119,385 +182,79 @@
     @apply transition-all duration-300 hover:shadow-[var(--shadow-glow)];
   }
 
-  /* GitHub-style Animations */
-  .github-box {
-    @apply relative overflow-hidden border border-border rounded-lg bg-card transition-all duration-300;
-    background: linear-gradient(145deg, hsl(var(--card)), hsl(var(--card-hover)));
+  /* Primary CTA with sweeping shine */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
   }
 
-  .github-box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), transparent);
-    transition: left 0.5s ease;
-  }
-
-  .github-box:hover::before {
-    left: 100%;
-  }
-
-  .github-box:hover {
-    @apply border-primary/30 shadow-lg scale-[1.02] bg-card-hover;
-  }
-
-  .animated-border {
-    @apply relative border border-transparent rounded-lg overflow-hidden;
-    background: linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
-                linear-gradient(45deg, hsl(var(--primary) / 0.5), hsl(var(--accent) / 0.5), hsl(var(--primary) / 0.5)) border-box;
-  }
-
-  .animated-border::before {
+  .btn-shine::after {
     content: '';
     position: absolute;
     inset: 0;
-    padding: 1px;
-    background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary-light)));
-    border-radius: inherit;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
-    -webkit-mask-composite: xor;
-    animation: border-spin 3s linear infinite;
-  }
-
-  .copilot-shimmer {
-    @apply relative overflow-hidden;
-  }
-
-  .copilot-shimmer::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: linear-gradient(90deg, transparent 0%, hsl(var(--primary) / 0.1) 50%, transparent 100%);
-    transform: translateX(-100%);
-    animation: shimmer 2s infinite;
-  }
-
-  .floating-box {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite alternate;
-  }
-
-  .slide-in-border {
-    @apply relative;
-  }
-
-  .slide-in-border::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
-    transition: width 0.3s ease;
-  }
-
-  .slide-in-border:hover::after {
-    width: 100%;
-  }
-
-  .morphing-bg {
-    background: linear-gradient(-45deg, hsl(var(--card)), hsl(var(--card-hover)), hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.1));
-    background-size: 400% 400%;
-    animation: gradient-shift 8s ease infinite;
-  }
-
-  .github-card {
-    @apply relative border border-border rounded-xl bg-card p-6 transition-all duration-300;
-    background: linear-gradient(145deg, hsl(var(--card)), hsl(var(--card-hover)));
-  }
-
-  .github-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(45deg, transparent, hsl(var(--primary) / 0.3), transparent);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
-    -webkit-mask-composite: xor;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .github-card:hover::before {
-    opacity: 1;
-  }
-
-  .github-card:hover {
-    @apply transform scale-[1.02] shadow-xl;
-    box-shadow: 0 20px 40px -12px hsl(var(--primary) / 0.25);
-  }
-
-  /* Background Effects */
-  .gradient-bg {
-    background: var(--gradient-hero);
-  }
-
-  .gradient-card {
-    background: var(--gradient-card);
-  }
-
-  .hero-overlay {
-    background: linear-gradient(135deg, hsl(var(--background) / 0.9) 0%, hsl(var(--background) / 0.7) 50%, hsl(var(--card) / 0.9) 100%);
-  }
-}
-
-@layer utilities {
-  /* GitHub-style Keyframe Animations */
-  @keyframes border-spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes shimmer {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  @keyframes pulse-glow {
-    0% {
-      box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
-    }
-    100% {
-      box-shadow: 0 0 30px hsl(var(--primary) / 0.6), 0 0 40px hsl(var(--accent) / 0.3);
-    }
-  }
-
-  @keyframes gradient-shift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  @keyframes ripple {
-    0% {
-      transform: scale(0);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(4);
-      opacity: 0;
-    }
-  }
-
-  @keyframes bounce-in {
-    0% {
-      transform: scale(0.3);
-      opacity: 0;
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    70% {
-      transform: scale(0.9);
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slide-up {
-    0% {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  /* Interactive ripple effect */
-  .ripple-effect {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .ripple-effect::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: hsl(var(--primary) / 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.3s ease, height 0.3s ease;
-  }
-
-  .ripple-effect:active::before {
-    width: 300px;
-    height: 300px;
-  }
-
-  /* Portfolio Box Hover Light Animations */
-  .portfolio-card {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .portfolio-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.1), transparent);
-    transition: left 0.6s ease;
-    z-index: 1;
-  }
-
-  .portfolio-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(45deg, transparent, hsl(var(--primary) / 0.3), hsl(var(--accent) / 0.2), transparent);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
-    -webkit-mask-composite: xor;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: 0;
-  }
-
-  .portfolio-card:hover::before {
-    left: 100%;
-  }
-
-  .portfolio-card:hover::after {
-    opacity: 1;
-  }
-
-  .portfolio-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 
-      0 25px 50px -12px hsl(var(--primary) / 0.25),
-      0 0 0 1px hsl(var(--primary) / 0.1),
-      inset 0 1px 0 hsl(var(--primary) / 0.1);
-  }
-
-  /* Light beam effect on hover */
-  .portfolio-light-beam {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .portfolio-light-beam::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.1), transparent);
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.8s ease;
-    transform: rotate(0deg);
-    z-index: -1;
-  }
-
-  .portfolio-light-beam:hover::before {
-    opacity: 1;
-    transform: rotate(360deg);
-  }
-
-  /* Subtle glow pulse on hover */
-  .portfolio-glow-pulse:hover {
-    animation: portfolio-glow-pulse 1.5s ease-in-out;
-  }
-
-  @keyframes portfolio-glow-pulse {
-    0%, 100% {
-      box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
-    }
-    50% {
-      box-shadow: 0 0 40px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--accent) / 0.2);
-    }
-  }
-
-  /* Light streak animation */
-  .portfolio-light-streak {
-    position: relative;
-  }
-
-  .portfolio-light-streak::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.15), transparent);
-    transition: left 0.5s ease;
+    background: linear-gradient(105deg, transparent 40%, hsl(0 0% 100% / 0.25) 50%, transparent 60%);
+    transform: translateX(-120%);
+    transition: transform 0.7s ease;
     z-index: 1;
     pointer-events: none;
   }
 
-  .portfolio-light-streak:hover::after {
-    left: 100%;
+  .btn-shine:hover::after {
+    transform: translateX(120%);
   }
 
-  /* Hero Background Animation */
-  @keyframes hero-gradient-shift {
-    0% {
-      background-position: 0% 0%;
-    }
-    50% {
-      background-position: 100% 100%;
-    }
-    100% {
-      background-position: 0% 0%;
-    }
+  /* ---------- Decorative Backgrounds ---------- */
+  .bg-grid {
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, black 35%, transparent 80%);
+    mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, black 35%, transparent 80%);
+  }
+
+  /* Aurora blobs (used in hero) */
+  .aurora {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(90px);
+    opacity: 0.5;
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  .aurora-1 {
+    width: 42rem;
+    height: 42rem;
+    left: -10rem;
+    top: -12rem;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.55), transparent 65%);
+    animation: aurora-drift-1 18s ease-in-out infinite alternate;
+  }
+
+  .aurora-2 {
+    width: 36rem;
+    height: 36rem;
+    right: -8rem;
+    top: 10%;
+    background: radial-gradient(circle, hsl(var(--accent) / 0.4), transparent 65%);
+    animation: aurora-drift-2 22s ease-in-out infinite alternate;
+  }
+
+  .aurora-3 {
+    width: 30rem;
+    height: 30rem;
+    left: 30%;
+    bottom: -10rem;
+    background: radial-gradient(circle, hsl(var(--primary-variant) / 0.45), transparent 65%);
+    animation: aurora-drift-3 26s ease-in-out infinite alternate;
   }
 
   .hero-animated-bg::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: linear-gradient(
       45deg,
       hsl(var(--primary) / 0.05),
@@ -524,7 +281,7 @@
     background-image: url('/assets/backgrounds/education-bg.svg');
     background-size: cover;
     background-position: center;
-    opacity: 0.28; /* subtle texture */
+    opacity: 0.28;
     mix-blend-mode: overlay;
     pointer-events: none;
     z-index: 0;
@@ -534,29 +291,192 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, hsl(var(--background) / 0.94), rgba(0,0,0,0) 60%);
+    background: linear-gradient(180deg, hsl(var(--background) / 0.94), rgba(0, 0, 0, 0) 60%);
     pointer-events: none;
     z-index: 0;
   }
+
+  /* ---------- Section divider ---------- */
+  .section-divider {
+    height: 1px;
+    border: none;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.45) 35%, hsl(var(--accent) / 0.45) 65%, transparent);
+  }
 }
 
-/* Tag cloud animations */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
-}
-
-.tag-cloud-item {
-  animation: float 3s ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
-}
-
-  .tag-cloud-item:hover {
-    animation-play-state: paused;
-    transform: translateY(-3px);
+@layer utilities {
+  /* ---------- Scroll Reveal ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0s);
+    will-change: opacity, transform;
   }
 
-  /* Line clamp utilities */
+  .reveal-left {
+    transform: translateX(-36px);
+  }
+
+  .reveal-right {
+    transform: translateX(36px);
+  }
+
+  .reveal-scale {
+    transform: scale(0.94);
+  }
+
+  .is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* ---------- Keyframes ---------- */
+  @keyframes gradient-pan {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 220% 50%; }
+  }
+
+  @keyframes aurora-drift-1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(6rem, 4rem) scale(1.15); }
+  }
+
+  @keyframes aurora-drift-2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-5rem, 6rem) scale(1.1); }
+  }
+
+  @keyframes aurora-drift-3 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(4rem, -5rem) scale(1.2); }
+  }
+
+  @keyframes hero-gradient-shift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes blink-caret {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .typing-caret {
+    display: inline-block;
+    width: 2px;
+    margin-left: 2px;
+    background: hsl(var(--accent));
+    animation: blink-caret 0.9s step-end infinite;
+  }
+
+  /* ---------- Portfolio Card Hover Effects ---------- */
+  .portfolio-card {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .portfolio-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.1), transparent);
+    transition: left 0.6s ease;
+    z-index: 1;
+  }
+
+  .portfolio-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(45deg, transparent, hsl(var(--primary) / 0.35), hsl(var(--accent) / 0.25), transparent);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask-composite: xor;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+  }
+
+  .portfolio-card:hover::before {
+    left: 100%;
+  }
+
+  .portfolio-card:hover::after {
+    opacity: 1;
+  }
+
+  .portfolio-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 25px 50px -12px hsl(var(--primary) / 0.25),
+      0 0 0 1px hsl(var(--primary) / 0.1),
+      inset 0 1px 0 hsl(var(--primary) / 0.1);
+  }
+
+  .portfolio-glow-pulse:hover {
+    animation: portfolio-glow-pulse 1.5s ease-in-out;
+  }
+
+  @keyframes portfolio-glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--accent) / 0.2);
+    }
+  }
+
+  .portfolio-light-streak {
+    position: relative;
+  }
+
+  .portfolio-light-streak::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.15), transparent);
+    transition: left 0.5s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .portfolio-light-streak:hover::after {
+    left: 100%;
+  }
+
+  /* ---------- Line clamp utilities ---------- */
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -580,27 +500,13 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+}
 
-  /* Background Animation */
-  .background-animation {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  .particle {
-    position: absolute;
-    border-radius: 50%;
-    transition: opacity 0.3s ease;
-    will-change: transform;
-  }
-
-  .firework {
-    position: absolute;
-    border-radius: 50%;
-    box-shadow: 0 0 10px currentColor;
-    transition: opacity 0.3s ease;
-    will-change: transform;
-  }
+/* ---------- Fixed background canvas ---------- */
+.background-animation {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}

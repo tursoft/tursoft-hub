@@ -60,7 +60,7 @@ const ContactSection = () => {
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16 animate-fade-in">
-            <Badge variant="outline" className="mb-4">Get In Touch</Badge>
+            <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Get In Touch</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Let's Work
               <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Together</span>

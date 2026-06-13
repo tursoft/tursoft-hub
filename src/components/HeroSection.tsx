@@ -7,8 +7,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Typewriter from "@/components/ui/typewriter";
 import heroImage from "@/assets/hero-bg.jpg";
 import cvData from "@/data/cv.json";
+
 const HeroSection = () => {
   const socialLinks = [{
     icon: Github,
@@ -27,56 +29,86 @@ const HeroSection = () => {
     href: "tel:+905542007829",
     label: "Phone"
   }];
-  return <section id="hero" className="min-h-screen relative flex items-center justify-center overflow-hidden hero-animated-bg" style={{
-    backgroundImage: `url(${heroImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat'
-  }}>
-      {/* Overlay */}
+
+  const roles = [
+    "Senior Software Architect",
+    "Director of Technology",
+    ".NET & Java Expert",
+    "Cloud & SaaS Solution Builder",
+    "Web & Mobile Developer",
+  ];
+
+  return (
+    <section id="hero" className="min-h-screen relative flex items-center justify-center overflow-hidden">
+      {/* Background photo, kept very subtle under the aurora */}
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
+
+      {/* Overlay + aurora blobs + grid */}
       <div className="absolute inset-0 hero-overlay" />
+      <div className="aurora aurora-1" />
+      <div className="aurora aurora-2" />
+      <div className="aurora aurora-3" />
+      <div className="absolute inset-0 bg-grid" />
 
       {/* Content */}
       <div className="relative z-20 container mx-auto px-6 text-center">
         <div className="max-w-4xl mx-auto animate-fade-in">
-          {/* Badge */}
-          <Badge className="mb-6 px-4 py-2 text-xs font-semibold bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 text-white border-0 shadow-lg opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300 glow-on-hover">
-            🟢 Available for New Opportunities
+          {/* Availability badge */}
+          <Badge className="mb-8 px-4 py-2 text-xs font-semibold glass text-foreground border-success/30 hover:border-success/60 hover:scale-105 transition-all duration-300">
+            <span className="relative flex h-2.5 w-2.5 mr-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--success))] opacity-60" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[hsl(var(--success))]" />
+            </span>
+            Available for New Opportunities
           </Badge>
 
           {/* Main Heading */}
-          <h1 className="text-5xl lg:text-7xl mb-6 leading-tight">
-            <span className="block text-foreground">MUHAMMET</span>
-            <span className="block text-foreground font-bold">TURŞAK</span>
+          <h1 className="text-5xl lg:text-7xl mb-6 leading-tight tracking-tight">
+            <span className="block text-foreground font-light">MUHAMMET</span>
+            <span className="block font-extrabold text-gradient-animated">TURŞAK</span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-xl lg:text-2xl text-muted-foreground mb-8 font-light">
-            Senior Software Architect / <span className="text-primary font-semibold">.NET</span>, <span className="text-primary font-semibold">Java</span>, <span className="text-primary font-semibold">Web</span> and <span className="text-primary font-semibold">Mobile</span>
+          {/* Rotating role */}
+          <p className="text-xl lg:text-2xl text-muted-foreground mb-8 font-light min-h-[2.25rem]">
+            <Typewriter phrases={roles} className="text-foreground/90" />
           </p>
 
           {/* Description */}
           <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            With <span className="text-primary font-semibold">25+ years</span> in technology, I've driven the creation of innovative <span className="text-primary font-semibold">cloud based</span> and <span className="text-primary font-semibold">SaaS</span> solutions, blending <span className="text-primary font-semibold">startup</span> <span className="text-primary font-semibold">agility</span> with enterprise-grade functionality and <span className="text-primary font-semibold">scalability</span>.
+            With <span className="text-gradient font-semibold">25+ years</span> in technology, I've driven the creation of innovative <span className="text-primary font-semibold">cloud based</span> and <span className="text-primary font-semibold">SaaS</span> solutions, blending <span className="text-accent font-semibold">startup agility</span> with enterprise-grade functionality and <span className="text-accent font-semibold">scalability</span>.
           </p>
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] hover:scale-105 text-primary-foreground px-8 py-3 text-lg glow-on-hover transition-all duration-300 border-2 border-primary/30 hover:border-primary/60" onClick={() => document.getElementById("portfolio")?.scrollIntoView({
-            behavior: "smooth"
-          })}>
+            <Button
+              size="lg"
+              className="btn-shine bg-gradient-to-r from-[hsl(var(--primary-variant))] via-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground border-0 px-8 py-3 text-lg hover:scale-[1.03] hover:shadow-[var(--shadow-glow)] transition-all duration-300"
+              onClick={() => document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" })}
+            >
               View My Portfolio
               <ExternalLink className="ml-2 h-5 w-5" />
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-gradient-to-r hover:from-[hsl(var(--navy-deep))] hover:via-[hsl(var(--primary))] hover:to-[hsl(var(--primary-light))] hover:text-primary-foreground px-8 py-3 text-lg transition-all duration-300">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="glass border-primary/40 text-foreground hover:border-primary hover:bg-primary/10 hover:scale-[1.03] px-8 py-3 text-lg transition-all duration-300"
+                >
                   <Download className="mr-2 h-5 w-5" />
                   Download CV
                   <ChevronDown className="ml-2 h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent>
+              <DropdownMenuContent className="glass">
                 <DropdownMenuItem onClick={() => window.open(cvData.general.compactDownloadUrl, "_blank")} className="cursor-pointer">
                   <FileDown className="mr-2 h-4 w-4" />
                   Compact Version
@@ -90,20 +122,35 @@ const HeroSection = () => {
           </div>
 
           {/* Social Links */}
-          <div className="flex justify-center space-x-6">
-            {socialLinks.map((social, index) => <a key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors duration-300 p-2 hover:scale-110 transform" aria-label={social.label}>
-                <social.icon className="h-6 w-6" />
-              </a>)}
+          <div className="flex justify-center gap-3">
+            {socialLinks.map((social, index) => (
+              <a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass rounded-full p-3 text-muted-foreground hover:text-primary hover:border-primary/50 hover:-translate-y-1 hover:shadow-[var(--shadow-glow)] transition-all duration-300"
+                aria-label={social.label}
+              >
+                <social.icon className="h-5 w-5" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse" />
+      <button
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer"
+        onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+        aria-label="Scroll to About section"
+      >
+        <div className="w-6 h-10 border-2 border-primary/60 rounded-full flex justify-center hover:border-primary transition-colors duration-300">
+          <div className="w-1 h-3 bg-gradient-to-b from-[hsl(var(--primary))] to-[hsl(var(--accent))] rounded-full mt-2 animate-pulse" />
         </div>
-      </div>
-    </section>;
+      </button>
+    </section>
+  );
 };
+
 export default HeroSection;
