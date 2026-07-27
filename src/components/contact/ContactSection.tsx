@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, Globe, MapPin, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, Globe, MapPin, Github, Linkedin, Twitter, FileText, FileDown } from "lucide-react";
 import cvData from "@/data/cv.json";
 
 const ContactSection = () => {
@@ -60,7 +60,7 @@ const ContactSection = () => {
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16 animate-fade-in">
-            <Badge variant="outline" className="mb-4">Get In Touch</Badge>
+            <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Get In Touch</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Let's Work
               <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Together</span>
@@ -158,12 +158,21 @@ const ContactSection = () => {
                         Start a Conversation
                       </Button>
                       
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
+                        className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                        onClick={() => window.open(cvData.general.compactDownloadUrl, '_blank')}
+                      >
+                        <FileDown className="mr-2 h-4 w-4" />
+                        CV - Compact
+                      </Button>
+                      <Button
+                        variant="outline"
                         className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                         onClick={() => window.open(cvData.general.downloadUrl, '_blank')}
                       >
-                        Download My CV
+                        <FileText className="mr-2 h-4 w-4" />
+                        CV - Detailed
                       </Button>
                     </div>
                   </div>

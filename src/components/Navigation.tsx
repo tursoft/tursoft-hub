@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import tursoftLogo from "@/assets/tursoft-logo.png";
+import { Menu, X, Download, ChevronDown, FileText, FileDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import cvData from "@/data/cv.json";
 
 const navItems = [
@@ -22,17 +27,19 @@ const navItems = [
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(docHeight > 0 ? Math.min(1, window.scrollY / docHeight) : 0);
     };
 
-    // Improved section detection using Intersection Observer
     const observerOptions = {
       root: null,
-      rootMargin: '-20% 0px -60% 0px', // Trigger when section is 20% from top and 60% from bottom
+      rootMargin: '-20% 0px -60% 0px',
       threshold: 0
     };
 
@@ -49,7 +56,6 @@ const Navigation = () => {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    // Observe all sections
     navItems.forEach(item => {
       const section = document.getElementById(item.id);
       if (section) {
@@ -57,8 +63,9 @@ const Navigation = () => {
       }
     });
 
-    window.addEventListener("scroll", handleScroll);
-    
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
@@ -70,50 +77,73 @@ const Navigation = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
-    setIsMobileMenuOpen(false); // Close mobile menu when navigating
+    setIsMobileMenuOpen(false);
   };
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-lg" 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? "glass border-b border-border/60 shadow-[0_8px_30px_-12px_hsl(var(--primary)/0.25)]"
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-6 py-4">
+      {/* Scroll progress bar */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-transparent">
+        <div
+          className="h-full bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--primary-glow))] to-[hsl(var(--accent))] transition-[width] duration-150 ease-out"
+          style={{ width: `${scrollProgress * 100}%` }}
+        />
+      </div>
+
+      <div className="container mx-auto px-6 py-3">
         <div className="flex justify-between items-center">
-          {/* Logo */}
-          <div className="flex items-center">
-          </div>
+          {/* Logo placeholder keeps layout balanced */}
+          <div className="flex items-center" />
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex space-x-1">
+          <div className="hidden lg:flex items-center gap-0.5 rounded-full px-1.5 py-1 transition-colors duration-300">
             {navItems.map((item) => (
-              <Button
+              <button
                 key={item.id}
-                variant="ghost"
                 onClick={() => scrollToSection(item.id)}
                 className={`
-                  px-4 py-2 text-sm font-medium uppercase transition-all duration-300 hover:text-primary
-                  ${activeSection === item.id 
-                    ? "text-primary bg-primary/10" 
-                    : "text-muted-foreground hover:text-foreground"
+                  relative px-3 py-2 text-[13px] font-medium uppercase tracking-wide rounded-full
+                  transition-all duration-300
+                  ${activeSection === item.id
+                    ? "text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                   }
                 `}
               >
-                {item.label}
-              </Button>
+                {activeSection === item.id && (
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[hsl(var(--primary-variant))] to-[hsl(var(--primary))] shadow-[0_0_18px_hsl(var(--primary)/0.45)] transition-all duration-300" />
+                )}
+                <span className="relative z-10">{item.label}</span>
+              </button>
             ))}
           </div>
 
           {/* Desktop Download CV Button */}
-          <Button 
-            className="hidden lg:flex bg-primary hover:bg-primary/90 text-primary-foreground glow-on-hover"
-            onClick={() => window.open(cvData.general.downloadUrl, "_blank")}
-          >
-            Download CV
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="hidden lg:flex btn-shine bg-gradient-to-r from-[hsl(var(--primary-variant))] via-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground border-0 hover:shadow-[var(--shadow-glow)] transition-shadow duration-300">
+                <Download className="mr-2 h-4 w-4" />
+                Download CV
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="glass">
+              <DropdownMenuItem onClick={() => window.open(cvData.general.compactDownloadUrl, "_blank")} className="cursor-pointer">
+                <FileDown className="mr-2 h-4 w-4" />
+                Compact Version
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => window.open(cvData.general.downloadUrl, "_blank")} className="cursor-pointer">
+                <FileText className="mr-2 h-4 w-4" />
+                Detailed Version
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* Mobile Hamburger Menu Button */}
           <Button
@@ -129,43 +159,56 @@ const Navigation = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden transition-all duration-300 ${
-        isMobileMenuOpen 
-          ? 'max-h-96 opacity-100' 
-          : 'max-h-0 opacity-0 overflow-hidden'
-      } ${isScrolled 
-          ? "bg-background/95 backdrop-blur-md border-b border-border" 
-          : "bg-background/90 backdrop-blur-md"
+      <div className={`lg:hidden glass border-b border-border/60 transition-all duration-400 ${
+        isMobileMenuOpen
+          ? 'max-h-[80vh] opacity-100 overflow-y-auto'
+          : 'max-h-0 opacity-0 overflow-hidden border-b-0'
       }`}>
         <div className="container mx-auto px-6 py-4">
-          <div className="flex flex-col space-y-2">
-            {navItems.map((item) => (
-              <Button
+          <div className="flex flex-col space-y-1">
+            {navItems.map((item, index) => (
+              <button
                 key={item.id}
-                variant="ghost"
                 onClick={() => scrollToSection(item.id)}
+                style={{ transitionDelay: isMobileMenuOpen ? `${index * 30}ms` : '0ms' }}
                 className={`
-                  justify-start px-4 py-3 text-sm font-medium uppercase transition-all duration-300
-                  ${activeSection === item.id 
-                    ? "text-primary bg-primary/10" 
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  text-left px-4 py-3 text-sm font-medium uppercase tracking-wide rounded-lg
+                  transition-all duration-300
+                  ${isMobileMenuOpen ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'}
+                  ${activeSection === item.id
+                    ? "text-primary bg-primary/10 border-l-2 border-primary"
+                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                   }
                 `}
               >
                 {item.label}
-              </Button>
+              </button>
             ))}
-            
-            {/* Mobile Download CV Button */}
-            <Button 
-              className="justify-start mt-4 bg-primary hover:bg-primary/90 text-primary-foreground"
-              onClick={() => {
-                window.open(cvData.general.downloadUrl, "_blank");
-                setIsMobileMenuOpen(false);
-              }}
-            >
-              Download CV
-            </Button>
+
+            {/* Mobile Download CV Buttons */}
+            <div className="mt-4 flex flex-col space-y-2">
+              <Button
+                className="justify-start btn-shine bg-gradient-to-r from-[hsl(var(--primary-variant))] via-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground border-0"
+                onClick={() => {
+                  window.open(cvData.general.compactDownloadUrl, "_blank");
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                <FileDown className="mr-2 h-4 w-4" />
+                CV - Compact
+              </Button>
+              <Button
+                variant="outline"
+                className="justify-start border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground"
+                onClick={() => {
+                  window.open(cvData.general.downloadUrl, "_blank");
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                <FileText className="mr-2 h-4 w-4" />
+                CV - Detailed
+              </Button>
+            </div>
           </div>
         </div>
       </div>

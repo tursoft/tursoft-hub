@@ -2007,6 +2007,28 @@
       "projects": 0,
       "jobs": 0,
       "isMajor": false
-    }    
+    },
+    {
+      "code": "flutter",
+      "orderIndex": 157,
+      "title": "Flutter",
+      "photoUrl": "/assets/skills/flutter.png",
+      "group": "Frameworks",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    },
+    {
+      "code": "sqlite",
+      "orderIndex": 158,
+      "title": "SQLite",
+      "photoUrl": "/assets/skills/sqlite.png",
+      "group": "Databases",
+      "value": 0,
+      "projects": 0,
+      "jobs": 0,
+      "isMajor": false
+    }
   ]
 }

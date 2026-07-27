@@ -100,7 +100,7 @@ const EducationSection = () => {
         <div className="max-w-6xl mx-auto relative z-10">
           {/* Section Header */}
           <div className="text-center mb-16 animate-fade-in">
-            <Badge variant="outline" className="mb-4">Academic Background</Badge>
+            <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Academic Background</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
               Educational
               <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Foundation</span>

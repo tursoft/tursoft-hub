@@ -1,0 +1,47 @@
+# Política de Privacidad
+
+*Última actualización: marzo de 2026*
+
+AmelBook es una aplicación móvil personal diseñada para ayudar a los musulmanes con sus prácticas islámicas diarias — incluyendo horarios de oración, días de ayuno, seguimiento de zakat y hajj, gestión de oraciones y ayunos perdidos, recepción de notificaciones necesarias y otras utilidades relacionadas. Esta política de privacidad explica cómo la aplicación gestiona tus datos.
+
+## Datos que recopilamos
+
+AmelBook **no** recopila, transmite ni comparte ningún dato personal. Todos los datos que introduces o generas en la aplicación (como recuentos de dhikr, marcadores o configuraciones) se almacenan exclusivamente en tu dispositivo mediante SQLite y nunca salen de él.
+
+## Permisos
+
+La aplicación puede solicitar los siguientes permisos del dispositivo:
+
+- **Ubicación** — se utiliza únicamente para calcular los horarios de oración precisos según tu ubicación actual. Los datos de ubicación se procesan en el dispositivo y nunca se envían a ningún servidor.
+- **Cámara** — se utiliza para capturar y guardar fotos durante los viajes del Hajj. Todas las fotos se almacenan localmente en tu dispositivo y nunca se suben ni comparten con ningún servidor.
+- **Notificaciones** — se utilizan para entregar recordatorios de horarios de oración localmente en tu dispositivo.
+
+## Analítica
+
+AmelBook utiliza **Firebase Google Analytics** para comprender y mejorar el uso de la aplicación. Solo se recopilan estadísticas de uso anónimas (como vistas de pantalla, aperturas de la aplicación y tendencias generales de uso) a través de este servicio. **No se recopila ni comparte ninguna información personal (nombre, correo electrónico, número de teléfono, etc.).** Los datos anónimos recopilados se utilizan para mejorar el rendimiento de la aplicación y la experiencia del usuario.
+
+Para más información, puede consultar la política de privacidad de Google: [Política de Privacidad de Google](https://policies.google.com/privacy)
+
+## Servicios de terceros
+
+Aparte de Firebase Google Analytics mencionado anteriormente, AmelBook no integra ningún SDK de publicidad ni servicios de rastreo de terceros. No se comparte ningún dato personal con ninguna parte externa.
+
+## Almacenamiento de datos
+
+Todos los datos de la aplicación se almacenan localmente en tu dispositivo mediante SQLite. Desinstalar la aplicación eliminará permanentemente todos los datos almacenados localmente.
+
+## Privacidad de los niños
+
+Esta aplicación no recopila conscientemente información de niños menores de 13 años. Dado que no se recopila ningún dato, la aplicación es segura para todas las edades.
+
+## Cambios en esta política
+
+Si se actualiza esta política de privacidad, la nueva versión se publicará en esta URL. El uso continuado de la aplicación tras los cambios constituye la aceptación de la política actualizada.
+
+## Contacto
+
+Si tienes alguna pregunta sobre esta política de privacidad, puedes ponerte en contacto a través de la sección de contacto en [tursoft.net](https://tursoft.net).
+
+---
+
+[← Volver a tursoft.net](/)
