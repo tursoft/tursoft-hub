@@ -33,9 +33,8 @@ const HeroSection = () => {
   const roles = [
     "Senior Software Architect",
     "Director of Technology",
-    ".NET & Java Expert",
+    ".NET & Web Expert",
     "Cloud & SaaS Solution Builder",
-    "Web & Mobile Developer",
   ];
 
   return (
