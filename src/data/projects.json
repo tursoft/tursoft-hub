@@ -55,8 +55,94 @@
   },
   "items": [
     {
-      "code": "JENGAIAPP",
+      "code": "BESTJOBFINDER",
       "orderIndex": 1,
+      "title": "BestJobFinder",
+      "photoUrl": "/assets/projects/_logos/bestjobfinder.png",
+      "companyCode": "Tursoft",
+      "group": "Misc",
+      "value": 900,
+      "summary": "AI-powered SaaS job finding platform. BestJobFinder helps users through their whole job search journey end-to-end: upload a CV, find jobs from different job boards, auto-score each job's match to the profile, apply and track applications, prepare for interviews and keep track of offers.",
+      "fulltext": "BestJobFinder is an AI-powered SaaS platform that aims to help users in their job search journey end-to-end. Users upload their CV, find jobs from different job boards, auto-score each job's match to their profile, get help applying and tracking their applications, get prepared for interviews and keep track of their offers.<br/><br/>The platform is developed by using AI coding models and tools like Claude Code, Codex, GitHub Copilot and OpenCode. It mainly has 4 frontend layers: web application, Electron-based desktop application, Chrome extension and admin panel. The system was designed by using microservice architecture for scalability and performance.<br/><br/>In both frontend and backend, TypeScript/JavaScript are the main languages, and code reuse is maximized this way. All frontends are mainly developed by using the React framework, including the Electron-based desktop application. Backend layers, including the API and the workers, are developed using Node.js. The solution also provides a bunch of AI-powered features like generating tailored cover letter texts, scoring jobs, proposing improvements in the CV and auto-answering application form questions by using CV data.",
+      "domainCodes": [],
+      "customerCodes": [],
+      "partnerCodes": [],
+      "skillCodes": [
+        "Typescript",
+        "JS",
+        "React",
+        "electron",
+        "chrome-extension",
+        "HTML5",
+        "CSS3",
+        "Nodejs",
+        "nextjs",
+        "Postgres",
+        "pgbouncer",
+        "Docker",
+        "docker-compose",
+        "Bash Scripting",
+        "traefik",
+        "letsencrypt",
+        "prometheus",
+        "grafana",
+        "portainer",
+        "cloudflare",
+        "OAuth",
+        "JWT",
+        "owasp",
+        "rbac",
+        "claudecode",
+        "codex",
+        "copilot",
+        "opencode",
+        "deepseek",
+        "glm",
+        "kimi",
+        "openrouter",
+        "anthropic-sdk",
+        "google-genai-sdk",
+        "obsidian",
+        "graphify",
+        "playwright-mcp",
+        "lmstudio",
+        "llama3.1",
+        "llama3.3",
+        "qwen3.5",
+        "Distributed Systems",
+        "VS Code"
+      ],
+      "datePeriod": {
+        "startDate": "01.04.2026",
+        "endDate": null
+      },
+      "props": [
+        {
+          "code": "platforms",
+          "title": "Web, Desktop, Chrome Extension"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Architect & Developer"
+        }
+      ],
+      "modules": [
+        "CV Management",
+        "Job Aggregation",
+        "Job Scoring",
+        "Application Tracking",
+        "Interview Preparation",
+        "Offer Tracking",
+        "Admin Panel",
+        "Workers"
+      ]
+    },
+    {
+      "code": "JENGAIAPP",
+      "orderIndex": 2,
       "title": "Jengai App",
       "photoUrl": "/assets/projects/_logos/jengai.app.png",
       "companyCode": "JENGAI",
@@ -147,7 +233,7 @@
     },
     {
       "code": "GAMYTEAPP",
-      "orderIndex": 2,
+      "orderIndex": 3,
       "title": "Gamyte App",
       "photoUrl": "/assets/projects/_logos/gamyte.app.png",
       "companyCode": "GAMYTE",
@@ -231,7 +317,7 @@
     },
     {
       "code": "CERTIFY.HEALTH",
-      "orderIndex": 3,
+      "orderIndex": 4,
       "title": "Certify Health",
       "photoUrl": "/assets/projects/_logos/certify.health.png",
       "companyCode": "INFRION",
@@ -325,7 +411,7 @@
     },
     {
       "code": "HIS2x",
-      "orderIndex": 4,
+      "orderIndex": 5,
       "title": "Avicenna Hospital Information System",
       "photoUrl": "/assets/projects/_logos/HIS2x.png",
       "companyCode": "DATASEL",
@@ -401,7 +487,7 @@
     },
     {
       "code": "ProEmpower",
-      "orderIndex": 5,
+      "orderIndex": 6,
       "title": "ProEmpower - DM4All",
       "photoUrl": "/assets/projects/_logos/ProEmpower.png",
       "companyCode": "ERC",
@@ -513,7 +599,7 @@
     },
     {
       "code": "AHIN",
-      "orderIndex": 6,
+      "orderIndex": 7,
       "title": "Avicenna Health Integration Network",
       "photoUrl": "/assets/projects/_logos/AHIN.png",
       "companyCode": "DATASEL",
@@ -560,7 +646,7 @@
     },
     {
       "code": "AIS",
-      "orderIndex": 7,
+      "orderIndex": 8,
       "title": "Avicenna Ambulance Information System",
       "photoUrl": "/assets/projects/_logos/AIS.png",
       "companyCode": "DATASEL",
@@ -643,7 +729,7 @@
     },
     {
       "code": "CQRE",
-      "orderIndex": 8,
+      "orderIndex": 9,
       "title": "Avicenna Clinical Quality Rule Engine",
       "photoUrl": "/assets/projects/_logos/CQRE.png",
       "companyCode": "DATASEL",
@@ -721,7 +807,7 @@
     },
     {
       "code": "CMS",
-      "orderIndex": 9,
+      "orderIndex": 10,
       "title": "Avicenna Clinic Management System",
       "photoUrl": "/assets/projects/_logos/CMS.png",
       "companyCode": "DATASEL",
@@ -803,7 +889,7 @@
     },
     {
       "code": "EDIS",
-      "orderIndex": 10,
+      "orderIndex": 11,
       "title": "Avicenna Emergency Department Information System",
       "photoUrl": "/assets/projects/_logos/EDIS.png",
       "companyCode": "DATASEL",
@@ -878,7 +964,7 @@
     },
     {
       "code": "FDS",
-      "orderIndex": 11,
+      "orderIndex": 12,
       "title": "Avicenna FDS",
       "photoUrl": "/assets/projects/_logos/FDS.png",
       "companyCode": "ERC",
@@ -928,7 +1014,7 @@
     },
     {
       "code": "ALISVERISASISTANI",
-      "orderIndex": 12,
+      "orderIndex": 13,
       "title": "Alışveriş Asistanı",
       "photoUrl": "/assets/projects/_logos/alisveris.asistani.png",
       "companyCode": "Tursoft",
@@ -995,7 +1081,7 @@
     },
     {
       "code": "SaglikTakipcim",
-      "orderIndex": 13,
+      "orderIndex": 14,
       "title": "Sağlık Takipçim - Personal Health Tracker",
       "photoUrl": "/assets/projects/_logos/sagliktakipcim.png",
       "companyCode": "DATASEL",
@@ -1056,7 +1142,7 @@
     },
     {
       "code": "Ankuzem",
-      "orderIndex": 14,
+      "orderIndex": 15,
       "title": "Ankara University - Distance Education Center",
       "photoUrl": "/assets/projects/_logos/ankuzem.png",
       "companyCode": "HALICI",
@@ -1102,7 +1188,7 @@
     },
     {
       "code": "EGM",
-      "orderIndex": 15,
+      "orderIndex": 16,
       "title": "General Diractorate Of Security / Distance Education Portal",
       "photoUrl": "/assets/projects/_logos/EGM.png",
       "companyCode": "CEIT",
@@ -1153,7 +1239,7 @@
     },
     {
       "code": "UNHCR",
-      "orderIndex": 16,
+      "orderIndex": 17,
       "title": "Official Portal of The UN Refugee Agency Turkey",
       "photoUrl": "/assets/projects/_logos/UNHCR.png",
       "companyCode": "CEIT",
@@ -1198,7 +1284,7 @@
     },
     {
       "code": "EDİSA",
-      "orderIndex": 17,
+      "orderIndex": 18,
       "title": "EDİSA - ELearning Content Authoring Tool",
       "photoUrl": "/assets/projects/_logos/EDISA.png",
       "companyCode": "Halici",
@@ -1255,7 +1341,7 @@
     },
     {
       "code": "HalsoftPortal",
-      "orderIndex": 18,
+      "orderIndex": 19,
       "title": "Halsoft Enterprise Portal",
       "photoUrl": "/assets/projects/_logos/HEP.png",
       "companyCode": "Halici",
@@ -1310,7 +1396,7 @@
     },
     {
       "code": "HEP",
-      "orderIndex": 19,
+      "orderIndex": 20,
       "title": "Halsoft e-Learning Portal",
       "photoUrl": "/assets/projects/_logos/HEP.png",
       "companyCode": "Halici",
@@ -1378,7 +1464,7 @@
     },
     {
       "code": "PDFWSL",
-      "orderIndex": 20,
+      "orderIndex": 21,
       "title": "Avicenna Product Development Framework SL",
       "photoUrl": "/assets/projects/_logos/PDFWSL.png",
       "companyCode": "ERC",
@@ -1401,7 +1487,7 @@
     },
     {
       "code": "PDFWCore",
-      "orderIndex": 21,
+      "orderIndex": 22,
       "title": "Avicenna Product Development Framework",
       "photoUrl": "/assets/projects/_logos/PDFWCore.png",
       "companyCode": "ERC",
@@ -1424,7 +1510,7 @@
     },
     {
       "code": "PDFW",
-      "orderIndex": 22,
+      "orderIndex": 23,
       "title": "Avicenna Product Development Framework",
       "photoUrl": "/assets/projects/_logos/PDFW.png",
       "companyCode": "ERC",
@@ -1461,7 +1547,7 @@
     },
     {
       "code": "ATTP",
-      "orderIndex": 23,
+      "orderIndex": 24,
       "title": "Avicenna Telemedicine Platform",
       "photoUrl": "/assets/projects/_logos/ATTP.png",
       "companyCode": "ERC",
@@ -1538,7 +1624,7 @@
     },
     {
       "code": "AHBS",
-      "orderIndex": 24,
+      "orderIndex": 25,
       "title": "Avicenna AHBS",
       "photoUrl": "/assets/projects/_logos/AHBS.png",
       "companyCode": "ERC",
@@ -1633,7 +1719,7 @@
     },
     {
       "code": "RPMS",
-      "orderIndex": 25,
+      "orderIndex": 26,
       "title": "Avicenna Remote Patient Management System",
       "photoUrl": "/assets/projects/_logos/RPMS.png",
       "companyCode": "DATASEL",
@@ -1701,7 +1787,7 @@
     },
     {
       "code": "FonetInventory",
-      "orderIndex": 26,
+      "orderIndex": 27,
       "title": "Fonet Inventory Modules",
       "photoUrl": "/assets/projects/_logos/FonetInventory.png",
       "companyCode": "FONET",
@@ -1755,7 +1841,7 @@
     },
     {
       "code": "FonetLog",
-      "orderIndex": 27,
+      "orderIndex": 28,
       "title": "Fonet Advanced Log Module",
       "photoUrl": "/assets/projects/_logos/FonetLog.png",
       "companyCode": "FONET",
@@ -1791,7 +1877,7 @@
     },
     {
       "code": "FonetStudio",
-      "orderIndex": 28,
+      "orderIndex": 29,
       "title": "Fonet Studio",
       "photoUrl": "/assets/projects/_logos/FonetStudio.png",
       "companyCode": "FONET",
@@ -1834,7 +1920,7 @@
     },
     {
       "code": "FonetFW",
-      "orderIndex": 29,
+      "orderIndex": 30,
       "title": "Fonet Framework",
       "photoUrl": "/assets/projects/_logos/FonetFW.png",
       "companyCode": "FONET",
@@ -1881,7 +1967,7 @@
     },
     {
       "code": "FonetHBYS",
-      "orderIndex": 30,
+      "orderIndex": 31,
       "title": "Fonet Hospital Information System",
       "photoUrl": "/assets/projects/_logos/FonetHBYS.png",
       "companyCode": "FONET",
@@ -1914,7 +2000,7 @@
     },
     {
       "code": "ABI",
-      "orderIndex": 31,
+      "orderIndex": 32,
       "title": "Avicenna ABI",
       "photoUrl": "/assets/projects/_logos/ABI.png",
       "companyCode": "ERC",
@@ -1953,7 +2039,7 @@
     },
     {
       "code": "IHBS",
-      "orderIndex": 32,
+      "orderIndex": 33,
       "title": "Integrated Hospital Business System",
       "photoUrl": "/assets/projects/_logos/IHBS.png",
       "companyCode": "DATASEL",
@@ -2009,7 +2095,7 @@
     },
     {
       "code": "ATHP",
-      "orderIndex": 33,
+      "orderIndex": 34,
       "title": "Avicenna Telemedicine Health Platform",
       "photoUrl": "/assets/projects/_logos/ATHP.png",
       "companyCode": "DATASEL",
@@ -2060,7 +2146,7 @@
     },
     {
       "code": "ATS",
-      "orderIndex": 34,
+      "orderIndex": 35,
       "title": "Avicenna Transcription System",
       "photoUrl": "/assets/projects/_logos/ATS.png",
       "companyCode": "DATASEL",
@@ -2111,7 +2197,7 @@
     },
     {
       "code": "MBYS",
-      "orderIndex": 35,
+      "orderIndex": 36,
       "title": "Avicenna MBYS - Clinic Management System",
       "photoUrl": "/assets/projects/_logos/mbys.logo.png",
       "companyCode": "DATASEL",
@@ -2212,7 +2298,7 @@
     },
     {
       "code": "TIGVAP",
-      "orderIndex": 36,
+      "orderIndex": 37,
       "title": "TİG Veri Aktarım Programı (DRG Data Transfer Program)",
       "photoUrl": "/assets/projects/_logos/TigVAP.png",
       "companyCode": "DATASEL",
@@ -2296,7 +2382,7 @@
     },
     {
       "code": "DockerMaster",
-      "orderIndex": 37,
+      "orderIndex": 38,
       "title": "Docker Master",
       "photoUrl": "/assets/projects/_logos/dockermaster.logo.small.png",
       "companyCode": "Tursoft",
@@ -2314,7 +2400,7 @@
     },
     {
       "code": "XMessenger",
-      "orderIndex": 38,
+      "orderIndex": 39,
       "title": "XMessenger - P2P Communication Platform",
       "photoUrl": "/assets/projects/_logos/XMessenger.png",
       "companyCode": null,
@@ -2354,7 +2440,7 @@
     },
     {
       "code": "KocaeliValilik",
-      "orderIndex": 39,
+      "orderIndex": 40,
       "title": "Websitesi of Governorship of Kocaeli",
       "photoUrl": "/assets/projects/_logos/kocaeli_valilik.png",
       "companyCode": "Tursoft",
@@ -2390,7 +2476,7 @@
     },
     {
       "code": "JandarmaATS",
-      "orderIndex": 40,
+      "orderIndex": 41,
       "title": "Gendarmerie Training Command - Student Perforamance Tracking Database",
       "photoUrl": "/assets/projects/_logos/JandarmaATS.png",
       "companyCode": null,
@@ -2414,7 +2500,7 @@
     },
     {
       "code": "JandarmaBYS",
-      "orderIndex": 41,
+      "orderIndex": 42,
       "title": "Gendarmerie - Document Management System",
       "photoUrl": "/assets/projects/_logos/JandarmaBYS.png",
       "companyCode": null,
@@ -2438,7 +2524,7 @@
     },
     {
       "code": "ProjeNedir",
-      "orderIndex": 42,
+      "orderIndex": 43,
       "title": "ProjeNedir.com",
       "photoUrl": "/assets/projects/_logos/ProjeNedir.png",
       "companyCode": "Tursoft",
@@ -2466,7 +2552,7 @@
     },
     {
       "code": "EOkullar",
-      "orderIndex": 43,
+      "orderIndex": 44,
       "title": "E-Okullar - Online Schools Portal",
       "photoUrl": "/assets/projects/_logos/EOkullar.png",
       "companyCode": "Tursoft",
@@ -2506,7 +2592,7 @@
     },
     {
       "code": "DizgiPro",
-      "orderIndex": 44,
+      "orderIndex": 45,
       "title": "Dizgi Pro - Photo Composition Tool",
       "photoUrl": "/assets/projects/_logos/DizgiPro.png",
       "companyCode": "Tursoft",
@@ -2547,7 +2633,7 @@
     },
     {
       "code": "TeknoparklarZirvesi2004",
-      "orderIndex": 45,
+      "orderIndex": 46,
       "title": "Official Website of TechnoParks Summit 2004",
       "photoUrl": "/assets/projects/_logos/teknoparklar_zirvesi2004.jpg",
       "companyCode": "Tursoft",
@@ -2600,7 +2686,7 @@
     },
     {
       "code": "Btie2004",
-      "orderIndex": 46,
+      "orderIndex": 47,
       "title": "Official Website of BTIE 2004",
       "photoUrl": "/assets/projects/_logos/Btie2004.png",
       "companyCode": "Tursoft",
@@ -2628,7 +2714,7 @@
     },
     {
       "code": "BootCamp",
-      "orderIndex": 47,
+      "orderIndex": 48,
       "title": "Official Website of BootCamp",
       "photoUrl": "/assets/projects/_logos/BootCamp.png",
       "companyCode": "Tursoft",
@@ -2652,7 +2738,7 @@
     },
     {
       "code": "BiltekOnline",
-      "orderIndex": 48,
+      "orderIndex": 49,
       "title": "Official Website of BiltekOnline",
       "photoUrl": "/assets/projects/_logos/BiltekOnline.png",
       "companyCode": "Tursoft",
@@ -2680,7 +2766,7 @@
     },
     {
       "code": "Eyedder",
-      "orderIndex": 49,
+      "orderIndex": 50,
       "title": "Official Website of Eyedder",
       "photoUrl": "/assets/projects/_logos/Eyedder.png",
       "companyCode": "Tursoft",
@@ -2704,7 +2790,7 @@
     },
     {
       "code": "EditMyTurkish",
-      "orderIndex": 50,
+      "orderIndex": 51,
       "title": "EditMyTurkish.com",
       "photoUrl": "/assets/projects/_logos/EditMyTurkish.png",
       "companyCode": "Tursoft",
@@ -2743,7 +2829,7 @@
     },
     {
       "code": "METU_ILT",
-      "orderIndex": 51,
+      "orderIndex": 52,
       "title": "Official Website of METU Communication Club",
       "photoUrl": "/assets/projects/_logos/METU_ILT.png",
       "companyCode": null,
@@ -2776,7 +2862,7 @@
     },
     {
       "code": "EDers",
-      "orderIndex": 52,
+      "orderIndex": 53,
       "title": "EDers - Online Learning Platform",
       "photoUrl": "/assets/projects/_logos/Eders.png",
       "companyCode": null,
@@ -2829,7 +2915,7 @@
     },
     {
       "code": "KriptoTurkiyede",
-      "orderIndex": 53,
+      "orderIndex": 54,
       "title": "Kripto Türkiye'de - Educational Game",
       "photoUrl": "/assets/projects/_logos/KriptoTurkiyede.png",
       "companyCode": "CEIT",
@@ -2878,7 +2964,7 @@
     },
     {
       "code": "EgikAtis",
-      "orderIndex": 54,
+      "orderIndex": 55,
       "title": "Eğik Atış - Educational Game",
       "photoUrl": "/assets/projects/_logos/EgikAtis.png",
       "companyCode": "CEIT",
@@ -2921,7 +3007,7 @@
     },
     {
       "code": "DarkRoom",
-      "orderIndex": 55,
+      "orderIndex": 56,
       "title": "DarkRoom - Educational Game",
       "photoUrl": "/assets/projects/_logos/DarkRoom.png",
       "companyCode": "CEIT",
@@ -2966,7 +3052,7 @@
     },
     {
       "code": "CilginTosba",
-      "orderIndex": 56,
+      "orderIndex": 57,
       "title": "Çılgın Tosba - Educational Game",
       "photoUrl": "/assets/projects/_logos/CilginTosba.png",
       "companyCode": "CEIT",
@@ -3011,7 +3097,7 @@
     },
     {
       "code": "BenKimim",
-      "orderIndex": 57,
+      "orderIndex": 58,
       "title": "BenKimim - Educational Game",
       "photoUrl": "/assets/projects/_logos/BenKimim.png",
       "companyCode": "CEIT",
@@ -3078,7 +3164,7 @@
     },
     {
       "code": "358Game",
-      "orderIndex": 58,
+      "orderIndex": 59,
       "title": "3-5-8 P2P Card Game",
       "photoUrl": "/assets/projects/_logos/The358Game.png",
       "companyCode": "CEIT",
@@ -3124,7 +3210,7 @@
     },
     {
       "code": "Efsane",
-      "orderIndex": 59,
+      "orderIndex": 60,
       "title": "Efsane - 3D Educational Game",
       "photoUrl": "/assets/projects/_logos/Efsane.png",
       "companyCode": "CEIT",
@@ -3186,7 +3272,7 @@
     },
     {
       "code": "BotebOnline",
-      "orderIndex": 60,
+      "orderIndex": 61,
       "title": "BÖTEB Online",
       "photoUrl": "/assets/projects/_logos/BotebOnline.png",
       "companyCode": "CEIT",
@@ -3235,7 +3321,7 @@
     },
     {
       "code": "DSP",
-      "orderIndex": 61,
+      "orderIndex": 62,
       "title": "Official Portal of Democratic Left Party",
       "photoUrl": "/assets/projects/_logos/dsp.png",
       "isactive": false,
@@ -3290,7 +3376,7 @@
     },
     {
       "code": "OCCM",
-      "orderIndex": 62,
+      "orderIndex": 63,
       "title": "Online Course Content Manager",
       "photoUrl": "/assets/projects/_logos/OCCM.png",
       "companyCode": "CEIT",
@@ -3331,7 +3417,7 @@
     },
     {
       "code": "OCMS",
-      "orderIndex": 63,
+      "orderIndex": 64,
       "title": "Online Course Management System",
       "photoUrl": "/assets/projects/_logos/OCMS.png",
       "companyCode": "CEIT",
@@ -3401,7 +3487,7 @@
     },
     {
       "code": "CSC",
-      "orderIndex": 64,
+      "orderIndex": 65,
       "title": "Labris Customer Support Center",
       "photoUrl": "/assets/projects/_logos/CSC.png",
       "companyCode": "LABRIS",
@@ -3438,7 +3524,7 @@
     },
     {
       "code": "AvicennaFastEyes",
-      "orderIndex": 65,
+      "orderIndex": 66,
       "title": "Avicenna FastEyes",
       "photoUrl": "/assets/projects/_logos/FastEyes.png",
       "companyCode": "DATASEL",
@@ -3486,7 +3572,7 @@
     },
     {
       "code": "VKBS",
-      "orderIndex": 66,
+      "orderIndex": 67,
       "title": "Avicenna Case-Mix Information System",
       "photoUrl": "/assets/projects/_logos/VKBS.png",
       "companyCode": "DATASEL",
@@ -3567,7 +3653,7 @@
     },
     {
       "code": "APM",
-      "orderIndex": 67,
+      "orderIndex": 68,
       "title": "Avicenna Project Master",
       "photoUrl": "/assets/projects/_logos/APM.png",
       "companyCode": "ERC",
@@ -3627,7 +3713,7 @@
     },
     {
       "code": "AHR",
-      "orderIndex": 68,
+      "orderIndex": 69,
       "title": "Avicenna Human Resources 360",
       "photoUrl": "/assets/projects/_logos/AHR.png",
       "companyCode": "ERC",
@@ -3681,7 +3767,7 @@
     },
     {
       "code": "soyagaciniznet",
-      "orderIndex": 69,
+      "orderIndex": 70,
       "title": "soyagaciniz.net",
       "photoUrl": "/assets/projects/_logos/soyagaciniznet.png",
       "companyCode": "ERC",
@@ -3718,7 +3804,7 @@
     },
     {
       "code": "EPR",
-      "orderIndex": 70,
+      "orderIndex": 71,
       "title": "Avicenna E-Reçete",
       "photoUrl": "/assets/projects/_logos/EPR.png",
       "companyCode": "ERC",
@@ -3782,7 +3868,7 @@
     },
     {
       "code": "AvicennaMobile",
-      "orderIndex": 71,
+      "orderIndex": 72,
       "title": "Avicenna Mobile",
       "photoUrl": "/assets/projects/_logos/HIS2x.png",
       "companyCode": "ERC",
@@ -3840,7 +3926,7 @@
     },
     {
       "code": "ATTPMobile",
-      "orderIndex": 72,
+      "orderIndex": 73,
       "title": "Avicenna Telemedicine Platform Mobile",
       "photoUrl": "/assets/projects/_logos/ATTPMobile.png",
       "companyCode": "ERC",
@@ -3895,7 +3981,7 @@
     },
     {
       "code": "PARDUSDOCKER",
-      "orderIndex": 73,
+      "orderIndex": 74,
       "title": "Pardus on Docker",
       "photoUrl": "/assets/projects/_logos/PARDUSDOCKER.png",
       "companyCode": "Tursoft",
@@ -3940,7 +4026,7 @@
     },
     {
       "code": "TursoftQuestionBank",
-      "orderIndex": 74,
+      "orderIndex": 75,
       "title": "Tursoft QuestionBank",
       "photoUrl": "/assets/projects/_logos/tursoft.questionbank.png",
       "companyCode": "Tursoft",
@@ -3982,7 +4068,7 @@
     },
     {
       "code": "TursoftWebsite2018",
-      "orderIndex": 75,
+      "orderIndex": 76,
       "title": "Tursoft Website 2018",
       "photoUrl": "/assets/projects/_logos/tursoft.logo.png",
       "companyCode": "Tursoft",
@@ -4011,7 +4097,7 @@
     },
     {
       "code": "TursoftWebsiteV1",
-      "orderIndex": 76,
+      "orderIndex": 77,
       "title": "Tursoft Homepage v1",
       "photoUrl": "/assets/projects/_logos/tursoft.logo.png",
       "companyCode": "Tursoft",
@@ -4039,7 +4125,7 @@
     },
     {
       "code": "TursoftWebsite2025",
-      "orderIndex": 76,
+      "orderIndex": 77,
       "title": "Tursoft Website 2025",
       "photoUrl": "/assets/projects/_logos/tursoft.logo.png",
       "companyCode": "Tursoft",
@@ -4078,7 +4164,7 @@
     },
     {
       "code": "TursoftPackman",
-      "orderIndex": 77,
+      "orderIndex": 78,
       "title": "Tursoft Packman",
       "photoUrl": "/assets/projects/_logos/tursoft.packman.png",
       "companyCode": "Tursoft",
@@ -4112,7 +4198,7 @@
     },
     {
       "code": "TursoftTetris",
-      "orderIndex": 78,
+      "orderIndex": 79,
       "title": "Tursoft Tetris",
       "photoUrl": "/assets/projects/_logos/tursoft.tetris.jpg",
       "companyCode": "Tursoft",
@@ -4146,7 +4232,7 @@
     },
     {
       "code": "TursoftAnimMaker",
-      "orderIndex": 79,
+      "orderIndex": 80,
       "title": "Tursoft Animation Maker",
       "photoUrl": "/assets/projects/_logos/tursoft.animmaker.png",
       "companyCode": "Tursoft",
@@ -4170,7 +4256,7 @@
     },
     {
       "code": "TursoftPaint",
-      "orderIndex": 80,
+      "orderIndex": 81,
       "title": "Tursoft Paint",
       "photoUrl": "/assets/projects/_logos/tursoft.paint.png",
       "companyCode": "Tursoft",
@@ -4194,7 +4280,7 @@
     },
     {
       "code": "TursoftStock",
-      "orderIndex": 81,
+      "orderIndex": 82,
       "title": "Stock Tracking System",
       "photoUrl": "/assets/projects/_logos/tursoft.stock.png",
       "companyCode": "Tursoft",
@@ -4230,7 +4316,7 @@
     },
     {
       "code": "Frizbi",
-      "orderIndex": 82,
+      "orderIndex": 83,
       "title": "Frizbi - Interactive Educational Game",
       "photoUrl": "/assets/projects/_logos/frizbi.jpg",
       "companyCode": "Halici",
@@ -4304,7 +4390,7 @@
     },
     {
       "code": "AMELBOOK",
-      "orderIndex": 83,
+      "orderIndex": 84,
       "title": "AmelBook",
       "photoUrl": "/assets/projects/_logos/amelbook.png",
       "companyCode": "",
