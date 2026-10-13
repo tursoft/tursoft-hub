@@ -1,5 +1,33 @@
 {
   "general": {
+    "ACCOUNTMANAGERFORCLAUDE": {
+      "screenshoots": [
+        {
+          "title": "Accounts panel: live usage limits, filters and account proposals",
+          "file_small": "/assets/projects/ACCOUNTMANAGERFORCLAUDE/screenshoots/small/accounts-panel.gif",
+          "file_big": "/assets/projects/ACCOUNTMANAGERFORCLAUDE/screenshoots/big/accounts-panel.gif",
+          "orderindex": 1
+        },
+        {
+          "title": "Detected Claude Code login ready to be saved to the account list",
+          "file_small": "/assets/projects/ACCOUNTMANAGERFORCLAUDE/screenshoots/small/current-session.gif",
+          "file_big": "/assets/projects/ACCOUNTMANAGERFORCLAUDE/screenshoots/big/current-session.gif",
+          "orderindex": 2
+        },
+        {
+          "title": "Usage analytics: limit usage per account over time",
+          "file_small": "/assets/projects/ACCOUNTMANAGERFORCLAUDE/screenshoots/small/usage-analytics.gif",
+          "file_big": "/assets/projects/ACCOUNTMANAGERFORCLAUDE/screenshoots/big/usage-analytics.gif",
+          "orderindex": 3
+        },
+        {
+          "title": "Availability calendar: when each account and limit can be used",
+          "file_small": "/assets/projects/ACCOUNTMANAGERFORCLAUDE/screenshoots/small/availability-calendar.gif",
+          "file_big": "/assets/projects/ACCOUNTMANAGERFORCLAUDE/screenshoots/big/availability-calendar.gif",
+          "orderindex": 4
+        }
+      ]
+    },
     "ALISVERISASISTANI": {
       "screenshoots": [
         {
