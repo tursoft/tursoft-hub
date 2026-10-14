@@ -34,7 +34,7 @@ export default function EducationCard({ education, onOpen }: EducationCardProps)
         <div className="min-w-0">
           <Tag tone="edu">{education.level}</Tag>
           <h3 className="mt-2 text-base font-medium leading-snug tracking-[-0.02em]">{education.department}</h3>
-          <p className="mt-0.5 text-sm text-accent">{education.companyName}</p>
+          <p className="mt-0.5 text-sm text-accent">{education.companyName ?? education.companyCode}</p>
           {education.companyCity && <p className="type-meta mt-2">{education.companyCity}</p>}
 
           <Collapsible open={expanded}>

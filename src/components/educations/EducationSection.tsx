@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import educationData from "@/data/education.json";
 import { companiesRepo } from "@/repositories/CompaniesRepo";
 import { educationRepo } from "@/repositories/EducationRepo";
-import type { EducationData } from "@/models/Education";
 import Reveal from "@/components/system/Reveal";
 import Section from "@/components/system/Section";
 import SectionHeader from "@/components/system/SectionHeader";
@@ -15,16 +15,14 @@ const startTime = (education: ProcessedEducation) => parseDate(education.datePer
 
 const EducationSection = () => {
   const [educations, setEducations] = useState<ProcessedEducation[]>([]);
-  const [summary, setSummary] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [selected, setSelected] = useState<ProcessedEducation | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
     const load = async () => {
       try {
-        const [list, response] = await Promise.all([educationRepo.getList(), fetch("/data/education.json")]);
-        const data = (await response.json()) as EducationData;
-        setSummary(data.general?.summary ?? "");
+        const list = await educationRepo.getList();
         const processed = await Promise.all(
           list.map(async (education) => {
             const company = await companiesRepo.getByCode(education.companyCode);
@@ -36,14 +34,18 @@ const EducationSection = () => {
             };
           }),
         );
+        if (cancelled) return;
         setEducations(processed.sort((a, b) => startTime(b) - startTime(a)));
       } catch (error) {
         console.error("Failed to load education data:", error);
       } finally {
-        setIsLoading(false);
+        if (!cancelled) setIsLoading(false);
       }
     };
     load();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -56,7 +58,7 @@ const EducationSection = () => {
             Where the <em>foundations</em> were laid.
           </>
         }
-        lede={summary || undefined}
+        lede={educationData.general.summary}
       />
 
       {isLoading ? (

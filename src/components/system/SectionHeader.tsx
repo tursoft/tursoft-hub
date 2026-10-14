@@ -16,7 +16,7 @@ export default function SectionHeader({ index, label, title, lede }: SectionHead
   const titleRef = useRef<HTMLHeadingElement>(null);
   const ledeRef = useRef<HTMLParagraphElement>(null);
   useDrift(titleRef, 56);
-  useDrift(ledeRef, -36);
+  useDrift(ledeRef, lede ? -36 : 0);
 
   return (
     <Reveal className="section-head">
