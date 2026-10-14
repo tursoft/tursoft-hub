@@ -12,7 +12,7 @@ import DetailDialog, { DetailEmpty, DetailMeta, DetailRow, DetailRows } from '@/
 import LogoTile from '@/components/system/LogoTile';
 import Tag from '@/components/system/Tag';
 import { formatPeriod } from '@/lib/format';
-import { parseDate } from '@/lib/datetimeutils';
+import { calculateDuration, parseDate } from '@/lib/datetimeutils';
 
 interface SkillDetailDialogProps {
   skill: SkillItem | null;
@@ -153,92 +153,15 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
 
   const logoPath = skill.photoUrl || "";
 
-  // Calculate total experience duration using min start date and max end date
-  const calculateTotalExperience = (): string => {
-    let minStartDate: Date | null = null;
-    let maxEndDate: Date | null = null;
-
-    // Process experiences
-    experiences.forEach(exp => {
-      exp.positions?.forEach(pos => {
-        if (pos.startDate) {
-          const start = parseDate(pos.startDate);
-          if (start && !isNaN(start.getTime())) {
-            if (!minStartDate || start < minStartDate) {
-              minStartDate = start;
-            }
-          }
-
-          const end = pos.endDate ? parseDate(pos.endDate) : new Date();
-          if (end && !isNaN(end.getTime())) {
-            if (!maxEndDate || end > maxEndDate) {
-              maxEndDate = end;
-            }
-          }
-        }
-      });
-    });
-
-    // Process projects
-    projects.forEach(project => {
-      if (project.datePeriod?.startDate) {
-        const start = parseDate(project.datePeriod.startDate);
-        if (start && !isNaN(start.getTime())) {
-          if (!minStartDate || start < minStartDate) {
-            minStartDate = start;
-          }
-        }
-
-        const end = project.datePeriod.endDate ? parseDate(project.datePeriod.endDate) : new Date();
-        if (end && !isNaN(end.getTime())) {
-          if (!maxEndDate || end > maxEndDate) {
-            maxEndDate = end;
-          }
-        }
-      }
-    });
-
-    // Process educations
-    educations.forEach(edu => {
-      if (edu.datePeriod?.startDate) {
-        const start = parseDate(edu.datePeriod.startDate);
-        if (start && !isNaN(start.getTime())) {
-          if (!minStartDate || start < minStartDate) {
-            minStartDate = start;
-          }
-        }
-
-        const end = edu.datePeriod?.endDate ? parseDate(edu.datePeriod.endDate) : new Date();
-        if (end && !isNaN(end.getTime())) {
-          if (!maxEndDate || end > maxEndDate) {
-            maxEndDate = end;
-          }
-        }
-      }
-    });
-
-    // Calculate duration between min start and max end
-    if (!minStartDate || !maxEndDate) return '';
-
-    const months = (maxEndDate.getFullYear() - minStartDate.getFullYear()) * 12 + 
-                   (maxEndDate.getMonth() - minStartDate.getMonth());
-    
-    if (months <= 0) return '';
-
-    const years = Math.floor(months / 12);
-    const remainingMonths = months % 12;
-
-    if (years > 0 && remainingMonths > 0) {
-      return `${years} yr${years > 1 ? 's' : ''} ${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
-    } else if (years > 0) {
-      return `${years} yr${years > 1 ? 's' : ''}`;
-    } else if (remainingMonths > 0) {
-      return `${remainingMonths} mo${remainingMonths > 1 ? 's' : ''}`;
-    }
-    return '';
-  };
-
-  const totalExperience = calculateTotalExperience();
+  // Total experience: earliest start to latest end across positions, projects and educations (same calculation as the cards).
+  // Items without a start date are ignored, as an open-ended range would otherwise run to today.
+  const totalExperience = calculateDuration(
+    [
+      ...experiences.flatMap((e) => (e.positions ?? []).map((p) => ({ startDate: p.startDate, endDate: p.endDate }))),
+      ...projects.map((p) => ({ startDate: p.datePeriod?.startDate, endDate: p.datePeriod?.endDate })),
+      ...educations.map((e) => ({ startDate: e.datePeriod?.startDate, endDate: e.datePeriod?.endDate })),
+    ].filter((range) => range.startDate),
+  );
 
   return (
     <DetailDialog

@@ -10,6 +10,7 @@ import DetailDialog, { DetailEmpty, DetailRow, DetailRows } from '@/components/s
 import LogoTile from '@/components/system/LogoTile';
 import Tag from '@/components/system/Tag';
 import { formatMonthRange, stripHtml } from '@/lib/format';
+import { calculateDuration } from '@/lib/datetimeutils';
 
 import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
@@ -123,32 +124,10 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
   
   if (!experience) return null;
 
-  // Calculate total experience duration
-  const calculateTotalDuration = () => {
-    if (!experience.positions.length) return '';
-    
-    const sortedPositions = [...experience.positions].sort((a, b) => 
-      new Date(a.startDate.split('.').reverse().join('-')).getTime() - 
-      new Date(b.startDate.split('.').reverse().join('-')).getTime()
-    );
-    
-    const firstPosition = sortedPositions[0];
-    const lastPosition = sortedPositions[sortedPositions.length - 1];
-    
-    const start = new Date(firstPosition.startDate.split('.').reverse().join('-'));
-    const end = lastPosition.endDate ? 
-      new Date(lastPosition.endDate.split('.').reverse().join('-')) : 
-      new Date();
-    
-    const years = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 365));
-    const months = Math.floor(((end.getTime() - start.getTime()) % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
-    
-    let duration = '';
-    if (years > 0) duration += `${years} year${years > 1 ? 's' : ''}`;
-    if (months > 0) duration += `${duration ? ' ' : ''}${months} month${months > 1 ? 's' : ''}`;
-    
-    return duration || '< 1 month';
-  };
+  // One duration calculation for the whole site: the same one the experience card uses.
+  const duration = calculateDuration(
+    experience.positions.map((p) => ({ startDate: p.startDate, endDate: p.endDate })),
+  );
 
   const totalTechCount = skills.length;
 
@@ -164,10 +143,12 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
         icon={<LogoTile src={company?.photoUrl} alt={company?.title ?? experience.companyCode ?? ''} size={52} />}
         title={company?.title || experience.companyCode || 'Company'}
         meta={[
-          <>
-            <Clock aria-hidden="true" />
-            {calculateTotalDuration()}
-          </>,
+          duration ? (
+            <>
+              <Clock aria-hidden="true" />
+              {duration}
+            </>
+          ) : null,
           location ? (
             <>
               <MapPin aria-hidden="true" />
