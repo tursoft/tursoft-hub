@@ -117,6 +117,8 @@ export default function Carousel<T>({ items, getKey, renderItem, ariaLabel, slid
               <div
                 key={getKey(item, itemIndex)}
                 className={cn("carousel-slide", active && "is-active")}
+                // Keyboard focus on a dimmed slide centres it first, so Enter opens the slide the user sees as active.
+                onFocusCapture={() => setIndex(itemIndex)}
                 onClickCapture={(event) => {
                   if (active) return;
                   event.stopPropagation();

@@ -15,7 +15,7 @@ import { referencesRepo } from "@/repositories/ReferencesRepo";
 import type { Person } from "@/models/People";
 import type { Reference } from "@/models/Reference";
 import { Button } from "@/components/ui/button";
-import ListViewer from "@/components/ui/listviewer";
+import ListViewer, { type ListAction } from "@/components/ui/listviewer";
 import PeopleDetailDialog from "@/components/people/PeopleDetailDialog";
 import QuoteCard from "@/components/system/QuoteCard";
 import Reveal from "@/components/system/Reveal";
@@ -55,6 +55,24 @@ const contactHref = (code: string, value: string) => {
   if (code === "email") return `mailto:${value}`;
   return value.startsWith("http") ? value : `https://${value}`;
 };
+
+const contactValue = (reference: Reference, code: string) =>
+  reference.contacts?.find((contact) => contact.code === code)?.value;
+
+/** Contact actions for the card and list views; each one only appears for a reference that has that contact. */
+const CONTACT_ACTIONS: ListAction<ReferenceWithPhoto>[] = ["email", "linkedin", "phone"].map((code) => ({
+  label: CONTACT_LABELS[code],
+  icon: CONTACT_ICONS[code],
+  variant: "secondary",
+  show: (reference) => Boolean(contactValue(reference, code)),
+  onClick: (reference) => {
+    const value = contactValue(reference, code);
+    if (!value) return;
+    const href = contactHref(code, value);
+    if (href.startsWith("http")) window.open(href, "_blank", "noopener,noreferrer");
+    else window.location.href = href;
+  },
+}));
 
 function ContactButtons({ reference }: { reference: Reference }) {
   const rank = (code: string) => {
@@ -162,6 +180,7 @@ const ReferencesSection = () => {
           description: (reference) => `“${reference.testimonial}”`,
           image: "photo",
           date: "date",
+          actions: CONTACT_ACTIONS,
         }}
         renderCarouselContent={(reference) => (
           <QuoteCard

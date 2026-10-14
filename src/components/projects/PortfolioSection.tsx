@@ -15,6 +15,17 @@ interface ProjectWithMeta extends ProjectEntry {
   companyTitle: string;
 }
 
+/** Skill codes without repeats, ignoring case ("Docker" and "docker" are one technology). */
+const uniqueSkillCodes = (codes: string[] = []) => {
+  const seen = new Set<string>();
+  return codes.filter((code) => {
+    const key = code.toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+};
+
 const PortfolioSection = () => {
   const [projects, setProjects] = useState<ProjectWithMeta[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -52,7 +63,7 @@ const PortfolioSection = () => {
   }, []);
 
   const categoryCount = new Set(projects.map((project) => project.group).filter(Boolean)).size;
-  const technologyCount = new Set(projects.flatMap((project) => project.skillCodes ?? [])).size;
+  const technologyCount = new Set(projects.flatMap((project) => project.skillCodes ?? []).map((code) => code.toLowerCase())).size;
 
   return (
     <Section id="portfolio">
@@ -97,7 +108,7 @@ const PortfolioSection = () => {
           image: "icon",
           badge: "group",
           date: "formattedYears",
-          tags: (project) => project.skillCodes ?? [],
+          tags: (project) => uniqueSkillCodes(project.skillCodes),
         }}
         gridCols={{ sm: 1, md: 2, lg: 3 }}
         ariaLabel="Projects"

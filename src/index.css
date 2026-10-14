@@ -1168,7 +1168,8 @@
 
   .carousel-viewport {
     position: relative;
-    overflow: hidden;
+    /* clip, not hidden: focusing an off-centre slide must not scroll the viewport away from the track position. */
+    overflow: clip;
     padding-block: 12px;
     cursor: grab;
     touch-action: pan-y;

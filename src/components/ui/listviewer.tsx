@@ -26,6 +26,8 @@ export interface ListAction<T> {
   icon?: ComponentType<{ className?: string }>;
   onClick: (item: T, event: MouseEvent) => void;
   variant?: "default" | "secondary" | "outline" | "ghost";
+  /** Return false to leave this action out for an item (e.g. a contact the item does not have). */
+  show?: (item: T) => boolean;
 }
 
 export interface FieldMapping<T> {
@@ -208,10 +210,11 @@ function ListViewer<T>({
   };
 
   const renderActions = (item: T) => {
-    if (!fieldMapping.actions?.length) return null;
+    const actions = fieldMapping.actions?.filter((action) => action.show?.(item) ?? true) ?? [];
+    if (actions.length === 0) return null;
     return (
       <div className="mt-4 flex flex-wrap gap-2">
-        {fieldMapping.actions.map((action, index) => {
+        {actions.map((action, index) => {
           const Icon = action.icon;
           const label = typeof action.label === "function" ? action.label(item) : action.label;
           return (
@@ -331,7 +334,13 @@ function ListViewer<T>({
 
   if (isLoading) {
     return (
-      <div className={cn(gridClass({ base: 1, md: 2, lg: 3 }), "gap-4")} aria-busy="true" aria-label={loadingMessage}>
+      <div
+        className={cn(gridClass({ base: 1, md: 2, lg: 3 }), "gap-4")}
+        role="status"
+        aria-busy="true"
+        aria-label={loadingMessage}
+      >
+        <span className="sr-only">{loadingMessage}</span>
         {Array.from({ length: 6 }, (_, index) => (
           <div key={index} className="surface h-[148px] animate-pulse" />
         ))}
