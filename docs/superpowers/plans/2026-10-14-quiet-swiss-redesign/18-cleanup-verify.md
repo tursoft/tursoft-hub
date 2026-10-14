@@ -46,6 +46,8 @@ Expected: no output. (`reveal`, `is-revealed` and `animate-in` are current class
 // Minimal Chrome DevTools Protocol harness shared by shoot.cjs and smoke.cjs (Node 22+, built-in WebSocket).
 const fs = require('fs');
 const http = require('http');
+const os = require('os');
+const path = require('path');
 const { spawn } = require('child_process');
 
 const CHROME_CANDIDATES = [
@@ -70,8 +72,11 @@ const getJSON = (url) =>
 async function launch({ outDir, port, onEvent = () => {} }) {
   const chromePath = process.env.CHROME_PATH || CHROME_CANDIDATES.find((p) => fs.existsSync(p));
   if (!chromePath) throw new Error('Chrome not found; set CHROME_PATH');
-  fs.mkdirSync(outDir, { recursive: true });
-  const profile = `${outDir}/profile`;
+  // Absolute paths only: Chrome exits at once (code 21) for a relative --user-data-dir.
+  const out = path.resolve(outDir).replace(/\\/g, '/');
+  fs.mkdirSync(out, { recursive: true });
+  // Keep Chrome's throwaway profile outside the project: Vite's file watcher crashes (EBUSY) on files Chrome holds open.
+  const profile = path.join(os.tmpdir(), `cdp-profile-${port}-${process.pid}`).replace(/\\/g, '/');
   const chrome = spawn(chromePath, [
     '--headless=new', '--disable-gpu', '--hide-scrollbars', '--no-first-run', '--disable-extensions',
     `--user-data-dir=${profile}`, `--remote-debugging-port=${port}`, '--window-size=1440,900', 'about:blank',
@@ -113,7 +118,7 @@ async function launch({ outDir, port, onEvent = () => {} }) {
 
   const shot = async (name) => {
     const r = await send('Page.captureScreenshot', { format: 'png' });
-    fs.writeFileSync(`${outDir}/${name}.png`, Buffer.from(r.data, 'base64'));
+    fs.writeFileSync(`${out}/${name}.png`, Buffer.from(r.data, 'base64'));
   };
 
   const press = async (key) => {
