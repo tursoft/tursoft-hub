@@ -208,11 +208,13 @@ export function useMagnetic(ref: RefObject<HTMLElement>, enabled = true): void {
 
 /**
  * Expandable cards: on fine pointers hover or keyboard focus expands and activation opens details;
- * on touch, a tap toggles the expanded state.
+ * on touch, a tap on the card (or the hint's button, via `toggle`) toggles the expanded state. The touch card
+ * itself has no button role, so a screen reader reaches the toggle and the details link as real buttons.
  */
 export function useExpandableCard(onOpen: () => void) {
   const fine = useFinePointer();
   const [expanded, setExpanded] = useState(false);
+  const toggle = () => setExpanded((value) => !value);
   const surfaceProps = fine
     ? {
         onMouseEnter: () => setExpanded(true),
@@ -225,6 +227,6 @@ export function useExpandableCard(onOpen: () => void) {
         onBlur: () => setExpanded(false),
         onActivate: onOpen,
       }
-    : { onActivate: () => setExpanded((value) => !value) };
-  return { expanded, fine, surfaceProps };
+    : { onClick: toggle };
+  return { expanded, fine, toggle, surfaceProps };
 }

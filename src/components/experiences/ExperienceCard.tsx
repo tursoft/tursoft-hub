@@ -28,7 +28,7 @@ interface ExperienceCardProps {
 }
 
 export default function ExperienceCard({ entry, onOpen }: ExperienceCardProps) {
-  const { expanded, fine, surfaceProps } = useExpandableCard(onOpen);
+  const { expanded, fine, toggle, surfaceProps } = useExpandableCard(onOpen);
   const { experience, company, span, positions } = entry;
   const name = company?.title ?? experience.companyCode ?? "Company";
   const location = [company?.city, company?.country].filter(Boolean).join(", ");
@@ -36,7 +36,7 @@ export default function ExperienceCard({ entry, onOpen }: ExperienceCardProps) {
   const duration = span ? calculateDuration([{ startDate: span.start, endDate: span.end }]) : "";
 
   return (
-    <Surface interactive aria-expanded={expanded} className="mb-4 p-5 sm:p-6" {...surfaceProps}>
+    <Surface interactive aria-expanded={fine ? expanded : undefined} className="mb-4 p-5 sm:p-6" {...surfaceProps}>
       <div className="grid grid-cols-[48px_minmax(0,1fr)] items-center gap-4 sm:grid-cols-[48px_minmax(0,1fr)_auto]">
         <LogoTile src={company?.photoUrl} alt={name} size={48} />
         <div className="min-w-0">
@@ -104,7 +104,7 @@ export default function ExperienceCard({ entry, onOpen }: ExperienceCardProps) {
         </div>
       ))}
 
-      {!fine && <ExpandHint expanded={expanded} onOpen={onOpen} />}
+      {!fine && <ExpandHint expanded={expanded} onToggle={toggle} onOpen={onOpen} />}
     </Surface>
   );
 }

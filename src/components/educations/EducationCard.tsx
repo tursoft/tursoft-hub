@@ -18,7 +18,7 @@ interface EducationCardProps {
 }
 
 export default function EducationCard({ education, onOpen }: EducationCardProps) {
-  const { expanded, fine, surfaceProps } = useExpandableCard(onOpen);
+  const { expanded, fine, toggle, surfaceProps } = useExpandableCard(onOpen);
   const skills = education.skillCodes ?? [];
   const graduation = [
     education.graduateDate && `graduated ${education.graduateDate}`,
@@ -28,7 +28,7 @@ export default function EducationCard({ education, onOpen }: EducationCardProps)
     .join(" · ");
 
   return (
-    <Surface interactive aria-expanded={expanded} className="mb-4 p-5 sm:p-6" {...surfaceProps}>
+    <Surface interactive aria-expanded={fine ? expanded : undefined} className="mb-4 p-5 sm:p-6" {...surfaceProps}>
       <div className="grid grid-cols-[48px_minmax(0,1fr)] gap-4">
         <LogoTile src={education.companyPhotoUrl} alt={education.companyName ?? education.department} size={48} />
         <div className="min-w-0">
@@ -52,7 +52,7 @@ export default function EducationCard({ education, onOpen }: EducationCardProps)
             )}
           </Collapsible>
 
-          {!fine && <ExpandHint expanded={expanded} onOpen={onOpen} />}
+          {!fine && <ExpandHint expanded={expanded} onToggle={toggle} onOpen={onOpen} />}
         </div>
       </div>
     </Surface>

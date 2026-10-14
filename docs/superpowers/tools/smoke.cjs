@@ -186,9 +186,10 @@ async function main() {
   const [sheetDialogs, portfolioTop] = String(sheet).split('|');
   expect('phone: the menu sheet jumps to Projects and closes', sheetDialogs === '0' && Math.abs(Number(portfolioTop)) < 140, sheet);
 
+  // On touch the card has no button role (its hint holds the buttons), so it is selected by class, not by CARD.
   const touch = await evalJS(`(async () => { const s = (ms) => new Promise((r) => setTimeout(r, ms));
     if (matchMedia('(hover: hover) and (pointer: fine)').matches) return 'skipped (touch emulation not active)';
-    const card = document.querySelector('#experience ${CARD}'); if (!card) return 'no card';
+    const card = document.querySelector('#experience .surface-interactive'); if (!card) return 'no card';
     card.scrollIntoView({ block: 'center' }); await s(400);
     const before = card.getBoundingClientRect().height; card.click(); await s(900);
     return document.querySelectorAll('[role="dialog"]').length + ' dialogs, height ' + Math.round(before) + ' -> ' + Math.round(card.getBoundingClientRect().height); })()`);
