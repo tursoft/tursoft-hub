@@ -9,7 +9,6 @@ import LogoTile from '@/components/system/LogoTile';
 import Tag, { type TagTone } from '@/components/system/Tag';
 import { formatMonthRange } from '@/lib/format';
 import { cn } from '@/lib/utils';
-import type { Education } from '@/models/Education';
 import type SkillItem from '@/models/Skills';
 import type { Company } from '@/models/Companies';
 import type { ProcessedEducation } from './EducationCard';
@@ -66,9 +65,12 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
     let cancelled = false;
     setCompany(null);
     if (education?.companyCode && !education.companyName) {
-      companiesRepo.getByCode(education.companyCode).then((result) => {
-        if (!cancelled) setCompany(result);
-      });
+      companiesRepo
+        .getByCode(education.companyCode)
+        .then((result) => {
+          if (!cancelled) setCompany(result);
+        })
+        .catch((error) => console.error('Failed to load education company:', error));
     }
     return () => {
       cancelled = true;
