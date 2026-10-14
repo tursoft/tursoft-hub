@@ -17,6 +17,7 @@ import SectionHeader from '../system/SectionHeader'
 import SegmentedControl from '../system/SegmentedControl'
 import Surface from '../system/Surface'
 import Tag from '../system/Tag'
+import { formatMonthRange } from '@/lib/format'
 import { ENTITY_HEX_COLORS, ENTITY_TAG_TONE } from '@/lib/colors'
 import { cn } from '@/lib/utils'
 
@@ -61,24 +62,28 @@ L.Icon.Default.mergeOptions({
 })
 
 
+const escapeHtml = (text: string) =>
+  text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
 // Logo pin: a light well outlined in the entity colour; falls back to the type's initial if the logo fails.
-const createIcon = (color: string, type: string, logoUrl?: string) => {
+// The visually hidden title is the pin's accessible name (Leaflet makes the marker a focusable button).
+const createIcon = (color: string, type: string, title: string, logoUrl?: string) => {
   const letter = type.charAt(0).toUpperCase()
   const inner = logoUrl
-    ? `<img src="${logoUrl}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" /><span class="map-pin-letter" style="display:none">${letter}</span>`
-    : `<span class="map-pin-letter">${letter}</span>`
+    ? `<img src="${logoUrl}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" /><span class="map-pin-letter" aria-hidden="true" style="display:none">${letter}</span>`
+    : `<span class="map-pin-letter" aria-hidden="true">${letter}</span>`
 
   return L.divIcon({
     className: 'map-pin-icon',
-    html: `<div class="map-pin" style="--pin-color: ${color}">${inner}</div>`,
+    html: `<div class="map-pin" style="--pin-color: ${color}">${inner}<span class="sr-only">${escapeHtml(title)}</span></div>`,
     iconSize: [30, 30],
     iconAnchor: [15, 15],
     popupAnchor: [0, -18],
   })
 }
 
-const createIconWithLogo = (type: 'experience' | 'education' | 'customer' | 'partner', logoUrl?: string) =>
-  createIcon(ENTITY_HEX_COLORS[type], type, logoUrl)
+const createIconWithLogo = (type: 'experience' | 'education' | 'customer' | 'partner', title: string, logoUrl?: string) =>
+  createIcon(ENTITY_HEX_COLORS[type], type, title, logoUrl)
 
 export interface MapItem {
   uid: string
@@ -158,8 +163,8 @@ const transformEducationToMapItem = (school: Education, index: number): MapItem 
     city: company.city || '',
     country: company.country || '',
     daterange: {
-      start: school.period?.split(' - ')[0] || school.datePeriod?.startDate || '',
-      end: school.period?.split(' - ')[1] || school.datePeriod?.endDate
+      start: school.datePeriod?.startDate || school.period?.split(' - ')[0] || '',
+      end: school.datePeriod?.endDate || school.period?.split(' - ')[1]
     }
   }
 }
@@ -250,6 +255,9 @@ const createMapItemsFromData = (filters: string[] = ['experience', 'education', 
   return result
 }
 
+// One date format for the popup and the table: "Mar 2011 — Jan 2014", "Mar 2011 — present", "" without a start.
+const formatItemPeriod = (item: MapItem) => formatMonthRange(item.daterange.start, item.daterange.end)
+
 // Source record behind a map item, for the detail dialogs. Looked up by the item's entity code,
 // never by splitting the uid (many codes contain dots, e.g. "MOH.TR").
 const findSourceRecord = (item: MapItem): unknown => {
@@ -269,14 +277,17 @@ const findSourceRecord = (item: MapItem): unknown => {
 // Custom Marker component that handles hover and click events
 function HoverMarker({ 
   marker, 
-  icon, 
   onMarkerClick 
 }: { 
   marker: MapMarker; 
-  icon: L.DivIcon;
   onMarkerClick: (marker: MapMarker) => void;
 }) {
   const markerRef = useRef<L.Marker>(null)
+  // Stable icon per pin: a new icon object would make react-leaflet call setIcon on every render.
+  const icon = useMemo(
+    () => createIconWithLogo(marker.type, marker.title, marker.logo),
+    [marker.type, marker.title, marker.logo],
+  )
   
   const handleMouseOver = () => {
     const markerInstance = markerRef.current
@@ -302,6 +313,15 @@ function HoverMarker({
     onMarkerClick(marker)
   }
 
+  // Leaflet makes the pin a focusable role="button" but only fires "click" for the mouse;
+  // Enter and Space open the dialog as well.
+  const handleKeyPress = (event: L.LeafletKeyboardEvent) => {
+    const { key } = event.originalEvent
+    if (key !== 'Enter' && key !== ' ') return
+    event.originalEvent.preventDefault()
+    onMarkerClick(marker)
+  }
+
   return (
     <Marker
       ref={markerRef}
@@ -311,6 +331,7 @@ function HoverMarker({
         mouseover: handleMouseOver,
         mouseout: handleMouseOut,
         click: handleClick,
+        keypress: handleKeyPress,
       }}
     >
       <Popup
@@ -523,9 +544,7 @@ export default function MapSection() {
 
       const originalData = findSourceRecord(mapItem)
 
-      const period = mapItem.daterange.end 
-        ? `${mapItem.daterange.start} - ${mapItem.daterange.end}`
-        : `${mapItem.daterange.start} - Present`
+      const period = formatItemPeriod(mapItem)
 
       result.push({
         id: mapItem.uid,
@@ -673,7 +692,6 @@ export default function MapSection() {
                   <HoverMarker
                     key={marker.id}
                     marker={marker}
-                    icon={createIconWithLogo(marker.type, marker.logo)}
                     onMarkerClick={handleMarkerClick}
                   />
                 ))}
@@ -695,21 +713,26 @@ export default function MapSection() {
                   </TableHeader>
                   <TableBody>
                     {mapItems.map((item) => {
-                      const dateRange = item.daterange.start
-                        ? `${item.daterange.start} — ${item.daterange.end || 'present'}`
-                        : ''
                       return (
                         <TableRow key={item.uid} className="cursor-pointer" onClick={() => handleRowClick(item)}>
                           <TableCell className="font-medium">
-                            <div className="flex items-center gap-3">
+                            <button
+                              type="button"
+                              aria-label={item.title}
+                              className="flex items-center gap-3 rounded-md text-left"
+                              onClick={(event) => {
+                                event.stopPropagation()
+                                handleRowClick(item)
+                              }}
+                            >
                               <LogoTile src={item.logoUrl} alt={item.title} size={28} variant="logo-light" className="p-[3px]" />
                               <span>{item.title}</span>
-                            </div>
+                            </button>
                           </TableCell>
                           <TableCell>
                             <Tag tone={ENTITY_TAG_TONE[item.type]}>{item.type}</Tag>
                           </TableCell>
-                          <TableCell className="whitespace-nowrap font-mono text-xs text-faint">{dateRange}</TableCell>
+                          <TableCell className="whitespace-nowrap font-mono text-xs text-faint">{formatItemPeriod(item)}</TableCell>
                           <TableCell>{item.country}</TableCell>
                           <TableCell>{item.city}</TableCell>
                         </TableRow>

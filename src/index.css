@@ -1899,6 +1899,15 @@
   transform: scale(1.18);
 }
 
+/* Keyboard focus: the pin has its own 2px entity outline just inside the marker box, so the ring
+   sits further out (4px) and is lifted above neighbouring pins. */
+.map-pin-icon:focus-visible {
+  z-index: 1000 !important;
+  border-radius: 10px;
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 4px;
+}
+
 /* ==========================================================================
    Reduced motion: no movement, everything visible
    ========================================================================== */
