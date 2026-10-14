@@ -53,15 +53,6 @@ const WORLD_BOUNDS: L.LatLngBoundsLiteral = [
   [85, 540],
 ]
 
-// Fix default markers
-delete (L.Icon.Default.prototype as unknown as { _getIconUrl: unknown })._getIconUrl
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-})
-
-
 const escapeHtml = (text: string) =>
   text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
@@ -362,56 +353,6 @@ function HoverMarker({
   )
 }
 
-// Component to add country hover highlighting
-function CountryHighlight() {
-  const map = useMap()
-  
-  useEffect(() => {
-    if (!map) return
-    
-    // Add hover effect for country polygons
-    const highlightCountry = (e: L.LeafletMouseEvent) => {
-      const layer = e.target
-      if (layer && layer.setStyle) {
-        layer.setStyle({
-          weight: 3,
-          color: '#3b82f6',
-          dashArray: '',
-          fillOpacity: 0.3,
-          fillColor: '#3b82f6'
-        })
-        layer.bringToFront()
-      }
-    }
-
-    const resetHighlight = (e: L.LeafletMouseEvent) => {
-      const layer = e.target
-      if (layer && layer.setStyle) {
-        layer.setStyle({
-          weight: 1,
-          opacity: 0.5,
-          color: '#666',
-          dashArray: '3',
-          fillOpacity: 0.1,
-          fillColor: '#ccc'
-        })
-      }
-    }
-
-    // Simple country hover effect using map events
-    map.on('mouseover', (e) => {
-      // This is a basic implementation - for full country boundaries you'd need GeoJSON data
-      // For now, we'll just add a subtle overlay effect
-    })
-
-    return () => {
-      map.off('mouseover')
-    }
-  }, [map])
-  
-  return null
-}
-
 // Component to handle map bounds
 function MapBounds({ markers }: { markers: MapMarker[] }) {
   const map = useMap()
@@ -509,43 +450,7 @@ export default function MapSection() {
   }
 
   // Generate MapItems from all data sources
-  const mapItems = useMemo(() => {
-    const result: MapItem[] = []
-
-    // Transform Experience data to MapItems
-    if (selectedFilters.includes('experience')) {
-      experiencesData.items.forEach((company, index) => {
-        const mapItem = transformExperienceToMapItem(company as Experience, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    // Transform Education data to MapItems
-    if (selectedFilters.includes('education')) {
-      educationData.items.forEach((school, index) => {
-        const mapItem = transformEducationToMapItem(school as Education, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    // Transform Customer data to MapItems
-    if (selectedFilters.includes('customer')) {
-      customersData.items.forEach((customer, index) => {
-        const mapItem = transformCustomerToMapItem(customer as Customer, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    // Transform Partner data to MapItems
-    if (selectedFilters.includes('partner')) {
-      partnersData.items.forEach((partner, index) => {
-        const mapItem = transformPartnerToMapItem(partner as Partner, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    return result
-  }, [selectedFilters])
+  const mapItems = useMemo(() => createMapItemsFromData(selectedFilters), [selectedFilters])
 
   // Convert MapItems to MapMarkers for rendering
   const markers = useMemo(() => {
@@ -703,7 +608,6 @@ export default function MapSection() {
                 />
                 <MapResizer trigger={isMaximized} />
                 <MapBounds markers={markers} />
-                <CountryHighlight />
                 {markers.map((marker) => (
                   <HoverMarker
                     key={marker.id}
