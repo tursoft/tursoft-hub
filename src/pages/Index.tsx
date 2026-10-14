@@ -3,6 +3,7 @@ import SiteNav from "@/components/system/SiteNav";
 import Footer from "@/components/system/Footer";
 import BackToTop from "@/components/system/BackToTop";
 import HeroSection from "@/components/HeroSection";
+import TickerBand from "@/components/TickerBand";
 import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/experiences/ExperienceSection";
 import DomainsSection from "@/components/domains/DomainsSection";
@@ -26,6 +27,7 @@ const Index = () => {
       <SiteNav />
       <main ref={mainRef}>
         <HeroSection />
+        <TickerBand />
         <AboutSection />
         <ExperienceSection />
         <DomainsSection />
