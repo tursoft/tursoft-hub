@@ -44,15 +44,20 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
 
   // Fetch project objects and logos when customer changes
   useEffect(() => {
+    if (!customer?.projectCodes || customer.projectCodes.length === 0) {
+      setProjects([]);
+      return;
+    }
+
+    let cancelled = false;
     const fetchProjects = async () => {
-      if (!customer?.projectCodes) return;
-      
       const logos: Record<string, string> = {};
       const projectItems: ProjectEntry[] = [];
       
       for (const projectCode of customer.projectCodes) {
         if (projectCode) {
           const project = await projectsRepo.getByCode(projectCode);
+          if (cancelled) return;
           if (project) {
             projectItems.push(project);
             if (project.photoUrl) {
@@ -66,23 +71,27 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
       setProjectLogos(logos);
     };
 
-    if (customer?.projectCodes && customer.projectCodes.length > 0) {
-      fetchProjects();
-    } else {
-      setProjects([]);
-    }
+    fetchProjects();
+    return () => {
+      cancelled = true;
+    };
   }, [customer?.projectCodes]);
 
   // Fetch technology objects and logos when customer changes
   useEffect(() => {
+    if (!customer?.skillCodes || customer.skillCodes.length === 0) {
+      setSkills([]);
+      return;
+    }
+
+    let cancelled = false;
     const fetchSkills = async () => {
-      if (!customer?.skillCodes) return;
-      
       const skillItems: SkillItem[] = [];
       
       for (const skillCode of customer.skillCodes) {
         if (skillCode) {
           const skill = await skillsRepo.getByCode(skillCode);
+          if (cancelled) return;
           if (skill) {
             skillItems.push(skill);
           }
@@ -92,42 +101,51 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
       setSkills(skillItems);
     };
 
-    if (customer?.skillCodes && customer.skillCodes.length > 0) {
-      fetchSkills();
-    }
+    fetchSkills();
+    return () => {
+      cancelled = true;
+    };
   }, [customer?.skillCodes]);
 
   // Fetch company data when customer changes
   useEffect(() => {
+    // Drop the previous customer's company and testimonials right away so they are never shown for this one.
+    setCompanyData(null);
+    setCustomerReferences([]);
+    if (!customer?.companyCode) return;
+
+    let cancelled = false;
     const fetchCompanyData = async () => {
-      if (!customer?.companyCode) return;
-      
       const company = await companiesRepo.getByCode(customer.companyCode);
-      setCompanyData(company);
+      if (!cancelled) setCompanyData(company);
     };
 
-    if (customer?.companyCode) {
-      fetchCompanyData();
-    }
+    fetchCompanyData();
+    return () => {
+      cancelled = true;
+    };
   }, [customer?.companyCode]);
 
   // Fetch testimonials/references related to customer's company
   useEffect(() => {
+    if (!customer?.companyCode || !companyData) return;
+
+    let cancelled = false;
     const fetchReferences = async () => {
-      if (!customer?.companyCode) return;
-      
       const allReferences = await referencesRepo.getList();
+      if (cancelled) return;
       // Find references from people who worked at this company
+      const companyTitle = companyData.title.toLowerCase();
       const relatedRefs = allReferences.filter(
-        ref => ref.isActive && 
-        ref.company.toLowerCase().includes(companyData?.title.toLowerCase() || customer.companyCode?.toLowerCase() || '')
+        ref => ref.isActive && ref.company.toLowerCase().includes(companyTitle)
       );
       setCustomerReferences(relatedRefs.slice(0, 3)); // Show up to 3 testimonials
     };
 
-    if (customer?.companyCode && companyData) {
-      fetchReferences();
-    }
+    fetchReferences();
+    return () => {
+      cancelled = true;
+    };
   }, [customer?.companyCode, companyData]);
 
   if (!customer) return null;

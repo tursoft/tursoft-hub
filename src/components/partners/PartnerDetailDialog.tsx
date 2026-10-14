@@ -37,24 +37,31 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
 
   // Fetch company data when partner changes
   useEffect(() => {
+    // Drop the previous partner's company right away so it is never shown for this one.
+    setCompanyData(null);
+    if (!partner?.companyCode) return;
+
+    let cancelled = false;
     const fetchCompanyData = async () => {
-      if (!partner?.companyCode) return;
-      
       const company = await companiesRepo.getByCode(partner.companyCode);
-      setCompanyData(company);
+      if (!cancelled) setCompanyData(company);
     };
 
-    if (partner?.companyCode) {
-      fetchCompanyData();
-    }
+    fetchCompanyData();
+    return () => {
+      cancelled = true;
+    };
   }, [partner?.companyCode]);
 
   // Fetch projects that include this partner
   useEffect(() => {
+    setPartnerProjects([]);
+    if (!partner?.partnerCode) return;
+
+    let cancelled = false;
     const fetchProjects = async () => {
-      if (!partner?.partnerCode) return;
-      
       const allProjects = await projectsRepo.getList();
+      if (cancelled) return;
       // Filter projects that include this partner in partnerCodes array
       const partnerCode = partner.partnerCode.toLowerCase();
       const relatedProjects = allProjects.filter((project) =>
@@ -63,20 +70,26 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
       setPartnerProjects(relatedProjects);
     };
 
-    if (partner?.partnerCode) {
-      fetchProjects();
-    }
+    fetchProjects();
+    return () => {
+      cancelled = true;
+    };
   }, [partner?.partnerCode]);
 
   // Fetch project logos when partner projects change
   useEffect(() => {
+    if (!partnerProjects.length) {
+      setProjectLogos({});
+      return;
+    }
+
+    let cancelled = false;
     const fetchLogos = async () => {
-      if (!partnerProjects.length) return;
-      
       const logos: Record<string, string> = {};
       for (const project of partnerProjects) {
         if (project.code) {
           const logo = await projectsRepo.getPhotoUrlByCode(project.code);
+          if (cancelled) return;
           if (logo) {
             logos[project.code] = logo;
           }
@@ -85,9 +98,10 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
       setProjectLogos(logos);
     };
 
-    if (partnerProjects.length > 0) {
-      fetchLogos();
-    }
+    fetchLogos();
+    return () => {
+      cancelled = true;
+    };
   }, [partnerProjects]);
 
   if (!partner) return null;
