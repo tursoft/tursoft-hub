@@ -81,15 +81,17 @@ async function launch({ outDir, port, onEvent = () => {} }) {
     '--headless=new', '--disable-gpu', '--hide-scrollbars', '--no-first-run', '--disable-extensions',
     `--user-data-dir=${profile}`, `--remote-debugging-port=${port}`, '--window-size=1440,900', 'about:blank',
   ], { stdio: 'ignore' });
+  // Also clean up when a run fails and the script exits early.
+  process.on('exit', () => {
+    chrome.kill();
+    try { fs.rmSync(profile, { recursive: true, force: true }); } catch {}
+  });
 
   let targets = null;
   for (let i = 0; i < 50 && !targets; i++) {
     try { targets = await getJSON(`http://localhost:${port}/json`); } catch { await sleep(200); }
   }
-  if (!targets) {
-    chrome.kill();
-    throw new Error('Chrome devtools port never came up');
-  }
+  if (!targets) throw new Error('Chrome devtools port never came up');
   const page = targets.find((t) => t.type === 'page');
   const ws = new WebSocket(page.webSocketDebuggerUrl);
   await new Promise((r, j) => { ws.onopen = r; ws.onerror = j; });

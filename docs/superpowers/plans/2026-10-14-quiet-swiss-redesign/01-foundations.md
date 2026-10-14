@@ -446,7 +446,7 @@ Replace the whole file with:
 
   ::-webkit-scrollbar-thumb {
     border: 2px solid hsl(var(--background));
-    border-radius: 999px;
+    border-radius: 5px;
     background: hsl(var(--line-strong));
   }
 
@@ -469,7 +469,6 @@ Replace the whole file with:
     overflow-x: clip;
     padding-block: 96px;
     border-top: 1px solid hsl(var(--line));
-    scroll-margin-top: var(--nav-height);
   }
 
   /* A light sweep travels along each section's top rule. */
