@@ -98,7 +98,15 @@ async function launch({ outDir, port, onEvent = () => {} }) {
     // Chrome rejects maxTouchPoints below 1, so only pass it when touch emulation is on.
     await send('Emulation.setTouchEmulationEnabled', mobile ? { enabled: true, maxTouchPoints: 5 } : { enabled: false });
     await send('Page.navigate', { url });
-    await sleep(4500);
+    // Wait until the app has actually rendered its sections (a cold Vite dev server can take
+    // well over a fixed delay), then give data-driven sections a moment to settle.
+    const deadline = Date.now() + 45000;
+    while (Date.now() < deadline) {
+      const ready = await evalJS(`document.readyState === 'complete' && document.querySelectorAll('section[id]').length >= 12`).catch(() => false);
+      if (ready) break;
+      await sleep(250);
+    }
+    await sleep(1500);
     if (walk) {
       await evalJS(`(async () => { const s = (ms) => new Promise((r) => setTimeout(r, ms));
         for (let y = 0; y < document.documentElement.scrollHeight; y += ${Math.floor(height * 0.7)}) { window.scrollTo(0, y); await s(90); }
