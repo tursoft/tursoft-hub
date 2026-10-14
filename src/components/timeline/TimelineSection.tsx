@@ -44,6 +44,11 @@ interface TimelineItem {
   data: ProjectEntry | Experience | Education;
 }
 
+/** Padding (px) between the timeline scroller's edge and the axis (Tailwind p-8). */
+const TIMELINE_PADDING = 32;
+/** Bars narrower than this (px) show no label; they keep their aria-label. */
+const MIN_LABEL_WIDTH = 36;
+
 const TimelineSection = () => {
   const [items, setItems] = useState<TimelineItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -194,13 +199,6 @@ const TimelineSection = () => {
 
     loadData();
   }, []);
-
-  // Show the most recent years first when the timeline view opens or the zoom changes.
-  useEffect(() => {
-    if (viewMode !== 'timeline' || isLoading) return;
-    const scroller = timelineRef.current;
-    if (scroller) scroller.scrollLeft = scroller.scrollWidth;
-  }, [viewMode, zoomLevel, isLoading]);
 
   const filteredItems = items.filter((item) => {
     if (selectedCategory === 'All') return true;
@@ -372,6 +370,26 @@ const TimelineSection = () => {
     else if (zoomLevel === 'month') setZoomLevel('year');
   };
 
+  // Bring the newest visible item into view when the timeline opens or the filter or zoom changes
+  // ("All" ends at the present, so it still opens at the far right).
+  useEffect(() => {
+    if (viewMode !== 'timeline' || isLoading) return;
+    const scroller = timelineRef.current;
+    if (!scroller || filteredItems.length === 0) return;
+    const metrics = getTimelineMetrics();
+    const newestRight = Math.max(
+      ...filteredItems.map((item) => {
+        const { left, width } = calculateItemPosition(item, metrics);
+        return left + width;
+      }),
+    );
+    // The scroller has 32px of padding (p-8) on each side of the axis.
+    scroller.scrollLeft = Math.max(0, newestRight + TIMELINE_PADDING * 2 - scroller.clientWidth);
+    // Deliberately keyed on view, zoom and filter only: the helpers are re-created every render and
+    // re-running on any other state change (e.g. opening a dialog) would reset the user's scroll position.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewMode, zoomLevel, selectedCategory, isLoading]);
+
   const header = (
     <SectionHeader
       index="10"
@@ -389,7 +407,9 @@ const TimelineSection = () => {
     return (
       <Section id="timeline">
         {header}
-        <div className="surface h-[400px] animate-pulse" aria-busy="true" />
+        <div className="surface h-[400px] animate-pulse" role="status" aria-busy="true">
+          <span className="sr-only">Loading timeline…</span>
+        </div>
       </Section>
     );
   }
@@ -572,11 +592,16 @@ const TimelineSection = () => {
                             }
                           }}
                         >
+                          {/* overflow-clip (not hidden) keeps the label's sticky offset relative to the scroller. */}
                           <div
-                            className="flex h-[22px] items-center overflow-hidden rounded-[4px] px-2 transition-[filter,transform] duration-200 hover:-translate-y-px hover:brightness-110"
+                            className="flex h-[22px] items-center overflow-clip rounded-[4px] px-2 shadow-[inset_0_0_0_1px_hsl(var(--surface))] transition-[filter,transform] duration-200 hover:-translate-y-px hover:brightness-110"
                             style={{ backgroundColor: getEntityHexColor(item.type) }}
                           >
-                            <span className="truncate whitespace-nowrap text-[11px] font-medium text-[#09090b]">{item.title}</span>
+                            {width >= MIN_LABEL_WIDTH && (
+                              <span className="sticky left-0 truncate whitespace-nowrap text-[11px] font-medium text-[#09090b]">
+                                {item.title}
+                              </span>
+                            )}
                           </div>
                         </div>
                       );
