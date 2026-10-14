@@ -319,6 +319,8 @@ function HoverMarker({
     const { key } = event.originalEvent
     if (key !== 'Enter' && key !== ' ') return
     event.originalEvent.preventDefault()
+    // Leaflet's own Enter handler opened the popup first; with no mouseout on the keyboard path it would stay open.
+    markerRef.current?.closePopup()
     onMarkerClick(marker)
   }
 
