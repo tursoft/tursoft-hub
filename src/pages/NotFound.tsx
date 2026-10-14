@@ -20,7 +20,7 @@ const NotFound = () => {
         This page does not <em>exist.</em>
       </h1>
       <p className="type-lede max-w-md">
-        Nothing lives at <span className="font-mono text-foreground">{location.pathname}</span>.
+        Nothing lives at <span className="break-all font-mono text-foreground">{location.pathname}</span>.
       </p>
       <Button asChild variant="secondary">
         <Link to="/">

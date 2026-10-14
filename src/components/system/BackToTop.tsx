@@ -18,8 +18,9 @@ export default function BackToTop() {
       variant="secondary"
       size="icon"
       aria-label="Back to top"
+      aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      onClick={() => window.scrollTo({ top: 0 })}
       className={cn(
         "fixed bottom-5 right-5 z-40 h-11 w-11 transition-[opacity,transform] duration-300",
         visible ? "opacity-100" : "pointer-events-none translate-y-3 opacity-0",

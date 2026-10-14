@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="container-page flex flex-col items-center gap-3 py-9 text-center font-mono text-xs text-faint sm:flex-row sm:justify-between sm:text-left">
         <span className="text-[13px] text-muted-foreground">{OWNER.name}</span>
         <span>
-          © {new Date().getFullYear()} · Senior Software Architect · <span className="text-success">●</span> available
+          © {new Date().getFullYear()} · Senior Software Architect · <span className="text-success" aria-hidden="true">●</span> available
         </span>
         <span className="flex gap-4">
           {FOOTER_LINKS.map((link) => (

@@ -53,6 +53,14 @@ export const ROLES = [
 /** Companies, positions and years from experiences.json (project counts are loaded where they are shown). */
 export const CAREER = computeCareerStats((experiencesData as unknown as { items: Experience[] }).items, 0);
 
+/**
+ * Scrolls a section to the top of the viewport and moves keyboard focus to it, like a native in-page link.
+ * Smooth scrolling is left to CSS (`scroll-behavior`), which turns it off under prefers-reduced-motion.
+ */
 export function scrollToSection(id: string): void {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const element = document.getElementById(id);
+  if (!element) return;
+  element.scrollIntoView({ block: "start" });
+  if (!element.hasAttribute("tabindex")) element.setAttribute("tabindex", "-1");
+  element.focus({ preventScroll: true });
 }

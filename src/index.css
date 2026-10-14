@@ -85,6 +85,11 @@
     outline-offset: 2px;
   }
 
+  /* Sections receive programmatic focus after an in-page jump (see scrollToSection); no ring on the whole section. */
+  section[tabindex="-1"]:focus {
+    outline: none;
+  }
+
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;

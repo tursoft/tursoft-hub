@@ -3,9 +3,13 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Menu, X } from "lucide-react";
 import profilePhoto from "@/assets/profile-photo.jpg";
 import { Button } from "@/components/ui/button";
+import { useMediaQuery } from "@/lib/motion/hooks";
 import { CV_LINKS, NAV_ITEMS, OWNER, scrollToSection } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import CvMenu from "./CvMenu";
+
+/** Width from which the inline section links replace the menu sheet (matches the `min-[1181px]` classes below). */
+const NAV_DESKTOP_QUERY = "(min-width: 1181px)";
 
 const openInNewTab = (url: string) => window.open(url, "_blank", "noopener,noreferrer");
 
@@ -66,6 +70,12 @@ export default function SiteNav() {
   const { progressRef, pastHero } = useScrollProgress();
   const [menuOpen, setMenuOpen] = useState(false);
   const pendingTarget = useRef<string | null>(null);
+  const desktop = useMediaQuery(NAV_DESKTOP_QUERY);
+
+  // The menu trigger is hidden at desktop widths, so close the sheet if the window grows past that while it is open.
+  useEffect(() => {
+    if (desktop) setMenuOpen(false);
+  }, [desktop]);
 
   // From the menu sheet, scroll only after it has closed and released the scroll lock.
   const goTo = (id: string) => {
@@ -86,7 +96,7 @@ export default function SiteNav() {
           className="group flex items-center gap-2.5 font-mono text-[13px] text-foreground"
           onClick={(event) => {
             event.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0 });
           }}
         >
           <img
