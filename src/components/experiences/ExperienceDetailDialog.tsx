@@ -1,40 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { CardDescription } from "@/components/ui/card";
-import { 
-  Calendar, 
-  Clock,
-  MapPin,
-  ExternalLink,
-  Linkedin,
-  Briefcase,
-  Maximize2,
-  Minimize2,
-  Wrench,
-  FolderKanban
-} from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger, TabCount } from "@/components/ui/tabs";
+import { Clock, MapPin, ExternalLink, Linkedin, Briefcase, Wrench, FolderKanban } from "lucide-react";
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { domainsRepo } from '@/repositories/DomainsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
 import SkillDetailDialog from '../skills/SkillDetailDialog';
+import DetailDialog, { DetailEmpty, DetailRow, DetailRows } from '@/components/system/DetailDialog';
+import LogoTile from '@/components/system/LogoTile';
+import Tag from '@/components/system/Tag';
+import { formatMonthRange, stripHtml } from '@/lib/format';
 
-
-import type { Experience, Position } from '@/models/Experience';
+import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
 import type { SkillItem } from '@/models/Skills';
 import type { Domain } from '@/models/Domain';
@@ -58,7 +35,6 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
   const [domains, setDomains] = useState<Record<string, Domain[]>>({});
   const [company, setCompany] = useState<Company | null>(null);
   const [isLoadingData, setIsLoadingData] = useState(true);
-  const [isMaximized, setIsMaximized] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
   const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
 
@@ -147,29 +123,6 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
   
   if (!experience) return null;
 
-  // Helper function to format date period
-  const formatDatePeriod = (startDate: string, endDate: string | null) => {
-    if (!startDate) return '';
-    
-    const formatDate = (dateStr: string) => {
-      const [day, month, year] = dateStr.split('.');
-      const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-      return date.toLocaleDateString('en-US', { 
-        month: 'long', 
-        year: 'numeric' 
-      });
-    };
-    
-    const startFormatted = formatDate(startDate);
-    
-    if (!endDate) {
-      return `${startFormatted} - Present`;
-    }
-    
-    const endFormatted = formatDate(endDate);
-    return `${startFormatted} - ${endFormatted}`;
-  };
-
   // Calculate total experience duration
   const calculateTotalDuration = () => {
     if (!experience.positions.length) return '';
@@ -197,271 +150,145 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
     return duration || '< 1 month';
   };
 
-  // Group all skills by group
-  const groupedSkills = skills.reduce((acc, skill) => {
-    const group = skill.group || 'Other';
-    if (!acc[group]) {
-      acc[group] = [];
-    }
-    acc[group].push(skill);
-    return acc;
-  }, {} as Record<string, SkillItem[]>);
-
   const totalTechCount = skills.length;
-  const hasCurrentPosition = experience.positions.some(pos => !pos.endDate);
+
+  const location = [company?.city, company?.country].filter(Boolean).join(', ');
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className={`${isMaximized ? 'max-w-full max-h-full w-full h-full rounded-none' : 'max-w-full max-h-full w-full h-full rounded-none sm:max-w-[35vw] sm:max-h-[90vh] sm:w-[35vw] sm:h-auto sm:rounded-lg'} overflow-hidden`}>
-        <DialogHeader className="pb-6 pl-6">
-          {/* Maximize/Minimize Button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsMaximized(!isMaximized)}
-            className="absolute top-4 right-12 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
-          >
-            {isMaximized ? (
-              <Minimize2 className="w-4 h-4" />
-            ) : (
-              <Maximize2 className="w-4 h-4" />
-            )}
-          </Button>
-          {/* Logo positioned on the far left */}
-          {company?.photoUrl && (
-            <div className="absolute top-4 left-8 z-10 w-16 h-16">
-              <img 
-                src={company.photoUrl} 
-                alt={`${company.title} logo`}
-                className="w-full h-full object-contain rounded-lg"
-              />
+    <>
+      <DetailDialog
+        open={isOpen}
+        onOpenChange={(open) => {
+          if (!open) onClose();
+        }}
+        icon={<LogoTile src={company?.photoUrl} alt={company?.title ?? experience.companyCode ?? ''} size={52} />}
+        title={company?.title || experience.companyCode || 'Company'}
+        meta={[
+          <>
+            <Clock aria-hidden="true" />
+            {calculateTotalDuration()}
+          </>,
+          location ? (
+            <>
+              <MapPin aria-hidden="true" />
+              {location}
+            </>
+          ) : null,
+        ]}
+        tags={<Tag tone="exp">experience</Tag>}
+        headerExtra={
+          company?.websiteUrl || company?.linkedinUrl ? (
+            <div className="mt-3 flex flex-wrap gap-4 text-[13px]">
+              {company.websiteUrl && (
+                <a href={company.websiteUrl} target="_blank" rel="noopener noreferrer" className="link-quiet inline-flex items-center gap-1.5">
+                  <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                  Website
+                </a>
+              )}
+              {company.linkedinUrl && (
+                <a href={company.linkedinUrl} target="_blank" rel="noopener noreferrer" className="link-quiet inline-flex items-center gap-1.5">
+                  <Linkedin className="h-3.5 w-3.5" aria-hidden="true" />
+                  LinkedIn
+                </a>
+              )}
             </div>
-          )}
-          <div className="flex items-start gap-4 pl-24">
-            <div className="flex-1 min-w-0">
-              <DialogTitle className="text-2xl font-bold text-foreground mb-2">
-                {company?.title || experience.code || 'Company'}
-              </DialogTitle>
-              <div className="text-base text-muted-foreground">
-                <div className="flex items-center gap-2 mb-2">
-                  <Clock className="w-4 h-4" />
-                  <span>{calculateTotalDuration()}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" />
-                  <span>Turkey</span>
-                </div>
-                {(company?.websiteUrl || company?.linkedinUrl) && (
-                  <div className="flex items-center gap-3 mt-3">
-                    {company.websiteUrl && (
-                      <a 
-                        href={company.websiteUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-primary hover:text-primary/80 transition-colors text-sm"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        <span>Website</span>
-                      </a>
-                    )}
-                    {company.linkedinUrl && (
-                      <a 
-                        href={company.linkedinUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-primary hover:text-primary/80 transition-colors text-sm"
-                      >
-                        <Linkedin className="w-4 h-4" />
-                        <span>LinkedIn</span>
-                      </a>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </DialogHeader>
-
-        {/* Type badges positioned below action buttons */}
-        <div className="absolute top-14 right-4 flex gap-2 flex-wrap justify-end z-10">
-          <Badge variant="outline" className="text-xs bg-blue-500/10 text-blue-500 border-blue-500/20">
-            Experience
-          </Badge>
-          {/* {hasCurrentPosition && (
-            <Badge variant="default" className="bg-primary text-primary-foreground text-xs">
-              Current
-            </Badge>
-          )} */}
-        </div>
-
-        <Tabs defaultValue="positions" className="w-full pt-2">
-          <TabsList className="grid w-full grid-cols-3">
+          ) : null
+        }
+      >
+        <Tabs defaultValue="positions">
+          <TabsList>
             <TabsTrigger value="positions">
-              <span className="flex items-center gap-2">
-                <Briefcase className="w-4 h-4" />
-                Positions
-                <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                  {experience.positions.length}
-                </Badge>
-              </span>
+              <Briefcase aria-hidden="true" />
+              Positions
+              <TabCount>{experience.positions.length}</TabCount>
             </TabsTrigger>
             <TabsTrigger value="technologies">
-              <span className="flex items-center gap-2">
-                <Wrench className="w-4 h-4" />
-                Skills
-                <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                  {totalTechCount}
-                </Badge>
-              </span>
+              <Wrench aria-hidden="true" />
+              Skills
+              <TabCount>{totalTechCount}</TabCount>
             </TabsTrigger>
             <TabsTrigger value="projects">
-              <span className="flex items-center gap-2">
-                <FolderKanban className="w-4 h-4" />
-                Projects
-                <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                  {projects.length}
-                </Badge>
-              </span>
+              <FolderKanban aria-hidden="true" />
+              Projects
+              <TabCount>{projects.length}</TabCount>
             </TabsTrigger>
           </TabsList>
 
-          <div className="max-h-[60vh] overflow-y-auto mt-4">
-            <TabsContent value="positions" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
+          <TabsContent value="positions">
+            <div className="detail-list">
               {experience.positions.map((position, index) => (
-                <div key={index} className="px-4 py-2">
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-primary">{position.title}</h3>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
-                        <Calendar className="w-4 h-4" />
-                        <span>{formatDatePeriod(position.startDate, position.endDate)}</span>
-                        {!position.endDate && (
-                          <Badge variant="default" className="bg-primary text-primary-foreground text-xs">
-                            Current
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
+                <div key={index} className="py-4 first:pt-0">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <h3 className="text-[15px] font-medium text-foreground">{position.title}</h3>
+                    <span className="flex items-center gap-2 font-mono text-xs text-faint">
+                      {formatMonthRange(position.startDate, position.endDate)}
+                      {!position.endDate && <Tag tone="accent">current</Tag>}
+                    </span>
                   </div>
-                  
-                  <CardDescription 
-                    className="text-sm leading-relaxed text-foreground mb-3"
-                    dangerouslySetInnerHTML={{ __html: position.summary.replace(/<br\/>/g, '<br/>') }}
+                  <div
+                    className="mt-2 text-sm leading-relaxed text-muted-foreground"
+                    dangerouslySetInnerHTML={{ __html: position.summary }}
                   />
-                  
                   {domains[position.title] && domains[position.title].length > 0 && (
-                    <div className="mb-3">
-                      <div className="flex flex-wrap gap-2">
-                        {domains[position.title].map((domain) => (
-                          <Badge key={domain.code} variant="secondary" className="text-xs">
-                            {domain.title}
-                          </Badge>
-                        ))}
-                      </div>
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {domains[position.title].map((domain) => (
+                        <Tag key={domain.code}>{domain.title}</Tag>
+                      ))}
                     </div>
-                  )}                
-                  
-                  {index < experience.positions.length - 1 && (
-                    <div className="border-b border-border/30 mt-4"></div>
                   )}
                 </div>
               ))}
-            </TabsContent>
+            </div>
+          </TabsContent>
 
-            <TabsContent value="technologies" className="space-y-2 min-h-[400px] h-full overflow-y-auto">
-              <div className="px-4 py-2">
-                {isLoadingData ? (
-                  <div className="text-center text-muted-foreground py-8">Loading skills...</div>
-                ) : skills.length > 0 ? (
-                  <div className={`grid grid-cols-1 gap-x-4 ${isMaximized ? 'md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'md:grid-cols-2'}`}>
-                    {skills.map((skill, index) => {
-                      const logoPath = skill.photoUrl || "";
-                      
-                      return (
-                        <div key={skill.code}>
-                          <div 
-                            className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-pointer"
-                            onClick={() => {
-                              setSelectedSkill(skill);
-                              setIsSkillDialogOpen(true);
-                            }}
-                          >
-                            {logoPath && (
-                              <img 
-                                src={logoPath} 
-                                alt={`${skill.title} logo`} 
-                                className="w-5 h-5 object-contain flex-shrink-0" 
-                                onError={(e) => {
-                                  e.currentTarget.style.display = 'none';
-                                }}
-                              />
-                            )}
-                            <span className="text-sm font-medium text-foreground">
-                              {skill.title}
-                            </span>
-                          </div>
-                          {index < skills.length - 1 && (
-                            <div className="border-b border-dashed border-border/50 mx-4"></div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <p className="text-muted-foreground">No skills listed for this experience.</p>
-                )}
-              </div>
-            </TabsContent>
+          <TabsContent value="technologies">
+            {isLoadingData ? (
+              <DetailEmpty>Loading skills…</DetailEmpty>
+            ) : skills.length > 0 ? (
+              <DetailRows columns={2}>
+                {skills.map((skill) => (
+                  <DetailRow
+                    key={skill.code}
+                    icon={
+                      skill.photoUrl ? (
+                        <img src={skill.photoUrl} alt="" className="h-5 w-5 shrink-0 object-contain" />
+                      ) : undefined
+                    }
+                    title={skill.title}
+                    onClick={() => {
+                      setSelectedSkill(skill);
+                      setIsSkillDialogOpen(true);
+                    }}
+                  />
+                ))}
+              </DetailRows>
+            ) : (
+              <DetailEmpty>No skills listed for this experience.</DetailEmpty>
+            )}
+          </TabsContent>
 
-            <TabsContent value="projects" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
-              <div className="px-4 py-2">
-                {isLoadingData ? (
-                  <div className="text-center text-muted-foreground py-8">Loading projects...</div>
-                ) : projects.length > 0 ? (
-                  <div className="space-y-3">
-                    {projects.map((project) => {
-                      const logoPath = project.photoUrl || "";
-
-                      return (
-                        <div 
-                          key={project.code} 
-                          className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors"
-                          onClick={() => onOpenProject?.(project)}
-                        >
-                          {logoPath ? (
-                            <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                              <img
-                                src={logoPath}
-                                alt={`${project.title} logo`}
-                                className="w-7 h-7 object-contain rounded"
-                                onError={(e) => {
-                                  e.currentTarget.style.display = 'none';
-                                }}
-                              />
-                            </div>
-                          ) : (
-                            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                              <Briefcase className="w-4 h-4 text-primary" />
-                            </div>
-                          )}
-
-                          <div>
-                            <div className="font-medium">{project.title}</div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <p className="text-muted-foreground">No specific projects listed for this experience.</p>
-                )}
-              </div>
-            </TabsContent>
-          </div>
+          <TabsContent value="projects">
+            {isLoadingData ? (
+              <DetailEmpty>Loading projects…</DetailEmpty>
+            ) : projects.length > 0 ? (
+              <DetailRows>
+                {projects.map((project) => (
+                  <DetailRow
+                    key={project.code}
+                    icon={<LogoTile src={project.photoUrl} alt={project.title} size={40} />}
+                    title={project.title}
+                    subtitle={stripHtml(project.summary)}
+                    onClick={onOpenProject ? () => onOpenProject(project) : undefined}
+                  />
+                ))}
+              </DetailRows>
+            ) : (
+              <DetailEmpty>No specific projects listed for this experience.</DetailEmpty>
+            )}
+          </TabsContent>
         </Tabs>
-      </DialogContent>
+      </DetailDialog>
 
-      {/* Skill Detail Dialog */}
       <SkillDetailDialog
         skill={selectedSkill}
         isOpen={isSkillDialogOpen}
@@ -469,10 +296,9 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
           setIsSkillDialogOpen(false);
           setSelectedSkill(null);
         }}
-        onOpenExperience={() => {}}
         onOpenProject={onOpenProject}
       />
-    </Dialog>
+    </>
   );
 };
 
