@@ -91,6 +91,30 @@ async function main() {
   expect('a skill row inside the project dialog opens the skill dialog on top', nested === '2', nested);
   await closeAll();
 
+  // The screenshot viewer: find a project with a Screenshots tab, open its first screenshot and expect a second dialog.
+  const projectCards = await evalJS(`document.querySelectorAll('#portfolio ${CARD}').length`);
+  let viewer = 'no project with screenshots';
+  const errorsBeforeViewer = errors.length;
+  for (let i = 0; i < projectCards; i++) {
+    const found = await evalJS(`(async () => { const s = (ms) => new Promise((r) => setTimeout(r, ms));
+      const card = document.querySelectorAll('#portfolio ${CARD}')[${i}]; if (!card) return 'no card';
+      card.scrollIntoView({ block: 'center' }); await s(300); card.click(); await s(1500);
+      const tab = [...document.querySelectorAll('[role="dialog"] [role="tab"]')].find((t) => /screenshots/i.test(t.textContent)); if (!tab) return 'no screenshots tab';
+      tab.focus(); tab.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, button: 0 })); await s(600);
+      return 'screenshots'; })()`);
+    if (found === 'screenshots') {
+      viewer = await evalJS(`(async () => { const s = (ms) => new Promise((r) => setTimeout(r, ms));
+        const shot = document.querySelector('[role="dialog"] .surface-interactive[role="button"]'); if (!shot) return 'no screenshot card';
+        shot.click(); await s(1300);
+        return String(document.querySelectorAll('[role="dialog"]').length); })()`);
+      await shot('dialog_screenshot_viewer');
+      await closeAll();
+      break;
+    }
+    await closeAll();
+  }
+  expect('a screenshot opens the viewer on top without console errors', viewer === '2' && errors.length === errorsBeforeViewer, `${viewer}, ${errors.length - errorsBeforeViewer} new errors`);
+
   const footprint = await evalJS(`(async () => { const s = (ms) => new Promise((r) => setTimeout(r, ms));
     const section = document.getElementById('map'); section.scrollIntoView(); await s(700);
     const table = section.querySelector('[role="radio"][aria-label="Table view"]'); if (!table) return 'no table toggle';

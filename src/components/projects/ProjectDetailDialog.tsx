@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger, TabCount } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,7 +7,6 @@ import {
   User,
   Clock,
   Linkedin,
-  Minimize2,
   Info,
   Wrench,
   Users,
@@ -642,15 +641,20 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
       {isScreenshotFullscreen && selectedScreenshot && (
         <Dialog open={isScreenshotFullscreen} onOpenChange={setIsScreenshotFullscreen}>
-          <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-black/95">
+          {/* DialogContent's built-in close button is the viewer's one close control. */}
+          <DialogContent aria-describedby={undefined} className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-background">
+            <DialogTitle className="sr-only">
+              {screenshots[currentScreenshotIndex]?.title ||
+                `${project.title} screenshot ${currentScreenshotIndex + 1} of ${screenshots.length}`}
+            </DialogTitle>
             <div className="relative w-full h-full flex flex-col items-center justify-center">
               {/* Project Info at Top */}
               {project && (
-                <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 via-black/60 to-transparent p-6 pb-12 z-10">
+                <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-background/90 via-background/60 to-transparent p-6 pb-12 z-10">
                   <div className="flex flex-col items-center justify-center gap-3">
                     <div className="flex items-center gap-4">
                       {projectIcon && (
-                        <div className="w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-white/10 border border-white/20">
+                        <div className="w-12 h-12 flex-shrink-0 rounded-[8px] overflow-hidden bg-surface-2 border border-line-strong">
                           <img 
                             src={projectIcon} 
                             alt={project.title}
@@ -661,12 +665,12 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                           />
                         </div>
                       )}
-                      <h2 className="text-white text-2xl font-bold">
+                      <div className="text-foreground text-lg font-medium tracking-[-0.02em]">
                         {project.title}
-                      </h2>
+                      </div>
                     </div>
                     {/* Company and Date Range */}
-                    <div className="flex items-center gap-3 text-white/80 text-sm">
+                    <div className="type-meta flex items-center gap-3">
                       {companyName && (
                         <div className="flex items-center gap-2">
                           <Building2 className="w-4 h-4" />
@@ -675,7 +679,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                       )}
                       {project.datePeriod && (project.datePeriod.startDate || project.datePeriod.endDate) && (
                         <>
-                          {companyName && <span className="text-white/40">•</span>}
+                          {companyName && <span>•</span>}
                           <div className="flex items-center gap-2">
                             <Clock className="w-4 h-4" />
                             <span>
@@ -691,45 +695,37 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                 </div>
               )}
 
-              {/* Close Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsScreenshotFullscreen(false)}
-                className="absolute top-4 right-4 z-20 h-10 w-10 rounded-full bg-black/50 hover:bg-black/70 text-white"
-              >
-                <Minimize2 className="h-6 w-6" />
-              </Button>
-
               {/* Previous Button */}
               {screenshots.length > 1 && currentScreenshotIndex > 0 && (
                 <Button
-                  variant="ghost"
+                  variant="secondary"
                   size="icon"
+                  aria-label="Previous screenshot"
                   onClick={() => {
                     const newIndex = currentScreenshotIndex - 1;
                     setCurrentScreenshotIndex(newIndex);
                     setSelectedScreenshot(screenshots[newIndex].file_big || screenshots[newIndex].file_small || '');
                   }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20"
                 >
-                  <ChevronLeft className="h-8 w-8" />
+                  <ChevronLeft />
                 </Button>
               )}
 
               {/* Next Button */}
               {screenshots.length > 1 && currentScreenshotIndex < screenshots.length - 1 && (
                 <Button
-                  variant="ghost"
+                  variant="secondary"
                   size="icon"
+                  aria-label="Next screenshot"
                   onClick={() => {
                     const newIndex = currentScreenshotIndex + 1;
                     setCurrentScreenshotIndex(newIndex);
                     setSelectedScreenshot(screenshots[newIndex].file_big || screenshots[newIndex].file_small || '');
                   }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-black/50 hover:bg-black/70 text-white"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-20"
                 >
-                  <ChevronRight className="h-8 w-8" />
+                  <ChevronRight />
                 </Button>
               )}
 
@@ -743,16 +739,18 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
               {/* Screenshot Title and Counter */}
               {(screenshots[currentScreenshotIndex]?.title || screenshots.length > 1) && (
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-6 pt-12">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 via-background/60 to-transparent p-6 pt-12">
                   <div className="text-center">
                     {screenshots[currentScreenshotIndex]?.title && (
-                      <h3 className="text-white text-xl font-semibold mb-2">
+                      <div className="text-foreground text-base font-medium mb-2">
                         {screenshots[currentScreenshotIndex].title}
-                      </h3>
+                      </div>
                     )}
                     {screenshots.length > 1 && (
-                      <p className="text-white/70 text-sm">
-                        {currentScreenshotIndex + 1} / {screenshots.length}
+                      <p className="type-meta">
+                        <span aria-live="polite">
+                          {currentScreenshotIndex + 1} / {screenshots.length}
+                        </span>
                       </p>
                     )}
                   </div>
