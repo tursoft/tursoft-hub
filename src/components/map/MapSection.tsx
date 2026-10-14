@@ -415,7 +415,21 @@ function CountryHighlight() {
 // Component to handle map bounds
 function MapBounds({ markers }: { markers: MapMarker[] }) {
   const map = useMap()
-  
+
+  // Leaflet 1.9.4 leaves its 250 ms zoom-animation timer running when the map is removed mid-animation (a filter
+  // change followed at once by the table view); the timer then throws on the destroyed map. Clearing the flag when
+  // the map unloads makes that timer return early.
+  useEffect(() => {
+    const internals = map as unknown as { _animatingZoom?: boolean }
+    const stopZoomTimer = () => {
+      internals._animatingZoom = false
+    }
+    map.on('unload', stopZoomTimer)
+    return () => {
+      map.off('unload', stopZoomTimer)
+    }
+  }, [map])
+
   useEffect(() => {
     if (!map || !markers || markers.length === 0) return
     
@@ -688,7 +702,7 @@ export default function MapSection() {
                   minZoom={2}
                 />
                 <MapResizer trigger={isMaximized} />
-                {markers.length > 0 && <MapBounds markers={markers} />}
+                <MapBounds markers={markers} />
                 <CountryHighlight />
                 {markers.map((marker) => (
                   <HoverMarker
