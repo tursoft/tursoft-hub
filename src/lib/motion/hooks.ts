@@ -219,7 +219,8 @@ export function useExpandableCard(onOpen: () => void) {
         onMouseLeave: () => setExpanded(false),
         onFocus: (event: FocusEvent<HTMLElement>) => {
           // Only keyboard focus expands; a click, or Radix restoring focus after a dialog closes, must not.
-          if (event.currentTarget.matches(":focus-visible")) setExpanded(true);
+          // Check the focused element itself: focus bubbles from inner links, and :focus-visible matches only it.
+          if ((event.target as Element).matches(":focus-visible")) setExpanded(true);
         },
         onBlur: () => setExpanded(false),
         onActivate: onOpen,
