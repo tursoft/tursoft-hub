@@ -467,9 +467,27 @@ import type { ProjectEntry } from '@/models/Project';
 import type { Company } from '@/models/Companies';
 ```
 
-- [ ] **Step 8: Delete the maximise state**
+- [ ] **Step 8: Delete the maximise state and list every experience**
 
 Delete the line `  const [isMaximized, setIsMaximized] = useState(false);` and, inside `handleClose`, the line `    setIsMaximized(false);`.
+
+Experience entries have no `code`, so de-duplicating by `exp.code` collapsed every experience into one and the Experiences tab only ever listed a single company. In the data-loading effect replace
+
+```tsx
+        // Remove duplicates based on experience code
+        const uniqueExperiences = Array.from(
+          new Map(personExperiences.map(exp => [exp.code, exp])).values()
+        );
+```
+
+with
+
+```tsx
+        // Remove duplicates by company (experience entries carry no code)
+        const uniqueExperiences = Array.from(
+          new Map(personExperiences.map(exp => [exp.companyCode, exp])).values()
+        );
+```
 
 - [ ] **Step 9: Replace the rendered markup**
 
@@ -600,7 +618,7 @@ Replace the component's `return ( … );` (from `  return (` followed by `    <>
                   ];
                   return (
                     <DetailRow
-                      key={experience.code}
+                      key={experience.companyCode}
                       icon={
                         <LogoTile src={company?.photoUrl} alt={company?.title ?? experience.companyCode ?? ''} size={40} />
                       }
@@ -683,8 +701,9 @@ With the dev server running (`npm run dev -- --port 5199 --strictPort`), open `h
 git add src/components/customers/CustomerDetailDialog.tsx src/components/partners/PartnerDetailDialog.tsx src/components/people/PeopleDetailDialog.tsx
 git commit -m "feat(dialogs): re-skin customer, partner and people dialogs
 
-Partner projects now match regardless of code case, and a client without
-projects no longer shows the previous client's project list.
+Partner projects now match regardless of code case, a client without
+projects no longer shows the previous client's project list, and the people
+dialog lists every company instead of collapsing them into one.
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```

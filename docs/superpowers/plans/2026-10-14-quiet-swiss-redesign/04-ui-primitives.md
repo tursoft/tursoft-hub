@@ -542,8 +542,9 @@ interface LogoTileProps {
   fallback?: ReactNode;
 }
 
-const initials = (text: string) =>
-  text
+// Tolerates a missing alt at runtime (the project is not strict-null checked).
+const initials = (text: string | null | undefined) =>
+  (text ?? "")
     .split(/\s+/)
     .filter(Boolean)
     .slice(0, 2)
@@ -657,7 +658,8 @@ export interface SegmentedOption<V extends string> {
 interface SegmentedControlProps<V extends string> {
   options: SegmentedOption<V>[];
   value: V;
-  onChange: (value: V) => void;
+  /** NoInfer: a state setter passed here must not widen V to `string`. */
+  onChange: (value: NoInfer<V>) => void;
   ariaLabel: string;
   className?: string;
 }

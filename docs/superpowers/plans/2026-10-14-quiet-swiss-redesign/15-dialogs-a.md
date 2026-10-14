@@ -243,6 +243,8 @@ Delete:
 - the never-read `technologyLogos` state: the line `  const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});` and, in the skills effect (`// Fetch technology logos and skill objects when project changes`), the line `const logos: Record<string, string> = {};`, the `if (skill.photoUrl) { logos[skillCode] = skill.photoUrl; }` block inside the loop, and the line `setTechnologyLogos(logos);` (keep `skillItems` and `setSkills`);
 - the `formatDatePeriod` helper (the `// Helper function to format date period` comment and the function after it): the new header formats dates with `formatMonthRange`.
 
+Three projects (JENGAIAPP, CERTIFY.HEALTH, AIS) list a skill code twice, which rendered the skill twice and logged duplicate React keys. In the same skills effect change `for (const skillCode of project.skillCodes) {` to `for (const skillCode of new Set(project.skillCodes)) {`.
+
 - [ ] **Step 4: Fix the Customers tab data (names and logos were blank)**
 
 `customers.json` items have no `title` or `logoPath`, so the Customers tab rendered empty names. In the customer-loading effect, replace the block from the comment `// Filter customers by customer codes` through `setCustomersData(projectCustomers);` with:
@@ -286,6 +288,27 @@ Delete:
           }
         }
       }
+```
+
+Now that partners resolve, the effect must also clear them for projects without partners (otherwise every project opened after "ProEmpower" shows its partners). At the end of the same effect replace
+
+```tsx
+    if (project?.partnerCodes && project.partnerCodes.length > 0) {
+      fetchPartners();
+    }
+  }, [project?.partnerCodes]);
+```
+
+with
+
+```tsx
+    if (project?.partnerCodes && project.partnerCodes.length > 0) {
+      fetchPartners();
+    } else {
+      setPartners([]);
+      setPartnerCompanies({});
+    }
+  }, [project?.partnerCodes]);
 ```
 
 - [ ] **Step 6: Replace the rendered markup**
@@ -340,7 +363,7 @@ Replace the component's `return ( … );` (from `  return (` with `<Dialog open=
             <TabsTrigger value="technologies">
               <Wrench aria-hidden="true" />
               Skills
-              <TabCount>{project.skillCodes?.length || 0}</TabCount>
+              <TabCount>{new Set(project.skillCodes ?? []).size}</TabCount>
             </TabsTrigger>
             {project.customerCodes && project.customerCodes.length > 0 && (
               <TabsTrigger value="customers">
@@ -705,8 +728,8 @@ Replace the component's `return ( … );` (from `  return (` with `<Dialog open=
         onOpenChange={(open) => {
           if (!open) onClose();
         }}
-        icon={<LogoTile src={company?.photoUrl} alt={company?.title ?? experience.code} size={52} />}
-        title={company?.title || experience.code || 'Company'}
+        icon={<LogoTile src={company?.photoUrl} alt={company?.title ?? experience.companyCode ?? ''} size={52} />}
+        title={company?.title || experience.companyCode || 'Company'}
         meta={[
           <>
             <Clock aria-hidden="true" />
@@ -869,8 +892,9 @@ With the dev server running, run the screenshot tool and open `desktop_dialog_pr
 git add src/components/system/DetailDialog.tsx src/components/projects/ProjectDetailDialog.tsx src/components/experiences/ExperienceDetailDialog.tsx
 git commit -m "feat(dialogs): add shared detail dialog shell and re-skin project and experience dialogs
 
-Also resolves client names and logos in the project dialog's Customers tab
-and matches partners by partner code so the Partners tab appears again.
+Also resolves client names and logos in the project dialog's Customers tab,
+matches partners by partner code so the Partners tab appears again (and
+clears it for projects without partners), and lists a repeated skill once.
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```

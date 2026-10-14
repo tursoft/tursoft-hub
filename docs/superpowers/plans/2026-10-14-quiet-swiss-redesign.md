@@ -28,7 +28,7 @@
   - `npm run build` → succeeds (takes about 2 minutes; the static-copy step copies ~3000 files)
 - Commit after each task with a conventional message ending in the trailer line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
 - Visual checks use `node docs/superpowers/tools/shoot.cjs .superpowers/shots/task-NN http://localhost:5199/` against a running dev server (`npm run dev -- --port 5199 --strictPort`); it writes desktop (1440×900) and phone (390×844) screenshots plus a project-dialog and experience-hover capture (Task 18 adds a tablet pass and more dialogs). Always write screenshots under `.superpowers/`, which is git-ignored, so they are never committed; stop the dev server when the task is done.
-- Bug fixes folded into this plan (keep them, they are intentional): the project dialog's Customers tab resolves client names/logos and its Partners tab matches partners by `partnerCode` (Task 15); partner projects match codes case-insensitively and a client without projects no longer shows stale ones (Task 17); an education opened from a skill resolves its institution (Task 16).
+- Bug fixes folded into this plan (keep them, they are intentional): the project dialog's Customers tab resolves client names/logos, its Partners tab matches partners by `partnerCode` and resets between projects, and repeated skill codes are listed once (Task 15); an education opened from a skill resolves its institution and an education without skills shows none (Task 16); partner projects match codes case-insensitively, a client without projects no longer shows stale ones, and the people dialog lists every company (Task 17).
 
 ---
 
@@ -47,10 +47,13 @@ src/lib/motion/engine.ts              shared rAF loop: pointer, scroll velocity,
 src/lib/motion/hooks.ts               media queries, useFrame, skew, drift, in-view, pointer effects      (Task 3)
 src/lib/site.ts                       owner/contact constants, nav items, roles, career numbers           (Task 5)
 src/lib/domains.ts                    per-domain project/company counts                                   (Task 10)
-src/components/system/*              design-system components (see Tasks 3–5, 8, 9, 15)
+src/components/system/*              design-system components (see Tasks 3–5, 8, 15)
+src/components/TickerBand.tsx         scroll-linked skill and client ticker                               (Task 6)
 src/components/*Section.tsx, */*      section components rebuilt on the system                            (Tasks 6–14)
 src/components/*/*DetailDialog.tsx    dialogs re-skinned on DetailDialog                                  (Tasks 15–17)
-docs/superpowers/tools/shoot.cjs      headless screenshot tool                                            (Task 1)
+docs/superpowers/tools/shoot.cjs      headless screenshot tool                                            (Task 1, rewritten in Task 18)
+docs/superpowers/tools/cdp.cjs        shared Chrome DevTools harness for the tools                        (Task 18)
+docs/superpowers/tools/smoke.cjs      click-through smoke check                                           (Task 18)
 ```
 
 ## Tasks
@@ -131,7 +134,7 @@ SegmentedControl<V>({ options: {value,label,icon}[], value, onChange, ariaLabel,
 SearchField({ value, onChange, placeholder?, className?, ariaLabel? })
 StatTile({ value, label, suffix? }) + named StatGrid({ children, columns?: 3|4 })
 Section({ id, children, className? })                SectionHeader({ index, label, title, lede? })
-RailItem({ label, children, index? })                 Collapsible({ open, children })      ExpandHint({ expanded, onOpen })
+RailItem({ label, children, index? }) (file TimelineRail.tsx)   Collapsible({ open, children })   ExpandHint({ expanded, onOpen })
 ContactRow({ icon, label, value, href? })             CvMenu({ variant?, size?, className?, magnetic? })
 SiteNav() Footer() BackToTop()                        Carousel<T>({ items, getKey, renderItem, ariaLabel, slideWidth? })
 QuoteCard({ quote, name, role, date?, photo?, actions? })

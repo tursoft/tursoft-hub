@@ -334,6 +334,26 @@ Delete:
 - the never-read `technologyLogos` state: the line `  const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});` and, in the skills effect, the line `const logos: Record<string, string> = {};`, the `if (skill.photoUrl) { logos[skillCode] = skill.photoUrl; }` block inside the loop, and the line `setTechnologyLogos(logos);` (keep `skillItems` and `setSkills`);
 - the helpers `formatDatePeriod`, `getGPAColor` and `getScoreBadgeColor` with their `// Helper function …` comments: the new markup uses `formatMonthRange`, the `highGrade` check and `scoreTone`.
 
+One education (ATL) has no skills, so it showed the skills of whichever education was opened before it. At the end of the skills effect replace
+
+```tsx
+    if (education?.skillCodes && education.skillCodes.length > 0) {
+      fetchData();
+    }
+  }, [education?.skillCodes]);
+```
+
+with
+
+```tsx
+    if (education?.skillCodes && education.skillCodes.length > 0) {
+      fetchData();
+    } else {
+      setSkills([]);
+    }
+  }, [education?.skillCodes]);
+```
+
 The skills section opens this dialog with plain `Education` items that carry no institution name, logo or city. Add this state on the line after `  const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);`:
 
 ```tsx
@@ -529,7 +549,8 @@ git add src/components/skills/SkillDetailDialog.tsx src/components/domains/Domai
 git commit -m "feat(dialogs): re-skin skill, domain and education dialogs
 
 Lists use the shared detail rows; rows are only clickable when a handler
-exists, and education opened from a skill now resolves its institution.
+exists, education opened from a skill now resolves its institution, and an
+education without skills no longer shows the previous one's skills.
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 ```
