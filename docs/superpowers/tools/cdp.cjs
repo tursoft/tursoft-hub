@@ -53,6 +53,14 @@ async function launch({ outDir, port, onEvent = () => {} }) {
 
   let id = 0;
   const pending = new Map();
+  let closing = false;
+  // If Chrome dies or the socket drops mid-run, fail loudly: otherwise pending promises never settle,
+  // Node drains its event loop and exits 0 without having run the remaining checks.
+  ws.onclose = () => {
+    if (closing) return;
+    console.error('Chrome DevTools connection closed unexpectedly');
+    process.exit(1);
+  };
   ws.onmessage = (m) => {
     const msg = JSON.parse(m.data);
     if (msg.id && pending.has(msg.id)) {
@@ -100,6 +108,7 @@ async function launch({ outDir, port, onEvent = () => {} }) {
   };
 
   const close = async () => {
+    closing = true;
     ws.close();
     chrome.kill();
     await sleep(300);

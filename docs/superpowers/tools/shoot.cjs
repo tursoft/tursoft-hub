@@ -74,7 +74,7 @@ async function main() {
     await shot('desktop_hover_experience');
   }
 
-  await tiles('tablet', 1024, 768, false, 40);
+  await tiles('tablet', 1023, 768, false, 40); // 1023, not 1024: Tailwind's lg starts at 1024
   await tiles('mobile', 390, 844, true, 40);
 
   // Phone menu sheet.
