@@ -1,159 +1,193 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Phone, Mail, Linkedin, Twitter, Facebook, ExternalLink, Globe, MessageSquare } from "lucide-react";
-import { referencesRepo } from "@/repositories/ReferencesRepo";
+import { useEffect, useState } from "react";
+import {
+  ExternalLink,
+  Facebook,
+  Globe,
+  Linkedin,
+  Mail,
+  MessageSquare,
+  Phone,
+  Twitter,
+  type LucideIcon,
+} from "lucide-react";
 import { peopleRepo } from "@/repositories/PeopleRepo";
-import type { Reference } from "@/models/Reference";
+import { referencesRepo } from "@/repositories/ReferencesRepo";
 import type { Person } from "@/models/People";
+import type { Reference } from "@/models/Reference";
+import { Button } from "@/components/ui/button";
 import ListViewer from "@/components/ui/listviewer";
 import PeopleDetailDialog from "@/components/people/PeopleDetailDialog";
+import QuoteCard from "@/components/system/QuoteCard";
+import Reveal from "@/components/system/Reveal";
+import Section from "@/components/system/Section";
+import SectionHeader from "@/components/system/SectionHeader";
+import { OWNER } from "@/lib/site";
 
-// Extended reference with photo field for rendering
 interface ReferenceWithPhoto extends Reference {
   photo: string;
+}
+
+const CONTACT_ICONS: Record<string, LucideIcon> = {
+  email: Mail,
+  phone: Phone,
+  linkedin: Linkedin,
+  twitter: Twitter,
+  facebook: Facebook,
+  website: Globe,
+  skype: MessageSquare,
+};
+
+const CONTACT_LABELS: Record<string, string> = {
+  email: "Email",
+  phone: "Call",
+  linkedin: "LinkedIn",
+  twitter: "Twitter",
+  facebook: "Facebook",
+  website: "Website",
+  skype: "Skype",
+};
+
+/** Contacts shown on a quote, in this order of preference. */
+const PREFERRED_CONTACTS = ["email", "linkedin", "website", "phone", "twitter", "facebook", "skype"];
+
+const contactHref = (code: string, value: string) => {
+  if (code === "phone") return `tel:${value.replace(/[^\d+]/g, "")}`;
+  if (code === "email") return `mailto:${value}`;
+  return value.startsWith("http") ? value : `https://${value}`;
+};
+
+function ContactButtons({ reference }: { reference: Reference }) {
+  const rank = (code: string) => {
+    const index = PREFERRED_CONTACTS.indexOf(code);
+    return index === -1 ? PREFERRED_CONTACTS.length : index;
+  };
+  const contacts = (reference.contacts ?? [])
+    .filter((contact) => contact.value)
+    .sort((a, b) => rank(a.code) - rank(b.code))
+    .slice(0, 3);
+
+  return (
+    <>
+      {contacts.map((contact) => {
+        const Icon = CONTACT_ICONS[contact.code] ?? ExternalLink;
+        const href = contactHref(contact.code, contact.value);
+        const external = href.startsWith("http");
+        return (
+          <Button
+            key={contact.code}
+            asChild
+            variant="secondary"
+            size="icon-sm"
+            aria-label={`${CONTACT_LABELS[contact.code] ?? contact.code}: ${reference.title}`}
+          >
+            <a
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <Icon />
+            </a>
+          </Button>
+        );
+      })}
+    </>
+  );
 }
 
 const ReferencesSection = () => {
   const [references, setReferences] = useState<ReferenceWithPhoto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
-  const [isPeopleDialogOpen, setIsPeopleDialogOpen] = useState(false);
 
   useEffect(() => {
-    // Load references from repository with photos
-    const loadReferences = async () => {
+    const load = async () => {
       try {
-        const allReferences = await referencesRepo.getList();
-        
-        // Filter active references and load photos
-        const activeReferences = allReferences.filter((ref) => ref.isActive);
-        const referencesWithPhotos = await Promise.all(
-          activeReferences.map(async (ref) => ({
-            ...ref,
-            photo: (await referencesRepo.getPhotoUrlByCode(ref.code)) || '',
-          }))
+        const all = await referencesRepo.getList();
+        const active = all.filter((reference) => reference.isActive);
+        setReferences(
+          await Promise.all(
+            active.map(async (reference) => ({
+              ...reference,
+              photo: (await referencesRepo.getPhotoUrlByCode(reference.code)) ?? "",
+            })),
+          ),
         );
-        
-        setReferences(referencesWithPhotos);
       } catch (error) {
-        console.error('Error loading references:', error);
+        console.error("Error loading references:", error);
         setReferences([]);
       } finally {
         setIsLoading(false);
       }
     };
-
-    loadReferences();
+    load();
   }, []);
 
-  const getContactIcon = (code: string) => {
-    switch (code) {
-      case 'phone': return Phone;
-      case 'email': return Mail;
-      case 'linkedin': return Linkedin;
-      case 'twitter': return Twitter;
-      case 'facebook': return Facebook;
-      case 'website': return Globe;
-      case 'skype': return MessageSquare;
-      default: return ExternalLink;
-    }
-  };
-
-  const getContactHref = (code: string, value: string) => {
-    switch (code) {
-      case 'phone': return `tel:${value.replace(/\D/g, '')}`;
-      case 'email': return `mailto:${value}`;
-      default: return value.startsWith('http') ? value : `https://${value}`;
-    }
-  };
-
-  const getContactLabel = (code: string, value: string) => {
-    switch (code) {
-      case 'phone': return value;
-      case 'email': return value;
-      case 'linkedin': return 'LinkedIn';
-      case 'twitter': return 'Twitter';
-      case 'facebook': return 'Facebook';
-      case 'website': return 'Website';
-      default: return value;
+  const openPerson = async (reference: ReferenceWithPhoto) => {
+    try {
+      const person = await peopleRepo.getByCode(reference.code);
+      if (person) setSelectedPerson(person);
+    } catch (error) {
+      console.error("Failed to load person:", error);
     }
   };
 
   return (
-    <section id="references">
+    <Section id="references">
+      <SectionHeader
+        index="07"
+        label="references"
+        title={
+          <>
+            In <em>colleagues' words.</em>
+          </>
+        }
+        lede="Testimonials from industry leaders and colleagues who have worked closely with me throughout my professional career."
+      />
+
       <ListViewer<ReferenceWithPhoto>
         data={references}
         isLoading={isLoading}
-        loadingMessage="Loading references..."
-        emptyMessage="No references available"
-      defaultViewMode="carousel"
-      enabledModes={['card', 'list', 'carousel']}
-      title="What<span class='bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4'>Colleagues</span> Say"
-      subtitle="Testimonials from industry leaders and colleagues who have worked closely with me throughout my professional career."
-      badge="Professional References"
-      imageRounded={true}
-      onItemClick={async (ref) => {
-        try {
-          const person = await peopleRepo.getByCode(ref.code);
-          if (person) {
-            setSelectedPerson(person);
-            setIsPeopleDialogOpen(true);
-          }
-        } catch (error) {
-          console.error('Failed to load person:', error);
-        }
-      }}
-      fieldMapping={{
-        code: 'code',
-        title: 'title',
-        subtitle: (ref) => `${ref.position} at ${ref.company}`,
-        description: (ref) => `"${ref.testimonial}"`,
-        image: 'photo',
-        date: 'date',
-        actions: references.length > 0 ? references[0].contacts.slice(0, 3).map((contact) => ({
-          label: (ref: ReferenceWithPhoto) => {
-            const c = ref.contacts.find(ct => ct.code === contact.code);
-            if (!c) return contact.code;
-            return c.code === 'phone' ? 'Call' : c.code === 'email' ? 'Email' : getContactLabel(c.code, c.value);
-          },
-          icon: getContactIcon(contact.code),
-          onClick: (ref: ReferenceWithPhoto, e: React.MouseEvent) => {
-            const c = ref.contacts.find(ct => ct.code === contact.code);
-            if (c) {
-              const href = getContactHref(c.code, c.value);
-              window.open(href, "_blank");
-            }
-          },
-          variant: 'outline' as const,
-        })) : [],
-      }}
-      footer={
-        <div className="text-center">
-          <p className="text-muted-foreground mb-6 text-lg">
-            Want to add your reference or testimonial?
-          </p>
-          <Button 
-            size="lg" 
-            className="bg-primary hover:bg-primary/80 text-primary-foreground px-8 py-3 transition-all duration-300"
-            onClick={() => window.open("mailto:tursoft@gmail.com?subject=Reference Request", "_blank")}
-          >
-            <ExternalLink className="mr-2 h-5 w-5" />
-            Contact for Reference
-          </Button>
-        </div>
-      }
-    />
+        loadingMessage="Loading references…"
+        emptyMessage="No references available."
+        defaultViewMode="carousel"
+        enabledModes={["carousel", "card", "list"]}
+        imageVariant="photo"
+        carouselSlideWidth="min(720px, 86vw)"
+        onItemClick={openPerson}
+        fieldMapping={{
+          code: "code",
+          title: "title",
+          subtitle: (reference) => `${reference.position} at ${reference.company}`,
+          description: (reference) => `“${reference.testimonial}”`,
+          image: "photo",
+          date: "date",
+        }}
+        renderCarouselContent={(reference) => (
+          <QuoteCard
+            quote={reference.testimonial}
+            name={reference.title}
+            role={`${reference.position} at ${reference.company}`}
+            date={reference.date}
+            photo={reference.photo}
+            actions={<ContactButtons reference={reference} />}
+          />
+        )}
+        ariaLabel="References"
+      />
 
-    {/* People Detail Dialog */}
-    <PeopleDetailDialog
-      person={selectedPerson}
-      isOpen={isPeopleDialogOpen}
-      onClose={() => {
-        setIsPeopleDialogOpen(false);
-        setSelectedPerson(null);
-      }}
-    />
-    </section>
+      <Reveal className="mt-14 flex flex-col items-center gap-4 text-center">
+        <p className="type-lede">Want to add your reference or testimonial?</p>
+        <Button variant="secondary" magnetic asChild>
+          <a href={`mailto:${OWNER.email}?subject=Reference%20Request`}>
+            <Mail aria-hidden="true" />
+            Contact for a reference
+          </a>
+        </Button>
+      </Reveal>
+
+      <PeopleDetailDialog person={selectedPerson} isOpen={selectedPerson !== null} onClose={() => setSelectedPerson(null)} />
+    </Section>
   );
 };
 

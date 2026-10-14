@@ -1282,7 +1282,8 @@
   }
 
   /* Testimonial data embeds <span class="bg-primary/20 …"> highlights; render them as plain accent text. */
-  .quote-text span {
+  .quote-text span,
+  .lv-description span {
     padding: 0 !important;
     border-radius: 0 !important;
     background: none !important;

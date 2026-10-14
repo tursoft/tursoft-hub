@@ -215,7 +215,6 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
                         image: (e) => companies[e.companyCode || '']?.photoUrl || '',
                         date: (e) => ''
                       }}
-                      imageRounded={false}
                     />
                   ) : (
                     <p className="text-muted-foreground">No experiences found.</p>
@@ -260,7 +259,6 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
                           return '';
                         },
                       }}
-                      imageRounded={false}
                     />
                   ) : (
                     <p className="text-muted-foreground">No projects found.</p>

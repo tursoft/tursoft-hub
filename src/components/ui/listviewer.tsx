@@ -1,964 +1,439 @@
-import { useState, useRef, ReactNode, useMemo, useCallback } from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { useState, type ComponentType, type MouseEvent, type ReactNode } from "react";
+import { GalleryHorizontal, Grid3x3, LayoutGrid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ChevronLeft, ChevronRight, Grid, List, RotateCcw, Grid3x3, Filter, Search } from "lucide-react";
+import Carousel from "@/components/system/Carousel";
+import Chip, { ChipRow } from "@/components/system/Chip";
+import LogoTile, { type LogoTileVariant } from "@/components/system/LogoTile";
+import Reveal from "@/components/system/Reveal";
+import SearchField from "@/components/system/SearchField";
+import SegmentedControl, { type SegmentedOption } from "@/components/system/SegmentedControl";
+import Surface from "@/components/system/Surface";
+import Tag from "@/components/system/Tag";
+import {
+  ALL_CATEGORY,
+  buildCategories,
+  countForCategory,
+  filterItems,
+  getFieldValue,
+  type FieldAccessor,
+} from "@/lib/listview";
+import { cn } from "@/lib/utils";
 
-export type ViewMode = 'small-card' | 'card' | 'list' | 'carousel';
+export type ViewMode = "small-card" | "card" | "list" | "carousel";
 
-export interface FieldMapping<T = Record<string, unknown>> {
-  // Core fields
-  code: string | ((item: T) => string);
-  title: string | ((item: T) => string);
-  subtitle?: string | ((item: T) => string);
-  description: string | ((item: T) => string);
-  image?: string | ((item: T) => string);
-  badge?: string | ((item: T) => string);
-  date?: string | ((item: T) => string);
-  
-  // Optional metadata
-  metadata?: Array<{
-    label: string;
-    value: string | ((item: T) => string);
-    icon?: React.ComponentType<{ className?: string }>;
-  }>;
-  
-  // Actions/buttons
-  actions?: Array<{
-    label: string | ((item: T) => string);
-    icon?: React.ComponentType<{ className?: string }>;
-    onClick: (item: T, event: React.MouseEvent) => void;
-    variant?: 'default' | 'outline' | 'ghost';
-  }>;
+export interface ListAction<T> {
+  label: string | ((item: T) => string);
+  icon?: ComponentType<{ className?: string }>;
+  onClick: (item: T, event: MouseEvent) => void;
+  variant?: "default" | "secondary" | "outline" | "ghost";
 }
 
-export interface ListViewerProps<T = Record<string, unknown>> {
-  // Data
+export interface FieldMapping<T> {
+  code: FieldAccessor<T>;
+  title: FieldAccessor<T>;
+  subtitle?: FieldAccessor<T>;
+  /** Plain text or trusted HTML from the site's own data files. */
+  description: FieldAccessor<T>;
+  image?: FieldAccessor<T>;
+  badge?: FieldAccessor<T>;
+  date?: FieldAccessor<T>;
+  /** Short labels shown as quiet tags at the bottom of cards (first two plus "+n"). */
+  tags?: (item: T) => string[];
+  actions?: ListAction<T>[];
+}
+
+export interface ListViewerProps<T> {
   data: T[];
-  
-  // Field mappings
   fieldMapping: FieldMapping<T>;
-  
-  // View configuration
   defaultViewMode?: ViewMode;
   enabledModes?: ViewMode[];
-  
-  // Section header
-  title?: string;
-  subtitle?: string;
-  badge?: string;
-  summary?: ReactNode;
-  
-  // Filtering
   enableCategoryFilter?: boolean;
-  categoryField?: string | ((item: T) => string); // Field name or function to extract category
-  categoryLabels?: Record<string, string>; // Optional custom labels for categories
-  categoryOrder?: string[]; // Optional custom order for categories
+  categoryField?: FieldAccessor<T>;
+  categoryLabels?: Record<string, string>;
+  categoryOrder?: string[];
   enableSearch?: boolean;
-  searchFields?: string[] | ((item: T) => string[]); // Fields to search in
+  searchFields?: FieldAccessor<T>[] | ((item: T) => string[]);
   searchPlaceholder?: string;
-  
-  // Rendering customization
   renderCardContent?: (item: T) => ReactNode;
   renderListContent?: (item: T) => ReactNode;
   renderCarouselContent?: (item: T) => ReactNode;
   renderSmallCardContent?: (item: T) => ReactNode;
-  
-  // Carousel settings
-  carouselHeight?: string;
-  carouselCardWidth?: string;
-  carouselCardHeight?: string;
-  
-  // Grid settings
-  gridCols?: {
-    sm?: number;
-    md?: number;
-    lg?: number;
-    xl?: number;
-  };
-  
-  // Image styling
-  imageRounded?: boolean; // If true, images will use rounded-full (circular)
-  
-  // Show More functionality
-  enableShowMore?: boolean; // If true, enables show more/less functionality
-  visibleMajorItemCount?: number; // Number of items to show initially when enableShowMore is true
-  
-  // Callbacks
+  /** Card-mode columns per breakpoint; `sm` is the base (phone) column count. */
+  gridCols?: { sm?: number; md?: number; lg?: number; xl?: number };
+  /** Small-tile columns per breakpoint. */
+  smallCardCols?: { base?: number; md?: number; lg?: number };
+  /** How item images are shown: dark logo tile, light well for dark logos, or a cover-fit photo. */
+  imageVariant?: LogoTileVariant;
+  /** Items to emphasise in small-tile mode (brighter label and an accent dot). */
+  highlightItem?: (item: T) => boolean;
+  enableShowMore?: boolean;
+  visibleMajorItemCount?: number;
   onItemClick?: (item: T) => void;
-  
-  // Additional content
-  footer?: ReactNode;
-  
-  // Loading state
   isLoading?: boolean;
   loadingMessage?: string;
-  
-  // Empty state
   emptyMessage?: string;
-  
-  // Animation
   enableAnimation?: boolean;
+  ariaLabel?: string;
+  /** CSS width of one carousel slide. */
+  carouselSlideWidth?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ListViewer = <T = any>({
+const MODE_OPTIONS: Record<ViewMode, SegmentedOption<ViewMode>> = {
+  "small-card": { value: "small-card", label: "Tiles", icon: <Grid3x3 /> },
+  card: { value: "card", label: "Cards", icon: <LayoutGrid /> },
+  list: { value: "list", label: "List", icon: <List /> },
+  carousel: { value: "carousel", label: "Carousel", icon: <GalleryHorizontal /> },
+};
+
+// Static class names so Tailwind can see them.
+const BASE_COLS: Record<number, string> = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-4" };
+const MD_COLS: Record<number, string> = {
+  1: "md:grid-cols-1",
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-3",
+  4: "md:grid-cols-4",
+  6: "md:grid-cols-6",
+};
+const LG_COLS: Record<number, string> = {
+  1: "lg:grid-cols-1",
+  2: "lg:grid-cols-2",
+  3: "lg:grid-cols-3",
+  4: "lg:grid-cols-4",
+  6: "lg:grid-cols-6",
+  8: "lg:grid-cols-8",
+};
+const XL_COLS: Record<number, string> = {
+  3: "xl:grid-cols-3",
+  4: "xl:grid-cols-4",
+  5: "xl:grid-cols-5",
+  6: "xl:grid-cols-6",
+  8: "xl:grid-cols-8",
+};
+
+const gridClass = (cols: { base?: number; md?: number; lg?: number; xl?: number }) =>
+  cn(
+    "grid",
+    cols.base && BASE_COLS[cols.base],
+    cols.md && MD_COLS[cols.md],
+    cols.lg && LG_COLS[cols.lg],
+    cols.xl && XL_COLS[cols.xl],
+  );
+
+/** Filterable, searchable collection with small-tile, card, list and carousel views. */
+function ListViewer<T>({
   data,
   fieldMapping,
-  defaultViewMode = 'carousel',
-  enabledModes = ['card', 'list', 'carousel'],
-  title,
-  subtitle,
-  badge,
-  summary,
+  defaultViewMode = "card",
+  enabledModes = ["card", "list", "carousel"],
   enableCategoryFilter = false,
   categoryField,
   categoryLabels,
   categoryOrder,
   enableSearch = false,
   searchFields,
-  searchPlaceholder = 'Search...',
+  searchPlaceholder = "Search…",
   renderCardContent,
   renderListContent,
   renderCarouselContent,
   renderSmallCardContent,
-  carouselHeight = '500px',
-  carouselCardWidth = '36rem',
-  carouselCardHeight = '28rem',
-  gridCols = { sm: 1, md: 2, lg: 3, xl: 4 },
-  imageRounded = false,
+  gridCols = { sm: 1, md: 2, lg: 3 },
+  smallCardCols = { base: 3, md: 6, lg: 8 },
+  imageVariant = "logo",
+  highlightItem,
   enableShowMore = false,
   visibleMajorItemCount,
   onItemClick,
-  footer,
   isLoading = false,
-  loadingMessage = 'Loading...',
-  emptyMessage = 'No items to display',
+  loadingMessage = "Loading…",
+  emptyMessage = "Nothing to show yet.",
   enableAnimation = true,
-}: ListViewerProps<T>) => {
-  const [viewMode, setViewMode] = useState<ViewMode>(defaultViewMode);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  ariaLabel = "Items",
+  carouselSlideWidth,
+}: ListViewerProps<T>) {
+  const [viewMode, setViewMode] = useState<ViewMode>(
+    enabledModes.includes(defaultViewMode) ? defaultViewMode : enabledModes[0],
+  );
+  const [category, setCategory] = useState(ALL_CATEGORY);
+  const [search, setSearch] = useState("");
   const [showAll, setShowAll] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [searchText, setSearchText] = useState<string>('');
-  const [showFilters, setShowFilters] = useState<boolean>(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Helper to get field value
-  const getFieldValue = useCallback((item: T, field: string | ((item: T) => string) | undefined): string => {
-    if (!field) return '';
-    return typeof field === 'function' ? field(item) : String(item[field as keyof T] || '');
-  }, []);
+  const categories = enableCategoryFilter && categoryField ? buildCategories(data, categoryField, categoryOrder) : [];
+  const fallbackSearchFields = [fieldMapping.title, fieldMapping.subtitle].filter(
+    (field): field is FieldAccessor<T> => Boolean(field),
+  );
+  const filtered = filterItems(data, {
+    categoryField: categories.length > 0 ? categoryField : undefined,
+    category,
+    search: enableSearch ? search : "",
+    searchFields: searchFields ?? fallbackSearchFields,
+  });
 
-  // Extract categories from data
-  const categories = useMemo(() => {
-    if (!enableCategoryFilter || !categoryField) return [];
-    const categorySet = new Set<string>();
-    data.forEach(item => {
-      const category = getFieldValue(item, categoryField);
-      if (category) categorySet.add(category);
-    });
-    
-    const uniqueCategories = Array.from(categorySet);
-    
-    // Sort categories based on custom order if provided
-    if (categoryOrder && categoryOrder.length > 0) {
-      uniqueCategories.sort((a, b) => {
-        const indexA = categoryOrder.indexOf(a);
-        const indexB = categoryOrder.indexOf(b);
-        
-        // If both are in the order list, sort by their position
-        if (indexA !== -1 && indexB !== -1) {
-          return indexA - indexB;
-        }
-        // If only a is in the order list, it comes first
-        if (indexA !== -1) return -1;
-        // If only b is in the order list, it comes first
-        if (indexB !== -1) return 1;
-        // If neither is in the order list, sort alphabetically
-        return a.localeCompare(b);
-      });
-    } else {
-      // Default alphabetical sorting
-      uniqueCategories.sort();
-    }
-    
-    return ['All', ...uniqueCategories];
-  }, [data, enableCategoryFilter, categoryField, categoryOrder, getFieldValue]);
+  const isCarousel = viewMode === "carousel";
+  const limit = enableShowMore && visibleMajorItemCount && !showAll ? visibleMajorItemCount : undefined;
+  const visible = isCarousel || limit === undefined ? filtered : filtered.slice(0, limit);
+  const canToggleMore =
+    !isCarousel && enableShowMore && Boolean(visibleMajorItemCount) && filtered.length > (visibleMajorItemCount ?? 0);
 
-  // Get category count
-  const getCategoryCount = useCallback((category: string) => {
-    if (category === 'All') return data.length;
-    return data.filter(item => {
-      const itemCategory = getFieldValue(item, categoryField);
-      return itemCategory === category;
-    }).length;
-  }, [data, categoryField, getFieldValue]);
+  const text = (item: T, field?: FieldAccessor<T>) => getFieldValue(item, field);
+  const keyOf = (item: T, index: number) => text(item, fieldMapping.code) || String(index);
+  const activate = (item: T) => (onItemClick ? () => onItemClick(item) : undefined);
 
-  // Apply filters to data
-  const filteredData = useMemo(() => {
-    let result = [...data];
-
-    // Apply category filter
-    if (enableCategoryFilter && categoryField && selectedCategory !== 'All') {
-      result = result.filter(item => {
-        const itemCategory = getFieldValue(item, categoryField);
-        return itemCategory === selectedCategory;
-      });
-    }
-
-    // Apply search filter
-    if (enableSearch && searchText) {
-      const searchLower = searchText.toLowerCase();
-      result = result.filter(item => {
-        // Get search fields
-        const fieldsToSearch = typeof searchFields === 'function' 
-          ? searchFields(item)
-          : searchFields || [fieldMapping.title, fieldMapping.subtitle].filter(Boolean) as string[];
-        
-        // Check if any field matches search text
-        return fieldsToSearch.some(field => {
-          const value = getFieldValue(item, field);
-          return value.toLowerCase().includes(searchLower);
-        });
-      });
-    }
-
-    return result;
-  }, [data, enableCategoryFilter, categoryField, selectedCategory, enableSearch, searchText, searchFields, fieldMapping, getFieldValue]);
-
-  // Get visible data based on showAll state
-  const getVisibleData = () => {
-    if (!enableShowMore || showAll || !visibleMajorItemCount) {
-      return filteredData;
-    }
-    return filteredData.slice(0, visibleMajorItemCount);
-  };
-
-  const visibleData = getVisibleData();
-  const hasMore = enableShowMore && visibleMajorItemCount && filteredData.length > visibleMajorItemCount;
-
-  // Carousel navigation
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === data.length - 1 ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? data.length - 1 : prev - 1));
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
-
-  // Carousel transform calculation
-  const getCardTransform = (index: number) => {
-    const offset = index - currentIndex;
-    const isActive = offset === 0;
-    const distance = Math.abs(offset);
-    
-    if (distance > 2) return { transform: 'scale(0)', opacity: '0', display: 'none' };
-    
-    const translateX = offset * 590;
-    const rotateY = isActive ? 0 : offset > 0 ? -25 : 25;
-    const scale = isActive ? 1 : 0.8 - (distance * 0.1);
-    const zIndex = isActive ? 10 : 10 - distance;
-    const opacity = isActive ? 1 : 0.6 - (distance * 0.2);
-    
-    return {
-      transform: `translateX(${translateX}px) rotateY(${rotateY}deg) scale(${scale})`,
-      opacity: opacity.toString(),
-      zIndex: zIndex.toString(),
-    };
-  };
-
-  // Grid column classes
-  const getGridClasses = () => {
-    const classes = ['grid', 'gap-6'];
-    if (gridCols.sm) classes.push(`grid-cols-${gridCols.sm}`);
-    if (gridCols.md) classes.push(`md:grid-cols-${gridCols.md}`);
-    if (gridCols.lg) classes.push(`lg:grid-cols-${gridCols.lg}`);
-    if (gridCols.xl) classes.push(`xl:grid-cols-${gridCols.xl}`);
-    return classes.join(' ');
-  };
-
-  // Render card view
-  const renderCard = (item: T, index: number) => {
-    const code = getFieldValue(item, fieldMapping.code);
-    const title = getFieldValue(item, fieldMapping.title);
-    const subtitle = getFieldValue(item, fieldMapping.subtitle);
-    const description = getFieldValue(item, fieldMapping.description);
-    const image = getFieldValue(item, fieldMapping.image);
-    const badgeText = getFieldValue(item, fieldMapping.badge);
-    const date = getFieldValue(item, fieldMapping.date);
-
-    if (renderCardContent) {
-      return (
-        <Card 
-          key={code}
-          className="border-border bg-card hover:shadow-lg hover:border-primary/50 hover:scale-[1.02] transition-all duration-300 cursor-pointer"
-          style={enableAnimation ? { animationDelay: `${index * 100}ms` } : undefined}
-          onClick={() => onItemClick?.(item)}
-        >
-          {renderCardContent(item)}
-        </Card>
-      );
-    }
-
-    return (
-      <Card 
-        key={code}
-        className="border-border bg-card hover:shadow-lg hover:border-primary/50 hover:scale-[1.02] transition-all duration-300 cursor-pointer flex flex-col"
-        style={enableAnimation ? { animationDelay: `${index * 100}ms` } : undefined}
-        onClick={() => onItemClick?.(item)}
-      >
-        <CardHeader className="pb-4">
-          <div className="flex flex-col items-center text-center">
-            {image && (
-              <div className="flex-shrink-0 mb-3">
-                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden border-background shadow-lg ${
-                  imageRounded ? 'rounded-full border-4' : 'rounded-lg'
-                }`}>
-                  <img 
-                    src={image} 
-                    alt={title}
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-              </div>
-            )}
-            <div className="w-full">
-              {badgeText && (
-                <Badge variant="outline" className="mb-2 text-xs">{badgeText}</Badge>
-              )}
-              <h3 className="text-lg font-bold mb-1">{title}</h3>
-              {subtitle && (
-                <p className="text-primary font-semibold text-sm mb-1">{subtitle}</p>
-              )}
-              {date && (
-                <p className="text-muted-foreground text-xs">{date}</p>
-              )}
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="pt-0 flex flex-col flex-1">
-          <div className="flex-1">
-            <p 
-              className="text-sm leading-relaxed text-muted-foreground text-center line-clamp-4"
-              dangerouslySetInnerHTML={{ __html: description }}
-            />
-          </div>
-          {fieldMapping.actions && fieldMapping.actions.length > 0 && (
-            <div className="flex flex-wrap gap-2 justify-center mt-4">
-              {fieldMapping.actions.map((action, idx) => {
-                const ActionIcon = action.icon;
-                const label = typeof action.label === 'function' ? action.label(item) : action.label;
-                return (
-                  <Button
-                    key={`${code}-action-${idx}`}
-                    variant={action.variant || "outline"}
-                    size="sm"
-                    className="text-xs"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      action.onClick(item, e);
-                    }}
-                  >
-                    {ActionIcon && <ActionIcon className="w-3 h-3 mr-1" />}
-                    {label}
-                  </Button>
-                );
-              })}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+  const wrapItem = (key: string, index: number, node: ReactNode) =>
+    enableAnimation ? (
+      <Reveal key={key} index={index} className="h-full">
+        {node}
+      </Reveal>
+    ) : (
+      <div key={key} className="h-full">
+        {node}
+      </div>
     );
-  };
 
-  // Render list view
-  const renderListItem = (item: T, index: number) => {
-    const code = getFieldValue(item, fieldMapping.code);
-    const title = getFieldValue(item, fieldMapping.title);
-    const subtitle = getFieldValue(item, fieldMapping.subtitle);
-    const description = getFieldValue(item, fieldMapping.description);
-    const image = getFieldValue(item, fieldMapping.image);
-    const badgeText = getFieldValue(item, fieldMapping.badge);
-    const date = getFieldValue(item, fieldMapping.date);
+  const renderImage = (item: T, size: number) =>
+    fieldMapping.image ? (
+      <LogoTile src={text(item, fieldMapping.image)} alt={text(item, fieldMapping.title)} size={size} variant={imageVariant} />
+    ) : null;
 
-    if (renderListContent) {
-      return (
-        <Card 
-          key={code}
-          className="border-2 border-border/50 hover:border-primary/50 bg-card hover:shadow-lg transition-all duration-300 cursor-pointer"
-          style={enableAnimation ? { animationDelay: `${index * 50}ms` } : undefined}
-          onClick={() => onItemClick?.(item)}
-        >
-          {renderListContent(item)}
-        </Card>
-      );
-    }
-
+  const renderTags = (item: T) => {
+    const tags = fieldMapping.tags?.(item) ?? [];
+    if (tags.length === 0) return null;
     return (
-      <Card 
-        key={code}
-        className="border-2 border-border/50 hover:border-primary/50 bg-card hover:shadow-lg transition-all duration-300 cursor-pointer"
-        style={enableAnimation ? { animationDelay: `${index * 50}ms` } : undefined}
-        onClick={() => onItemClick?.(item)}
-      >
-        <CardContent className="p-6">
-          <div className="flex gap-6 items-start">
-            {image && (
-              <div className="flex-shrink-0">
-                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden ${
-                  imageRounded ? 'rounded-full' : 'rounded-lg'
-                }`}>
-                  <img 
-                    src={image} 
-                    alt={title}
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-              </div>
-            )}
-            <div className="flex-1 min-w-0">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                <div>
-                  {badgeText && (
-                    <Badge variant="outline" className="mb-2 text-xs">{badgeText}</Badge>
-                  )}
-                  <h3 className="text-xl font-bold mb-1">{title}</h3>
-                  {subtitle && (
-                    <p className="text-primary font-semibold text-sm">{subtitle}</p>
-                  )}
-                </div>
-                {date && (
-                  <div className="text-xs text-muted-foreground/70 font-light whitespace-pre-line text-right">
-                    {date}
-                  </div>
-                )}
-              </div>
-              <div 
-                className="text-sm leading-relaxed text-muted-foreground mb-4 pl-4 border-l-4 border-primary/30"
-                dangerouslySetInnerHTML={{ __html: description }}
-              />
-              {fieldMapping.actions && fieldMapping.actions.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {fieldMapping.actions.map((action, idx) => {
-                    const ActionIcon = action.icon;
-                    const label = typeof action.label === 'function' ? action.label(item) : action.label;
-                    return (
-                      <Button
-                        key={`${code}-action-${idx}`}
-                        variant={action.variant || "outline"}
-                        size="sm"
-                        className="text-xs"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          action.onClick(item, e);
-                        }}
-                      >
-                        {ActionIcon && <ActionIcon className="w-3 h-3 mr-1" />}
-                        {label}
-                      </Button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  };
-
-  // Render small card item
-  const renderSmallCard = (item: T, index: number) => {
-    const code = getFieldValue(item, fieldMapping.code);
-    const title = getFieldValue(item, fieldMapping.title);
-    const image = getFieldValue(item, fieldMapping.image);
-
-    if (renderSmallCardContent) {
-      return (
-        <div
-          key={code}
-          className="cursor-pointer"
-          style={enableAnimation ? { animationDelay: `${index * 30}ms` } : undefined}
-          onClick={() => onItemClick?.(item)}
-        >
-          {renderSmallCardContent(item)}
-        </div>
-      );
-    }
-
-    return (
-      <div
-        key={code}
-        className="group cursor-pointer"
-        style={enableAnimation ? { animationDelay: `${index * 30}ms` } : undefined}
-        onClick={() => onItemClick?.(item)}
-      >
-        <div className="bg-card border border-border rounded-lg p-3 hover:shadow-lg hover:border-primary/50 transition-all duration-300 flex flex-col items-center justify-center">
-          <div className="w-full aspect-square flex items-center justify-center mb-2">
-            {image ? (
-              <img 
-                src={image} 
-                alt={title}
-                className="w-full h-full object-contain"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            ) : (
-              <div className="text-center text-xs font-medium text-muted-foreground line-clamp-2 px-1">
-                {title}
-              </div>
-            )}
-          </div>
-          <div className="text-xs text-center font-medium text-foreground line-clamp-2 w-full">
-            {title}
-          </div>
-        </div>
+      <div className="mt-auto flex flex-wrap gap-1.5 pt-1">
+        {tags.slice(0, 2).map((tag) => (
+          <Tag key={tag}>{tag}</Tag>
+        ))}
+        {tags.length > 2 && <Tag>+{tags.length - 2}</Tag>}
       </div>
     );
   };
 
-  // Render carousel item
-  const renderCarouselItem = (item: T, index: number) => {
-    const code = getFieldValue(item, fieldMapping.code);
-    const title = getFieldValue(item, fieldMapping.title);
-    const subtitle = getFieldValue(item, fieldMapping.subtitle);
-    const description = getFieldValue(item, fieldMapping.description);
-    const image = getFieldValue(item, fieldMapping.image);
-    const badgeText = getFieldValue(item, fieldMapping.badge);
-    const date = getFieldValue(item, fieldMapping.date);
-    const cardStyle = getCardTransform(index);
+  const renderActions = (item: T) => {
+    if (!fieldMapping.actions?.length) return null;
+    return (
+      <div className="mt-4 flex flex-wrap gap-2">
+        {fieldMapping.actions.map((action, index) => {
+          const Icon = action.icon;
+          const label = typeof action.label === "function" ? action.label(item) : action.label;
+          return (
+            <Button
+              key={index}
+              variant={action.variant ?? "secondary"}
+              size="sm"
+              onClick={(event) => {
+                event.stopPropagation();
+                action.onClick(item, event);
+              }}
+            >
+              {Icon && <Icon className="h-3.5 w-3.5" />}
+              {label}
+            </Button>
+          );
+        })}
+      </div>
+    );
+  };
 
-    if (renderCarouselContent) {
+  const renderCard = (item: T) => {
+    if (renderCardContent) {
       return (
-        <Card 
-          key={code}
-          className="absolute border-border bg-card cursor-pointer transition-all duration-500 ease-in-out flex flex-col"
-          style={{ ...cardStyle, width: carouselCardWidth, height: carouselCardHeight }}
-          onClick={() => {
-            if (index === currentIndex) {
-              onItemClick?.(item);
-            } else {
-              goToSlide(index);
-            }
-          }}
-        >
-          {renderCarouselContent(item)}
-        </Card>
+        <Surface interactive onActivate={activate(item)} className="h-full">
+          {renderCardContent(item)}
+        </Surface>
       );
     }
-
+    const title = text(item, fieldMapping.title);
+    const meta = [text(item, fieldMapping.subtitle), text(item, fieldMapping.date)].filter(Boolean).join(" · ");
+    const badge = text(item, fieldMapping.badge);
+    const description = text(item, fieldMapping.description);
     return (
-      <Card 
-        key={code}
-        className="absolute border-border bg-card cursor-pointer transition-all duration-500 ease-in-out flex flex-col"
-        style={{ ...cardStyle, width: carouselCardWidth, height: carouselCardHeight }}
-        onClick={() => {
-          if (index === currentIndex) {
-            onItemClick?.(item);
-          } else {
-            goToSlide(index);
-          }
-        }}
-      >
-        <CardHeader className="pb-4 relative">
-          <div className="flex flex-col items-center text-center">
-            {image && (
-              <div className="flex-shrink-0 mb-2 -mt-8">
-                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden border-background shadow-lg ${
-                  imageRounded ? 'rounded-full border-4' : 'rounded-lg'
-                }`}>
-                  <img 
-                    src={image} 
-                    alt={title}
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-              </div>
-            )}
-            <div className="w-full">
-              {badgeText && (
-                <Badge variant="outline" className="mb-2 text-xs">{badgeText}</Badge>
-              )}
-              <h3 className="text-xl font-bold mb-2">{title}</h3>
-              {subtitle && (
-                <p className="text-primary font-semibold text-sm">{subtitle}</p>
-              )}
-              {date && (
-                <p className="text-muted-foreground text-xs mb-3">{date}</p>
-              )}
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="pt-0 flex flex-col h-full">
-          <div className="flex-1 flex flex-col justify-center">
-            <div 
-              className="text-sm leading-relaxed text-muted-foreground text-center line-clamp-5"
+      <Surface interactive onActivate={activate(item)} className="flex h-full flex-col gap-3.5 p-5">
+        <div className="flex items-start justify-between gap-3">
+          {renderImage(item, 52) ?? <span />}
+          {badge && <Tag tone="accent">{badge}</Tag>}
+        </div>
+        <div>
+          <h3 className="text-base font-medium tracking-[-0.02em] text-foreground">{title}</h3>
+          {meta && <p className="type-meta mt-1">{meta}</p>}
+        </div>
+        {description && (
+          <div
+            className="lv-description line-clamp-3 text-[13.5px] leading-relaxed text-muted-foreground"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+        )}
+        {renderTags(item)}
+        {renderActions(item)}
+      </Surface>
+    );
+  };
+
+  const renderSmallCard = (item: T) => {
+    if (renderSmallCardContent) {
+      return (
+        <Surface interactive onActivate={activate(item)} className="h-full">
+          {renderSmallCardContent(item)}
+        </Surface>
+      );
+    }
+    const title = text(item, fieldMapping.title);
+    const highlighted = highlightItem?.(item) ?? false;
+    return (
+      <Surface interactive onActivate={activate(item)} className={cn("lv-tile", highlighted && "is-highlighted")}>
+        {highlighted && <span className="lv-tile-dot" aria-hidden="true" />}
+        <LogoTile
+          src={text(item, fieldMapping.image)}
+          alt={title}
+          variant={imageVariant}
+          className={imageVariant === "logo-light" ? "lv-tile-well" : "lv-tile-logo"}
+        />
+        <span className="lv-tile-label">{title}</span>
+      </Surface>
+    );
+  };
+
+  const renderListItem = (item: T) => {
+    if (renderListContent) {
+      return (
+        <Surface interactive tilt={false} onActivate={activate(item)} className="p-4">
+          {renderListContent(item)}
+        </Surface>
+      );
+    }
+    const title = text(item, fieldMapping.title);
+    const subtitle = text(item, fieldMapping.subtitle);
+    const badge = text(item, fieldMapping.badge);
+    const date = text(item, fieldMapping.date);
+    const description = text(item, fieldMapping.description);
+    const image = renderImage(item, 52);
+    return (
+      <Surface interactive tilt={false} onActivate={activate(item)} className={cn("lv-row", !image && "lv-row-noimage")}>
+        {image}
+        <div className="min-w-0">
+          <h3 className="text-[15.5px] font-medium tracking-[-0.02em]">{title}</h3>
+          {(subtitle || badge) && (
+            <p className="type-meta mt-1 flex flex-wrap items-center gap-2">
+              {subtitle && <span>{subtitle}</span>}
+              {badge && <Tag>{badge}</Tag>}
+            </p>
+          )}
+          {description && (
+            <div
+              className="lv-description mt-2 line-clamp-3 max-w-[700px] text-[13.5px] leading-relaxed text-muted-foreground"
               dangerouslySetInnerHTML={{ __html: description }}
             />
-          </div>
-          {fieldMapping.actions && fieldMapping.actions.length > 0 && (
-            <div className="flex flex-wrap gap-2 justify-center mt-4">
-              {fieldMapping.actions.slice(0, 3).map((action, idx) => {
-                const ActionIcon = action.icon;
-                const label = typeof action.label === 'function' ? action.label(item) : action.label;
-                return (
-                  <Button
-                    key={`${code}-action-${idx}`}
-                    variant={action.variant || "outline"}
-                    size="sm"
-                    className="text-xs"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      action.onClick(item, e);
-                    }}
-                  >
-                    {ActionIcon && <ActionIcon className="w-3 h-3 mr-1" />}
-                    {label}
-                  </Button>
-                );
-              })}
-            </div>
           )}
-        </CardContent>
-      </Card>
+          {renderActions(item)}
+        </div>
+        {date && <span className="lv-row-date">{date}</span>}
+      </Surface>
     );
   };
 
   if (isLoading) {
     return (
-      <section className="py-20 bg-background/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <p className="text-muted-foreground">{loadingMessage}</p>
-          </div>
-        </div>
-      </section>
+      <div className={cn(gridClass({ base: 1, md: 2, lg: 3 }), "gap-4")} aria-busy="true" aria-label={loadingMessage}>
+        {Array.from({ length: 6 }, (_, index) => (
+          <div key={index} className="surface h-[148px] animate-pulse" />
+        ))}
+      </div>
     );
   }
 
   if (data.length === 0) {
-    return (
-      <section className="py-20 bg-background/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <p className="text-muted-foreground">{emptyMessage}</p>
-          </div>
-        </div>
-      </section>
+    return emptyMessage ? <p className="type-meta py-12 text-center">{emptyMessage}</p> : null;
+  }
+
+  const modeOptions = enabledModes.map((mode) => MODE_OPTIONS[mode]);
+  const showModes = modeOptions.length > 1;
+  const showControls = categories.length > 0 || enableSearch || showModes;
+
+  let body: ReactNode;
+  if (filtered.length === 0) {
+    body = <p className="type-meta py-12 text-center">{emptyMessage || "No matches."}</p>;
+  } else if (viewMode === "carousel") {
+    body = (
+      <Carousel
+        key={`${category}|${search}`}
+        items={filtered}
+        getKey={keyOf}
+        ariaLabel={ariaLabel}
+        slideWidth={carouselSlideWidth}
+        renderItem={(item) =>
+          renderCarouselContent ? (
+            <Surface interactive tilt={false} onActivate={activate(item)} className="h-full">
+              {renderCarouselContent(item)}
+            </Surface>
+          ) : (
+            renderCard(item)
+          )
+        }
+      />
+    );
+  } else if (viewMode === "list") {
+    body = (
+      <div className="flex flex-col gap-3">
+        {visible.map((item, index) => wrapItem(keyOf(item, index), index, renderListItem(item)))}
+      </div>
+    );
+  } else if (viewMode === "small-card") {
+    body = (
+      <div
+        className={cn(
+          gridClass({ base: smallCardCols.base ?? 3, md: smallCardCols.md ?? 6, lg: smallCardCols.lg ?? 8 }),
+          "gap-2.5",
+        )}
+      >
+        {visible.map((item, index) => wrapItem(keyOf(item, index), index, renderSmallCard(item)))}
+      </div>
+    );
+  } else {
+    body = (
+      <div className={cn(gridClass({ base: gridCols.sm ?? 1, md: gridCols.md, lg: gridCols.lg, xl: gridCols.xl }), "gap-4")}>
+        {visible.map((item, index) => wrapItem(keyOf(item, index), index, renderCard(item)))}
+      </div>
     );
   }
 
   return (
-    <section className={`bg-background/50 ${(title || subtitle || badge) ? 'py-20' : 'py-8'}`}>
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        {(title || subtitle || badge) && (
-          <div className="text-center mb-12">
-            {badge && (
-              <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">{badge}</Badge>
-            )}
-            {title && (
-              <h2 
-                className="text-4xl lg:text-5xl font-bold mb-6"
-                dangerouslySetInnerHTML={{ __html: title }}
-              />
-            )}
-            {subtitle && (
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                {subtitle}
-              </p>
-            )}
-          </div>
-        )}
-
-        {/* Summary Section */}
-        {summary && (
-          <div className="mb-8">
-            {summary}
-          </div>
-        )}
-
-        {/* Filters */}
-        {(enableCategoryFilter || enableSearch) && (
-          <div className="mb-8">
-            {/* Mobile Filter Toggle */}
-            <div className="md:hidden flex justify-center mb-4">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowFilters(!showFilters)}
-                className="gap-2"
-              >
-                <Filter className="w-4 h-4" />
-                {showFilters ? 'Hide Filters' : 'Show Filters'}
-              </Button>
-            </div>
-
-            {/* Filter Controls */}
-            <div className={`space-y-4 ${showFilters ? 'block' : 'hidden'} md:block`}>
-              {/* Category Filter */}
-              {enableCategoryFilter && categoryField && categories.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {categories.map((category, index) => (
-                    <Button
-                      key={category}
-                      variant={selectedCategory === category ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setSelectedCategory(category)}
-                      className="gap-2 flex-1"
-                    >
-                      {categoryLabels?.[category] || category}
-                      <Badge variant={selectedCategory === category ? 'secondary' : 'outline'}>
-                        {getCategoryCount(category)}
-                      </Badge>
-                    </Button>
-                  ))}
-                </div>
-              )}
-
-              {/* Search Input with View Mode Toggle */}
-              {enableSearch && (
-                <div className="flex flex-row justify-center items-center gap-3 w-full">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input
-                      type="text"
-                      placeholder={searchPlaceholder}
-                      value={searchText}
-                      onChange={(e) => setSearchText(e.target.value)}
-                      className="pl-10"
-                    />
-                  </div>
-                  {/* View Mode Toggle inline with search */}
-                  {enabledModes.length > 1 && (
-                    <div className="flex gap-1 bg-muted/30 p-1 rounded-lg flex-shrink-0">
-                      {enabledModes.includes('small-card') && (
-                        <Button
-                          variant={viewMode === 'small-card' ? 'default' : 'ghost'}
-                          size="sm"
-                          onClick={() => setViewMode('small-card')}
-                          className="h-8 px-3"
-                        >
-                          <Grid3x3 className="w-4 h-4" />
-                        </Button>
-                      )}
-                      {enabledModes.includes('card') && (
-                        <Button
-                          variant={viewMode === 'card' ? 'default' : 'ghost'}
-                          size="sm"
-                          onClick={() => setViewMode('card')}
-                          className="h-8 px-3"
-                        >
-                          <Grid className="w-4 h-4" />
-                        </Button>
-                      )}
-                      {enabledModes.includes('list') && (
-                        <Button
-                          variant={viewMode === 'list' ? 'default' : 'ghost'}
-                          size="sm"
-                          onClick={() => setViewMode('list')}
-                          className="h-8 px-3"
-                        >
-                          <List className="w-4 h-4" />
-                        </Button>
-                      )}
-                      {enabledModes.includes('carousel') && (
-                        <Button
-                          variant={viewMode === 'carousel' ? 'default' : 'ghost'}
-                          size="sm"
-                          onClick={() => setViewMode('carousel')}
-                          className="h-8 px-3"
-                        >
-                          <RotateCcw className="w-4 h-4" />
-                        </Button>
-                      )}
-                    </div>
-                  )}
-                </div>
+    <div>
+      {showControls && (
+        <div className="lv-controls">
+          {categories.length > 0 && (
+            <ChipRow aria-label="Filter by category">
+              {categories.map((value) => (
+                <Chip
+                  key={value}
+                  selected={category === value}
+                  count={countForCategory(data, categoryField, value)}
+                  onClick={() => setCategory(value)}
+                >
+                  {categoryLabels?.[value] ?? value}
+                </Chip>
+              ))}
+            </ChipRow>
+          )}
+          {(enableSearch || showModes) && (
+            <div className={cn("lv-controls-row", !enableSearch && "justify-end")}>
+              {enableSearch && <SearchField value={search} onChange={setSearch} placeholder={searchPlaceholder} />}
+              {showModes && (
+                <SegmentedControl ariaLabel="View mode" options={modeOptions} value={viewMode} onChange={setViewMode} />
               )}
             </div>
-          </div>
-        )}
+          )}
+        </div>
+      )}
 
-        {/* View Mode Toggle - Standalone (when search is not enabled) */}
-        {!enableSearch && enabledModes.length > 1 && (
-          <div className="flex justify-center mb-8">
-            <div className="flex gap-1 bg-muted/30 p-1 rounded-lg">
-              {enabledModes.includes('small-card') && (
-                <Button
-                  variant={viewMode === 'small-card' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('small-card')}
-                  className="h-8 px-3"
-                >
-                  <Grid3x3 className="w-4 h-4" />
-                </Button>
-              )}
-              {enabledModes.includes('card') && (
-                <Button
-                  variant={viewMode === 'card' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('card')}
-                  className="h-8 px-3"
-                >
-                  <Grid className="w-4 h-4" />
-                </Button>
-              )}
-              {enabledModes.includes('list') && (
-                <Button
-                  variant={viewMode === 'list' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('list')}
-                  className="h-8 px-3"
-                >
-                  <List className="w-4 h-4" />
-                </Button>
-              )}
-              {enabledModes.includes('carousel') && (
-                <Button
-                  variant={viewMode === 'carousel' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('carousel')}
-                  className="h-8 px-3"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                </Button>
-              )}
-            </div>
-          </div>
-        )}
+      {body}
 
-        {/* Card View */}
-        {viewMode === 'card' && (
-          <>
-            <div className={getGridClasses()}>
-              {visibleData.map((item, index) => renderCard(item, index))}
-            </div>
-            {hasMore && (
-              <div className="flex justify-center mt-8">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() => setShowAll(!showAll)}
-                  className="transition-all duration-300 hover:scale-105"
-                >
-                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
-                </Button>
-              </div>
-            )}
-          </>
-        )}
-
-        {/* List View */}
-        {viewMode === 'list' && (
-          <>
-            <div className="space-y-4 max-w-5xl mx-auto">
-              {visibleData.map((item, index) => renderListItem(item, index))}
-            </div>
-            {hasMore && (
-              <div className="flex justify-center mt-8">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() => setShowAll(!showAll)}
-                  className="transition-all duration-300 hover:scale-105"
-                >
-                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
-                </Button>
-              </div>
-            )}
-          </>
-        )}
-
-        {/* Small Cards View */}
-        {viewMode === 'small-card' && (
-          <>
-            <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-8 gap-4">
-              {visibleData.map((item, index) => renderSmallCard(item, index))}
-            </div>
-            {hasMore && (
-              <div className="flex justify-center mt-8">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() => setShowAll(!showAll)}
-                  className="transition-all duration-300 hover:scale-105"
-                >
-                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
-                </Button>
-              </div>
-            )}
-          </>
-        )}
-
-        {/* Carousel View */}
-        {viewMode === 'carousel' && (
-          <div className="relative max-w-6xl mx-auto">
-            {/* Navigation Buttons */}
-            {data.length > 1 && (
-              <>
-                <button
-                  onClick={prevSlide}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-              </>
-            )}
-
-            {/* Carousel Container */}
-            <div 
-              ref={containerRef}
-              className="relative flex items-center justify-center overflow-hidden"
-              style={{ perspective: '1000px', height: carouselHeight }}
-            >
-              {data.map((item, index) => renderCarouselItem(item, index))}
-            </div>
-
-            {/* Dot Indicators */}
-            {data.length > 1 && (
-              <div className="flex justify-center mt-8 gap-3">
-                {data.map((item, index) => {
-                  const code = getFieldValue(item, fieldMapping.code);
-                  return (
-                    <button
-                      key={`dot-${code}`}
-                      onClick={() => goToSlide(index)}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                        index === currentIndex
-                          ? "bg-primary"
-                          : "bg-border hover:bg-primary/50"
-                      }`}
-                    />
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Footer */}
-        {footer && (
-          <div className="mt-16">
-            {footer}
-          </div>
-        )}
-      </div>
-    </section>
+      {canToggleMore && (
+        <div className="mt-8 flex justify-center">
+          <Button variant="secondary" onClick={() => setShowAll((value) => !value)}>
+            {showAll ? "Show less" : `Show all (${filtered.length})`}
+          </Button>
+        </div>
+      )}
+    </div>
   );
-};
+}
 
 export default ListViewer;
