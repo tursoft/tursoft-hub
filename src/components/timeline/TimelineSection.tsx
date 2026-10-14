@@ -1,8 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Calendar, Briefcase, GraduationCap, Code, ChevronRight, List, BarChart3, ZoomIn, ZoomOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Chip, { ChipRow } from '@/components/system/Chip';
+import LogoTile from '@/components/system/LogoTile';
+import Reveal from '@/components/system/Reveal';
+import Section from '@/components/system/Section';
+import SectionHeader from '@/components/system/SectionHeader';
+import SegmentedControl from '@/components/system/SegmentedControl';
+import Surface from '@/components/system/Surface';
+import Tag from '@/components/system/Tag';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { experienceRepo } from '@/repositories/ExperienceRepo';
 import { educationRepo } from '@/repositories/EducationRepo';
@@ -14,7 +20,8 @@ import type { ProjectEntry } from '@/models/Project';
 import type { Experience } from '@/models/Experience';
 import type { Education } from '@/models/Education';
 import { parseDate } from '@/lib/datetimeutils';
-import { getEntityColors, getEntityHexColor } from '@/lib/colors';
+import { ENTITY_TAG_TONE, getEntityColors, getEntityHexColor } from '@/lib/colors';
+import { cn } from '@/lib/utils';
 
 type TimelineItemType = 'project' | 'experience' | 'education';
 type ViewMode = 'list' | 'timeline';
@@ -36,6 +43,11 @@ interface TimelineItem {
   logoUrl?: string;
   data: ProjectEntry | Experience | Education;
 }
+
+/** Padding (px) between the timeline scroller's edge and the axis (Tailwind p-8). */
+const TIMELINE_PADDING = 32;
+/** Bars narrower than this (px) show no label; they keep their aria-label. */
+const MIN_LABEL_WIDTH = 36;
 
 const TimelineSection = () => {
   const [items, setItems] = useState<TimelineItem[]>([]);
@@ -229,19 +241,6 @@ const TimelineSection = () => {
     }
   };
 
-  const getTypeBadgeVariant = (type: TimelineItemType): "default" | "secondary" | "destructive" | "outline" => {
-    switch (type) {
-      case 'project':
-        return 'default';
-      case 'experience':
-        return 'secondary';
-      case 'education':
-        return 'outline';
-      default:
-        return 'outline';
-    }
-  };
-
   const handleItemClick = (item: TimelineItem) => {
     switch (item.type) {
       case 'project':
@@ -314,20 +313,19 @@ const TimelineSection = () => {
   const renderTimelineAxis = () => {
     const metrics = getTimelineMetrics();
     const markers: JSX.Element[] = [];
+    const label = (text: number, strong = false) => (
+      <div className={cn('absolute -top-6 left-1 font-mono text-[11px]', strong ? 'text-muted-foreground' : 'text-faint')}>
+        {text}
+      </div>
+    );
 
     if (zoomLevel === 'year') {
       for (let year = metrics.startYear; year <= metrics.endYear; year++) {
         const position = ((year - metrics.startYear) / metrics.totalYears) * metrics.totalWidth;
         markers.push(
-          <div
-            key={`year-${year}`}
-            className="absolute top-0 h-full border-l border-border/30"
-            style={{ left: `${position}px` }}
-          >
-            <div className="absolute -top-6 left-1 text-xs text-muted-foreground font-medium">
-              {year}
-            </div>
-          </div>
+          <div key={`year-${year}`} className="absolute top-0 h-full border-l border-line/70" style={{ left: `${position}px` }}>
+            {label(year)}
+          </div>,
         );
       }
     } else if (zoomLevel === 'month') {
@@ -335,45 +333,26 @@ const TimelineSection = () => {
         for (let month = 0; month < 12; month++) {
           const totalMonths = (year - metrics.startYear) * 12 + month;
           const position = (totalMonths / metrics.unitCount) * metrics.totalWidth;
-          
-          if (month === 0) {
-            markers.push(
-              <div
-                key={`month-${year}-${month}`}
-                className="absolute top-0 h-full border-l border-border"
-                style={{ left: `${position}px` }}
-              >
-                <div className="absolute -top-6 left-1 text-xs text-muted-foreground font-bold">
-                  {year}
-                </div>
-              </div>
-            );
-          } else {
-            markers.push(
-              <div
-                key={`month-${year}-${month}`}
-                className="absolute top-0 h-full border-l border-border/20"
-                style={{ left: `${position}px` }}
-              />
-            );
-          }
+          markers.push(
+            <div
+              key={`month-${year}-${month}`}
+              className={cn('absolute top-0 h-full border-l', month === 0 ? 'border-line-strong' : 'border-line/40')}
+              style={{ left: `${position}px` }}
+            >
+              {month === 0 && label(year, true)}
+            </div>,
+          );
         }
       }
-    } else if (zoomLevel === 'day') {
-      // Show only year markers for day view (too many to show all)
+    } else {
+      // Day zoom: year markers only (a marker per day would be far too dense).
       for (let year = metrics.startYear; year <= metrics.endYear; year++) {
         const totalDays = (year - metrics.startYear) * 365;
         const position = (totalDays / metrics.unitCount) * metrics.totalWidth;
         markers.push(
-          <div
-            key={`day-${year}`}
-            className="absolute top-0 h-full border-l border-border"
-            style={{ left: `${position}px` }}
-          >
-            <div className="absolute -top-6 left-1 text-xs text-muted-foreground font-bold">
-              {year}
-            </div>
-          </div>
+          <div key={`day-${year}`} className="absolute top-0 h-full border-l border-line-strong" style={{ left: `${position}px` }}>
+            {label(year, true)}
+          </div>,
         );
       }
     }
@@ -391,321 +370,238 @@ const TimelineSection = () => {
     else if (zoomLevel === 'month') setZoomLevel('year');
   };
 
+  // Bring the newest visible item into view when the timeline opens or the filter or zoom changes
+  // ("All" ends at the present, so it still opens at the far right).
+  useEffect(() => {
+    if (viewMode !== 'timeline' || isLoading) return;
+    const scroller = timelineRef.current;
+    if (!scroller || filteredItems.length === 0) return;
+    const metrics = getTimelineMetrics();
+    const newestRight = Math.max(
+      ...filteredItems.map((item) => {
+        const { left, width } = calculateItemPosition(item, metrics);
+        return left + width;
+      }),
+    );
+    // The scroller has 32px of padding (p-8) on each side of the axis.
+    scroller.scrollLeft = Math.max(0, newestRight + TIMELINE_PADDING * 2 - scroller.clientWidth);
+    // Deliberately keyed on view, zoom and filter only: the helpers are re-created every render and
+    // re-running on any other state change (e.g. opening a dialog) would reset the user's scroll position.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewMode, zoomLevel, selectedCategory, isLoading]);
+
+  const header = (
+    <SectionHeader
+      index="10"
+      label="timeline"
+      title={
+        <>
+          The whole journey <em>on one axis.</em>
+        </>
+      }
+      lede="A chronological overview of my professional journey, education, and key projects."
+    />
+  );
+
   if (isLoading) {
     return (
-      <section id="timeline" className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center">Loading timeline...</div>
+      <Section id="timeline">
+        {header}
+        <div className="surface h-[400px] animate-pulse" role="status" aria-busy="true">
+          <span className="sr-only">Loading timeline…</span>
         </div>
-      </section>
+      </Section>
     );
   }
 
   return (
-    <section id="timeline" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-12 animate-fade-in">
-          <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Career Journey</Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Professional
-            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Timeline</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A chronological overview of my professional journey, education, and key projects
-          </p>
-        </div>
+    <Section id="timeline">
+      {header}
 
-        {/* Category Filter and View Mode Toggle */}
-        <div className="max-w-5xl mx-auto mb-12">
-          <div className="flex flex-wrap gap-4 justify-between items-center ml-16">
-            {/* Category Filter - Left Aligned */}
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <Button
-                  key={category.value}
-                  variant={selectedCategory === category.value ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setSelectedCategory(category.value)}
-                  className="gap-2"
+      <Reveal className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <ChipRow aria-label="Filter the timeline">
+          {categories.map((category) => (
+            <Chip
+              key={category.value}
+              selected={selectedCategory === category.value}
+              count={getCategoryCount(category.value)}
+              icon={<category.icon aria-hidden="true" />}
+              onClick={() => setSelectedCategory(category.value)}
+            >
+              {category.label}
+            </Chip>
+          ))}
+        </ChipRow>
+
+        <div className="flex items-center gap-2">
+          {viewMode === 'timeline' && (
+            <div className="flex items-center gap-1.5">
+              <Button variant="secondary" size="icon-sm" aria-label="Zoom out" disabled={zoomLevel === 'year'} onClick={handleZoomOut}>
+                <ZoomOut />
+              </Button>
+              <span className="min-w-[96px] text-center font-mono text-xs text-faint">
+                view · {zoomLevel === 'year' ? 'years' : zoomLevel === 'month' ? 'months' : 'days'}
+              </span>
+              <Button variant="secondary" size="icon-sm" aria-label="Zoom in" disabled={zoomLevel === 'day'} onClick={handleZoomIn}>
+                <ZoomIn />
+              </Button>
+            </div>
+          )}
+          <SegmentedControl
+            ariaLabel="Timeline view"
+            value={viewMode}
+            onChange={setViewMode}
+            options={[
+              { value: 'timeline', label: 'Timeline view', icon: <BarChart3 /> },
+              { value: 'list', label: 'List view', icon: <List /> },
+            ]}
+          />
+        </div>
+      </Reveal>
+
+      {viewMode === 'list' ? (
+        <div className="flex flex-col gap-3">
+          {filteredItems.map((item, index) => {
+            const isExpanded = expandedItems.has(item.id);
+            const Icon = item.icon;
+            return (
+              <Reveal key={item.id} index={index}>
+                <Surface
+                  interactive
+                  tilt={false}
+                  onActivate={() => handleItemClick(item)}
+                  className="grid grid-cols-[52px_minmax(0,1fr)] gap-4 p-5"
                 >
-                  <category.icon className="w-4 h-4" />
-                  {category.label}
-                  <Badge variant={selectedCategory === category.value ? 'secondary' : 'outline'}>
-                    {getCategoryCount(category.value)}
-                  </Badge>
-                </Button>
-              ))}
-            </div>
-
-            {/* View Mode Toggle and Zoom Controls - Right Aligned */}
-            <div className="flex flex-wrap gap-2 items-center">
-              {/* Zoom Controls (only visible in timeline mode) */}
-              {viewMode === 'timeline' && (
-                <>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleZoomOut}
-                    disabled={zoomLevel === 'year'}
-                    className="gap-2"
-                  >
-                    <ZoomOut className="w-4 h-4" />
-                    Zoom Out
-                  </Button>
-                  <Badge variant="secondary" className="px-4 py-2">
-                    View: {zoomLevel === 'year' ? 'Years' : zoomLevel === 'month' ? 'Months' : 'Days'}
-                  </Badge>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleZoomIn}
-                    disabled={zoomLevel === 'day'}
-                    className="gap-2"
-                  >
-                    <ZoomIn className="w-4 h-4" />
-                    Zoom In
-                  </Button>
-                  <div className="w-px h-6 bg-border mx-1" />
-                </>
-              )}
-              
-              {/* View Mode Toggle */}
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="gap-2"
-              >
-                <List className="w-4 h-4" />
-                List View
-              </Button>
-              <Button
-                variant={viewMode === 'timeline' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setViewMode('timeline')}
-                className="gap-2"
-              >
-                <BarChart3 className="w-4 h-4" />
-                Timeline View
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Content - List or Timeline View */}
-        {viewMode === 'list' ? (
-          // LIST VIEW
-          <div className="max-w-5xl mx-auto">
-            <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent" />
-
-              {/* Timeline items */}
-              <div className="space-y-8">
-                {filteredItems.map((item, index) => {
-                  const isExpanded = expandedItems.has(item.id);
-                  const Icon = item.icon;
-
-                  return (
-                    <div
-                      key={item.id}
-                      className="relative animate-slide-in"
-                      style={{ animationDelay: `${index * 0.05}s` }}
-                    >
-                      {/* Timeline dot */}
-                      <div className="absolute left-8 -translate-x-1/2 w-4 h-4 rounded-full bg-background border-2 border-primary z-10" />
-
-                      {/* Content card */}
-                      <div className="ml-16">
-                        <Card 
-                          className="group hover:border-primary/50 transition-all duration-300 hover:shadow-lg cursor-pointer"
-                          onClick={() => handleItemClick(item)}
-                        >
-                          <CardContent className="p-6">
-                            <div className="flex items-start gap-4">
-                              {/* Logo or Icon */}
-                              {item.logoUrl ? (
-                                <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden flex items-center justify-center">
-                                  <img 
-                                    src={item.logoUrl} 
-                                    alt={item.title}
-                                    className="w-full h-full object-contain"
-                                    onError={(e) => {
-                                      e.currentTarget.style.display = 'none';
-                                    }}
-                                  />
-                                </div>
-                              ) : (
-                                <div className={`flex-shrink-0 w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center ${item.color}`}>
-                                  <Icon className="w-8 h-8" />
-                                </div>
-                              )}
-
-                              {/* Content */}
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-start justify-between gap-4 mb-2">
-                                  <div className="flex-1">
-                                    <div className="flex items-center gap-2 mb-1">
-                                      <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                                        {item.title}
-                                      </h3>
-                                      <Badge variant={getTypeBadgeVariant(item.type)} className="text-xs">
-                                        {getTypeLabel(item.type)}
-                                      </Badge>
-                                    </div>
-                                    {item.subtitle && (
-                                      <p className="text-sm text-muted-foreground">{item.subtitle}</p>
-                                    )}
-                                  </div>
-                                  <div className="flex items-center gap-2 flex-shrink-0">
-                                    <Badge variant="outline" className="text-xs whitespace-nowrap">
-                                      <Calendar className="w-3 h-3 mr-1" />
-                                      {formatDateRange(item.startDate, item.endDate)}
-                                    </Badge>
-                                    {item.category && (
-                                      <Badge variant="secondary" className="text-xs">
-                                        {item.category}
-                                      </Badge>
-                                    )}
-                                  </div>
-                                </div>
-
-                                {item.description && (
-                                  <>
-                                    <p className={`text-sm text-muted-foreground mt-2 ${isExpanded ? '' : 'line-clamp-2'}`}>
-                                      {item.description}
-                                    </p>
-                                    {item.description.length > 150 && (
-                                      <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onClick={() => toggleExpand(item.id)}
-                                        className="mt-2 h-auto p-0 text-primary hover:text-primary/80"
-                                      >
-                                        {isExpanded ? 'Show less' : 'Show more'}
-                                        <ChevronRight className={`w-4 h-4 ml-1 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
-                                      </Button>
-                                    )}
-                                  </>
-                                )}
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
+                  <LogoTile src={item.logoUrl} alt={item.title} size={52} fallback={<Icon className="h-5 w-5" />} />
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="text-[15.5px] font-medium tracking-[-0.02em]">{item.title}</h3>
+                          <Tag tone={ENTITY_TAG_TONE[item.type]}>{getTypeLabel(item.type)}</Tag>
+                        </div>
+                        {item.subtitle && <p className="type-meta mt-1">{item.subtitle}</p>}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-xs text-faint">{formatDateRange(item.startDate, item.endDate)}</span>
+                        {item.category && <Tag>{item.category}</Tag>}
                       </div>
                     </div>
-                  );
-                })}
-              </div>
-
-              {filteredItems.length === 0 && (
-                <div className="text-center py-12 text-muted-foreground">
-                  No items found for the selected category.
-                </div>
-              )}
-            </div>
-          </div>
-        ) : (
-          // TIMELINE VIEW
-          <div className="w-full">
-            <div
-              ref={timelineRef}
-              className="relative overflow-x-auto overflow-y-hidden bg-card rounded-lg border border-border p-8"
-              style={{ height: '400px' }}
-            >
+                    {item.description && (
+                      <>
+                        <p className={cn('mt-2 text-sm leading-relaxed text-muted-foreground', !isExpanded && 'line-clamp-2')}>
+                          {item.description}
+                        </p>
+                        {item.description.length > 150 && (
+                          <button
+                            type="button"
+                            className="mt-2 inline-flex items-center gap-1 font-mono text-xs text-accent"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              toggleExpand(item.id);
+                            }}
+                          >
+                            {isExpanded ? 'show less' : 'show more'}
+                            <ChevronRight className={cn('h-3.5 w-3.5 transition-transform', isExpanded && 'rotate-90')} />
+                          </button>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </Surface>
+              </Reveal>
+            );
+          })}
+          {filteredItems.length === 0 && (
+            <p className="type-meta py-12 text-center">No items found for the selected category.</p>
+          )}
+        </div>
+      ) : (
+        <Reveal>
+          <Surface>
+            <div ref={timelineRef} className="relative overflow-x-auto overflow-y-hidden p-8 pt-12" style={{ height: '400px' }}>
               <div className="relative" style={{ width: `${getTimelineMetrics().totalWidth}px`, height: '100%' }}>
-                {/* Timeline axis */}
-                <div className="absolute top-8 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary to-primary" />
+                <div className="absolute left-0 right-0 top-8 h-px bg-line-strong" />
                 {renderTimelineAxis()}
 
-                {/* Timeline items */}
-                <div className="absolute top-20 left-0 right-0">
+                <div className="absolute left-0 right-0 top-20">
                   {(() => {
-                    // Separate items by type
-                    const educationItems = filteredItems.filter(item => item.type === 'education');
-                    const experienceItems = filteredItems.filter(item => item.type === 'experience');
-                    const projectItems = filteredItems.filter(item => item.type === 'project');
-                    
-                    // Helper function to check if two items overlap
-                    const doItemsOverlap = (item1Pos: { left: number; width: number }, item2Pos: { left: number; width: number }) => {
-                      const item1End = item1Pos.left + item1Pos.width;
-                      const item2End = item2Pos.left + item2Pos.width;
-                      return !(item1End <= item2Pos.left || item2End <= item1Pos.left);
-                    };
+                    const educationItems = filteredItems.filter((item) => item.type === 'education');
+                    const experienceItems = filteredItems.filter((item) => item.type === 'experience');
+                    const projectItems = filteredItems.filter((item) => item.type === 'project');
 
-                    // Helper function to find the best row for an item
-                    const findBestRow = (itemPos: { left: number; width: number }, rowsOccupied: Array<Array<{ left: number; width: number }>>, startRow: number, maxRows: number) => {
+                    const doItemsOverlap = (a: { left: number; width: number }, b: { left: number; width: number }) =>
+                      !(a.left + a.width <= b.left || b.left + b.width <= a.left);
+
+                    const findBestRow = (
+                      itemPos: { left: number; width: number },
+                      rowsOccupied: Array<Array<{ left: number; width: number }>>,
+                      startRow: number,
+                      maxRows: number,
+                    ) => {
                       for (let row = startRow; row < startRow + maxRows; row++) {
                         const itemsInRow = rowsOccupied[row] || [];
-                        const hasOverlap = itemsInRow.some(occupiedItem => doItemsOverlap(itemPos, occupiedItem));
-                        
-                        if (!hasOverlap) {
-                          return row;
-                        }
+                        if (!itemsInRow.some((occupied) => doItemsOverlap(itemPos, occupied))) return row;
                       }
-                      // If all rows are occupied, use the last row anyway
                       return startRow + maxRows - 1;
                     };
 
                     const metrics = getTimelineMetrics();
                     const rowsOccupied: Array<Array<{ left: number; width: number }>> = [];
-                    
-                    // Process items and assign rows intelligently
+
+                    // Education on row 0, experience on row 1, projects on rows 2–4.
                     const itemsWithRows = [...educationItems, ...experienceItems, ...projectItems].map((item) => {
                       const { left, width } = calculateItemPosition(item, metrics);
                       const itemPos = { left, width };
-                      
                       let row = 0;
-                      if (item.type === 'education') {
-                        row = findBestRow(itemPos, rowsOccupied, 0, 1); // Only row 0 for education
-                      } else if (item.type === 'experience') {
-                        row = findBestRow(itemPos, rowsOccupied, 1, 1); // Only row 1 for experience
-                      } else if (item.type === 'project') {
-                        row = findBestRow(itemPos, rowsOccupied, 2, 3); // Rows 2, 3, 4 for projects
-                      }
-                      
-                      // Mark this position as occupied in the assigned row
-                      if (!rowsOccupied[row]) {
-                        rowsOccupied[row] = [];
-                      }
+                      if (item.type === 'education') row = findBestRow(itemPos, rowsOccupied, 0, 1);
+                      else if (item.type === 'experience') row = findBestRow(itemPos, rowsOccupied, 1, 1);
+                      else row = findBestRow(itemPos, rowsOccupied, 2, 3);
+                      if (!rowsOccupied[row]) rowsOccupied[row] = [];
                       rowsOccupied[row].push(itemPos);
-                      
                       return { item, row, left, width };
                     });
-                    
+
                     return itemsWithRows.map(({ item, row, left, width }) => {
-                      // Build tooltip content
                       const tooltipContent = [
                         item.title,
                         item.subtitle ? `(${item.subtitle})` : '',
                         formatDateRange(item.startDate, item.endDate),
                         item.category ? `Category: ${item.category}` : '',
-                        item.description ? `\n${item.description.substring(0, 200)}${item.description.length > 200 ? '...' : ''}` : ''
-                      ].filter(Boolean).join('\n');
+                        item.description
+                          ? `\n${item.description.substring(0, 200)}${item.description.length > 200 ? '...' : ''}`
+                          : '',
+                      ]
+                        .filter(Boolean)
+                        .join('\n');
 
                       return (
                         <div
                           key={item.id}
-                          className="absolute group cursor-pointer"
-                          style={{
-                            left: `${left}px`,
-                            width: `${width}px`,
-                            top: `${row * 40}px`,
-                          }}
+                          className="group absolute cursor-pointer rounded-[4px]"
+                          style={{ left: `${left}px`, width: `${width}px`, top: `${row * 34}px` }}
                           title={tooltipContent}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`${item.title}, ${getTypeLabel(item.type)}, ${formatDateRange(item.startDate, item.endDate)}`}
                           onClick={() => handleItemClick(item)}
+                          onKeyDown={(event) => {
+                            if (event.key === 'Enter' || event.key === ' ') {
+                              event.preventDefault();
+                              handleItemClick(item);
+                            }
+                          }}
                         >
-                          <div 
-                            className="h-5 rounded transition-all duration-300 hover:scale-y-150 hover:shadow-lg hover:z-10 border-2 flex items-center px-1 overflow-hidden"
-                            style={{
-                              backgroundColor: getEntityHexColor(item.type),
-                              borderColor: '#1e3a8a', // blue-900 for dark blue border
-                            }}
+                          {/* overflow-clip (not hidden) keeps the label's sticky offset relative to the scroller. */}
+                          <div
+                            className="flex h-[22px] items-center overflow-clip rounded-[4px] px-2 shadow-[inset_0_0_0_1px_hsl(var(--surface))] transition-[filter,transform] duration-200 hover:-translate-y-px hover:brightness-110"
+                            style={{ backgroundColor: getEntityHexColor(item.type) }}
                           >
-                            <span className="text-[10px] font-medium text-white truncate whitespace-nowrap">
-                              {item.title}
-                            </span>
+                            {width >= MIN_LABEL_WIDTH && (
+                              <span className="sticky left-0 truncate whitespace-nowrap text-[11px] font-medium text-[#09090b]">
+                                {item.title}
+                              </span>
+                            )}
                           </div>
                         </div>
                       );
@@ -714,17 +610,13 @@ const TimelineSection = () => {
                 </div>
               </div>
             </div>
+          </Surface>
+          {filteredItems.length === 0 && (
+            <p className="type-meta py-12 text-center">No items found for the selected category.</p>
+          )}
+        </Reveal>
+      )}
 
-            {filteredItems.length === 0 && (
-              <div className="text-center py-12 text-muted-foreground">
-                No items found for the selected category.
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Detail Dialogs */}
       <ProjectDetailDialog
         project={selectedProject}
         isOpen={isProjectDialogOpen}
@@ -751,7 +643,7 @@ const TimelineSection = () => {
           setSelectedEducation(null);
         }}
       />
-    </section>
+    </Section>
   );
 };
 

@@ -1,56 +1,31 @@
 import { useEffect, useMemo, useState, useRef } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, useMap, GeoJSON } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { Card } from '../ui/card'
-import { Badge } from '../ui/badge'
+import { Map as MapIcon, Maximize2, Minimize2, Rows3 } from 'lucide-react'
 import { Button } from '../ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
-import { Map, Grid, Maximize2, Minimize2, Briefcase, GraduationCap, Users, Handshake } from 'lucide-react'
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog'
 import EducationDetailDialog from '../educations/EducationDetailDialog'
 import CustomerDetailDialog from '../customers/CustomerDetailDialog'
 import PartnerDetailDialog from '../partners/PartnerDetailDialog'
+import Chip, { ChipRow } from '../system/Chip'
+import LogoTile from '../system/LogoTile'
+import Reveal from '../system/Reveal'
+import Section from '../system/Section'
+import SectionHeader from '../system/SectionHeader'
+import SegmentedControl from '../system/SegmentedControl'
+import Surface from '../system/Surface'
+import Tag from '../system/Tag'
+import { formatMonthRange } from '@/lib/format'
+import { ENTITY_HEX_COLORS, ENTITY_TAG_TONE } from '@/lib/colors'
+import { cn } from '@/lib/utils'
 
 // Import specific interfaces from models for type safety
 import type { Education } from '@/models/Education'
 import type { Experience, Position } from '@/models/Experience'
 import type { Customer } from '@/models/Customer'
 import type { Partner } from '@/models/Partner'
-
-// Custom CSS for dark theme popups
-const darkPopupStyles = `
-  .leaflet-popup-content-wrapper {
-    background: hsl(var(--background)) !important;
-    color: hsl(var(--foreground)) !important;
-    border: 1px solid hsl(var(--border)) !important;
-    border-radius: 0.5rem !important;
-  }
-  .leaflet-popup-tip {
-    background: hsl(var(--background)) !important;
-    border: 1px solid hsl(var(--border)) !important;
-  }
-  .leaflet-popup-close-button {
-    color: hsl(var(--foreground)) !important;
-  }
-  .leaflet-popup-close-button:hover {
-    color: hsl(var(--primary)) !important;
-  }
-  .leaflet-popup-content-wrapper:hover,
-  .leaflet-popup-tip:hover {
-    background: hsl(var(--background)) !important;
-  }
-  .custom-div-icon:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s ease;
-  }
-  .map-marker:hover {
-    border-color: white !important;
-    box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.5), 0 3px 6px rgba(0,0,0,0.4) !important;
-    transform: scale(1.05);
-  }
-`
 
 // Import data
 import experiencesData from '@/data/experiences.json'
@@ -63,45 +38,48 @@ import type { CompaniesData } from '@/models/Companies'
 // Cast companies data to proper type
 const companies = companiesData as CompaniesData
 
-// Fix default markers
-delete (L.Icon.Default.prototype as unknown as { _getIconUrl: unknown })._getIconUrl
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-})
+// Entity filters shown as chips above the map.
+const FILTERS = [
+  { id: 'experience', label: 'Experience', count: experiencesData.items.length },
+  { id: 'education', label: 'Education', count: educationData.items.length },
+  { id: 'customer', label: 'Customers', count: customersData.items.length },
+  { id: 'partner', label: 'Partners', count: partnersData.items.length },
+] as const
 
+// Keep the view inside the world's latitude range (the map is wrapped horizontally), so a tall
+// frame, e.g. a maximised phone, never shows empty space above the north edge of the tiles.
+const WORLD_BOUNDS: L.LatLngBoundsLiteral = [
+  [-85, -540],
+  [85, 540],
+]
 
-// Create custom icons for different marker types
-const createIcon = (color: string, type: string, logoUrl?: string) => {
-  const logoHtml = logoUrl 
-    ? `<img src="${logoUrl}" alt="logo" style="width: 30px; height: 30px; border-radius: 10%; object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-       <span style="display: none; font-size: 10px; color: white; font-weight: bold;">${type.charAt(0).toUpperCase()}</span>`
-    : `<span style="font-size: 10px; color: white; font-weight: bold;">${type.charAt(0).toUpperCase()}</span>`
+const escapeHtml = (text: string) =>
+  text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+// Logo pin: a light well outlined in the entity colour; falls back to the type's initial if the logo fails.
+// The visually hidden title is the pin's accessible name (Leaflet makes the marker a focusable button).
+const createIcon = (color: string, type: string, title: string, logoUrl?: string) => {
+  const letter = type.charAt(0).toUpperCase()
+  const inner = logoUrl
+    ? `<img src="${logoUrl}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" /><span class="map-pin-letter" aria-hidden="true" style="display:none">${letter}</span>`
+    : `<span class="map-pin-letter" aria-hidden="true">${letter}</span>`
 
   return L.divIcon({
-    className: 'custom-div-icon',
-    html: `<div class="map-marker" style="background-color: ${logoUrl ? 'white' : color}; width: 40px; height: 40px; border-radius: 10%; border: 2px solid ${color}; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.4); overflow: hidden; position: relative; transition: all 0.2s ease;">${logoHtml}</div>`,
-    iconSize: [50, 50],
-    iconAnchor: [15, 5],
+    className: 'map-pin-icon',
+    html: `<div class="map-pin" style="--pin-color: ${color}">${inner}<span class="sr-only">${escapeHtml(title)}</span></div>`,
+    iconSize: [30, 30],
+    iconAnchor: [15, 15],
+    popupAnchor: [0, -18],
   })
 }
 
-// Function to create icon with logo
-const createIconWithLogo = (type: 'experience' | 'education' | 'customer' | 'partner', logoUrl?: string) => {
-  const colors = {
-    experience: '#3b82f6',
-    education: '#059669',
-    customer: '#dc2626',
-    partner: '#f59e0b'
-  }
-  
-  // logoUrl is now the full path from companies.json photoUrl
-  return createIcon(colors[type], type, logoUrl)
-}
+const createIconWithLogo = (type: 'experience' | 'education' | 'customer' | 'partner', title: string, logoUrl?: string) =>
+  createIcon(ENTITY_HEX_COLORS[type], type, title, logoUrl)
 
 export interface MapItem {
   uid: string
+  /** Code of the source record (companyCode, code or partnerCode); may itself contain dots. */
+  code: string
   type: 'education' | 'experience' | 'customer' | 'partner'
   title: string
   coordinate: { lat: number; lng: number }
@@ -141,6 +119,7 @@ const transformExperienceToMapItem = (experience: Experience, index: number): Ma
 
   return {
     uid: `experience.${experience.companyCode}.${index}`,
+    code: experience.companyCode,
     type: 'experience',
     title: company.title || '',
     coordinate: company.coordinates,
@@ -165,6 +144,7 @@ const transformEducationToMapItem = (school: Education, index: number): MapItem 
 
   return {
     uid: `education.${school.code}.${index}`,
+    code: school.code,
     type: 'education',
     title: company.title || '',
     coordinate: company.coordinates,
@@ -174,8 +154,8 @@ const transformEducationToMapItem = (school: Education, index: number): MapItem 
     city: company.city || '',
     country: company.country || '',
     daterange: {
-      start: school.period?.split(' - ')[0] || school.datePeriod?.startDate || '',
-      end: school.period?.split(' - ')[1] || school.datePeriod?.endDate
+      start: school.datePeriod?.startDate || school.period?.split(' - ')[0] || '',
+      end: school.datePeriod?.endDate || school.period?.split(' - ')[1]
     }
   }
 }
@@ -192,6 +172,7 @@ const transformCustomerToMapItem = (customer: Customer, index: number): MapItem 
 
   return {
     uid: `customer.${customer.code}.${index}`,
+    code: customer.code,
     type: 'customer',
     title: company.title || '',
     coordinate: company.coordinates,
@@ -214,6 +195,7 @@ const transformPartnerToMapItem = (partner: Partner, index: number): MapItem | n
 
   return {
     uid: `partner.${partner.partnerCode}.${index}`,
+    code: partner.partnerCode,
     type: 'partner',
     title: company.title || '',
     coordinate: company.coordinates,
@@ -264,17 +246,39 @@ const createMapItemsFromData = (filters: string[] = ['experience', 'education', 
   return result
 }
 
+// One date format for the popup and the table: "Mar 2011 — Jan 2014", "Mar 2011 — present", "" without a start.
+const formatItemPeriod = (item: MapItem) => formatMonthRange(item.daterange.start, item.daterange.end)
+
+// Source record behind a map item, for the detail dialogs. Looked up by the item's entity code,
+// never by splitting the uid (many codes contain dots, e.g. "MOH.TR").
+const findSourceRecord = (item: MapItem): unknown => {
+  switch (item.type) {
+    case 'experience':
+      return experiencesData.items.find((exp) => exp.companyCode === item.code)
+    case 'education':
+      return educationData.items.find((edu) => edu.code === item.code)
+    case 'customer':
+      return customersData.items.find((cust) => cust.code === item.code)
+    case 'partner':
+      // For partners, we pass the partner object (not company) so the dialog can access description
+      return partnersData.items.find((p) => p.partnerCode === item.code)
+  }
+}
+
 // Custom Marker component that handles hover and click events
 function HoverMarker({ 
   marker, 
-  icon, 
   onMarkerClick 
 }: { 
   marker: MapMarker; 
-  icon: L.DivIcon;
   onMarkerClick: (marker: MapMarker) => void;
 }) {
   const markerRef = useRef<L.Marker>(null)
+  // Stable icon per pin: a new icon object would make react-leaflet call setIcon on every render.
+  const icon = useMemo(
+    () => createIconWithLogo(marker.type, marker.title, marker.logo),
+    [marker.type, marker.title, marker.logo],
+  )
   
   const handleMouseOver = () => {
     const markerInstance = markerRef.current
@@ -300,6 +304,17 @@ function HoverMarker({
     onMarkerClick(marker)
   }
 
+  // Leaflet makes the pin a focusable role="button" but only fires "click" for the mouse;
+  // Enter and Space open the dialog as well.
+  const handleKeyPress = (event: L.LeafletKeyboardEvent) => {
+    const { key } = event.originalEvent
+    if (key !== 'Enter' && key !== ' ') return
+    event.originalEvent.preventDefault()
+    // Leaflet's own Enter handler opened the popup first; with no mouseout on the keyboard path it would stay open.
+    markerRef.current?.closePopup()
+    onMarkerClick(marker)
+  }
+
   return (
     <Marker
       ref={markerRef}
@@ -309,120 +324,53 @@ function HoverMarker({
         mouseover: handleMouseOver,
         mouseout: handleMouseOut,
         click: handleClick,
+        keypress: handleKeyPress,
       }}
     >
-      <Popup 
-        maxWidth={300} 
-        minWidth={250} 
-        className="dark-popup"
+      <Popup
+        maxWidth={300}
+        minWidth={240}
         closeButton={false}
         autoClose={false}
         closeOnEscapeKey={true}
       >
-        <div className="p-2 bg-background text-foreground rounded-lg relative">
-          {marker.logo && (
-            <div className="absolute top-2 right-2 w-12 h-12 flex-shrink-0">
-              <img 
-                src={marker.logo}
-                alt={`${marker.title} logo`}
-                className="w-full h-full object-contain rounded"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                }}
-              />
+        <div className="flex items-start gap-3">
+          {marker.logo && <LogoTile src={marker.logo} alt={marker.title} size={40} variant="logo-light" />}
+          <div className="min-w-0">
+            <div className="text-sm font-medium leading-snug text-foreground">{marker.title}</div>
+            <div className="mt-1.5">
+              <Tag tone={ENTITY_TAG_TONE[marker.type]}>{marker.type}</Tag>
             </div>
-          )}
-          <h3 className="font-semibold text-lg mb-1 text-foreground pr-14">{marker.title}</h3>
-          <div className="mb-2">
-            <Badge 
-              variant="secondary" 
-              className="text-xs"
-              style={{
-                backgroundColor: marker.type === 'experience' ? '#3b82f6' : 
-                                marker.type === 'education' ? '#059669' : 
-                                marker.type === 'customer' ? '#dc2626' : '#f59e0b',
-                color: 'white',
-                textTransform: 'capitalize'
-              }}
-            >
-              {marker.type}
-            </Badge>
-          </div>
-          {marker.subtitle && (
-            <p className="text-sm text-muted-foreground mb-2">{marker.subtitle}</p>
-          )}
-          <p className="text-sm mb-2 text-foreground/80">{marker.description}</p>
-          <div className="flex flex-wrap gap-1 mb-2">
-            <Badge variant="secondary" className="text-xs bg-secondary text-secondary-foreground">
-              📍 {marker.location}
-            </Badge>
-            {marker.period && (
-              <Badge variant="outline" className="text-xs border-border text-foreground">
-                📅 {marker.period}
-              </Badge>
-            )}
           </div>
         </div>
+        {marker.subtitle && <div className="mt-2.5 text-xs text-muted-foreground">{marker.subtitle}</div>}
+        {marker.description && (
+          <div className="mt-1.5 line-clamp-3 text-xs leading-relaxed text-muted-foreground">{marker.description}</div>
+        )}
+        <div className="type-meta mt-2.5">{[marker.location, marker.period].filter(Boolean).join(' · ')}</div>
       </Popup>
     </Marker>
   )
 }
 
-// Component to add country hover highlighting
-function CountryHighlight() {
-  const map = useMap()
-  
-  useEffect(() => {
-    if (!map) return
-    
-    // Add hover effect for country polygons
-    const highlightCountry = (e: L.LeafletMouseEvent) => {
-      const layer = e.target
-      if (layer && layer.setStyle) {
-        layer.setStyle({
-          weight: 3,
-          color: '#3b82f6',
-          dashArray: '',
-          fillOpacity: 0.3,
-          fillColor: '#3b82f6'
-        })
-        layer.bringToFront()
-      }
-    }
-
-    const resetHighlight = (e: L.LeafletMouseEvent) => {
-      const layer = e.target
-      if (layer && layer.setStyle) {
-        layer.setStyle({
-          weight: 1,
-          opacity: 0.5,
-          color: '#666',
-          dashArray: '3',
-          fillOpacity: 0.1,
-          fillColor: '#ccc'
-        })
-      }
-    }
-
-    // Simple country hover effect using map events
-    map.on('mouseover', (e) => {
-      // This is a basic implementation - for full country boundaries you'd need GeoJSON data
-      // For now, we'll just add a subtle overlay effect
-    })
-
-    return () => {
-      map.off('mouseover')
-    }
-  }, [map])
-  
-  return null
-}
-
 // Component to handle map bounds
 function MapBounds({ markers }: { markers: MapMarker[] }) {
   const map = useMap()
-  
+
+  // Leaflet 1.9.4 leaves its 250 ms zoom-animation timer running when the map is removed mid-animation (a filter
+  // change followed at once by the table view); the timer then throws on the destroyed map. Clearing the flag when
+  // the map unloads makes that timer return early.
+  useEffect(() => {
+    const internals = map as unknown as { _animatingZoom?: boolean }
+    const stopZoomTimer = () => {
+      internals._animatingZoom = false
+    }
+    map.on('unload', stopZoomTimer)
+    return () => {
+      map.off('unload', stopZoomTimer)
+    }
+  }, [map])
+
   useEffect(() => {
     if (!map || !markers || markers.length === 0) return
     
@@ -445,6 +393,18 @@ function MapBounds({ markers }: { markers: MapMarker[] }) {
   return null
 }
 
+// Leaflet must recalculate its size when the frame is maximised or restored.
+function MapResizer({ trigger }: { trigger: unknown }) {
+  const map = useMap()
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => map.invalidateSize(), 80)
+    return () => window.clearTimeout(timeout)
+  }, [map, trigger])
+
+  return null
+}
+
 export default function MapSection() {
   const [selectedFilters, setSelectedFilters] = useState<string[]>(['experience', 'education', 'customer', 'partner'])
   const [viewMode, setViewMode] = useState<'map' | 'grid'>('map')
@@ -461,16 +421,22 @@ export default function MapSection() {
   const [isCustomerDialogOpen, setIsCustomerDialogOpen] = useState(false)
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false)
 
-  // Inject dark theme styles
+  // While maximised: lock page scroll and restore on Escape (unless a dialog is open: Escape then closes only the dialog).
   useEffect(() => {
-    const styleElement = document.createElement('style')
-    styleElement.textContent = darkPopupStyles
-    document.head.appendChild(styleElement)
-
-    return () => {
-      document.head.removeChild(styleElement)
+    if (!isMaximized) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      if (event.defaultPrevented || document.querySelector('[role="dialog"][data-state="open"]')) return
+      setIsMaximized(false)
     }
-  }, [])
+    window.addEventListener('keydown', handleKey)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKey)
+    }
+  }, [isMaximized])
 
   // Function to add small offset to avoid overlapping markers
   const addOffset = (lat: number, lng: number, index: number) => {
@@ -484,43 +450,7 @@ export default function MapSection() {
   }
 
   // Generate MapItems from all data sources
-  const mapItems = useMemo(() => {
-    const result: MapItem[] = []
-
-    // Transform Experience data to MapItems
-    if (selectedFilters.includes('experience')) {
-      experiencesData.items.forEach((company, index) => {
-        const mapItem = transformExperienceToMapItem(company as Experience, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    // Transform Education data to MapItems
-    if (selectedFilters.includes('education')) {
-      educationData.items.forEach((school, index) => {
-        const mapItem = transformEducationToMapItem(school as Education, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    // Transform Customer data to MapItems
-    if (selectedFilters.includes('customer')) {
-      customersData.items.forEach((customer, index) => {
-        const mapItem = transformCustomerToMapItem(customer as Customer, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    // Transform Partner data to MapItems
-    if (selectedFilters.includes('partner')) {
-      partnersData.items.forEach((partner, index) => {
-        const mapItem = transformPartnerToMapItem(partner as Partner, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    return result
-  }, [selectedFilters])
+  const mapItems = useMemo(() => createMapItemsFromData(selectedFilters), [selectedFilters])
 
   // Convert MapItems to MapMarkers for rendering
   const markers = useMemo(() => {
@@ -533,31 +463,9 @@ export default function MapSection() {
       const offsetIndex = coordinateCount[coordKey] || 0
       coordinateCount[coordKey] = offsetIndex + 1
 
-      // Find original data object for dialogs by extracting code from uid
-      let originalData: unknown = null
-      if (mapItem.type === 'experience') {
-        // uid format: experience.{companyCode}.{index}
-        const companyCode = mapItem.uid.split('.')[1]
-        originalData = experiencesData.items.find(item => item.companyCode === companyCode)
-      } else if (mapItem.type === 'education') {
-        // uid format: education.{code}.{index}
-        const code = mapItem.uid.split('.')[1]
-        originalData = educationData.items.find(item => item.code === code)
-      } else if (mapItem.type === 'customer') {
-        // uid format: customer.{code}.{index}
-        const code = mapItem.uid.split('.')[1]
-        originalData = customersData.items.find(item => item.code === code)
-      } else if (mapItem.type === 'partner') {
-        // uid format: partner.{partnerCode}.{index}
-        const partnerCode = mapItem.uid.split('.')[1]
-        const partner = partnersData.items.find(item => item.partnerCode === partnerCode)
-        // For partners, we pass the partner object (not company) so the dialog can access description
-        originalData = partner
-      }
+      const originalData = findSourceRecord(mapItem)
 
-      const period = mapItem.daterange.end 
-        ? `${mapItem.daterange.start} - ${mapItem.daterange.end}`
-        : `${mapItem.daterange.start} - Present`
+      const period = formatItemPeriod(mapItem)
 
       result.push({
         id: mapItem.uid,
@@ -609,27 +517,7 @@ export default function MapSection() {
 
   // Handle grid row click to open appropriate dialog
   const handleRowClick = (item: MapItem) => {
-    // Find the original data object for dialogs by extracting code from uid
-    let originalData: unknown = null
-    if (item.type === 'experience') {
-      // uid format: experience.{companyCode}.{index}
-      const companyCode = item.uid.split('.')[1]
-      originalData = experiencesData.items.find(exp => exp.companyCode === companyCode)
-    } else if (item.type === 'education') {
-      // uid format: education.{code}.{index}
-      const code = item.uid.split('.')[1]
-      originalData = educationData.items.find(edu => edu.code === code)
-    } else if (item.type === 'customer') {
-      // uid format: customer.{code}.{index}
-      const code = item.uid.split('.')[1]
-      originalData = customersData.items.find(cust => cust.code === code)
-    } else if (item.type === 'partner') {
-      // uid format: partner.{partnerCode}.{index}
-      const partnerCode = item.uid.split('.')[1]
-      const partner = partnersData.items.find(p => p.partnerCode === partnerCode)
-      // For partners, we pass the partner object (not company) so the dialog can access description
-      originalData = partner
-    }
+    const originalData = findSourceRecord(item)
 
     switch (item.type) {
       case 'experience':
@@ -651,133 +539,56 @@ export default function MapSection() {
     }
   }
 
+  const maximizeButton = (
+    <Button variant="secondary" size="sm" onClick={() => setIsMaximized(!isMaximized)}>
+      {isMaximized ? <Minimize2 /> : <Maximize2 />}
+      {isMaximized ? 'Minimize' : 'Maximize'}
+    </Button>
+  )
+
   return (
-    <section id="map" className="py-20 bg-gradient-to-b from-background via-secondary/50 to-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Global Presence</Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Global
-            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Footprint</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Explore the worldwide locations of companies I've worked with, institutions where I've studied, 
-            and clients I've served throughout my career.
-          </p>
-        </div>
+    <Section id="map">
+      <SectionHeader
+        index="09"
+        label="footprint"
+        title={
+          <>
+            Where the work has <em>taken me.</em>
+          </>
+        }
+        lede="Explore the worldwide locations of companies I've worked with, institutions where I've studied, and clients I've served throughout my career."
+      />
 
-        {/* Combined Filters and View Mode Toggle */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-          {/* Category Filters - Left Side */}
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() => toggleFilter('experience')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                selectedFilters.includes('experience')
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-secondary text-muted-foreground hover:bg-blue-100'
-              }`}
+      <Reveal className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <ChipRow aria-label="Show on the map">
+          {FILTERS.map((filter) => (
+            <Chip
+              key={filter.id}
+              selected={selectedFilters.includes(filter.id)}
+              count={filter.count}
+              dotColor={ENTITY_HEX_COLORS[filter.id]}
+              onClick={() => toggleFilter(filter.id)}
             >
-              <Briefcase className="w-4 h-4" />
-              Experience ({experiencesData.items.length})
-            </button>
-            <button
-              onClick={() => toggleFilter('education')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                selectedFilters.includes('education')
-                  ? 'bg-green-600 text-white'
-                  : 'bg-secondary text-muted-foreground hover:bg-green-100'
-              }`}
-            >
-              <GraduationCap className="w-4 h-4" />
-              Education ({educationData.items.length})
-            </button>
-            <button
-              onClick={() => toggleFilter('customer')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                selectedFilters.includes('customer')
-                  ? 'bg-red-600 text-white'
-                  : 'bg-secondary text-muted-foreground hover:bg-red-100'
-              }`}
-            >
-              <Users className="w-4 h-4" />
-              Customers ({customersData.items.length})
-            </button>
-            <button
-              onClick={() => toggleFilter('partner')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                selectedFilters.includes('partner')
-                  ? 'bg-orange-500 text-white'
-                  : 'bg-secondary text-muted-foreground hover:bg-orange-100'
-              }`}
-            >
-              <Handshake className="w-4 h-4" />
-              Partners ({partnersData.items.length})
-            </button>
-          </div>
+              {filter.label}
+            </Chip>
+          ))}
+        </ChipRow>
+        <SegmentedControl
+          ariaLabel="Footprint view"
+          value={viewMode}
+          onChange={setViewMode}
+          options={[
+            { value: 'map', label: 'Map view', icon: <MapIcon /> },
+            { value: 'grid', label: 'Table view', icon: <Rows3 /> },
+          ]}
+        />
+      </Reveal>
 
-          {/* View Mode Toggle - Right Side */}
-          <TooltipProvider>
-            <div className="flex bg-secondary rounded-lg p-1">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant={viewMode === 'map' ? 'default' : 'ghost'}
-                    size="sm"
-                    onClick={() => setViewMode('map')}
-                    className="flex items-center"
-                  >
-                    <Map className="w-4 h-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Map View</p>
-                </TooltipContent>
-              </Tooltip>
-              
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                    size="sm"
-                    onClick={() => setViewMode('grid')}
-                    className="flex items-center"
-                  >
-                    <Grid className="w-4 h-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Grid View</p>
-                </TooltipContent>
-              </Tooltip>
-            </div>
-          </TooltipProvider>
-        </div>
-
-        {/* Map or Grid View */}
-        <Card className={`overflow-hidden relative ${isMaximized ? 'fixed inset-0 z-50 rounded-none' : ''}`}>
-          {/* Maximize/Minimize Button */}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsMaximized(!isMaximized)}
-            className="absolute top-4 right-4 z-10 bg-background/80 backdrop-blur-sm hover:bg-background"
-          >
-            {isMaximized ? (
-              <>
-                <Minimize2 className="w-4 h-4 mr-2" />
-                Minimize
-              </>
-            ) : (
-              <>
-                <Maximize2 className="w-4 h-4 mr-2" />
-                Maximize
-              </>
-            )}
-          </Button>
-          
+      <Reveal>
+        <Surface className={cn('map-frame', isMaximized && 'is-maximized flex flex-col')}>
           {viewMode === 'map' ? (
-            <div className={isMaximized ? 'h-screen w-full' : 'h-[600px] w-full'}>
+            <div className={isMaximized ? 'h-full w-full' : 'h-[320px] w-full sm:h-[420px] lg:h-[540px]'}>
+              <div className="absolute right-3 top-3 z-[500]">{maximizeButton}</div>
               <MapContainer
                 center={[40, 0]}
                 zoom={2}
@@ -785,176 +596,126 @@ export default function MapSection() {
                 className="z-0"
                 scrollWheelZoom={true}
                 attributionControl={true}
+                maxBounds={WORLD_BOUNDS}
+                maxBoundsViscosity={1}
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  maxZoom={18}
+                  subdomains="abc"
+                  maxZoom={19}
                   minZoom={2}
                 />
-                {markers.length > 0 && <MapBounds markers={markers} />}
-                <CountryHighlight />
-                
+                <MapResizer trigger={isMaximized} />
+                <MapBounds markers={markers} />
                 {markers.map((marker) => (
                   <HoverMarker
                     key={marker.id}
                     marker={marker}
-                    icon={createIconWithLogo(marker.type, marker.logo)}
                     onMarkerClick={handleMarkerClick}
                   />
                 ))}
               </MapContainer>
             </div>
           ) : (
-            <div className={isMaximized ? 'h-screen overflow-auto' : 'max-h-[600px] overflow-auto'}>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Date Range</TableHead>
-                    <TableHead>Country</TableHead>
-                    <TableHead>City</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {mapItems.map((item) => {
-                    const typeColors = {
-                      experience: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-                      education: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-                      customer: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-                      partner: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
-                    }
-                    
-                    const dateRange = item.daterange.end 
-                      ? `${item.daterange.start} - ${item.daterange.end}`
-                      : `${item.daterange.start} - Present`
-
-                    // Get logo URL for the item
-                    const getLogoUrl = (item: MapItem) => {
-                      if (item.logoUrl) {
-                        return item.logoUrl
-                      }
-                      return null
-                    }
-
-                    const logoUrl = getLogoUrl(item)
-
-                    return (
-                      <TableRow 
-                        key={item.uid} 
-                        className="hover:bg-muted/50 cursor-pointer"
-                        onClick={() => handleRowClick(item)}
-                      >
-                        <TableCell className="font-medium">
-                          <div className="flex items-center gap-3">
-                            {logoUrl ? (
-                              <img 
-                                src={logoUrl}
-                                alt={`${item.title} logo`}
-                                className="w-6 h-6 object-contain rounded flex-shrink-0"
-                                onError={(e) => {
-                                  const target = e.target as HTMLImageElement;
-                                  target.style.display = 'none';
-                                }}
-                              />
-                            ) : (
-                              <div className="w-6 h-6 bg-muted rounded flex items-center justify-center flex-shrink-0">
-                                <span className="text-xs text-muted-foreground font-medium">
-                                  {item.type.charAt(0).toUpperCase()}
-                                </span>
-                              </div>
-                            )}
-                            <span>{item.title}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <Badge className={typeColors[item.type]}>
-                            {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="text-muted-foreground">{dateRange}</TableCell>
-                        <TableCell>{item.country}</TableCell>
-                        <TableCell>{item.city}</TableCell>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
-              {mapItems.length === 0 && (
-                <div className="p-8 text-center text-muted-foreground">
-                  No items match the selected filters.
-                </div>
-              )}
+            <div className={cn('flex flex-col', isMaximized ? 'h-full' : 'max-h-[540px]')}>
+              <div className="flex shrink-0 justify-end border-b border-line p-3">{maximizeButton}</div>
+              <div className="min-h-0 flex-1 overflow-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Title</TableHead>
+                      <TableHead>Type</TableHead>
+                      <TableHead>Date range</TableHead>
+                      <TableHead>Country</TableHead>
+                      <TableHead>City</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {mapItems.map((item) => {
+                      return (
+                        <TableRow key={item.uid} className="cursor-pointer" onClick={() => handleRowClick(item)}>
+                          <TableCell className="font-medium">
+                            <button
+                              type="button"
+                              aria-label={item.title}
+                              className="flex items-center gap-3 rounded-md text-left"
+                              onClick={(event) => {
+                                event.stopPropagation()
+                                handleRowClick(item)
+                              }}
+                            >
+                              <LogoTile src={item.logoUrl} alt={item.title} size={28} variant="logo-light" className="p-[3px]" />
+                              <span>{item.title}</span>
+                            </button>
+                          </TableCell>
+                          <TableCell>
+                            <Tag tone={ENTITY_TAG_TONE[item.type]}>{item.type}</Tag>
+                          </TableCell>
+                          <TableCell className="whitespace-nowrap font-mono text-xs text-faint">{formatItemPeriod(item)}</TableCell>
+                          <TableCell>{item.country}</TableCell>
+                          <TableCell>{item.city}</TableCell>
+                        </TableRow>
+                      )
+                    })}
+                  </TableBody>
+                </Table>
+                {mapItems.length === 0 && (
+                  <div className="type-meta p-8 text-center">No items match the selected filters.</div>
+                )}
+              </div>
             </div>
           )}
-        </Card>
+        </Surface>
+      </Reveal>
 
-        {/* Statistics */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-blue-500 mb-2">{experiencesData.items.length}</div>
-            <div className="text-muted-foreground">Companies Worked With</div>
-          </Card>
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">{educationData.items.length}</div>
-            <div className="text-muted-foreground">Educational Institutions</div>
-          </Card>
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-red-600 mb-2">
-              {customersData.items.length}
-            </div>
-            <div className="text-muted-foreground">Clients Served</div>
-          </Card>
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-orange-500 mb-2">
-              {partnersData.items.length}
-            </div>
-            <div className="text-muted-foreground">Strategic Partners</div>
-          </Card>
-        </div> */}
+      <ExperienceDetailDialog
+        experience={selectedExperience as never}
+        isOpen={isExperienceDialogOpen}
+        onClose={() => {
+          setIsExperienceDialogOpen(false)
+          setSelectedExperience(null)
+        }}
+      />
 
-        {/* Detail Dialogs */}
-        <ExperienceDetailDialog
-          experience={selectedExperience as never}
-          isOpen={isExperienceDialogOpen}
-          onClose={() => {
-            setIsExperienceDialogOpen(false)
-            setSelectedExperience(null)
-          }}
-        />
-        
-        <EducationDetailDialog
-          education={selectedEducation as never}
-          isOpen={isEducationDialogOpen}
-          onClose={() => {
-            setIsEducationDialogOpen(false)
-            setSelectedEducation(null)
-          }}
-          educationIcon={(selectedEducation as Record<string, unknown>)?.icon as string}
-        />
-        
-        <CustomerDetailDialog
-          customer={selectedCustomer as never}
-          isOpen={isCustomerDialogOpen}
-          onClose={() => {
-            setIsCustomerDialogOpen(false)
-            setSelectedCustomer(null)
-          }}
-          customerLogo={(selectedCustomer as Record<string, unknown>)?.logoPath as string}
-        />
-        
-        <PartnerDetailDialog
-          partner={selectedPartner as Partner}
-          isOpen={isPartnerDialogOpen}
-          onClose={() => {
-            setIsPartnerDialogOpen(false)
-            setSelectedPartner(null)
-          }}
-          partnerLogo={(selectedPartner as Partner)?.companyCode ? companies.items.find(c => c.code === (selectedPartner as Partner).companyCode)?.photoUrl : undefined}
-          companyTitle={(selectedPartner as Partner)?.companyCode ? companies.items.find(c => c.code === (selectedPartner as Partner).companyCode)?.title : undefined}
-        />
-      </div>
-    </section>
+      <EducationDetailDialog
+        education={selectedEducation as never}
+        isOpen={isEducationDialogOpen}
+        onClose={() => {
+          setIsEducationDialogOpen(false)
+          setSelectedEducation(null)
+        }}
+        educationIcon={(selectedEducation as Record<string, unknown>)?.icon as string}
+      />
+
+      <CustomerDetailDialog
+        customer={selectedCustomer as never}
+        isOpen={isCustomerDialogOpen}
+        onClose={() => {
+          setIsCustomerDialogOpen(false)
+          setSelectedCustomer(null)
+        }}
+        customerLogo={(selectedCustomer as Record<string, unknown>)?.logoPath as string}
+      />
+
+      <PartnerDetailDialog
+        partner={selectedPartner as Partner}
+        isOpen={isPartnerDialogOpen}
+        onClose={() => {
+          setIsPartnerDialogOpen(false)
+          setSelectedPartner(null)
+        }}
+        partnerLogo={
+          (selectedPartner as Partner)?.companyCode
+            ? companies.items.find((c) => c.code === (selectedPartner as Partner).companyCode)?.photoUrl
+            : undefined
+        }
+        companyTitle={
+          (selectedPartner as Partner)?.companyCode
+            ? companies.items.find((c) => c.code === (selectedPartner as Partner).companyCode)?.title
+            : undefined
+        }
+      />
+    </Section>
   )
 }
