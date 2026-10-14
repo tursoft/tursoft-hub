@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useRef, useState, type KeyboardEvent, type MouseEvent, type ReactNode } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Maximize2, Minimize2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -34,10 +34,6 @@ export default function DetailDialog({
   // The element that had focus when the dialog opened (a card or row), so focus can go back to it.
   const openerRef = useRef<HTMLElement | null>(null);
 
-  useEffect(() => {
-    if (!open) setMaximized(false);
-  }, [open]);
-
   const metaItems = meta.filter(Boolean);
 
   return (
@@ -55,13 +51,15 @@ export default function DetailDialog({
           // so without this the focus would be dropped on <body> when the dialog closes.
           onCloseAutoFocus={(event) => {
             event.preventDefault();
+            // Runs after the exit animation, so resetting the size here does not resize a fading dialog.
+            setMaximized(false);
             const opener = openerRef.current;
             openerRef.current = null;
             if (opener?.isConnected) opener.focus();
           }}
         >
-          <header className="detail-dialog-head">
-            {icon ?? <span />}
+          <header className={cn("detail-dialog-head", !icon && "grid-cols-[minmax(0,1fr)_auto]")}>
+            {icon}
             <div className="min-w-0">
               <DialogPrimitive.Title className="detail-dialog-title">{title}</DialogPrimitive.Title>
               {metaItems.length > 0 && (
@@ -100,7 +98,7 @@ export default function DetailDialog({
 
 /** Mono lowercase label for a block inside a dialog tab. */
 export function DetailHeading({ children }: { children: ReactNode }) {
-  return <h4 className="detail-heading">{children}</h4>;
+  return <h3 className="detail-heading">{children}</h3>;
 }
 
 /** Centred mono message for empty or loading tabs. */
@@ -125,9 +123,20 @@ interface DetailRowProps {
   children?: ReactNode;
 }
 
-/** One row in a dialog list. With onClick it is a keyboard-accessible button-like row. */
+/**
+ * One row in a dialog list. With onClick it is a keyboard-accessible button-like row.
+ * Links and buttons nested in the row (trailing icons, tags) keep their own behaviour: clicks on them do not
+ * trigger the row's onClick. A role="button" row that contains links is a known axe "nested-interactive"
+ * limitation; it is accepted here so a whole row can open a dialog while its links still work.
+ */
 export function DetailRow({ icon, title, subtitle, clampSubtitle = true, trailing, onClick, children }: DetailRowProps) {
   const interactive = Boolean(onClick);
+
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+    const nested = (event.target as Element).closest('a, button, input, [role="button"]');
+    if (nested && nested !== event.currentTarget) return;
+    onClick?.();
+  };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.target !== event.currentTarget) return;
@@ -142,7 +151,7 @@ export function DetailRow({ icon, title, subtitle, clampSubtitle = true, trailin
       className="detail-row"
       role={interactive ? "button" : undefined}
       tabIndex={interactive ? 0 : undefined}
-      onClick={onClick}
+      onClick={interactive ? handleClick : undefined}
       onKeyDown={interactive ? handleKeyDown : undefined}
     >
       {icon}

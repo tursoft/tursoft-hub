@@ -160,6 +160,8 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
     if (project?.skillCodes && project.skillCodes.length > 0) {
       fetchSkills();
+    } else {
+      setSkills([]);
     }
   }, [project?.skillCodes]);
 
@@ -509,6 +511,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               <DetailRows columns={2}>
                 {teamMembers.map((member, index) => {
                   const linkedinUrl = member.person?.contacts?.find((contact) => contact.code === 'linkedin')?.value;
+                  const displayName = member.person?.title || member.personCode;
                   return (
                     <DetailRow
                       key={member.personCode || index}
@@ -521,7 +524,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                           fallback={<User className="h-4 w-4" />}
                         />
                       }
-                      title={member.person?.title || member.personCode}
+                      title={displayName}
                       subtitle={member.position}
                       trailing={
                         linkedinUrl ? (
@@ -529,7 +532,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                             href={linkedinUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label="LinkedIn profile"
+                            aria-label={`${displayName} on LinkedIn`}
                             className="grid h-8 w-8 shrink-0 place-items-center rounded-[6px] border border-line text-muted-foreground transition-colors hover:border-accent hover:text-foreground"
                             onClick={(event) => event.stopPropagation()}
                           >
@@ -562,8 +565,8 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                   return (
                     <DetailRow
                       key={partner.partnerCode}
-                      icon={<LogoTile src={company?.photoUrl} alt={company?.title ?? partner.code} size={40} variant="logo-light" />}
-                      title={company?.title || partner.code}
+                      icon={<LogoTile src={company?.photoUrl} alt={company?.title ?? partner.partnerCode} size={40} variant="logo-light" />}
+                      title={company?.title || partner.partnerCode}
                       subtitle={partner.description}
                       onClick={() => {
                         setSelectedPartner(partner);
