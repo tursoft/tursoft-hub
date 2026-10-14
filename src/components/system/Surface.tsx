@@ -3,7 +3,7 @@ import { useSurfacePointer } from "@/lib/motion/hooks";
 import { cn } from "@/lib/utils";
 
 export interface SurfaceProps extends HTMLAttributes<HTMLDivElement> {
-  /** Cursor spotlight, glowing border, 3D tilt and press feedback. */
+  /** Cursor spotlight, glowing border and 3D tilt; pointer cursor and press feedback only come with `onActivate`. */
   interactive?: boolean;
   /** Turn the tilt off (e.g. very wide rows) while keeping the spotlight. */
   tilt?: boolean;
@@ -35,7 +35,7 @@ const Surface = forwardRef<HTMLDivElement, SurfaceProps>(function Surface(
       ref={innerRef}
       role={activatable ? "button" : undefined}
       tabIndex={activatable ? 0 : undefined}
-      className={cn("surface", interactive && "surface-interactive", className)}
+      className={cn("surface", interactive && "surface-interactive", activatable && "cursor-pointer", className)}
       onClick={(event) => {
         onClick?.(event);
         if (!event.defaultPrevented) onActivate?.();

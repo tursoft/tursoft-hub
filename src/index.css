@@ -304,7 +304,6 @@
   }
 
   .surface-interactive {
-    cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -338,7 +337,8 @@
     transition: opacity 0.3s ease;
   }
 
-  .surface-interactive:active {
+  /* Press feedback only for surfaces that do something when pressed (Surface gives those role="button"). */
+  .surface-interactive[role="button"]:active {
     transform: scale(0.985);
   }
 
