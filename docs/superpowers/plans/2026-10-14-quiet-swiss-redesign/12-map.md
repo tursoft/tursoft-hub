@@ -101,7 +101,6 @@ In `HoverMarker`, replace the whole `<Popup …>…</Popup>` element with:
       <Popup
         maxWidth={300}
         minWidth={240}
-        className="map-popup"
         closeButton={false}
         autoClose={false}
         closeOnEscapeKey={true}
