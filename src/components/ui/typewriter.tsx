@@ -46,7 +46,7 @@ const Typewriter = ({
   return (
     <span className={className}>
       {text}
-      <span className="typing-caret" style={{ height: "1em", verticalAlign: "text-bottom" }} aria-hidden />
+      <span className="type-caret" aria-hidden="true" />
     </span>
   );
 };
