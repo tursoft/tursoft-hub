@@ -446,7 +446,7 @@ Replace the whole file with:
 
   ::-webkit-scrollbar-thumb {
     border: 2px solid hsl(var(--background));
-    border-radius: 5px;
+    border-radius: 4px;
     background: hsl(var(--line-strong));
   }
 
