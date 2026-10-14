@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export type LogoTileVariant = "logo" | "logo-light" | "photo";
@@ -25,11 +25,9 @@ const initials = (text: string | null | undefined) =>
     .join("");
 
 export default function LogoTile({ src, alt, size, variant = "logo", className, fallback }: LogoTileProps) {
-  const [failed, setFailed] = useState(false);
-
-  useEffect(() => {
-    setFailed(false);
-  }, [src]);
+  // Remember which src failed, so a new src never renders the fallback for a frame.
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const showImage = Boolean(src) && failedSrc !== src;
 
   return (
     <div
@@ -40,9 +38,12 @@ export default function LogoTile({ src, alt, size, variant = "logo", className, 
         className,
       )}
       style={size ? { width: size, height: size } : undefined}
+      // The fallback span is aria-hidden, so the tile itself carries the name.
+      role={showImage ? undefined : "img"}
+      aria-label={showImage ? undefined : alt}
     >
-      {src && !failed ? (
-        <img src={src} alt={alt} loading="lazy" decoding="async" onError={() => setFailed(true)} />
+      {showImage ? (
+        <img src={src} alt={alt} loading="lazy" decoding="async" onError={() => setFailedSrc(src)} />
       ) : (
         <span className="logo-tile-fallback" aria-hidden="true">
           {fallback ?? initials(alt)}
