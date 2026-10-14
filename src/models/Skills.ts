@@ -13,7 +13,6 @@ export interface SkillItem extends IBaseModelAdvanced {
   value?: number;
   projects?: number;
   jobs?: number;
-  orderIndex?: number;
   isMajor?: boolean;
 }
 

@@ -1,13 +1,19 @@
 // Drives headless Chrome over CDP: scrolls through the site and saves one PNG per screen.
 const fs = require('fs');
 const http = require('http');
+const os = require('os');
+const path = require('path');
 const { spawn } = require('child_process');
 
-const CHROME = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe';
-const OUT = process.argv[2];
+const CHROME = process.env.CHROME_PATH
+  || ['C:/Program Files (x86)/Google/Chrome/Application/chrome.exe', 'C:/Program Files/Google/Chrome/Application/chrome.exe', '/usr/bin/google-chrome', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome']
+    .find((p) => fs.existsSync(p));
+// Chrome exits at once (code 21) for a relative --user-data-dir, so always work with an absolute output path.
+const OUT = path.resolve(process.argv[2]).replace(/\\/g, '/');
 const BASE = process.argv[3] || 'http://localhost:8081/';
 const PORT = 9333;
-const profile = `${OUT}/profile`;
+// Keep Chrome's throwaway profile outside the project: Vite's file watcher crashes (EBUSY) on files Chrome holds open.
+const profile = path.join(os.tmpdir(), `shoot-profile-${process.pid}`).replace(/\\/g, '/');
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const getJSON = (url) =>
@@ -86,7 +92,7 @@ async function main() {
   const sections = await evalJS(`[...document.querySelectorAll('section[id]')].map(s => s.id + ':' + Math.round(s.getBoundingClientRect().top + window.scrollY) + ':' + Math.round(s.getBoundingClientRect().height)).join(', ')`);
   console.log('sections (id:top:height):', sections);
   await evalJS(`(async () => { const s = (ms) => new Promise((r) => setTimeout(r, ms));
-    const el = document.querySelector('#portfolio .cursor-pointer'); if (!el) return 'no card';
+    const el = document.querySelector('#portfolio .surface-interactive, #portfolio .cursor-pointer'); if (!el) return 'no card';
     el.scrollIntoView({ block: 'center' }); await s(300); el.click(); await s(1500); return 'clicked ' + el.className; })()`).then(console.log);
   await shot('desktop_dialog_project');
   await send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 });
@@ -95,7 +101,7 @@ async function main() {
 
   // Experience card hover state (content expands on hover).
   await evalJS(`(async () => { const s = (ms) => new Promise((r) => setTimeout(r, ms));
-    const el = document.querySelector('#experience .cursor-pointer'); if (!el) return 'no exp card';
+    const el = document.querySelector('#experience .surface-interactive, #experience .cursor-pointer'); if (!el) return 'no exp card';
     el.scrollIntoView({ block: 'center' }); await s(300); const r = el.getBoundingClientRect(); window.__hover = { x: r.left + 200, y: r.top + 40 }; return 'ok'; })()`);
   const hv = await evalJS('JSON.stringify(window.__hover || null)');
   if (hv && hv !== 'null') {
