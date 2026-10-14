@@ -45,6 +45,13 @@ const FILTERS = [
   { id: 'partner', label: 'Partners', count: partnersData.items.length },
 ] as const
 
+// Keep the view inside the world's latitude range (the map is wrapped horizontally), so a tall
+// frame, e.g. a maximised phone, never shows empty space above the north edge of the tiles.
+const WORLD_BOUNDS: L.LatLngBoundsLiteral = [
+  [-85, -540],
+  [85, 540],
+]
+
 // Fix default markers
 delete (L.Icon.Default.prototype as unknown as { _getIconUrl: unknown })._getIconUrl
 L.Icon.Default.mergeOptions({
@@ -58,7 +65,7 @@ L.Icon.Default.mergeOptions({
 const createIcon = (color: string, type: string, logoUrl?: string) => {
   const letter = type.charAt(0).toUpperCase()
   const inner = logoUrl
-    ? `<img src="${logoUrl}" alt="" style="width:22px;height:22px;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" /><span class="map-pin-letter" style="display:none">${letter}</span>`
+    ? `<img src="${logoUrl}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" /><span class="map-pin-letter" style="display:none">${letter}</span>`
     : `<span class="map-pin-letter">${letter}</span>`
 
   return L.divIcon({
@@ -75,6 +82,8 @@ const createIconWithLogo = (type: 'experience' | 'education' | 'customer' | 'par
 
 export interface MapItem {
   uid: string
+  /** Code of the source record (companyCode, code or partnerCode); may itself contain dots. */
+  code: string
   type: 'education' | 'experience' | 'customer' | 'partner'
   title: string
   coordinate: { lat: number; lng: number }
@@ -114,6 +123,7 @@ const transformExperienceToMapItem = (experience: Experience, index: number): Ma
 
   return {
     uid: `experience.${experience.companyCode}.${index}`,
+    code: experience.companyCode,
     type: 'experience',
     title: company.title || '',
     coordinate: company.coordinates,
@@ -138,6 +148,7 @@ const transformEducationToMapItem = (school: Education, index: number): MapItem 
 
   return {
     uid: `education.${school.code}.${index}`,
+    code: school.code,
     type: 'education',
     title: company.title || '',
     coordinate: company.coordinates,
@@ -165,6 +176,7 @@ const transformCustomerToMapItem = (customer: Customer, index: number): MapItem 
 
   return {
     uid: `customer.${customer.code}.${index}`,
+    code: customer.code,
     type: 'customer',
     title: company.title || '',
     coordinate: company.coordinates,
@@ -187,6 +199,7 @@ const transformPartnerToMapItem = (partner: Partner, index: number): MapItem | n
 
   return {
     uid: `partner.${partner.partnerCode}.${index}`,
+    code: partner.partnerCode,
     type: 'partner',
     title: company.title || '',
     coordinate: company.coordinates,
@@ -235,6 +248,22 @@ const createMapItemsFromData = (filters: string[] = ['experience', 'education', 
   }
 
   return result
+}
+
+// Source record behind a map item, for the detail dialogs. Looked up by the item's entity code,
+// never by splitting the uid (many codes contain dots, e.g. "MOH.TR").
+const findSourceRecord = (item: MapItem): unknown => {
+  switch (item.type) {
+    case 'experience':
+      return experiencesData.items.find((exp) => exp.companyCode === item.code)
+    case 'education':
+      return educationData.items.find((edu) => edu.code === item.code)
+    case 'customer':
+      return customersData.items.find((cust) => cust.code === item.code)
+    case 'partner':
+      // For partners, we pass the partner object (not company) so the dialog can access description
+      return partnersData.items.find((p) => p.partnerCode === item.code)
+  }
 }
 
 // Custom Marker component that handles hover and click events
@@ -414,13 +443,15 @@ export default function MapSection() {
   const [isCustomerDialogOpen, setIsCustomerDialogOpen] = useState(false)
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false)
 
-  // While maximised: lock page scroll and restore on Escape.
+  // While maximised: lock page scroll and restore on Escape (unless a dialog is open: Escape then closes only the dialog).
   useEffect(() => {
     if (!isMaximized) return
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     const handleKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsMaximized(false)
+      if (event.key !== 'Escape') return
+      if (event.defaultPrevented || document.querySelector('[role="dialog"][data-state="open"]')) return
+      setIsMaximized(false)
     }
     window.addEventListener('keydown', handleKey)
     return () => {
@@ -490,27 +521,7 @@ export default function MapSection() {
       const offsetIndex = coordinateCount[coordKey] || 0
       coordinateCount[coordKey] = offsetIndex + 1
 
-      // Find original data object for dialogs by extracting code from uid
-      let originalData: unknown = null
-      if (mapItem.type === 'experience') {
-        // uid format: experience.{companyCode}.{index}
-        const companyCode = mapItem.uid.split('.')[1]
-        originalData = experiencesData.items.find(item => item.companyCode === companyCode)
-      } else if (mapItem.type === 'education') {
-        // uid format: education.{code}.{index}
-        const code = mapItem.uid.split('.')[1]
-        originalData = educationData.items.find(item => item.code === code)
-      } else if (mapItem.type === 'customer') {
-        // uid format: customer.{code}.{index}
-        const code = mapItem.uid.split('.')[1]
-        originalData = customersData.items.find(item => item.code === code)
-      } else if (mapItem.type === 'partner') {
-        // uid format: partner.{partnerCode}.{index}
-        const partnerCode = mapItem.uid.split('.')[1]
-        const partner = partnersData.items.find(item => item.partnerCode === partnerCode)
-        // For partners, we pass the partner object (not company) so the dialog can access description
-        originalData = partner
-      }
+      const originalData = findSourceRecord(mapItem)
 
       const period = mapItem.daterange.end 
         ? `${mapItem.daterange.start} - ${mapItem.daterange.end}`
@@ -566,27 +577,7 @@ export default function MapSection() {
 
   // Handle grid row click to open appropriate dialog
   const handleRowClick = (item: MapItem) => {
-    // Find the original data object for dialogs by extracting code from uid
-    let originalData: unknown = null
-    if (item.type === 'experience') {
-      // uid format: experience.{companyCode}.{index}
-      const companyCode = item.uid.split('.')[1]
-      originalData = experiencesData.items.find(exp => exp.companyCode === companyCode)
-    } else if (item.type === 'education') {
-      // uid format: education.{code}.{index}
-      const code = item.uid.split('.')[1]
-      originalData = educationData.items.find(edu => edu.code === code)
-    } else if (item.type === 'customer') {
-      // uid format: customer.{code}.{index}
-      const code = item.uid.split('.')[1]
-      originalData = customersData.items.find(cust => cust.code === code)
-    } else if (item.type === 'partner') {
-      // uid format: partner.{partnerCode}.{index}
-      const partnerCode = item.uid.split('.')[1]
-      const partner = partnersData.items.find(p => p.partnerCode === partnerCode)
-      // For partners, we pass the partner object (not company) so the dialog can access description
-      originalData = partner
-    }
+    const originalData = findSourceRecord(item)
 
     switch (item.type) {
       case 'experience':
@@ -665,11 +656,13 @@ export default function MapSection() {
                 className="z-0"
                 scrollWheelZoom={true}
                 attributionControl={true}
+                maxBounds={WORLD_BOUNDS}
+                maxBoundsViscosity={1}
               >
                 <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                  url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-                  subdomains="abcd"
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  subdomains="abc"
                   maxZoom={19}
                   minZoom={2}
                 />
@@ -716,7 +709,7 @@ export default function MapSection() {
                           <TableCell>
                             <Tag tone={ENTITY_TAG_TONE[item.type]}>{item.type}</Tag>
                           </TableCell>
-                          <TableCell className="font-mono text-xs text-faint">{dateRange}</TableCell>
+                          <TableCell className="whitespace-nowrap font-mono text-xs text-faint">{dateRange}</TableCell>
                           <TableCell>{item.country}</TableCell>
                           <TableCell>{item.city}</TableCell>
                         </TableRow>
