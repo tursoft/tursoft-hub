@@ -322,10 +322,13 @@ import { cn } from '@/lib/utils';
 import type { Education } from '@/models/Education';
 import type SkillItem from '@/models/Skills';
 import type { Company } from '@/models/Companies';
+import type { ProcessedEducation } from './EducationCard';
 
 /** Tag tone for a course grade: AA in green, BB in the education colour, anything else quiet. */
 const scoreTone = (score: string): TagTone => (score === 'AA' ? 'success' : score === 'BB' ? 'edu' : 'quiet');
 ```
+
+Then delete the dialog's local copy of the type (the comment `// ProcessedEducation type with company details` and the `type ProcessedEducation = Education & { … };` block after the imports): Task 11 exports the same type from `src/components/educations/EducationCard.tsx`, imported above.
 
 - [ ] **Step 8: Delete the maximise state and dead helpers, then resolve the institution**
 
