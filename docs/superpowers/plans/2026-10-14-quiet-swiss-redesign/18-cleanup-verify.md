@@ -503,7 +503,7 @@ Open `http://localhost:5199/` in Chrome and tick each item:
 - [ ] Timeline: chips filter; zoom in/out changes the axis label; timeline/list switch.
 - [ ] CV downloads (compact and detailed) work from the nav menu, the hero, the phone menu sheet and the contact section.
 - [ ] Back-to-top appears after scrolling and returns to the top.
-- [ ] `/privacy/amelbook` looks exactly as on `prod` (open both side by side), and an unknown URL shows the new 404 page.
+- [ ] `/privacy/amelbook` keeps its own layout and content (compare with `prod` side by side; only the inherited font, colours and ambient background differ), its language menu still works, and an unknown URL shows the new 404 page.
 - [ ] Moving the mouse shows the line field and flashlight grid reacting; scrolling fast skews the page slightly and it settles at rest; titles drift sideways while scrolling (desktop only); numbers count up when their stats enter the view.
 
 - [ ] **Step 10: Keyboard pass**

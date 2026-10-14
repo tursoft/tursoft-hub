@@ -26,7 +26,7 @@
   - `npm run lint` → exits 0 with 0 errors (pre-existing warnings in untouched shadcn files are allowed)
   - `npm test` → all tests pass
   - `npm run build` → succeeds (takes about 2 minutes; the static-copy step copies ~3000 files)
-- Commit after each task with a conventional message ending in the trailer line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+- Commit after each task with a conventional message ending in a `Co-Authored-By:` trailer for the Claude model that made the commit (the briefs show `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`; an agent whose own instructions name a different model uses that line instead).
 - Visual checks use `node docs/superpowers/tools/shoot.cjs .superpowers/shots/task-NN http://localhost:5199/` against a running dev server (`npm run dev -- --port 5199 --strictPort`); it writes desktop (1440×900) and phone (390×844) screenshots plus a project-dialog and experience-hover capture (Task 18 adds a tablet pass and more dialogs). Always write screenshots under `.superpowers/`, which is git-ignored, so they are never committed; stop the dev server when the task is done.
 - Bug fixes folded into this plan (keep them, they are intentional): the project dialog's Customers tab resolves client names/logos, its Partners tab matches partners by `partnerCode` and resets between projects, and repeated skill codes are listed once (Task 15); an education opened from a skill resolves its institution and an education without skills shows none (Task 16); partner projects match codes case-insensitively, a client without projects no longer shows stale ones, and the people dialog lists every company (Task 17).
 
