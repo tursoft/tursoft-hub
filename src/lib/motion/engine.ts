@@ -74,6 +74,8 @@ function handleVisibility() {
 }
 
 function tick(timestamp: number) {
+  frame = 0;
+  if (!running) return;
   if (!startTimestamp) startTimestamp = timestamp;
   state.delta = lastTimestamp ? Math.min((timestamp - lastTimestamp) / 1000, 0.1) : 0;
   lastTimestamp = timestamp;
@@ -89,8 +91,16 @@ function tick(timestamp: number) {
   lastScrollY = scrollY;
   state.scrollY = scrollY;
 
-  listeners.forEach((listener) => listener(state));
-  frame = requestAnimationFrame(tick);
+  // A throwing listener must not end the loop for everyone else.
+  listeners.forEach((listener) => {
+    try {
+      listener(state);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+  // Re-arm only while running, and not if a listener already restarted the loop (which queued its own frame).
+  if (running && frame === 0) frame = requestAnimationFrame(tick);
 }
 
 function start() {

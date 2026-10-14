@@ -23,7 +23,8 @@ export default function Reveal({ children, className, index = 0 }: RevealProps) 
       return;
     }
     const observer = new IntersectionObserver(
-      ([entry]) => {
+      (entries) => {
+        const entry = entries[entries.length - 1];
         if (entry.isIntersecting) setRevealed(true);
         else if (entry.boundingClientRect.top > window.innerHeight * 0.9) setRevealed(false);
       },

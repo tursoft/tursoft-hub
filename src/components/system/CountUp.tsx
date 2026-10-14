@@ -14,7 +14,7 @@ export default function CountUp({ end, suffix = "", duration = 1400, className }
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { threshold: 0.6, once: true });
   const reduce = usePrefersReducedMotion();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(reduce ? end : 0);
 
   useEffect(() => {
     if (!inView) return;

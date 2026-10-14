@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type RefObject } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type FocusEvent, type RefObject } from "react";
 import { subscribeFrame, type FrameListener, type MotionState } from "./engine";
 import { driftOffset, lerp, magneticOffset, skewFromVelocity, tiltFromPointer } from "./math";
 
@@ -46,6 +46,12 @@ export function useScrollSkew(ref: RefObject<HTMLElement>): void {
   useFrame((state) => {
     const element = ref.current;
     if (!element) return;
+    // A transformed <main> contains position:fixed children (the maximised map): drop the skew at once while scroll is locked.
+    if (document.body.style.overflow === "hidden") {
+      skew.current = 0;
+      element.style.transform = "";
+      return;
+    }
     skew.current = lerp(skew.current, skewFromVelocity(state.velocity), 0.2);
     element.style.transform = Math.abs(skew.current) > 0.02 ? `skewY(${skew.current.toFixed(3)}deg)` : "";
   }, !reduce);
@@ -114,7 +120,8 @@ export function useInView(
       return;
     }
     const observer = new IntersectionObserver(
-      ([entry]) => {
+      (entries) => {
+        const entry = entries[entries.length - 1];
         if (entry.isIntersecting) {
           setInView(true);
           if (once) observer.disconnect();
@@ -210,7 +217,10 @@ export function useExpandableCard(onOpen: () => void) {
     ? {
         onMouseEnter: () => setExpanded(true),
         onMouseLeave: () => setExpanded(false),
-        onFocus: () => setExpanded(true),
+        onFocus: (event: FocusEvent<HTMLElement>) => {
+          // Only keyboard focus expands; a click, or Radix restoring focus after a dialog closes, must not.
+          if (event.currentTarget.matches(":focus-visible")) setExpanded(true);
+        },
         onBlur: () => setExpanded(false),
         onActivate: onOpen,
       }
