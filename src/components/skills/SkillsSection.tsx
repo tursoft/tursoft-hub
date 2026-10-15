@@ -101,6 +101,7 @@ const SkillsSection = () => {
             badge: (skill) => skill.isMajor ? 'Major' : '',
           }}
           gridCols={{ sm: 2, md: 3, lg: 4, xl: 6 }}
+          smallCardImageClassName="w-3/5 h-3/5"
           footer={
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             </div>

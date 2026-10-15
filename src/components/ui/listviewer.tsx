@@ -80,6 +80,7 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   
   // Image styling
   imageRounded?: boolean; // If true, images will use rounded-full (circular)
+  smallCardImageClassName?: string; // Size classes for the image in small-card view (default fills the cell)
   
   // Show More functionality
   enableShowMore?: boolean; // If true, enables show more/less functionality
@@ -128,6 +129,7 @@ const ListViewer = <T = any>({
   carouselCardHeight = '28rem',
   gridCols = { sm: 1, md: 2, lg: 3, xl: 4 },
   imageRounded = false,
+  smallCardImageClassName = 'w-full h-full',
   enableShowMore = false,
   visibleMajorItemCount,
   onItemClick,
@@ -505,7 +507,7 @@ const ListViewer = <T = any>({
               <img 
                 src={image} 
                 alt={title}
-                className="w-full h-full object-contain"
+                className={`${smallCardImageClassName} object-contain`}
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                 }}
