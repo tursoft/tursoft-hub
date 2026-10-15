@@ -161,7 +161,11 @@
         "llama3.3",
         "qwen3.5",
         "Distributed Systems",
-        "VS Code"
+        "VS Code",
+        "ollama",
+        "ChatGPT",
+        "claudedesktop",
+        "gemini"
       ],
       "datePeriod": {
         "startDate": "01.04.2026",
@@ -230,7 +234,10 @@
         "kubernetes",
         "tsql",
         "mssql",
-        "oop"
+        "oop",
+        "claudecode",
+        "claudedesktop",
+        "copilot"
       ],
       "datePeriod": {
         "startDate": "01.12.2022",

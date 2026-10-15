@@ -3,9 +3,26 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft, ChevronRight, Grid, List, RotateCcw, Grid3x3, Filter, Search } from "lucide-react";
+import { ChevronLeft, ChevronRight, Grid, List, RotateCcw, Grid3x3, Filter, Search, Orbit } from "lucide-react";
+import { ItemCloud } from "@/components/ui/item-cloud";
 
-export type ViewMode = 'small-card' | 'card' | 'list' | 'carousel';
+export type ViewMode = 'small-card' | 'card' | 'list' | 'carousel' | 'cloud';
+
+const VIEW_MODE_ICONS: Record<ViewMode, ReactNode> = {
+  'small-card': <Grid3x3 className="w-4 h-4" />,
+  card: <Grid className="w-4 h-4" />,
+  list: <List className="w-4 h-4" />,
+  carousel: <RotateCcw className="w-4 h-4" />,
+  cloud: <Orbit className="w-4 h-4" />,
+};
+
+const VIEW_MODE_LABELS: Record<ViewMode, string> = {
+  'small-card': 'Compact grid',
+  card: 'Cards',
+  list: 'List',
+  carousel: 'Carousel',
+  cloud: '3D cloud',
+};
 
 export interface FieldMapping<T = Record<string, unknown>> {
   // Core fields
@@ -54,7 +71,8 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   enableCategoryFilter?: boolean;
   categoryField?: string | ((item: T) => string); // Field name or function to extract category
   categoryLabels?: Record<string, string>; // Optional custom labels for categories
-  categoryOrder?: string[]; // Optional custom order for categories
+  categoryOrder?: string[];
+  categoryFilterLayout?: 'top' | 'side'; // 'side' renders the category buttons in a vertical column on the left // Optional custom order for categories
   enableSearch?: boolean;
   searchFields?: string[] | ((item: T) => string[]); // Fields to search in
   searchPlaceholder?: string;
@@ -81,6 +99,11 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   // Image styling
   imageRounded?: boolean; // If true, images will use rounded-full (circular)
   smallCardImageClassName?: string; // Size classes for the image in small-card view (default fills the cell)
+
+  // Cloud (3D sphere) view
+  cloudWeight?: (item: T) => number; // Relative weight used to size items in cloud view
+  cloudHeight?: number; // Pixel height of the cloud container
+  cloudHoverContent?: (item: T) => ReactNode; // Rendered beside the cloud for the hovered (or selected) item
   
   // Show More functionality
   enableShowMore?: boolean; // If true, enables show more/less functionality
@@ -117,6 +140,7 @@ const ListViewer = <T = any>({
   categoryField,
   categoryLabels,
   categoryOrder,
+  categoryFilterLayout = 'top',
   enableSearch = false,
   searchFields,
   searchPlaceholder = 'Search...',
@@ -130,6 +154,9 @@ const ListViewer = <T = any>({
   gridCols = { sm: 1, md: 2, lg: 3, xl: 4 },
   imageRounded = false,
   smallCardImageClassName = 'w-full h-full',
+  cloudWeight,
+  cloudHeight = 560,
+  cloudHoverContent,
   enableShowMore = false,
   visibleMajorItemCount,
   onItemClick,
@@ -143,6 +170,8 @@ const ListViewer = <T = any>({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAll, setShowAll] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [cloudHovered, setCloudHovered] = useState<string | null>(null);
+  const [cloudSelected, setCloudSelected] = useState<string | null>(null);
   const [searchText, setSearchText] = useState<string>('');
   const [showFilters, setShowFilters] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -645,6 +674,27 @@ const ListViewer = <T = any>({
     );
   }
 
+  const sideLayout = categoryFilterLayout === 'side';
+  const hasCategories = enableCategoryFilter && !!categoryField && categories.length > 0;
+  const categoryFilter = hasCategories ? (
+    <div className={sideLayout ? 'flex flex-col gap-2' : 'flex flex-wrap gap-2'}>
+      {categories.map((category) => (
+        <Button
+          key={category}
+          variant={selectedCategory === category ? 'default' : 'outline'}
+          size="sm"
+          onClick={() => setSelectedCategory(category)}
+          className={sideLayout ? 'gap-2 w-full justify-between' : 'gap-2 flex-1'}
+        >
+          <span className={sideLayout ? 'truncate' : undefined}>{categoryLabels?.[category] || category}</span>
+          <Badge variant={selectedCategory === category ? 'secondary' : 'outline'}>
+            {getCategoryCount(category)}
+          </Badge>
+        </Button>
+      ))}
+    </div>
+  ) : null;
+
   if (data.length === 0) {
     return (
       <section className="py-20 bg-background/50">
@@ -687,6 +737,15 @@ const ListViewer = <T = any>({
           </div>
         )}
 
+        {/* Body: optional category sidebar + content column */}
+        <div className={sideLayout && hasCategories ? 'flex flex-col md:flex-row gap-8' : undefined}>
+        {sideLayout && hasCategories && (
+          <aside className={`md:w-52 lg:w-60 flex-shrink-0 md:sticky md:top-24 self-start ${showFilters ? 'block' : 'hidden'} md:block`}>
+            {categoryFilter}
+          </aside>
+        )}
+        <div className={sideLayout && hasCategories ? 'flex-1 min-w-0' : undefined}>
+
         {/* Filters */}
         {(enableCategoryFilter || enableSearch) && (
           <div className="mb-8">
@@ -705,25 +764,8 @@ const ListViewer = <T = any>({
 
             {/* Filter Controls */}
             <div className={`space-y-4 ${showFilters ? 'block' : 'hidden'} md:block`}>
-              {/* Category Filter */}
-              {enableCategoryFilter && categoryField && categories.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {categories.map((category, index) => (
-                    <Button
-                      key={category}
-                      variant={selectedCategory === category ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setSelectedCategory(category)}
-                      className="gap-2 flex-1"
-                    >
-                      {categoryLabels?.[category] || category}
-                      <Badge variant={selectedCategory === category ? 'secondary' : 'outline'}>
-                        {getCategoryCount(category)}
-                      </Badge>
-                    </Button>
-                  ))}
-                </div>
-              )}
+              {/* Category Filter (top layout) */}
+              {!sideLayout && categoryFilter}
 
               {/* Search Input with View Mode Toggle */}
               {enableSearch && (
@@ -741,46 +783,20 @@ const ListViewer = <T = any>({
                   {/* View Mode Toggle inline with search */}
                   {enabledModes.length > 1 && (
                     <div className="flex gap-1 bg-muted/30 p-1 rounded-lg flex-shrink-0">
-                      {enabledModes.includes('small-card') && (
+                      {enabledModes.map((mode) => (
                         <Button
-                          variant={viewMode === 'small-card' ? 'default' : 'ghost'}
+                          key={mode}
+                          variant={viewMode === mode ? 'default' : 'ghost'}
                           size="sm"
-                          onClick={() => setViewMode('small-card')}
+                          onClick={() => setViewMode(mode)}
                           className="h-8 px-3"
+                          title={VIEW_MODE_LABELS[mode]}
+                          aria-label={VIEW_MODE_LABELS[mode]}
+                          aria-pressed={viewMode === mode}
                         >
-                          <Grid3x3 className="w-4 h-4" />
+                          {VIEW_MODE_ICONS[mode]}
                         </Button>
-                      )}
-                      {enabledModes.includes('card') && (
-                        <Button
-                          variant={viewMode === 'card' ? 'default' : 'ghost'}
-                          size="sm"
-                          onClick={() => setViewMode('card')}
-                          className="h-8 px-3"
-                        >
-                          <Grid className="w-4 h-4" />
-                        </Button>
-                      )}
-                      {enabledModes.includes('list') && (
-                        <Button
-                          variant={viewMode === 'list' ? 'default' : 'ghost'}
-                          size="sm"
-                          onClick={() => setViewMode('list')}
-                          className="h-8 px-3"
-                        >
-                          <List className="w-4 h-4" />
-                        </Button>
-                      )}
-                      {enabledModes.includes('carousel') && (
-                        <Button
-                          variant={viewMode === 'carousel' ? 'default' : 'ghost'}
-                          size="sm"
-                          onClick={() => setViewMode('carousel')}
-                          className="h-8 px-3"
-                        >
-                          <RotateCcw className="w-4 h-4" />
-                        </Button>
-                      )}
+                      ))}
                     </div>
                   )}
                 </div>
@@ -793,46 +809,20 @@ const ListViewer = <T = any>({
         {!enableSearch && enabledModes.length > 1 && (
           <div className="flex justify-center mb-8">
             <div className="flex gap-1 bg-muted/30 p-1 rounded-lg">
-              {enabledModes.includes('small-card') && (
+              {enabledModes.map((mode) => (
                 <Button
-                  variant={viewMode === 'small-card' ? 'default' : 'ghost'}
+                  key={mode}
+                  variant={viewMode === mode ? 'default' : 'ghost'}
                   size="sm"
-                  onClick={() => setViewMode('small-card')}
+                  onClick={() => setViewMode(mode)}
                   className="h-8 px-3"
+                  title={VIEW_MODE_LABELS[mode]}
+                  aria-label={VIEW_MODE_LABELS[mode]}
+                  aria-pressed={viewMode === mode}
                 >
-                  <Grid3x3 className="w-4 h-4" />
+                  {VIEW_MODE_ICONS[mode]}
                 </Button>
-              )}
-              {enabledModes.includes('card') && (
-                <Button
-                  variant={viewMode === 'card' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('card')}
-                  className="h-8 px-3"
-                >
-                  <Grid className="w-4 h-4" />
-                </Button>
-              )}
-              {enabledModes.includes('list') && (
-                <Button
-                  variant={viewMode === 'list' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('list')}
-                  className="h-8 px-3"
-                >
-                  <List className="w-4 h-4" />
-                </Button>
-              )}
-              {enabledModes.includes('carousel') && (
-                <Button
-                  variant={viewMode === 'carousel' ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode('carousel')}
-                  className="h-8 px-3"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                </Button>
-              )}
+              ))}
             </div>
           </div>
         )}
@@ -900,6 +890,46 @@ const ListViewer = <T = any>({
           </>
         )}
 
+        {/* Cloud View */}
+        {viewMode === 'cloud' && (() => {
+          const findByCode = (code: string | null) =>
+            code ? filteredData.find((d) => getFieldValue(d, fieldMapping.code) === code) : undefined;
+          const focusItem = findByCode(cloudHovered) ?? findByCode(cloudSelected);
+          return (
+            <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+              <div className="flex-1 min-w-0">
+                <ItemCloud
+                  items={filteredData.map((item) => ({
+                    code: getFieldValue(item, fieldMapping.code),
+                    title: getFieldValue(item, fieldMapping.title),
+                    image: getFieldValue(item, fieldMapping.image) || undefined,
+                    weight: cloudWeight ? cloudWeight(item) : 1,
+                  }))}
+                  height={cloudHeight}
+                  selectedCode={cloudSelected}
+                  onHoverChange={setCloudHovered}
+                  onItemClick={(code) => {
+                    setCloudSelected(code);
+                    const item = findByCode(code);
+                    if (item) onItemClick?.(item);
+                  }}
+                />
+              </div>
+              {cloudHoverContent && (
+                <aside className="lg:w-72 flex-shrink-0">
+                  {focusItem ? (
+                    cloudHoverContent(focusItem)
+                  ) : (
+                    <div className="h-full min-h-[8rem] rounded-xl border border-dashed border-border flex items-center justify-center p-6 text-center text-sm text-muted-foreground">
+                      Hover or click an icon to see its details. Drag to turn the sphere.
+                    </div>
+                  )}
+                </aside>
+              )}
+            </div>
+          );
+        })()}
+
         {/* Carousel View */}
         {viewMode === 'carousel' && (
           <div className="relative max-w-6xl mx-auto">
@@ -951,6 +981,9 @@ const ListViewer = <T = any>({
             )}
           </div>
         )}
+
+        </div>
+        </div>
 
         {/* Footer */}
         {footer && (
