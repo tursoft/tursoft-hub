@@ -49,7 +49,7 @@ const ContactSection = () => {
     {
       icon: Twitter,
       name: "Twitter",
-      href: "https://twitter.com/muhammettursak",
+      href: "https://x.com/muhammettursak",
       color: "text-blue-400"
     }
   ];
@@ -62,8 +62,8 @@ const ContactSection = () => {
           <div className="text-center mb-16 animate-fade-in">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Get In Touch</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Let's Work
-              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Together</span>
+              Contact Muhammet Turşak:
+              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Let's Work Together</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               I'm always interested in discussing new opportunities, innovative projects, 

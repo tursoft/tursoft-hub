@@ -408,8 +408,8 @@ const TimelineSection = () => {
         <div className="text-center mb-12 animate-fade-in">
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Career Journey</Badge>
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Professional
-            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Timeline</span>
+            Professional Timeline:
+            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Career, Education and Projects</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             A chronological overview of my professional journey, education, and key projects
@@ -527,7 +527,7 @@ const TimelineSection = () => {
                               {/* Logo or Icon */}
                               {item.logoUrl ? (
                                 <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden flex items-center justify-center">
-                                  <img 
+                                  <img loading="lazy" decoding="async" 
                                     src={item.logoUrl} 
                                     alt={item.title}
                                     className="w-full h-full object-contain"

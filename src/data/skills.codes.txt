@@ -149,3 +149,13 @@ Project Management
 Web Development
 Mobile Solutions
 Networking
+ai-sdlc
+prompt-engineering
+context-engineering
+agent-orchestration
+llm-app-dev
+spec-driven-development
+mcp
+azure-document-intelligence
+azure-computer-vision
+azure-servicebus

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Download, ChevronDown, FileText, FileDown } from "lucide-react";
 import {
@@ -80,6 +80,13 @@ const Navigation = () => {
     setIsMobileMenuOpen(false);
   };
 
+  // Real anchor links for crawlers and keyboard users; smooth scroll plus a clean hash for everyone else.
+  const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    event.preventDefault();
+    scrollToSection(sectionId);
+    window.history.replaceState(null, "", `#${sectionId}`);
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -104,9 +111,11 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-0.5 rounded-full px-1.5 py-1 transition-colors duration-300">
             {navItems.map((item) => (
-              <button
+              <a
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                href={`#${item.id}`}
+                aria-current={activeSection === item.id ? "location" : undefined}
+                onClick={(e) => handleNavClick(e, item.id)}
                 className={`
                   relative px-3 py-2 text-[13px] font-medium uppercase tracking-wide rounded-full
                   transition-all duration-300
@@ -120,7 +129,7 @@ const Navigation = () => {
                   <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[hsl(var(--primary-variant))] to-[hsl(var(--primary))] shadow-[0_0_18px_hsl(var(--primary)/0.45)] transition-all duration-300" />
                 )}
                 <span className="relative z-10">{item.label}</span>
-              </button>
+              </a>
             ))}
           </div>
 
@@ -167,9 +176,11 @@ const Navigation = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex flex-col space-y-1">
             {navItems.map((item, index) => (
-              <button
+              <a
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                href={`#${item.id}`}
+                aria-current={activeSection === item.id ? "location" : undefined}
+                onClick={(e) => handleNavClick(e, item.id)}
                 style={{ transitionDelay: isMobileMenuOpen ? `${index * 30}ms` : '0ms' }}
                 className={`
                   text-left px-4 py-3 text-sm font-medium uppercase tracking-wide rounded-lg
@@ -182,7 +193,7 @@ const Navigation = () => {
                 `}
               >
                 {item.label}
-              </button>
+              </a>
             ))}
 
             {/* Mobile Download CV Buttons */}

@@ -1,12 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/experiences/ExperienceSection";
 import DomainsSection from "@/components/domains/DomainsSection";
 import EducationSection from "@/components/educations/EducationSection";
-import MapSection from "@/components/map/MapSection";
-import TimelineSection from "@/components/timeline/TimelineSection";
+import FaqSection from "@/components/faq/FaqSection";
+import SiteFooter from "@/components/SiteFooter";
+import Seo from "@/components/Seo";
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, homeJsonLd } from "@/lib/site";
+
 import SkillsSection from "@/components/skills/SkillsSection";
 import PortfolioSection from "@/components/projects/PortfolioSection";
 import CustomersSection from "@/components/customers/CustomersSection";
@@ -15,6 +18,10 @@ import ContactSection from "@/components/contact/ContactSection";
 import Reveal from "@/components/ui/reveal";
 import { ArrowUp } from "lucide-react";
 import profilePhoto from "@/assets/profile-photo.jpg";
+
+// Heavy sections (Leaflet map, timeline) load in their own chunks after the first paint.
+const MapSection = lazy(() => import("@/components/map/MapSection"));
+const TimelineSection = lazy(() => import("@/components/timeline/TimelineSection"));
 
 const sections = [
   AboutSection,
@@ -27,6 +34,7 @@ const sections = [
   EducationSection,
   MapSection,
   TimelineSection,
+  FaqSection,
   ContactSection,
 ];
 
@@ -48,6 +56,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <Seo title={DEFAULT_TITLE} description={DEFAULT_DESCRIPTION} path="/" jsonLd={homeJsonLd()} />
+
       {/* Fixed Profile & Name in Top Left - Only visible after hero */}
       <div className={`fixed top-4 left-4 z-[100] transition-all duration-500 transform ${
         isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
@@ -58,7 +68,7 @@ const Index = () => {
           aria-label="Back to top"
         >
           <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary/40 transition-all duration-300">
-            <img
+            <img loading="lazy" decoding="async"
               src={profilePhoto}
               alt="Muhammet Turşak"
               className="w-full h-full object-cover"
@@ -86,11 +96,14 @@ const Index = () => {
           <div key={index}>
             <hr className="section-divider" />
             <Reveal threshold={0.05}>
-              <Section />
+              <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>
+                <Section />
+              </Suspense>
             </Reveal>
           </div>
         ))}
       </main>
+      <SiteFooter />
     </div>
   );
 };

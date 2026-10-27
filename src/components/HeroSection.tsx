@@ -8,7 +8,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Typewriter from "@/components/ui/typewriter";
-import heroImage from "@/assets/hero-bg.jpg";
+import { PERSON } from "@/lib/site";
+
+// Served unhashed from /assets so the prerendered page can preload it as the LCP image.
+const heroImage = "/assets/hero-bg.jpg";
 import cvData from "@/data/cv.json";
 
 const HeroSection = () => {
@@ -31,6 +34,7 @@ const HeroSection = () => {
   }];
 
   const roles = [
+    "AI-Enabled Software Architect",
     "Senior Software Architect",
     "Director of Technology",
     ".NET & Web Expert",
@@ -75,6 +79,11 @@ const HeroSection = () => {
             <span className="block font-extrabold text-gradient-animated">TURŞAK</span>
           </h1>
 
+          {/* Static positioning line: crawlers and screen readers get the full statement */}
+          <p className="text-base lg:text-lg text-foreground/85 mb-3 font-medium tracking-wide">
+            {PERSON.headline} · {PERSON.yearsOfExperience} years in .NET, Node.js, cloud and SaaS · {PERSON.location.city}, {PERSON.location.country}
+          </p>
+
           {/* Rotating role */}
           <p className="text-xl lg:text-2xl text-muted-foreground mb-8 font-light min-h-[2.25rem]">
             <Typewriter phrases={roles} className="text-foreground/90" />
@@ -82,18 +91,26 @@ const HeroSection = () => {
 
           {/* Description */}
           <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            With <span className="text-gradient font-semibold">25+ years</span> in technology, I've driven the creation of innovative <span className="text-primary font-semibold">cloud based</span> and <span className="text-primary font-semibold">SaaS</span> solutions, blending <span className="text-accent font-semibold">startup agility</span> with enterprise-grade functionality and <span className="text-accent font-semibold">scalability</span>.
+            With <span className="text-gradient font-semibold">25+ years</span> in technology, I architect <span className="text-primary font-semibold">cloud-based</span> and <span className="text-primary font-semibold">SaaS</span> products and build them with <span className="text-accent font-semibold">AI agents</span> across the whole development lifecycle, pairing <span className="text-accent font-semibold">prompt and context engineering</span> with enterprise-grade architecture and scalability.
           </p>
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button
+              asChild
               size="lg"
               className="btn-shine bg-gradient-to-r from-[hsl(var(--primary-variant))] via-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground border-0 px-8 py-3 text-lg hover:scale-[1.03] hover:shadow-[var(--shadow-glow)] transition-all duration-300"
-              onClick={() => document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" })}
             >
-              View My Portfolio
-              <ExternalLink className="ml-2 h-5 w-5" />
+              <a
+                href="#portfolio"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                View My Portfolio
+                <ExternalLink className="ml-2 h-5 w-5" />
+              </a>
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

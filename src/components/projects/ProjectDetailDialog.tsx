@@ -366,7 +366,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
           {/* Logo positioned on the far left */}
           {(projectIcon || project.photoUrl) && (
             <div className="absolute top-4 left-8 z-10 w-16 h-16">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={projectIcon || project.photoUrl} 
                 alt={`${project.title} logo`}
                 className="w-full h-full object-contain rounded-lg"
@@ -502,7 +502,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                     onClick={() => setIsExperienceDialogOpen(true)}
                   >
                     {experienceCompany.photoUrl && (
-                      <img 
+                      <img loading="lazy" decoding="async" 
                         src={experienceCompany.photoUrl} 
                         alt={`${experienceCompany.title} logo`} 
                         className="w-10 h-10 object-contain flex-shrink-0 rounded" 
@@ -608,7 +608,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                           }}
                         >
                           {logoPath && (
-                            <img 
+                            <img loading="lazy" decoding="async" 
                               src={logoPath} 
                               alt={`${skill.title} logo`} 
                               className="w-5 h-5 object-contain flex-shrink-0" 
@@ -645,7 +645,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                           {/* Customer Logo */}
                           {customer.logoPath && (
                             <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
-                              <img 
+                              <img loading="lazy" decoding="async" 
                                 src={customer.logoPath}
                                 alt={`${customer.title} logo`}
                                 className="w-10 h-10 object-contain rounded"
@@ -718,7 +718,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                         >
                           {member.person?.photoUrl ? (
                             <div className="w-10 h-10 flex-shrink-0 relative">
-                              <img
+                              <img loading="lazy" decoding="async"
                                 src={member.person.photoUrl}
                                 alt={member.person.title}
                                 className="w-full h-full object-cover rounded-full border-2 border-primary/20"
@@ -786,7 +786,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                             <div className="flex items-start gap-4">
                               {logoPath && (
                                 <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                  <img 
+                                  <img loading="lazy" decoding="async" 
                                     src={logoPath} 
                                     alt={`${company?.title} logo`} 
                                     className="w-full h-full object-contain p-1"
@@ -839,7 +839,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                   renderCardContent={(screenshot) => (
                     <div className="cursor-pointer group">
                       <div className="relative aspect-video bg-muted overflow-hidden">
-                        <img 
+                        <img loading="lazy" decoding="async" 
                           src={screenshot.file_small || screenshot.file_big || '/placeholder.svg'} 
                           alt={screenshot.title || 'Screenshot'}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
@@ -858,7 +858,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                   renderListContent={(screenshot) => (
                     <div className="flex items-center gap-4 cursor-pointer">
                       <div className="w-32 h-20 flex-shrink-0 bg-muted rounded overflow-hidden">
-                        <img 
+                        <img loading="lazy" decoding="async" 
                           src={screenshot.file_small || screenshot.file_big || '/placeholder.svg'} 
                           alt={screenshot.title || 'Screenshot'}
                           className="w-full h-full object-cover"
@@ -894,7 +894,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
                     <div className="flex items-center gap-4">
                       {projectIcon && (
                         <div className="w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-white/10 border border-white/20">
-                          <img 
+                          <img loading="lazy" decoding="async" 
                             src={projectIcon} 
                             alt={project.title}
                             className="w-full h-full object-cover"
@@ -977,7 +977,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
               )}
 
               {/* Image */}
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={selectedScreenshot} 
                 alt="Full screen screenshot"
                 className="max-w-full max-h-[75vh] object-contain"

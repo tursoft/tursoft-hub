@@ -72,9 +72,9 @@ const DomainsSection = () => {
           <div className="text-center mb-16 animate-fade-in">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Domain Expertise</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Industry
+              Industry Expertise in
               <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">
-                Domains
+                Healthcare, Construction, E-Learning and SaaS
               </span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -96,7 +96,7 @@ const DomainsSection = () => {
                     {/* Domain Icon/Image */}
                     <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors overflow-hidden">
                       {domain.photoUrl ? (
-                        <img 
+                        <img loading="lazy" decoding="async" 
                           src={domain.photoUrl} 
                           alt={`${domain.title} icon`}
                           className="w-12 h-12 object-contain"

@@ -120,3 +120,34 @@ project => modules
 # add new skills:
 * flutter
 * go
+
+
+## Build, prerendering and SEO
+
+`npm run build` runs `vite build` and then `scripts/postbuild.mjs`, which:
+
+1. writes `dist/sitemap.xml` from `scripts/routes.mjs`;
+2. writes `dist/llms-full.txt` (the whole site as Markdown for AI assistants) from `src/data/*.json`;
+3. prerenders every route in `scripts/routes.mjs` with headless Chrome (Puppeteer) into
+   `dist/<route>/index.html`, so the served pages contain the full content, per-route
+   title, description, canonical, Open Graph tags and JSON-LD before any JavaScript runs.
+   The build fails if a prerendered page is empty.
+
+Useful commands:
+
+- `npm run build:fast` – plain Vite build without prerendering (quick local check).
+- `npm run prerender` – re-run only the postbuild step on an existing `dist/`.
+- `npm run og-image` – regenerate `public/og-image.jpg` and `public/apple-touch-icon.png`
+  from `scripts/og-image.html` (run after changing the photo, title or colours).
+
+Where the SEO pieces live:
+
+- Per-route head tags: `src/components/Seo.tsx` (react-helmet-async), used by `src/pages/*`.
+- Identity facts, JSON-LD builders and the default title/description: `src/lib/site.ts`.
+- Prerender mode (`?prerender=1`): `src/lib/prerender.ts`; `ListViewer`, `Reveal` and
+  `AnimatedCounter` render their complete state in that mode.
+- FAQ content (page section + FAQPage schema + llms.txt): `src/data/faq.json`.
+- `public/robots.txt`, `public/llms.txt`, `public/manifest.webmanifest`.
+
+Settings that live outside the repo (Cloudflare and search consoles) are listed in
+`docs/report/seo-geo-report.md`, phase 0.

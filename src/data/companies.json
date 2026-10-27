@@ -257,11 +257,14 @@
       "orderIndex": 33,
       "title": "Tursoft",
       "photoUrl": "/assets/companies/tursoft.logo.png",
-      "city": null,
-      "country": null,
-      "websiteUrl": null,
+      "city": "Ankara",
+      "country": "Turkey",
+      "websiteUrl": "https://tursoft.net",
       "linkedinUrl": null,
-      "coordinates": null
+      "coordinates": {
+        "lat": 39.9334,
+        "lng": 32.8597
+      }
     },
     {
       "code": "MOH.TR",

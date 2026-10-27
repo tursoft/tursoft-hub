@@ -212,7 +212,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
           {/* Logo positioned on the far left */}
           {customerLogo && (
             <div className="absolute top-4 left-8 z-10 w-16 h-16">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={customerLogo} 
                 alt={`${companyTitle || customer.companyCode} logo`}
                 className="w-full h-full object-contain rounded-lg"
@@ -345,7 +345,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                         />
                         <div className="flex items-center gap-2 pt-2">
                           {reference.photoUrl && (
-                            <img 
+                            <img loading="lazy" decoding="async" 
                               src={reference.photoUrl}
                               alt={reference.title}
                               className="w-8 h-8 rounded-full object-cover"
@@ -391,7 +391,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                             {/* Project Logo */}
                             {logoPath && (
                               <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                                <img 
+                                <img loading="lazy" decoding="async" 
                                   src={logoPath}
                                   alt={`${project.title} logo`}
                                   className="w-7 h-7 object-contain rounded"
@@ -464,7 +464,7 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                           >
                             {/* Technology Logo */}
                             {logoPath && (
-                              <img 
+                              <img loading="lazy" decoding="async" 
                                 src={logoPath}
                                 alt={`${skill.title} logo`}
                                 className="w-5 h-5 object-contain flex-shrink-0"

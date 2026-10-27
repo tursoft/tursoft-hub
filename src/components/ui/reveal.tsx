@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
+import { isPrerender } from "@/lib/prerender";
 
 type RevealDirection = "up" | "left" | "right" | "scale";
 
@@ -34,11 +35,15 @@ const Reveal = ({
   threshold = 0.12,
 }: RevealProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [revealed, setRevealed] = useState(false);
+  const [revealed, setRevealed] = useState(isPrerender);
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+    if (isPrerender) {
+      setRevealed(true);
+      return;
+    }
     if (typeof IntersectionObserver === "undefined") {
       setRevealed(true);
       return;
