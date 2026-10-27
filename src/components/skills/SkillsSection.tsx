@@ -84,7 +84,7 @@ const SkillsSection = () => {
           loadingMessage="Loading skills..."
           emptyMessage="No skills found."
           title='Technical<span class="text-primary bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Skills</span>'
-          subtitle="A comprehensive overview of programming languages, frameworks, databases, and tools I've mastered throughout my career"
+          subtitle="A comprehensive overview of the programming languages, frameworks, databases and tools I've mastered throughout my career, and the AI and agentic engineering stack I build with today"
           defaultViewMode="cloud"
           enabledModes={['cloud', 'small-card', 'card', 'list']}
           enableShowMore={true}

@@ -1,7 +1,7 @@
 {
   "general": {
     "title": "Skills",
-    "summary": "I had experience on various tech stacks in my long career.",
+    "summary": "Over a long career I have worked across many technology stacks: .NET, Java and Node.js backends, web and mobile frontends, relational databases and cloud platforms. The newest layer is AI engineering: coding agents, prompt and context engineering, agent orchestration and LLM application development.",
     "groups": [
       {
         "code": "Programming Languages",
@@ -9,33 +9,33 @@
         "orderIndex": 1
       },
       {
+        "code": "AI & Agentic Engineering",
+        "title": "AI & Agentic Engineering",
+        "orderIndex": 2
+      },
+      {
         "code": "Cloud & DevOps",
         "title": "Cloud & DevOps",
-        "orderIndex": 2
+        "orderIndex": 3
       },
       {
         "code": "Backend",
         "title": "Backend",
-        "orderIndex": 3
+        "orderIndex": 4
       },
       {
         "code": "Frontend",
         "title": "Frontend",
-        "orderIndex": 4
+        "orderIndex": 5
       },
       {
         "code": "Databases",
         "title": "Databases",
-        "orderIndex": 5
+        "orderIndex": 6
       },
       {
         "code": "Frameworks",
         "title": "Frameworks",
-        "orderIndex": 6
-      },
-      {
-        "code": "AI & ML",
-        "title": "AI & ML",
         "orderIndex": 7
       },
       {
@@ -44,24 +44,29 @@
         "orderIndex": 8
       },
       {
+        "code": "Testing",
+        "title": "Testing",
+        "orderIndex": 9
+      },
+      {
         "code": "Project Management",
         "title": "Project Management",
-        "orderIndex": 9
+        "orderIndex": 10
       },
       {
         "code": "Security",
         "title": "Security",
-        "orderIndex": 10
+        "orderIndex": 11
       },
       {
         "code": "Reporting & BI",
         "title": "Reporting & BI",
-        "orderIndex": 11
+        "orderIndex": 12
       },
       {
         "code": "Others",
         "title": "Others",
-        "orderIndex": 12
+        "orderIndex": 13
       }
     ]
   },
@@ -2059,25 +2064,25 @@
       "orderIndex": 155,
       "title": "GitHub Copilot",
       "photoUrl": "/assets/skills/copilot.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
-      "yearsOfExperience": 1,
-      "competency": 50,
-      "isMajor": false
+      "yearsOfExperience": 3,
+      "competency": 80,
+      "isMajor": true
     },
     {
       "code": "cursor",
       "orderIndex": 155,
       "title": "Cursor",
       "photoUrl": "/assets/skills/cursor.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
-      "yearsOfExperience": 1,
-      "competency": 50,
+      "yearsOfExperience": 2,
+      "competency": 70,
       "isMajor": false
     },
     {
@@ -2085,25 +2090,25 @@
       "orderIndex": 155,
       "title": "Claude Desktop",
       "photoUrl": "/assets/skills/claude-desktop.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
-      "yearsOfExperience": 1,
+      "yearsOfExperience": 2,
       "competency": 90,
-      "isMajor": false
+      "isMajor": true
     },
     {
       "code": "ChatGPT",
       "orderIndex": 155,
       "title": "ChatGPT",
       "photoUrl": "/assets/skills/chatgpt.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
-      "yearsOfExperience": 1,
-      "competency": 50,
+      "yearsOfExperience": 3,
+      "competency": 85,
       "isMajor": false
     },
     {
@@ -2111,12 +2116,12 @@
       "orderIndex": 155,
       "title": "Gemini",
       "photoUrl": "/assets/skills/gemini.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
-      "yearsOfExperience": 1,
-      "competency": 50,
+      "yearsOfExperience": 2,
+      "competency": 70,
       "isMajor": false
     },
     {
@@ -2124,7 +2129,7 @@
       "orderIndex": 155,
       "title": "Llama 3",
       "photoUrl": "/assets/skills/llama3.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
@@ -2137,12 +2142,12 @@
       "orderIndex": 155,
       "title": "Ollama",
       "photoUrl": "/assets/skills/ollama.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
-      "yearsOfExperience": 1,
-      "competency": 50,
+      "yearsOfExperience": 2,
+      "competency": 75,
       "isMajor": false
     },
     {
@@ -2150,7 +2155,7 @@
       "orderIndex": 155,
       "title": "n8n",
       "photoUrl": "/assets/skills/n8n.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
@@ -2553,25 +2558,25 @@
       "orderIndex": 171,
       "title": "Claude Code",
       "photoUrl": "/assets/skills/claudecode.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
-      "yearsOfExperience": 1,
-      "competency": 90,
-      "isMajor": false
+      "yearsOfExperience": 2,
+      "competency": 95,
+      "isMajor": true
     },
     {
       "code": "codex",
       "orderIndex": 172,
       "title": "ChatGPT Codex",
       "photoUrl": "/assets/skills/codex.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
       "yearsOfExperience": 1,
-      "competency": 50,
+      "competency": 70,
       "isMajor": false
     },
     {
@@ -2579,7 +2584,7 @@
       "orderIndex": 173,
       "title": "OpenCode",
       "photoUrl": "/assets/skills/opencode.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
@@ -2592,7 +2597,7 @@
       "orderIndex": 174,
       "title": "DeepSeek",
       "photoUrl": "/assets/skills/deepseek.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
@@ -2605,7 +2610,7 @@
       "orderIndex": 175,
       "title": "GLM",
       "photoUrl": "/assets/skills/glm.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
@@ -2618,7 +2623,7 @@
       "orderIndex": 176,
       "title": "Kimi",
       "photoUrl": "/assets/skills/kimi.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
@@ -2631,12 +2636,12 @@
       "orderIndex": 177,
       "title": "OpenRouter",
       "photoUrl": "/assets/skills/openrouter.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
       "yearsOfExperience": 1,
-      "competency": 50,
+      "competency": 75,
       "isMajor": false
     },
     {
@@ -2644,20 +2649,20 @@
       "orderIndex": 178,
       "title": "Anthropic SDK",
       "photoUrl": "/assets/skills/anthropic-sdk.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
-      "yearsOfExperience": 1,
-      "competency": 50,
-      "isMajor": false
+      "yearsOfExperience": 2,
+      "competency": 80,
+      "isMajor": true
     },
     {
       "code": "google-genai-sdk",
       "orderIndex": 179,
       "title": "Google Generative AI SDK",
       "photoUrl": "/assets/skills/google-genai-sdk.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
@@ -2683,7 +2688,7 @@
       "orderIndex": 181,
       "title": "Graphify",
       "photoUrl": "/assets/skills/graphify.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
@@ -2696,12 +2701,12 @@
       "orderIndex": 182,
       "title": "Playwright MCP",
       "photoUrl": "/assets/skills/playwright-mcp.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
       "yearsOfExperience": 1,
-      "competency": 50,
+      "competency": 80,
       "isMajor": false
     },
     {
@@ -2709,7 +2714,7 @@
       "orderIndex": 183,
       "title": "LM Studio",
       "photoUrl": "/assets/skills/lmstudio.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
@@ -2722,7 +2727,7 @@
       "orderIndex": 184,
       "title": "Llama 3.1",
       "photoUrl": "/assets/skills/llama3.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
@@ -2735,7 +2740,7 @@
       "orderIndex": 185,
       "title": "Llama 3.3",
       "photoUrl": "/assets/skills/llama3.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
@@ -2748,12 +2753,142 @@
       "orderIndex": 186,
       "title": "Qwen 3.5",
       "photoUrl": "/assets/skills/qwen.png",
-      "group": "AI & ML",
+      "group": "AI & Agentic Engineering",
       "value": 0,
       "projects": 0,
       "jobs": 0,
       "yearsOfExperience": 1,
       "competency": 50,
+      "isMajor": false
+    },
+    {
+      "code": "ai-sdlc",
+      "orderIndex": 154,
+      "title": "AI-Driven SDLC",
+      "photoUrl": null,
+      "group": "AI & Agentic Engineering",
+      "value": 0,
+      "projects": 3,
+      "jobs": 2,
+      "yearsOfExperience": 3,
+      "competency": 95,
+      "isMajor": true
+    },
+    {
+      "code": "prompt-engineering",
+      "orderIndex": 154,
+      "title": "Prompt Engineering",
+      "photoUrl": null,
+      "group": "AI & Agentic Engineering",
+      "value": 0,
+      "projects": 2,
+      "jobs": 2,
+      "yearsOfExperience": 3,
+      "competency": 90,
+      "isMajor": true
+    },
+    {
+      "code": "context-engineering",
+      "orderIndex": 154,
+      "title": "Context Engineering",
+      "photoUrl": null,
+      "group": "AI & Agentic Engineering",
+      "value": 0,
+      "projects": 2,
+      "jobs": 2,
+      "yearsOfExperience": 2,
+      "competency": 90,
+      "isMajor": true
+    },
+    {
+      "code": "agent-orchestration",
+      "orderIndex": 154,
+      "title": "AI Agent Teams & Orchestration",
+      "photoUrl": null,
+      "group": "AI & Agentic Engineering",
+      "value": 0,
+      "projects": 2,
+      "jobs": 2,
+      "yearsOfExperience": 2,
+      "competency": 85,
+      "isMajor": true
+    },
+    {
+      "code": "llm-app-dev",
+      "orderIndex": 154,
+      "title": "LLM Application Development",
+      "photoUrl": null,
+      "group": "AI & Agentic Engineering",
+      "value": 0,
+      "projects": 2,
+      "jobs": 2,
+      "yearsOfExperience": 2,
+      "competency": 85,
+      "isMajor": true
+    },
+    {
+      "code": "spec-driven-development",
+      "orderIndex": 154,
+      "title": "Spec-Driven Development",
+      "photoUrl": null,
+      "group": "AI & Agentic Engineering",
+      "value": 0,
+      "projects": 2,
+      "jobs": 1,
+      "yearsOfExperience": 2,
+      "competency": 85,
+      "isMajor": false
+    },
+    {
+      "code": "mcp",
+      "orderIndex": 154,
+      "title": "Model Context Protocol (MCP)",
+      "photoUrl": null,
+      "group": "AI & Agentic Engineering",
+      "value": 0,
+      "projects": 1,
+      "jobs": 1,
+      "yearsOfExperience": 1,
+      "competency": 80,
+      "isMajor": false
+    },
+    {
+      "code": "azure-document-intelligence",
+      "orderIndex": 154,
+      "title": "Azure AI Document Intelligence",
+      "photoUrl": null,
+      "group": "AI & Agentic Engineering",
+      "value": 0,
+      "projects": 1,
+      "jobs": 1,
+      "yearsOfExperience": 3,
+      "competency": 80,
+      "isMajor": false
+    },
+    {
+      "code": "azure-computer-vision",
+      "orderIndex": 154,
+      "title": "Azure AI Vision",
+      "photoUrl": null,
+      "group": "AI & Agentic Engineering",
+      "value": 0,
+      "projects": 1,
+      "jobs": 1,
+      "yearsOfExperience": 2,
+      "competency": 70,
+      "isMajor": false
+    },
+    {
+      "code": "azure-servicebus",
+      "orderIndex": 154,
+      "title": "Azure Service Bus",
+      "photoUrl": null,
+      "group": "Cloud & DevOps",
+      "value": 0,
+      "projects": 1,
+      "jobs": 1,
+      "yearsOfExperience": 3,
+      "competency": 80,
       "isMajor": false
     }
   ]

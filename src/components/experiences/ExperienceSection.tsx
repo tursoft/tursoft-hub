@@ -109,7 +109,12 @@ const ExperienceSection = () => {
     if (!endDate) {
       return {
         range: `${startMonth} ${startYear} - Present`,
-        duration: `${Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 365))}+ years`,
+        duration: (() => {
+          const totalMonths = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 30.44));
+          const years = Math.floor(totalMonths / 12);
+          if (years >= 1) return `${years}+ years`;
+          return `${Math.max(totalMonths, 1)} month${totalMonths > 1 ? 's' : ''}`;
+        })(),
         current: true
       };
     }
@@ -238,7 +243,7 @@ const ExperienceSection = () => {
               <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Technology Today</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A journey through enterprise software development, team leadership, and architectural excellence
+              A journey through enterprise software development, team leadership and architectural excellence, now delivered with AI agent teams
             </p>
           </div>
 

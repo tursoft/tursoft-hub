@@ -1,7 +1,7 @@
 {
   "general": {
     "title": "Portfolio",
-    "summary": "Throughout 25 years of my professional career, I have completed managed various projects with more than million dolars.",
+    "summary": "Throughout a 25-year professional career I have delivered and managed software projects with multi-million dollar budgets, from national-scale healthcare systems to AI-native SaaS products.",
     "groups": [
       {
         "code": "HIS",
@@ -63,7 +63,7 @@
       "group": "Misc",
       "value": 900,
       "summary": "VS Code extension to use several Claude subscriptions in Claude Code and switch between them with one click. It shows every account's usage limits at a glance, proposes which account to use next, and adds usage analytics and an availability calendar.",
-      "fulltext": "Account Manager for Claude is an open-source Visual Studio Code extension for people who use several Claude subscriptions in Claude Code. It lets you save and add accounts, switch between them in one click from the accounts panel, the status bar or the command palette, and see each account's live usage limits (5-hour, weekly and model-specific windows) together with the time until each limit resets.<br/><br/>The extension proposes the best next account by ranking accounts on how much capacity would be lost soonest, and proposes the next accounts automatically when the active account's limit runs out. It keeps logins valid by refreshing tokens the same way Claude Code does, supports browser login without the CLI, independent VS Code windows per account, and password-protected (AES-256) backup and restore of the account list.<br/><br/>With usage history turned on, the <b>usage analytics</b> page charts each limit over time, measures capacity utilization per limit and per account, and groups it by weekday, hour, week or month. The <b>availability calendar</b> shows, for a week or a single day, when each account and each of its limits can be used, projecting the future from the latest reading and reset times.<br/><br/>The extension collects no telemetry; saved accounts are kept in VS Code's encrypted SecretStorage and network requests go only to Anthropic. It is developed with TypeScript and Node.js, with webview-based UI pages, and builds on the original account-switching core of <a href='https://github.com/KrzysztofZander/claude-account-switcher' target='_blank'>claude-account-switcher</a> by Krzysztof Zander.<br/><br/>VS Code Marketplace: <a href='https://marketplace.visualstudio.com/items?itemName=tursoft.account-manager-for-claude' target='_blank'>https://marketplace.visualstudio.com/items?itemName=tursoft.account-manager-for-claude</a><br/>Open VSX: <a href='https://open-vsx.org/extension/tursoft/account-manager-for-claude' target='_blank'>https://open-vsx.org/extension/tursoft/account-manager-for-claude</a><br/>Source code: <a href='https://github.com/tursoft/account-manager-for-claude' target='_blank'>https://github.com/tursoft/account-manager-for-claude</a>",
+      "fulltext": "Account Manager for Claude is an open-source Visual Studio Code extension for people who use several Claude subscriptions in Claude Code. It lets you save and add accounts, switch between them in one click from the accounts panel, the status bar or the command palette, and see each account's live usage limits (5-hour, weekly and model-specific windows) together with the time until each limit resets.<br/><br/>The extension proposes the best next account by ranking accounts on how much capacity would be lost soonest, and proposes the next accounts automatically when the active account's limit runs out. It keeps logins valid by refreshing tokens the same way Claude Code does, supports browser login without the CLI, independent VS Code windows per account, and password-protected (AES-256) backup and restore of the account list.<br/><br/>With usage history turned on, the <b>usage analytics</b> page charts each limit over time, measures capacity utilization per limit and per account, and groups it by weekday, hour, week or month. The <b>availability calendar</b> shows, for a week or a single day, when each account and each of its limits can be used, projecting the future from the latest reading and reset times.<br/><br/>The extension itself was built with an AI-driven lifecycle: Claude Code agents working from written specs and implementation plans, with review and testing stages before each release.<br/><br/>The extension collects no telemetry; saved accounts are kept in VS Code's encrypted SecretStorage and network requests go only to Anthropic. It is developed with TypeScript and Node.js, with webview-based UI pages, and builds on the original account-switching core of <a href='https://github.com/KrzysztofZander/claude-account-switcher' target='_blank'>claude-account-switcher</a> by Krzysztof Zander.<br/><br/>VS Code Marketplace: <a href='https://marketplace.visualstudio.com/items?itemName=tursoft.account-manager-for-claude' target='_blank'>https://marketplace.visualstudio.com/items?itemName=tursoft.account-manager-for-claude</a><br/>Open VSX: <a href='https://open-vsx.org/extension/tursoft/account-manager-for-claude' target='_blank'>https://open-vsx.org/extension/tursoft/account-manager-for-claude</a><br/>Source code: <a href='https://github.com/tursoft/account-manager-for-claude' target='_blank'>https://github.com/tursoft/account-manager-for-claude</a>",
       "domainCodes": [],
       "customerCodes": [],
       "partnerCodes": [],
@@ -75,7 +75,11 @@
         "CSS3",
         "VS Code",
         "claudecode",
-        "OAuth"
+        "OAuth",
+        "ai-sdlc",
+        "agent-orchestration",
+        "context-engineering",
+        "spec-driven-development"
       ],
       "datePeriod": {
         "startDate": "13.10.2026",
@@ -113,8 +117,8 @@
       "companyCode": "Tursoft",
       "group": "SaaS",
       "value": 900,
-      "summary": "AI-powered SaaS job finding platform. BestJobFinder helps users through their whole job search journey end-to-end: upload a CV, find jobs from different job boards, auto-score each job's match to the profile, apply and track applications, prepare for interviews and keep track of offers.",
-      "fulltext": "BestJobFinder is an AI-powered SaaS platform that aims to help users in their job search journey end-to-end. Users upload their CV, find jobs from different job boards, auto-score each job's match to their profile, get help applying and tracking their applications, get prepared for interviews and keep track of their offers.<br/><br/>The platform is developed by using AI coding models and tools like Claude Code, Codex, GitHub Copilot and OpenCode. It mainly has 4 frontend layers: web application, Electron-based desktop application, Chrome extension and admin panel. The system was designed by using microservice architecture for scalability and performance.<br/><br/>In both frontend and backend, TypeScript/JavaScript are the main languages, and code reuse is maximized this way. All frontends are mainly developed by using the React framework, including the Electron-based desktop application. Backend layers, including the API and the workers, are developed using Node.js. The solution also provides a bunch of AI-powered features like generating tailored cover letter texts, scoring jobs, proposing improvements in the CV and auto-answering application form questions by using CV data.",
+      "summary": "AI-powered SaaS job search platform that supports the whole journey end to end: upload a CV, aggregate jobs from multiple job boards, auto-score each job's match to the profile, apply and track applications, prepare for interviews and keep track of offers.",
+      "fulltext": "BestJobFinder is an AI-powered SaaS platform that helps users through their whole job search journey end to end. Users upload their CV, find jobs aggregated from different job boards, see an automatic match score for every job against their profile, get help applying and tracking their applications, prepare for interviews and keep track of their offers.<br/><br/>The product has four frontend layers (web application, Electron-based desktop application, Chrome extension and admin panel) on a Node.js microservice backend with API and worker services, designed for scalability and performance. TypeScript is the main language on both sides so that code is reused across every layer; all frontends, including the desktop application, are built with React.<br/><br/>AI is both a product capability and the way the product is built. <b>LLM-powered features</b> include job scoring, tailored cover letters, CV improvement suggestions and automatic answering of application form questions from CV data, implemented with prompt and context engineering, structured outputs and tool use, and model routing across Anthropic, Google, OpenRouter and local models served by Ollama and LM Studio (Llama 3.x, Qwen, DeepSeek, GLM, Kimi).<br/><br/>The whole development lifecycle runs on <b>AI coding agents</b> (Claude Code, Codex, GitHub Copilot and OpenCode): specs and implementation plans are written first, then teams of specialized sub-agents implement, review and test tasks in isolated git worktrees, using MCP tools such as Playwright for browser testing and a code knowledge graph for codebase understanding, with human review gates between stages.",
       "domainCodes": [],
       "customerCodes": [],
       "partnerCodes": [],
@@ -165,7 +169,14 @@
         "ollama",
         "ChatGPT",
         "claudedesktop",
-        "gemini"
+        "gemini",
+        "prompt-engineering",
+        "context-engineering",
+        "agent-orchestration",
+        "ai-sdlc",
+        "llm-app-dev",
+        "mcp",
+        "spec-driven-development"
       ],
       "datePeriod": {
         "startDate": "01.04.2026",
@@ -203,8 +214,8 @@
       "companyCode": "JENGAI",
       "group": "SaaS",
       "value": 900,
-      "summary": "SaaS platform for subcontractors. Jengai is the only AI CRM-Estimation and Pricing Suite built for Commercial specialty contractors that fully transforms your estimating and bidding processes, enabling unprecedented precision and speed.",
-      "fulltext": "",
+      "summary": "SaaS platform for commercial specialty contractors. Jengai is an AI-powered CRM, estimation and pricing suite that transforms estimating and bidding with AI document analysis, giving contractors precision and speed that manual processes cannot match.",
+      "fulltext": "Jengai is a cloud-native, multi-tenant enterprise SaaS platform for commercial specialty contractors that combines CRM, bidding and estimation in one suite. At its core is an <b>AI document pipeline</b> that reads unstructured construction PDF documents and extracts structured cost and scope data, cutting pre-estimation turnaround by more than 60% and letting several estimating teams work in parallel on the same project.<br/><br/>The platform is built on .NET and Angular with Python AI services, hosted on Microsoft Azure (App Services, Functions, SQL, Blob Storage, Entra ID / AD B2C) with Azure AI Document Intelligence and Computer Vision for document understanding and Azure Service Bus for asynchronous, event-driven processing between services. Security is enforced with OAuth2 and JWT across tenants, and the suite integrates with Salesforce CRM, Zoho CRM, Autodesk Construction Cloud and Microsoft Graph.<br/><br/>As Director of Technology and Senior Software Architect I owned the architecture and engineering delivery, established the testing strategy and CI/CD on Azure DevOps, and embedded AI coding agents (Claude Code, GitHub Copilot, Cursor) into the team's daily development lifecycle.",
       "domainCodes": [
         "constructionit"
       ],
@@ -237,7 +248,17 @@
         "oop",
         "claudecode",
         "claudedesktop",
-        "copilot"
+        "copilot",
+        "cursor",
+        "azure-document-intelligence",
+        "azure-computer-vision",
+        "azure-servicebus",
+        "llm-app-dev",
+        "ai-sdlc",
+        "prompt-engineering",
+        "OAuth",
+        "JWT",
+        "Azure DevOps"
       ],
       "datePeriod": {
         "startDate": "01.12.2022",
@@ -282,7 +303,7 @@
       "companyCode": "GAMYTE",
       "group": "SaaS",
       "value": 900,
-      "summary": "SaaS platform for subcontractors. Gamyte is the only AI CRM-Estimation and Pricing Suite built for Commercial specialty contractors that fully transforms your estimating and bidding processes, enabling unprecedented precision and speed.",
+      "summary": "SaaS platform for commercial specialty contractors: a CRM, estimation and pricing suite that transforms estimating and bidding processes with precision and speed.",
       "fulltext": "",
       "domainCodes": [
         "constructionit"

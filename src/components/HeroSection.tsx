@@ -31,6 +31,7 @@ const HeroSection = () => {
   }];
 
   const roles = [
+    "AI-Enabled Software Architect",
     "Senior Software Architect",
     "Director of Technology",
     ".NET & Web Expert",
@@ -82,7 +83,7 @@ const HeroSection = () => {
 
           {/* Description */}
           <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            With <span className="text-gradient font-semibold">25+ years</span> in technology, I've driven the creation of innovative <span className="text-primary font-semibold">cloud based</span> and <span className="text-primary font-semibold">SaaS</span> solutions, blending <span className="text-accent font-semibold">startup agility</span> with enterprise-grade functionality and <span className="text-accent font-semibold">scalability</span>.
+            With <span className="text-gradient font-semibold">25+ years</span> in technology, I architect <span className="text-primary font-semibold">cloud-based</span> and <span className="text-primary font-semibold">SaaS</span> products and build them with <span className="text-accent font-semibold">AI agents</span> across the whole development lifecycle, pairing <span className="text-accent font-semibold">prompt and context engineering</span> with enterprise-grade architecture and scalability.
           </p>
 
           {/* Action Buttons */}
