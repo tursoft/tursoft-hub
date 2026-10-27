@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 import { skillsRepo } from '@/repositories/SkillsRepo';
+import { calculateSkillScore } from '@/lib/skillScore';
+import { SkillStats } from '@/components/skills/SkillStats';
+import { SkillRelatedSummary } from '@/components/skills/SkillRelatedSummary';
+import { useSkillRelations } from '@/components/skills/useSkillRelations';
 import type { SkillItem } from '@/models/Skills';
 import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
@@ -12,10 +16,12 @@ import EducationDetailDialog from '@/components/educations/EducationDetailDialog
 
 interface SkillWithIcon extends SkillItem {
   icon: string;
+  score: number;
 }
 
 const SkillsSection = () => {
   const [skills, setSkills] = useState<SkillWithIcon[]>([]);
+  const { getRelations, getCompany } = useSkillRelations();
   const [isLoading, setIsLoading] = useState(true);
   const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
   const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
@@ -48,7 +54,8 @@ const SkillsSection = () => {
         const processedSkills = data
           .map((skill) => ({
             ...skill,
-            icon: skill.photoUrl
+            icon: skill.photoUrl,
+            score: calculateSkillScore(skill),
           }))
           .sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0));
 
@@ -78,13 +85,14 @@ const SkillsSection = () => {
           emptyMessage="No skills found."
           title='Technical<span class="text-primary bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Skills</span>'
           subtitle="A comprehensive overview of programming languages, frameworks, databases, and tools I've mastered throughout my career"
-          defaultViewMode="small-card"
-          enabledModes={['small-card', 'card', 'list']}
+          defaultViewMode="cloud"
+          enabledModes={['cloud', 'small-card', 'card', 'list']}
           enableShowMore={true}
           visibleMajorItemCount={32}
           enableCategoryFilter={true}
           categoryField="group"
           categoryOrder={categoryOrder}
+          categoryFilterLayout="side"
           enableSearch={true}
           searchFields={['title', 'code', 'group']}
           searchPlaceholder="Search skills, technologies, or categories..."
@@ -101,6 +109,28 @@ const SkillsSection = () => {
             badge: (skill) => skill.isMajor ? 'Major' : '',
           }}
           gridCols={{ sm: 2, md: 3, lg: 4, xl: 6 }}
+          smallCardImageClassName="w-3/5 h-3/5"
+          cloudWeight={(skill) => skill.score}
+          cloudHeight={760}
+          cloudHoverContent={(skill) => (
+            <div className="h-full rounded-xl border border-border bg-card p-5">
+              <div className="flex items-center gap-3 mb-4">
+                {skill.icon && (
+                  <img src={skill.icon} alt="" className="w-12 h-12 object-contain flex-shrink-0" />
+                )}
+                <div className="min-w-0">
+                  <h3 className="font-bold leading-tight truncate">{skill.title}</h3>
+                  <p className="text-xs text-primary font-medium">{String(skill.group || '')}</p>
+                </div>
+              </div>
+              <SkillStats skill={skill} />
+              <SkillRelatedSummary
+                relations={getRelations(skill.code)}
+                getCompany={getCompany}
+                className="mt-7 pt-7 border-t border-border"
+              />
+            </div>
+          )}
           footer={
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             </div>

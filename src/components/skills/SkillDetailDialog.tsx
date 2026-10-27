@@ -12,6 +12,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { SkillStats } from "@/components/skills/SkillStats";
 import { Button } from "@/components/ui/button";
 import {
   Maximize2,
@@ -295,6 +296,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                     Total Experience: {totalExperience}
                   </p>
                 )}
+                <SkillStats skill={skill} compact className="mt-3 max-w-sm" />
               </div>
             </div>
           </DialogHeader>

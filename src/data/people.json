@@ -1057,37 +1057,6 @@
         }
       ]
     },
-
-    {
-      "code": "alekpaterson",
-      "orderIndex": 65,
-      "title": "Alek Paterson",
-      "photoUrl": null,
-      "company": "Jengai",
-      "contacts": [
-      ]
-    },
-
-    {
-      "code": "amitsamata",
-      "orderIndex": 66,
-      "title": "Amit Samata",
-      "photoUrl": null,
-      "company": "Jengai",
-      "contacts": [
-      ]
-    },
-
-    {
-      "code": "vaibhavsontakke",
-      "orderIndex": 67,
-      "title": "Vaibhav Sontakke",
-      "photoUrl": null,
-      "company": "Jengai",
-      "contacts": [
-      ]
-    },
-
     {
       "code": "emrullahkocamanoglu",
       "orderIndex": 68,

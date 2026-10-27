@@ -24,4 +24,5 @@ dist-ssr
 *.sw?
 
 # Claude Code superpowers scratch files
+# Brainstorm visual companion sessions
 .superpowers/
