@@ -88,7 +88,7 @@ const ReferencesSection = () => {
         emptyMessage="No references available"
       defaultViewMode="carousel"
       enabledModes={['card', 'list', 'carousel']}
-      title="What<span class='bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4'>Colleagues</span> Say"
+      title="References:<span class='bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4'>What Colleagues Say</span>"
       subtitle="Testimonials from industry leaders and colleagues who have worked closely with me throughout my professional career."
       badge="Professional References"
       imageRounded={true}
@@ -107,7 +107,7 @@ const ReferencesSection = () => {
         code: 'code',
         title: 'title',
         subtitle: (ref) => `${ref.position} at ${ref.company}`,
-        description: (ref) => `"${ref.testimonial}"`,
+        description: (ref) => (ref.lang ? `<span lang="${ref.lang}">"${ref.testimonial}"</span>` : `"${ref.testimonial}"`),
         image: 'photo',
         date: 'date',
         actions: references.length > 0 ? references[0].contacts.slice(0, 3).map((contact) => ({

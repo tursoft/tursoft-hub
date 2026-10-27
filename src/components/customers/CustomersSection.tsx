@@ -66,7 +66,7 @@ const CustomersSection = () => {
           isLoading={isLoading}
           loadingMessage="Loading customers..."
           emptyMessage="No customers found in this category."
-          title='Clients & <span class="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent">Customers</span>'
+          title='Clients & Customers<span class="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent"> in Healthcare, Government and Enterprise</span>'
           subtitle="Organizations and institutions that have trusted us with their technology needs across healthcare, government, and enterprise sectors"
           summary={
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">

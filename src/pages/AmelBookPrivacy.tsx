@@ -1,6 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { marked } from "marked";
 import bgImage from "@/assets/bg/bg-islami-assistant.png";
+import Seo from "@/components/Seo";
 
 import trMd from "@/content/privacy/amelbook/tr.md?raw";
 import enMd from "@/content/privacy/amelbook/en.md?raw";
@@ -26,12 +27,12 @@ const langs = [
   { code: "ur", flag: "pk", name: "اردو", appName: "AmelBook", rtl: true },
 ] as const;
 
-const FlagImg = ({ code }: { code: string }) => (
-  <img
+const FlagImg = ({ code, label }: { code: string; label: string }) => (
+  <img loading="lazy" decoding="async"
     src={`https://flagcdn.com/16x12/${code}.png`}
     width={16}
     height={12}
-    alt={code}
+    alt={label}
     className="rounded-sm object-cover"
   />
 );
@@ -82,12 +83,18 @@ const AmelBookPrivacy = () => {
         backgroundSize: "auto",
       }}
     >
+      <Seo
+        title="AmelBook Privacy Policy | Muhammet Turşak"
+        description="Privacy policy for the AmelBook (Amel Defteri) mobile app: data stays on your device, which permissions it requests and how to contact the developer."
+        path="/privacy/amelbook/"
+        type="article"
+      />
       {/* dark overlay so text stays readable */}
       <div className="absolute inset-0 bg-background/60 pointer-events-none" />
       <div className="relative z-10 max-w-3xl mx-auto px-6 py-12">
         {/* App logo + name */}
         <div className="flex flex-col items-center gap-4 mb-8">
-          <img
+          <img loading="lazy" decoding="async"
             src="/assets/projects/_logos/amelbook.png"
             alt={current.appName}
             className="w-28 h-28 object-contain rounded-2xl"
@@ -102,7 +109,7 @@ const AmelBookPrivacy = () => {
               onClick={() => setOpen((v) => !v)}
               className="flex items-center gap-2 bg-background/60 border border-border text-foreground text-sm rounded-lg px-3 py-1.5 cursor-pointer hover:border-primary/60 transition-colors"
             >
-              <FlagImg code={current.flag} />
+              <FlagImg code={current.flag} label={current.name} />
               <span>{current.name}</span>
               <span className="text-muted-foreground text-xs ml-1">▾</span>
             </button>
@@ -116,7 +123,7 @@ const AmelBookPrivacy = () => {
                         lang === l.code ? "text-primary font-medium" : "text-foreground"
                       }`}
                     >
-                      <FlagImg code={l.flag} />
+                      <FlagImg code={l.flag} label={l.name} />
                       <span>{l.name}</span>
                     </button>
                   </li>
@@ -128,6 +135,7 @@ const AmelBookPrivacy = () => {
 
         {/* Markdown content */}
         <article
+          lang={lang}
           className="prose prose-invert prose-primary max-w-none
             prose-headings:text-primary
             prose-h1:text-3xl prose-h1:font-bold prose-h1:mb-2

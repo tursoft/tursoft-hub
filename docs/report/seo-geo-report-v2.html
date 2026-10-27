@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>tursoft.net SEO &amp; GEO Audit v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky top bar with view tabs and a search box; one centred column (max 1120px);
+   findings as a filterable list of severity-striped cards; action plan as phase tables with
+   checkboxes persisted per browser; appendix code blocks with copy buttons. */
+:root {
+  color-scheme: light;
+  --bg: #f3f4f7;
+  --surface: #ffffff;
+  --surface-2: #e9ebf0;
+  --line: #d5d8e0;
+  --line-strong: #b8bcc8;
+  --fg: #15181f;
+  --fg-2: #474d5c;
+  --fg-3: #6f7686;
+  --accent: #1d5bd0;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2eafb;
+  --sev-critical: #d93f3e;
+  --sev-high: #e2783f;
+  --sev-medium: #d79a0a;
+  --sev-low: #6b7a99;
+  --sev-critical-tint: #fbe6e6;
+  --sev-high-tint: #fbeadf;
+  --sev-medium-tint: #faf0d2;
+  --sev-low-tint: #e6e9f1;
+  --code-bg: #eef0f4;
+  --ok: #1a8a3a;
+  --ok-tint: #e3f3e8;
+  --shadow: 0 1px 2px rgba(20, 24, 40, .06), 0 4px 16px rgba(20, 24, 40, .05);
+  --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #111318; --surface: #181b22; --surface-2: #20242d; --line: #2c313c; --line-strong: #3b4150;
+    --fg: #e7e9ef; --fg-2: #b3b9c7; --fg-3: #828a9b;
+    --accent: #6a9bf2; --accent-ink: #0d1526; --accent-soft: #1b2a47;
+    --sev-critical: #ef6b6a; --sev-high: #f0945f; --sev-medium: #e8b23a; --sev-low: #8d9ab8;
+    --sev-critical-tint: #3a1f20; --sev-high-tint: #3a2a1c; --sev-medium-tint: #3a3118; --sev-low-tint: #262b38;
+    --code-bg: #0f1115; --ok: #4ec46f; --ok-tint: #17301f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 4px 16px rgba(0, 0, 0, .3);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111318; --surface: #181b22; --surface-2: #20242d; --line: #2c313c; --line-strong: #3b4150;
+  --fg: #e7e9ef; --fg-2: #b3b9c7; --fg-3: #828a9b;
+  --accent: #6a9bf2; --accent-ink: #0d1526; --accent-soft: #1b2a47;
+  --sev-critical: #ef6b6a; --sev-high: #f0945f; --sev-medium: #e8b23a; --sev-low: #8d9ab8;
+  --sev-critical-tint: #3a1f20; --sev-high-tint: #3a2a1c; --sev-medium-tint: #3a3118; --sev-low-tint: #262b38;
+  --code-bg: #0f1115; --ok: #4ec46f; --ok-tint: #17301f;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 4px 16px rgba(0, 0, 0, .3);
+}
+
+* { box-sizing: border-box; }
+html { height: 100%; }
+body {
+  margin: 0; min-height: 100%;
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-ui); font-size: 15px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--surface); z-index: 10; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button { font: inherit; color: inherit; }
+code, pre, .mono { font-family: var(--font-mono); }
+code { background: var(--code-bg); padding: .1em .35em; border-radius: 4px; font-size: .92em; }
+pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; overflow-x: auto; margin: 0; font-size: 13px; line-height: 1.5; }
+pre code { background: none; padding: 0; font-size: inherit; }
+h1, h2, h3, h4 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h2 { font-size: 1.45rem; font-weight: 700; letter-spacing: -.01em; }
+h3 { font-size: 1.1rem; font-weight: 600; }
+h4 { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-3); }
+p { margin: 0; }
+.stack > * + * { margin-top: 12px; }
+.prose { max-width: 70ch; }
+.prose p + p { margin-top: 10px; }
+ul, ol { margin: 0; padding-left: 1.3em; }
+li + li { margin-top: 4px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--fg-3); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.table-wrap { overflow-x: auto; max-width: 100%; }
+.muted { color: var(--fg-3); }
+.small { font-size: .85rem; }
+.eyebrow { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-3); font-weight: 600; }
+
+/* Top bar */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 10px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
+}
+.brand { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.brand strong { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+.brand span { color: var(--fg-3); font-size: .85rem; white-space: nowrap; }
+.tabs { display: flex; gap: 2px; flex-wrap: wrap; }
+.tab {
+  background: none; border: 1px solid transparent; border-radius: 999px; padding: 6px 12px; cursor: pointer;
+  color: var(--fg-2); font-weight: 500; font-size: .9rem; text-decoration: none;
+}
+.tab:hover { background: var(--surface-2); color: var(--fg); }
+.tab[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
+.tools { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.search {
+  display: flex; align-items: center; gap: 6px; background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 999px; padding: 4px 10px; min-width: 0;
+}
+.search input { border: 0; background: none; outline: none; font: inherit; color: var(--fg); width: 180px; max-width: 45vw; }
+.search input::placeholder { color: var(--fg-3); }
+.iconbtn {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 5px 11px; cursor: pointer;
+  font-size: .85rem; color: var(--fg-2); white-space: nowrap;
+}
+.iconbtn:hover { background: var(--surface-2); color: var(--fg); }
+
+/* Page */
+.page {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+.view { display: none; }
+.view.is-active { display: block; }
+.view-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin-bottom: 20px; }
+.section + .section { margin-top: 36px; }
+.section > h3 { margin-bottom: 12px; }
+
+/* Overview */
+.hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.hero h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -.02em; margin-bottom: 12px; }
+.meta-grid { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; font-size: .9rem; }
+.meta-grid dt { color: var(--fg-3); white-space: nowrap; }
+.meta-grid dd { margin: 0; min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
+.tile {
+  text-align: left; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--sev); border-radius: var(--radius);
+  padding: 14px 16px; cursor: pointer; display: grid; gap: 2px;
+}
+.tile:hover { border-color: var(--line-strong); border-left-color: var(--sev); box-shadow: var(--shadow); }
+.tile .n { font-size: 2rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.tile .l { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-3); font-weight: 600; }
+.tile .ids { font-family: var(--font-mono); font-size: .75rem; color: var(--fg-2); margin-top: 6px; line-height: 1.5; }
+.grade { display: inline-block; min-width: 2.1em; text-align: center; font-weight: 700; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; background: var(--surface-2); }
+.grade[data-g="F"], .grade[data-g="D"] { background: var(--sev-critical-tint); color: var(--sev-critical); }
+.grade[data-g="C"] { background: var(--sev-medium-tint); color: var(--sev-medium); }
+.grade[data-g="B-"] { background: var(--ok-tint); color: var(--ok); }
+.first-five { counter-reset: step; display: grid; gap: 10px; }
+.first-five li { list-style: none; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; }
+.first-five li::before { counter-increment: step; content: counter(step); font-family: var(--font-mono); font-weight: 600; color: var(--accent); background: var(--accent-soft); border-radius: 999px; width: 26px; height: 26px; display: inline-grid; place-items: center; font-size: .85rem; }
+
+/* Chips and filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 16px; }
+.chipgroup { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chipgroup .eyebrow { margin-right: 4px; }
+.chip {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 11px; cursor: pointer;
+  font-size: .85rem; color: var(--fg-2); display: inline-flex; align-items: center; gap: 6px;
+}
+.chip:hover { border-color: var(--line-strong); color: var(--fg); }
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--fg); }
+.chip .dot { width: 9px; height: 9px; border-radius: 2px; background: var(--sev); display: inline-block; }
+.chip .cnt { font-family: var(--font-mono); font-size: .75rem; color: var(--fg-3); }
+.filters .spacer { flex: 1; }
+.resultcount { font-size: .85rem; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+
+/* Findings */
+.findings { display: grid; gap: 10px; }
+.finding { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.finding.is-open { box-shadow: var(--shadow); border-color: var(--line-strong); }
+.finding-head {
+  width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+  display: grid; grid-template-columns: 4px auto auto minmax(0, 1fr) auto; align-items: center; gap: 12px;
+  padding: 0 14px 0 0;
+}
+.finding-head:hover { background: var(--surface-2); }
+.finding-head .stripe { align-self: stretch; background: var(--sev); }
+.finding-head .fid { font-family: var(--font-mono); font-size: .8rem; color: var(--fg-3); padding-block: 12px; }
+.finding-head .ftitle { font-weight: 600; padding-block: 12px; min-width: 0; }
+.finding-head .ftitle small { display: block; font-weight: 400; color: var(--fg-3); font-size: .8rem; margin-top: 2px; }
+.finding-head .chev { color: var(--fg-3); transition: transform .2s; }
+.finding.is-open .chev { transform: rotate(180deg); }
+.pill { display: inline-block; font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; padding: 2px 8px; border-radius: 999px; background: var(--sev-tint); color: var(--fg); white-space: nowrap; }
+.pill::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--sev); margin-right: 6px; vertical-align: 1px; }
+[data-sev="critical"] { --sev: var(--sev-critical); --sev-tint: var(--sev-critical-tint); }
+[data-sev="high"] { --sev: var(--sev-high); --sev-tint: var(--sev-high-tint); }
+[data-sev="medium"] { --sev: var(--sev-medium); --sev-tint: var(--sev-medium-tint); }
+[data-sev="low"] { --sev: var(--sev-low); --sev-tint: var(--sev-low-tint); }
+.finding-body { border-top: 1px solid var(--line); padding: 16px 18px 18px 22px; display: grid; gap: 14px; }
+.finding-body .block > h4 { margin-bottom: 6px; }
+.finding-body .block { max-width: 80ch; }
+.finding-body .block.wide { max-width: none; }
+.finding-body table { margin-top: 6px; }
+.finding-foot { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: .82rem; color: var(--fg-3); border-top: 1px dashed var(--line); padding-top: 10px; }
+.finding-foot .planref { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.planref a, .fixref a { font-family: var(--font-mono); font-size: .78rem; background: var(--surface-2); border-radius: 4px; padding: 1px 6px; text-decoration: none; color: var(--fg-2); }
+.planref a:hover, .fixref a:hover { background: var(--accent-soft); color: var(--fg); }
+.empty { padding: 32px; text-align: center; color: var(--fg-3); border: 1px dashed var(--line); border-radius: var(--radius); }
+
+/* Plan */
+.phase { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.phase + .phase { margin-top: 18px; }
+.phase-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.phase-head h3 { flex: 1 1 260px; min-width: 0; }
+.phase-head .when { color: var(--fg-3); font-size: .85rem; }
+.progress { display: flex; align-items: center; gap: 10px; min-width: 200px; font-size: .82rem; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+.bar { flex: 1; height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--accent); width: 0; transition: width .3s; }
+.bar.done > span { background: var(--ok); }
+.phase table th:first-child, .phase table td:first-child { width: 34px; padding-right: 0; }
+.phase td.idcell { font-family: var(--font-mono); font-size: .8rem; color: var(--fg-3); white-space: nowrap; }
+.phase input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; margin: 2px 0 0; }
+.phase tr.done td { color: var(--fg-3); }
+.phase tr.done td.action { text-decoration: line-through; text-decoration-color: var(--line-strong); }
+.overall { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-bottom: 18px; }
+.overall .progress { flex: 1 1 260px; }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); padding: 6px 12px; cursor: pointer; font-size: .85rem; color: var(--fg-2); }
+.btn:hover { background: var(--surface-2); color: var(--fg); }
+.btn.danger[data-armed="true"] { border-color: var(--sev-critical); color: var(--sev-critical); }
+
+/* Code blocks with copy */
+.codeblock { position: relative; }
+.codeblock .copy { position: absolute; top: 8px; right: 8px; }
+.codeblock pre { padding-top: 38px; }
+.codeblock .label { position: absolute; top: 10px; left: 14px; font-family: var(--font-mono); font-size: .75rem; color: var(--fg-3); }
+.copy { border: 1px solid var(--line); background: var(--surface); border-radius: 4px; padding: 3px 9px; cursor: pointer; font-size: .78rem; color: var(--fg-2); }
+.copy:hover { background: var(--surface-2); color: var(--fg); }
+.copy[data-state="done"] { color: var(--ok); border-color: var(--ok); }
+.copy[data-state="fail"] { color: var(--sev-critical); border-color: var(--sev-critical); }
+.appendix-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 10px 14px; border-radius: 0 var(--radius) var(--radius) 0; font-size: .92rem; }
+.callout.warn { border-left-color: var(--sev-high); background: var(--sev-high-tint); }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .finding-head { grid-template-columns: 4px minmax(0, 1fr) auto; grid-template-areas: "s title chev" "s meta chev"; row-gap: 0; }
+  .finding-head .stripe { grid-area: s; }
+  .finding-head .ftitle { grid-area: title; padding-bottom: 2px; }
+  .finding-head .chev { grid-area: chev; }
+  .finding-head .fmeta { grid-area: meta; display: flex; gap: 10px; align-items: center; padding-bottom: 12px; }
+  .finding-head .fid { padding-block: 0; }
+  .finding-body { padding-left: 16px; }
+  .tools { margin-left: 0; width: 100%; }
+  .search { flex: 1; }
+  .search input { width: 100%; max-width: none; }
+}
+@media (min-width: 861px) {
+  .finding-head .fmeta { display: contents; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+@media print {
+  .topbar, .filters, .copy, .btn, .tile { box-shadow: none; }
+  .topbar .tools, .filters, .copy, .btn { display: none !important; }
+  .view { display: block !important; page-break-before: always; }
+  .view:first-of-type { page-break-before: auto; }
+  .finding-body[hidden] { display: grid !important; }
+  body { background: #fff; color: #000; }
+}
+.grade[data-g="A"], .grade[data-g="A-"], .grade[data-g="B+"], .grade[data-g="B"] { background: var(--ok-tint); color: var(--ok); }
+
+
+/* ---- v2 additions: status encoding, comparison tables ---- */
+.tile[data-status="resolved"] { --sev: var(--ok); }
+.tile[data-status="partial"]  { --sev: var(--sev-medium); }
+.tile[data-status="open"]     { --sev: var(--sev-high); }
+.tile[data-status="new"]      { --sev: var(--accent); }
+[data-status="resolved"] { --st: var(--ok); --st-tint: var(--ok-tint); }
+[data-status="partial"]  { --st: var(--sev-medium); --st-tint: var(--sev-medium-tint); }
+[data-status="open"]     { --st: var(--sev-high); --st-tint: var(--sev-high-tint); }
+[data-status="new"]      { --st: var(--accent); --st-tint: var(--accent-soft); }
+.spill { display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .03em; padding: 2px 8px; border-radius: 4px; background: var(--st-tint); color: var(--fg); border: 1px solid var(--st); white-space: nowrap; }
+.chip[data-status] .dot { background: var(--st); border-radius: 50%; }
+.finding-head { grid-template-columns: 4px auto auto auto minmax(0, 1fr) auto; }
+@media (max-width: 860px) {
+  .finding-head { grid-template-columns: 4px minmax(0, 1fr) auto; }
+  .finding-head .fmeta { flex-wrap: wrap; }
+}
+.statusnote { border-left: 3px solid var(--st); background: var(--st-tint); padding: 10px 14px; border-radius: 0 var(--radius) var(--radius) 0; max-width: 80ch; }
+.statusnote h4 { margin-bottom: 4px; }
+td.delta { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.delta[data-dir="better"] { color: var(--ok); font-weight: 600; }
+td.delta[data-dir="worse"] { color: var(--sev-critical); font-weight: 600; }
+td.hl, th.hl { background: var(--accent-soft); }
+.twocol { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+@media (max-width: 860px) { .twocol { grid-template-columns: 1fr; } }
+textarea.src { display: none; }
+.vlink { font-size: .85rem; color: var(--fg-3); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+.vlink:hover { color: var(--fg); border-color: var(--line-strong); }
+.brand { flex-wrap: wrap; row-gap: 4px; }
+.tile .ids span { white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><strong>tursoft.net SEO &amp; GEO Audit v2</strong><span>28 Oct 2026</span><a class="vlink" href="seo-geo-report.html">v1 report</a></div>
+    <nav class="tabs" aria-label="Report sections">
+      <a class="tab" href="#overview" data-view="overview">Overview</a>
+      <a class="tab" href="#findings" data-view="findings">Findings <span class="mono small" id="tab-count"></span></a>
+      <a class="tab" href="#measurements" data-view="measurements">Measurements</a>
+      <a class="tab" href="#plan" data-view="plan">Action plan</a>
+      <a class="tab" href="#verify" data-view="verify">Verify</a>
+      <a class="tab" href="#appendix" data-view="appendix">Appendix</a>
+    </nav>
+    <div class="tools">
+      <label class="search" for="q"><span class="muted small">Search</span><input id="q" type="search" placeholder="Findings, IDs, fixes…" autocomplete="off"></label>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch theme">Theme: system</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+<!-- ============================ OVERVIEW ============================ -->
+<section class="view" id="view-overview" aria-labelledby="h-overview">
+  <div class="hero">
+    <div class="prose stack">
+      <p class="eyebrow">Executive summary, v2</p>
+      <h1 id="h-overview">The blockers are fixed, but nothing has shipped yet</h1>
+      <p>Since v1, the two biggest blockers have been fixed, but neither fix has reached search engines yet.</p>
+      <ul>
+        <li><strong>AI crawlers are allowed in.</strong> Cloudflare's managed robots.txt and AI-bot blocking are off. GPTBot, ClaudeBot, Google-Extended, CCBot and PerplexityBot now get HTTP 200. HTTP now redirects to HTTPS, HSTS and <code>nosniff</code> are on, and Cloudflare Web Analytics is loading.</li>
+        <li><strong>The branch serves real HTML.</strong> On <code>feat/seo-geo</code> the homepage ships about 44,000 characters of text, 13 headings at h1/h2 level, structured data, a FAQ and 32 internal links before any JavaScript runs.</li>
+        <li><strong>None of the branch work is live.</strong> The branch is not committed or deployed. The live site still serves the 2.2 KB empty shell, so the AI crawlers that are now allowed in still find nothing to read.</li>
+      </ul>
+      <p>The review also found two problems that v1 missed. The animated skills cloud keeps the browser busy about 90% of the time on mobile, giving a Total Blocking Time of about 2 minutes on both versions (<a href="#N-01">N-01</a>). And in the branch, React throws away the prerendered page 0.65 seconds after load and rebuilds it, so Googlebot indexes 21 of 86 projects (<a href="#N-02">N-02</a>).</p>
+    </div>
+    <aside class="panel">
+      <p class="eyebrow" style="margin-bottom:10px">Scope and method</p>
+      <dl class="meta-grid">
+        <dt>Site</dt><dd>https://tursoft.net (GitHub Pages behind Cloudflare)</dd>
+        <dt>Date</dt><dd>2026-10-28</dd>
+        <dt>Reviewed</dt><dd>The live site after the Cloudflare changes, and branch <code>feat/seo-geo</code> built, prerendered and served locally with gzip</dd>
+        <dt>Method</dt><dd>Live HTTP probes, crawler view with JavaScript disabled, Lighthouse 12.6.1 mobile on both versions, Chrome performance metrics at 4× CPU throttle, a hydration probe sampling page text every 25 ms</dd>
+        <dt>Previous</dt><dd><a href="seo-geo-report.html">v1 report, 27 Oct</a> with findings F-01 to F-34</dd>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="tiles" id="tiles" aria-label="Findings by status. Click a tile to filter the findings list."></div>
+
+  <div class="section" style="margin-top:36px">
+    <h3>The five things to do first</h3>
+    <ol class="first-five">
+      <li><strong>Fix the skills cloud loop</strong> (<a href="#N-01">N-01</a>) and the background canvas (<a href="#N-03">N-03</a>). A contained change in two components that removes most of the blocking time.</li>
+      <li><strong>Decide on the phone number</strong> (<a href="#F-34">F-34</a>) and <strong>remove the four old CV PDFs</strong> (<a href="#F-32">F-32</a>). Both become part of the static page or stay crawlable once you deploy.</li>
+      <li><strong>Commit, merge and deploy <code>feat/seo-geo</code></strong>, then submit the sitemap in Google Search Console and Bing Webmaster Tools (<a href="#F-06">F-06</a>).</li>
+      <li><strong>Make <code>www</code> redirect straight to <code>https://tursoft.net/</code></strong> (<a href="#F-05">F-05</a>) and add a Referrer-Policy header (<a href="#F-28">F-28</a>).</li>
+      <li><strong>Switch to real hydration</strong> (<a href="#N-02">N-02</a>) so the prerendered page is kept instead of rebuilt.</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h3>Scorecard</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Area</th><th>v1, live 27 Oct</th><th>Live today</th><th class="hl">Branch build</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Crawlability and rendering</td><td><span class="grade" data-g="D">D</span></td><td><span class="grade" data-g="D">D</span></td><td class="hl"><span class="grade" data-g="B">B</span></td><td>Static HTML is complete; discarded on load (N-02)</td></tr>
+          <tr><td>Indexability and URLs</td><td><span class="grade" data-g="D">D</span></td><td><span class="grade" data-g="C">C</span></td><td class="hl"><span class="grade" data-g="B+">B+</span></td><td>HTTPS fixed live; sitemap and privacy URL in branch; <code>www</code> chain open</td></tr>
+          <tr><td>On-page metadata</td><td><span class="grade" data-g="C">C</span></td><td><span class="grade" data-g="C">C</span></td><td class="hl"><span class="grade" data-g="A">A</span></td><td>Per-route title, description, canonical and social card</td></tr>
+          <tr><td>Structured data</td><td><span class="grade" data-g="F">F</span></td><td><span class="grade" data-g="F">F</span></td><td class="hl"><span class="grade" data-g="A-">A-</span></td><td>Person, WebSite, ProfilePage, FAQPage</td></tr>
+          <tr><td>Content quality</td><td><span class="grade" data-g="B-">B-</span></td><td><span class="grade" data-g="B-">B-</span></td><td class="hl"><span class="grade" data-g="B+">B+</span></td><td>At a glance, FAQ, descriptive headings; no detail pages or case studies</td></tr>
+          <tr><td>Performance</td><td><span class="grade" data-g="C">C</span> <span class="small muted">estimate</span></td><td><span class="grade" data-g="D">D</span> <span class="small muted">measured</span></td><td class="hl"><span class="grade" data-g="D">D</span> <span class="small muted">measured</span></td><td>89% lighter, but ~2 min blocking time from the skills cloud (N-01)</td></tr>
+          <tr><td>GEO readiness</td><td><span class="grade" data-g="D">D</span></td><td><span class="grade" data-g="C">C</span></td><td class="hl"><span class="grade" data-g="A-">A-</span></td><td>Bots allowed live; content, llms.txt and llms-full.txt ready in branch</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Changes made during this review</h3>
+    <p class="muted small" style="margin-bottom:10px">Applied to <code>feat/seo-geo</code> and included in the measurements.</p>
+    <ul>
+      <li><strong>Prerender robustness.</strong> The step caches the original SPA shell, so it can be re-run on an already built folder, and no longer injects the same head tag twice. The privacy page no longer inherits the homepage head and shrank from 38 KB to 23 KB.</li>
+      <li><strong>Accessibility.</strong> Carousel previous, next and slide-dot buttons, the map and grid toggles, and the company website and LinkedIn icon links now have accessible names. Links inside data-driven descriptions get <code>rel="noopener noreferrer"</code>. Lighthouse accessibility went from 92 to 97.</li>
+      <li><code>.cache/</code> is ignored by git.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ FINDINGS ============================ -->
+<section class="view" id="view-findings" aria-labelledby="h-findings">
+  <div class="view-head">
+    <h2 id="h-findings">Findings</h2>
+    <p class="muted small">New v2 findings carry full evidence and fixes. v1 findings show their status today and link to the original write-up.</p>
+  </div>
+  <div class="filters">
+    <div class="chipgroup" id="status-chips"><span class="eyebrow">Status</span></div>
+    <div class="chipgroup" id="sev-chips"><span class="eyebrow">Severity</span></div>
+    <div class="chipgroup" id="area-chips"><span class="eyebrow">Area</span></div>
+    <span class="spacer"></span>
+    <span class="resultcount" id="resultcount"></span>
+    <button class="btn" type="button" id="expand-all">Expand all</button>
+    <button class="btn" type="button" id="collapse-all">Collapse all</button>
+  </div>
+  <div class="findings" id="findings"></div>
+</section>
+
+<!-- ============================ MEASUREMENTS ============================ -->
+<section class="view" id="view-measurements" aria-labelledby="h-measure">
+  <div class="view-head">
+    <h2 id="h-measure">Measurements</h2>
+    <p class="muted small">Live site versus the branch build, measured on 28 Oct 2026.</p>
+  </div>
+
+  <div class="section">
+    <h3>Lighthouse, mobile</h3>
+    <p class="small muted" style="margin-bottom:10px">Lighthouse 12.6.1, simulated slow 4G and 4× CPU. The branch was served from localhost with gzip, like GitHub Pages.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Metric</th><th class="num">Live site</th><th class="num">Branch build</th><th>Change</th></tr></thead>
+        <tbody>
+          <tr><td>Performance</td><td class="num">31</td><td class="num">33</td><td class="delta">+2</td></tr>
+          <tr><td>Accessibility</td><td class="num">92</td><td class="num">97</td><td class="delta" data-dir="better">+5</td></tr>
+          <tr><td>Best practices</td><td class="num">96</td><td class="num">100</td><td class="delta" data-dir="better">+4</td></tr>
+          <tr><td>SEO</td><td class="num">100</td><td class="num">100</td><td class="delta">0</td></tr>
+          <tr><td>First Contentful Paint</td><td class="num">3.3 s</td><td class="num">2.8 s</td><td class="delta">−0.5 s</td></tr>
+          <tr><td>Largest Contentful Paint</td><td class="num">6.7 s</td><td class="num">6.3 s</td><td class="delta">−0.4 s</td></tr>
+          <tr><td><strong>Total Blocking Time</strong></td><td class="num">119.5 s</td><td class="num">123.2 s</td><td class="delta" data-dir="worse">both very poor (N-01)</td></tr>
+          <tr><td>Cumulative Layout Shift</td><td class="num">0.003</td><td class="num">0.003</td><td class="delta">0</td></tr>
+          <tr><td>Speed Index</td><td class="num">32.4 s</td><td class="num">30.0 s</td><td class="delta">−2.4 s</td></tr>
+          <tr><td>Time to Interactive</td><td class="num">147.8 s</td><td class="num">153.9 s</td><td class="delta" data-dir="worse">both very poor (N-01)</td></tr>
+          <tr><td><strong>Total transfer</strong></td><td class="num">6,656 KiB</td><td class="num">754 KiB</td><td class="delta" data-dir="better">−89%</td></tr>
+          <tr><td>DOM elements</td><td class="num">4,525</td><td class="num">4,766</td><td class="delta">+5% (N-04)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:14px">
+      <strong>How to read these numbers.</strong> Lighthouse SEO 100 is not proof of crawlability: Lighthouse runs JavaScript and checks only basic tags, so it cannot see the empty-shell problem that non-rendering crawlers and AI fetchers face. Use the crawler view below for that. Server latency was lower for the local branch build (20 ms versus 230 ms), so treat small paint-time differences as noise. Byte weight and blocking time are reliable.
+    </div>
+  </div>
+
+  <div class="twocol section">
+    <div>
+      <h3>Crawler view, JavaScript disabled</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Live site</th><th class="hl">Branch build</th></tr></thead>
+          <tbody>
+            <tr><td>HTML size</td><td>2.2 KB</td><td class="hl">864 KB raw, 78 KB gzip</td></tr>
+            <tr><td>Visible text</td><td>title only</td><td class="hl">43,902 characters, 6,156 words</td></tr>
+            <tr><td>Headings</td><td>none</td><td class="hl">1 h1, 12 h2, 144 h3</td></tr>
+            <tr><td>Structured data</td><td>none</td><td class="hl">Person, WebSite, ProfilePage; FAQPage</td></tr>
+            <tr><td>Internal anchor links</td><td>none</td><td class="hl">32</td></tr>
+            <tr><td>Projects in the HTML</td><td>0</td><td class="hl">86</td></tr>
+            <tr><td>Title / description</td><td>44 / 160 chars</td><td class="hl">63 / 150 chars</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h3>Hydration probe, branch build</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Moment after load</th><th class="num">Characters of text</th></tr></thead>
+          <tbody>
+            <tr><td>First sample, prerendered HTML</td><td class="num">48,709</td></tr>
+            <tr><td>656 ms, React starts</td><td class="num">6,536 <span class="small muted">(−87%)</span></td></tr>
+            <tr><td>After data loads, visitor view</td><td class="num">39,274</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted" style="margin-top:8px">The visitor view shows 21 of 86 projects. Googlebot indexes this state because it runs JavaScript (<a href="#N-02">N-02</a>).</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>What keeps the main thread busy</h3>
+    <p class="small muted" style="margin-bottom:10px">Chrome performance metrics over 10 seconds at 4× CPU throttle, homepage, mobile viewport.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Variant</th><th class="num">Style recalculation</th><th class="num">Total task time</th></tr></thead>
+        <tbody>
+          <tr><td>Branch, as built</td><td class="num">8.8 s</td><td class="num">10.1 s</td></tr>
+          <tr><td>Branch, CSS animations off, typewriter removed, canvas hidden</td><td class="num">9.6 s</td><td class="num">10.3 s</td></tr>
+          <tr><td><strong>Branch, skills section hidden</strong></td><td class="num"><strong>0.7 s</strong></td><td class="num">9.9 s</td></tr>
+          <tr><td>Live, as built</td><td class="num">9.9 s</td><td class="num">10.7 s</td></tr>
+          <tr><td><strong>Live, skills section hidden</strong></td><td class="num"><strong>0.9 s</strong></td><td class="num">9.7 s</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted" style="margin-top:8px">With the skills section hidden, style work drops by more than 90%. The thread stays busy producing frames for the particle background (<a href="#N-03">N-03</a>), but in short tasks that no longer count as blocking.</p>
+  </div>
+
+  <div class="section">
+    <h3>Live configuration, v1 versus today</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Check</th><th>v1, 27 Oct</th><th>Today, 28 Oct</th></tr></thead>
+        <tbody>
+          <tr><td>GPTBot, ClaudeBot, Google-Extended, CCBot</td><td>403, blocked by robots.txt</td><td><span class="spill" data-status="resolved">200, allowed</span></td></tr>
+          <tr><td>Cloudflare managed robots.txt</td><td>present</td><td><span class="spill" data-status="resolved">removed</span></td></tr>
+          <tr><td><code>http://tursoft.net/</code></td><td>200, no redirect</td><td><span class="spill" data-status="resolved">301 → https</span></td></tr>
+          <tr><td><code>https://www.tursoft.net/</code></td><td>301 → <code>http://tursoft.net/</code></td><td><span class="spill" data-status="open">unchanged, 2 hops via HTTP</span></td></tr>
+          <tr><td>Strict-Transport-Security</td><td>none</td><td><span class="spill" data-status="resolved">max-age 30 days, includeSubDomains, preload</span></td></tr>
+          <tr><td>X-Content-Type-Options</td><td>none</td><td><span class="spill" data-status="resolved">nosniff</span></td></tr>
+          <tr><td>Referrer-Policy</td><td>none</td><td><span class="spill" data-status="open">none</span></td></tr>
+          <tr><td>Analytics</td><td>none</td><td><span class="spill" data-status="resolved">Cloudflare Web Analytics</span></td></tr>
+          <tr><td>Deployed build</td><td>empty SPA shell</td><td><span class="spill" data-status="open">still the empty shell</span></td></tr>
+          <tr><td><code>/sitemap.xml</code>, <code>/og-image.jpg</code></td><td>404</td><td><span class="spill" data-status="open">404 until deploy</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PLAN ============================ -->
+<section class="view" id="view-plan" aria-labelledby="h-plan">
+  <div class="view-head">
+    <h2 id="h-plan">Action plan v2</h2>
+    <p class="muted small">Tick tasks as you finish them. Progress is saved in this browser only.</p>
+  </div>
+  <div class="overall">
+    <div class="progress"><span id="overall-text">0 of 0 done</span><div class="bar" id="overall-bar"><span></span></div></div>
+    <button class="btn danger" type="button" id="reset-progress" data-armed="false">Reset progress</button>
+  </div>
+  <div id="phases"></div>
+</section>
+
+<!-- ============================ VERIFY ============================ -->
+<section class="view" id="view-verify" aria-labelledby="h-verify">
+  <div class="view-head">
+    <h2 id="h-verify">Verification checklist</h2>
+    <p class="muted small">Run against the live site after deploying Phase A. Expected results are in the comments.</p>
+  </div>
+  <div id="verify-blocks" class="stack"></div>
+  <div class="section">
+    <h3>Console checks</h3>
+    <ul>
+      <li>Rich Results Test: <a href="https://search.google.com/test/rich-results?url=https://tursoft.net/" target="_blank" rel="noopener">search.google.com/test/rich-results</a>. Expect Person/ProfilePage detected without errors. FAQ rich results are limited to government and health sites since 2023, so expect the FAQPage to validate but not to show as a snippet.</li>
+      <li>PageSpeed Insights mobile: <a href="https://pagespeed.web.dev/analysis?url=https://tursoft.net/" target="_blank" rel="noopener">pagespeed.web.dev</a>. After Phase B, target Total Blocking Time under 600 ms and Performance 80 or higher.</li>
+      <li>Search Console URL Inspection: "View crawled page" must show the full content, not a loading state.</li>
+      <li>LinkedIn Post Inspector and the X card validator: the new social card appears after a re-scrape.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ APPENDIX ============================ -->
+<section class="view" id="view-appendix" aria-labelledby="h-appendix">
+  <div class="view-head">
+    <h2 id="h-appendix">Appendix</h2>
+    <p class="muted small">Code and settings for the v2 fixes. Copy buttons copy the raw text.</p>
+  </div>
+  <nav class="appendix-nav" aria-label="Appendix sections">
+    <a class="chip" href="#appendix-a">A · skills cloud loop</a>
+    <a class="chip" href="#appendix-b">B · hydration</a>
+    <a class="chip" href="#appendix-c">C · robots for CVs</a>
+    <a class="chip" href="#appendix-d">D · Cloudflare settings</a>
+    <a class="chip" href="#appendix-e">E · evidence log</a>
+  </nav>
+
+  <div class="section" id="appendix-a">
+    <h3>A. Skills cloud loop that only runs when it should</h3>
+    <p class="callout" style="margin-bottom:12px">Applied to the existing effect in <code>src/components/ui/item-cloud.tsx</code>. Drop <code>var(--cloud-depth)</code> from the item's inline opacity once the loop writes <code>opacity</code> directly.</p>
+    <div data-code="code-a" data-label="item-cloud.tsx"></div>
+  </div>
+
+  <div class="section" id="appendix-b">
+    <h3>B. Hydration outline</h3>
+    <p class="callout" style="margin-bottom:12px">Two rules keep the first client render identical to the prerender: lists render every item and hide extras with <code>hidden="until-found"</code> instead of slicing, and counters and reveal blocks start in their final state when hydrating.</p>
+    <div data-code="code-b" data-label="prerender.mjs, BaseRepo.ts, a section, main.tsx"></div>
+  </div>
+
+  <div class="section" id="appendix-c">
+    <h3>C. robots.txt for the CV folder</h3>
+    <p class="callout" style="margin-bottom:12px">Either delete the four unused PDFs, or keep only the two linked versions crawlable. Google and Bing apply the most specific rule, so the two Allow lines win. Update them whenever <code>src/data/cv.json</code> points to a new version.</p>
+    <div data-code="code-c" data-label="public/robots.txt"></div>
+  </div>
+
+  <div class="section" id="appendix-d">
+    <h3>D. Cloudflare and GitHub settings still to change</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Setting</th><th>Where</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td><code>www</code> redirect</td><td>Rules → Redirect Rules</td><td><code>http*://www.tursoft.net/*</code> → <code>https://tursoft.net/${2}</code>, 301, preserve query string</td></tr>
+          <tr><td>Enforce HTTPS</td><td>GitHub repository → Settings → Pages</td><td>ticked</td></tr>
+          <tr><td>Referrer-Policy</td><td>Rules → Transform Rules → Response headers</td><td><code>strict-origin-when-cross-origin</code></td></tr>
+          <tr><td>HSTS</td><td>SSL/TLS → Edge Certificates</td><td>keep 1 month without <code>preload</code>, or raise to 12 months before submitting to hstspreload.org</td></tr>
+          <tr><td>Cache for hashed assets</td><td>Caching → Cache Rules</td><td>hashed <code>/assets/*.js</code> and <code>*.css</code>: edge and browser TTL 1 year</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="appendix-e">
+    <h3>E. Evidence log (2026-10-28)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Check</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>AI crawlers on <code>/llms.txt</code> (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot, Bytespider)</td><td>200 for all</td></tr>
+          <tr><td>Live robots.txt</td><td>Repo version from the old deploy; no Cloudflare managed block</td></tr>
+          <tr><td><code>http://tursoft.net/</code></td><td>301 → <code>https://tursoft.net/</code></td></tr>
+          <tr><td><code>https://www.tursoft.net/</code></td><td>301 → <code>http://tursoft.net/</code></td></tr>
+          <tr><td>Live headers</td><td>HSTS <code>max-age=2592000; includeSubDomains; preload</code>, <code>nosniff</code>, <code>Cache-Control: max-age=600</code>; no Referrer-Policy</td></tr>
+          <tr><td>Live title</td><td>"Muhammet Turşak - Senior Software Architect" (old build)</td></tr>
+          <tr><td>Branch <code>dist/index.html</code></td><td>863,540 bytes raw, 78,300 gzip; 1 hero preload; 40 map tile images; 218 inline SVGs; phone number twice</td></tr>
+          <tr><td>Branch privacy page</td><td>23 KB; own title and canonical, <code>og:type</code> article, <code>lang="tr"</code> article</td></tr>
+          <tr><td>Branch main JS chunk</td><td>645 KB raw, 189 KB gzip</td></tr>
+          <tr><td>Public CV PDFs in the build</td><td>6, of which 2 are linked (v60 detailed, v56 compact)</td></tr>
+          <tr><td>Lighthouse mobile, live</td><td>Performance 31, Accessibility 92, Best practices 96, SEO 100</td></tr>
+          <tr><td>Lighthouse mobile, branch with gzip</td><td>Performance 33, Accessibility 97, Best practices 100, SEO 100</td></tr>
+          <tr><td>Style recalculation per 10 s at 4× CPU</td><td>Branch 8.8 s, 0.7 s without skills section; live 9.9 s, 0.9 s without</td></tr>
+          <tr><td>Hydration probe</td><td>48,709 → 6,536 characters at 656 ms → 39,274 after data load</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Raw code for copy blocks (textarea content needs no escaping) -->
+<textarea class="src" id="code-a">useEffect(() => {
+  if (!width || basePoints.length === 0) return;
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+  let frame = 0;
+  let onScreen = false;
+  let pageVisible = !document.hidden;
+
+  const renderFrame = () => {
+    // existing projection code; per item write only transform, opacity and zIndex:
+    // node.style.transform = `translate3d(...) translate(-50%, -50%) scale(${scale})`;
+    // node.style.opacity = String(baseOpacity * (MIN_DEPTH_OPACITY + (1 - MIN_DEPTH_OPACITY) * depth));
+    // node.style.zIndex = onTop ? "2000" : String(Math.round(depth * 1000));
+  };
+  const tick = () => {
+    if (!onScreen || !pageVisible) { frame = 0; return; }   // stop requesting frames
+    renderFrame();
+    frame = requestAnimationFrame(tick);
+  };
+  const start = () => {
+    if (!frame && onScreen && pageVisible && !reduceMotion && !isPrerender) frame = requestAnimationFrame(tick);
+  };
+
+  renderFrame();                                            // one static frame for prerender and reduced motion
+  const io = new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; start(); }, { rootMargin: "200px" });
+  if (containerRef.current) io.observe(containerRef.current);
+  const onVisibility = () => { pageVisible = !document.hidden; start(); };
+  document.addEventListener("visibilitychange", onVisibility);
+
+  return () => {
+    cancelAnimationFrame(frame);
+    io.disconnect();
+    document.removeEventListener("visibilitychange", onVisibility);
+  };
+}, [width, height, basePoints, radius, items]);</textarea>
+
+<textarea class="src" id="code-b">// scripts/prerender.mjs, after the page is ready
+const snapshot = await page.evaluate(() => window.__repoSnapshot);   // { "/data/projects.json": {...}, ... }
+html = html.replace("</head>",
+  `<script id="__DATA__" type="application/json">${JSON.stringify(snapshot).replace(/</g, "\\u003c")}</script></head>`);
+
+// src/repositories/base/BaseRepo.ts
+const SNAPSHOT = JSON.parse(document.getElementById("__DATA__")?.textContent || "null");
+// constructor: if (SNAPSHOT?.[jsonPath]) { this.data = SNAPSHOT[jsonPath]; this.buildMaps(); }
+// in loadIfNeeded, for the prerender: (window.__repoSnapshot ??= {})[this.jsonPath] = json;
+peek(): TItem[] | null { return this.data ? this.data.items.slice() : null; }
+
+// a section
+const [projects, setProjects] = useState(() => projectsRepo.peek() ?? []);
+const [isLoading, setIsLoading] = useState(() => projectsRepo.peek() === null);
+
+// src/main.tsx
+const root = document.getElementById("root")!;
+if (root.hasChildNodes() && document.getElementById("__DATA__")) hydrateRoot(root, <App />);
+else createRoot(root).render(<App />);</textarea>
+
+<textarea class="src" id="code-c">User-agent: *
+Allow: /
+Disallow: /assets/downloads/
+Disallow: /assets/projects/*/downloads/
+Disallow: /assets/files/downloads/
+Allow: /assets/files/downloads/CV_MuhammetTursak_Detailed-v60.pdf
+Allow: /assets/files/downloads/CV_MuhammetTursak_v56-compact.20260403.pdf
+
+Sitemap: https://tursoft.net/sitemap.xml</textarea>
+
+<textarea class="src" id="verify-1"># Static content and structured data reach crawlers
+curl -s https://tursoft.net/ | grep -c "<h2"                          # expect 12
+curl -s https://tursoft.net/ | grep -c 'application/ld+json'          # expect 2
+curl -s https://tursoft.net/ | grep -o "<title>[^<]*"                 # new title with "Tursak"</textarea>
+<textarea class="src" id="verify-2">for p in / /privacy/amelbook/ /sitemap.xml /og-image.jpg /llms-full.txt /manifest.webmanifest; do
+  printf "%-24s " "$p"; curl -s -o /dev/null -w "%{http_code}\n" "https://tursoft.net$p"
+done                                                                  # expect 200 for all</textarea>
+<textarea class="src" id="verify-3">curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" https://www.tursoft.net/   # 301 https://tursoft.net/
+curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" http://tursoft.net/        # 301 https://tursoft.net/
+curl -sI https://tursoft.net/ | grep -iE "strict-transport|x-content-type|referrer-policy"</textarea>
+<textarea class="src" id="verify-4">for ua in GPTBot ClaudeBot PerplexityBot OAI-SearchBot Google-Extended CCBot; do
+  printf "%-16s " $ua; curl -s -o /dev/null -w "%{http_code}\n" -A "$ua" https://tursoft.net/llms.txt
+done                                                                  # expect 200 for all</textarea>
+<textarea class="src" id="verify-5">curl -s -o /dev/null -w "%{http_code}\n" \
+  https://tursoft.net/assets/files/downloads/CV_MuhammetTursak_v48.20190529-Summary.pdf   # 404 if deleted
+curl -s https://tursoft.net/ | grep -c "554 200 78 29"                                     # 0 if the phone was removed</textarea>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------ vocab */
+  const SEV = { critical: { label: 'Critical', order: 0 }, high: { label: 'High', order: 1 }, medium: { label: 'Medium', order: 2 }, low: { label: 'Low', order: 3 } };
+  const AREAS = { crawl: 'Crawling & indexing', meta: 'Metadata & social', schema: 'Structured data', content: 'Content & semantics', perf: 'Performance', geo: 'GEO' };
+  const STATUS = {
+    new:      { label: 'New in v2', order: 0 },
+    open:     { label: 'Open', order: 1 },
+    partial:  { label: 'Partial', order: 2 },
+    resolved: { label: 'Resolved', order: 3 }
+  };
+
+  /* --------------------------------------------------------- new findings */
+  const F = [];
+  function addNew(id, sev, area, title, sub, evidence, impact, fix) { F.push({ id, sev, area, title, sub, status: 'new', evidence, impact, fix }); }
+
+  addNew('N-01', 'critical', 'perf', 'The skills cloud recalculates styles for 217 elements on every frame, forever', 'Total Blocking Time ~2 min on both versions',
+    `<p><code>src/components/ui/item-cloud.tsx</code> runs a <code>requestAnimationFrame</code> loop that writes <code>transform</code>, <code>zIndex</code> and the CSS variable <code>--cloud-depth</code> onto each of the 217 skill items on every frame. The item's inline opacity is a <code>calc()</code> over that variable, so each write invalidates style for the item and its children. The loop never pauses: not off screen, not in a hidden tab, and not under <code>prefers-reduced-motion</code>, where the rotation speed becomes 0 but the writes continue.</p>
+     <div class="table-wrap"><table><thead><tr><th>10 s at 4× CPU</th><th class="num">Style recalculation</th></tr></thead><tbody>
+       <tr><td>Branch, as built</td><td class="num">8.8 s</td></tr><tr><td>Branch, skills section hidden</td><td class="num">0.7 s</td></tr>
+       <tr><td>Live, as built</td><td class="num">9.9 s</td></tr><tr><td>Live, skills section hidden</td><td class="num">0.9 s</td></tr></tbody></table></div>`,
+    `<p>Total Blocking Time is about 120 seconds and Time to Interactive about 150 seconds on mobile, on both versions; Performance stays at 31 to 33. Phones run hot and scrolling janks. Google's field metric Interaction to Next Paint suffers from the same busy thread.</p>`,
+    `<ul>
+      <li>Run the loop only while the cloud is on screen and the tab is visible: an IntersectionObserver plus a <code>visibilitychange</code> listener.</li>
+      <li>Do not run it under reduced motion or in prerender mode; render one static frame instead.</li>
+      <li>Stop writing the CSS variable per frame. Write <code>opacity</code> directly next to <code>transform</code>.</li>
+      <li>Optionally cap at 30 frames per second and pause after a few seconds without interaction.</li>
+     </ul><p>Code in <a href="#appendix-a">Appendix A</a>. Expected: blocking time drops by roughly 90%.</p>`);
+
+  addNew('N-02', 'high', 'crawl', 'React discards the prerendered HTML and rebuilds the page', 'Googlebot indexes 21 of 86 projects',
+    `<p><code>src/main.tsx</code> still calls <code>createRoot(...).render(&lt;App /&gt;)</code>. React clears the container on its first render: the text drops from 48,709 to 6,536 characters 656 ms after load, then refills once ten JSON files have loaded. The visitor view then holds 39,274 characters and 21 projects.</p>`,
+    `<ul>
+      <li>Visitors see the full page, then a mostly empty page, then the full page again.</li>
+      <li>The Largest Contentful Paint element is re-created when React renders, which delays LCP.</li>
+      <li>Googlebot runs JavaScript and indexes the rebuilt page: 21 of 86 projects and no dialog content. The full prerendered content only helps crawlers that do not run JavaScript, such as most AI fetchers.</li>
+     </ul>`,
+    `<ol>
+      <li>Embed the loaded JSON in the prerendered page as <code>&lt;script id="__DATA__" type="application/json"&gt;</code>.</li>
+      <li>Let the repositories read the snapshot synchronously, and let sections start from cached data: <code>useState(() =&gt; repo.peek() ?? [])</code>.</li>
+      <li>Render every list item in both modes and collapse extras with <code>hidden="until-found"</code> instead of slicing.</li>
+      <li>Call <code>hydrateRoot</code> when the root has children and a snapshot exists; otherwise keep <code>createRoot</code>.</li>
+     </ol><p>Outline in <a href="#appendix-b">Appendix B</a>. This also completes F-07 and F-25.</p>`);
+
+  addNew('N-03', 'medium', 'perf', 'The particle background animates continuously', '',
+    `<p><code>src/components/BackgroundAnimation.tsx</code> redraws a full-screen canvas on every frame, including pairwise links between particles. It never pauses in a hidden tab and keeps the same particle count on small screens. With the skills cloud hidden, the main thread still spent almost all of each 10-second window producing frames.</p>`,
+    `<p>Battery and CPU use on phones, and less headroom for real interactions once N-01 is fixed.</p>`,
+    `<p>Pause on <code>visibilitychange</code> and when the hero is out of view, cap at 30 frames per second, use fewer particles below 768 px, and draw one static frame under reduced motion.</p>`);
+
+  addNew('N-04', 'medium', 'perf', 'The prerendered homepage is heavier than it needs to be', '864 KB HTML, 4,766 DOM elements',
+    `<p><code>dist/index.html</code> is 864 KB raw (78 KB gzip) with 4,766 DOM elements; Lighthouse warns above 1,400. It holds 218 inline SVG icons and 40 OpenStreetMap tile images captured from the map, so the static page requests third-party tiles before any script runs.</p>`,
+    `<p>A slower first parse on low-end phones, a DOM-size penalty, and needless third-party requests.</p>`,
+    `<p>In prerender mode render a static map placeholder (heading, list of countries, a "Load map" button) instead of Leaflet, and the skills as a plain grouped list instead of the cloud. Add <code>content-visibility: auto</code> with <code>contain-intrinsic-size</code> to below-the-fold sections.</p>`);
+
+  addNew('N-05', 'low', 'content', 'Two accessibility failures remain', 'Lighthouse accessibility 97',
+    `<p>Colour contrast fails on one badge. The back-to-top profile photo has alt text "Muhammet Turşak", which repeats the text right next to it.</p>`,
+    `<p>Minor accessibility loss, and the last points between 97 and 100.</p>`,
+    `<p>Give the photo <code>alt=""</code> because the button already has a label, and darken the badge text or lighten its background to reach 4.5:1.</p>`);
+
+  addNew('N-06', 'low', 'geo', 'llms-full.txt shows raw codes and some data errors', '',
+    `<p>Project entries list internal codes such as <code>Domains: healthcareit, ecommerce</code> and <code>Technologies: C#, .net, angular, tsql</code>. Some data looks wrong: the Avicenna Health Integration Network is listed under DataSel with the e-commerce domain, while the experience text places it at ERC Group.</p>`,
+    `<p>AI assistants quote this file almost verbatim. Codes read as noise, and a wrong employer or domain becomes a wrong answer.</p>`,
+    `<p>Resolve domain, skill and customer codes to display titles in <code>scripts/generate-llms-full.mjs</code>, and correct the project-to-company data in <code>projects.json</code>.</p>`);
+
+  addNew('N-07', 'low', 'geo', 'Some freshness dates are wrong by design', '',
+    `<p><code>public/llms.txt</code> has a hard-coded "Last updated: 2026-10-27". The sitemap sets every URL's <code>lastmod</code> to the build date on every build.</p>`,
+    `<p>Search engines ignore <code>lastmod</code> that changes on every build without content changes, and a stale llms.txt date undermines the freshness signal.</p>`,
+    `<p>Generate the llms.txt date at build time, and take each route's <code>lastmod</code> from the last git commit that touched its content.</p>`);
+
+  /* ------------------------------------------------- v1 findings, status */
+  const V1 = [
+    ['F-01', 'critical', 'crawl', 'All content depends on JavaScript and runtime data fetches', 'resolved', 'branch', 'Full content in the static HTML of the branch. It is discarded on load, see N-02.'],
+    ['F-02', 'critical', 'crawl', 'Cloudflare blocks AI crawlers in robots.txt and at the edge', 'resolved', 'live', 'All AI crawlers get HTTP 200 and the managed robots.txt is gone.'],
+    ['F-03', 'critical', 'crawl', 'Every non-root URL returns HTTP 404', 'resolved', 'branch', '/privacy/amelbook/ is a real prerendered file; it returns 200 once deployed.'],
+    ['F-04', 'high', 'crawl', 'No sitemap, robots.txt has no Sitemap line', 'resolved', 'branch', 'sitemap.xml is generated at build and linked from robots.txt.'],
+    ['F-05', 'high', 'crawl', 'HTTP is not redirected to HTTPS, www redirects to HTTP, no HSTS', 'partial', '', 'HTTP→HTTPS and HSTS are live. https://www still redirects to http://tursoft.net/ first (two hops via plain HTTP). HSTS has the preload flag with a 30-day max-age, which does not qualify for the preload list (needs one year).'],
+    ['F-06', 'high', 'crawl', 'Search engine presence is unverified', 'open', '', 'Cannot be verified from outside. Verify in Search Console and Bing Webmaster Tools and submit the sitemap after deploy.'],
+    ['F-07', 'high', 'crawl', 'Most content never enters the DOM', 'partial', '', 'All 86 projects are in the static HTML. Googlebot sees 21 after JavaScript runs, see N-02.'],
+    ['F-08', 'medium', 'crawl', 'No crawlable internal links or section anchors', 'resolved', 'branch', 'Navigation items and the hero call-to-action are anchor links; 32 internal anchors in the HTML.'],
+    ['F-09', 'medium', 'crawl', 'Reveal hides content until an IntersectionObserver fires', 'resolved', 'branch', 'Prerender renders every reveal block in its visible state.'],
+    ['F-10', 'critical', 'meta', 'Open Graph and Twitter image return 404', 'resolved', 'branch', 'og-image.jpg (1200×630) generated from a template; its tagline starts with AI Agentic Development.'],
+    ['F-11', 'high', 'meta', 'One meta set for every route', 'resolved', 'branch', 'Per-route title, description, canonical and social tags via Seo.tsx.'],
+    ['F-12', 'medium', 'meta', 'Title and description content issues', 'resolved', 'branch', 'Title is 63 characters and includes "Tursak"; description is 150 characters.'],
+    ['F-13', 'low', 'meta', 'No icon links, touch icon, manifest or theme color', 'resolved', 'branch', 'Touch icon, manifest, icon links and theme colour added.'],
+    ['F-14', 'low', 'meta', 'Language signals are mixed', 'partial', '', 'lang="tr" on Turkish testimonials and on the privacy article. The ten privacy languages still share one URL.'],
+    ['F-15', 'low', 'meta', '404 page lacks its own title and uses light-theme styles', 'resolved', 'branch', 'Own title, noindex and the site styling.'],
+    ['F-16', 'high', 'schema', 'No JSON-LD of any kind', 'resolved', 'branch', 'Person, WebSite, ProfilePage and FAQPage in the static HTML.'],
+    ['F-17', 'medium', 'content', 'Headings are slogans, not topics', 'resolved', 'branch', 'Every section has a descriptive h2.'],
+    ['F-18', 'medium', 'content', "The hero's positioning statement is animated, not static", 'resolved', 'branch', 'A static positioning line sits under the h1.'],
+    ['F-19', 'medium', 'content', 'Facts disagree across surfaces', 'resolved', 'branch', '25+ years, https URLs, x.com and the ASCII name are consistent across the site, llms.txt and the schema.'],
+    ['F-20', 'high', 'content', 'One indexable URL for 400+ content entities', 'open', '', 'Detail pages for projects and domains are not started.'],
+    ['F-21', 'medium', 'content', 'No freshness or authority signals', 'partial', '', 'Footer "last updated" and dateModified are done; the case studies are not written.'],
+    ['F-22', 'low', 'content', 'Image alt text', 'resolved', 'branch', 'Flag images have language names as alt. One redundant alt remains, see N-05.'],
+    ['F-23', 'high', 'perf', 'One large JavaScript chunk, no code splitting', 'partial', '', 'Map and timeline load lazily. The main chunk is 645 KB raw, 189 KB gzip. The vendor split added in the first round was lost when the Vite config was rewritten; restore it.'],
+    ['F-24', 'medium', 'perf', 'Images are not optimized for Core Web Vitals', 'partial', '', '417 of 457 images lazy-load and the hero image is preloaded. No width/height attributes and no WebP yet.'],
+    ['F-25', 'medium', 'perf', 'Data loads in a waterfall after the bundle', 'partial', '', 'The prerender removes it for the first paint; the rebuild in N-02 brings it back.'],
+    ['F-26', 'low', 'perf', 'Cache headers', 'open', '', 'Hashed assets still get max-age=600.'],
+    ['F-27', 'low', 'perf', 'Deploy payload hygiene', 'resolved', 'branch', 'Build output went from 1.4 GB to 225 MB; page transfer from 6,656 KiB to 754 KiB.'],
+    ['F-28', 'low', 'perf', 'Security headers', 'partial', '', 'HSTS and nosniff are live; Referrer-Policy is missing.'],
+    ['F-29', 'medium', 'geo', 'llms.txt is good but incomplete', 'resolved', 'branch', 'llms.txt v2 with facts, links and FAQ; llms-full.txt generated at build. Refinements in N-06 and N-07.'],
+    ['F-30', 'medium', 'geo', 'No answer-ready content blocks', 'resolved', 'branch', '"At a glance" fact block and an 8-question FAQ.'],
+    ['F-31', 'medium', 'geo', 'Entity corroboration across the web', 'partial', '', 'sameAs and rel="me" are in place; LinkedIn, GitHub and Stack Overflow bios are not aligned yet.'],
+    ['F-32', 'high', 'geo', 'Old CVs and documents are publicly crawlable', 'partial', '', 'Old .doc CVs, videos and ZIPs are pruned. Four outdated CV PDFs (v48, v53, v54, v59) remain public in /assets/files/downloads/ and are not covered by robots.txt.'],
+    ['F-33', 'low', 'geo', 'No analytics, so referrals cannot be measured', 'resolved', 'live', 'The Cloudflare Web Analytics beacon loads on the live site.'],
+    ['F-34', 'medium', 'geo', 'Personal data exposure in page text', 'open', '', 'The phone number appears twice in the static HTML of the branch and will be in every crawled copy once deployed.']
+  ];
+  V1.forEach(([id, sev, area, title, status, where, note]) => F.push({ id, sev, area, title, status, where, note, sub: '', v1: true }));
+
+  /* ---------------------------------------------------------------- plan */
+  const PHASES = [
+    { id: 'a', name: 'Phase A: Ship what is ready', when: 'Today, about 2 hours', rows: [
+      { id: 'A.1', action: 'Decide whether the phone number stays in the page; if not, remove it from AboutSection and ContactSection', fixes: ['F-34'], verify: 'grep for the number in the built HTML returns 0' },
+      { id: 'A.2', action: 'Delete the four outdated CV PDFs, or add the robots rules in Appendix C', fixes: ['F-32'], verify: 'The v48 PDF URL returns 404 or is disallowed' },
+      { id: 'A.3', action: 'Restore the vendor chunk split in vite.config.ts', fixes: ['F-23'], verify: 'No chunk over 500 KB in the build output' },
+      { id: 'A.4', action: 'Commit feat/seo-geo, merge to prod and push; the workflow builds, prerenders and deploys', fixes: ['F-01', 'F-03', 'F-04', 'F-10', 'F-11', 'F-16'], verify: 'Live title shows "Tursak"; /sitemap.xml returns 200' },
+      { id: 'A.5', action: 'Run the verification checklist against the live site', fixes: [], verify: 'All expectations in the Verify tab met' },
+      { id: 'A.6', action: 'Search Console and Bing Webmaster Tools: verify, submit the sitemap, request indexing of / and /privacy/amelbook/', fixes: ['F-06'], verify: 'Both consoles show the sitemap as read' },
+      { id: 'A.7', action: 'Cloudflare: www redirect rule to https apex; GitHub Pages Enforce HTTPS; Referrer-Policy; HSTS preload decision', fixes: ['F-05', 'F-28'], verify: 'https://www.tursoft.net/ → 301 https://tursoft.net/ in one hop' },
+      { id: 'A.8', action: 'Validate the social card in LinkedIn Post Inspector and the X card validator', fixes: ['F-10'], verify: 'Card shows the new image after a re-scrape' }
+    ]},
+    { id: 'b', name: 'Phase B: Performance', when: 'Week 1, about 1 day', rows: [
+      { id: 'B.1', action: 'Skills cloud: run only when visible, stop under reduced motion and in prerender, no per-frame CSS variable', fixes: ['N-01'], verify: 'Style recalculation under 1 s per 10 s at 4× CPU' },
+      { id: 'B.2', action: 'Particle background: pause when hidden or out of view, fewer particles on mobile, 30 fps cap', fixes: ['N-03'], verify: 'Main thread mostly idle after load in a 10 s trace' },
+      { id: 'B.3', action: 'Prerender: static map placeholder, plain skills list, content-visibility on lower sections', fixes: ['N-04'], verify: 'No tile.openstreetmap.org in the static HTML; DOM under 3,000 elements' },
+      { id: 'B.4', action: 'Image width/height, WebP via vite-imagetools, Cloudflare cache rule for hashed assets', fixes: ['F-24', 'F-26'], verify: 'Lighthouse: no unsized-images or long-cache warnings' },
+      { id: 'B.5', action: 'Two accessibility fixes: redundant alt and badge contrast', fixes: ['N-05'], verify: 'Lighthouse accessibility 100' },
+      { id: 'B.6', action: 'Re-run Lighthouse mobile', fixes: [], verify: 'Total Blocking Time under 600 ms; Performance 80 or higher' }
+    ]},
+    { id: 'c', name: 'Phase C: Real hydration', when: 'Week 2, 1 to 2 days', rows: [
+      { id: 'C.1', action: 'Embed the data snapshot during prerender; repositories read it synchronously', fixes: ['N-02'], verify: '__DATA__ script present in the static HTML' },
+      { id: 'C.2', action: 'Sections start from cached data; lists render all items and collapse extras with hidden="until-found"', fixes: ['N-02', 'F-07'], verify: 'Hydration probe: no drop in page text after load' },
+      { id: 'C.3', action: 'hydrateRoot when prerendered markup and a snapshot exist; check the console for hydration warnings', fixes: ['N-02', 'F-25'], verify: 'URL Inspection shows all 86 projects in the rendered page' }
+    ]},
+    { id: 'd', name: 'Phase D: Content and GEO depth', when: 'Month 1 to 2', rows: [
+      { id: 'D.1', action: 'Detail pages for the 10 to 15 major projects and the 6 domains, added to scripts/routes.mjs', fixes: ['F-20'], verify: 'Each route returns 200 with its own title; listed in the sitemap' },
+      { id: 'D.2', action: 'Three case studies: Jengai AI CRM, AHIN HL7/FHIR, the AI agentic development lifecycle', fixes: ['F-21'], verify: 'Articles indexed in Search Console' },
+      { id: 'D.3', action: 'llms-full.txt with display titles instead of codes; fix project-to-company data', fixes: ['N-06'], verify: 'No lowercase codes in llms-full.txt' },
+      { id: 'D.4', action: 'Build-time dates for llms.txt and per-route lastmod from git', fixes: ['N-07'], verify: 'lastmod unchanged between two builds without content changes' },
+      { id: 'D.5', action: 'Per-language privacy URLs with hreflang', fixes: ['F-14'], verify: 'Ten privacy URLs in the sitemap with hreflang pairs' },
+      { id: 'D.6', action: 'Align LinkedIn headline, GitHub profile README and Stack Overflow bio with the site identity sentence', fixes: ['F-31'], verify: 'All three show the same title and link to tursoft.net' },
+      { id: 'D.7', action: 'Monthly: ask ChatGPT, Claude, Perplexity and Gemini who Muhammet Turşak is; record the cited sources', fixes: [], verify: 'Answers cite tursoft.net with the correct role and years' }
+    ]}
+  ];
+
+  const VERIFY = [
+    { title: 'Static content and structured data reach crawlers', src: 'verify-1' },
+    { title: 'URLs return 200', src: 'verify-2' },
+    { title: 'Redirects in one hop, security headers', src: 'verify-3' },
+    { title: 'AI crawler access', src: 'verify-4' },
+    { title: 'Old CVs and phone number', src: 'verify-5' }
+  ];
+
+  /* ------------------------------------------------------------- helpers */
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+  const byId = {}; F.forEach(f => { byId[f.id] = f; });
+  const planRefs = {};
+  PHASES.forEach(p => p.rows.forEach(r => r.fixes.forEach(id => { (planRefs[id] = planRefs[id] || []).push(r.id); })));
+  const stripTags = html => { const d = document.createElement('div'); d.innerHTML = html || ''; return d.textContent || ''; };
+  F.forEach(f => { f.text = [f.id, f.title, f.sub, f.note, stripTags(f.evidence), stripTags(f.impact), stripTags(f.fix), STATUS[f.status].label].join(' ').toLowerCase(); });
+  const escapeHtml = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  function store(key, val) { try { if (val === undefined) return localStorage.getItem(key); localStorage.setItem(key, val); } catch (e) { return null; } }
+  const statusLabel = f => f.status === 'resolved' ? (f.where === 'live' ? 'Resolved live' : 'Resolved in branch') : STATUS[f.status].label;
+
+  function copyText(btn, text, pre) {
+    const done = ok => { btn.dataset.state = ok ? 'done' : 'fail'; btn.textContent = ok ? 'Copied' : 'Select and copy'; setTimeout(() => { btn.dataset.state = ''; btn.textContent = 'Copy'; }, 1800); };
+    const fallback = () => {
+      const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      let ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; } done(ok);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => done(true), fallback); else fallback();
+  }
+  function codeBlock(label, code) {
+    const wrap = document.createElement('div'); wrap.className = 'codeblock';
+    const pre = document.createElement('pre'); const c = document.createElement('code'); c.textContent = code; pre.appendChild(c);
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'copy'; btn.textContent = 'Copy';
+    btn.addEventListener('click', () => copyText(btn, code, pre));
+    if (label) { const l = document.createElement('span'); l.className = 'label'; l.textContent = label; wrap.appendChild(l); }
+    wrap.appendChild(btn); wrap.appendChild(pre);
+    return wrap;
+  }
+  const srcText = id => (document.getElementById(id) || {}).value || '';
+  const fixLinks = ids => ids.length ? '<span class="fixref">' + ids.map(id => '<a href="#' + id + '" title="' + escapeHtml(byId[id] ? byId[id].title : '') + '">' + id + '</a>').join(' ') + '</span>' : '<span class="muted">–</span>';
+
+  /* --------------------------------------------------------------- tiles */
+  const groupOf = f => f.status;
+  const counts = {}; Object.keys(STATUS).forEach(s => counts[s] = F.filter(f => groupOf(f) === s));
+  const tileOrder = ['resolved', 'partial', 'open', 'new'];
+  const tileLabels = { resolved: 'Resolved', partial: 'Partially resolved', open: 'Still open', new: 'New in v2' };
+  const tiles = $('#tiles');
+  tileOrder.forEach(s => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'tile'; b.dataset.status = s;
+    b.innerHTML = '<span class="n">' + counts[s].length + '</span><span class="l">' + tileLabels[s] + '</span><span class="ids">' + counts[s].map(f => '<span>' + f.id + '</span>').join(' · ') + '</span>';
+    b.addEventListener('click', () => { state.status = new Set([s]); state.sev.clear(); state.area.clear(); state.q = ''; $('#q').value = ''; syncChips(); location.hash = 'findings'; render(); });
+    tiles.appendChild(b);
+  });
+  $('#tab-count').textContent = '(' + F.length + ')';
+
+  /* ------------------------------------------------------------ findings */
+  const state = { status: new Set(), sev: new Set(), area: new Set(), q: '', open: new Set() };
+  function chip(container, key, value, label, count, extra) {
+    const c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.dataset[key] = value; c.setAttribute('aria-pressed', 'false');
+    if (extra) Object.assign(c.dataset, extra);
+    c.innerHTML = (key !== 'area' ? '<span class="dot"></span>' : '') + label + ' <span class="cnt">' + count + '</span>';
+    c.addEventListener('click', () => { const set = state[key === 'statusf' ? 'status' : key]; if (set.has(value)) set.delete(value); else set.add(value); syncChips(); render(); });
+    container.appendChild(c);
+  }
+  Object.keys(STATUS).forEach(s => chip($('#status-chips'), 'statusf', s, STATUS[s].label, counts[s].length, { status: s }));
+  Object.keys(SEV).forEach(s => chip($('#sev-chips'), 'sev', s, SEV[s].label, F.filter(f => f.sev === s).length));
+  Object.keys(AREAS).forEach(a => chip($('#area-chips'), 'area', a, AREAS[a], F.filter(f => f.area === a).length));
+  function syncChips() {
+    $$('.chip[data-statusf]').forEach(c => c.setAttribute('aria-pressed', String(state.status.has(c.dataset.statusf))));
+    $$('.chip[data-sev]').forEach(c => c.setAttribute('aria-pressed', String(state.sev.has(c.dataset.sev))));
+    $$('.chip[data-area]').forEach(c => c.setAttribute('aria-pressed', String(state.area.has(c.dataset.area))));
+  }
+
+  const list = $('#findings');
+  const sorted = F.slice().sort((a, b) => STATUS[a.status].order - STATUS[b.status].order || SEV[a.sev].order - SEV[b.sev].order || a.id.localeCompare(b.id));
+  sorted.forEach(f => {
+    const art = document.createElement('article'); art.className = 'finding'; art.id = f.id; art.dataset.sev = f.sev;
+    const refs = planRefs[f.id] || [];
+    const sub = f.v1 ? AREAS[f.area] + ' · from v1' : AREAS[f.area] + (f.sub ? ' · ' + f.sub : '');
+    const body = f.v1
+      ? '<div class="statusnote" data-status="' + f.status + '"><h4>Status today: ' + statusLabel(f) + '</h4><p>' + escapeHtml(f.note) + '</p></div>' +
+        '<p class="small"><a href="seo-geo-report.html#' + f.id + '">Original evidence, impact and fix in the v1 report</a></p>'
+      : '<div class="block wide"><h4>Evidence</h4>' + f.evidence + '</div><div class="block"><h4>Impact</h4>' + f.impact + '</div><div class="block wide"><h4>Fix</h4>' + f.fix + '</div>';
+    art.innerHTML =
+      '<button class="finding-head" type="button" aria-expanded="false" aria-controls="body-' + f.id + '">' +
+        '<span class="stripe"></span>' +
+        '<span class="fmeta"><span class="fid">' + f.id + '</span><span class="pill" data-sev="' + f.sev + '">' + SEV[f.sev].label + '</span><span class="spill" data-status="' + f.status + '">' + statusLabel(f) + '</span></span>' +
+        '<span class="ftitle">' + escapeHtml(f.title) + '<small>' + escapeHtml(sub) + '</small></span>' +
+        '<span class="chev" aria-hidden="true">▾</span>' +
+      '</button>' +
+      '<div class="finding-body" id="body-' + f.id + '" hidden>' + body +
+        '<div class="finding-foot"><a href="#' + f.id + '">Link to this finding</a>' +
+          (refs.length ? '<span class="planref">Action plan: ' + refs.map(r => '<a href="#plan" data-task="' + r + '">' + r + '</a>').join(' ') + '</span>' : (f.status === 'resolved' ? '<span>No further action</span>' : '<span>Not scheduled in the plan</span>')) +
+        '</div>' +
+      '</div>';
+    art.querySelector('.finding-head').addEventListener('click', () => setOpen(f.id, !state.open.has(f.id)));
+    list.appendChild(art);
+  });
+  function setOpen(id, open) {
+    const art = document.getElementById(id); if (!art) return;
+    if (open) state.open.add(id); else state.open.delete(id);
+    art.classList.toggle('is-open', open);
+    art.querySelector('.finding-head').setAttribute('aria-expanded', String(open));
+    art.querySelector('.finding-body').hidden = !open;
+  }
+  function render() {
+    let shown = 0;
+    sorted.forEach(f => {
+      const ok = (!state.status.size || state.status.has(f.status)) && (!state.sev.size || state.sev.has(f.sev)) && (!state.area.size || state.area.has(f.area)) && (!state.q || f.text.indexOf(state.q) !== -1);
+      document.getElementById(f.id).hidden = !ok; if (ok) shown++;
+    });
+    $('#resultcount').textContent = shown + ' of ' + F.length + ' shown';
+    let empty = document.getElementById('findings-empty');
+    if (!shown) { if (!empty) { empty = document.createElement('div'); empty.id = 'findings-empty'; empty.className = 'empty'; empty.textContent = 'No findings match these filters.'; list.appendChild(empty); } }
+    else if (empty) empty.remove();
+  }
+  $('#q').addEventListener('input', e => { state.q = e.target.value.trim().toLowerCase(); if (state.q && currentView() !== 'findings') location.hash = 'findings'; render(); });
+  $('#expand-all').addEventListener('click', () => sorted.forEach(f => { if (!document.getElementById(f.id).hidden) setOpen(f.id, true); }));
+  $('#collapse-all').addEventListener('click', () => sorted.forEach(f => setOpen(f.id, false)));
+
+  /* ---------------------------------------------------------------- plan */
+  const PLAN_KEY = 'tursoft-seo-plan-progress-v2';
+  let done = new Set(); try { done = new Set(JSON.parse(store(PLAN_KEY) || '[]')); } catch (e) { done = new Set(); }
+  const phasesEl = $('#phases');
+  PHASES.forEach(p => {
+    const sec = document.createElement('section'); sec.className = 'phase'; sec.id = 'phase-' + p.id;
+    sec.innerHTML =
+      '<div class="phase-head"><h3>' + p.name + '</h3><span class="when">' + p.when + '</span><div class="progress"><span class="ptext"></span><div class="bar"><span></span></div></div></div>' +
+      '<div class="table-wrap"><table><thead><tr><th><span class="muted">Done</span></th><th>#</th><th>Action</th><th>Fixes</th><th>Verify</th></tr></thead><tbody>' +
+      p.rows.map(r => {
+        const cid = 'task-' + r.id.replace('.', '-');
+        return '<tr id="row-' + r.id + '"><td><input type="checkbox" id="' + cid + '" data-task="' + r.id + '" aria-label="Done: ' + r.id + '"></td>' +
+          '<td class="idcell"><label for="' + cid + '">' + r.id + '</label></td><td class="action"><label for="' + cid + '">' + escapeHtml(r.action) + '</label></td>' +
+          '<td>' + fixLinks(r.fixes) + '</td><td class="small muted">' + escapeHtml(r.verify) + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
+    phasesEl.appendChild(sec);
+  });
+  $$('#phases input[type="checkbox"]').forEach(cb => {
+    cb.checked = done.has(cb.dataset.task);
+    cb.addEventListener('change', () => { if (cb.checked) done.add(cb.dataset.task); else done.delete(cb.dataset.task); store(PLAN_KEY, JSON.stringify(Array.from(done))); updateProgress(); });
+  });
+  function updateProgress() {
+    let total = 0, n = 0;
+    PHASES.forEach(p => {
+      const t = p.rows.length, d = p.rows.filter(r => done.has(r.id)).length; total += t; n += d;
+      const sec = document.getElementById('phase-' + p.id);
+      sec.querySelector('.ptext').textContent = d + ' of ' + t;
+      const bar = sec.querySelector('.bar'); bar.classList.toggle('done', d === t); bar.querySelector('span').style.width = (t ? d / t * 100 : 0) + '%';
+      p.rows.forEach(r => document.getElementById('row-' + r.id).classList.toggle('done', done.has(r.id)));
+    });
+    $('#overall-text').textContent = n + ' of ' + total + ' done';
+    const ob = $('#overall-bar'); ob.classList.toggle('done', n === total); ob.querySelector('span').style.width = (total ? n / total * 100 : 0) + '%';
+  }
+  updateProgress();
+  const resetBtn = $('#reset-progress'); let armTimer = null;
+  const disarm = () => { clearTimeout(armTimer); resetBtn.dataset.armed = 'false'; resetBtn.textContent = 'Reset progress'; };
+  resetBtn.addEventListener('click', () => {
+    if (resetBtn.dataset.armed !== 'true') { resetBtn.dataset.armed = 'true'; resetBtn.textContent = 'Click again to clear all ticks'; armTimer = setTimeout(disarm, 4000); return; }
+    done = new Set(); store(PLAN_KEY, '[]'); $$('#phases input[type="checkbox"]').forEach(cb => cb.checked = false); updateProgress(); disarm();
+  });
+
+  /* ------------------------------------------------- verify and appendix */
+  const vb = $('#verify-blocks');
+  VERIFY.forEach(v => { const sec = document.createElement('div'); sec.className = 'section'; const h = document.createElement('h3'); h.textContent = v.title; sec.appendChild(h); sec.appendChild(codeBlock('', srcText(v.src))); vb.appendChild(sec); });
+  $$('[data-code]').forEach(slot => slot.replaceWith(codeBlock(slot.dataset.label, srcText(slot.dataset.code))));
+
+  /* ------------------------------------------------------------- routing */
+  const VIEWS = ['overview', 'findings', 'measurements', 'plan', 'verify', 'appendix'];
+  function currentView() { const v = $('.view.is-active'); return v ? v.id.replace('view-', '') : 'overview'; }
+  function showView(v) {
+    VIEWS.forEach(name => document.getElementById('view-' + name).classList.toggle('is-active', name === v));
+    $$('.tab').forEach(t => { if (t.dataset.view === v) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current'); });
+  }
+  const scrollTo = id => requestAnimationFrame(() => { const el = document.getElementById(id); if (el) el.scrollIntoView({ block: 'start', behavior: 'smooth' }); });
+  function route() {
+    const h = (location.hash || '#overview').slice(1);
+    if (/^[FN]-\d{2}$/.test(h) && byId[h]) {
+      showView('findings');
+      if (document.getElementById(h).hidden) { state.status.clear(); state.sev.clear(); state.area.clear(); state.q = ''; $('#q').value = ''; syncChips(); render(); }
+      setOpen(h, true); scrollTo(h); return;
+    }
+    if (/^appendix-[a-e]$/.test(h)) { showView('appendix'); scrollTo(h); return; }
+    if (/^phase-[a-d]$/.test(h)) { showView('plan'); scrollTo(h); return; }
+    showView(VIEWS.indexOf(h) !== -1 ? h : 'overview');
+    window.scrollTo({ top: 0 });
+  }
+  window.addEventListener('hashchange', route);
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[data-task]'); if (!a) return;
+    e.preventDefault(); location.hash = 'plan';
+    requestAnimationFrame(() => { const row = document.getElementById('row-' + a.dataset.task); if (row) { row.scrollIntoView({ block: 'center', behavior: 'smooth' }); row.style.outline = '2px solid var(--accent)'; setTimeout(() => { row.style.outline = ''; }, 1600); } });
+  });
+
+  /* --------------------------------------------------------------- theme */
+  const THEME_KEY = 'tursoft-seo-report-theme';
+  const themeBtn = $('#theme');
+  function applyTheme(t) {
+    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+    themeBtn.textContent = 'Theme: ' + (t === 'light' ? 'light' : t === 'dark' ? 'dark' : 'system');
+  }
+  let theme = store(THEME_KEY) || 'system'; applyTheme(theme);
+  themeBtn.addEventListener('click', () => { theme = theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system'; store(THEME_KEY, theme); applyTheme(theme); });
+
+  render();
+  route();
+})();
+</script>
+</body>
+</html>

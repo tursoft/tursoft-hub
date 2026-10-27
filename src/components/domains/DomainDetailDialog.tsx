@@ -121,7 +121,7 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
         {/* Logo */}
         {logoPath && (
           <div className="absolute top-4 left-8 z-10 w-16 h-16">
-            <img 
+            <img loading="lazy" decoding="async" 
               src={logoPath} 
               alt={`${domain.title} icon`} 
               className="w-full h-full object-contain rounded-lg"

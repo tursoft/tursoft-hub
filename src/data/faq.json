@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "question": "Who is Muhammet Turşak?",
+      "answer": "Muhammet Turşak (also written Muhammet Tursak) is a Senior Software Architect and technology leader based in Ankara, Turkey, with more than 25 years of experience in enterprise software. He is the founder of Tursoft and was previously Director of Technology at Jengai and Gamyte in New York."
+    },
+    {
+      "question": "What does Muhammet Turşak specialize in?",
+      "answer": "Enterprise architecture with .NET, Node.js, Microsoft Azure, React and SaaS platforms, and an AI-enabled development lifecycle: AI coding agents for specs, implementation, review and tests, prompt and context engineering, and the design and management of multi-agent teams."
+    },
+    {
+      "question": "Which industries has he worked in?",
+      "answer": "Healthcare IT (hospital information systems, telemedicine and HL7/FHIR integration), Construction IT (AI-powered CRM and estimation for commercial contractors), E-Learning (LMS platforms and SCORM authoring), E-Commerce and AI-native SaaS products."
+    },
+    {
+      "question": "What is Tursoft?",
+      "answer": "Tursoft is Muhammet Turşak's own software company and brand. Under it he builds AI-native products such as BestJobFinder, an AI-powered job search SaaS, and Account Manager for Claude, an open-source VS Code extension for managing several Claude subscriptions in Claude Code."
+    },
+    {
+      "question": "How does he use AI in software development?",
+      "answer": "AI coding agents such as Claude Code, Codex, GitHub Copilot, Cursor and OpenCode run every stage of his development lifecycle under human review gates. He engineers the prompts and the project context that keep those agents accurate on large codebases, and designs sub-agent teams for planning, implementation, review and browser-based testing."
+    },
+    {
+      "question": "Is Muhammet Turşak available for consulting or new roles?",
+      "answer": "Yes. He is available for consulting, architecture reviews and senior engineering leadership roles, including helping engineering teams adopt AI agents across their development lifecycle."
+    },
+    {
+      "question": "Where is he based and where has he delivered projects?",
+      "answer": "He is based in Ankara, Turkey. He has delivered projects for clients in Turkey, the United States, Kosovo, Palestine, Saudi Arabia, Sweden, Portugal, Spain, Italy, Germany, Greece, Switzerland, the United Arab Emirates and Uzbekistan."
+    },
+    {
+      "question": "How can I contact Muhammet Turşak?",
+      "answer": "By email at tursoft@gmail.com, or through LinkedIn (linkedin.com/in/tursoft) and GitHub (github.com/tursoft). Compact and detailed CV versions can be downloaded from tursoft.net."
+    }
+  ]
+}

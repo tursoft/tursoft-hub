@@ -1,18 +1,44 @@
-# Muhammet TURŞAK — AI-Enabled Senior Software Architect
+# Muhammet Turşak (Tursak) — AI-Enabled Senior Software Architect
 
-> AI-enabled Senior Software Architect with 25+ years of professional experience leading enterprise software projects across Construction IT, Healthcare IT, E-Learning, E-Commerce and SaaS. Runs the whole software development lifecycle with AI coding agents, applies prompt and context engineering, and designs and manages agent teams. Based in Ankara, Turkey. Founder at Tursoft (BestJobFinder, Account Manager for Claude); formerly Director of Technology at Jengai and Gamyte, New York, USA.
+> Muhammet Turşak (also written Muhammet Tursak or Muhammet TURŞAK) is an AI-enabled Senior Software Architect based in Ankara, Turkey, with 25+ years of professional experience leading enterprise software projects across Construction IT, Healthcare IT, E-Learning, E-Commerce and SaaS. He runs the whole software development lifecycle with AI coding agents, applies prompt and context engineering, and designs and manages agent teams. Founder at Tursoft (BestJobFinder, Account Manager for Claude); formerly Director of Technology at Jengai and Gamyte, New York, USA.
+
+Last updated: 2026-10-27
+
+## Facts
+
+- Name: Muhammet Turşak (Tursak, TURŞAK)
+- Title: Senior Software Architect; AI-Enabled Software Architect; former Director of Technology
+- Location: Ankara, Turkey; works with international clients
+- Experience: 25+ years in software; 15 years in management; 50+ projects; 10 international projects; projects delivered in 14 countries
+- Current: Founder & AI-Enabled Software Architect at Tursoft (since May 2026)
+- Previously: Director of Technology & Senior Software Architect at Jengai (2022–2026) and Gamyte (2019–2022), New York
+- Specialties: .NET, Node.js, TypeScript, React, Microsoft Azure, SaaS platforms, AI coding agents, prompt and context engineering, multi-agent systems, HL7/FHIR healthcare integration
+- Education: Middle East Technical University (METU), Ankara: M.S. Software Management, M.S. and B.S. Computer Education and Instructional Technologies
+- Availability: consulting, architecture reviews, senior engineering leadership roles
+- Email: tursoft@gmail.com
+
+## Links
+
+- [Homepage](https://tursoft.net/)
+- [About](https://tursoft.net/#about)
+- [Experience](https://tursoft.net/#experience)
+- [Skills](https://tursoft.net/#skills)
+- [Projects](https://tursoft.net/#portfolio)
+- [FAQ](https://tursoft.net/#faq)
+- [Contact](https://tursoft.net/#contact)
+- [Compact CV (PDF)](https://tursoft.net/assets/files/downloads/CV_MuhammetTursak_v56-compact.20260403.pdf)
+- [Detailed CV (PDF)](https://tursoft.net/assets/files/downloads/CV_MuhammetTursak_Detailed-v60.pdf)
+- [Full site content for LLMs](https://tursoft.net/llms-full.txt)
+- [LinkedIn](https://www.linkedin.com/in/tursoft/)
+- [GitHub](https://github.com/tursoft)
+- [Stack Overflow](https://stackoverflow.com/users/1949367/muhammet-tur%C5%9Eak)
+- [X](https://x.com/muhammettursak)
 
 ## About
 
-Muhammet TURŞAK is a Senior Software Architect and technology leader with deep expertise in .NET, Node.js, Java, cloud (Azure) and full-stack web, desktop and mobile development. Over his career he has held roles as Director of Technology, Software Group Director, R&D Director, Project Manager, Software Architect and Team Leader, and has delivered multi-million dollar enterprise systems for clients across Turkey, the United States, Europe, the Middle East and Central Asia.
+Muhammet Turşak is a Senior Software Architect and technology leader with deep expertise in .NET, Node.js, Java, cloud (Azure) and full-stack web, desktop and mobile development. Over his career he has held roles as Director of Technology, Software Group Director, R&D Director, Project Manager, Software Architect and Team Leader, and has delivered multi-million dollar enterprise systems for clients across Turkey, the United States, Europe, the Middle East and Central Asia.
 
 Since 2023 he has rebuilt the way he delivers software around AI. He works as an AI-enabled architect: AI coding agents run every stage of his development lifecycle, he engineers the prompts and the context that keep those agents accurate on large codebases, and he designs and manages teams of specialized agents that plan, implement, review and test alongside human engineers.
-
-- Email: tursoft@gmail.com
-- Website: http://tursoft.net
-- LinkedIn: https://www.linkedin.com/in/tursoft/
-- GitHub: https://github.com/tursoft
-- Stack Overflow: https://stackoverflow.com/users/1949367/muhammet-tur%C5%9Eak
 
 ## AI-Enabled Engineering
 
@@ -96,6 +122,8 @@ Undergraduate. Score: 3.80 / 4.00. Graduation project: 3D educational game devel
 
 **Halici LMS / e-Ders** — Learning Management System and SCORM-compatible e-learning authoring tools.
 
+The complete list of 80+ projects with descriptions is in https://tursoft.net/llms-full.txt.
+
 ## Domains
 
 - AI-native SaaS products (current focus — LLM-powered features built with AI agent teams)
@@ -119,3 +147,29 @@ Projects delivered in: Turkey, United States, Kosovo, Palestine, Saudi Arabia, S
 - 50+ software projects completed
 - 10 R&D projects
 - 10 international projects
+
+## FAQ
+
+**Who is Muhammet Turşak?**
+Muhammet Turşak (also written Muhammet Tursak) is a Senior Software Architect and technology leader based in Ankara, Turkey, with more than 25 years of experience in enterprise software. He is the founder of Tursoft and was previously Director of Technology at Jengai and Gamyte in New York.
+
+**What does Muhammet Turşak specialize in?**
+Enterprise architecture with .NET, Node.js, Microsoft Azure, React and SaaS platforms, and an AI-enabled development lifecycle: AI coding agents for specs, implementation, review and tests, prompt and context engineering, and the design and management of multi-agent teams.
+
+**Which industries has he worked in?**
+Healthcare IT (hospital information systems, telemedicine and HL7/FHIR integration), Construction IT (AI-powered CRM and estimation for commercial contractors), E-Learning (LMS platforms and SCORM authoring), E-Commerce and AI-native SaaS products.
+
+**What is Tursoft?**
+Tursoft is Muhammet Turşak's own software company and brand. Under it he builds AI-native products such as BestJobFinder, an AI-powered job search SaaS, and Account Manager for Claude, an open-source VS Code extension for managing several Claude subscriptions in Claude Code.
+
+**How does he use AI in software development?**
+AI coding agents such as Claude Code, Codex, GitHub Copilot, Cursor and OpenCode run every stage of his development lifecycle under human review gates. He engineers the prompts and the project context that keep those agents accurate on large codebases, and designs sub-agent teams for planning, implementation, review and browser-based testing.
+
+**Is Muhammet Turşak available for consulting or new roles?**
+Yes. He is available for consulting, architecture reviews and senior engineering leadership roles, including helping engineering teams adopt AI agents across their development lifecycle.
+
+**Where is he based and where has he delivered projects?**
+He is based in Ankara, Turkey. He has delivered projects for clients in Turkey, the United States, Kosovo, Palestine, Saudi Arabia, Sweden, Portugal, Spain, Italy, Germany, Greece, Switzerland, the United Arab Emirates and Uzbekistan.
+
+**How can I contact Muhammet Turşak?**
+By email at tursoft@gmail.com, or through LinkedIn (linkedin.com/in/tursoft) and GitHub (github.com/tursoft). Compact and detailed CV versions can be downloaded from tursoft.net.

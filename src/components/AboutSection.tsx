@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Bot, Sparkles, Award, Briefcase, Mail, Phone, Globe } from "lucide-react";
 import Reveal from "@/components/ui/reveal";
+import { PERSON } from "@/lib/site";
 
 const AboutSection = () => {
   const highlights = [
@@ -41,6 +42,18 @@ const AboutSection = () => {
     { icon: Globe, label: "Website", value: "tursoft.net", href: "https://tursoft.net" },
   ];
 
+  // The facts search engines and AI assistants quote; kept in sync with llms.txt and the JSON-LD.
+  const glance = [
+    { label: "Name", value: `${PERSON.name} (also written Tursak)` },
+    { label: "Title", value: PERSON.headline },
+    { label: "Based in", value: `${PERSON.location.city}, ${PERSON.location.country}` },
+    { label: "Experience", value: `${PERSON.yearsOfExperience} years in enterprise software` },
+    { label: "Current", value: PERSON.currentRole },
+    { label: "Previously", value: PERSON.previousRoles },
+    { label: "Specialties", value: "AI agentic development, .NET, Node.js, Azure, React, SaaS" },
+    { label: "Available for", value: PERSON.availability },
+  ];
+
   return (
     <section id="about" className="py-20 bg-background relative">
       <div className="container mx-auto px-6">
@@ -49,12 +62,27 @@ const AboutSection = () => {
           <Reveal className="text-center mb-16">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">About Me</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Transforming Ideas Into
-              <span className="text-gradient block lg:inline lg:ml-4">Digital Reality</span>
+              Senior Software Architect
+              <span className="text-gradient block lg:inline lg:ml-4">Building the AI-Native Way</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               I lead the development of enterprise systems that deliver world-class functionality and performance, and I build them the AI-native way: coding agents across the whole lifecycle, engineered prompts and context, and agent teams that I design and manage.
             </p>
+          </Reveal>
+
+          {/* At a glance */}
+          <Reveal className="mb-16">
+            <div className="glass rounded-xl p-6 lg:p-8">
+              <h3 className="text-lg font-semibold mb-5 text-foreground">At a glance</h3>
+              <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4 text-sm">
+                {glance.map((fact) => (
+                  <div key={fact.label}>
+                    <dt className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{fact.label}</dt>
+                    <dd className="text-foreground">{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </Reveal>
 
           {/* Main Content */}

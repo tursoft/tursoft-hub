@@ -36,6 +36,7 @@
     },
     {
       "code": "myasarozden",
+      "lang": "tr",
       "orderIndex": 2,
       "title": "Prof. Dr. M. Yaşar Özden",
       "photoUrl": "/assets/people/myozden.jpg",
@@ -398,6 +399,7 @@
     },
     {
       "code": "gulpembeergin",
+      "lang": "tr",
       "orderIndex": 17,
       "title": "Gülpembe Ergin",
       "photoUrl": "/assets/people/gulpembe.ergin.jpg",

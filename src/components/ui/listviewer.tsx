@@ -1,3 +1,8 @@
+import { isPrerender } from "@/lib/prerender";
+
+/** Data-driven descriptions may contain target=_blank links; make sure they carry rel=noopener. */
+const withSafeLinks = (html: string) =>
+  html.replace(/<a\s(?![^>]*\brel=)([^>]*target=['"]_blank['"][^>]*)>/gi, '<a rel="noopener noreferrer" $1>');
 import { useState, useRef, ReactNode, useMemo, useCallback } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -168,7 +173,7 @@ const ListViewer = <T = any>({
 }: ListViewerProps<T>) => {
   const [viewMode, setViewMode] = useState<ViewMode>(defaultViewMode);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(isPrerender);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [cloudHovered, setCloudHovered] = useState<string | null>(null);
   const [cloudSelected, setCloudSelected] = useState<string | null>(null);
@@ -351,7 +356,7 @@ const ListViewer = <T = any>({
                 <div className={`h-20 w-20 flex items-center justify-center overflow-hidden border-background shadow-lg ${
                   imageRounded ? 'rounded-full border-4' : 'rounded-lg'
                 }`}>
-                  <img 
+                  <img loading="lazy" decoding="async" 
                     src={image} 
                     alt={title}
                     className="max-h-full max-w-full object-contain"
@@ -377,7 +382,7 @@ const ListViewer = <T = any>({
           <div className="flex-1">
             <p 
               className="text-sm leading-relaxed text-muted-foreground text-center line-clamp-4"
-              dangerouslySetInnerHTML={{ __html: description }}
+              dangerouslySetInnerHTML={{ __html: withSafeLinks(description) }}
             />
           </div>
           {fieldMapping.actions && fieldMapping.actions.length > 0 && (
@@ -445,7 +450,7 @@ const ListViewer = <T = any>({
                 <div className={`h-20 w-20 flex items-center justify-center overflow-hidden ${
                   imageRounded ? 'rounded-full' : 'rounded-lg'
                 }`}>
-                  <img 
+                  <img loading="lazy" decoding="async" 
                     src={image} 
                     alt={title}
                     className="max-h-full max-w-full object-contain"
@@ -472,7 +477,7 @@ const ListViewer = <T = any>({
               </div>
               <div 
                 className="text-sm leading-relaxed text-muted-foreground mb-4 pl-4 border-l-4 border-primary/30"
-                dangerouslySetInnerHTML={{ __html: description }}
+                dangerouslySetInnerHTML={{ __html: withSafeLinks(description) }}
               />
               {fieldMapping.actions && fieldMapping.actions.length > 0 && (
                 <div className="flex flex-wrap gap-2">
@@ -533,7 +538,7 @@ const ListViewer = <T = any>({
         <div className="bg-card border border-border rounded-lg p-3 hover:shadow-lg hover:border-primary/50 transition-all duration-300 flex flex-col items-center justify-center">
           <div className="w-full aspect-square flex items-center justify-center mb-2">
             {image ? (
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={image} 
                 alt={title}
                 className={`${smallCardImageClassName} object-contain`}
@@ -605,7 +610,7 @@ const ListViewer = <T = any>({
                 <div className={`h-20 w-20 flex items-center justify-center overflow-hidden border-background shadow-lg ${
                   imageRounded ? 'rounded-full border-4' : 'rounded-lg'
                 }`}>
-                  <img 
+                  <img loading="lazy" decoding="async" 
                     src={image} 
                     alt={title}
                     className="max-h-full max-w-full object-contain"
@@ -631,7 +636,7 @@ const ListViewer = <T = any>({
           <div className="flex-1 flex flex-col justify-center">
             <div 
               className="text-sm leading-relaxed text-muted-foreground text-center line-clamp-5"
-              dangerouslySetInnerHTML={{ __html: description }}
+              dangerouslySetInnerHTML={{ __html: withSafeLinks(description) }}
             />
           </div>
           {fieldMapping.actions && fieldMapping.actions.length > 0 && (
@@ -938,12 +943,14 @@ const ListViewer = <T = any>({
               <>
                 <button
                   onClick={prevSlide}
+                  aria-label="Previous items"
                   className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
                   onClick={nextSlide}
+                  aria-label="Next items"
                   className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                 >
                   <ChevronRight className="w-6 h-6" />
@@ -969,6 +976,8 @@ const ListViewer = <T = any>({
                     <button
                       key={`dot-${code}`}
                       onClick={() => goToSlide(index)}
+                      aria-label={`Go to slide ${index + 1}`}
+                      aria-current={index === currentIndex ? "true" : undefined}
                       className={`w-3 h-3 rounded-full transition-all duration-300 ${
                         index === currentIndex
                           ? "bg-primary"

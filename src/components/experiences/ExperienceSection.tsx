@@ -239,8 +239,8 @@ const ExperienceSection = () => {
           <div className="text-center mb-16 animate-fade-in">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Professional Experience</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Building Tomorrow's
-              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Technology Today</span>
+              25+ Years of
+              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Enterprise Software Leadership</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               A journey through enterprise software development, team leadership and architectural excellence, now delivered with AI agent teams
@@ -323,7 +323,7 @@ const ExperienceSection = () => {
                   {/* Company Logo - Horizontally centered based on years/daterange cells */}
                   <div className="absolute top-4 right-4 w-24 flex flex-col items-center">
                     <div className="w-16 h-16 flex items-center justify-center p-1 mb-2">
-                      <img 
+                      <img loading="lazy" decoding="async" 
                         src={exp.logo} 
                         alt={`${exp.company} logo`}
                         className="max-w-full max-h-full object-contain"
@@ -367,6 +367,7 @@ const ExperienceSection = () => {
                               rel="noopener noreferrer"
                               className="text-muted-foreground hover:text-primary transition-colors"
                               title="Visit Website"
+                              aria-label={`${exp.company} website`}
                             >
                               <ExternalLink className="h-4 w-4" />
                             </a>
@@ -378,6 +379,7 @@ const ExperienceSection = () => {
                               rel="noopener noreferrer"
                               className="text-muted-foreground hover:text-primary transition-colors"
                               title="Visit LinkedIn"
+                              aria-label={`${exp.company} on LinkedIn`}
                             >
                               <Linkedin className="h-4 w-4" />
                             </a>

@@ -89,7 +89,7 @@ const PortfolioSection = () => {
           isLoading={isLoading}
           loadingMessage="Loading projects..."
           emptyMessage="No projects found."
-          title='Featured<span class="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Projects</span>'
+          title='Software Projects:<span class="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Enterprise Systems and AI-Native Products</span>'
           subtitle="A showcase of innovative solutions and successful implementations across various domains and technologies"
           summary={
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 text-center">

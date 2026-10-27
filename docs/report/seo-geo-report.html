@@ -1,0 +1,1260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>tursoft.net SEO &amp; GEO Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky top bar with view tabs and a search box; one centred column (max 1120px);
+   findings as a filterable list of severity-striped cards; action plan as phase tables with
+   checkboxes persisted per browser; appendix code blocks with copy buttons. */
+:root {
+  color-scheme: light;
+  --bg: #f3f4f7;
+  --surface: #ffffff;
+  --surface-2: #e9ebf0;
+  --line: #d5d8e0;
+  --line-strong: #b8bcc8;
+  --fg: #15181f;
+  --fg-2: #474d5c;
+  --fg-3: #6f7686;
+  --accent: #1d5bd0;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2eafb;
+  --sev-critical: #d93f3e;
+  --sev-high: #e2783f;
+  --sev-medium: #d79a0a;
+  --sev-low: #6b7a99;
+  --sev-critical-tint: #fbe6e6;
+  --sev-high-tint: #fbeadf;
+  --sev-medium-tint: #faf0d2;
+  --sev-low-tint: #e6e9f1;
+  --code-bg: #eef0f4;
+  --ok: #1a8a3a;
+  --ok-tint: #e3f3e8;
+  --shadow: 0 1px 2px rgba(20, 24, 40, .06), 0 4px 16px rgba(20, 24, 40, .05);
+  --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #111318; --surface: #181b22; --surface-2: #20242d; --line: #2c313c; --line-strong: #3b4150;
+    --fg: #e7e9ef; --fg-2: #b3b9c7; --fg-3: #828a9b;
+    --accent: #6a9bf2; --accent-ink: #0d1526; --accent-soft: #1b2a47;
+    --sev-critical: #ef6b6a; --sev-high: #f0945f; --sev-medium: #e8b23a; --sev-low: #8d9ab8;
+    --sev-critical-tint: #3a1f20; --sev-high-tint: #3a2a1c; --sev-medium-tint: #3a3118; --sev-low-tint: #262b38;
+    --code-bg: #0f1115; --ok: #4ec46f; --ok-tint: #17301f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 4px 16px rgba(0, 0, 0, .3);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111318; --surface: #181b22; --surface-2: #20242d; --line: #2c313c; --line-strong: #3b4150;
+  --fg: #e7e9ef; --fg-2: #b3b9c7; --fg-3: #828a9b;
+  --accent: #6a9bf2; --accent-ink: #0d1526; --accent-soft: #1b2a47;
+  --sev-critical: #ef6b6a; --sev-high: #f0945f; --sev-medium: #e8b23a; --sev-low: #8d9ab8;
+  --sev-critical-tint: #3a1f20; --sev-high-tint: #3a2a1c; --sev-medium-tint: #3a3118; --sev-low-tint: #262b38;
+  --code-bg: #0f1115; --ok: #4ec46f; --ok-tint: #17301f;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 4px 16px rgba(0, 0, 0, .3);
+}
+
+* { box-sizing: border-box; }
+html { height: 100%; }
+body {
+  margin: 0; min-height: 100%;
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-ui); font-size: 15px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--surface); z-index: 10; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button { font: inherit; color: inherit; }
+code, pre, .mono { font-family: var(--font-mono); }
+code { background: var(--code-bg); padding: .1em .35em; border-radius: 4px; font-size: .92em; }
+pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; overflow-x: auto; margin: 0; font-size: 13px; line-height: 1.5; }
+pre code { background: none; padding: 0; font-size: inherit; }
+h1, h2, h3, h4 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h2 { font-size: 1.45rem; font-weight: 700; letter-spacing: -.01em; }
+h3 { font-size: 1.1rem; font-weight: 600; }
+h4 { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-3); }
+p { margin: 0; }
+.stack > * + * { margin-top: 12px; }
+.prose { max-width: 70ch; }
+.prose p + p { margin-top: 10px; }
+ul, ol { margin: 0; padding-left: 1.3em; }
+li + li { margin-top: 4px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--fg-3); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.table-wrap { overflow-x: auto; max-width: 100%; }
+.muted { color: var(--fg-3); }
+.small { font-size: .85rem; }
+.eyebrow { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-3); font-weight: 600; }
+
+/* Top bar */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 10px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
+}
+.brand { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.brand strong { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+.brand span { color: var(--fg-3); font-size: .85rem; white-space: nowrap; }
+.tabs { display: flex; gap: 2px; flex-wrap: wrap; }
+.tab {
+  background: none; border: 1px solid transparent; border-radius: 999px; padding: 6px 12px; cursor: pointer;
+  color: var(--fg-2); font-weight: 500; font-size: .9rem; text-decoration: none;
+}
+.tab:hover { background: var(--surface-2); color: var(--fg); }
+.tab[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
+.tools { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.search {
+  display: flex; align-items: center; gap: 6px; background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 999px; padding: 4px 10px; min-width: 0;
+}
+.search input { border: 0; background: none; outline: none; font: inherit; color: var(--fg); width: 180px; max-width: 45vw; }
+.search input::placeholder { color: var(--fg-3); }
+.iconbtn {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 5px 11px; cursor: pointer;
+  font-size: .85rem; color: var(--fg-2); white-space: nowrap;
+}
+.iconbtn:hover { background: var(--surface-2); color: var(--fg); }
+
+/* Page */
+.page {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+.view { display: none; }
+.view.is-active { display: block; }
+.view-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin-bottom: 20px; }
+.section + .section { margin-top: 36px; }
+.section > h3 { margin-bottom: 12px; }
+
+/* Overview */
+.hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.hero h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -.02em; margin-bottom: 12px; }
+.meta-grid { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; font-size: .9rem; }
+.meta-grid dt { color: var(--fg-3); white-space: nowrap; }
+.meta-grid dd { margin: 0; min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
+.tile {
+  text-align: left; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--sev); border-radius: var(--radius);
+  padding: 14px 16px; cursor: pointer; display: grid; gap: 2px;
+}
+.tile:hover { border-color: var(--line-strong); border-left-color: var(--sev); box-shadow: var(--shadow); }
+.tile .n { font-size: 2rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.tile .l { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-3); font-weight: 600; }
+.tile .ids { font-family: var(--font-mono); font-size: .75rem; color: var(--fg-2); margin-top: 6px; line-height: 1.5; }
+.grade { display: inline-block; min-width: 2.1em; text-align: center; font-weight: 700; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; background: var(--surface-2); }
+.grade[data-g="F"], .grade[data-g="D"] { background: var(--sev-critical-tint); color: var(--sev-critical); }
+.grade[data-g="C"] { background: var(--sev-medium-tint); color: var(--sev-medium); }
+.grade[data-g="B-"] { background: var(--ok-tint); color: var(--ok); }
+.first-five { counter-reset: step; display: grid; gap: 10px; }
+.first-five li { list-style: none; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; }
+.first-five li::before { counter-increment: step; content: counter(step); font-family: var(--font-mono); font-weight: 600; color: var(--accent); background: var(--accent-soft); border-radius: 999px; width: 26px; height: 26px; display: inline-grid; place-items: center; font-size: .85rem; }
+
+/* Chips and filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 16px; }
+.chipgroup { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chipgroup .eyebrow { margin-right: 4px; }
+.chip {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 11px; cursor: pointer;
+  font-size: .85rem; color: var(--fg-2); display: inline-flex; align-items: center; gap: 6px;
+}
+.chip:hover { border-color: var(--line-strong); color: var(--fg); }
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--fg); }
+.chip .dot { width: 9px; height: 9px; border-radius: 2px; background: var(--sev); display: inline-block; }
+.chip .cnt { font-family: var(--font-mono); font-size: .75rem; color: var(--fg-3); }
+.filters .spacer { flex: 1; }
+.resultcount { font-size: .85rem; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+
+/* Findings */
+.findings { display: grid; gap: 10px; }
+.finding { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.finding.is-open { box-shadow: var(--shadow); border-color: var(--line-strong); }
+.finding-head {
+  width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+  display: grid; grid-template-columns: 4px auto auto minmax(0, 1fr) auto; align-items: center; gap: 12px;
+  padding: 0 14px 0 0;
+}
+.finding-head:hover { background: var(--surface-2); }
+.finding-head .stripe { align-self: stretch; background: var(--sev); }
+.finding-head .fid { font-family: var(--font-mono); font-size: .8rem; color: var(--fg-3); padding-block: 12px; }
+.finding-head .ftitle { font-weight: 600; padding-block: 12px; min-width: 0; }
+.finding-head .ftitle small { display: block; font-weight: 400; color: var(--fg-3); font-size: .8rem; margin-top: 2px; }
+.finding-head .chev { color: var(--fg-3); transition: transform .2s; }
+.finding.is-open .chev { transform: rotate(180deg); }
+.pill { display: inline-block; font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; padding: 2px 8px; border-radius: 999px; background: var(--sev-tint); color: var(--fg); white-space: nowrap; }
+.pill::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--sev); margin-right: 6px; vertical-align: 1px; }
+[data-sev="critical"] { --sev: var(--sev-critical); --sev-tint: var(--sev-critical-tint); }
+[data-sev="high"] { --sev: var(--sev-high); --sev-tint: var(--sev-high-tint); }
+[data-sev="medium"] { --sev: var(--sev-medium); --sev-tint: var(--sev-medium-tint); }
+[data-sev="low"] { --sev: var(--sev-low); --sev-tint: var(--sev-low-tint); }
+.finding-body { border-top: 1px solid var(--line); padding: 16px 18px 18px 22px; display: grid; gap: 14px; }
+.finding-body .block > h4 { margin-bottom: 6px; }
+.finding-body .block { max-width: 80ch; }
+.finding-body .block.wide { max-width: none; }
+.finding-body table { margin-top: 6px; }
+.finding-foot { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: .82rem; color: var(--fg-3); border-top: 1px dashed var(--line); padding-top: 10px; }
+.finding-foot .planref { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.planref a, .fixref a { font-family: var(--font-mono); font-size: .78rem; background: var(--surface-2); border-radius: 4px; padding: 1px 6px; text-decoration: none; color: var(--fg-2); }
+.planref a:hover, .fixref a:hover { background: var(--accent-soft); color: var(--fg); }
+.empty { padding: 32px; text-align: center; color: var(--fg-3); border: 1px dashed var(--line); border-radius: var(--radius); }
+
+/* Plan */
+.phase { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.phase + .phase { margin-top: 18px; }
+.phase-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.phase-head h3 { flex: 1 1 260px; min-width: 0; }
+.phase-head .when { color: var(--fg-3); font-size: .85rem; }
+.progress { display: flex; align-items: center; gap: 10px; min-width: 200px; font-size: .82rem; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+.bar { flex: 1; height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--accent); width: 0; transition: width .3s; }
+.bar.done > span { background: var(--ok); }
+.phase table th:first-child, .phase table td:first-child { width: 34px; padding-right: 0; }
+.phase td.idcell { font-family: var(--font-mono); font-size: .8rem; color: var(--fg-3); white-space: nowrap; }
+.phase input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; margin: 2px 0 0; }
+.phase tr.done td { color: var(--fg-3); }
+.phase tr.done td.action { text-decoration: line-through; text-decoration-color: var(--line-strong); }
+.overall { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-bottom: 18px; }
+.overall .progress { flex: 1 1 260px; }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); padding: 6px 12px; cursor: pointer; font-size: .85rem; color: var(--fg-2); }
+.btn:hover { background: var(--surface-2); color: var(--fg); }
+.btn.danger[data-armed="true"] { border-color: var(--sev-critical); color: var(--sev-critical); }
+
+/* Code blocks with copy */
+.codeblock { position: relative; }
+.codeblock .copy { position: absolute; top: 8px; right: 8px; }
+.codeblock pre { padding-top: 38px; }
+.codeblock .label { position: absolute; top: 10px; left: 14px; font-family: var(--font-mono); font-size: .75rem; color: var(--fg-3); }
+.copy { border: 1px solid var(--line); background: var(--surface); border-radius: 4px; padding: 3px 9px; cursor: pointer; font-size: .78rem; color: var(--fg-2); }
+.copy:hover { background: var(--surface-2); color: var(--fg); }
+.copy[data-state="done"] { color: var(--ok); border-color: var(--ok); }
+.copy[data-state="fail"] { color: var(--sev-critical); border-color: var(--sev-critical); }
+.appendix-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 10px 14px; border-radius: 0 var(--radius) var(--radius) 0; font-size: .92rem; }
+.callout.warn { border-left-color: var(--sev-high); background: var(--sev-high-tint); }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .finding-head { grid-template-columns: 4px minmax(0, 1fr) auto; grid-template-areas: "s title chev" "s meta chev"; row-gap: 0; }
+  .finding-head .stripe { grid-area: s; }
+  .finding-head .ftitle { grid-area: title; padding-bottom: 2px; }
+  .finding-head .chev { grid-area: chev; }
+  .finding-head .fmeta { grid-area: meta; display: flex; gap: 10px; align-items: center; padding-bottom: 12px; }
+  .finding-head .fid { padding-block: 0; }
+  .finding-body { padding-left: 16px; }
+  .tools { margin-left: 0; width: 100%; }
+  .search { flex: 1; }
+  .search input { width: 100%; max-width: none; }
+}
+@media (min-width: 861px) {
+  .finding-head .fmeta { display: contents; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+@media print {
+  .topbar, .filters, .copy, .btn, .tile { box-shadow: none; }
+  .topbar .tools, .filters, .copy, .btn { display: none !important; }
+  .view { display: block !important; page-break-before: always; }
+  .view:first-of-type { page-break-before: auto; }
+  .finding-body[hidden] { display: grid !important; }
+  body { background: #fff; color: #000; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><strong>tursoft.net SEO &amp; GEO Audit</strong><span>27 Oct 2026</span></div>
+    <nav class="tabs" aria-label="Report sections">
+      <a class="tab" href="#overview" data-view="overview">Overview</a>
+      <a class="tab" href="#findings" data-view="findings">Findings <span class="mono small" id="tab-count"></span></a>
+      <a class="tab" href="#plan" data-view="plan">Action plan</a>
+      <a class="tab" href="#verify" data-view="verify">Verify</a>
+      <a class="tab" href="#appendix" data-view="appendix">Appendix</a>
+    </nav>
+    <div class="tools">
+      <label class="search" for="q"><span class="muted small">Search</span><input id="q" type="search" placeholder="Findings, IDs, fixes…" autocomplete="off"></label>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch theme">Theme: system</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+<!-- ============================ OVERVIEW ============================ -->
+<section class="view" id="view-overview" aria-labelledby="h-overview">
+  <div class="hero">
+    <div class="prose stack">
+      <p class="eyebrow">Executive summary</p>
+      <h1 id="h-overview">One rich site, almost invisible to search engines and AI systems</h1>
+      <p>The site has rich, well structured content (86 projects, 217 skills, 14 experience entries, 30 customers, 18 references, a complete education history) and a solid <code>llms.txt</code>. Almost none of that reaches search engines or AI assistants today, for three structural reasons.</p>
+      <ol>
+        <li><strong>The HTML shell is empty.</strong> The server sends a 2.2 KB document containing only meta tags and an empty root element. All content is injected by an 869 KB JavaScript bundle that then fetches JSON data at runtime. Google can render it, with delay. Bing, social scrapers and every AI fetcher receive a title and a description and nothing else. <a href="#F-01">F-01</a></li>
+        <li><strong>Cloudflare is actively blocking AI crawlers.</strong> The served robots.txt disallows ClaudeBot, GPTBot, Google-Extended, CCBot, Meta, Amazon, Apple and twenty more agents, and the edge returns HTTP 403 to GPTBot and ClaudeBot even for <code>llms.txt</code>. <a href="#F-02">F-02</a></li>
+        <li><strong>There is exactly one indexable URL.</strong> Every other path returns HTTP 404, including the AmelBook privacy policy. No sitemap, no structured data, no per-topic pages, no crawlable internal links. <a href="#F-03">F-03</a></li>
+      </ol>
+      <p>On top of those, several hygiene issues hurt immediately: the Open Graph image returns 404, <code>http://</code> is not redirected to <code>https://</code>, the <code>www</code> host redirects to the insecure scheme, facts disagree across surfaces (20+ vs 25+ years, Jengai vs Tursoft), and 63 PDF, DOC and ZIP files including old CVs are publicly crawlable.</p>
+    </div>
+    <aside class="panel">
+      <p class="eyebrow" style="margin-bottom:10px">Scope and method</p>
+      <dl class="meta-grid">
+        <dt>Site</dt><dd>https://tursoft.net (GitHub Pages behind Cloudflare)</dd>
+        <dt>Date</dt><dd>2026-10-27</dd>
+        <dt>Code</dt><dd>Branch <code>prod</code> at <code>a10fae4</code> (live), plus pending branch <code>feat/ai-architect-positioning</code></dd>
+        <dt>Live checks</dt><dd>Raw HTML fetch, status and redirect probes, response headers, robots.txt and llms.txt as served, user-agent access tests, profile link health, Bing <code>site:</code> query</dd>
+        <dt>Not possible</dt><dd>Google PageSpeed Insights (public API quota exhausted for the day) and Google index status (no Search Console access)</dd>
+      </dl>
+      <p class="small muted" style="margin-top:14px">GEO means Generative Engine Optimization: being readable, citable and correctly described by AI assistants and AI search (ChatGPT, Claude, Perplexity, Gemini, Copilot, Meta AI, Apple Intelligence).</p>
+    </aside>
+  </div>
+
+  <div class="callout" style="margin-top:24px">
+    <strong>A newer review is available:</strong> <a href="seo-geo-report-v2.html">v2 report, 28 Oct 2026</a>, with measured results and new findings.<br>
+    <strong>Implementation status (27 Oct 2026):</strong> the code-side fixes are implemented on branch <code>feat/seo-geo</code>: build-time prerendering, per-route metadata, Person/ProfilePage and FAQ structured data, a real social image and icons, sitemap, robots, llms.txt and llms-full.txt, descriptive headings, anchor navigation, an "At a glance" block, a FAQ section, lazy loading and asset pruning, plus the deploy workflow. Still open: Cloudflare settings (AI crawler access, HTTPS, HSTS, www redirect, headers, cache), Search Console and Bing verification, analytics, per-entity pages and case studies, WebP images, and the merge to <code>prod</code>. The Action plan tab has the full checklist.
+  </div>
+
+  <div class="tiles" id="tiles" aria-label="Findings by severity. Click a tile to filter the findings list."></div>
+
+  <div class="section" style="margin-top:36px">
+    <h3>The five things to do first</h3>
+    <ol class="first-five">
+      <li>Turn off AI bot blocking and the managed robots.txt in Cloudflare (<a href="#F-02">F-02</a>). Zero code, ten minutes, largest GEO impact.</li>
+      <li>Enable "Always Use HTTPS", HSTS and a <code>www</code> to apex redirect in Cloudflare (<a href="#F-05">F-05</a>).</li>
+      <li>Ship a real <code>og-image.jpg</code> and fix the meta tags (<a href="#F-10">F-10</a>, <a href="#F-12">F-12</a>).</li>
+      <li>Add prerendering to the build so every route ships as real HTML with content (<a href="#F-01">F-01</a>, <a href="#F-03">F-03</a>, <a href="#F-07">F-07</a>). This one engineering change unlocks everything else.</li>
+      <li>Add a sitemap, JSON-LD Person/WebSite/ProfilePage, and register the site in Google Search Console and Bing Webmaster Tools (<a href="#F-04">F-04</a>, <a href="#F-06">F-06</a>, <a href="#F-16">F-16</a>).</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h3>Scorecard</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Area</th><th>Grade</th><th>One-line reason</th></tr></thead>
+        <tbody>
+          <tr><td>Crawlability and rendering</td><td><span class="grade" data-g="D">D</span></td><td>Empty HTML shell, runtime data fetch, content behind "Show more" and dialogs</td></tr>
+          <tr><td>Indexability and URLs</td><td><span class="grade" data-g="D">D</span></td><td>One URL, deep routes return 404, no sitemap, HTTP/www duplicates</td></tr>
+          <tr><td>On-page metadata</td><td><span class="grade" data-g="C">C</span></td><td>Decent title and description; broken og:image; one meta set for all routes</td></tr>
+          <tr><td>Structured data</td><td><span class="grade" data-g="F">F</span></td><td>None</td></tr>
+          <tr><td>Content quality</td><td><span class="grade" data-g="B-">B-</span></td><td>Rich and specific, but slogans as headings, inconsistent numbers, no dedicated pages</td></tr>
+          <tr><td>Performance (static review)</td><td><span class="grade" data-g="C">C</span></td><td>251 KB gzipped JS single chunk, no lazy images, no code splitting</td></tr>
+          <tr><td>GEO readiness</td><td><span class="grade" data-g="D">D</span></td><td>AI crawlers blocked, content invisible to non-JS fetchers, good llms.txt</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Site snapshot</h3>
+    <div class="table-wrap">
+      <table>
+        <tbody>
+          <tr><th scope="row">Stack</th><td>Vite 5, React 18, React Router 6, Tailwind, shadcn/Radix, Leaflet, TanStack Query</td></tr>
+          <tr><th scope="row">Hosting</th><td>GitHub Pages (workflow <code>.github/workflows/deploy.yml</code> on push to <code>prod</code>), Cloudflare proxy in front</td></tr>
+          <tr><th scope="row">Routes</th><td><code>/</code> (single long page with 12 sections), <code>/privacy/amelbook</code>, catch-all 404</td></tr>
+          <tr><th scope="row">Rendering</th><td>Client side only. <code>main.tsx</code> calls <code>createRoot().render()</code>. No SSR, SSG or prerender</td></tr>
+          <tr><th scope="row">Data</th><td>Repositories fetch <code>/data/*.json</code> at runtime (<code>src/repositories/base/BaseRepo.ts:22</code>). <code>projects.json</code> alone is 120 KB</td></tr>
+          <tr><th scope="row">Built output</th><td><code>index-*.js</code> 869 KB raw / 251 KB gzip, <code>index-*.css</code> 134 KB raw / 25 KB gzip, one chunk each</td></tr>
+          <tr><th scope="row">Assets</th><td>2,580 files, 557 MB copied from <code>src/assets</code> into <code>dist/assets</code> on every build (videos up to 50 MB, ZIPs, DOCs)</td></tr>
+          <tr><th scope="row">Meta</th><td>Title, description, keywords, OG and Twitter tags, canonical, all static in <code>index.html</code></td></tr>
+          <tr><th scope="row">Robots / sitemap</th><td>Repo <code>public/robots.txt</code> allows everything. Live robots.txt is rewritten by Cloudflare. No sitemap</td></tr>
+          <tr><th scope="row">llms.txt</th><td>Present at <code>/llms.txt</code>, 5.3 KB, well structured</td></tr>
+          <tr><th scope="row">Analytics</th><td>None in the repo, no Cloudflare Web Analytics beacon in the served HTML</td></tr>
+          <tr><th scope="row">Pending branch</th><td><code>feat/ai-architect-positioning</code> updates title, description, keywords and llms.txt to the "AI-Enabled Senior Software Architect" positioning. It does not touch robots, sitemap, og:image or structured data</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FINDINGS ============================ -->
+<section class="view" id="view-findings" aria-labelledby="h-findings">
+  <div class="view-head">
+    <h2 id="h-findings">Findings</h2>
+    <p class="muted small">Click a finding to expand evidence, impact and fix. Severity and area filters combine; search matches titles, IDs and body text.</p>
+  </div>
+  <div class="filters">
+    <div class="chipgroup" id="sev-chips"><span class="eyebrow">Severity</span></div>
+    <div class="chipgroup" id="area-chips"><span class="eyebrow">Area</span></div>
+    <span class="spacer"></span>
+    <span class="resultcount" id="resultcount"></span>
+    <button class="btn" type="button" id="expand-all">Expand all</button>
+    <button class="btn" type="button" id="collapse-all">Collapse all</button>
+  </div>
+  <div class="findings" id="findings"></div>
+</section>
+
+<!-- ============================ PLAN ============================ -->
+<section class="view" id="view-plan" aria-labelledby="h-plan">
+  <div class="view-head">
+    <h2 id="h-plan">Action plan</h2>
+    <p class="muted small">Tick tasks as you finish them. Progress is saved in this browser only.</p>
+  </div>
+  <div class="overall">
+    <div class="progress"><span id="overall-text">0 of 0 done</span><div class="bar" id="overall-bar"><span></span></div></div>
+    <button class="btn danger" type="button" id="reset-progress" data-armed="false">Reset progress</button>
+  </div>
+  <div id="phases"></div>
+</section>
+
+<!-- ============================ VERIFY ============================ -->
+<section class="view" id="view-verify" aria-labelledby="h-verify">
+  <div class="view-head">
+    <h2 id="h-verify">Verification checklist</h2>
+    <p class="muted small">Run after each phase. Expected results are in the comments.</p>
+  </div>
+  <div class="stack" id="verify-blocks"></div>
+  <div class="section">
+    <h3>Console checks</h3>
+    <ul>
+      <li>Google Search Console → Pages report: indexed count grows with phase 3. URL Inspection → "View crawled page" shows real content.</li>
+      <li>Bing Webmaster Tools → Site Explorer lists <code>/</code>.</li>
+      <li>Rich Results Test: <a href="https://search.google.com/test/rich-results?url=https://tursoft.net/" target="_blank" rel="noopener">search.google.com/test/rich-results</a>. Schema validator: <a href="https://validator.schema.org/" target="_blank" rel="noopener">validator.schema.org</a>.</li>
+      <li>Social cards: LinkedIn Post Inspector and X Card Validator (use "re-scrape" after deploying the new image).</li>
+      <li>PageSpeed Insights (mobile and desktop) before and after phase 4: <a href="https://pagespeed.web.dev/" target="_blank" rel="noopener">pagespeed.web.dev</a>. Targets: LCP under 2.5 s, CLS under 0.1, TBT under 200 ms.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ APPENDIX ============================ -->
+<section class="view" id="view-appendix" aria-labelledby="h-appendix">
+  <div class="view-head">
+    <h2 id="h-appendix">Appendix</h2>
+    <p class="muted small">Ready-to-use files and snippets. Copy buttons copy the raw text.</p>
+  </div>
+  <nav class="appendix-nav" aria-label="Appendix sections">
+    <a class="chip" href="#appendix-a">A · robots and sitemap</a>
+    <a class="chip" href="#appendix-b">B · head and JSON-LD</a>
+    <a class="chip" href="#appendix-c">C · prerender step</a>
+    <a class="chip" href="#appendix-d">D · nav links</a>
+    <a class="chip" href="#appendix-e">E · llms.txt v2</a>
+    <a class="chip" href="#appendix-f">F · evidence log</a>
+  </nav>
+  <div id="appendix-blocks" class="stack"></div>
+
+  <div class="section" id="appendix-f">
+    <h3>F. Evidence log (2026-10-27)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Check</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>GET https://tursoft.net/</code> raw HTML</td><td>2,194 bytes, body is an empty root element plus the SPA redirect script</td></tr>
+          <tr><td><code>GET /robots.txt</code> (served)</td><td>2,836 bytes, Cloudflare managed block with 30+ <code>Disallow: /</code> entries and <code>Content-Signal: search=yes,ai-train=no,use=reference</code></td></tr>
+          <tr><td><code>GET /robots.txt</code> (repo)</td><td>174 bytes, allow all</td></tr>
+          <tr><td><code>GET /llms.txt</code> as GPTBot / ClaudeBot</td><td>403 / 403</td></tr>
+          <tr><td><code>GET /llms.txt</code> as PerplexityBot / OAI-SearchBot / ChatGPT-User / Claude-User</td><td>200</td></tr>
+          <tr><td><code>GET /sitemap.xml</code></td><td>404</td></tr>
+          <tr><td><code>GET /assets/images/about/about-me.jpg</code> (og:image)</td><td>404</td></tr>
+          <tr><td><code>GET /privacy/amelbook</code></td><td>404 (404.html, 502 bytes)</td></tr>
+          <tr><td><code>GET /apple-touch-icon.png</code>, <code>/manifest.webmanifest</code></td><td>404</td></tr>
+          <tr><td><code>GET http://tursoft.net/</code></td><td>200, no redirect</td></tr>
+          <tr><td><code>GET https://www.tursoft.net/</code></td><td>301 → <code>http://tursoft.net/</code></td></tr>
+          <tr><td>Response headers</td><td><code>Server: cloudflare</code>, <code>Cache-Control: max-age=600</code>, no HSTS, CSP or X-Content-Type-Options</td></tr>
+          <tr><td>CV PDFs</td><td>200 (1.36 MB detailed, 317 KB compact)</td></tr>
+          <tr><td>Built bundle</td><td>JS 869 KB raw / 251 KB gzip; CSS 134 KB / 25 KB; single chunks</td></tr>
+          <tr><td><code>&lt;img&gt;</code> tags</td><td>43, all with alt; 0 lazy, 0 width/height</td></tr>
+          <tr><td>Headings</td><td>2 h1 (hero, 404 page), 9 h2, 21 h3, 13 h4</td></tr>
+          <tr><td>Semantic landmarks</td><td>1 main, 1 nav, 20 section, 0 header/footer/article</td></tr>
+          <tr><td>JSON-LD / schema.org / helmet</td><td>none</td></tr>
+          <tr><td>Data loading</td><td><code>fetch(this.jsonPath)</code> in <code>BaseRepo.ts:22</code>, runtime</td></tr>
+          <tr><td>Portfolio initial render</td><td>21 of 86 projects (<code>visibleMajorItemCount</code>)</td></tr>
+          <tr><td>Tracked assets</td><td>2,580 files, 557 MB; 63 PDF/DOC/ZIP; largest file 50 MB MP4</td></tr>
+          <tr><td>Bing <code>site:tursoft.net</code></td><td>10 results, none from the domain</td></tr>
+          <tr><td>Profile links</td><td>GitHub 200, Stack Overflow 200, LinkedIn 301, twitter.com 301 (x.com)</td></tr>
+          <tr><td>PageSpeed Insights API</td><td>quota exceeded; run manually at pagespeed.web.dev</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------ data */
+  const SEV = {
+    critical: { label: 'Critical', order: 0 },
+    high:     { label: 'High',     order: 1 },
+    medium:   { label: 'Medium',   order: 2 },
+    low:      { label: 'Low',      order: 3 }
+  };
+  const AREAS = {
+    crawl:   'Crawling & indexing',
+    meta:    'Metadata & social',
+    schema:  'Structured data',
+    content: 'Content & semantics',
+    perf:    'Performance',
+    geo:     'GEO'
+  };
+
+  const F = [];
+  function add(id, sev, area, title, sub, evidence, impact, fix) { F.push({ id, sev, area, title, sub, evidence, impact, fix }); }
+
+  add('F-01', 'critical', 'crawl', 'All content depends on JavaScript and runtime data fetches', 'Empty HTML shell',
+    `<p><code>curl https://tursoft.net/</code> returns a 2,194 byte document whose body is an empty root element plus the SPA redirect script. A fetch without JavaScript (what most AI assistants and link scrapers use) reported "only one line of text: Muhammet Turşak - Senior Software Architect, no other visible text, headings or links." After the bundle loads, each section's repository calls <code>fetch('/data/&lt;entity&gt;.json')</code> before rendering.</p>`,
+    `<ul>
+      <li><strong>Google</strong> indexes the page through its rendering queue, typically hours to days after crawl, and may time out on slow renders.</li>
+      <li><strong>Bing</strong> has limited JavaScript rendering; a Bing <code>site:tursoft.net</code> query returned no pages from the domain today.</li>
+      <li><strong>AI assistants and AI search</strong> (ChatGPT browsing, Claude, Perplexity, Copilot): their fetchers get HTTP 200 (see F-02) but an empty body. They can only cite the title, the meta description and <code>llms.txt</code>.</li>
+      <li><strong>Social previews</strong> see the same empty body, and a broken image (F-10).</li>
+    </ul>`,
+    `<p>Prerender every route to static HTML at build time so the served <code>index.html</code> already contains the full DOM. Two viable approaches:</p>
+     <ol>
+      <li><strong>Puppeteer prerender step in CI (recommended).</strong> After <code>vite build</code>, serve <code>dist/</code>, open each route in headless Chrome with a tall viewport and a <code>?prerender=1</code> flag, wait for a <code>data-prerender-ready</code> marker, and write the HTML to <code>dist/&lt;route&gt;/index.html</code>. The app keeps fetching JSON at runtime; the prerenderer captures the result. Switch <code>main.tsx</code> to <code>hydrateRoot</code> when the root already has children. See Appendix C.</li>
+      <li><strong><code>vite-react-ssg</code>.</strong> Cleaner long term but requires moving data loading to build-time imports, which touches every repository class.</li>
+     </ol>
+     <p>Also render the "crawler view" during prerender: all projects (not just 21), all skills, and <code>Reveal</code> blocks in their revealed state.</p>`);
+
+  add('F-02', 'critical', 'crawl', 'Cloudflare blocks AI crawlers in robots.txt and at the edge', 'GEO blocker, no code needed',
+    `<p>The served <code>robots.txt</code> is 2,836 bytes, not the 174 byte file in <code>public/</code>. It contains a "BEGIN Cloudflare Managed content" block with <code>Content-Signal: search=yes,ai-train=no,use=reference</code> and <code>Disallow: /</code> for ClaudeBot, GPTBot, Google-Extended, CCBot, anthropic-ai, Claude-Web, meta-externalagent, Applebot-Extended, Amazonbot, Bytespider, cohere-ai, MistralAI-Training, Google-CloudVertexBot, KimiBot and more (30+ agents).</p>
+     <div class="table-wrap"><table><thead><tr><th>User-Agent</th><th>HTTP status for /llms.txt</th></tr></thead><tbody>
+      <tr><td>GPTBot</td><td><strong>403</strong></td></tr>
+      <tr><td>ClaudeBot</td><td><strong>403</strong></td></tr>
+      <tr><td>PerplexityBot</td><td>200</td></tr>
+      <tr><td>OAI-SearchBot</td><td>200</td></tr>
+      <tr><td>ChatGPT-User</td><td>200</td></tr>
+      <tr><td>Claude-User</td><td>200</td></tr>
+      <tr><td>Googlebot, Bingbot, browser</td><td>200</td></tr>
+     </tbody></table></div>
+     <p>Two layers are active: the Cloudflare managed robots.txt / content signals feature, and the "Block AI bots" (AI Crawl Control) WAF rule.</p>`,
+    `<p>The site opts out of the training corpora and retrieval indexes of OpenAI (GPTBot), Anthropic (ClaudeBot), Google Gemini and Vertex AI (Google-Extended, Google-CloudVertexBot), Common Crawl (CCBot, used by many smaller models), Meta AI, Amazon Alexa and Apple Intelligence. Models that never see the site cannot describe Muhammet Turşak or Tursoft from it. Even <code>llms.txt</code>, written for these systems, is unreachable to two of them. The user-initiated fetchers that are allowed receive the empty shell from F-01.</p>`,
+    `<p><strong>Cloudflare dashboard, no code.</strong></p>
+     <ol>
+      <li>Security → Bots (or "AI Crawl Control" in newer dashboards): set AI crawlers to <strong>Allow</strong>. To keep blocking scrapers with no discovery value (Bytespider, Amazonbot, PetalBot), use the per-crawler controls instead of the global block.</li>
+      <li>Disable <strong>Managed robots.txt</strong> and <strong>Content Signals</strong> so the repo's <code>public/robots.txt</code> is what gets served.</li>
+      <li>Re-test with the commands in the Verify section. Expect 200 for GPTBot and ClaudeBot and the repo's robots.txt content.</li>
+     </ol>
+     <p class="small muted">Decision note: blocking AI training is a legitimate choice for publishers who sell content. For a personal site whose purpose is to be found and described accurately, discoverability outweighs the opt-out.</p>`);
+
+  add('F-03', 'critical', 'crawl', 'Every non-root URL returns HTTP 404', 'Privacy policy page included',
+    `<p><code>curl -I https://tursoft.net/privacy/amelbook</code> → 404. GitHub Pages serves <code>public/404.html</code>, whose script redirects to <code>/?p=%2Fprivacy%2Famelbook</code>, and <code>index.html</code> restores the path client side. The same happens for any future route.</p>`,
+    `<ul>
+      <li>The AmelBook privacy policy, which the app stores need to link to, answers 404 to any automated check and is never indexed.</li>
+      <li>Google may index <code>https://tursoft.net/?p=...</code> variants as duplicates (the canonical tag partially mitigates this).</li>
+      <li>Any detail pages added later (projects, skills, domains) would be unindexable until this is solved.</li>
+     </ul>`,
+    `<p>Prerender (F-01) writes <code>dist/privacy/amelbook/index.html</code>, which GitHub Pages serves with 200. Keep <code>404.html</code> only for genuinely unknown URLs. Give the 404 page a proper <code>&lt;title&gt;</code> and no canonical.</p>`);
+
+  add('F-04', 'high', 'crawl', 'No sitemap, robots.txt has no Sitemap line', '',
+    `<p><code>https://tursoft.net/sitemap.xml</code> → 404. <code>public/robots.txt</code> lists only <code>Allow: /</code> rules.</p>`,
+    `<p>Search engines discover only what they can reach from the homepage, and nothing signals change frequency or new URLs.</p>`,
+    `<p>Add <code>public/sitemap.xml</code> now (two URLs), then generate it at build time from the data JSON files once detail pages exist. Add <code>Sitemap: https://tursoft.net/sitemap.xml</code> to robots.txt and submit it in Search Console and Bing Webmaster Tools. See Appendix A.</p>`);
+
+  add('F-05', 'high', 'crawl', 'HTTP is not redirected to HTTPS, www redirects to HTTP, no HSTS', '',
+    `<div class="table-wrap"><table><thead><tr><th>Request</th><th>Response</th></tr></thead><tbody>
+      <tr><td><code>http://tursoft.net/</code></td><td>200 (served over plain HTTP, no redirect)</td></tr>
+      <tr><td><code>https://www.tursoft.net/</code></td><td>301 → <code>http://tursoft.net/</code></td></tr>
+      <tr><td><code>http://www.tursoft.net/</code></td><td>301 → <code>http://tursoft.net/</code></td></tr>
+      <tr><td>Response headers</td><td>no <code>Strict-Transport-Security</code></td></tr>
+     </tbody></table></div>`,
+    `<p>Four URL variants of the homepage are reachable (http/https × www/apex); the canonical tag helps but still wastes crawl and splits link equity. HTTPS is a confirmed Google ranking signal. Visitors who type the domain land on an insecure page.</p>`,
+    `<p><strong>Cloudflare.</strong> SSL/TLS → Edge Certificates → enable <strong>Always Use HTTPS</strong> and <strong>HSTS</strong> (max-age 6 months, include subdomains). Rules → Redirect Rules → <code>www.tursoft.net/*</code> → <code>https://tursoft.net/$1</code>, 301. Also tick <strong>Enforce HTTPS</strong> in the GitHub Pages settings.</p>`);
+
+  add('F-06', 'high', 'crawl', 'Search engine presence is unverified; Bing shows nothing', '',
+    `<p>A Bing <code>site:tursoft.net</code> query returned ten results, none from the domain. No Search Console or Bing verification file or meta tag exists in the repo (verification may be via DNS, which this audit cannot see).</p>`,
+    `<p>Without the consoles there is no index coverage data, no crawl error reporting and no way to request indexing after fixes.</p>`,
+    `<p>Verify the domain in Google Search Console and Bing Webmaster Tools (DNS TXT via Cloudflare is easiest), submit the sitemap, request indexing of <code>/</code> and <code>/privacy/amelbook</code>. Turn on Cloudflare <strong>Crawler Hints / IndexNow</strong> so Bing, Yandex and others are pinged on every deploy. Review the Page Indexing reports two weeks after the prerender ships.</p>`);
+
+  add('F-07', 'high', 'crawl', 'Most content never enters the DOM', '65 of 86 projects, all dialog content',
+    `<ul>
+      <li>Portfolio: <code>visibleMajorItemCount={21}</code> with <code>enableShowMore</code> in <code>PortfolioSection.tsx</code>; <code>listviewer.tsx:267</code> slices the list. 65 of 86 projects render only after a click.</li>
+      <li>Project full text, screenshots, customers and skills per project: rendered only inside <code>ProjectDetailDialog</code>.</li>
+      <li>Skills (217), customers (30), education, domains, people: card titles are in the DOM, details are in dialogs.</li>
+      <li>Experience position descriptions are rendered as paragraphs (good).</li>
+     </ul>`,
+    `<p>The long-tail content that would rank for queries like "HL7 FHIR integration platform architect" or "hospital information system Kosovo" is invisible to crawlers.</p>`,
+    `<p>During prerender render everything (<code>?prerender=1</code> → <code>showAll</code>). Longer term, give each project, skill and domain its own URL (F-20) so the dialog content becomes a page.</p>`);
+
+  add('F-08', 'medium', 'crawl', 'No crawlable internal links or section anchors', '',
+    `<p><code>Navigation.tsx</code> renders <code>&lt;button onClick={scrollToSection}&gt;</code> for all 12 items; the hero CTA is a button; sections have ids but nothing links to <code>#about</code>, <code>#experience</code>, etc.</p>`,
+    `<p>No anchor text signals, no "Jump to" sitelinks in Google results, keyboard and screen reader users get buttons instead of links, and the URL never reflects the section.</p>`,
+    `<p>Use <code>&lt;a href="#experience"&gt;</code> for nav items (keep the active state logic), rely on <code>scroll-behavior: smooth</code> (already guarded by <code>prefers-reduced-motion</code>), and link between sections in copy ("see the Avicenna HIS project"). See Appendix D.</p>`);
+
+  add('F-09', 'medium', 'crawl', 'Reveal hides content until an IntersectionObserver fires', '',
+    `<p><code>.reveal { opacity: 0; transform: translateY(28px) }</code> in <code>index.css:309</code>; the class <code>is-revealed</code> is added only when the element intersects the viewport. Every section except the hero is wrapped.</p>`,
+    `<p>Text is in the DOM, so Google indexes it, but content that is never "visible" during rendering can be discounted. The headless prerenderer (F-01) must also force the revealed state, otherwise the captured HTML has every section at <code>opacity: 0</code>.</p>`,
+    `<p>Apply the hidden state only when JavaScript is present (<code>html.js .reveal</code>), and in prerender mode render with <code>is-revealed</code> set. Alternatively use <code>content-visibility: auto</code> for the performance win without hiding.</p>`);
+
+  add('F-10', 'critical', 'meta', 'Open Graph and Twitter image return 404', 'Social shares have no image',
+    `<p><code>og:image</code> and <code>twitter:image</code> point to <code>https://tursoft.net/assets/images/about/about-me.jpg</code>. That path exists neither in the repo (<code>src/assets/images/</code> does not exist) nor live (404). <code>profile-photo.jpg</code> (8 KB) is far too small for a 1200×630 card.</p>`,
+    `<p>Every share on LinkedIn, X, Slack, WhatsApp, iMessage and Teams renders without an image. For a personal brand site, LinkedIn shares are a primary traffic source.</p>`,
+    `<p>Create <code>public/og-image.jpg</code> (1200×630, under 300 KB, name, title and photo) and update the tags (full set in Appendix B):</p>
+     <pre><code>&lt;meta property="og:image" content="https://tursoft.net/og-image.jpg" /&gt;
+&lt;meta property="og:image:width" content="1200" /&gt;
+&lt;meta property="og:image:height" content="630" /&gt;
+&lt;meta property="og:image:alt" content="Muhammet Turşak, Senior Software Architect" /&gt;
+&lt;meta property="og:site_name" content="Muhammet Turşak" /&gt;
+&lt;meta property="og:locale" content="en_US" /&gt;
+&lt;meta name="twitter:image" content="https://tursoft.net/og-image.jpg" /&gt;
+&lt;meta name="twitter:creator" content="@muhammettursak" /&gt;</code></pre>
+     <p>Validate with the LinkedIn Post Inspector and X Card Validator after deploy (both cache aggressively; use "re-scrape").</p>`);
+
+  add('F-11', 'high', 'meta', 'One meta set for every route; privacy page canonicalizes to the homepage', '',
+    `<p><code>index.html</code> is the only head. <code>/privacy/amelbook</code> therefore carries the title "Muhammet Turşak - Senior Software Architect", the homepage description and <code>&lt;link rel="canonical" href="https://tursoft.net"&gt;</code>.</p>`,
+    `<p>Even once the privacy page returns 200, Google will fold it into the homepage because of the canonical. Its title in results would be wrong.</p>`,
+    `<p>Add <code>react-helmet-async</code> (or React 19's native title and meta hoisting if you upgrade) and set per-route title, description, canonical and OG tags. Prerender captures them into the static HTML. Privacy page: title "AmelBook Privacy Policy", canonical <code>https://tursoft.net/privacy/amelbook</code>, <code>og:type</code> <code>article</code>.</p>`);
+
+  add('F-12', 'medium', 'meta', 'Title and description content issues', 'Stale facts, no ASCII name variant',
+    `<ul>
+      <li>Title: "Muhammet Turşak - Senior Software Architect" (44 characters, fine).</li>
+      <li>Description: 160 characters, says "20+ years" and "Director of Technology at Jengai". The hero, About section and <code>llms.txt</code> say 25+ years; the pending branch repositions the current role as Tursoft founder.</li>
+      <li>The ASCII spelling "Tursak", which most people type into a search box, appears nowhere in the head.</li>
+      <li>Pending branch description is 181 characters and will be truncated in results.</li>
+      <li><code>meta keywords</code> is ignored by Google and Bing (harmless, not a lever).</li>
+     </ul>`,
+    `<p>Mismatched facts across the snippet, the page and llms.txt lower confidence for both ranking and AI answers; the missing ASCII variant loses the most common navigational query.</p>`,
+    `<p>After merging the positioning branch:</p>
+     <pre><code>&lt;title&gt;Muhammet Turşak (Tursak) | AI-Enabled Senior Software Architect&lt;/title&gt;
+&lt;meta name="description" content="Muhammet Turşak is a Senior Software Architect in Ankara, Turkey with 25+ years in .NET, Node.js, Azure and SaaS, now building with AI coding agents and agent teams. Founder of Tursoft." /&gt;</code></pre>
+     <p>Keep the description at or under 155 characters. Mirror the same wording in the hero's first paragraph and in <code>llms.txt</code> so all three agree (F-19).</p>`);
+
+  add('F-13', 'low', 'meta', 'No icon links, touch icon, manifest or theme color', '',
+    `<p><code>index.html</code> has no <code>&lt;link rel="icon"&gt;</code>; <code>/apple-touch-icon.png</code> and <code>/manifest.webmanifest</code> return 404. <code>favicon.ico</code> works by browser convention only.</p>`,
+    `<p>Google shows favicons in mobile results; a missing or default icon lowers click-through. iOS home screen bookmarks get a screenshot instead of an icon.</p>`,
+    `<pre><code>&lt;link rel="icon" href="/favicon.ico" sizes="32x32" /&gt;
+&lt;link rel="icon" href="/icon.svg" type="image/svg+xml" /&gt;
+&lt;link rel="apple-touch-icon" href="/apple-touch-icon.png" /&gt;
+&lt;link rel="manifest" href="/manifest.webmanifest" /&gt;
+&lt;meta name="theme-color" content="#0b1020" /&gt;</code></pre>`);
+
+  add('F-14', 'low', 'meta', 'Language signals are mixed', '',
+    `<p><code>&lt;html lang="en"&gt;</code>, but 5 of 18 testimonials in <code>references.json</code> and several company and project strings are Turkish. The privacy page switches among ten languages with client state only, so all languages share one URL.</p>`,
+    `<p>Mixed-language text under a single <code>lang</code> confuses language detection and, for the privacy page, only the default language is ever indexable.</p>`,
+    `<p>Add <code>lang="tr"</code> on Turkish blocks. When the Turkish site version ships (on the README todo list and in a stash), use separate URLs (<code>/tr/</code>) with <code>hreflang</code> pairs and <code>x-default</code>. For the privacy page, consider <code>/privacy/amelbook/&lt;lang&gt;</code> routes with hreflang so each language is indexable.</p>`);
+
+  add('F-15', 'low', 'meta', '404 page lacks its own title and uses light-theme styles', '',
+    `<p><code>NotFound.tsx</code> keeps the homepage title and meta, uses <code>bg-gray-100</code> styling and logs to the console.</p>`,
+    `<p>Minor: a mislabeled 404 in browser history and an inconsistent look.</p>`,
+    `<p>Set <code>&lt;title&gt;Page not found | Muhammet Turşak&lt;/title&gt;</code>, no canonical, consistent dark styling, and keep the link to the homepage.</p>`);
+
+  add('F-16', 'high', 'schema', 'No JSON-LD of any kind', 'No Person, WebSite or ProfilePage',
+    `<p>No <code>application/ld+json</code> and no <code>schema.org</code> reference anywhere in <code>index.html</code> or <code>src/</code>.</p>`,
+    `<p>Google and AI systems have no machine-readable statement of who the person is, what the site is, where they work, what they know, and which profiles are the same entity. Person and ProfilePage markup is the basis for a Knowledge Panel and for correct entity resolution in AI answers. SoftwareApplication markup can earn rich results for AmelBook and Jengai App.</p>`,
+    `<p>Add a <code>@graph</code> with <code>Person</code>, <code>WebSite</code> and <code>ProfilePage</code> to the homepage (Appendix B), <code>SoftwareApplication</code> to product pages when they exist, <code>FAQPage</code> once an FAQ section exists, and <code>BreadcrumbList</code> on detail pages. Validate with the Rich Results Test and the Schema Markup Validator.</p>`);
+
+  add('F-17', 'medium', 'content', 'Headings are slogans, not topics', '',
+    `<p><code>h1</code> = "MUHAMMET TURŞAK" (name only). Section <code>h2</code>s: "Transforming Ideas Into Digital Reality", "Building Tomorrow's …", "Industry Domains", "Educational …", "Global …", "Professional …", "Let's Work Together". The skills section has no <code>h2</code> at all (only <code>h3</code> per card). The portfolio heading is injected through <code>dangerouslySetInnerHTML</code>.</p>`,
+    `<p>Headings are the strongest on-page topical signal after the title. Slogans give engines nothing to match a query against.</p>`,
+    `<p>Keep the visual slogans as sub-lines but make the semantic heading descriptive:</p>
+     <div class="table-wrap"><table><thead><tr><th>Section</th><th>Suggested h2</th></tr></thead><tbody>
+      <tr><td>About</td><td>About Muhammet Turşak, Senior Software Architect</td></tr>
+      <tr><td>Experience</td><td>25+ Years of Experience: Jengai, Gamyte, ERC Group, DataSel, Fonet, Halıcı</td></tr>
+      <tr><td>Skills</td><td>Skills: .NET, Node.js, Azure, React, AI Agents and Agentic Engineering</td></tr>
+      <tr><td>Portfolio</td><td>Software Projects: Healthcare IT, Construction IT, E-Learning, SaaS</td></tr>
+      <tr><td>Contact</td><td>Contact Muhammet Turşak for Consulting and Architecture Roles</td></tr>
+     </tbody></table></div>
+     <p>Optionally extend the <code>h1</code> with a static sub-line: "Senior Software Architect, Ankara, Turkey".</p>`);
+
+  add('F-18', 'medium', 'content', "The hero's positioning statement is animated, not static", '',
+    `<p>The role line is a <code>Typewriter</code> that shows one of four phrases at a time. The static text under it is a benefits sentence without the role or location.</p>`,
+    `<p>Crawlers capture whichever phrase is on screen at render time; the complete positioning never appears as one sentence.</p>`,
+    `<p>Add one static sentence directly under the <code>h1</code> (styled as the sub-line) such as "Senior Software Architect and Director of Technology, building cloud and SaaS products with AI agent teams. Ankara, Turkey." Keep the typewriter below it as decoration, or give it a visually hidden full list.</p>`);
+
+  add('F-19', 'medium', 'content', 'Facts disagree across surfaces', 'Years, role, location, URL, name casing',
+    `<div class="table-wrap"><table><thead><tr><th>Fact</th><th>index.html</th><th>Hero / About</th><th>statistics.json</th><th>llms.txt</th><th>Pending branch</th></tr></thead><tbody>
+      <tr><td>Years of experience</td><td>20+</td><td>25+</td><td>20</td><td>25+</td><td>25+</td></tr>
+      <tr><td>Current role</td><td>Director of Technology at Jengai</td><td>Director of Technology at Jengai</td><td>–</td><td>Director of Technology at Jengai</td><td>Founder at Tursoft; formerly Jengai</td></tr>
+      <tr><td>Location</td><td>"Turkey"</td><td>"Turkey" (contact)</td><td>–</td><td>Ankara, Turkey</td><td>Ankara, Turkey</td></tr>
+      <tr><td>Website URL</td><td>https</td><td>https</td><td>–</td><td><code>http://tursoft.net</code></td><td><code>http://tursoft.net</code></td></tr>
+      <tr><td>Name casing</td><td>Muhammet Turşak</td><td>MUHAMMET TURŞAK</td><td>–</td><td>Muhammet TURŞAK</td><td>Muhammet TURŞAK</td></tr>
+     </tbody></table></div>`,
+    `<p>Entity consistency is one of the strongest GEO signals: AI systems cross-check sources, and conflicting numbers lower confidence and produce hedged or wrong answers.</p>`,
+    `<p>Pick one value per fact and apply it everywhere, including <code>statistics.json</code> (20 → 25), <code>general.json</code> (<code>website</code> → https), <code>llms.txt</code> (<code>http</code> → https, add "also written Tursak"), LinkedIn, GitHub and Stack Overflow bios.</p>`);
+
+  add('F-20', 'high', 'content', 'One indexable URL for 400+ content entities', 'No long-tail landing pages',
+    `<p>Routes: <code>/</code> and <code>/privacy/amelbook</code>. The README todo list already includes "add domain details page" and "add skills detail page".</p>`,
+    `<p>The site can only rank for the person's name. Queries that would bring recruiters and clients ("HL7 FHIR integration architect", "construction estimation SaaS architect", "hospital information system .NET architect Turkey") have no page to land on.</p>`,
+    `<p>Add static routes generated from the JSON data: <code>/projects/&lt;slug&gt;</code>, <code>/domains/&lt;slug&gt;</code>, <code>/skills/&lt;slug&gt;</code>, <code>/services</code>, <code>/experience/&lt;company&gt;</code>, <code>/about</code>, <code>/faq</code>. Each page: unique title and description, <code>h1</code>, the dialog content as body, related entities as internal links, <code>BreadcrumbList</code> and the relevant schema type. The prerenderer or SSG produces one HTML file per route and the sitemap is generated from the same data. Start with the 10 to 15 major projects and the 6 domains.</p>`);
+
+  add('F-21', 'medium', 'content', 'No freshness or authority signals', '',
+    `<p>No "last updated" date, no <code>dateModified</code>, no articles, no case studies, no changelog. The CV PDFs are the only dated artefacts.</p>`,
+    `<p>Engines and AI systems prefer sources with visible recency; without citable articles there is nothing to reference beyond the bio.</p>`,
+    `<p>Show "Last updated" in the footer (and <code>dateModified</code> in <code>ProfilePage</code>), add a short "Writing" or "Case studies" section with three pieces AI engines can cite: the Jengai AI CRM and estimation architecture, the AHIN HL7/FHIR integration platform, and the AI-enabled development lifecycle (agent teams, prompt and context engineering). These are also the topics the positioning branch wants to own.</p>`);
+
+  add('F-22', 'low', 'content', 'Image alt text', 'Mostly fine',
+    `<p>All 43 <code>&lt;img&gt;</code> elements have <code>alt</code> (good). A few use codes as alt (<code>alt={code}</code> for flags). Project logos use the project title.</p>`,
+    `<p>Minor accessibility and image search loss.</p>`,
+    `<p>Use the language name for flag images. Add context to project images ("Avicenna HIS patient registration screen").</p>`);
+
+  add('F-23', 'high', 'perf', 'One 869 KB JavaScript chunk (251 KB gzipped), no code splitting', '',
+    `<p><code>dist/assets/index-*.js</code> 869 KB raw / 251 KB gzip; CSS 134 KB / 25 KB. No <code>React.lazy</code> anywhere. <code>MapSection.tsx</code> imports Leaflet and react-leaflet eagerly; 11 detail dialogs, Embla carousel and the full Radix set ship in the initial bundle.</p>`,
+    `<p>Time to Interactive and Total Blocking Time on mobile; Google's page experience signals; render delay for Googlebot.</p>`,
+    `<ul>
+      <li><code>React.lazy</code> + <code>Suspense</code> for <code>MapSection</code>, <code>TimelineSection</code> and every <code>*DetailDialog</code>.</li>
+      <li><code>build.rollupOptions.output.manualChunks</code> for react, radix and leaflet.</li>
+      <li>Remove unused dependencies (<code>recharts</code>, <code>react-day-picker</code>, <code>input-otp</code>, <code>vaul</code>, <code>cmdk</code> appear only in unused <code>ui/</code> wrappers; verify with <code>npx depcheck</code> and delete the wrappers).</li>
+      <li>Target: initial JS under 120 KB gzipped.</li>
+     </ul>`);
+
+  add('F-24', 'medium', 'perf', 'Images are not optimized for Core Web Vitals', '',
+    `<p>0 of 43 <code>&lt;img&gt;</code> tags have <code>loading="lazy"</code>, <code>decoding="async"</code> or <code>width</code>/<code>height</code>. The hero background (<code>hero-bg.jpg</code>, 134 KB) is a CSS background image, so it is not preloaded and is the likely LCP element. 2,360 JPG/PNG assets, no WebP/AVIF, no <code>srcset</code>.</p>`,
+    `<p>Layout shift (CLS) from unsized images, delayed Largest Contentful Paint, wasted bandwidth on mobile.</p>`,
+    `<p>Add <code>width</code>/<code>height</code> and <code>loading="lazy"</code> for everything below the fold; <code>&lt;link rel="preload" as="image" href="/assets/hero-bg.jpg" fetchpriority="high"&gt;</code> for the hero; use <code>vite-imagetools</code> to emit WebP/AVIF with <code>srcset</code> for logos and screenshots.</p>`);
+
+  add('F-25', 'medium', 'perf', 'Data loads in a waterfall after the bundle', '',
+    `<p>HTML → JS (251 KB) → <code>fetch('/data/projects.json')</code> (120 KB) and nine other JSON files → render. Nothing is cached beyond 600 seconds.</p>`,
+    `<p>Three sequential round trips before any content paints; slower rendering for Googlebot's renderer as well.</p>`,
+    `<p>Prerendering removes the waterfall for the first paint. For interactivity, import the small JSON files statically (bundled) and keep <code>fetch</code> only for large ones, with <code>&lt;link rel="preload" as="fetch"&gt;</code> for <code>projects.json</code>.</p>`);
+
+  add('F-26', 'low', 'perf', 'Cache headers', '',
+    `<p><code>Cache-Control: max-age=600</code> for everything (GitHub Pages default), including hashed <code>index-*.js</code>.</p>`,
+    `<p>Repeat visitors re-download the bundle every ten minutes.</p>`,
+    `<p>Cloudflare Cache Rule: <code>/assets/index-*.js</code> and <code>*.css</code> → Edge and Browser TTL 1 year (hashed names are safe). Leave <code>/data/*.json</code> and copied asset images at 1 day, since their names are not hashed.</p>`);
+
+  add('F-27', 'low', 'perf', 'Deploy payload hygiene', '',
+    `<p><code>viteStaticCopy</code> copies all of <code>src/assets</code> (2,580 files, 557 MB, including 50 MB videos, ZIPs and <code>.doc</code> files) into <code>dist</code> on every build. GitHub Pages has a 1 GB soft limit and large deploys are slow.</p>`,
+    `<p>Not a ranking factor, but slow CI and a growing risk of hitting the Pages limit.</p>`,
+    `<p>Exclude <code>**/videos/**</code>, <code>**/downloads/**/_old/**</code> and <code>*.doc</code> from the copy, or move large media to Cloudflare R2 with a public bucket.</p>`);
+
+  add('F-28', 'low', 'perf', 'Security headers (Lighthouse best practices)', '',
+    `<p>No <code>Strict-Transport-Security</code>, <code>X-Content-Type-Options</code>, <code>Referrer-Policy</code> or <code>Content-Security-Policy</code>.</p>`,
+    `<p>Lighthouse best-practices score and basic hardening.</p>`,
+    `<p>Cloudflare Rules → Transform Rules → Response headers: add the four headers. HSTS comes with F-05.</p>`);
+
+  add('F-29', 'medium', 'geo', 'llms.txt is good but incomplete against the spec', '',
+    `<p><code>/llms.txt</code> exists (good: title, blockquote summary, About, Experience, Education, Skills, Projects, Domains, Statistics). Gaps: no links section pointing to canonical HTML pages (the spec expects Markdown link lists so agents can follow to detail content), website URL is <code>http://</code>, no "last updated" line, no ASCII name alias, statistics disagree with the page (F-19), no <code>llms-full.txt</code>, no Q&amp;A phrasing. GPTBot and ClaudeBot cannot fetch it (F-02).</p>`,
+    `<p>Agents that do read it get an unlinked summary with a stale number and cannot navigate to anything deeper.</p>`,
+    `<p>Rewrite per Appendix E: add a one-line identity sentence with name variants, a "Facts" list, a "Links" section (homepage sections and, later, detail pages, CV PDFs, GitHub, LinkedIn), a "Last updated" date, and publish <code>llms-full.txt</code> containing the full text of projects and experience generated from the JSON data at build time.</p>`);
+
+  add('F-30', 'medium', 'geo', 'No answer-ready content blocks', '',
+    `<p>The first visible paragraphs are marketing copy ("Transforming Ideas Into Digital Reality", "With 25+ years in technology, I've driven…"). There is no concise definitional sentence, no fact table, no FAQ.</p>`,
+    `<p>AI answers are built from short, self-contained statements. A page that opens with a definition ("X is a Y based in Z who does W") is quoted; a page that opens with a slogan is paraphrased or skipped.</p>`,
+    `<p>Add an "At a glance" block near the top (name with variants, title, location, years, current company, specialties, availability) and an FAQ section with 6 to 8 questions people actually ask ("Who is Muhammet Turşak?", "What does Tursoft build?", "Is Muhammet Turşak available for consulting?", "Which industries has he worked in?", "What is his experience with AI agents?"), marked up with <code>FAQPage</code>.</p>`);
+
+  add('F-31', 'medium', 'geo', 'Entity corroboration across the web', '',
+    `<p><code>sameAs</code> links exist only in <code>llms.txt</code>. LinkedIn, GitHub and Stack Overflow respond (200/301). The X link still uses <code>twitter.com</code>. There is no third-party page describing Tursoft, BestJobFinder or Account Manager for Claude.</p>`,
+    `<p>AI systems and Google's entity graph need independent sources that agree with the site before they trust it as the canonical description.</p>`,
+    `<p>Put <code>sameAs</code> into the Person schema (F-16) and <code>&lt;link rel="me"&gt;</code> tags; align the LinkedIn headline, GitHub profile README and Stack Overflow "About" with the site's one-sentence identity; link all of them back to <code>https://tursoft.net</code>; list Tursoft products on at least one independent directory (GitHub organization page, Product Hunt or Crunchbase).</p>`);
+
+  add('F-32', 'high', 'geo', '63 PDF, DOC and ZIP files are publicly crawlable, including old CVs', '',
+    `<p><code>src/assets/downloads/CV/_old/*.doc</code> (five old CV versions, including "CompleteEdition"), 39 PDFs and several ZIPs are copied to <code>dist</code> and served. Nothing excludes them in robots.txt and GitHub Pages cannot send <code>X-Robots-Tag</code>.</p>`,
+    `<p>Search engines index documents. AI crawlers ingest them and may quote a 2014 CV as current fact. Old CVs typically contain phone numbers, birth dates and addresses.</p>`,
+    `<p>Remove <code>_old</code> and anything you do not want public from the deploy (F-27). For the current CV PDFs, which should be found, keep them but add <code>Disallow: /assets/downloads/CV/_old/</code> and <code>Disallow: /assets/projects/*/downloads/</code> to robots.txt as a safety net. Optionally add a Cloudflare response header rule <code>X-Robots-Tag: noindex</code> for <code>*.doc</code> and <code>*.zip</code>.</p>
+     <div class="callout warn">Do not disallow <code>/data/</code> or <code>/assets/</code> wholesale: Googlebot needs those JSON and image files to render the page.</div>`);
+
+  add('F-33', 'low', 'geo', 'No analytics, so AI and search referrals cannot be measured', '',
+    `<p>No analytics script in the repo and no Cloudflare Web Analytics beacon in the served HTML.</p>`,
+    `<p>No way to see which fixes move traffic, or whether AI assistants send visitors.</p>`,
+    `<p>Enable Cloudflare Web Analytics (cookieless, no consent banner needed) or Plausible. Create a referrer segment for <code>chatgpt.com</code>, <code>perplexity.ai</code>, <code>claude.ai</code>, <code>copilot.microsoft.com</code> and <code>gemini.google.com</code> to track GEO outcomes.</p>`);
+
+  add('F-34', 'medium', 'geo', 'Personal data exposure in page text', 'Decide before prerendering',
+    `<p>Phone number and email are rendered as plain text in three places; <code>general.json</code> also carries a birth date (not rendered today).</p>`,
+    `<p>Not an SEO issue, but prerendering (F-01) will put these into static HTML that every crawler and scraper stores.</p>`,
+    `<p>Keep the email (it is in <code>llms.txt</code> anyway), consider obfuscating or removing the phone number, and never render the birth date. Do not add <code>birthDate</code> or <code>telephone</code> to the public schema.</p>`);
+
+  /* ---------------------------------------------------------------- plan */
+  const PHASES = [
+    { id: 0, name: 'Phase 0: Configuration only', when: 'Day 1, about 1 hour, no deploy needed', rows: [
+      { id: '0.1', action: 'Cloudflare → Security → Bots / AI Crawl Control: allow AI crawlers; disable Managed robots.txt and Content Signals', fixes: ['F-02'], verify: 'curl -A GPTBot https://tursoft.net/llms.txt → 200; robots.txt equals the repo file' },
+      { id: '0.2', action: 'Cloudflare → SSL/TLS: Always Use HTTPS on, HSTS on; Redirect Rule www → https://tursoft.net/$1 (301); GitHub Pages: Enforce HTTPS', fixes: ['F-05', 'F-28'], verify: 'curl -I http://tursoft.net/ → 301 to https; curl -I https://www.tursoft.net/ → 301 to https apex' },
+      { id: '0.3', action: 'Verify the domain in Google Search Console and Bing Webmaster Tools (DNS TXT); enable Cloudflare Crawler Hints (IndexNow)', fixes: ['F-06'], verify: 'Both consoles show the property; request indexing of /' },
+      { id: '0.4', action: 'Cloudflare Transform Rule for X-Content-Type-Options: nosniff and Referrer-Policy: strict-origin-when-cross-origin', fixes: ['F-28'], verify: 'curl -I shows the headers' }
+    ]},
+    { id: 1, name: 'Phase 1: Small code changes', when: 'Week 1, about 1 day', rows: [
+      { id: '1.1', action: 'Create public/og-image.jpg (1200×630); update OG and Twitter tags (Appendix B)', fixes: ['F-10'], verify: 'curl -I https://tursoft.net/og-image.jpg → 200; LinkedIn Post Inspector shows the image' },
+      { id: '1.2', action: 'Merge the positioning branch; set final title (with "Tursak"), description ≤ 155 chars, keep one fact set', fixes: ['F-12', 'F-19'], verify: 'View source shows the new title and description' },
+      { id: '1.3', action: 'Add icon links, apple-touch-icon.png, manifest.webmanifest, theme-color', fixes: ['F-13'], verify: '/apple-touch-icon.png and /manifest.webmanifest → 200' },
+      { id: '1.4', action: 'Add public/sitemap.xml; add Sitemap: and _old disallow lines to public/robots.txt (Appendix A)', fixes: ['F-04', 'F-32'], verify: '/sitemap.xml → 200; robots.txt contains the Sitemap line' },
+      { id: '1.5', action: 'Add JSON-LD @graph (Person, WebSite, ProfilePage) to index.html (Appendix B)', fixes: ['F-16'], verify: 'Rich Results Test reports Person and ProfilePage without errors' },
+      { id: '1.6', action: 'Nav items and hero CTA become <a href="#id">; descriptive h2s; static hero sub-line', fixes: ['F-08', 'F-17', 'F-18'], verify: 'Nav renders anchor elements; h2 text is descriptive in the DOM' },
+      { id: '1.7', action: 'statistics.json 20 → 25; general.json and llms.txt URLs to https; "also written Tursak" in About and llms.txt', fixes: ['F-19', 'F-29'], verify: 'grep for 20+ and http://tursoft.net returns nothing' },
+      { id: '1.8', action: 'Remove _old CVs and .doc files from src/assets or exclude them from viteStaticCopy', fixes: ['F-32', 'F-27'], verify: '/assets/downloads/CV/_old/ → 404' },
+      { id: '1.9', action: 'Enable Cloudflare Web Analytics', fixes: ['F-33'], verify: 'Beacon script present in the served HTML' }
+    ]},
+    { id: 2, name: 'Phase 2: Prerendering', when: 'Weeks 2 to 3, about 2 to 3 days', rows: [
+      { id: '2.1', action: 'Add scripts/prerender.mjs (Appendix C) and run it after vite build in deploy.yml', fixes: ['F-01', 'F-03', 'F-07', 'F-09', 'F-25'], verify: 'curl https://tursoft.net/ | grep -c "<h2" > 0' },
+      { id: '2.2', action: 'main.tsx: hydrateRoot when #root has children, else createRoot', fixes: ['F-01'], verify: 'No hydration errors in the console; no flash of empty content' },
+      { id: '2.3', action: 'Prerender mode (?prerender=1): ListViewer shows all items, Reveal renders revealed, dialog content rendered inline but visually collapsed', fixes: ['F-07', 'F-09'], verify: 'Prerendered HTML contains all 86 project titles' },
+      { id: '2.4', action: 'react-helmet-async with per-route title, description, canonical, OG; privacy page gets its own set', fixes: ['F-11', 'F-15'], verify: 'curl https://tursoft.net/privacy/amelbook | grep "<title>" shows the privacy title' },
+      { id: '2.5', action: 'Decide on phone number and birth date exposure before the first prerendered deploy', fixes: ['F-34'], verify: 'Static HTML contains only the data you chose to publish' }
+    ]},
+    { id: 3, name: 'Phase 3: Content architecture', when: 'Month 1 to 2', rows: [
+      { id: '3.1', action: 'Routes and pages for the major projects, 6 domains, services, FAQ, about; generated from JSON with slugs', fixes: ['F-20', 'F-30'], verify: 'Each route → 200 with its own title; Search Console page count grows' },
+      { id: '3.2', action: 'Per-page schema (SoftwareApplication, BreadcrumbList, FAQPage) and internal links between related entities', fixes: ['F-16', 'F-08'], verify: 'Rich Results Test on a project page and the FAQ page' },
+      { id: '3.3', action: 'Build-time sitemap and llms-full.txt generated from the same data', fixes: ['F-04', 'F-29'], verify: 'sitemap.xml lists every route; /llms-full.txt → 200' },
+      { id: '3.4', action: '"At a glance" block, FAQ section, "Last updated" footer with dateModified', fixes: ['F-21', 'F-30'], verify: 'First paragraph in the DOM is the identity sentence' },
+      { id: '3.5', action: 'Three case-study articles (Jengai AI CRM, AHIN HL7/FHIR, AI-enabled SDLC)', fixes: ['F-21'], verify: 'Articles indexed and listed in the sitemap' }
+    ]},
+    { id: 4, name: 'Phase 4: Performance', when: 'Parallel to phase 3, about 2 days', rows: [
+      { id: '4.1', action: 'React.lazy for Map, Timeline and all detail dialogs; manualChunks; remove unused deps', fixes: ['F-23'], verify: 'Initial JS under 120 KB gzipped in the build output' },
+      { id: '4.2', action: 'width/height, loading="lazy", decoding="async" on images; preload hero image; WebP via vite-imagetools', fixes: ['F-24'], verify: 'PageSpeed CLS under 0.1, LCP under 2.5 s' },
+      { id: '4.3', action: 'Cloudflare cache rules for hashed assets; exclude videos and ZIPs from the deploy', fixes: ['F-26', 'F-27'], verify: 'curl -I on index-*.js shows a long max-age' },
+      { id: '4.4', action: 'Run PageSpeed Insights (mobile and desktop) before and after', fixes: [], verify: 'Scores recorded in this report' }
+    ]},
+    { id: 5, name: 'Phase 5: GEO upkeep', when: 'Ongoing', rows: [
+      { id: '5.1', action: 'Align LinkedIn, GitHub README and Stack Overflow bio with the site identity sentence; link back to tursoft.net; rel="me"', fixes: ['F-31'], verify: 'All three profiles show the same title and link' },
+      { id: '5.2', action: 'Monthly: ask ChatGPT, Claude, Perplexity and Gemini "Who is Muhammet Turşak?" and "What is Tursoft?"; record cited sources; fix gaps at the source', fixes: ['F-30', 'F-31'], verify: 'Answers cite tursoft.net and state the correct role and years' },
+      { id: '5.3', action: 'Review AI referrer traffic and Search Console queries quarterly; add FAQ entries for real questions', fixes: ['F-33'], verify: 'Referrer segment exists in analytics' }
+    ]}
+  ];
+
+  /* -------------------------------------------------------------- verify */
+  const VERIFY = [
+    { title: 'Content visible without JavaScript (after phase 2)', code:
+`curl -s https://tursoft.net/ | grep -c "<h2"        # expect > 0` },
+    { title: 'Deep route and status codes', code:
+`curl -s -o /dev/null -w "%{http_code}\\n" https://tursoft.net/privacy/amelbook   # expect 200
+curl -s -o /dev/null -w "%{http_code}\\n" https://tursoft.net/sitemap.xml        # expect 200
+curl -s -o /dev/null -w "%{http_code}\\n" https://tursoft.net/og-image.jpg       # expect 200` },
+    { title: 'Redirects and HSTS', code:
+`curl -s -o /dev/null -w "%{http_code} %{redirect_url}\\n" http://tursoft.net/        # 301 https://tursoft.net/
+curl -s -o /dev/null -w "%{http_code} %{redirect_url}\\n" https://www.tursoft.net/   # 301 https://tursoft.net/
+curl -sI https://tursoft.net/ | grep -i strict-transport-security` },
+    { title: 'AI crawler access', code:
+`for ua in GPTBot ClaudeBot PerplexityBot OAI-SearchBot Google-Extended CCBot; do
+  printf "%-16s " $ua; curl -s -o /dev/null -w "%{http_code}\\n" -A "$ua" https://tursoft.net/llms.txt
+done                                                                  # expect 200 for all
+curl -s https://tursoft.net/robots.txt | grep -c "Cloudflare Managed"  # expect 0` },
+    { title: 'Structured data', code:
+`curl -s https://tursoft.net/ | grep -c 'application/ld+json'          # expect 1
+# then: https://search.google.com/test/rich-results?url=https://tursoft.net/
+# and:  https://validator.schema.org/` }
+  ];
+
+  /* ------------------------------------------------------------ appendix */
+  const APPENDIX = [
+    { id: 'appendix-a', title: 'A. robots.txt and sitemap.xml', intro: 'Do not disallow /data/ or /assets/ in general; the renderer needs them. The explicit Googlebot, Bingbot, Twitterbot and facebookexternalhit blocks in the current file are redundant and can go.', blocks: [
+      { label: 'public/robots.txt', code:
+`User-agent: *
+Allow: /
+Disallow: /assets/downloads/CV/_old/
+Disallow: /assets/projects/*/downloads/
+
+Sitemap: https://tursoft.net/sitemap.xml` },
+      { label: 'public/sitemap.xml (initial; generate from data in phase 3)', code:
+`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://tursoft.net/</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tursoft.net/privacy/amelbook</loc>
+    <lastmod>2026-03-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>` }
+    ]},
+    { id: 'appendix-b', title: 'B. head additions and JSON-LD', intro: 'Values reflect the pending positioning; adjust wording to the final fact set. Do not add birthDate or telephone to the public schema.', blocks: [
+      { label: 'index.html <head> additions', code:
+`<title>Muhammet Turşak (Tursak) | AI-Enabled Senior Software Architect</title>
+<meta name="description" content="Muhammet Turşak is a Senior Software Architect in Ankara, Turkey with 25+ years in .NET, Node.js, Azure and SaaS, now building with AI coding agents and agent teams. Founder of Tursoft." />
+<link rel="canonical" href="https://tursoft.net/" />
+
+<meta property="og:site_name" content="Muhammet Turşak" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content="https://tursoft.net/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Muhammet Turşak, Senior Software Architect" />
+<meta name="twitter:image" content="https://tursoft.net/og-image.jpg" />
+<meta name="twitter:creator" content="@muhammettursak" />
+
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#0b1020" />
+<link rel="me" href="https://github.com/tursoft" />
+<link rel="me" href="https://www.linkedin.com/in/tursoft/" />` },
+      { label: 'JSON-LD (place inside <script type="application/ld+json">…<\/script>)', code:
+`{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://tursoft.net/#person",
+      "name": "Muhammet Turşak",
+      "alternateName": ["Muhammet Tursak", "Muhammet TURŞAK"],
+      "givenName": "Muhammet",
+      "familyName": "Turşak",
+      "jobTitle": "Senior Software Architect",
+      "description": "Senior Software Architect with 25+ years of experience in .NET, Node.js, Azure and SaaS, building enterprise systems with AI coding agents and agent teams.",
+      "url": "https://tursoft.net/",
+      "image": "https://tursoft.net/og-image.jpg",
+      "email": "mailto:tursoft@gmail.com",
+      "address": { "@type": "PostalAddress", "addressLocality": "Ankara", "addressCountry": "TR" },
+      "nationality": { "@type": "Country", "name": "Turkey" },
+      "worksFor": { "@type": "Organization", "name": "Tursoft", "url": "https://tursoft.net/" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Middle East Technical University", "sameAs": "https://www.metu.edu.tr/" },
+      "knowsAbout": [
+        "Software architecture", ".NET", "Node.js", "Microsoft Azure", "React",
+        "AI coding agents", "Prompt engineering", "Context engineering",
+        "Healthcare IT", "HL7 FHIR", "Construction IT", "E-learning", "SaaS"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/tursoft/",
+        "https://github.com/tursoft",
+        "https://stackoverflow.com/users/1949367/muhammet-tur%C5%9Eak",
+        "https://x.com/muhammettursak"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://tursoft.net/#website",
+      "url": "https://tursoft.net/",
+      "name": "Muhammet Turşak",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://tursoft.net/#person" }
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://tursoft.net/#profilepage",
+      "url": "https://tursoft.net/",
+      "isPartOf": { "@id": "https://tursoft.net/#website" },
+      "mainEntity": { "@id": "https://tursoft.net/#person" },
+      "dateModified": "2026-10-27"
+    }
+  ]
+}` }
+    ]},
+    { id: 'appendix-c', title: 'C. prerender step', intro: 'App-side hooks for prerender mode: read the ?prerender flag once in lib/prerender.ts; ListViewer defaults showAll to it; Reveal starts revealed when it is set; Index.tsx sets document.body.dataset.prerenderReady = "1" after all repositories resolve. Hydration mismatches from the typewriter or animated counters only log warnings in React 18; render their static fallback until mounted.', blocks: [
+      { label: 'package.json', code:
+`"scripts": {
+  "build": "vite build && node scripts/prerender.mjs"
+},
+"devDependencies": {
+  "puppeteer": "^23.0.0",
+  "serve-handler": "^6.1.5"
+}` },
+      { label: 'scripts/prerender.mjs', code:
+`import { createServer } from "node:http";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import puppeteer from "puppeteer";
+import handler from "serve-handler";
+
+const dist = "dist";
+const routes = ["/", "/privacy/amelbook"];           // phase 3: push project/domain/skill routes here
+const port = 4173;
+
+const server = createServer((req, res) =>
+  handler(req, res, { public: dist, rewrites: [{ source: "**", destination: "/index.html" }] })
+);
+await new Promise((r) => server.listen(port, r));
+
+const browser = await puppeteer.launch({ args: ["--no-sandbox"] });
+for (const route of routes) {
+  const page = await browser.newPage();
+  await page.setViewport({ width: 1366, height: 12000 });   // tall viewport: every Reveal intersects
+  await page.goto(\`http://localhost:\${port}\${route}?prerender=1\`, { waitUntil: "networkidle0" });
+  await page.waitForSelector("[data-prerender-ready]", { timeout: 30000 });
+  const html = await page.content();
+  const out = route === "/" ? join(dist, "index.html") : join(dist, route, "index.html");
+  mkdirSync(dirname(out), { recursive: true });
+  writeFileSync(out, html);
+  console.log("prerendered", route, html.length, "bytes");
+  await page.close();
+}
+await browser.close();
+server.close();` },
+      { label: 'src/main.tsx', code:
+`import { createRoot, hydrateRoot } from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+
+const root = document.getElementById("root")!;
+if (root.hasChildNodes()) hydrateRoot(root, <App />);
+else createRoot(root).render(<App />);` }
+    ]},
+    { id: 'appendix-d', title: 'D. nav links', intro: 'Anchor elements keep the smooth scroll and active state while giving crawlers real links.', blocks: [
+      { label: 'Navigation.tsx', code:
+`{navItems.map((item) => (
+  <a
+    key={item.id}
+    href={\`#\${item.id}\`}
+    aria-current={activeSection === item.id ? "location" : undefined}
+    onClick={(e) => {
+      e.preventDefault();
+      scrollToSection(item.id);
+      history.replaceState(null, "", \`#\${item.id}\`);
+    }}
+    className={...}
+  >
+    {item.label}
+  </a>
+))}` }
+    ]},
+    { id: 'appendix-e', title: 'E. llms.txt skeleton (v2)', intro: 'Keep the existing Experience and Projects sections; add the identity line, facts, links, date and FAQ.', blocks: [
+      { label: 'public/llms.txt', code:
+`# Muhammet Turşak (Tursak) — AI-Enabled Senior Software Architect
+
+> Muhammet Turşak (also written Tursak) is a Senior Software Architect based in Ankara, Turkey,
+> with 25+ years of experience in .NET, Node.js, Azure and SaaS. He runs the software development
+> lifecycle with AI coding agents and designs agent teams. Founder of Tursoft; formerly Director of
+> Technology at Jengai and Gamyte (New York).
+
+Last updated: 2026-10-27
+
+## Facts
+- Name: Muhammet Turşak (Tursak, TURŞAK)
+- Title: Senior Software Architect, Director of Technology
+- Location: Ankara, Turkey (remote, international clients)
+- Experience: 25+ years; 50+ projects; 14 countries
+- Current: Founder, Tursoft (BestJobFinder, Account Manager for Claude)
+- Availability: consulting, architecture reviews, senior roles
+- Contact: tursoft@gmail.com
+
+## Links
+- [Homepage](https://tursoft.net/)
+- [About](https://tursoft.net/#about)
+- [Experience](https://tursoft.net/#experience)
+- [Projects](https://tursoft.net/#portfolio)
+- [Compact CV (PDF)](https://tursoft.net/assets/files/downloads/CV_MuhammetTursak_v56-compact.20260403.pdf)
+- [Detailed CV (PDF)](https://tursoft.net/assets/files/downloads/CV_MuhammetTursak_Detailed-v60.pdf)
+- [LinkedIn](https://www.linkedin.com/in/tursoft/) · [GitHub](https://github.com/tursoft) · [Stack Overflow](https://stackoverflow.com/users/1949367/muhammet-tur%C5%9Eak)
+- [Full content for LLMs](https://tursoft.net/llms-full.txt)
+
+## Experience
+(existing content)
+
+## Projects
+(existing content; one line each, link to detail pages once they exist)
+
+## FAQ
+- Who is Muhammet Turşak? …
+- What does Tursoft build? …
+- Is he available for consulting? …` }
+    ]}
+  ];
+
+  /* ------------------------------------------------------------- helpers */
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+  const byId = {};
+  F.forEach(f => { byId[f.id] = f; });
+  const planRefs = {};
+  PHASES.forEach(p => p.rows.forEach(r => r.fixes.forEach(id => { (planRefs[id] = planRefs[id] || []).push(r.id); })));
+  const stripTags = html => { const d = document.createElement('div'); d.innerHTML = html; return d.textContent || ''; };
+  F.forEach(f => { f.text = (f.id + ' ' + f.title + ' ' + f.sub + ' ' + stripTags(f.evidence + ' ' + f.impact + ' ' + f.fix)).toLowerCase(); });
+
+  function store(key, val) { try { if (val === undefined) return localStorage.getItem(key); localStorage.setItem(key, val); } catch (e) { return null; } }
+
+  function copyText(btn, text) {
+    const done = ok => { btn.dataset.state = ok ? 'done' : 'fail'; btn.textContent = ok ? 'Copied' : 'Select and copy'; setTimeout(() => { btn.dataset.state = ''; btn.textContent = 'Copy'; }, 1800); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => done(true), () => fallback());
+    } else fallback();
+    function fallback() {
+      const pre = btn.parentElement.querySelector('pre');
+      if (pre) { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+      let ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      done(ok);
+    }
+  }
+  function codeBlock(label, code) {
+    const wrap = document.createElement('div'); wrap.className = 'codeblock';
+    const pre = document.createElement('pre'); const c = document.createElement('code'); c.textContent = code; pre.appendChild(c);
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'copy'; btn.textContent = 'Copy';
+    btn.addEventListener('click', () => copyText(btn, code));
+    if (label) { const l = document.createElement('span'); l.className = 'label'; l.textContent = label; wrap.appendChild(l); }
+    wrap.appendChild(btn); wrap.appendChild(pre);
+    return wrap;
+  }
+  const fixLinks = ids => ids.length ? '<span class="fixref">' + ids.map(id => '<a href="#' + id + '" title="' + (byId[id] ? byId[id].title.replace(/"/g, '&quot;') : '') + '">' + id + '</a>').join(' ') + '</span>' : '<span class="muted">–</span>';
+
+  /* --------------------------------------------------------------- tiles */
+  const counts = {}; Object.keys(SEV).forEach(s => counts[s] = F.filter(f => f.sev === s));
+  const tiles = $('#tiles');
+  Object.keys(SEV).forEach(s => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'tile'; b.dataset.sev = s;
+    b.innerHTML = '<span class="n">' + counts[s].length + '</span><span class="l">' + SEV[s].label + '</span><span class="ids">' + counts[s].map(f => f.id).join(' · ') + '</span>';
+    b.addEventListener('click', () => { state.sev = new Set([s]); state.area = new Set(); $('#q').value = ''; state.q = ''; syncChips(); location.hash = 'findings'; render(); });
+    tiles.appendChild(b);
+  });
+  $('#tab-count').textContent = '(' + F.length + ')';
+
+  /* ------------------------------------------------------------ findings */
+  const state = { sev: new Set(), area: new Set(), q: '', open: new Set() };
+  const sevChips = $('#sev-chips'), areaChips = $('#area-chips');
+  Object.keys(SEV).forEach(s => {
+    const c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.dataset.sev = s; c.setAttribute('aria-pressed', 'false');
+    c.innerHTML = '<span class="dot"></span>' + SEV[s].label + ' <span class="cnt">' + counts[s].length + '</span>';
+    c.addEventListener('click', () => { toggle(state.sev, s); syncChips(); render(); });
+    sevChips.appendChild(c);
+  });
+  Object.keys(AREAS).forEach(a => {
+    const c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.dataset.area = a; c.setAttribute('aria-pressed', 'false');
+    c.innerHTML = AREAS[a] + ' <span class="cnt">' + F.filter(f => f.area === a).length + '</span>';
+    c.addEventListener('click', () => { toggle(state.area, a); syncChips(); render(); });
+    areaChips.appendChild(c);
+  });
+  function toggle(set, v) { if (set.has(v)) set.delete(v); else set.add(v); }
+  function syncChips() {
+    $$('.chip[data-sev]').forEach(c => c.setAttribute('aria-pressed', String(state.sev.has(c.dataset.sev))));
+    $$('.chip[data-area]').forEach(c => c.setAttribute('aria-pressed', String(state.area.has(c.dataset.area))));
+  }
+
+  const list = $('#findings');
+  const sorted = F.slice().sort((a, b) => SEV[a.sev].order - SEV[b.sev].order || a.id.localeCompare(b.id));
+  sorted.forEach(f => {
+    const art = document.createElement('article'); art.className = 'finding'; art.id = f.id; art.dataset.id = f.id; art.dataset.sev = f.sev; art.dataset.area = f.area;
+    const refs = planRefs[f.id] || [];
+    art.innerHTML =
+      '<button class="finding-head" type="button" aria-expanded="false" aria-controls="body-' + f.id + '">' +
+        '<span class="stripe"></span>' +
+        '<span class="fmeta"><span class="fid">' + f.id + '</span><span class="pill">' + SEV[f.sev].label + '</span></span>' +
+        '<span class="ftitle">' + f.title + (f.sub ? '<small>' + AREAS[f.area] + ' · ' + f.sub + '</small>' : '<small>' + AREAS[f.area] + '</small>') + '</span>' +
+        '<span class="chev" aria-hidden="true">▾</span>' +
+      '</button>' +
+      '<div class="finding-body" id="body-' + f.id + '" hidden>' +
+        '<div class="block wide"><h4>Evidence</h4>' + f.evidence + '</div>' +
+        '<div class="block"><h4>Impact</h4>' + f.impact + '</div>' +
+        '<div class="block wide"><h4>Fix</h4>' + f.fix + '</div>' +
+        '<div class="finding-foot"><a href="#' + f.id + '">Link to this finding</a>' +
+          (refs.length ? '<span class="planref">Action plan: ' + refs.map(r => '<a href="#plan" data-task="' + r + '">' + r + '</a>').join(' ') + '</span>' : '<span>Not yet scheduled in the plan</span>') +
+        '</div>' +
+      '</div>';
+    $('.finding-head', art).addEventListener('click', () => setOpen(f.id, !state.open.has(f.id)));
+    list.appendChild(art);
+  });
+  function setOpen(id, open) {
+    const art = document.getElementById(id); if (!art) return;
+    if (open) state.open.add(id); else state.open.delete(id);
+    art.classList.toggle('is-open', open);
+    $('.finding-head', art).setAttribute('aria-expanded', String(open));
+    $('.finding-body', art).hidden = !open;
+  }
+  function render() {
+    let shown = 0;
+    sorted.forEach(f => {
+      const ok = (!state.sev.size || state.sev.has(f.sev)) && (!state.area.size || state.area.has(f.area)) && (!state.q || f.text.indexOf(state.q) !== -1);
+      document.getElementById(f.id).hidden = !ok; if (ok) shown++;
+    });
+    $('#resultcount').textContent = shown + ' of ' + F.length + ' shown';
+    let empty = $('#findings-empty');
+    if (!shown) { if (!empty) { empty = document.createElement('div'); empty.id = 'findings-empty'; empty.className = 'empty'; empty.textContent = 'No findings match these filters.'; list.appendChild(empty); } }
+    else if (empty) empty.remove();
+  }
+  $('#q').addEventListener('input', e => { state.q = e.target.value.trim().toLowerCase(); if (state.q && currentView() !== 'findings') location.hash = 'findings'; render(); });
+  $('#expand-all').addEventListener('click', () => sorted.forEach(f => { if (!document.getElementById(f.id).hidden) setOpen(f.id, true); }));
+  $('#collapse-all').addEventListener('click', () => sorted.forEach(f => setOpen(f.id, false)));
+
+  /* ---------------------------------------------------------------- plan */
+  const PLAN_KEY = 'tursoft-seo-plan-progress';
+  let done = new Set(); try { done = new Set(JSON.parse(store(PLAN_KEY) || '[]')); } catch (e) { done = new Set(); }
+  const phasesEl = $('#phases');
+  PHASES.forEach(p => {
+    const sec = document.createElement('section'); sec.className = 'phase'; sec.id = 'phase-' + p.id; sec.dataset.phase = p.id;
+    sec.innerHTML =
+      '<div class="phase-head"><h3>' + p.name + '</h3><span class="when">' + p.when + '</span><div class="progress"><span class="ptext"></span><div class="bar"><span></span></div></div></div>' +
+      '<div class="table-wrap"><table><thead><tr><th><span class="muted">Done</span></th><th>#</th><th>Action</th><th>Fixes</th><th>Verify</th></tr></thead><tbody>' +
+      p.rows.map(r => {
+        const cid = 'task-' + r.id.replace('.', '-');
+        return '<tr id="row-' + r.id + '" data-task="' + r.id + '"><td><input type="checkbox" id="' + cid + '" data-task="' + r.id + '" aria-label="Done: ' + r.id + '"></td>' +
+          '<td class="idcell"><label for="' + cid + '">' + r.id + '</label></td><td class="action"><label for="' + cid + '">' + escapeHtml(r.action) + '</label></td>' +
+          '<td>' + fixLinks(r.fixes) + '</td><td class="small muted">' + escapeHtml(r.verify) + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
+    phasesEl.appendChild(sec);
+  });
+  function escapeHtml(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  $$('#phases input[type="checkbox"]').forEach(cb => {
+    cb.checked = done.has(cb.dataset.task);
+    cb.addEventListener('change', () => { if (cb.checked) done.add(cb.dataset.task); else done.delete(cb.dataset.task); store(PLAN_KEY, JSON.stringify(Array.from(done))); updateProgress(); });
+  });
+  function updateProgress() {
+    let total = 0, n = 0;
+    PHASES.forEach(p => {
+      const t = p.rows.length, d = p.rows.filter(r => done.has(r.id)).length; total += t; n += d;
+      const sec = $('#phase-' + p.id);
+      $('.ptext', sec).textContent = d + ' of ' + t;
+      const bar = $('.bar', sec); bar.classList.toggle('done', d === t); $('span', bar).style.width = (t ? d / t * 100 : 0) + '%';
+      p.rows.forEach(r => document.getElementById('row-' + r.id).classList.toggle('done', done.has(r.id)));
+    });
+    $('#overall-text').textContent = n + ' of ' + total + ' done';
+    const ob = $('#overall-bar'); ob.classList.toggle('done', n === total); $('span', ob).style.width = (total ? n / total * 100 : 0) + '%';
+  }
+  updateProgress();
+  const resetBtn = $('#reset-progress'); let armTimer = null;
+  resetBtn.addEventListener('click', () => {
+    if (resetBtn.dataset.armed !== 'true') { resetBtn.dataset.armed = 'true'; resetBtn.textContent = 'Click again to clear all ticks'; armTimer = setTimeout(disarm, 4000); return; }
+    done = new Set(); store(PLAN_KEY, '[]'); $$('#phases input[type="checkbox"]').forEach(cb => cb.checked = false); updateProgress(); disarm();
+  });
+  function disarm() { clearTimeout(armTimer); resetBtn.dataset.armed = 'false'; resetBtn.textContent = 'Reset progress'; }
+
+  /* -------------------------------------------------------------- verify */
+  const vb = $('#verify-blocks');
+  VERIFY.forEach(v => { const sec = document.createElement('div'); sec.className = 'section'; const h = document.createElement('h3'); h.textContent = v.title; sec.appendChild(h); sec.appendChild(codeBlock('', v.code)); vb.appendChild(sec); });
+
+  /* ------------------------------------------------------------ appendix */
+  const ab = $('#appendix-blocks');
+  APPENDIX.forEach(a => {
+    const sec = document.createElement('div'); sec.className = 'section'; sec.id = a.id;
+    const h = document.createElement('h3'); h.textContent = a.title; sec.appendChild(h);
+    if (a.intro) { const p = document.createElement('p'); p.className = 'callout'; p.textContent = a.intro; p.style.marginBottom = '12px'; sec.appendChild(p); }
+    const st = document.createElement('div'); st.className = 'stack';
+    a.blocks.forEach(b => st.appendChild(codeBlock(b.label, b.code)));
+    sec.appendChild(st); ab.appendChild(sec);
+  });
+
+  /* ------------------------------------------------------------- routing */
+  const VIEWS = ['overview', 'findings', 'plan', 'verify', 'appendix'];
+  function currentView() { return $('.view.is-active') ? $('.view.is-active').id.replace('view-', '') : 'overview'; }
+  function showView(v) {
+    VIEWS.forEach(name => { $('#view-' + name).classList.toggle('is-active', name === v); });
+    $$('.tab').forEach(t => { if (t.dataset.view === v) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current'); });
+  }
+  function route() {
+    const h = (location.hash || '#overview').slice(1);
+    if (/^F-\d{2}$/.test(h) && byId[h]) {
+      showView('findings');
+      if (document.getElementById(h).hidden) { state.sev.clear(); state.area.clear(); state.q = ''; $('#q').value = ''; syncChips(); render(); }
+      setOpen(h, true);
+      requestAnimationFrame(() => document.getElementById(h).scrollIntoView({ block: 'start', behavior: 'smooth' }));
+      return;
+    }
+    if (/^appendix-[a-f]$/.test(h)) { showView('appendix'); requestAnimationFrame(() => { const el = document.getElementById(h); if (el) el.scrollIntoView({ block: 'start', behavior: 'smooth' }); }); return; }
+    if (/^phase-\d$/.test(h)) { showView('plan'); requestAnimationFrame(() => { const el = document.getElementById(h); if (el) el.scrollIntoView({ block: 'start', behavior: 'smooth' }); }); return; }
+    showView(VIEWS.indexOf(h) !== -1 ? h : 'overview');
+    window.scrollTo({ top: 0 });
+  }
+  window.addEventListener('hashchange', route);
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[data-task]'); if (!a) return;
+    e.preventDefault(); location.hash = 'plan';
+    requestAnimationFrame(() => { const row = document.getElementById('row-' + a.dataset.task); if (row) { row.scrollIntoView({ block: 'center', behavior: 'smooth' }); row.style.outline = '2px solid var(--accent)'; setTimeout(() => row.style.outline = '', 1600); } });
+  });
+
+  /* --------------------------------------------------------------- theme */
+  const THEME_KEY = 'tursoft-seo-report-theme';
+  const themeBtn = $('#theme');
+  function applyTheme(t) {
+    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+    themeBtn.textContent = 'Theme: ' + (t === 'light' ? 'light' : t === 'dark' ? 'dark' : 'system');
+  }
+  let theme = store(THEME_KEY) || 'system'; applyTheme(theme);
+  themeBtn.addEventListener('click', () => { theme = theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system'; store(THEME_KEY, theme); applyTheme(theme); });
+
+  render();
+  route();
+})();
+</script>
+</body>
+</html>

@@ -7,10 +7,12 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AmelBookPrivacy from "./pages/AmelBookPrivacy";
 import BackgroundAnimation from "./components/BackgroundAnimation";
+import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
 
 const App = () => (
+  <HelmetProvider>
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <div className="dark">
@@ -28,6 +30,7 @@ const App = () => (
       </div>
     </TooltipProvider>
   </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;

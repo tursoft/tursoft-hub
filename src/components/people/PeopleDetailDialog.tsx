@@ -142,7 +142,7 @@ const PeopleDetailDialog: React.FC<PeopleDetailDialogProps> = ({
           {/* Logo/Photo */}
           {person.photoUrl && (
             <div className="absolute top-4 left-8 z-10 w-16 h-16">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={person.photoUrl} 
                 alt={`${person.title} photo`} 
                 className="w-full h-full object-cover rounded-full border-2 border-border"
@@ -288,7 +288,7 @@ const PeopleDetailDialog: React.FC<PeopleDetailDialogProps> = ({
                                 <div className="flex items-start gap-4">
                                   {logoPath && (
                                     <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                      <img 
+                                      <img loading="lazy" decoding="async" 
                                         src={logoPath} 
                                         alt={`${project.title} logo`} 
                                         className="w-full h-full object-contain p-1"
@@ -369,7 +369,7 @@ const PeopleDetailDialog: React.FC<PeopleDetailDialogProps> = ({
                                 <div className="flex items-start gap-4">
                                   {logoPath && (
                                     <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                      <img 
+                                      <img loading="lazy" decoding="async" 
                                         src={logoPath} 
                                         alt={`${company?.title} logo`} 
                                         className="w-full h-full object-contain p-1"

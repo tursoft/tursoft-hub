@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { isPrerender } from '@/lib/prerender';
 
 interface AnimatedCounterProps {
   end: number;
@@ -13,10 +14,10 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   suffix = '',
   className = ''
 }) => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(isPrerender ? end : 0);
   const [isVisible, setIsVisible] = useState(false);
   const countRef = useRef<HTMLSpanElement>(null);
-  const hasAnimated = useRef(false);
+  const hasAnimated = useRef(isPrerender);
 
   useEffect(() => {
     const currentRef = countRef.current;
@@ -71,7 +72,7 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
 
   return (
     <span ref={countRef} className={className}>
-      {count}{suffix}
+      {isPrerender ? end : count}{suffix}
     </span>
   );
 };

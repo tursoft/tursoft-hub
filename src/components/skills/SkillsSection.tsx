@@ -83,7 +83,7 @@ const SkillsSection = () => {
           isLoading={isLoading}
           loadingMessage="Loading skills..."
           emptyMessage="No skills found."
-          title='Technical<span class="text-primary bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Skills</span>'
+          title='Technical Skills:<span class="text-primary bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">.NET, Node.js, Cloud and AI Agents</span>'
           subtitle="A comprehensive overview of the programming languages, frameworks, databases and tools I've mastered throughout my career, and the AI and agentic engineering stack I build with today"
           defaultViewMode="cloud"
           enabledModes={['cloud', 'small-card', 'card', 'list']}
@@ -116,7 +116,7 @@ const SkillsSection = () => {
             <div className="h-full rounded-xl border border-border bg-card p-5">
               <div className="flex items-center gap-3 mb-4">
                 {skill.icon && (
-                  <img src={skill.icon} alt="" className="w-12 h-12 object-contain flex-shrink-0" />
+                  <img loading="lazy" decoding="async" src={skill.icon} alt="" className="w-12 h-12 object-contain flex-shrink-0" />
                 )}
                 <div className="min-w-0">
                   <h3 className="font-bold leading-tight truncate">{skill.title}</h3>

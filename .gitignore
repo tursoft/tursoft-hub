@@ -25,3 +25,6 @@ dist-ssr
 
 # Brainstorm visual companion sessions
 .superpowers/
+
+# Build caches (prerender SPA shell)
+.cache/

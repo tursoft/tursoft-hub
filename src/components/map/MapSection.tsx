@@ -75,7 +75,7 @@ L.Icon.Default.mergeOptions({
 // Create custom icons for different marker types
 const createIcon = (color: string, type: string, logoUrl?: string) => {
   const logoHtml = logoUrl 
-    ? `<img src="${logoUrl}" alt="logo" style="width: 30px; height: 30px; border-radius: 10%; object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    ? `<img loading="lazy" decoding="async" src="${logoUrl}" alt="logo" style="width: 30px; height: 30px; border-radius: 10%; object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
        <span style="display: none; font-size: 10px; color: white; font-weight: bold;">${type.charAt(0).toUpperCase()}</span>`
     : `<span style="font-size: 10px; color: white; font-weight: bold;">${type.charAt(0).toUpperCase()}</span>`
 
@@ -322,7 +322,7 @@ function HoverMarker({
         <div className="p-2 bg-background text-foreground rounded-lg relative">
           {marker.logo && (
             <div className="absolute top-2 right-2 w-12 h-12 flex-shrink-0">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={marker.logo}
                 alt={`${marker.title} logo`}
                 className="w-full h-full object-contain rounded"
@@ -657,8 +657,8 @@ export default function MapSection() {
         <div className="text-center mb-12">
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Global Presence</Badge>
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Global
-            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Footprint</span>
+            Global Footprint:
+            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Projects in 14 Countries</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Explore the worldwide locations of companies I've worked with, institutions where I've studied, 
@@ -725,6 +725,8 @@ export default function MapSection() {
                     variant={viewMode === 'map' ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setViewMode('map')}
+                    aria-label="Map view"
+                    aria-pressed={viewMode === 'map'}
                     className="flex items-center"
                   >
                     <Map className="w-4 h-4" />
@@ -741,6 +743,8 @@ export default function MapSection() {
                     variant={viewMode === 'grid' ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setViewMode('grid')}
+                    aria-label="Grid view"
+                    aria-pressed={viewMode === 'grid'}
                     className="flex items-center"
                   >
                     <Grid className="w-4 h-4" />
@@ -849,7 +853,7 @@ export default function MapSection() {
                         <TableCell className="font-medium">
                           <div className="flex items-center gap-3">
                             {logoUrl ? (
-                              <img 
+                              <img loading="lazy" decoding="async" 
                                 src={logoUrl}
                                 alt={`${item.title} logo`}
                                 className="w-6 h-6 object-contain rounded flex-shrink-0"

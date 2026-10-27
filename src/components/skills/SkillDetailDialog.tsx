@@ -273,7 +273,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
           {/* Logo */}
           {logoPath && (
             <div className="absolute top-4 left-4 z-10 w-16 h-16">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={logoPath} 
                 alt={`${skill.title} logo`} 
                 className="w-full h-full object-contain rounded-lg"

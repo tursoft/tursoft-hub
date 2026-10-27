@@ -16,7 +16,7 @@
     "address_short": "Ankara, Turkey",
     "email": "tursoft@gmail.com",
     "mobilephone": "+90 554 200 78 29",
-    "website": "http://tursoft.net",
+    "website": "https://tursoft.net",
     "positions": [
       {
         "name": "AI-Enabled Software Architect",
@@ -47,7 +47,7 @@
       {
         "code": "website",
         "isactive": false,
-        "value": "http://www.tursoft.net"
+        "value": "https://tursoft.net"
       },
       {
         "code": "email",
@@ -74,7 +74,7 @@
       },
       {
         "code": "twitter",
-        "value": "https://twitter.com/muhammettursak"
+        "value": "https://x.com/muhammettursak"
       },
       {
         "code": "facebook",
