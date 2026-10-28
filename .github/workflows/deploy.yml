@@ -62,7 +62,11 @@ jobs:
           test -f dist/privacy/amelbook/index.html
           test -f dist/privacy/amelbook/en/index.html
           test -f dist/case-studies/index.html
-          grep -q '__PRERENDER_STATE__' dist/index.html
+          # Hydration state: small pages embed it inline as <script id="__PRERENDER_STATE__">;
+          # the homepage's is large, so it ships as state.json named by <meta name="prerender-state">.
+          grep -q 'name="prerender-state"' dist/index.html
+          test -s dist/state.json
+          grep -q '__PRERENDER_STATE__' dist/case-studies/index.html
           grep -q 'application/ld+json' dist/index.html
           grep -q '<h2' dist/index.html
 
