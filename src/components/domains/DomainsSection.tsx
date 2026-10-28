@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { domainsRepo } from '@/repositories/DomainsRepo';
 import type { Domain, DomainsData } from '@/models/Domain';
 import DomainDetailDialog from './DomainDetailDialog';
+import { DomainIcon } from './DomainIcon';
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog';
 import ProjectDetailDialog from '../projects/ProjectDetailDialog';
 import type { Experience } from '@/models/Experience';
@@ -94,20 +95,8 @@ const DomainsSection = () => {
               >
                 <CardContent className="pt-6">
                   <div className="flex flex-col items-center text-center space-y-4">
-                    {/* Domain Icon/Image */}
-                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors overflow-hidden">
-                      {domain.photoUrl ? (
-                        <img loading="lazy" decoding="async" 
-                          src={domain.photoUrl} 
-                          alt={`${domain.title} icon`}
-                          className="w-12 h-12 object-contain"
-                        />
-                      ) : (
-                        <div className="text-2xl font-bold text-primary">
-                          {domain.title?.charAt(0) || '?'}
-                        </div>
-                      )}
-                    </div>
+                    {/* Domain Icon */}
+                    <DomainIcon code={domain.code} title={domain.title} photoUrl={domain.photoUrl} />
                     <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                       {domain.title}
                     </h3>

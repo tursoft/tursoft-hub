@@ -24,7 +24,7 @@ const AboutSection = () => {
     {
       icon: Award,
       title: "Enterprise Architecture",
-      description: ".NET, Node.js, cloud and SaaS systems built for scale, security and extensibility"
+      description: ".NET, Node.js, Cloud, SaaS"
     }
   ];
 

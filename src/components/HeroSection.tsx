@@ -95,7 +95,7 @@ const HeroSection = () => {
 
           {/* Static positioning line: crawlers and screen readers get the full statement */}
           <p className="text-base lg:text-lg text-foreground/85 mb-3 font-medium tracking-wide">
-            {PERSON.headline} · {PERSON.yearsOfExperience} years in .NET, Node.js, cloud and SaaS · {PERSON.location.city}, {PERSON.location.country}
+            {PERSON.headline} · {PERSON.yearsOfExperience} years
           </p>
 
           {/* Rotating role */}

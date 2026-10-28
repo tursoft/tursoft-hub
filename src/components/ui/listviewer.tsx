@@ -1,10 +1,12 @@
-import { useState, useRef, ReactNode, useMemo, useCallback, type ReactElement } from "react";
+import { useState, useRef, useEffect, ReactNode, useMemo, useCallback, type ReactElement } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronLeft, ChevronRight, Grid, List, RotateCcw, Grid3x3, Filter, Search, Orbit } from "lucide-react";
 import { ItemCloud } from "@/components/ui/item-cloud";
+import { cn } from "@/lib/utils";
+import { isPrerender } from "@/lib/prerender";
 
 /** Data-driven descriptions may contain target=_blank links; make sure they carry rel=noopener. */
 const withSafeLinks = (html: string) =>
@@ -91,6 +93,9 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   carouselHeight?: string;
   carouselCardWidth?: string;
   carouselCardHeight?: string;
+  carouselCardClassName?: string; // Replaces the default card surface classes in carousel view
+  carouselAutoplayMs?: number; // Advances the carousel while on screen and not hovered; 0 disables
+  carouselLabel?: string; // Accessible name of the carousel region
   
   // Grid settings
   gridCols?: {
@@ -103,6 +108,7 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   // Image styling
   imageRounded?: boolean; // If true, images will use rounded-full (circular)
   smallCardImageClassName?: string; // Size classes for the image in small-card view (default fills the cell)
+  smallCardGridClassName?: string; // Grid classes for the small-card view
 
   // Cloud (3D sphere) view
   cloudWeight?: (item: T) => number; // Relative weight used to size items in cloud view
@@ -155,9 +161,13 @@ const ListViewer = <T = any>({
   carouselHeight = '500px',
   carouselCardWidth = '36rem',
   carouselCardHeight = '28rem',
+  carouselCardClassName,
+  carouselAutoplayMs = 0,
+  carouselLabel = 'Items',
   gridCols = { sm: 1, md: 2, lg: 3, xl: 4 },
   imageRounded = false,
   smallCardImageClassName = 'w-full h-full',
+  smallCardGridClassName = 'grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-8 gap-4',
   cloudWeight,
   cloudHeight = 560,
   cloudHoverContent,
@@ -179,6 +189,10 @@ const ListViewer = <T = any>({
   const [searchText, setSearchText] = useState<string>('');
   const [showFilters, setShowFilters] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [stageWidth, setStageWidth] = useState(0);
+  const [carouselPaused, setCarouselPaused] = useState(false);
+  const [carouselInView, setCarouselInView] = useState(false);
+  const swipeRef = useRef<{ x: number; y: number; swiped: boolean } | null>(null);
 
   // Helper to get field value
   const getFieldValue = useCallback((item: T, field: string | ((item: T) => string) | undefined): string => {
@@ -287,38 +301,116 @@ const ListViewer = <T = any>({
     index >= collapseLimit ? renderCollapsed(item) : render(item, index);
   const hasMore = enableShowMore && visibleMajorItemCount && filteredData.length > visibleMajorItemCount;
 
-  // Carousel navigation
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === data.length - 1 ? 0 : prev + 1));
-  };
+  // Carousel navigation (over the filtered list, so category filters apply here too)
+  const slideCount = filteredData.length;
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (slideCount === 0 ? 0 : (prev + 1) % slideCount));
+  }, [slideCount]);
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prev) => (slideCount === 0 ? 0 : (prev - 1 + slideCount) % slideCount));
+  }, [slideCount]);
+  const goToSlide = (index: number) => setCurrentIndex(index);
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? data.length - 1 : prev - 1));
-  };
+  // Keep the active slide valid when a filter shrinks the list
+  useEffect(() => {
+    if (slideCount > 0 && currentIndex >= slideCount) setCurrentIndex(0);
+  }, [currentIndex, slideCount]);
 
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
+  // Measure the stage so the card width and slide spacing fit the viewport. The width starts
+  // at 0 (default geometry) so the prerendered HTML and the hydrating client render the same.
+  const isCarousel = viewMode === 'carousel';
+  useEffect(() => {
+    const stage = containerRef.current;
+    if (!isCarousel || !stage || typeof ResizeObserver === 'undefined') return;
+    const measure = () => setStageWidth(stage.clientWidth);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, [isCarousel]);
 
-  // Carousel transform calculation
-  const getCardTransform = (index: number) => {
-    const offset = index - currentIndex;
-    const isActive = offset === 0;
+  // Autoplay runs only while the stage is on screen, not hovered or focused, the tab is
+  // visible and the visitor has not asked for reduced motion. Never during prerender.
+  useEffect(() => {
+    const stage = containerRef.current;
+    if (!isCarousel || !carouselAutoplayMs || isPrerender || slideCount < 2 || !stage) return;
+    if (typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(([entry]) => setCarouselInView(entry.isIntersecting), { threshold: 0.4 });
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, [isCarousel, carouselAutoplayMs, slideCount]);
+
+  useEffect(() => {
+    if (!isCarousel || !carouselAutoplayMs || isPrerender || slideCount < 2) return;
+    if (!carouselInView || carouselPaused) return;
+    if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = window.setInterval(() => {
+      if (document.visibilityState === 'visible') nextSlide();
+    }, carouselAutoplayMs);
+    return () => window.clearInterval(id);
+    // currentIndex is a dependency on purpose: a manual change restarts the countdown
+  }, [isCarousel, carouselAutoplayMs, slideCount, carouselInView, carouselPaused, nextSlide, currentIndex]);
+
+  const toPx = (value: string) => {
+    const match = /^([\d.]+)\s*(px|rem|em)?$/.exec(value.trim());
+    if (!match) return 576;
+    const n = parseFloat(match[1]);
+    return match[2] === 'rem' || match[2] === 'em' ? n * 16 : n;
+  };
+  const baseCardWidth = toPx(carouselCardWidth);
+  const cardWidth = stageWidth > 0 ? Math.min(baseCardWidth, stageWidth - 32) : baseCardWidth;
+  const slideSpacing = cardWidth + 16;
+
+  // Carousel transform: the active card centred, its neighbours fanned back in 3D
+  const getCardTransform = (index: number): React.CSSProperties => {
+    let offset = index - currentIndex;
+    // Wrap around so the first slide shows the last one on its left, and vice versa
+    if (offset > slideCount / 2) offset -= slideCount;
+    else if (offset < -slideCount / 2) offset += slideCount;
     const distance = Math.abs(offset);
-    
-    if (distance > 2) return { transform: 'scale(0)', opacity: '0', display: 'none' };
-    
-    const translateX = offset * 590;
-    const rotateY = isActive ? 0 : offset > 0 ? -25 : 25;
-    const scale = isActive ? 1 : 0.8 - (distance * 0.1);
-    const zIndex = isActive ? 10 : 10 - distance;
-    const opacity = isActive ? 1 : 0.6 - (distance * 0.2);
-    
+    if (distance > 2) return { transform: 'scale(0)', opacity: 0, display: 'none' };
+    const direction = offset > 0 ? -1 : 1;
+    const scale = distance === 0 ? 1 : distance === 1 ? 0.86 : 0.72;
+    const rotateY = distance === 0 ? 0 : direction * (distance === 1 ? 14 : 22);
+    const opacity = distance === 0 ? 1 : distance === 1 ? 0.55 : 0.25;
     return {
-      transform: `translateX(${translateX}px) rotateY(${rotateY}deg) scale(${scale})`,
-      opacity: opacity.toString(),
-      zIndex: zIndex.toString(),
+      transform: `translateX(${offset * slideSpacing}px) rotateY(${rotateY}deg) scale(${scale})`,
+      opacity,
+      zIndex: 10 - distance,
     };
+  };
+
+  // Swipe on the stage (touch or mouse); a completed swipe swallows the click that follows it
+  const onStagePointerDown = (e: React.PointerEvent) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    swipeRef.current = { x: e.clientX, y: e.clientY, swiped: false };
+  };
+  const onStagePointerUp = (e: React.PointerEvent) => {
+    const start = swipeRef.current;
+    if (!start) return;
+    const dx = e.clientX - start.x;
+    const dy = e.clientY - start.y;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+      start.swiped = true;
+      if (dx < 0) nextSlide();
+      else prevSlide();
+    }
+  };
+  const onStageClickCapture = (e: React.MouseEvent) => {
+    if (swipeRef.current?.swiped) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    swipeRef.current = null;
+  };
+  const onStageKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      nextSlide();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      prevSlide();
+    }
   };
 
   // Grid column classes
@@ -587,8 +679,13 @@ const ListViewer = <T = any>({
       return (
         <Card 
           key={code}
-          className="absolute border-border bg-card cursor-pointer transition-all duration-500 ease-in-out flex flex-col"
-          style={{ ...cardStyle, width: carouselCardWidth, height: carouselCardHeight }}
+          className={cn(
+            'absolute cursor-pointer transition-all duration-500 ease-out flex flex-col',
+            carouselCardClassName ?? 'border-border bg-card',
+            index === currentIndex && 'is-active',
+          )}
+          style={{ ...cardStyle, width: `min(${baseCardWidth}px, calc(100% - 2rem))`, height: carouselCardHeight }}
+          aria-hidden={index !== currentIndex || undefined}
           onClick={() => {
             if (index === currentIndex) {
               onItemClick?.(item);
@@ -605,8 +702,13 @@ const ListViewer = <T = any>({
     return (
       <Card 
         key={code}
-        className="absolute border-border bg-card cursor-pointer transition-all duration-500 ease-in-out flex flex-col"
-        style={{ ...cardStyle, width: carouselCardWidth, height: carouselCardHeight }}
+        className={cn(
+          'absolute cursor-pointer transition-all duration-500 ease-out flex flex-col',
+          carouselCardClassName ?? 'border-border bg-card',
+          index === currentIndex && 'is-active',
+        )}
+        style={{ ...cardStyle, width: `min(${baseCardWidth}px, calc(100% - 2rem))`, height: carouselCardHeight }}
+        aria-hidden={index !== currentIndex || undefined}
         onClick={() => {
           if (index === currentIndex) {
             onItemClick?.(item);
@@ -889,7 +991,7 @@ const ListViewer = <T = any>({
         {/* Small Cards View */}
         {viewMode === 'small-card' && (
           <>
-            <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-8 gap-4">
+            <div className={smallCardGridClassName}>
               {filteredData.map((item, index) => withCollapse(item, index, renderSmallCard))}
             </div>
             {hasMore && (
@@ -951,58 +1053,78 @@ const ListViewer = <T = any>({
         {viewMode === 'carousel' && (
           <div className="relative max-w-6xl mx-auto">
             {/* Navigation Buttons */}
-            {data.length > 1 && (
+            {slideCount > 1 && (
               <>
                 <button
+                  type="button"
                   onClick={prevSlide}
-                  aria-label="Previous items"
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                  aria-label="Previous"
+                  className="carousel-nav left-1 sm:left-3"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button
+                  type="button"
                   onClick={nextSlide}
-                  aria-label="Next items"
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-background border border-border rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                  aria-label="Next"
+                  className="carousel-nav right-1 sm:right-3"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <ChevronRight className="w-5 h-5" />
                 </button>
               </>
             )}
 
-            {/* Carousel Container */}
-            <div 
+            {/* Stage */}
+            <div
               ref={containerRef}
-              className="relative flex items-center justify-center overflow-hidden"
-              style={{ perspective: '1000px', height: carouselHeight }}
+              role="region"
+              aria-roledescription="carousel"
+              aria-label={carouselLabel}
+              tabIndex={0}
+              className="carousel-stage relative flex items-center justify-center overflow-hidden rounded-2xl"
+              style={{ perspective: '1200px', height: carouselHeight }}
+              onPointerDown={onStagePointerDown}
+              onPointerUp={onStagePointerUp}
+              onPointerCancel={() => {
+                swipeRef.current = null;
+              }}
+              onClickCapture={onStageClickCapture}
+              onKeyDown={onStageKeyDown}
+              onMouseEnter={() => setCarouselPaused(true)}
+              onMouseLeave={() => setCarouselPaused(false)}
+              onFocus={() => setCarouselPaused(true)}
+              onBlur={() => setCarouselPaused(false)}
             >
-              {data.map((item, index) => renderCarouselItem(item, index))}
+              {filteredData.map((item, index) => renderCarouselItem(item, index))}
             </div>
 
-            {/* Dot Indicators */}
-            {data.length > 1 && (
-              <div className="flex justify-center mt-8 gap-3">
-                {data.map((item, index) => {
-                  const code = getFieldValue(item, fieldMapping.code);
-                  return (
-                    <button
-                      key={`dot-${code}`}
-                      onClick={() => goToSlide(index)}
-                      aria-label={`Go to slide ${index + 1}`}
-                      aria-current={index === currentIndex ? "true" : undefined}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                        index === currentIndex
-                          ? "bg-primary"
-                          : "bg-border hover:bg-primary/50"
-                      }`}
-                    />
-                  );
-                })}
+            {/* Indicators */}
+            {slideCount > 1 && (
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+                <div className="flex flex-wrap justify-center gap-1.5" role="tablist" aria-label="Slides">
+                  {filteredData.map((item, index) => {
+                    const code = getFieldValue(item, fieldMapping.code);
+                    const active = index === currentIndex;
+                    return (
+                      <button
+                        key={`dot-${code}`}
+                        type="button"
+                        role="tab"
+                        onClick={() => goToSlide(index)}
+                        aria-label={`Slide ${index + 1}: ${getFieldValue(item, fieldMapping.title)}`}
+                        aria-selected={active}
+                        className={cn('carousel-dot', active && 'is-active')}
+                      />
+                    );
+                  })}
+                </div>
+                <span className="text-xs tabular-nums text-muted-foreground">
+                  {currentIndex + 1} / {slideCount}
+                </span>
               </div>
             )}
           </div>
         )}
-
         </div>
         </div>
 
