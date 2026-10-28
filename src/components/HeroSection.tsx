@@ -7,14 +7,28 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useEffect, useRef, useState } from "react";
 import Typewriter from "@/components/ui/typewriter";
 import { PERSON } from "@/lib/site";
+import { scrollToSection } from "@/lib/section-settle";
 
-// Served unhashed from /assets so the prerendered page can preload it as the LCP image.
-const heroImage = "/assets/hero-bg.jpg";
+// Decorative background (30% opacity), served unhashed from /assets.
+const heroImage = "/assets/hero-bg.webp";
 import cvData from "@/data/cv.json";
 
 const HeroSection = () => {
+  // The hero's ambient animations (aurora, gradient name, typewriter) are about half of the
+  // page's main-thread work; pause them while the hero is scrolled out of view.
+  const heroRef = useRef<HTMLElement | null>(null);
+  const [inView, setInView] = useState(true);
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   const socialLinks = [{
     icon: Github,
     href: "https://github.com/tursoft",
@@ -42,7 +56,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section id="hero" className="min-h-screen relative flex items-center justify-center overflow-hidden">
+    <section ref={heroRef} id="hero" data-paused={inView ? undefined : ""} className="min-h-screen relative flex items-center justify-center overflow-hidden">
       {/* Background photo, kept very subtle under the aurora */}
       <div
         className="absolute inset-0 opacity-30"
@@ -63,7 +77,7 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-20 container mx-auto px-6 text-center">
-        <div className="max-w-4xl mx-auto animate-fade-in">
+        <div className="max-w-4xl mx-auto hero-rise">
           {/* Availability badge */}
           <Badge className="mb-8 px-4 py-2 text-xs font-semibold glass text-foreground border-success/30 hover:border-success/60 hover:scale-105 transition-all duration-300">
             <span className="relative flex h-2.5 w-2.5 mr-2">
@@ -86,7 +100,7 @@ const HeroSection = () => {
 
           {/* Rotating role */}
           <p className="text-xl lg:text-2xl text-muted-foreground mb-8 font-light min-h-[2.25rem]">
-            <Typewriter phrases={roles} className="text-foreground/90" />
+            <Typewriter phrases={roles} className="text-foreground/90" paused={!inView} />
           </p>
 
           {/* Description */}
@@ -105,7 +119,7 @@ const HeroSection = () => {
                 href="#portfolio"
                 onClick={(e) => {
                   e.preventDefault();
-                  document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" });
+                  scrollToSection("portfolio");
                 }}
               >
                 View My Portfolio
@@ -158,7 +172,7 @@ const HeroSection = () => {
       {/* Scroll Indicator */}
       <button
         className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer"
-        onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+        onClick={() => scrollToSection("about")}
         aria-label="Scroll to About section"
       >
         <div className="w-6 h-10 border-2 border-primary/60 rounded-full flex justify-center hover:border-primary transition-colors duration-300">

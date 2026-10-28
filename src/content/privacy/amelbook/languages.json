@@ -1,0 +1,12 @@
+[
+  { "code": "tr", "flag": "tr", "name": "Türkçe", "appName": "Amel Defteri", "rtl": false, "locale": "tr_TR" },
+  { "code": "en", "flag": "gb", "name": "English", "appName": "AmelBook", "rtl": false, "locale": "en_US" },
+  { "code": "ar", "flag": "sa", "name": "العربية", "appName": "AmelBook", "rtl": true, "locale": "ar_SA" },
+  { "code": "bn", "flag": "bd", "name": "বাংলা", "appName": "AmelBook", "rtl": false, "locale": "bn_BD" },
+  { "code": "de", "flag": "de", "name": "Deutsch", "appName": "AmelBook", "rtl": false, "locale": "de_DE" },
+  { "code": "es", "flag": "es", "name": "Español", "appName": "AmelBook", "rtl": false, "locale": "es_ES" },
+  { "code": "fr", "flag": "fr", "name": "Français", "appName": "AmelBook", "rtl": false, "locale": "fr_FR" },
+  { "code": "id", "flag": "id", "name": "Indonesia", "appName": "AmelBook", "rtl": false, "locale": "id_ID" },
+  { "code": "ms", "flag": "my", "name": "Melayu", "appName": "AmelBook", "rtl": false, "locale": "ms_MY" },
+  { "code": "ur", "flag": "pk", "name": "اردو", "appName": "AmelBook", "rtl": true, "locale": "ur_PK" }
+]

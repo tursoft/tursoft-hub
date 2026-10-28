@@ -1,6 +1,13 @@
 import { Helmet } from "react-helmet-async";
 import { OG_IMAGE, OG_IMAGE_ALT, SITE_NAME, SITE_URL, TWITTER_HANDLE } from "@/lib/site";
 
+export interface SeoAlternate {
+  /** BCP 47 language code, or "x-default". */
+  hrefLang: string;
+  /** Absolute URL of that language version. */
+  href: string;
+}
+
 interface SeoProps {
   /** Full document title. */
   title: string;
@@ -11,6 +18,10 @@ interface SeoProps {
   type?: "website" | "article";
   image?: string;
   imageAlt?: string;
+  /** Open Graph locale, e.g. "en_US". */
+  locale?: string;
+  /** Language versions of this page (rendered as hreflang links). */
+  alternates?: SeoAlternate[];
   /** Marks the page noindex and omits the canonical (404 pages). */
   noindex?: boolean;
   /** One or more JSON-LD objects to embed. */
@@ -20,9 +31,20 @@ interface SeoProps {
 /**
  * Per-route head tags. Rendered through react-helmet-async so the prerender step
  * captures them into static HTML and crawlers see the right title, description,
- * canonical, social card and structured data for each URL.
+ * canonical, language alternates, social card and structured data for each URL.
  */
-const Seo = ({ title, description, path, type = "website", image, imageAlt, noindex = false, jsonLd }: SeoProps) => {
+const Seo = ({
+  title,
+  description,
+  path,
+  type = "website",
+  image,
+  imageAlt,
+  locale = "en_US",
+  alternates = [],
+  noindex = false,
+  jsonLd,
+}: SeoProps) => {
   const url = `${SITE_URL}${path}`;
   const img = image || OG_IMAGE;
   const alt = imageAlt || OG_IMAGE_ALT;
@@ -33,6 +55,9 @@ const Seo = ({ title, description, path, type = "website", image, imageAlt, noin
       <title>{title}</title>
       <meta name="description" content={description} />
       {noindex ? <meta name="robots" content="noindex, nofollow" /> : <link rel="canonical" href={url} />}
+      {alternates.map((a) => (
+        <link key={a.hrefLang} rel="alternate" hrefLang={a.hrefLang} href={a.href} />
+      ))}
 
       <meta property="og:type" content={type} />
       <meta property="og:url" content={url} />
@@ -43,7 +68,7 @@ const Seo = ({ title, description, path, type = "website", image, imageAlt, noin
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={alt} />
       <meta property="og:site_name" content={SITE_NAME} />
-      <meta property="og:locale" content="en_US" />
+      <meta property="og:locale" content={locale} />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content={TWITTER_HANDLE} />

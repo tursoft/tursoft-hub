@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import CustomerDetailDialog from './CustomerDetailDialog';
 import type { Customer, CustomerData } from '@/models/Customer';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
@@ -11,8 +12,8 @@ interface CustomerWithLogo extends Customer {
 }
 
 const CustomersSection = () => {
-  const [customers, setCustomers] = useState<CustomerWithLogo[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [customers, setCustomers] = useSnapshotState<CustomerWithLogo[]>('customers.customers', []);
+  const [isLoading, setIsLoading] = useSnapshotState('customers.isLoading', true);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -46,7 +47,7 @@ const CustomersSection = () => {
     };
 
     loadData();
-  }, []);
+  }, [setCustomers, setIsLoading]);
 
   // Get unique categories for statistics
   const categories = [...new Set(customers.map(c => c.category))];

@@ -305,6 +305,58 @@
 }
 
 @layer utilities {
+  /* ---------- List viewer: items past "Show All" stay in the HTML ---------- */
+  .lv-collapsed {
+    display: none !important;
+  }
+
+  /* ---------- Hero entrance: rises in without starting invisible, so the text counts as
+     painted from the first frame (it is the Largest Contentful Paint element) ---------- */
+  .hero-rise {
+    animation: hero-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes hero-rise {
+    from {
+      opacity: 0.35;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-rise {
+      animation: none;
+    }
+  }
+
+  /* ---------- Readable violet for small text and links on the dark background ---------- */
+  .text-primary-readable {
+    color: color-mix(in srgb, hsl(var(--primary)) 72%, white);
+  }
+
+  /* ---------- Hero ambient animations pause while the hero is off screen ---------- */
+  #hero[data-paused] *,
+  #hero[data-paused] *::before,
+  #hero[data-paused] *::after {
+    animation-play-state: paused !important;
+  }
+
+  /* ---------- Homepage sections: skip layout and paint until they near the viewport ---------- */
+  .section-boundary {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
+  }
+
+  /* After load (or before a jump to a section) every section is laid out at its real
+     size, so anchors land exactly; see src/lib/section-settle.ts. */
+  .cv-settled .section-boundary {
+    content-visibility: visible;
+  }
+
   /* ---------- Scroll Reveal ---------- */
   .reveal {
     opacity: 0;

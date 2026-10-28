@@ -1,7 +1,12 @@
 import { useState, useMemo, useRef, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { marked } from "marked";
 import bgImage from "@/assets/bg/bg-islami-assistant.png";
 import Seo from "@/components/Seo";
+import { SITE_URL } from "@/lib/site";
+import languages from "@/content/privacy/amelbook/languages.json";
+import NotFound from "./NotFound";
 
 import trMd from "@/content/privacy/amelbook/tr.md?raw";
 import enMd from "@/content/privacy/amelbook/en.md?raw";
@@ -14,32 +19,19 @@ import idMd from "@/content/privacy/amelbook/id.md?raw";
 import msMd from "@/content/privacy/amelbook/ms.md?raw";
 import urMd from "@/content/privacy/amelbook/ur.md?raw";
 
-const langs = [
-  { code: "tr", flag: "tr", name: "Türkçe", appName: "Amel Defteri", rtl: false },
-  { code: "en", flag: "gb", name: "English", appName: "AmelBook", rtl: false },
-  { code: "ar", flag: "sa", name: "العربية", appName: "AmelBook", rtl: true },
-  { code: "bn", flag: "bd", name: "বাংলা", appName: "AmelBook", rtl: false },
-  { code: "de", flag: "de", name: "Deutsch", appName: "AmelBook", rtl: false },
-  { code: "es", flag: "es", name: "Español", appName: "AmelBook", rtl: false },
-  { code: "fr", flag: "fr", name: "Français", appName: "AmelBook", rtl: false },
-  { code: "id", flag: "id", name: "Indonesia", appName: "AmelBook", rtl: false },
-  { code: "ms", flag: "my", name: "Melayu", appName: "AmelBook", rtl: false },
-  { code: "ur", flag: "pk", name: "اردو", appName: "AmelBook", rtl: true },
-] as const;
+interface Lang {
+  code: string;
+  flag: string;
+  name: string;
+  appName: string;
+  rtl: boolean;
+  locale: string;
+}
 
-const FlagImg = ({ code, label }: { code: string; label: string }) => (
-  <img loading="lazy" decoding="async"
-    src={`https://flagcdn.com/16x12/${code}.png`}
-    width={16}
-    height={12}
-    alt={label}
-    className="rounded-sm object-cover"
-  />
-);
+const LANGS = languages as Lang[];
+const DEFAULT_LANG = "tr";
 
-type LangCode = (typeof langs)[number]["code"];
-
-const content: Record<LangCode, string> = {
+const content: Record<string, string> = {
   tr: trMd,
   en: enMd,
   ar: arMd,
@@ -52,8 +44,36 @@ const content: Record<LangCode, string> = {
   ur: urMd,
 };
 
+/** Turkish is the default at /privacy/amelbook/; every other language has its own URL. */
+const privacyPath = (code: string) =>
+  code === DEFAULT_LANG ? "/privacy/amelbook/" : `/privacy/amelbook/${code}/`;
+
+/** Title from the first heading, description from the first paragraph of the Markdown. */
+function summarize(md: string) {
+  const lines = md.split(/\r?\n/).map((l) => l.trim());
+  const h1 = lines.find((l) => l.startsWith("# "))?.slice(2).trim() || "Privacy Policy";
+  const para = lines.find((l) => l && !/^[#*\->|]/.test(l)) || "";
+  const plain = para.replace(/\*\*|__|`/g, "").trim();
+  const description = plain.length > 155 ? `${plain.slice(0, 152).replace(/\s+\S*$/, "")}…` : plain;
+  return { h1, description };
+}
+
+// Decorative: the language name is always shown next to the flag.
+const FlagImg = ({ code }: { code: string; label?: string }) => (
+  <img
+    loading="lazy"
+    decoding="async"
+    src={`https://flagcdn.com/16x12/${code}.png`}
+    width={16}
+    height={12}
+    alt=""
+    className="rounded-sm object-cover"
+  />
+);
+
 const AmelBookPrivacy = () => {
-  const [lang, setLang] = useState<LangCode>("tr");
+  const { lang } = useParams();
+  const current = LANGS.find((l) => l.code === (lang ?? DEFAULT_LANG));
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -66,12 +86,15 @@ const AmelBookPrivacy = () => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  const current = langs.find((l) => l.code === lang)!;
+  const html = useMemo(() => (current ? (marked(content[current.code]) as string) : ""), [current]);
 
-  const html = useMemo(
-    () => marked(content[lang]) as string,
-    [lang]
-  );
+  if (!current) return <NotFound />;
+
+  const { h1, description } = summarize(content[current.code]);
+  const alternates = [
+    ...LANGS.map((l) => ({ hrefLang: l.code, href: `${SITE_URL}${privacyPath(l.code)}` })),
+    { hrefLang: "x-default", href: `${SITE_URL}${privacyPath("en")}` },
+  ];
 
   return (
     <div
@@ -84,19 +107,25 @@ const AmelBookPrivacy = () => {
       }}
     >
       <Seo
-        title="AmelBook Privacy Policy | Muhammet Turşak"
-        description="Privacy policy for the AmelBook (Amel Defteri) mobile app: data stays on your device, which permissions it requests and how to contact the developer."
-        path="/privacy/amelbook/"
+        title={`${h1} | ${current.appName}`}
+        description={description}
+        path={privacyPath(current.code)}
         type="article"
+        locale={current.locale}
+        alternates={alternates}
       />
+      <Helmet htmlAttributes={{ lang: current.code, dir: current.rtl ? "rtl" : "ltr" }} />
+
       {/* dark overlay so text stays readable */}
       <div className="absolute inset-0 bg-background/60 pointer-events-none" />
       <div className="relative z-10 max-w-3xl mx-auto px-6 py-12">
         {/* App logo + name */}
         <div className="flex flex-col items-center gap-4 mb-8">
-          <img loading="lazy" decoding="async"
+          <img
             src="/assets/projects/_logos/amelbook.png"
             alt={current.appName}
+            width={112}
+            height={112}
             className="w-28 h-28 object-contain rounded-2xl"
           />
           <span className="text-2xl font-bold text-foreground">{current.appName}</span>
@@ -106,26 +135,32 @@ const AmelBookPrivacy = () => {
         <div className="flex justify-end mb-10" dir="ltr">
           <div ref={dropdownRef} className="relative">
             <button
+              type="button"
               onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-haspopup="true"
               className="flex items-center gap-2 bg-background/60 border border-border text-foreground text-sm rounded-lg px-3 py-1.5 cursor-pointer hover:border-primary/60 transition-colors"
             >
               <FlagImg code={current.flag} label={current.name} />
               <span>{current.name}</span>
-              <span className="text-muted-foreground text-xs ml-1">▾</span>
+              <span className="text-muted-foreground text-xs ml-1" aria-hidden="true">▾</span>
             </button>
             {open && (
               <ul className="absolute right-0 mt-1 w-44 bg-background border border-border rounded-lg shadow-lg overflow-hidden z-50">
-                {langs.map((l) => (
+                {LANGS.map((l) => (
                   <li key={l.code}>
-                    <button
-                      onClick={() => { setLang(l.code); setOpen(false); }}
+                    <Link
+                      to={privacyPath(l.code)}
+                      hrefLang={l.code}
+                      lang={l.code}
+                      onClick={() => setOpen(false)}
                       className={`w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-primary/10 transition-colors ${
-                        lang === l.code ? "text-primary font-medium" : "text-foreground"
+                        current.code === l.code ? "text-primary font-medium" : "text-foreground"
                       }`}
                     >
                       <FlagImg code={l.flag} label={l.name} />
                       <span>{l.name}</span>
-                    </button>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -135,7 +170,7 @@ const AmelBookPrivacy = () => {
 
         {/* Markdown content */}
         <article
-          lang={lang}
+          lang={current.code}
           className="prose prose-invert prose-primary max-w-none
             prose-headings:text-primary
             prose-h1:text-3xl prose-h1:font-bold prose-h1:mb-2
@@ -147,6 +182,19 @@ const AmelBookPrivacy = () => {
             prose-hr:border-border prose-hr:my-8"
           dangerouslySetInnerHTML={{ __html: html }}
         />
+
+        {/* Plain links to every language version (crawlable, also useful without the menu) */}
+        <nav aria-label="Other languages" className="mt-12 pt-6 border-t border-border/60 text-sm" dir="ltr">
+          <ul className="flex flex-wrap gap-x-4 gap-y-2 justify-center">
+            {LANGS.filter((l) => l.code !== current.code).map((l) => (
+              <li key={l.code}>
+                <Link to={privacyPath(l.code)} hrefLang={l.code} lang={l.code} className="text-muted-foreground hover:text-primary">
+                  {l.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </div>
   );

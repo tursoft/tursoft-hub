@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import cvData from "@/data/cv.json";
+import { scrollToSection as jumpToSection } from "@/lib/section-settle";
 
 const navItems = [
   { id: "hero", label: "Home" },
@@ -73,10 +74,7 @@ const Navigation = () => {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    jumpToSection(sectionId);
     setIsMobileMenuOpen(false);
   };
 

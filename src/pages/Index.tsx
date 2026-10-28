@@ -6,9 +6,11 @@ import ExperienceSection from "@/components/experiences/ExperienceSection";
 import DomainsSection from "@/components/domains/DomainsSection";
 import EducationSection from "@/components/educations/EducationSection";
 import FaqSection from "@/components/faq/FaqSection";
+import CaseStudiesSection from "@/components/case-studies/CaseStudiesSection";
 import SiteFooter from "@/components/SiteFooter";
 import Seo from "@/components/Seo";
 import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, homeJsonLd } from "@/lib/site";
+import { scheduleSectionSettle } from "@/lib/section-settle";
 
 import SkillsSection from "@/components/skills/SkillsSection";
 import PortfolioSection from "@/components/projects/PortfolioSection";
@@ -17,7 +19,7 @@ import ReferencesSection from "@/components/references/ReferencesSection";
 import ContactSection from "@/components/contact/ContactSection";
 import Reveal from "@/components/ui/reveal";
 import { ArrowUp } from "lucide-react";
-import profilePhoto from "@/assets/profile-photo.jpg";
+import profilePhoto from "@/assets/profile-photo-80.webp";
 
 // Heavy sections (Leaflet map, timeline) load in their own chunks after the first paint.
 const MapSection = lazy(() => import("@/components/map/MapSection"));
@@ -29,6 +31,7 @@ const sections = [
   DomainsSection,
   SkillsSection,
   PortfolioSection,
+  CaseStudiesSection,
   CustomersSection,
   ReferencesSection,
   EducationSection,
@@ -54,6 +57,12 @@ const Index = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Sections render lazily (content-visibility); give them their real sizes once the page
+  // is idle, or at once when the URL points at a section.
+  useEffect(() => {
+    scheduleSectionSettle();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Seo title={DEFAULT_TITLE} description={DEFAULT_DESCRIPTION} path="/" jsonLd={homeJsonLd()} />
@@ -70,7 +79,9 @@ const Index = () => {
           <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary/40 transition-all duration-300">
             <img loading="lazy" decoding="async"
               src={profilePhoto}
-              alt="Muhammet Turşak"
+              alt=""
+              width={40}
+              height={40}
               className="w-full h-full object-cover"
             />
           </div>
@@ -95,7 +106,8 @@ const Index = () => {
         {sections.map((Section, index) => (
           <div key={index}>
             <hr className="section-divider" />
-            <Reveal threshold={0.05}>
+            {/* section-boundary: the prerender step adds React's Suspense markers here */}
+            <Reveal threshold={0.05} className="section-boundary">
               <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>
                 <Section />
               </Suspense>

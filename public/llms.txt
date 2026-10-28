@@ -24,6 +24,7 @@ Last updated: 2026-10-27
 - [Experience](https://tursoft.net/#experience)
 - [Skills](https://tursoft.net/#skills)
 - [Projects](https://tursoft.net/#portfolio)
+- [Case studies](https://tursoft.net/case-studies/)
 - [FAQ](https://tursoft.net/#faq)
 - [Contact](https://tursoft.net/#contact)
 - [Compact CV (PDF)](https://tursoft.net/assets/files/downloads/CV_MuhammetTursak_v56-compact.20260403.pdf)
@@ -33,6 +34,12 @@ Last updated: 2026-10-27
 - [GitHub](https://github.com/tursoft)
 - [Stack Overflow](https://stackoverflow.com/users/1949367/muhammet-tur%C5%9Eak)
 - [X](https://x.com/muhammettursak)
+
+## Case studies
+
+- [Jengai: an AI document pipeline for construction estimating](https://tursoft.net/case-studies/jengai-ai-document-pipeline/): multi-tenant CRM, bidding and estimation SaaS on .NET, Python and Azure AI; pre-estimation turnaround cut by more than 60%.
+- [BestJobFinder: an AI-native SaaS built with agent teams](https://tursoft.net/case-studies/bestjobfinder-ai-native-saas/): four frontends on a TypeScript microservice backend, with the whole lifecycle run by AI coding agents.
+- [Account Manager for Claude: an open-source VS Code extension](https://tursoft.net/case-studies/account-manager-for-claude/): one-click switching between Claude subscriptions in Claude Code, with live usage limits and analytics.
 
 ## About
 

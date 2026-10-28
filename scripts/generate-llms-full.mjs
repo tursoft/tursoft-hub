@@ -56,6 +56,21 @@ export function generateLlmsFull(dist = "dist", buildDate = new Date().toISOStri
   const domains = items(load("domains.json"));
   const faq = items(load("faq.json"));
   const stats = load("statistics.json");
+  const caseStudies = items(load("case-studies.json"));
+
+  // Internal codes (skills, domains, projects, customers) are resolved to display titles:
+  // AI assistants quote this file, and codes like "healthcareit" or "tsql" read as noise.
+  const byCode = (list, title) => {
+    const m = new Map();
+    for (const x of list) if (x.code) m.set(String(x.code).toLowerCase(), title(x));
+    return m;
+  };
+  const skillTitles = byCode(skills, (s) => s.title);
+  const domainTitles = byCode(domains, (d) => d.title);
+  const projectTitles = byCode(projects, (p) => text(p.title));
+  const customerTitles = byCode(customers, (c) => company(c.companyCode)?.title || c.companyCode);
+  const titles = (codes, map) =>
+    [...new Set((codes || []).map((c) => map.get(String(c).toLowerCase()) || String(c)))].join(", ");
 
   const out = [];
   out.push(`# Muhammet Turşak (Tursak) — AI-Enabled Senior Software Architect: full site content`);
@@ -101,8 +116,8 @@ export function generateLlmsFull(dist = "dist", buildDate = new Date().toISOStri
       out.push("");
       const summary = text(p.summary);
       if (summary) out.push(summary.split("\n").filter(Boolean).map((l) => `- ${l.trim()}`).join("\n"));
-      if (p.skillCodes?.length) out.push(`- Technologies: ${p.skillCodes.join(", ")}`);
-      if (p.projectCodes?.length) out.push(`- Projects: ${p.projectCodes.join(", ")}`);
+      if (p.skillCodes?.length) out.push(`- Technologies: ${titles(p.skillCodes, skillTitles)}`);
+      if (p.projectCodes?.length) out.push(`- Projects: ${titles(p.projectCodes, projectTitles)}`);
       out.push("");
     }
   }
@@ -153,14 +168,40 @@ export function generateLlmsFull(dist = "dist", buildDate = new Date().toISOStri
       out.push(full);
     }
     const meta = [];
-    if (p.domainCodes?.length) meta.push(`Domains: ${p.domainCodes.join(", ")}`);
-    if (p.skillCodes?.length) meta.push(`Technologies: ${p.skillCodes.join(", ")}`);
-    if (p.customerCodes?.length) meta.push(`Customers: ${p.customerCodes.join(", ")}`);
+    if (p.domainCodes?.length) meta.push(`Domains: ${titles(p.domainCodes, domainTitles)}`);
+    if (p.skillCodes?.length) meta.push(`Technologies: ${titles(p.skillCodes, skillTitles)}`);
+    if (p.customerCodes?.length) meta.push(`Customers: ${titles(p.customerCodes, customerTitles)}`);
     if (meta.length) {
       out.push("");
       out.push(meta.map((m) => `- ${m}`).join("\n"));
     }
     out.push("");
+  }
+
+  out.push("## Case studies");
+  out.push("");
+  for (const c of caseStudies) {
+    out.push(`### ${c.title}`);
+    out.push("");
+    out.push(`${SITE_URL}/case-studies/${c.slug}/`);
+    out.push("");
+    out.push(c.dek);
+    out.push("");
+    out.push(`- Role: ${c.role}`);
+    out.push(`- Company: ${c.company}`);
+    out.push(`- Period: ${c.period}`);
+    out.push(`- Result: ${c.outcome}`);
+    out.push(`- Technology: ${c.stack.join(", ")}`);
+    out.push("");
+    for (const s of c.sections) {
+      out.push(`**${s.heading}**`);
+      out.push("");
+      for (const p of s.paragraphs || []) out.push(p, "");
+      if (s.bullets?.length) out.push(s.bullets.map((b) => `- ${b}`).join("\n"), "");
+      if (s.steps?.length) out.push(s.steps.map((b, i) => `${i + 1}. ${b}`).join("\n"), "");
+    }
+    for (const l of c.links || []) out.push(`- ${l.label}: ${l.href}`);
+    if (c.links?.length) out.push("");
   }
 
   out.push("## Clients and customers");

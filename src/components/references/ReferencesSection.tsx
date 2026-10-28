@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, Linkedin, Twitter, Facebook, ExternalLink, Globe, MessageSquare } from "lucide-react";
 import { referencesRepo } from "@/repositories/ReferencesRepo";
@@ -14,8 +15,8 @@ interface ReferenceWithPhoto extends Reference {
 }
 
 const ReferencesSection = () => {
-  const [references, setReferences] = useState<ReferenceWithPhoto[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [references, setReferences] = useSnapshotState<ReferenceWithPhoto[]>('references.references', []);
+  const [isLoading, setIsLoading] = useSnapshotState('references.isLoading', true);
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
   const [isPeopleDialogOpen, setIsPeopleDialogOpen] = useState(false);
 
@@ -44,7 +45,7 @@ const ReferencesSection = () => {
     };
 
     loadReferences();
-  }, []);
+  }, [setIsLoading, setReferences]);
 
   const getContactIcon = (code: string) => {
     switch (code) {

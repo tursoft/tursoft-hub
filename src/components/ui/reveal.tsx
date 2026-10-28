@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { isPrerender } from "@/lib/prerender";
+import { isInViewport, isPrerender, startsStatic } from "@/lib/prerender";
 
 type RevealDirection = "up" | "left" | "right" | "scale";
 
@@ -24,8 +24,11 @@ const directionClass: Record<RevealDirection, string> = {
 
 /**
  * Reveals its children with a smooth fade/slide when scrolled into view.
- * Falls back to always-visible when IntersectionObserver is unavailable
- * or the user prefers reduced motion (handled in CSS).
+ *
+ * Prerendered pages start revealed so crawlers and the first paint see the content.
+ * After hydration, blocks that are below the fold are hidden again and animate in
+ * when the visitor scrolls to them; blocks already on screen stay put.
+ * Falls back to always-visible without IntersectionObserver or under reduced motion (CSS).
  */
 const Reveal = ({
   children,
@@ -35,18 +38,19 @@ const Reveal = ({
   threshold = 0.12,
 }: RevealProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [revealed, setRevealed] = useState(isPrerender);
+  const [revealed, setRevealed] = useState(startsStatic);
 
   useEffect(() => {
     const node = ref.current;
-    if (!node) return;
-    if (isPrerender) {
-      setRevealed(true);
-      return;
-    }
+    if (!node || isPrerender) return;
     if (typeof IntersectionObserver === "undefined") {
       setRevealed(true);
       return;
+    }
+    // Hydrated page: keep what is on screen, re-arm the animation for the rest.
+    if (startsStatic) {
+      if (isInViewport(node)) return;
+      setRevealed(false);
     }
 
     const observer = new IntersectionObserver(

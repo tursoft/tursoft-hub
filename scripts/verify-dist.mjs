@@ -51,7 +51,7 @@ try {
     if (info.descriptionTags !== 1) problems.push(`expected 1 meta description, found ${info.descriptionTags}`);
     if (info.canonicalTags !== 1) problems.push(`expected 1 canonical, found ${info.canonicalTags}`);
     if (info.h1 !== 1) problems.push(`expected 1 h1, found ${info.h1}`);
-    if (info.rootText < 2000) problems.push(`root text too short: ${info.rootText}`);
+    if (info.rootText < (route.minText ?? 600)) problems.push(`root text too short: ${info.rootText}`);
     if (problems.length) failed = true;
     console.log(`${problems.length ? "FAIL" : "ok  "} ${route.path}`, JSON.stringify({ ...info, consoleErrors: consoleErrors.slice(0, 3) }));
     for (const p of problems) console.log(`      - ${p}`);

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import ProjectDetailDialog from './ProjectDetailDialog';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import type { ProjectEntry } from '@/models/Project';
@@ -11,11 +12,11 @@ interface ProjectWithIcon extends ProjectEntry {
 }
 
 const PortfolioSection = () => {
-  const [projects, setProjects] = useState<ProjectWithIcon[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [projects, setProjects] = useSnapshotState<ProjectWithIcon[]>('portfolio.projects', []);
+  const [isLoading, setIsLoading] = useSnapshotState('portfolio.isLoading', true);
   const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [categoryOrder, setCategoryOrder] = useState<string[]>([]);
+  const [categoryOrder, setCategoryOrder] = useSnapshotState<string[]>('portfolio.categoryOrder', []);
 
   // Helper function to format date period to years only
   const formatDateToYears = (datePeriod: { startDate?: string; endDate?: string } | undefined) => {
@@ -69,7 +70,7 @@ const PortfolioSection = () => {
     };
 
     loadData();
-  }, []);
+  }, [setCategoryOrder, setIsLoading, setProjects]);
 
   // Get unique groups for statistics
   const groups = [...new Set(projects.map(p => p.group).filter(Boolean))];

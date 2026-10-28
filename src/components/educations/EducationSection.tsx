@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Calendar, MapPin } from "lucide-react";
@@ -22,9 +23,9 @@ type ProcessedEducation = Education & {
 
 const EducationSection = () => {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  const [educationData, setEducationData] = useState<EducationData | null>(null);
-  const [processedEducations, setProcessedEducations] = useState<ProcessedEducation[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [educationData, setEducationData] = useSnapshotState<EducationData | null>('education.educationData', null);
+  const [processedEducations, setProcessedEducations] = useSnapshotState<ProcessedEducation[]>('education.processedEducations', []);
+  const [isLoading, setIsLoading] = useSnapshotState('education.isLoading', true);
   const [selectedEducation, setSelectedEducation] = useState<ProcessedEducation | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -66,7 +67,7 @@ const EducationSection = () => {
     };
 
     loadEducationData();
-  }, []);
+  }, [setEducationData, setIsLoading, setProcessedEducations]);
 
   // Handle education card click
   const handleEducationClick = (education: ProcessedEducation) => {

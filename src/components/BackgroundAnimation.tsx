@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { isPrerender } from "@/lib/prerender";
 
 interface Particle {
   x: number;
@@ -14,13 +15,16 @@ interface Particle {
 const rand = (min: number, max: number) => Math.random() * (max - min) + min;
 
 const PARTICLE_COUNT = 60;
+const PARTICLE_COUNT_SMALL = 28; // phones: fewer particles, far fewer link checks
+const FRAME_MS = 33; // ~30 fps is plenty for a slow ambient drift
 const LINK_DISTANCE = 140;
 const MOUSE_RADIUS = 180;
 
 /**
  * Ambient particle-network background rendered on a single canvas.
  * Particles drift slowly, link to nearby particles and the cursor,
- * and burst on click. Disabled under prefers-reduced-motion.
+ * and burst on click. Disabled under prefers-reduced-motion and in prerender;
+ * runs at about 30 fps and pauses while the tab is hidden.
  */
 const BackgroundAnimation = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -28,7 +32,7 @@ const BackgroundAnimation = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (isPrerender || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -36,7 +40,8 @@ const BackgroundAnimation = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const particles: Particle[] = Array.from({ length: PARTICLE_COUNT }, () => ({
+    const count = window.innerWidth < 768 ? PARTICLE_COUNT_SMALL : PARTICLE_COUNT;
+    const particles: Particle[] = Array.from({ length: count }, () => ({
       x: rand(0, width),
       y: rand(0, height),
       vx: rand(-0.25, 0.25),
@@ -49,6 +54,7 @@ const BackgroundAnimation = () => {
     let bursts: Particle[] = [];
     const mouse = { x: -9999, y: -9999 };
     let raf = 0;
+    let lastFrame = 0;
 
     const onResize = () => {
       width = canvas.width = window.innerWidth;
@@ -82,7 +88,14 @@ const BackgroundAnimation = () => {
       }
     };
 
-    const step = () => {
+    const step = (ts: number) => {
+      raf = 0;
+      if (document.hidden) return; // resumed by visibilitychange
+      if (ts - lastFrame < FRAME_MS) {
+        raf = requestAnimationFrame(step);
+        return;
+      }
+      lastFrame = ts;
       ctx.clearRect(0, 0, width, height);
 
       // Links between nearby particles
@@ -167,7 +180,12 @@ const BackgroundAnimation = () => {
       raf = requestAnimationFrame(step);
     };
 
+    const onVisibility = () => {
+      if (!document.hidden && !raf) raf = requestAnimationFrame(step);
+    };
+
     raf = requestAnimationFrame(step);
+    document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("resize", onResize);
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseout", onMouseLeave);
@@ -175,6 +193,7 @@ const BackgroundAnimation = () => {
 
     return () => {
       cancelAnimationFrame(raf);
+      document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseout", onMouseLeave);

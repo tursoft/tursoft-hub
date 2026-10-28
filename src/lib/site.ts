@@ -131,3 +131,55 @@ export function faqJsonLd(items: { question: string; answer: string }[]) {
     })),
   };
 }
+
+export interface BreadcrumbItem {
+  name: string;
+  /** Route path starting with "/". */
+  path: string;
+}
+
+export function breadcrumbJsonLd(items: BreadcrumbItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: `${SITE_URL}${item.path}`,
+    })),
+  };
+}
+
+export interface ArticleInput {
+  title: string;
+  description: string;
+  path: string;
+  datePublished: string;
+  /** Name of the product or system the article is about. */
+  about?: string;
+  keywords?: string[];
+}
+
+/** Article written by the site's Person, used for the case studies. */
+export function articleJsonLd(a: ArticleInput) {
+  const url = `${SITE_URL}${a.path}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline: a.title,
+    description: a.description,
+    url,
+    mainEntityOfPage: url,
+    image: OG_IMAGE,
+    inLanguage: "en",
+    datePublished: a.datePublished,
+    dateModified: BUILD_DATE,
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": PERSON_ID },
+    isPartOf: { "@id": WEBSITE_ID },
+    ...(a.about ? { about: { "@type": "SoftwareApplication", name: a.about } } : {}),
+    ...(a.keywords?.length ? { keywords: a.keywords.join(", ") } : {}),
+  };
+}

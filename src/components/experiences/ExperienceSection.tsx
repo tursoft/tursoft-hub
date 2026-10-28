@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building, ExternalLink, Linkedin } from "lucide-react";
@@ -14,12 +15,12 @@ import type {
 } from '@/models/Experience';
 
 const ExperienceSection = () => {
-  const [experiencesData, setExperiencesData] = useState<ExperiencesData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [experiencesData, setExperiencesData] = useSnapshotState<ExperiencesData | null>('experience.experiencesData', null);
+  const [isLoading, setIsLoading] = useSnapshotState('experience.isLoading', true);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [totalProjects, setTotalProjects] = useState(0);
+  const [totalProjects, setTotalProjects] = useSnapshotState('experience.totalProjects', 0);
   
   // State for processed experiences
   interface ProcessedPosition {
@@ -42,7 +43,7 @@ const ExperienceSection = () => {
     location: string;
   }
   
-  const [processedExperiences, setProcessedExperiences] = useState<ProcessedExperience[]>([]);
+  const [processedExperiences, setProcessedExperiences] = useSnapshotState<ProcessedExperience[]>('experience.processedExperiences', []);
 
   const handleExperienceClick = (experience: Experience) => {
     setSelectedExperience(experience);
@@ -69,7 +70,7 @@ const ExperienceSection = () => {
     };
 
     loadExperiencesData();
-  }, []);
+  }, [setExperiencesData, setIsLoading]);
   
   // Load total projects count
   useEffect(() => {
@@ -83,7 +84,7 @@ const ExperienceSection = () => {
     };
 
     loadProjectsCount();
-  }, []);
+  }, [setTotalProjects]);
   
   // Process experiences when data is loaded
   useEffect(() => {
@@ -345,7 +346,7 @@ const ExperienceSection = () => {
                       <Building className="h-5 w-5 text-primary" />
                       <h3 className="text-xl font-bold text-foreground uppercase">{exp.company}</h3>
                       {hasCurrent && (
-                        <Badge variant="default" className="bg-primary text-primary-foreground">
+                        <Badge variant="default">
                           Current
                         </Badge>
                       )}

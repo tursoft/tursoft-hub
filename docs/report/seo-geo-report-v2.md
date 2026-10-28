@@ -1,5 +1,7 @@
 # SEO and GEO Audit Report v2 for tursoft.net
 
+> A newer review is available: [v3 report, 2026-10-28](seo-geo-report-v3.md), with the v3 fixes and the status of every finding below.
+
 | | |
 |---|---|
 | **Site** | https://tursoft.net (GitHub Pages behind Cloudflare) |

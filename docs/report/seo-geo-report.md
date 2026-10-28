@@ -1,6 +1,6 @@
 # SEO and GEO Audit Report for tursoft.net
 
-> A newer review is available: [v2 report, 2026-10-28](seo-geo-report-v2.md), with measured results, the status of every finding below, and new findings N-01 to N-07.
+> Newer reviews are available: [v3 report](seo-geo-report-v3.md) (latest, with the status of every finding after the v3 fixes) and [v2 report](seo-geo-report-v2.md), both 2026-10-28.
 
 | | |
 |---|---|

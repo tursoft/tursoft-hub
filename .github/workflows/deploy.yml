@@ -30,6 +30,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Full history: the sitemap's lastmod comes from the last commit per page.
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -57,6 +60,9 @@ jobs:
           test -f dist/sitemap.xml
           test -f dist/llms-full.txt
           test -f dist/privacy/amelbook/index.html
+          test -f dist/privacy/amelbook/en/index.html
+          test -f dist/case-studies/index.html
+          grep -q '__PRERENDER_STATE__' dist/index.html
           grep -q 'application/ld+json' dist/index.html
           grep -q '<h2' dist/index.html
 

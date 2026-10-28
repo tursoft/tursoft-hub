@@ -1,15 +1,14 @@
-import { isPrerender } from "@/lib/prerender";
-
-/** Data-driven descriptions may contain target=_blank links; make sure they carry rel=noopener. */
-const withSafeLinks = (html: string) =>
-  html.replace(/<a\s(?![^>]*\brel=)([^>]*target=['"]_blank['"][^>]*)>/gi, '<a rel="noopener noreferrer" $1>');
-import { useState, useRef, ReactNode, useMemo, useCallback } from "react";
+import { useState, useRef, ReactNode, useMemo, useCallback, type ReactElement } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronLeft, ChevronRight, Grid, List, RotateCcw, Grid3x3, Filter, Search, Orbit } from "lucide-react";
 import { ItemCloud } from "@/components/ui/item-cloud";
+
+/** Data-driven descriptions may contain target=_blank links; make sure they carry rel=noopener. */
+const withSafeLinks = (html: string) =>
+  html.replace(/<a\s(?![^>]*\brel=)([^>]*target=['"]_blank['"][^>]*)>/gi, '<a rel="noopener noreferrer" $1>');
 
 export type ViewMode = 'small-card' | 'card' | 'list' | 'carousel' | 'cloud';
 
@@ -173,7 +172,7 @@ const ListViewer = <T = any>({
 }: ListViewerProps<T>) => {
   const [viewMode, setViewMode] = useState<ViewMode>(defaultViewMode);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [showAll, setShowAll] = useState(isPrerender);
+  const [showAll, setShowAll] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [cloudHovered, setCloudHovered] = useState<string | null>(null);
   const [cloudSelected, setCloudSelected] = useState<string | null>(null);
@@ -264,15 +263,28 @@ const ListViewer = <T = any>({
     return result;
   }, [data, enableCategoryFilter, categoryField, selectedCategory, enableSearch, searchText, searchFields, fieldMapping, getFieldValue]);
 
-  // Get visible data based on showAll state
-  const getVisibleData = () => {
-    if (!enableShowMore || showAll || !visibleMajorItemCount) {
-      return filteredData;
-    }
-    return filteredData.slice(0, visibleMajorItemCount);
+  // Every item stays in the page so crawlers and search engines can read it. Items past
+  // the limit are collapsed with a CSS class until "Show All" is pressed; slicing the
+  // list instead would drop them from the HTML and from what Google indexes.
+  const collapseLimit = enableShowMore && !showAll && visibleMajorItemCount ? visibleMajorItemCount : Infinity;
+  // A collapsed item carries only the text that matters to crawlers (title, subtitle and
+  // description) instead of the full card, which keeps the page's DOM small; the full card
+  // renders once the visitor expands the list.
+  const renderCollapsed = (item: T) => {
+    const code = getFieldValue(item, fieldMapping.code);
+    const title = getFieldValue(item, fieldMapping.title);
+    const subtitle = getFieldValue(item, fieldMapping.subtitle);
+    const description = getFieldValue(item, fieldMapping.description);
+    return (
+      <div key={code} className="lv-collapsed">
+        <h3>{title}</h3>
+        {subtitle && <p>{subtitle}</p>}
+        {description && <p dangerouslySetInnerHTML={{ __html: withSafeLinks(description) }} />}
+      </div>
+    );
   };
-
-  const visibleData = getVisibleData();
+  const withCollapse = (item: T, index: number, render: (item: T, index: number) => ReactElement) =>
+    index >= collapseLimit ? renderCollapsed(item) : render(item, index);
   const hasMore = enableShowMore && visibleMajorItemCount && filteredData.length > visibleMajorItemCount;
 
   // Carousel navigation
@@ -836,7 +848,7 @@ const ListViewer = <T = any>({
         {viewMode === 'card' && (
           <>
             <div className={getGridClasses()}>
-              {visibleData.map((item, index) => renderCard(item, index))}
+              {filteredData.map((item, index) => withCollapse(item, index, renderCard))}
             </div>
             {hasMore && (
               <div className="flex justify-center mt-8">
@@ -857,7 +869,7 @@ const ListViewer = <T = any>({
         {viewMode === 'list' && (
           <>
             <div className="space-y-4 max-w-5xl mx-auto">
-              {visibleData.map((item, index) => renderListItem(item, index))}
+              {filteredData.map((item, index) => withCollapse(item, index, renderListItem))}
             </div>
             {hasMore && (
               <div className="flex justify-center mt-8">
@@ -878,7 +890,7 @@ const ListViewer = <T = any>({
         {viewMode === 'small-card' && (
           <>
             <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-8 gap-4">
-              {visibleData.map((item, index) => renderSmallCard(item, index))}
+              {filteredData.map((item, index) => withCollapse(item, index, renderSmallCard))}
             </div>
             {hasMore && (
               <div className="flex justify-center mt-8">

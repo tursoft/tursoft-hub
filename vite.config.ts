@@ -19,6 +19,18 @@ const pruneCopiedAssets = (): Plugin => ({
   },
 });
 
+// Pages ship prerendered and readable, so the app scripts only add interactivity: let the
+// HTML, CSS and images win the bandwidth and fetch the scripts at low priority.
+const lowPriorityScripts = (): Plugin => ({
+  name: "low-priority-scripts",
+  apply: "build",
+  transformIndexHtml(html) {
+    return html
+      .replace(/<script type="module" crossorigin src=/g, '<script type="module" crossorigin fetchpriority="low" src=')
+      .replace(/<link rel="modulepreload" crossorigin href=/g, '<link rel="modulepreload" crossorigin fetchpriority="low" href=');
+  },
+});
+
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
   base: "/",
@@ -50,6 +62,7 @@ export default defineConfig(() => ({
       },
     }),
     pruneCopiedAssets(),
+    lowPriorityScripts(),
   ],
   resolve: {
     alias: {
@@ -57,4 +70,18 @@ export default defineConfig(() => ({
     },
   },
   publicDir: "public",
+  build: {
+    rollupOptions: {
+      output: {
+        // React and the Radix UI primitives change rarely; keeping them in their own
+        // chunks keeps the app chunk small and lets browsers cache the vendors longer.
+        manualChunks(id: string) {
+          if (!id.includes("node_modules")) return undefined;
+          if (/[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return "react";
+          if (/[\\/]node_modules[\\/]@radix-ui[\\/]/.test(id)) return "radix";
+          return undefined;
+        },
+      },
+    },
+  },
 }));

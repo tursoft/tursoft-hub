@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { calculateSkillScore } from '@/lib/skillScore';
 import { SkillStats } from '@/components/skills/SkillStats';
@@ -20,12 +21,12 @@ interface SkillWithIcon extends SkillItem {
 }
 
 const SkillsSection = () => {
-  const [skills, setSkills] = useState<SkillWithIcon[]>([]);
+  const [skills, setSkills] = useSnapshotState<SkillWithIcon[]>('skills.skills', []);
   const { getRelations, getCompany } = useSkillRelations();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useSnapshotState('skills.isLoading', true);
   const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
   const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
-  const [categoryOrder, setCategoryOrder] = useState<string[]>([]);
+  const [categoryOrder, setCategoryOrder] = useSnapshotState<string[]>('skills.categoryOrder', []);
   
   // Dialog states for nested dialogs
   const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
@@ -69,7 +70,7 @@ const SkillsSection = () => {
     };
 
     loadData();
-  }, []);
+  }, [setCategoryOrder, setIsLoading, setSkills]);
 
   // Get unique groups for statistics
   const groups = [...new Set(skills.map(s => String(s.group)).filter(Boolean))];

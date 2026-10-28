@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { isPrerender } from '@/lib/prerender';
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 
 export interface CloudItem {
   code: string;
@@ -23,6 +25,10 @@ interface ItemCloudProps {
 
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
 const IDLE_SPEED = 0.003; // radians per frame when nothing is happening
+// Each frame restyles every item, so idle rotation is bounded: it runs for this long after
+// the cloud comes into view or after the last interaction, then eases to a stop.
+const IDLE_RUN_MS = 12000;
+const IDLE_FRAME_MS = 40; // ~25 fps while idling; full rate while dragging
 const DRAG_SENSITIVITY = 0.006; // radians per pixel dragged
 const MAX_VELOCITY = 0.08;
 const KEY_STEP = 0.12;
@@ -92,13 +98,17 @@ export const ItemCloud = ({
   const drag = useRef<{ pointerId: number; lastX: number; lastY: number; moved: number } | null>(null);
   const hoveredRef = useRef<string | null>(null);
   const selectedRef = useRef<string | null>(null);
-  const [width, setWidth] = useState(0);
+  // Measured width; prerendered pages start from the width captured at build time so the
+  // first client render matches the HTML, then the ResizeObserver takes over.
+  const [width, setWidth] = useSnapshotState('item-cloud.width', 0);
+  const kickRef = useRef<(() => void) | null>(null);
   const [dragging, setDragging] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const [internalSelected, setInternalSelected] = useState<string | null>(null);
   const selected = selectedCode !== undefined ? selectedCode : internalSelected;
   useEffect(() => {
     selectedRef.current = selected;
+    kickRef.current?.();
   }, [selected]);
 
   // Even distribution on a unit sphere (Fibonacci lattice). The slots are
@@ -153,16 +163,27 @@ export const ItemCloud = ({
     ro.observe(el);
     setWidth(el.clientWidth);
     return () => ro.disconnect();
-  }, []);
+  }, [setWidth]);
 
   // Animation loop: integrates velocity into rotation and projects every point.
+  // It runs only while the cloud is on screen and the tab is visible, at about 30 fps
+  // while idling (full rate while dragging), and stops once nothing moves (reduced
+  // motion). Opacity and stacking order are written only when they change, so an idle
+  // frame touches as few styles as possible. Prerendering gets one static frame.
   useEffect(() => {
     if (!width || basePoints.length === 0) return;
     const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
     const idleSpeed = reduceMotion ? 0 : IDLE_SPEED;
+    if (reduceMotion) velocity.current = { x: 0, y: 0 }; // start at rest
     const cx = width / 2;
     const cy = height / 2;
     let frame = 0;
+    let lastTs = 0;
+    let lastActive = 0; // when the cloud last came into view or was interacted with
+    let onScreen = false;
+    let pageVisible = !document.hidden;
+    const lastZ: string[] = [];
+    const lastOpacity: string[] = [];
 
     // Wireframe canvas: sized for the device pixel ratio, tinted with the
     // theme's primary colour (shadcn stores it as "h s% l%" in --primary).
@@ -209,23 +230,8 @@ export const ItemCloud = ({
       }
     };
 
-    const tick = () => {
-      const v = velocity.current;
-      if (drag.current) {
-        // Rotation is applied directly by the pointer handler while dragging.
-      } else if (hoveredRef.current) {
-        v.x *= 0.8;
-        v.y *= 0.8;
-      } else {
-        // Momentum eases back into the idle rotation.
-        v.x += (0 - v.x) * 0.04;
-        v.y += (idleSpeed - v.y) * 0.04;
-      }
-      if (!drag.current) {
-        rotation.current.x += v.x;
-        rotation.current.y += v.y;
-      }
-
+    // Projects every item for the current rotation.
+    const project = () => {
       const sinX = Math.sin(rotation.current.x);
       const cosX = Math.cos(rotation.current.x);
       const sinY = Math.sin(rotation.current.y);
@@ -246,17 +252,110 @@ export const ItemCloud = ({
         const depth = (z2 + 1) / 2; // 0 = back, 1 = front
         const scale = 0.5 + 0.5 * depth;
         node.style.transform = `translate3d(${cx + x1 * radius}px, ${cy + y2 * radius}px, 0) translate(-50%, -50%) scale(${scale})`;
-        node.style.setProperty('--cloud-depth', String(depth));
-        // Hovered or selected icons always render above their neighbours.
+        // Hovered or selected icons always render solid and above their neighbours.
         const code = items[i].code;
-        const onTop = code === hoveredRef.current || code === selectedRef.current;
-        node.style.zIndex = onTop ? '2000' : String(Math.round(depth * 1000));
+        const active = code === hoveredRef.current || code === selectedRef.current;
+        const z = active ? '2000' : String(Math.round(depth * 40) * 25);
+        if (lastZ[i] !== z) {
+          node.style.zIndex = z;
+          lastZ[i] = z;
+        }
+        // weight opacity × depth fade, in steps of 0.02
+        const o = active ? '1' : (opacities[i] * (MIN_DEPTH_OPACITY + (1 - MIN_DEPTH_OPACITY) * depth)).toFixed(2);
+        if (lastOpacity[i] !== o) {
+          node.style.opacity = o;
+          lastOpacity[i] = o;
+        }
       }
+    };
+
+    const moving = () => {
+      const v = velocity.current;
+      const idling = idleSpeed > 0 && performance.now() - lastActive <= IDLE_RUN_MS;
+      return idling || !!drag.current || Math.abs(v.x) > 1e-4 || Math.abs(v.y) > 1e-4;
+    };
+
+    const tick = (ts: number) => {
+      frame = 0;
+      if (!onScreen || !pageVisible) return; // resumes from the observer or visibilitychange
+      if (!drag.current && lastTs && ts - lastTs < IDLE_FRAME_MS) {
+        frame = requestAnimationFrame(tick);
+        return;
+      }
+      const k = lastTs ? Math.min(3, (ts - lastTs) / 16.67) : 1; // keep speed constant at 30 fps
+      lastTs = ts;
+      const v = velocity.current;
+      if (drag.current) {
+        // Rotation is applied directly by the pointer handler while dragging.
+      } else if (hoveredRef.current) {
+        v.x *= 0.8;
+        v.y *= 0.8;
+      } else {
+        // Momentum eases back into the idle rotation.
+        v.x += (0 - v.x) * 0.04 * k;
+        if (ts - lastActive > IDLE_RUN_MS) {
+          // Idle window over: fade the turn out within about a second.
+          v.x *= 0.85;
+          v.y *= 0.85;
+        } else {
+          v.y += (idleSpeed - v.y) * 0.04 * k;
+        }
+      }
+      if (!drag.current) {
+        rotation.current.x += v.x * k;
+        rotation.current.y += v.y * k;
+      }
+      project();
+      if (moving()) frame = requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+      if (frame || isPrerender || !onScreen || !pageVisible) return;
+      lastTs = 0;
       frame = requestAnimationFrame(tick);
     };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [width, height, basePoints, radius, items]);
+    // Pointer, keyboard, hover and selection changes call this to redraw and resume.
+    kickRef.current = () => {
+      lastActive = performance.now();
+      project();
+      start();
+    };
+
+    project(); // static frame for prerendering, reduced motion and the first paint
+
+    let io: IntersectionObserver | undefined;
+    const el = containerRef.current;
+    if (!isPrerender) {
+      if (typeof IntersectionObserver !== 'undefined' && el) {
+        io = new IntersectionObserver(
+          ([entry]) => {
+            onScreen = entry.isIntersecting;
+            if (onScreen) {
+              lastActive = performance.now();
+              start();
+            }
+          },
+          { rootMargin: '100px' },
+        );
+        io.observe(el);
+      } else {
+        onScreen = true;
+        start();
+      }
+    }
+    const onVisibility = () => {
+      pageVisible = !document.hidden;
+      if (pageVisible) start();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      io?.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
+      kickRef.current = null;
+    };
+  }, [width, height, basePoints, radius, items, opacities]);
 
   const clamp = (n: number) => Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, n));
 
@@ -266,6 +365,7 @@ export const ItemCloud = ({
     drag.current = { pointerId: e.pointerId, lastX: e.clientX, lastY: e.clientY, moved: 0 };
     velocity.current = { x: 0, y: 0 }; // mouse down stops the turn
     setDragging(true);
+    kickRef.current?.();
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -283,6 +383,7 @@ export const ItemCloud = ({
     rotation.current.x += rx;
     rotation.current.y += ry;
     velocity.current = { x: clamp(rx), y: clamp(ry) };
+    kickRef.current?.();
   };
 
   const select = useCallback(
@@ -336,12 +437,14 @@ export const ItemCloud = ({
     }
     e.preventDefault();
     velocity.current = { x: 0, y: 0 };
+    kickRef.current?.();
   };
 
   const setHover = (code: string | null) => {
     if (hoveredRef.current === code) return;
     hoveredRef.current = code;
     setHovered(code);
+    kickRef.current?.();
     onHoverChange?.(code);
   };
 
@@ -410,10 +513,7 @@ export const ItemCloud = ({
             style={{
               width: sizes[i],
               height: sizes[i],
-              // weight opacity × depth fade; selected or hovered items are always solid
-              opacity: active
-                ? 1
-                : `calc(${opacities[i]} * (${MIN_DEPTH_OPACITY} + ${1 - MIN_DEPTH_OPACITY} * var(--cloud-depth, 1)))`,
+              // opacity and z-index are written by the animation loop (weight × depth fade)
             }}
             onPointerEnter={() => setHover(item.code)}
             onPointerLeave={() => setHover(null)}

@@ -12,7 +12,8 @@
     "og-image": "node scripts/generate-og-image.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
-    "verify:dist": "node scripts/verify-dist.mjs"
+    "verify:dist": "node scripts/verify-dist.mjs",
+    "images": "node scripts/convert-images.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

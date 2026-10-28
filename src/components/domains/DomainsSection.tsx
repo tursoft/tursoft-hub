@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { domainsRepo } from '@/repositories/DomainsRepo';
@@ -10,8 +11,8 @@ import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
 
 const DomainsSection = () => {
-  const [domainsData, setDomainsData] = useState<DomainsData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [domainsData, setDomainsData] = useSnapshotState<DomainsData | null>('domains.domainsData', null);
+  const [isLoading, setIsLoading] = useSnapshotState('domains.isLoading', true);
   const [selectedDomain, setSelectedDomain] = useState<Domain | null>(null);
   const [isDomainDialogOpen, setIsDomainDialogOpen] = useState(false);
   const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
@@ -33,7 +34,7 @@ const DomainsSection = () => {
     };
 
     loadDomainsData();
-  }, []);
+  }, [setDomainsData, setIsLoading]);
 
   if (isLoading || !domainsData) {
     return (
