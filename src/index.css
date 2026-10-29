@@ -655,16 +655,14 @@
       inset 0 1px 0 hsl(0 0% 100% / 0.06);
   }
 
-  .carousel-nav {
-    position: absolute;
-    top: 50%;
-    z-index: 20;
+  .carousel-nav,
+  .split-nav {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
     width: 2.75rem;
     height: 2.75rem;
-    transform: translateY(-50%);
     border-radius: 9999px;
     border: 1px solid hsl(var(--border) / 0.8);
     background: hsl(var(--background) / 0.7);
@@ -675,8 +673,17 @@
     transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   }
 
+  .carousel-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 20;
+    transform: translateY(-50%);
+  }
+
   .carousel-nav:hover,
-  .carousel-nav:focus-visible {
+  .carousel-nav:focus-visible,
+  .split-nav:hover,
+  .split-nav:focus-visible {
     color: hsl(var(--primary-light));
     border-color: hsl(var(--primary) / 0.6);
     background: hsl(var(--card) / 0.9);
@@ -788,9 +795,28 @@
   }
 
   /* ---------- Split view (list + detail) ---------- */
+  /* Phones: the list is a row that scrolls sideways, with a slim on-theme scrollbar */
   .split-list {
-    scrollbar-width: thin;
-    overscroll-behavior: contain;
+    overscroll-behavior-x: contain;
+  }
+
+  .split-list::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .split-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .split-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, hsl(var(--primary) / 0.55), hsl(var(--primary-light) / 0.55));
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    .split-list {
+      scrollbar-width: thin;
+      scrollbar-color: hsl(var(--primary) / 0.55) transparent;
+    }
   }
 
   .split-item {
@@ -803,6 +829,7 @@
     border-radius: 0.875rem;
     text-align: left;
     color: hsl(var(--muted-foreground));
+    scroll-margin-block: 6rem 1.5rem;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
@@ -872,6 +899,15 @@
     animation: split-detail-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
+  .split-detail-enter > * {
+    flex-grow: 1;
+  }
+
+  .split-nav {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
   @keyframes split-detail-in {
     from {
       opacity: 0;
@@ -883,16 +919,15 @@
     }
   }
 
+  /* md+: the whole list is part of the page (no scroll inside a scroll); the detail stays
+     in view beside it while the page scrolls */
   @media (min-width: 768px) {
-    .split-list {
-      height: var(--split-height);
-      padding-block: 0.75rem;
-      -webkit-mask-image: linear-gradient(180deg, transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
-      mask-image: linear-gradient(180deg, transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
-    }
-
     .split-detail {
-      min-height: var(--split-height);
+      position: sticky;
+      top: 5rem;
+      align-self: flex-start;
+      /* Below the fixed nav and above the back-to-top button in the bottom-right corner */
+      min-height: min(var(--split-height), calc(100vh - 11rem));
     }
 
     .split-divider {

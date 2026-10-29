@@ -35,6 +35,9 @@ const VIEW_MODE_LABELS: Record<ViewMode, string> = {
 const prefersReducedMotion = () =>
   typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// md and up: the split view is two columns, its list part of the page rather than a scrolling row
+const isSplitColumns = () => typeof matchMedia === 'function' && matchMedia('(min-width: 768px)').matches;
+
 export interface FieldMapping<T = Record<string, unknown>> {
   // Core fields
   code: string | ((item: T) => string);
@@ -97,7 +100,7 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   renderSplitDetail?: (item: T) => ReactNode; // Selected item in the split view's right pane (falls back to renderCardContent)
 
   // Split (list + detail) view
-  splitHeight?: string; // Height of the list column on md+; the detail pane is at least this tall
+  splitHeight?: string; // Minimum height of the sticky detail pane on md+ (capped to fit the viewport)
 
   // Carousel settings
   carouselHeight?: string;
@@ -208,6 +211,7 @@ const ListViewer = <T = any>({
   const swipeRef = useRef<{ x: number; y: number; swiped: boolean } | null>(null);
   const splitListRef = useRef<HTMLDivElement>(null);
   const splitDividerRef = useRef<HTMLDivElement>(null);
+  const splitRevealRef = useRef(false);
   const [splitMarkerY, setSplitMarkerY] = useState<number | null>(null);
   const splitId = useId();
 
@@ -396,17 +400,32 @@ const ListViewer = <T = any>({
     };
   }, [isSplit, updateSplitMarker]);
 
-  // Scroll the list itself (never the page) so the selected entry is fully visible
+  // Bring the selected entry into view. Next/back and the arrow keys ask for that explicitly
+  // (splitRevealRef); on md+ the list is part of the page, so the page scrolls while the sticky
+  // detail stays put. Otherwise (first render, view switch) only the phone's row scrolls.
   useEffect(() => {
     const list = splitListRef.current;
     const entry = list?.children[currentIndex] as HTMLElement | undefined;
     if (!isSplit || !list || !entry) return;
+    const behavior = prefersReducedMotion() ? 'auto' : 'smooth';
+    if (splitRevealRef.current) {
+      splitRevealRef.current = false;
+      entry.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior });
+      return;
+    }
     const listBox = list.getBoundingClientRect();
     const entryBox = entry.getBoundingClientRect();
     const top = entryBox.top < listBox.top ? entryBox.top - listBox.top : Math.max(0, entryBox.bottom - listBox.bottom);
     const left = entryBox.left < listBox.left ? entryBox.left - listBox.left : Math.max(0, entryBox.right - listBox.right);
-    if (top || left) list.scrollBy({ top, left, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    if (top || left) list.scrollBy({ top, left, behavior });
   }, [isSplit, currentIndex]);
+
+  // Next/back under the detail pane; on phones the buttons sit below the list, so the page stays put
+  const stepSplit = (delta: 1 | -1) => {
+    splitRevealRef.current = isSplitColumns();
+    if (delta > 0) nextSlide();
+    else prevSlide();
+  };
 
   const toPx = (value: string) => {
     const match = /^([\d.]+)\s*(px|rem|em)?$/.exec(value.trim());
@@ -479,6 +498,7 @@ const ListViewer = <T = any>({
     else if (e.key === 'End') target = slideCount - 1;
     if (target === null || slideCount === 0) return;
     e.preventDefault();
+    splitRevealRef.current = true;
     setCurrentIndex(target);
     (splitListRef.current?.children[target] as HTMLElement | undefined)?.focus({ preventScroll: true });
   };
@@ -1160,7 +1180,7 @@ const ListViewer = <T = any>({
                 aria-orientation="vertical"
                 aria-label={carouselLabel}
                 onKeyDown={onSplitKeyDown}
-                className="split-list flex gap-1 overflow-x-auto pb-2 md:w-72 md:flex-shrink-0 md:flex-col md:overflow-x-hidden md:overflow-y-auto md:pb-0 lg:w-80"
+                className="split-list flex gap-1 overflow-x-auto pb-2 md:w-72 md:flex-shrink-0 md:flex-col md:overflow-visible md:pb-0 lg:w-80"
               >
                 {filteredData.map((item, index) => {
                   const code = getFieldValue(item, fieldMapping.code);
@@ -1199,7 +1219,7 @@ const ListViewer = <T = any>({
               <div
                 ref={splitDividerRef}
                 aria-hidden="true"
-                className="split-divider my-6 h-px md:my-0 md:mx-8 md:h-auto md:w-px lg:mx-12"
+                className="split-divider my-6 h-px md:my-0 md:ml-2 md:mr-8 md:h-auto md:w-px lg:ml-3 lg:mr-12"
               >
                 <span
                   className="split-divider-marker hidden md:block"
@@ -1207,14 +1227,27 @@ const ListViewer = <T = any>({
                 />
               </div>
 
-              <div role="tabpanel" id={panelId} aria-labelledby={tabId(selectedCode)} className="split-detail min-w-0 flex-1">
-                <div key={selectedCode} className="split-detail-enter h-full cursor-pointer" onClick={() => onItemClick?.(selected)}>
+              <div role="tabpanel" id={panelId} aria-labelledby={tabId(selectedCode)} className="split-detail flex min-w-0 flex-1 flex-col">
+                <div key={selectedCode} className="split-detail-enter flex flex-1 flex-col cursor-pointer" onClick={() => onItemClick?.(selected)}>
                   {renderSplitDetail
                     ? renderSplitDetail(selected)
                     : renderCardContent
                       ? renderCardContent(selected)
                       : renderDefaultDetail(selected)}
                 </div>
+                {slideCount > 1 && (
+                  <div className="mt-4 flex items-center justify-end gap-2">
+                    <span className="mr-1 text-xs tabular-nums text-muted-foreground">
+                      {currentIndex + 1} / {slideCount}
+                    </span>
+                    <button type="button" onClick={() => stepSplit(-1)} aria-label="Previous" aria-controls={panelId} className="split-nav">
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button type="button" onClick={() => stepSplit(1)} aria-label="Next" aria-controls={panelId} className="split-nav">
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           );
