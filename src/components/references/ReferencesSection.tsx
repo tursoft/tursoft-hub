@@ -158,6 +158,45 @@ const TestimonialRow = ({ reference }: { reference: ReferenceWithPhoto }) => (
   </div>
 );
 
+/** Split view entry: photo, name and title. */
+const ReferenceEntry = ({ reference }: { reference: ReferenceWithPhoto }) => (
+  <>
+    <Avatar reference={reference} className="h-11 w-11" />
+    <span className="min-w-0">
+      <span className="block truncate text-sm font-semibold">{reference.title}</span>
+      <span className="block truncate text-xs text-[hsl(var(--primary-light))]">{reference.position}</span>
+    </span>
+  </>
+);
+
+/** Split view detail: the whole testimonial, with no card frame around it. */
+const TestimonialDetail = ({ reference }: { reference: ReferenceWithPhoto }) => (
+  <article className="group relative flex h-full flex-col justify-center py-2 md:py-6">
+    <Quote className="testimonial-mark" aria-hidden="true" />
+    <header className="flex items-center gap-5 pr-12">
+      <Avatar reference={reference} className="h-20 w-20 sm:h-24 sm:w-24" />
+      <div className="min-w-0">
+        <h3 className="text-xl font-bold leading-tight text-foreground sm:text-2xl">{reference.title}</h3>
+        <p className="mt-1 font-medium text-[hsl(var(--primary-light))]">{reference.position}</p>
+        <p className="text-sm text-muted-foreground">
+          {reference.company}
+          {reference.date ? ` · ${reference.date}` : ''}
+        </p>
+      </div>
+    </header>
+    <blockquote className="mt-8" lang={reference.lang || undefined}>
+      <p className="testimonial-text sm:text-[1.05rem]" dangerouslySetInnerHTML={{ __html: reference.testimonial }} />
+    </blockquote>
+    <footer className="mt-8 flex flex-wrap items-center justify-between gap-3">
+      <ContactLinks reference={reference} max={4} />
+      <span className="inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
+        Full profile
+        <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+      </span>
+    </footer>
+  </article>
+);
+
 const ReferencesSection = () => {
   const [references, setReferences] = useSnapshotState<ReferenceWithPhoto[]>('references.references', []);
   const [isLoading, setIsLoading] = useSnapshotState('references.isLoading', true);
@@ -199,7 +238,7 @@ const ReferencesSection = () => {
         loadingMessage="Loading references..."
         emptyMessage="No references available"
         defaultViewMode="carousel"
-        enabledModes={['card', 'list', 'carousel']}
+        enabledModes={['card', 'list', 'split', 'carousel']}
         title="References:<span class='bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4'>What Colleagues Say</span>"
         subtitle="Testimonials from industry leaders and colleagues who have worked closely with me throughout my professional career."
         badge="Professional References"
@@ -213,6 +252,9 @@ const ReferencesSection = () => {
         renderCarouselContent={(ref) => <TestimonialCard reference={ref} />}
         renderCardContent={(ref) => <TestimonialCard reference={ref} />}
         renderListContent={(ref) => <TestimonialRow reference={ref} />}
+        renderSplitItem={(ref) => <ReferenceEntry reference={ref} />}
+        renderSplitDetail={(ref) => <TestimonialDetail reference={ref} />}
+        splitHeight="34rem"
         gridCols={{ sm: 1, md: 2, lg: 2, xl: 3 }}
         onItemClick={async (ref) => {
           try {

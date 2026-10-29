@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect, ReactNode, useMemo, useCallback, type ReactElement } from "react";
+import { useState, useRef, useEffect, useId, ReactNode, useMemo, useCallback, type ReactElement } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft, ChevronRight, Grid, List, RotateCcw, Grid3x3, Filter, Search, Orbit } from "lucide-react";
+import { ChevronLeft, ChevronRight, Grid, List, RotateCcw, Grid3x3, Filter, Search, Orbit, PanelLeft } from "lucide-react";
 import { ItemCloud } from "@/components/ui/item-cloud";
 import { cn } from "@/lib/utils";
 import { isPrerender } from "@/lib/prerender";
@@ -12,7 +12,7 @@ import { isPrerender } from "@/lib/prerender";
 const withSafeLinks = (html: string) =>
   html.replace(/<a\s(?![^>]*\brel=)([^>]*target=['"]_blank['"][^>]*)>/gi, '<a rel="noopener noreferrer" $1>');
 
-export type ViewMode = 'small-card' | 'card' | 'list' | 'carousel' | 'cloud';
+export type ViewMode = 'small-card' | 'card' | 'list' | 'carousel' | 'cloud' | 'split';
 
 const VIEW_MODE_ICONS: Record<ViewMode, ReactNode> = {
   'small-card': <Grid3x3 className="w-4 h-4" />,
@@ -20,6 +20,7 @@ const VIEW_MODE_ICONS: Record<ViewMode, ReactNode> = {
   list: <List className="w-4 h-4" />,
   carousel: <RotateCcw className="w-4 h-4" />,
   cloud: <Orbit className="w-4 h-4" />,
+  split: <PanelLeft className="w-4 h-4" />,
 };
 
 const VIEW_MODE_LABELS: Record<ViewMode, string> = {
@@ -28,7 +29,11 @@ const VIEW_MODE_LABELS: Record<ViewMode, string> = {
   list: 'List',
   carousel: 'Carousel',
   cloud: '3D cloud',
+  split: 'List and detail',
 };
+
+const prefersReducedMotion = () =>
+  typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export interface FieldMapping<T = Record<string, unknown>> {
   // Core fields
@@ -88,14 +93,19 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   renderListContent?: (item: T) => ReactNode;
   renderCarouselContent?: (item: T) => ReactNode;
   renderSmallCardContent?: (item: T) => ReactNode;
-  
+  renderSplitItem?: (item: T) => ReactNode; // Entry in the split view's left-hand list
+  renderSplitDetail?: (item: T) => ReactNode; // Selected item in the split view's right pane (falls back to renderCardContent)
+
+  // Split (list + detail) view
+  splitHeight?: string; // Height of the list column on md+; the detail pane is at least this tall
+
   // Carousel settings
   carouselHeight?: string;
   carouselCardWidth?: string;
   carouselCardHeight?: string;
   carouselCardClassName?: string; // Replaces the default card surface classes in carousel view
   carouselAutoplayMs?: number; // Advances the carousel while on screen and not hovered; 0 disables
-  carouselLabel?: string; // Accessible name of the carousel region
+  carouselLabel?: string; // Accessible name of the carousel region and of the split view's list
   
   // Grid settings
   gridCols?: {
@@ -158,6 +168,9 @@ const ListViewer = <T = any>({
   renderListContent,
   renderCarouselContent,
   renderSmallCardContent,
+  renderSplitItem,
+  renderSplitDetail,
+  splitHeight = '34rem',
   carouselHeight = '500px',
   carouselCardWidth = '36rem',
   carouselCardHeight = '28rem',
@@ -193,6 +206,10 @@ const ListViewer = <T = any>({
   const [carouselPaused, setCarouselPaused] = useState(false);
   const [carouselInView, setCarouselInView] = useState(false);
   const swipeRef = useRef<{ x: number; y: number; swiped: boolean } | null>(null);
+  const splitListRef = useRef<HTMLDivElement>(null);
+  const splitDividerRef = useRef<HTMLDivElement>(null);
+  const [splitMarkerY, setSplitMarkerY] = useState<number | null>(null);
+  const splitId = useId();
 
   // Helper to get field value
   const getFieldValue = useCallback((item: T, field: string | ((item: T) => string) | undefined): string => {
@@ -343,13 +360,53 @@ const ListViewer = <T = any>({
   useEffect(() => {
     if (!isCarousel || !carouselAutoplayMs || isPrerender || slideCount < 2) return;
     if (!carouselInView || carouselPaused) return;
-    if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (prefersReducedMotion()) return;
     const id = window.setInterval(() => {
       if (document.visibilityState === 'visible') nextSlide();
     }, carouselAutoplayMs);
     return () => window.clearInterval(id);
     // currentIndex is a dependency on purpose: a manual change restarts the countdown
   }, [isCarousel, carouselAutoplayMs, slideCount, carouselInView, carouselPaused, nextSlide, currentIndex]);
+
+  // Split view: the selection is currentIndex, shared with the carousel, so switching views keeps it.
+  // A glowing marker on the divider follows the selected entry while the list scrolls.
+  const isSplit = viewMode === 'split';
+  const updateSplitMarker = useCallback(() => {
+    const list = splitListRef.current;
+    const divider = splitDividerRef.current;
+    const entry = list?.children[currentIndex] as HTMLElement | undefined;
+    if (!list || !divider || !entry) return;
+    const listBox = list.getBoundingClientRect();
+    const entryBox = entry.getBoundingClientRect();
+    const centre = entryBox.top + entryBox.height / 2;
+    const visible = centre >= listBox.top && centre <= listBox.bottom;
+    setSplitMarkerY(visible ? centre - divider.getBoundingClientRect().top : null);
+  }, [currentIndex]);
+
+  useEffect(() => {
+    const list = splitListRef.current;
+    if (!isSplit || !list) return;
+    updateSplitMarker();
+    list.addEventListener('scroll', updateSplitMarker, { passive: true });
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(updateSplitMarker);
+    observer?.observe(list);
+    return () => {
+      list.removeEventListener('scroll', updateSplitMarker);
+      observer?.disconnect();
+    };
+  }, [isSplit, updateSplitMarker]);
+
+  // Scroll the list itself (never the page) so the selected entry is fully visible
+  useEffect(() => {
+    const list = splitListRef.current;
+    const entry = list?.children[currentIndex] as HTMLElement | undefined;
+    if (!isSplit || !list || !entry) return;
+    const listBox = list.getBoundingClientRect();
+    const entryBox = entry.getBoundingClientRect();
+    const top = entryBox.top < listBox.top ? entryBox.top - listBox.top : Math.max(0, entryBox.bottom - listBox.bottom);
+    const left = entryBox.left < listBox.left ? entryBox.left - listBox.left : Math.max(0, entryBox.right - listBox.right);
+    if (top || left) list.scrollBy({ top, left, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  }, [isSplit, currentIndex]);
 
   const toPx = (value: string) => {
     const match = /^([\d.]+)\s*(px|rem|em)?$/.exec(value.trim());
@@ -411,6 +468,19 @@ const ListViewer = <T = any>({
       e.preventDefault();
       prevSlide();
     }
+  };
+
+  // Split view list is a tablist with roving focus; both arrow axes work since it is a row on phones
+  const onSplitKeyDown = (e: React.KeyboardEvent) => {
+    let target: number | null = null;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') target = (currentIndex + 1) % slideCount;
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') target = (currentIndex - 1 + slideCount) % slideCount;
+    else if (e.key === 'Home') target = 0;
+    else if (e.key === 'End') target = slideCount - 1;
+    if (target === null || slideCount === 0) return;
+    e.preventDefault();
+    setCurrentIndex(target);
+    (splitListRef.current?.children[target] as HTMLElement | undefined)?.focus({ preventScroll: true });
   };
 
   // Grid column classes
@@ -1045,6 +1115,107 @@ const ListViewer = <T = any>({
                   )}
                 </aside>
               )}
+            </div>
+          );
+        })()}
+
+        {/* Split View: list on the left, selected item on the right */}
+        {viewMode === 'split' && slideCount > 0 && (() => {
+          const selected = filteredData[Math.min(currentIndex, slideCount - 1)];
+          const selectedCode = getFieldValue(selected, fieldMapping.code);
+          const tabId = (code: string) => `${splitId}-tab-${code}`;
+          const panelId = `${splitId}-panel`;
+          const renderDefaultDetail = (item: T) => {
+            const title = getFieldValue(item, fieldMapping.title);
+            const subtitle = getFieldValue(item, fieldMapping.subtitle);
+            const image = getFieldValue(item, fieldMapping.image);
+            const date = getFieldValue(item, fieldMapping.date);
+            return (
+              <div className="flex h-full flex-col justify-center gap-6">
+                <div className="flex items-center gap-5">
+                  {image && (
+                    <img loading="lazy" decoding="async" src={image} alt="" className={cn('h-20 w-20 object-contain', imageRounded ? 'rounded-full' : 'rounded-lg')} />
+                  )}
+                  <div className="min-w-0">
+                    <h3 className="text-2xl font-bold">{title}</h3>
+                    {subtitle && <p className="text-primary font-semibold text-sm">{subtitle}</p>}
+                    {date && <p className="text-muted-foreground text-xs">{date}</p>}
+                  </div>
+                </div>
+                <div
+                  className="text-base leading-relaxed text-muted-foreground"
+                  dangerouslySetInnerHTML={{ __html: withSafeLinks(getFieldValue(item, fieldMapping.description)) }}
+                />
+              </div>
+            );
+          };
+          return (
+            <div
+              className="flex max-w-6xl mx-auto flex-col md:flex-row md:items-stretch"
+              style={{ '--split-height': splitHeight } as React.CSSProperties}
+            >
+              <div
+                ref={splitListRef}
+                role="tablist"
+                aria-orientation="vertical"
+                aria-label={carouselLabel}
+                onKeyDown={onSplitKeyDown}
+                className="split-list flex gap-1 overflow-x-auto pb-2 md:w-72 md:flex-shrink-0 md:flex-col md:overflow-x-hidden md:overflow-y-auto md:pb-0 lg:w-80"
+              >
+                {filteredData.map((item, index) => {
+                  const code = getFieldValue(item, fieldMapping.code);
+                  const title = getFieldValue(item, fieldMapping.title);
+                  const subtitle = getFieldValue(item, fieldMapping.subtitle);
+                  const image = getFieldValue(item, fieldMapping.image);
+                  const active = code === selectedCode;
+                  return (
+                    <button
+                      key={code}
+                      type="button"
+                      role="tab"
+                      id={tabId(code)}
+                      aria-selected={active}
+                      aria-controls={panelId}
+                      tabIndex={active ? 0 : -1}
+                      onClick={() => setCurrentIndex(index)}
+                      className={cn('split-item w-60 md:w-full', active && 'is-active')}
+                    >
+                      {renderSplitItem ? renderSplitItem(item) : (
+                        <>
+                          {image && (
+                            <img loading="lazy" decoding="async" src={image} alt="" className={cn('h-10 w-10 flex-shrink-0 object-contain', imageRounded ? 'rounded-full' : 'rounded-md')} />
+                          )}
+                          <span className="min-w-0">
+                            <span className="block truncate text-sm font-semibold">{title}</span>
+                            {subtitle && <span className="block truncate text-xs text-muted-foreground">{subtitle}</span>}
+                          </span>
+                        </>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div
+                ref={splitDividerRef}
+                aria-hidden="true"
+                className="split-divider my-6 h-px md:my-0 md:mx-8 md:h-auto md:w-px lg:mx-12"
+              >
+                <span
+                  className="split-divider-marker hidden md:block"
+                  style={{ transform: `translateY(${splitMarkerY ?? 0}px)`, opacity: splitMarkerY === null ? 0 : 1 }}
+                />
+              </div>
+
+              <div role="tabpanel" id={panelId} aria-labelledby={tabId(selectedCode)} className="split-detail min-w-0 flex-1">
+                <div key={selectedCode} className="split-detail-enter h-full cursor-pointer" onClick={() => onItemClick?.(selected)}>
+                  {renderSplitDetail
+                    ? renderSplitDetail(selected)
+                    : renderCardContent
+                      ? renderCardContent(selected)
+                      : renderDefaultDetail(selected)}
+                </div>
+              </div>
             </div>
           );
         })()}
