@@ -147,7 +147,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
           {/* Logo positioned on the far left */}
           {educationIcon && (
             <div className="absolute top-4 left-8 z-10 w-16 h-16">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={educationIcon} 
                 alt={`${education.companyName} logo`}
                 className="w-full h-full object-contain rounded-lg"
@@ -315,7 +315,7 @@ const EducationDetailDialog: React.FC<EducationDetailDialogProps> = ({
                             }}
                           >
                             {logoPath && (
-                              <img 
+                              <img loading="lazy" decoding="async" 
                                 src={logoPath} 
                                 alt={`${skill.title} logo`} 
                                 className="w-5 h-5 object-contain flex-shrink-0" 

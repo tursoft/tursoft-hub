@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useSnapshotState, type SnapshotCodec } from '@/hooks/use-snapshot-state';
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -37,9 +38,41 @@ interface TimelineItem {
   data: ProjectEntry | Experience | Education;
 }
 
+const TIMELINE_ICONS: Record<TimelineItemType, typeof Briefcase> = {
+  project: Code,
+  experience: Briefcase,
+  education: GraduationCap,
+};
+
+type EncodedTimelineItem = Omit<TimelineItem, 'icon' | 'dateObj' | 'endDateObj'> & {
+  dateObj: string;
+  endDateObj: string | null;
+};
+
+// Timeline items hold Date objects and icon components. The prerender snapshot stores
+// the dates as ISO strings and rebuilds the icon from the item type. The full record in
+// `data` is only needed by the detail dialogs and arrives with the live data right after
+// load, so it is left out of the snapshot to keep the page small.
+const timelineCodec: SnapshotCodec<TimelineItem[]> = {
+  encode: (items) =>
+    items.map(({ icon, dateObj, endDateObj, data, ...rest }): EncodedTimelineItem => ({
+      ...rest,
+      data: null as unknown as TimelineItem['data'],
+      dateObj: dateObj.toISOString(),
+      endDateObj: endDateObj ? endDateObj.toISOString() : null,
+    })),
+  decode: (data) =>
+    (data as EncodedTimelineItem[]).map((it) => ({
+      ...it,
+      icon: TIMELINE_ICONS[it.type] ?? Calendar,
+      dateObj: new Date(it.dateObj),
+      endDateObj: it.endDateObj ? new Date(it.endDateObj) : null,
+    })),
+};
+
 const TimelineSection = () => {
-  const [items, setItems] = useState<TimelineItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [items, setItems] = useSnapshotState<TimelineItem[]>('timeline.items', [], timelineCodec);
+  const [isLoading, setIsLoading] = useSnapshotState('timeline.isLoading', true);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [viewMode, setViewMode] = useState<ViewMode>('timeline');
@@ -186,7 +219,7 @@ const TimelineSection = () => {
     };
 
     loadData();
-  }, []);
+  }, [setIsLoading, setItems]);
 
   const filteredItems = items.filter((item) => {
     if (selectedCategory === 'All') return true;
@@ -243,6 +276,7 @@ const TimelineSection = () => {
   };
 
   const handleItemClick = (item: TimelineItem) => {
+    if (!item.data) return; // full record not loaded yet (prerender snapshot)
     switch (item.type) {
       case 'project':
         setSelectedProject(item.data as ProjectEntry);
@@ -408,8 +442,8 @@ const TimelineSection = () => {
         <div className="text-center mb-12 animate-fade-in">
           <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Career Journey</Badge>
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Professional
-            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Timeline</span>
+            Professional Timeline:
+            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Career, Education and Projects</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             A chronological overview of my professional journey, education, and key projects
@@ -527,7 +561,7 @@ const TimelineSection = () => {
                               {/* Logo or Icon */}
                               {item.logoUrl ? (
                                 <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden flex items-center justify-center">
-                                  <img 
+                                  <img loading="lazy" decoding="async" 
                                     src={item.logoUrl} 
                                     alt={item.title}
                                     className="w-full h-full object-contain"

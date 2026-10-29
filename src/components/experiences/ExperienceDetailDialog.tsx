@@ -230,7 +230,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
           {/* Logo positioned on the far left */}
           {company?.photoUrl && (
             <div className="absolute top-4 left-8 z-10 w-16 h-16">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={company.photoUrl} 
                 alt={`${company.title} logo`}
                 className="w-full h-full object-contain rounded-lg"
@@ -387,7 +387,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                             }}
                           >
                             {logoPath && (
-                              <img 
+                              <img loading="lazy" decoding="async" 
                                 src={logoPath} 
                                 alt={`${skill.title} logo`} 
                                 className="w-5 h-5 object-contain flex-shrink-0" 
@@ -430,7 +430,7 @@ const ExperienceDetailDialog: React.FC<ExperienceDetailDialogProps> = ({
                         >
                           {logoPath ? (
                             <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                              <img
+                              <img loading="lazy" decoding="async"
                                 src={logoPath}
                                 alt={`${project.title} logo`}
                                 className="w-7 h-7 object-contain rounded"

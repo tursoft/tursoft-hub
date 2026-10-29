@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { domainsRepo } from '@/repositories/DomainsRepo';
 import type { Domain, DomainsData } from '@/models/Domain';
 import DomainDetailDialog from './DomainDetailDialog';
+import { DomainIcon } from './DomainIcon';
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog';
 import ProjectDetailDialog from '../projects/ProjectDetailDialog';
 import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
 
 const DomainsSection = () => {
-  const [domainsData, setDomainsData] = useState<DomainsData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [domainsData, setDomainsData] = useSnapshotState<DomainsData | null>('domains.domainsData', null);
+  const [isLoading, setIsLoading] = useSnapshotState('domains.isLoading', true);
   const [selectedDomain, setSelectedDomain] = useState<Domain | null>(null);
   const [isDomainDialogOpen, setIsDomainDialogOpen] = useState(false);
   const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
@@ -33,7 +35,7 @@ const DomainsSection = () => {
     };
 
     loadDomainsData();
-  }, []);
+  }, [setDomainsData, setIsLoading]);
 
   if (isLoading || !domainsData) {
     return (
@@ -72,9 +74,9 @@ const DomainsSection = () => {
           <div className="text-center mb-16 animate-fade-in">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Domain Expertise</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Industry
+              Industry Expertise in
               <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">
-                Domains
+                Healthcare, Construction, E-Learning and SaaS
               </span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -93,20 +95,8 @@ const DomainsSection = () => {
               >
                 <CardContent className="pt-6">
                   <div className="flex flex-col items-center text-center space-y-4">
-                    {/* Domain Icon/Image */}
-                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors overflow-hidden">
-                      {domain.photoUrl ? (
-                        <img 
-                          src={domain.photoUrl} 
-                          alt={`${domain.title} icon`}
-                          className="w-12 h-12 object-contain"
-                        />
-                      ) : (
-                        <div className="text-2xl font-bold text-primary">
-                          {domain.title?.charAt(0) || '?'}
-                        </div>
-                      )}
-                    </div>
+                    {/* Domain Icon */}
+                    <DomainIcon code={domain.code} title={domain.title} photoUrl={domain.photoUrl} />
                     <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                       {domain.title}
                     </h3>

@@ -30,18 +30,45 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Full history: the sitemap's lastmod comes from the last commit per page.
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
+
+      # Puppeteer downloads Chrome for the prerender step; cache it between runs.
+      - name: Cache Puppeteer browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      # vite build, then scripts/postbuild.mjs: sitemap.xml, llms-full.txt and
+      # static prerendering of every route (fails the build on an empty page).
+      - name: Build and prerender
         run: npm run build
+
+      - name: Verify prerendered output
+        run: |
+          test -f dist/sitemap.xml
+          test -f dist/llms-full.txt
+          test -f dist/privacy/amelbook/index.html
+          test -f dist/privacy/amelbook/en/index.html
+          test -f dist/case-studies/index.html
+          # Hydration state: small pages embed it inline as <script id="__PRERENDER_STATE__">;
+          # the homepage's is large, so it ships as state.json named by <meta name="prerender-state">.
+          grep -q 'name="prerender-state"' dist/index.html
+          test -s dist/state.json
+          grep -q '__PRERENDER_STATE__' dist/case-studies/index.html
+          grep -q 'application/ld+json' dist/index.html
+          grep -q '<h2' dist/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

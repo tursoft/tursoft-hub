@@ -149,7 +149,7 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
           {/* Logo positioned on the far left */}
           {partnerLogo && (
             <div className="absolute top-4 left-8 z-10 w-16 h-16">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={partnerLogo} 
                 alt={`${companyTitle || partner.companyCode} logo`}
                 className="w-full h-full object-contain rounded-lg"
@@ -296,7 +296,7 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
                       >
                         {projectLogos[project.code] && (
                           <div className="w-12 h-12 flex-shrink-0">
-                            <img
+                            <img loading="lazy" decoding="async"
                               src={projectLogos[project.code]}
                               alt={project.title}
                               className="w-full h-full object-contain rounded"

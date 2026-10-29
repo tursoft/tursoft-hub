@@ -7,11 +7,28 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useEffect, useRef, useState } from "react";
 import Typewriter from "@/components/ui/typewriter";
-import heroImage from "@/assets/hero-bg.jpg";
+import { PERSON } from "@/lib/site";
+import { scrollToSection } from "@/lib/section-settle";
+
+// Decorative background (30% opacity), served unhashed from /assets.
+const heroImage = "/assets/hero-bg.webp";
 import cvData from "@/data/cv.json";
 
 const HeroSection = () => {
+  // The hero's ambient animations (aurora, gradient name, typewriter) are about half of the
+  // page's main-thread work; pause them while the hero is scrolled out of view.
+  const heroRef = useRef<HTMLElement | null>(null);
+  const [inView, setInView] = useState(true);
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   const socialLinks = [{
     icon: Github,
     href: "https://github.com/tursoft",
@@ -31,6 +48,7 @@ const HeroSection = () => {
   }];
 
   const roles = [
+    "AI-Enabled Software Architect",
     "Senior Software Architect",
     "Director of Technology",
     ".NET & Web Expert",
@@ -38,7 +56,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section id="hero" className="min-h-screen relative flex items-center justify-center overflow-hidden">
+    <section ref={heroRef} id="hero" data-paused={inView ? undefined : ""} className="min-h-screen relative flex items-center justify-center overflow-hidden">
       {/* Background photo, kept very subtle under the aurora */}
       <div
         className="absolute inset-0 opacity-30"
@@ -59,7 +77,7 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-20 container mx-auto px-6 text-center">
-        <div className="max-w-4xl mx-auto animate-fade-in">
+        <div className="max-w-4xl mx-auto hero-rise">
           {/* Availability badge */}
           <Badge className="mb-8 px-4 py-2 text-xs font-semibold glass text-foreground border-success/30 hover:border-success/60 hover:scale-105 transition-all duration-300">
             <span className="relative flex h-2.5 w-2.5 mr-2">
@@ -75,25 +93,38 @@ const HeroSection = () => {
             <span className="block font-extrabold text-gradient-animated">TURŞAK</span>
           </h1>
 
+          {/* Static positioning line: crawlers and screen readers get the full statement */}
+          <p className="text-base lg:text-lg text-foreground/85 mb-3 font-medium tracking-wide">
+            {PERSON.headline} · {PERSON.yearsOfExperience} years
+          </p>
+
           {/* Rotating role */}
           <p className="text-xl lg:text-2xl text-muted-foreground mb-8 font-light min-h-[2.25rem]">
-            <Typewriter phrases={roles} className="text-foreground/90" />
+            <Typewriter phrases={roles} className="text-foreground/90" paused={!inView} />
           </p>
 
           {/* Description */}
           <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            With <span className="text-gradient font-semibold">25+ years</span> in technology, I've driven the creation of innovative <span className="text-primary font-semibold">cloud based</span> and <span className="text-primary font-semibold">SaaS</span> solutions, blending <span className="text-accent font-semibold">startup agility</span> with enterprise-grade functionality and <span className="text-accent font-semibold">scalability</span>.
+            With <span className="text-gradient font-semibold">25+ years</span> in technology, I architect <span className="text-primary font-semibold">cloud-based</span> and <span className="text-primary font-semibold">SaaS</span> products and build them with <span className="text-accent font-semibold">AI agents</span> across the whole development lifecycle, pairing <span className="text-accent font-semibold">prompt and context engineering</span> with enterprise-grade architecture and scalability.
           </p>
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button
+              asChild
               size="lg"
               className="btn-shine bg-gradient-to-r from-[hsl(var(--primary-variant))] via-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground border-0 px-8 py-3 text-lg hover:scale-[1.03] hover:shadow-[var(--shadow-glow)] transition-all duration-300"
-              onClick={() => document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" })}
             >
-              View My Portfolio
-              <ExternalLink className="ml-2 h-5 w-5" />
+              <a
+                href="#portfolio"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("portfolio");
+                }}
+              >
+                View My Portfolio
+                <ExternalLink className="ml-2 h-5 w-5" />
+              </a>
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -141,7 +172,7 @@ const HeroSection = () => {
       {/* Scroll Indicator */}
       <button
         className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer"
-        onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+        onClick={() => scrollToSection("about")}
         aria-label="Scroll to About section"
       >
         <div className="w-6 h-10 border-2 border-primary/60 rounded-full flex justify-center hover:border-primary transition-colors duration-300">

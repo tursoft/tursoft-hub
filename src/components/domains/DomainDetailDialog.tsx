@@ -1,3 +1,4 @@
+import { DomainIcon } from './DomainIcon';
 import React, { useState, useEffect } from 'react';
 import {
   Dialog,
@@ -107,8 +108,6 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
 
   if (!domain) return null;
 
-  const logoPath = domain.photoUrl || "";
-
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent 
@@ -118,19 +117,10 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
             : 'max-w-4xl max-h-[90vh]'
         } overflow-hidden flex flex-col z-[100] h-[80%]`}
       >
-        {/* Logo */}
-        {logoPath && (
-          <div className="absolute top-4 left-8 z-10 w-16 h-16">
-            <img 
-              src={logoPath} 
-              alt={`${domain.title} icon`} 
-              className="w-full h-full object-contain rounded-lg"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          </div>
-        )}
+        {/* Icon */}
+        <div className="absolute top-4 left-8 z-10">
+          <DomainIcon code={domain.code} title={domain.title} photoUrl={domain.photoUrl} size="sm" />
+        </div>
 
         {/* Header */}
         <DialogHeader className="flex-shrink-0 pl-24">

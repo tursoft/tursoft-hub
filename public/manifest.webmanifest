@@ -1,0 +1,13 @@
+{
+  "name": "Muhammet Turşak",
+  "short_name": "Turşak",
+  "description": "Muhammet Turşak (Tursak), AI-Enabled Senior Software Architect in Ankara, Turkey.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#090811",
+  "theme_color": "#090811",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon.ico", "sizes": "32x32", "type": "image/x-icon" }
+  ]
+}

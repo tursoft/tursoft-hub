@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { calculateSkillScore } from '@/lib/skillScore';
 import { SkillStats } from '@/components/skills/SkillStats';
@@ -20,12 +21,12 @@ interface SkillWithIcon extends SkillItem {
 }
 
 const SkillsSection = () => {
-  const [skills, setSkills] = useState<SkillWithIcon[]>([]);
+  const [skills, setSkills] = useSnapshotState<SkillWithIcon[]>('skills.skills', []);
   const { getRelations, getCompany } = useSkillRelations();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useSnapshotState('skills.isLoading', true);
   const [selectedSkill, setSelectedSkill] = useState<SkillItem | null>(null);
   const [isSkillDialogOpen, setIsSkillDialogOpen] = useState(false);
-  const [categoryOrder, setCategoryOrder] = useState<string[]>([]);
+  const [categoryOrder, setCategoryOrder] = useSnapshotState<string[]>('skills.categoryOrder', []);
   
   // Dialog states for nested dialogs
   const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
@@ -69,7 +70,7 @@ const SkillsSection = () => {
     };
 
     loadData();
-  }, []);
+  }, [setCategoryOrder, setIsLoading, setSkills]);
 
   // Get unique groups for statistics
   const groups = [...new Set(skills.map(s => String(s.group)).filter(Boolean))];
@@ -83,8 +84,8 @@ const SkillsSection = () => {
           isLoading={isLoading}
           loadingMessage="Loading skills..."
           emptyMessage="No skills found."
-          title='Technical<span class="text-primary bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Skills</span>'
-          subtitle="A comprehensive overview of programming languages, frameworks, databases, and tools I've mastered throughout my career"
+          title='Technical Skills:<span class="text-primary bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">.NET, Node.js, Cloud and AI Agents</span>'
+          subtitle="A comprehensive overview of the programming languages, frameworks, databases and tools I've mastered throughout my career, and the AI and agentic engineering stack I build with today"
           defaultViewMode="cloud"
           enabledModes={['cloud', 'small-card', 'card', 'list']}
           enableShowMore={true}
@@ -116,7 +117,7 @@ const SkillsSection = () => {
             <div className="h-full rounded-xl border border-border bg-card p-5">
               <div className="flex items-center gap-3 mb-4">
                 {skill.icon && (
-                  <img src={skill.icon} alt="" className="w-12 h-12 object-contain flex-shrink-0" />
+                  <img loading="lazy" decoding="async" src={skill.icon} alt="" className="w-12 h-12 object-contain flex-shrink-0" />
                 )}
                 <div className="min-w-0">
                   <h3 className="font-bold leading-tight truncate">{skill.title}</h3>

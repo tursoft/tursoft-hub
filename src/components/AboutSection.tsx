@@ -1,36 +1,38 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code, Users, Award, Briefcase, Mail, Phone, Globe } from "lucide-react";
+import { Bot, Sparkles, Award, Briefcase, Mail, Phone, Globe } from "lucide-react";
 import Reveal from "@/components/ui/reveal";
+import { PERSON } from "@/lib/site";
 
 const AboutSection = () => {
   const highlights = [
     {
       icon: Briefcase,
       title: "25+ Years Experience",
-      description: "Leading enterprise software development projects worldwide"
+      description: "Leading enterprise software projects worldwide, from national healthcare systems to AI-native SaaS"
     },
     {
-      icon: Users,
-      title: "Team Leadership",
-      description: "Director of Technology, R&D Director, and Project Manager roles"
+      icon: Sparkles,
+      title: "AI-Driven Lifecycle",
+      description: "AI coding agents across the whole SDLC: specs, plans, implementation, review, tests and docs"
     },
     {
-      icon: Code,
-      title: "Full-Stack Expertise",
-      description: ".NET, Java, Web, and Mobile development technologies"
+      icon: Bot,
+      title: "Agent Teams",
+      description: "Designing and managing multi-agent workflows with prompt and context engineering"
     },
     {
       icon: Award,
-      title: "Enterprise Systems",
-      description: "World-class systems with exceptional performance and scalability"
+      title: "Enterprise Architecture",
+      description: ".NET, Node.js, Cloud, SaaS"
     }
   ];
 
   const roles = [
+    "AI-Enabled Software Architect",
+    "Director of Technology",
     "Software Group Director",
     "Research & Development Director",
-    "Software Architect",
     "Software Team Leader"
   ];
 
@@ -38,6 +40,18 @@ const AboutSection = () => {
     { icon: Mail, label: "Email", value: "tursoft@gmail.com", href: "mailto:tursoft@gmail.com" },
     { icon: Phone, label: "Phone", value: "+90 554 200 78 29", href: "tel:+905542007829" },
     { icon: Globe, label: "Website", value: "tursoft.net", href: "https://tursoft.net" },
+  ];
+
+  // The facts search engines and AI assistants quote; kept in sync with llms.txt and the JSON-LD.
+  const glance = [
+    { label: "Name", value: `${PERSON.name} (also written Tursak)` },
+    { label: "Title", value: PERSON.headline },
+    { label: "Based in", value: `${PERSON.location.city}, ${PERSON.location.country}` },
+    { label: "Experience", value: `${PERSON.yearsOfExperience} years in enterprise software` },
+    { label: "Current", value: PERSON.currentRole },
+    { label: "Previously", value: PERSON.previousRoles },
+    { label: "Specialties", value: "AI agentic development, .NET, Node.js, Azure, React, SaaS" },
+    { label: "Available for", value: PERSON.availability },
   ];
 
   return (
@@ -48,12 +62,27 @@ const AboutSection = () => {
           <Reveal className="text-center mb-16">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">About Me</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Transforming Ideas Into
-              <span className="text-gradient block lg:inline lg:ml-4">Digital Reality</span>
+              Senior Software Architect
+              <span className="text-gradient block lg:inline lg:ml-4">Building the AI-Native Way</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              I lead development of enterprise systems that deliver world-class functionality and performance while prioritizing scalability, maintainability, fault tolerance, and rapid extensibility.
+              I lead the development of enterprise systems that deliver world-class functionality and performance, and I build them the AI-native way: coding agents across the whole lifecycle, engineered prompts and context, and agent teams that I design and manage.
             </p>
+          </Reveal>
+
+          {/* At a glance */}
+          <Reveal className="mb-16">
+            <div className="glass rounded-xl p-6 lg:p-8">
+              <h3 className="text-lg font-semibold mb-5 text-foreground">At a glance</h3>
+              <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4 text-sm">
+                {glance.map((fact) => (
+                  <div key={fact.label}>
+                    <dt className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{fact.label}</dt>
+                    <dd className="text-foreground">{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </Reveal>
 
           {/* Main Content */}
@@ -67,12 +96,10 @@ const AboutSection = () => {
                   in their sectors. As part of <span className="text-primary font-semibold">international companies</span>, we have completed <span className="text-primary font-semibold">multi-million dollar</span> software projects all over the world.
                 </p>
                 <p>
-                  My mission is to lead both <span className="text-primary font-semibold">research and development</span> teams to produce <span className="text-primary font-semibold">world-class innovative systems</span> in terms of both functional and technical quality.
-                  I bring a unique combination of <span className="text-primary font-semibold">technical expertise</span> and <span className="text-primary font-semibold">leadership experience</span> to every project.
+                  Since 2023 I have rebuilt the way I deliver software around AI. I run the whole <span className="text-primary font-semibold">development lifecycle with AI coding agents</span>, from specs and plans to implementation, review, tests and documentation, apply <span className="text-primary font-semibold">prompt and context engineering</span> to keep them accurate on large codebases, and <span className="text-primary font-semibold">design and manage agent teams</span> that work alongside human engineers.
                 </p>
                 <p>
-                  Currently serving as <span className="text-primary font-semibold">Director of Technology</span> & <span className="text-primary font-semibold">Senior Software Architect</span> at Jengai,
-                  I continue to push the boundaries of what's possible in <span className="text-primary font-semibold">enterprise software development</span> and <span className="text-primary font-semibold">gaming technology</span>.
+                  After leading technology at <span className="text-primary font-semibold">Jengai</span> and <span className="text-primary font-semibold">Gamyte</span>, I now build <span className="text-primary font-semibold">AI-native products</span> under Tursoft, such as BestJobFinder and Account Manager for Claude, and help engineering teams make the same transition: the specs, context, tooling and guardrails that let humans and AI agents deliver together.
                 </p>
               </div>
 

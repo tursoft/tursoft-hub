@@ -1,23 +1,27 @@
 {
   "general": {
-    "title": "Senior Software Architect / .NET, Java, Web and Mobile",
+    "title": "AI-Enabled Senior Software Architect / .NET, Node.js, Cloud & Agentic Engineering",
     "sitename": "tursoft",
     "year": 2025,
     "fullname": "Muhammet TURŞAK",
     "firstname": "Muhammet",
     "lastname": "TURŞAK",
-    "title_short": "Senior Software Architect",
-    "biography": "Within 25+ years of my professional career, I have taken the leadership of various enterprise projects within various software companies that are significant players in their sectors. As a part of international companies, we have completed multi-million dollar software projects on all over the world.",
-    "vision": "Developing huge sector-leader enterprise systems characterized by their world-class features like functionality, performance, scalability, security, manageability, robustness, agility, extensibility.",
-    "mission": "In such software companies, my mission is to lead both research and development teams to produce world-class innovative systems in terms of both functional and technical quality.",
+    "title_short": "AI-Enabled Software Architect",
+    "biography": "Over a career of more than 25 years I have led enterprise software projects at companies that are significant players in their sectors, delivering multi-million dollar systems with international teams across Europe, the Middle East and the United States. Today I work as an AI-enabled software architect: I run the whole software development lifecycle with AI coding agents, apply prompt and context engineering to keep them accurate and consistent, and design and manage teams of agents that plan, build, review and test alongside human engineers.",
+    "vision": "Sector-leading enterprise systems with world-class functionality, performance, scalability, security, manageability, robustness, agility and extensibility, built faster and better by treating AI agents as first-class members of the engineering team.",
+    "mission": "To lead research and development teams that produce world-class, innovative systems in both functional and technical quality, and to turn engineering organizations into AI-native ones through the specs, context, prompts, tooling and guardrails that let humans and AI agents deliver together.",
     "birthdate": "01.03.1982",
     "age": "",
     "nationality": "Turkish",
     "address_short": "Ankara, Turkey",
     "email": "tursoft@gmail.com",
     "mobilephone": "+90 554 200 78 29",
-    "website": "http://tursoft.net",
+    "website": "https://tursoft.net",
     "positions": [
+      {
+        "name": "AI-Enabled Software Architect",
+        "experience": "3+ years"
+      },
       {
         "name": "Software Group Director",
         "experience": "5 years"
@@ -43,7 +47,7 @@
       {
         "code": "website",
         "isactive": false,
-        "value": "http://www.tursoft.net"
+        "value": "https://tursoft.net"
       },
       {
         "code": "email",
@@ -70,7 +74,7 @@
       },
       {
         "code": "twitter",
-        "value": "https://twitter.com/muhammettursak"
+        "value": "https://x.com/muhammettursak"
       },
       {
         "code": "facebook",

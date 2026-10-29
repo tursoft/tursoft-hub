@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin, Building, ExternalLink, Linkedin } from "lucide-react";
@@ -14,12 +15,12 @@ import type {
 } from '@/models/Experience';
 
 const ExperienceSection = () => {
-  const [experiencesData, setExperiencesData] = useState<ExperiencesData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [experiencesData, setExperiencesData] = useSnapshotState<ExperiencesData | null>('experience.experiencesData', null);
+  const [isLoading, setIsLoading] = useSnapshotState('experience.isLoading', true);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [totalProjects, setTotalProjects] = useState(0);
+  const [totalProjects, setTotalProjects] = useSnapshotState('experience.totalProjects', 0);
   
   // State for processed experiences
   interface ProcessedPosition {
@@ -42,7 +43,7 @@ const ExperienceSection = () => {
     location: string;
   }
   
-  const [processedExperiences, setProcessedExperiences] = useState<ProcessedExperience[]>([]);
+  const [processedExperiences, setProcessedExperiences] = useSnapshotState<ProcessedExperience[]>('experience.processedExperiences', []);
 
   const handleExperienceClick = (experience: Experience) => {
     setSelectedExperience(experience);
@@ -69,7 +70,7 @@ const ExperienceSection = () => {
     };
 
     loadExperiencesData();
-  }, []);
+  }, [setExperiencesData, setIsLoading]);
   
   // Load total projects count
   useEffect(() => {
@@ -83,7 +84,7 @@ const ExperienceSection = () => {
     };
 
     loadProjectsCount();
-  }, []);
+  }, [setTotalProjects]);
   
   // Process experiences when data is loaded
   useEffect(() => {
@@ -109,7 +110,12 @@ const ExperienceSection = () => {
     if (!endDate) {
       return {
         range: `${startMonth} ${startYear} - Present`,
-        duration: `${Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 365))}+ years`,
+        duration: (() => {
+          const totalMonths = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 30.44));
+          const years = Math.floor(totalMonths / 12);
+          if (years >= 1) return `${years}+ years`;
+          return `${Math.max(totalMonths, 1)} month${totalMonths > 1 ? 's' : ''}`;
+        })(),
         current: true
       };
     }
@@ -234,11 +240,11 @@ const ExperienceSection = () => {
           <div className="text-center mb-16 animate-fade-in">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Professional Experience</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Building Tomorrow's
-              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Technology Today</span>
+              25+ Years of
+              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Enterprise Software Leadership</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A journey through enterprise software development, team leadership, and architectural excellence
+              A journey through enterprise software development, team leadership and architectural excellence, now delivered with AI agent teams
             </p>
           </div>
 
@@ -318,7 +324,7 @@ const ExperienceSection = () => {
                   {/* Company Logo - Horizontally centered based on years/daterange cells */}
                   <div className="absolute top-4 right-4 w-24 flex flex-col items-center">
                     <div className="w-16 h-16 flex items-center justify-center p-1 mb-2">
-                      <img 
+                      <img loading="lazy" decoding="async" 
                         src={exp.logo} 
                         alt={`${exp.company} logo`}
                         className="max-w-full max-h-full object-contain"
@@ -340,7 +346,7 @@ const ExperienceSection = () => {
                       <Building className="h-5 w-5 text-primary" />
                       <h3 className="text-xl font-bold text-foreground uppercase">{exp.company}</h3>
                       {hasCurrent && (
-                        <Badge variant="default" className="bg-primary text-primary-foreground">
+                        <Badge variant="default">
                           Current
                         </Badge>
                       )}
@@ -362,6 +368,7 @@ const ExperienceSection = () => {
                               rel="noopener noreferrer"
                               className="text-muted-foreground hover:text-primary transition-colors"
                               title="Visit Website"
+                              aria-label={`${exp.company} website`}
                             >
                               <ExternalLink className="h-4 w-4" />
                             </a>
@@ -373,6 +380,7 @@ const ExperienceSection = () => {
                               rel="noopener noreferrer"
                               className="text-muted-foreground hover:text-primary transition-colors"
                               title="Visit LinkedIn"
+                              aria-label={`${exp.company} on LinkedIn`}
                             >
                               <Linkedin className="h-4 w-4" />
                             </a>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Calendar, MapPin } from "lucide-react";
@@ -22,9 +23,9 @@ type ProcessedEducation = Education & {
 
 const EducationSection = () => {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  const [educationData, setEducationData] = useState<EducationData | null>(null);
-  const [processedEducations, setProcessedEducations] = useState<ProcessedEducation[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [educationData, setEducationData] = useSnapshotState<EducationData | null>('education.educationData', null);
+  const [processedEducations, setProcessedEducations] = useSnapshotState<ProcessedEducation[]>('education.processedEducations', []);
+  const [isLoading, setIsLoading] = useSnapshotState('education.isLoading', true);
   const [selectedEducation, setSelectedEducation] = useState<ProcessedEducation | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -66,7 +67,7 @@ const EducationSection = () => {
     };
 
     loadEducationData();
-  }, []);
+  }, [setEducationData, setIsLoading, setProcessedEducations]);
 
   // Handle education card click
   const handleEducationClick = (education: ProcessedEducation) => {
@@ -102,8 +103,8 @@ const EducationSection = () => {
           <div className="text-center mb-16 animate-fade-in">
             <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Academic Background</Badge>
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Educational
-              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Foundation</span>
+              Education at
+              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Middle East Technical University</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               {educationData.general.summary}
@@ -183,7 +184,7 @@ const EducationSection = () => {
                             {edu.companyPhotoUrl && (
                               <div className="flex-shrink-0">
                                 <div className="w-16 h-16">
-                                  <img 
+                                  <img loading="lazy" decoding="async" 
                                     src={edu.companyPhotoUrl} 
                                     alt={`${edu.companyName} logo`}
                                     className="w-full h-full object-contain"

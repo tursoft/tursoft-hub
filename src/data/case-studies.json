@@ -1,0 +1,175 @@
+{
+  "items": [
+    {
+      "slug": "jengai-ai-document-pipeline",
+      "projectCode": "JENGAIAPP",
+      "title": "Jengai: an AI document pipeline for construction estimating",
+      "shortTitle": "Jengai AI document pipeline",
+      "dek": "How a multi-tenant SaaS for commercial specialty contractors turns unstructured construction PDFs into structured cost and scope data.",
+      "description": "Case study: the AI document pipeline behind Jengai, a multi-tenant CRM, bidding and estimation SaaS for specialty contractors on .NET, Python and Azure AI.",
+      "role": "Director of Technology & Senior Software Architect",
+      "company": "Jengai, New York, USA",
+      "period": "Dec 2022 – Apr 2026",
+      "datePublished": "2026-10-28",
+      "outcome": "Pre-estimation turnaround cut by more than 60%",
+      "stack": [".NET", "Angular", "Python", "Azure App Services", "Azure Functions", "Azure SQL", "Azure Blob Storage", "Entra ID / Azure AD B2C", "Azure AI Document Intelligence", "Azure Computer Vision", "Azure Service Bus", "Azure DevOps"],
+      "sections": [
+        {
+          "heading": "The problem",
+          "paragraphs": [
+            "Commercial specialty contractors estimate and bid from construction documents that arrive as unstructured PDFs. Extracting cost and scope information from them by hand is slow, and it is the step every estimate waits for."
+          ]
+        },
+        {
+          "heading": "What was built",
+          "paragraphs": [
+            "Jengai is a cloud-native, multi-tenant SaaS platform that combines CRM, bidding and estimation in one suite, with modules for CRM, bidding, integrations, background jobs and document analysis.",
+            "At its core is an AI document pipeline. Azure AI Document Intelligence and Azure Computer Vision read the PDFs, Python and .NET services turn them into structured cost and scope data, and Azure Service Bus connects the services so processing runs asynchronously and event-driven."
+          ]
+        },
+        {
+          "heading": "Architecture decisions",
+          "bullets": [
+            "Enterprise-grade security across tenants with OAuth2, JWT and Azure AD B2C, and formal REST API design throughout the multi-tenant architecture.",
+            "Event-driven processing on Azure Service Bus between the .NET platform services and the Python AI services.",
+            "Integrations with Salesforce CRM, Zoho CRM, Autodesk Construction Cloud and Microsoft Graph.",
+            "A multi-layered testing strategy and CI/CD on Azure DevOps."
+          ]
+        },
+        {
+          "heading": "AI in the engineering process",
+          "paragraphs": [
+            "AI coding agents (Claude Code, GitHub Copilot and Cursor) became part of the team's daily development lifecycle for code authoring, refactoring, test generation and technical documentation. Prompt and context conventions kept their output consistent with the platform's architecture and coding standards."
+          ]
+        },
+        {
+          "heading": "Outcome",
+          "paragraphs": [
+            "Pre-estimation turnaround dropped by more than 60%, and several estimating teams can now work in parallel on the same project."
+          ]
+        },
+        {
+          "heading": "My role",
+          "paragraphs": [
+            "As Director of Technology and Senior Software Architect, I owned the end-to-end architecture and engineering delivery, designed the AI document pipeline, led and mentored the product and engineering teams, and managed the research and development projects."
+          ]
+        }
+      ],
+      "links": [
+        { "label": "Jengai website", "href": "https://www.jengai.com" }
+      ]
+    },
+    {
+      "slug": "bestjobfinder-ai-native-saas",
+      "projectCode": "BESTJOBFINDER",
+      "title": "BestJobFinder: an AI-native SaaS built with agent teams",
+      "shortTitle": "BestJobFinder and the agentic lifecycle",
+      "dek": "An AI-powered job search platform where language models are both a product feature and the way the product is built.",
+      "description": "Case study: BestJobFinder, an AI job search SaaS with web, desktop and Chrome extension apps, built end to end with AI coding agents and sub-agent teams.",
+      "role": "Founder & AI-Enabled Software Architect",
+      "company": "Tursoft, Ankara, Turkey",
+      "period": "Apr 2026 – present",
+      "datePublished": "2026-10-28",
+      "outcome": "Four frontends on one TypeScript microservice backend, built by agent teams",
+      "stack": ["TypeScript", "React", "Next.js", "Electron", "Chrome extension", "Node.js microservices", "PostgreSQL", "PgBouncer", "Docker", "Traefik", "Prometheus", "Grafana", "Cloudflare", "Anthropic SDK", "Google GenAI SDK", "OpenRouter", "Ollama", "LM Studio"],
+      "sections": [
+        {
+          "heading": "The product",
+          "paragraphs": [
+            "BestJobFinder supports the whole job search, end to end. Users upload their CV, see jobs aggregated from several job boards, get an automatic match score for every job against their profile, apply and track their applications, prepare for interviews and keep track of offers."
+          ]
+        },
+        {
+          "heading": "Architecture",
+          "paragraphs": [
+            "The product has four frontends: a web application, an Electron desktop application, a Chrome extension and an admin panel, all built with React. They run on a Node.js microservice backend with separate API and worker services, designed for scalability and performance.",
+            "TypeScript is the main language on both sides, so code is reused across every layer. PostgreSQL with PgBouncer stores the data; Docker, Traefik and Let's Encrypt run the services; Prometheus and Grafana monitor them."
+          ]
+        },
+        {
+          "heading": "Language model features",
+          "bullets": [
+            "Match scoring of every job against the user's profile.",
+            "Tailored cover letters.",
+            "CV improvement suggestions.",
+            "Automatic answers to application form questions, drawn from the CV."
+          ],
+          "paragraphs": [
+            "The features use prompt and context engineering, structured outputs and tool use, with model routing across Anthropic, Google, OpenRouter and local models served by Ollama and LM Studio (Llama 3.x, Qwen, DeepSeek, GLM and Kimi)."
+          ]
+        },
+        {
+          "heading": "How it is built: an AI agentic development lifecycle",
+          "paragraphs": [
+            "The whole development lifecycle runs on AI coding agents: Claude Code, Codex, GitHub Copilot and OpenCode. Each change moves through the same stages."
+          ],
+          "steps": [
+            "A written spec and an implementation plan come first.",
+            "Teams of specialized sub-agents implement the tasks in isolated git worktrees.",
+            "Separate agents review the work and test it in a real browser through Playwright over MCP.",
+            "A code knowledge graph gives the agents an accurate picture of the codebase.",
+            "Human review gates sit between the stages."
+          ]
+        },
+        {
+          "heading": "My role",
+          "paragraphs": [
+            "As founder and architect, I own the product, the architecture and the design and management of the agent teams that build it."
+          ]
+        }
+      ],
+      "links": []
+    },
+    {
+      "slug": "account-manager-for-claude",
+      "projectCode": "ACCOUNTMANAGERFORCLAUDE",
+      "title": "Account Manager for Claude: an open-source VS Code extension",
+      "shortTitle": "Account Manager for Claude",
+      "dek": "One-click switching between several Claude subscriptions in Claude Code, with live usage limits, proposals and analytics.",
+      "description": "Case study: Account Manager for Claude, an open-source VS Code extension to switch Claude accounts in Claude Code with live usage limits and analytics.",
+      "role": "Author and maintainer",
+      "company": "Tursoft, Ankara, Turkey",
+      "period": "Oct 2026 – present",
+      "datePublished": "2026-10-28",
+      "outcome": "Published on the VS Code Marketplace and Open VSX",
+      "stack": ["TypeScript", "Node.js", "VS Code Extension API", "Webviews", "VS Code SecretStorage", "OAuth"],
+      "sections": [
+        {
+          "heading": "The problem",
+          "paragraphs": [
+            "People who use several Claude subscriptions in Claude Code need to switch between accounts quickly and know which one still has capacity before a usage limit stops their work."
+          ]
+        },
+        {
+          "heading": "What it does",
+          "bullets": [
+            "Save and add accounts, then switch in one click from the accounts panel, the status bar or the command palette.",
+            "See each account's live usage limits (5-hour, weekly and model-specific windows) and the time until each one resets.",
+            "Get a proposal for the best next account, ranked by how much capacity would be lost soonest, and automatic proposals when the active account's limit runs out.",
+            "Stay logged in: tokens refresh the same way Claude Code refreshes them, browser login works without the CLI, and each account can have its own VS Code window.",
+            "Back up and restore the account list with a password (AES-256).",
+            "With usage history on, chart each limit over time, measure capacity use per limit and per account, and group it by weekday, hour, week or month.",
+            "See an availability calendar for a week or a day, projected from the latest reading and the reset times."
+          ]
+        },
+        {
+          "heading": "Privacy by design",
+          "paragraphs": [
+            "The extension collects no telemetry. Saved accounts live in VS Code's encrypted SecretStorage, and network requests go only to Anthropic."
+          ]
+        },
+        {
+          "heading": "How it was built",
+          "paragraphs": [
+            "The extension is written in TypeScript and Node.js with webview-based pages. It was built with an AI-driven lifecycle: Claude Code agents working from written specs and implementation plans, with review and testing stages before each release. It builds on the original account-switching core of claude-account-switcher by Krzysztof Zander."
+          ]
+        }
+      ],
+      "links": [
+        { "label": "VS Code Marketplace", "href": "https://marketplace.visualstudio.com/items?itemName=tursoft.account-manager-for-claude" },
+        { "label": "Open VSX", "href": "https://open-vsx.org/extension/tursoft/account-manager-for-claude" },
+        { "label": "Source code on GitHub", "href": "https://github.com/tursoft/account-manager-for-claude" }
+      ]
+    }
+  ]
+}

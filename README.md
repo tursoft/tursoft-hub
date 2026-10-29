@@ -120,3 +120,69 @@ project => modules
 # add new skills:
 * flutter
 * go
+
+
+## Build, prerendering and SEO
+
+`npm run build` runs `vite build` and then `scripts/postbuild.mjs`, which:
+
+1. prunes files that are not part of the public site (old CVs, videos, downloads, .doc);
+2. writes `dist/sitemap.xml` from `scripts/routes.mjs`, with hreflang alternates and a
+   `lastmod` per page taken from the last git change of its sources;
+3. writes `dist/llms-full.txt` (the whole site as Markdown for AI assistants) and stamps
+   `dist/llms.txt` with its last-change date;
+4. prerenders every route in `scripts/routes.mjs` with headless Chrome (Puppeteer) into
+   `dist/<route>/index.html`, so the pages contain the full content, per-route title,
+   description, canonical, hreflang, Open Graph tags and JSON-LD before any JavaScript runs.
+   The build fails if a prerendered page is empty.
+
+Routes: the homepage, `/case-studies/` and one page per entry in `src/data/case-studies.json`,
+and the AmelBook privacy policy per language (`/privacy/amelbook/` is Turkish, the others
+are `/privacy/amelbook/<lang>/`, see `src/content/privacy/amelbook/languages.json`).
+
+### Hydration
+
+Prerendered pages are hydrated, not re-rendered. During prerendering, data sections record
+their final state through `useSnapshotState` (`src/hooks/use-snapshot-state.ts`); the build
+embeds it inline or, when large, as a preloaded `state.json` next to the page. On load,
+`src/main.tsx` waits for that state and calls `hydrateRoot`. The prerender step also adds
+the markers React expects from server rendering (text separators and Suspense boundaries).
+Rules that keep hydration exact:
+
+- Any state that decides what a data section renders goes through `useSnapshotState` with a
+  unique key (add a codec when it holds dates or components).
+- Animated components start in their final state when `startsStatic` is true
+  (`src/lib/prerender.ts`) and animate only after mount.
+- Lists keep every item in the HTML; items past "Show all" render compact and hidden.
+
+`npm run verify:dist` opens every built route in Chrome and checks metadata and errors.
+
+### Performance notes
+
+- Homepage sections use `content-visibility: auto`; jumps to a section must go through
+  `scrollToSection` in `src/lib/section-settle.ts` so they land exactly.
+- The skills cloud and the particle background animate only while visible; hero animations
+  pause off screen; everything is static under reduced motion.
+- The Leaflet map loads only when the map section nears the viewport.
+
+### Commands
+
+- `npm run build:fast` – plain Vite build without prerendering (quick local check).
+- `npm run prerender` – re-run only the postbuild step on an existing `dist/`.
+- `npm run verify:dist` – browser check of every prerendered route.
+- `npm run og-image` – regenerate `public/og-image.jpg` and `public/apple-touch-icon.png`.
+- `npm run images` – regenerate the WebP hero background and avatar from their JPEGs.
+
+On Windows, if Puppeteer cannot download its Chrome, point it at an installed one:
+`PUPPETEER_EXECUTABLE_PATH="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"`.
+
+### Where the SEO pieces live
+
+- Per-route head tags: `src/components/Seo.tsx` (react-helmet-async), used by `src/pages/*`.
+- Identity facts and JSON-LD builders (Person, ProfilePage, FAQPage, Article, BreadcrumbList):
+  `src/lib/site.ts`.
+- FAQ content: `src/data/faq.json`; case studies: `src/data/case-studies.json`.
+- `public/robots.txt`, `public/llms.txt`, `public/manifest.webmanifest`.
+
+Settings that live outside the repo (Cloudflare, GitHub Pages, search consoles) are listed in
+`docs/report/seo-geo-report-v3.md`.

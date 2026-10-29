@@ -31,7 +31,7 @@ const Group = ({ icon, label, rows, total }: { icon: ReactNode; label: string; r
         {rows.map((row) => (
           <li key={row.key} className="flex items-center gap-2 min-w-0">
             {row.image ? (
-              <img src={row.image} alt="" className="w-5 h-5 rounded object-contain bg-background/60 flex-shrink-0" />
+              <img loading="lazy" decoding="async" src={row.image} alt="" className="w-5 h-5 rounded object-contain bg-background/60 flex-shrink-0" />
             ) : (
               <span className="w-5 h-5 rounded bg-muted flex-shrink-0" />
             )}

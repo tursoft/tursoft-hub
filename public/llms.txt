@@ -1,36 +1,82 @@
-# Muhammet TURŞAK — Senior Software Architect
+# Muhammet Turşak (Tursak) — AI-Enabled Senior Software Architect
 
-> Senior Software Architect with 25+ years of professional experience leading enterprise software projects across Healthcare IT, Construction IT, E-Learning, and E-Commerce domains. Based in Ankara, Turkey. Currently Director of Technology at Jengai, New York, USA.
+> Muhammet Turşak (also written Muhammet Tursak or Muhammet TURŞAK) is an AI-enabled Senior Software Architect based in Ankara, Turkey, with 25+ years of professional experience leading enterprise software projects across Construction IT, Healthcare IT, E-Learning, E-Commerce and SaaS. He runs the whole software development lifecycle with AI coding agents, applies prompt and context engineering, and designs and manages agent teams. Founder at Tursoft (BestJobFinder, Account Manager for Claude); formerly Director of Technology at Jengai and Gamyte, New York, USA.
+
+Last updated: 2026-10-27
+
+## Facts
+
+- Name: Muhammet Turşak (Tursak, TURŞAK)
+- Title: Senior Software Architect; AI-Enabled Software Architect; former Director of Technology
+- Location: Ankara, Turkey; works with international clients
+- Experience: 25+ years in software; 15 years in management; 50+ projects; 10 international projects; projects delivered in 14 countries
+- Current: Founder & AI-Enabled Software Architect at Tursoft (since May 2026)
+- Previously: Director of Technology & Senior Software Architect at Jengai (2022–2026) and Gamyte (2019–2022), New York
+- Specialties: .NET, Node.js, TypeScript, React, Microsoft Azure, SaaS platforms, AI coding agents, prompt and context engineering, multi-agent systems, HL7/FHIR healthcare integration
+- Education: Middle East Technical University (METU), Ankara: M.S. Software Management, M.S. and B.S. Computer Education and Instructional Technologies
+- Availability: consulting, architecture reviews, senior engineering leadership roles
+- Email: tursoft@gmail.com
+
+## Links
+
+- [Homepage](https://tursoft.net/)
+- [About](https://tursoft.net/#about)
+- [Experience](https://tursoft.net/#experience)
+- [Skills](https://tursoft.net/#skills)
+- [Projects](https://tursoft.net/#portfolio)
+- [Case studies](https://tursoft.net/case-studies/)
+- [FAQ](https://tursoft.net/#faq)
+- [Contact](https://tursoft.net/#contact)
+- [Compact CV (PDF)](https://tursoft.net/assets/files/downloads/CV_MuhammetTursak_v56-compact.20260403.pdf)
+- [Detailed CV (PDF)](https://tursoft.net/assets/files/downloads/CV_MuhammetTursak_Detailed-v60.pdf)
+- [Full site content for LLMs](https://tursoft.net/llms-full.txt)
+- [LinkedIn](https://www.linkedin.com/in/tursoft/)
+- [GitHub](https://github.com/tursoft)
+- [Stack Overflow](https://stackoverflow.com/users/1949367/muhammet-tur%C5%9Eak)
+- [X](https://x.com/muhammettursak)
+
+## Case studies
+
+- [Jengai: an AI document pipeline for construction estimating](https://tursoft.net/case-studies/jengai-ai-document-pipeline/): multi-tenant CRM, bidding and estimation SaaS on .NET, Python and Azure AI; pre-estimation turnaround cut by more than 60%.
+- [BestJobFinder: an AI-native SaaS built with agent teams](https://tursoft.net/case-studies/bestjobfinder-ai-native-saas/): four frontends on a TypeScript microservice backend, with the whole lifecycle run by AI coding agents.
+- [Account Manager for Claude: an open-source VS Code extension](https://tursoft.net/case-studies/account-manager-for-claude/): one-click switching between Claude subscriptions in Claude Code, with live usage limits and analytics.
 
 ## About
 
-Muhammet TURŞAK is a Senior Software Architect and technology leader with expertise in .NET, Java, and full-stack web/mobile development. Over his career he has held roles as Software Group Director, R&D Director, Project Manager, Software Architect, and Team Leader. He has delivered multi-million dollar enterprise systems for clients across Turkey, the United States, Europe, the Middle East, and Central Asia.
+Muhammet Turşak is a Senior Software Architect and technology leader with deep expertise in .NET, Node.js, Java, cloud (Azure) and full-stack web, desktop and mobile development. Over his career he has held roles as Director of Technology, Software Group Director, R&D Director, Project Manager, Software Architect and Team Leader, and has delivered multi-million dollar enterprise systems for clients across Turkey, the United States, Europe, the Middle East and Central Asia.
 
-- Email: tursoft@gmail.com
-- Website: http://tursoft.net
-- LinkedIn: https://www.linkedin.com/in/tursoft/
-- GitHub: https://github.com/tursoft
-- Stack Overflow: https://stackoverflow.com/users/1949367/muhammet-tur%C5%9Eak
+Since 2023 he has rebuilt the way he delivers software around AI. He works as an AI-enabled architect: AI coding agents run every stage of his development lifecycle, he engineers the prompts and the context that keep those agents accurate on large codebases, and he designs and manages teams of specialized agents that plan, implement, review and test alongside human engineers.
+
+## AI-Enabled Engineering
+
+- **AI-driven SDLC:** requirements and design specs, implementation plans, test-driven implementation, code review, documentation and release engineering, all executed with AI coding agents (Claude Code, Codex, GitHub Copilot, Cursor, OpenCode) under human review gates.
+- **Prompt and context engineering:** structured outputs, tool use, model routing across providers, and curated project context (instructions, skills, memory, knowledge graphs) for both product features and the development workflow.
+- **Agent teams:** designing and managing multi-agent and sub-agent workflows (planning, implementation, review, browser-based testing) orchestrated with reusable skills, MCP tools (Playwright, code knowledge graphs) and isolated git worktrees.
+- **LLM application development:** Anthropic SDK, Google GenAI SDK, OpenRouter, local models via Ollama and LM Studio (Llama 3.x, Qwen, DeepSeek, GLM, Kimi); Azure AI Document Intelligence and Computer Vision for document understanding.
+- **Team enablement:** embedding AI agents into an engineering team's daily lifecycle with the conventions, guardrails and standards that keep output consistent with the architecture.
 
 ## Experience
 
-**Jengai** — Director of Technology & Senior Software Architect (Dec 2022 – Present)
-New York, USA. Leading development of the Jengai App, an AI-powered CRM and Estimation Suite for commercial contractors.
+**Tursoft** — Founder & AI-Enabled Software Architect (May 2026 – Present)
+Ankara, Turkey. Building AI-native products end to end with AI agent teams: BestJobFinder (AI-powered job search SaaS) and Account Manager for Claude (open-source VS Code extension).
+
+**Jengai** — Director of Technology & Senior Software Architect (Dec 2022 – Apr 2026)
+New York, USA. Led architecture and delivery of the Jengai App, an AI-powered CRM, estimation and pricing suite for commercial contractors; designed its AI document pipeline (Azure AI Document Intelligence, Computer Vision, Service Bus) and embedded AI coding agents into the team's development lifecycle.
 
 **Gamyte** — Director of Technology & Senior Software Architect (Sep 2019 – Dec 2022)
-New York, USA. Built the Gamyte App, a construction IT platform for commercial contractors.
+New York, USA. Defined technology strategy, cloud architecture governance and API standards for the Gamyte App, a construction IT platform for commercial contractors.
 
 **ERC Group** — Senior Software Architect and Group Leader (May 2013 – Sep 2019)
-Ankara, Turkey. Led healthcare IT projects deployed across multiple countries including Kosovo, Palestine, and Saudi Arabia.
+Ankara, Turkey. Engineered the Avicenna PDFW framework (core of 10+ products) and led EU-funded healthcare platforms deployed in Turkey, Italy, Spain and Portugal, plus the AHIN HL7/FHIR integration middleware.
 
-**DataSel** — Senior Software Architect and Group Leader (Jan 2012 – May 2013)
-Ankara, Turkey. Delivered healthcare IT, e-commerce, and video streaming platforms.
+**DataSel** — Senior Software Architect and Group Leader (Aug 2011 – May 2013)
+Ankara, Turkey. Led R&D; architected the Avicenna Case-Mix (VKBS) national DRG costing platform (80+ hospitals, 50M+ records) and telemedicine platforms for international clients.
 
-**Fonet Software** — R&D Director (Jan 2010 – Aug 2011)
-Ankara, Turkey. Directed research and development for hospital information systems.
+**Fonet Software** — R&D Director (Sep 2009 – Aug 2011)
+Ankara, Turkey. Conceived and delivered the Fonet RAD framework and Fonet Studio visual IDE for hospital information systems.
 
 **Halici Informatics** — Software Production & Planning Director (Jan 2004 – Sep 2008)
-Ankara, Turkey. Progressed from developer to director; delivered LMS platforms and e-government projects.
+Ankara, Turkey. Progressed from developer to director; delivered LMS, portal/CMS and SCORM authoring platforms and e-government projects.
 
 ## Education
 
@@ -45,25 +91,31 @@ Undergraduate. Score: 3.80 / 4.00. Graduation project: 3D educational game devel
 
 ## Skills
 
-**Languages:** C#, Java, JavaScript, TypeScript, Python, PHP, VB.NET, Pascal, C, C++
+**AI & Agentic Engineering:** AI-driven SDLC, prompt engineering, context engineering, AI agent teams and orchestration, spec-driven development, Model Context Protocol (MCP), LLM application development, Claude Code, Claude Desktop, Codex, GitHub Copilot, Cursor, OpenCode, Anthropic SDK, Google GenAI SDK, OpenRouter, Ollama, LM Studio, Azure AI Document Intelligence, Azure AI Vision, Playwright MCP, n8n
 
-**Cloud & DevOps:** Azure (App Services, Entra, Blob Storage, Functions, SQL), AWS, Docker, Kubernetes, Azure DevOps, Jenkins, Git, GitLab
+**Languages:** C#, TypeScript, JavaScript, Java, Python, PHP, VB.NET, Pascal, C, C++
 
-**Backend:** .NET / .NET Core, ASP.NET Core, ASP.NET WebAPI, Spring Framework, Node.js (Express, Koa, Fastify), Entity Framework, Hibernate, WCF, WPF
+**Cloud & DevOps:** Azure (App Services, Entra, Blob Storage, Functions, SQL, Service Bus), AWS, Docker, Kubernetes, Azure DevOps, Jenkins, GitHub Actions, Git, GitLab, Traefik, Cloudflare, Prometheus, Grafana
 
-**Frontend:** React, Angular, Ionic, Capacitor, Cordova, StencilJS, HTML5, CSS/SASS, jQuery, Bootstrap
+**Backend:** .NET / .NET Core, ASP.NET Core, ASP.NET WebAPI, Node.js (Express, Koa, Fastify), Spring Framework, Entity Framework, Hibernate, WCF, WPF
 
-**Databases:** MS SQL Server, Oracle, PostgreSQL, MySQL, MongoDB, DB2, Redis, RabbitMQ
+**Frontend:** React, Next.js, Angular, Electron, Chrome extensions, Ionic, Capacitor, Cordova, StencilJS, HTML5, CSS/SASS, Tailwind, jQuery, Bootstrap
 
-**Architecture & Patterns:** Microservices, MVVM, OOP, Design Patterns, UML, GraphQL, REST, OAuth, JWT, OpenAPI
+**Databases:** MS SQL Server, PostgreSQL, Oracle, MySQL, MongoDB, DB2, Redis, RabbitMQ
 
-**Tools:** Visual Studio, VS Code, Eclipse, Docker Compose, Portainer, Traefik, Hangfire, Quartz, Sentry, SendGrid, Vault, Lerna, Jest
+**Architecture & Patterns:** Microservices, event-driven and message-based systems, MVVM, OOP, Design Patterns, UML, GraphQL, REST, OAuth, JWT, OpenAPI, OWASP, RBAC
+
+**Tools:** Visual Studio, VS Code, Eclipse, Docker Compose, Portainer, Hangfire, Quartz, Sentry, SendGrid, Vault, Lerna, Jest, Playwright
 
 ## Projects
 
-**Jengai App** — AI CRM and Estimation & Pricing Suite for commercial contractors. Developed for Jengai, New York. Full-stack enterprise platform.
+**BestJobFinder** — AI-powered job search SaaS (web, Electron desktop, Chrome extension, admin panel) on a Node.js microservice backend. LLM features: job-to-profile scoring, tailored cover letters, CV improvement, auto-answering application forms. Built end to end with AI coding agents and sub-agent teams. Developed under Tursoft.
 
-**Gamyte App** — Construction IT management platform for commercial contractors. Similar scope to Jengai App.
+**Account Manager for Claude** — Open-source VS Code extension to manage several Claude subscriptions in Claude Code: one-click switching, live usage limits, next-account proposals, usage analytics and an availability calendar. Published on the VS Code Marketplace and Open VSX.
+
+**Jengai App** — AI-powered CRM, estimation and pricing suite for commercial contractors with an AI document pipeline that extracts structured cost data from construction PDFs. Developed for Jengai, New York.
+
+**Gamyte App** — Construction IT management platform for commercial contractors. Predecessor scope to Jengai App.
 
 **Avicenna Hospital Information System (HIS2x)** — Enterprise-level hospital information system deployed in Kosovo and Palestine.
 
@@ -77,9 +129,12 @@ Undergraduate. Score: 3.80 / 4.00. Graduation project: 3D educational game devel
 
 **Halici LMS / e-Ders** — Learning Management System and SCORM-compatible e-learning authoring tools.
 
+The complete list of 80+ projects with descriptions is in https://tursoft.net/llms-full.txt.
+
 ## Domains
 
-- Construction IT (current focus — AI-driven CRM and estimation for contractors)
+- AI-native SaaS products (current focus — LLM-powered features built with AI agent teams)
+- Construction IT (AI-driven CRM and estimation for contractors)
 - Healthcare IT (hospital information systems, telemedicine, health integration platforms)
 - E-Learning (LMS platforms, SCORM authoring, instructional design)
 - E-Commerce (multi-tenant commerce platforms)
@@ -95,6 +150,33 @@ Projects delivered in: Turkey, United States, Kosovo, Palestine, Saudi Arabia, S
 - 20 years web development
 - 17 years .NET development
 - 15 years management experience
+- 3+ years AI-assisted and agent-driven development
 - 50+ software projects completed
 - 10 R&D projects
 - 10 international projects
+
+## FAQ
+
+**Who is Muhammet Turşak?**
+Muhammet Turşak (also written Muhammet Tursak) is a Senior Software Architect and technology leader based in Ankara, Turkey, with more than 25 years of experience in enterprise software. He is the founder of Tursoft and was previously Director of Technology at Jengai and Gamyte in New York.
+
+**What does Muhammet Turşak specialize in?**
+Enterprise architecture with .NET, Node.js, Microsoft Azure, React and SaaS platforms, and an AI-enabled development lifecycle: AI coding agents for specs, implementation, review and tests, prompt and context engineering, and the design and management of multi-agent teams.
+
+**Which industries has he worked in?**
+Healthcare IT (hospital information systems, telemedicine and HL7/FHIR integration), Construction IT (AI-powered CRM and estimation for commercial contractors), E-Learning (LMS platforms and SCORM authoring), E-Commerce and AI-native SaaS products.
+
+**What is Tursoft?**
+Tursoft is Muhammet Turşak's own software company and brand. Under it he builds AI-native products such as BestJobFinder, an AI-powered job search SaaS, and Account Manager for Claude, an open-source VS Code extension for managing several Claude subscriptions in Claude Code.
+
+**How does he use AI in software development?**
+AI coding agents such as Claude Code, Codex, GitHub Copilot, Cursor and OpenCode run every stage of his development lifecycle under human review gates. He engineers the prompts and the project context that keep those agents accurate on large codebases, and designs sub-agent teams for planning, implementation, review and browser-based testing.
+
+**Is Muhammet Turşak available for consulting or new roles?**
+Yes. He is available for consulting, architecture reviews and senior engineering leadership roles, including helping engineering teams adopt AI agents across their development lifecycle.
+
+**Where is he based and where has he delivered projects?**
+He is based in Ankara, Turkey. He has delivered projects for clients in Turkey, the United States, Kosovo, Palestine, Saudi Arabia, Sweden, Portugal, Spain, Italy, Germany, Greece, Switzerland, the United Arab Emirates and Uzbekistan.
+
+**How can I contact Muhammet Turşak?**
+By email at tursoft@gmail.com, or through LinkedIn (linkedin.com/in/tursoft) and GitHub (github.com/tursoft). Compact and detailed CV versions can be downloaded from tursoft.net.
