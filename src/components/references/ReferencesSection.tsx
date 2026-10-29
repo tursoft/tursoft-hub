@@ -171,30 +171,32 @@ const ReferenceEntry = ({ reference }: { reference: ReferenceWithPhoto }) => (
 
 /** Split view detail: the whole testimonial, with no card frame around it. */
 const TestimonialDetail = ({ reference }: { reference: ReferenceWithPhoto }) => (
-  <article className="group relative flex h-full flex-col justify-center py-2 md:py-6">
-    <Quote className="testimonial-mark" aria-hidden="true" />
-    <header className="flex items-center gap-5 pr-12">
-      <Avatar reference={reference} className="h-20 w-20 sm:h-24 sm:w-24" />
-      <div className="min-w-0">
-        <h3 className="text-xl font-bold leading-tight text-foreground sm:text-2xl">{reference.title}</h3>
-        <p className="mt-1 font-medium text-[hsl(var(--primary-light))]">{reference.position}</p>
-        <p className="text-sm text-muted-foreground">
-          {reference.company}
-          {reference.date ? ` · ${reference.date}` : ''}
-        </p>
-      </div>
-    </header>
-    <blockquote className="mt-8" lang={reference.lang || undefined}>
-      <p className="testimonial-text sm:text-[1.05rem]" dangerouslySetInnerHTML={{ __html: reference.testimonial }} />
-    </blockquote>
-    <footer className="mt-8 flex flex-wrap items-center justify-between gap-3">
-      <ContactLinks reference={reference} max={4} />
-      <span className="inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
-        Full profile
-        <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-      </span>
-    </footer>
-  </article>
+  <div className="group flex h-full items-center py-2 md:py-6">
+    <article className="relative w-full">
+      <Quote className="testimonial-mark right-0 top-0 hidden sm:block" aria-hidden="true" />
+      <header className="flex items-center gap-5 sm:pr-16">
+        <Avatar reference={reference} className="h-20 w-20 sm:h-24 sm:w-24" />
+        <div className="min-w-0">
+          <h3 className="text-xl font-bold leading-tight text-foreground sm:text-2xl">{reference.title}</h3>
+          <p className="mt-1 font-medium text-[hsl(var(--primary-light))]">{reference.position}</p>
+          <p className="text-sm text-muted-foreground">
+            {reference.company}
+            {reference.date ? ` · ${reference.date}` : ''}
+          </p>
+        </div>
+      </header>
+      <blockquote className="mt-8" lang={reference.lang || undefined}>
+        <p className="testimonial-text sm:text-[1.05rem]" dangerouslySetInnerHTML={{ __html: reference.testimonial }} />
+      </blockquote>
+      <footer className="mt-8 flex flex-wrap items-center justify-between gap-3">
+        <ContactLinks reference={reference} max={4} />
+        <span className="inline-flex items-center gap-1 text-xs text-muted-foreground transition-colors group-hover:text-primary">
+          Full profile
+          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+        </span>
+      </footer>
+    </article>
+  </div>
 );
 
 const ReferencesSection = () => {
