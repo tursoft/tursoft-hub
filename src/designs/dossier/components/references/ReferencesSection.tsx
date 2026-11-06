@@ -29,13 +29,14 @@ interface ReferenceWithPhoto extends Reference {
 
 /**
  * The client line set large in grid mode, with its footnote (the dossier's signature).
- * The excerpt is one whole sentence of the testimonial, word for word; the note restates
- * what the same testimonial says about the project. Hero notes are 1 to 3, so this is 4.
+ * The excerpt is quoted word for word from the testimonial (it must stay a substring of it,
+ * or the letter shows without the pull quote); the note gives the writer's context from the
+ * data. Hero notes are 1 to 3, so this is 4.
  */
 const PULL_QUOTE = {
-  code: "firatozerden",
-  excerpt: "I have rarely come across such a focused and competent Software-Architect leading a project.",
-  note: "On a major project in Turkey, 2015\u00a0–\u00a02017, which Muhammet led as software architect",
+  code: "andonisphilippidis",
+  excerpt: "Muhammet is a person of trust and a person to count on when things need to be done.",
+  note: "As CEO of DataSel, where Muhammet was senior software architect and group leader, 2011\u00a0–\u00a02013",
   noteNumber: 4,
 };
 const PULL_NOTE_ID = `fn${PULL_QUOTE.noteNumber}`;
