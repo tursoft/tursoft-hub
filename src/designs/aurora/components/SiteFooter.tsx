@@ -27,10 +27,10 @@ const SiteFooter = () => {
         <div className="max-w-6xl mx-auto flex flex-col gap-8 md:flex-row md:items-start md:justify-between text-sm text-muted-foreground">
           <div className="space-y-2 max-w-md">
             <p className="text-foreground font-semibold">
-              {PERSON.name} <span className="font-normal text-muted-foreground">(also written Tursak)</span>
+              {PERSON.name}
             </p>
             <p>
-              {PERSON.headline}, {PERSON.location.city}, {PERSON.location.country}.
+              {PERSON.headline}.
             </p>
             <p>
               © {year} {PERSON.name}. Last updated <time dateTime={BUILD_DATE}>{BUILD_DATE}</time>.

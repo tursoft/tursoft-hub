@@ -30,9 +30,8 @@ const SiteFooter = () => {
         <div className="flex flex-col gap-10 border-t border-foreground pb-12 pt-10 text-sm md:flex-row md:justify-between">
           <div className="max-w-md space-y-2">
             <p className="font-serif text-2xl leading-8 text-foreground">{PERSON.name}</p>
-            <p className="text-faint">Also written Tursak</p>
             <p className="pt-2 text-muted-foreground">
-              {PERSON.headline}, {PERSON.location.city}, {PERSON.location.country}.
+              {PERSON.headline}.
             </p>
             <p className="tnum text-faint">
               © {year} {PERSON.name}. Last updated <time dateTime={BUILD_DATE}>{BUILD_DATE}</time>

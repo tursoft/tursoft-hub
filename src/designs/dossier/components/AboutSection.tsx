@@ -40,7 +40,6 @@ const contacts = [
 const glance = [
   { label: "Name", value: `${PERSON.name} (also written Tursak)` },
   { label: "Title", value: PERSON.headline },
-  { label: "Based in", value: `${PERSON.location.city}, ${PERSON.location.country}` },
   { label: "Experience", value: `${PERSON.yearsOfExperience} years in enterprise software` },
   { label: "Current", value: PERSON.currentRole },
   { label: "Previously", value: PERSON.previousRoles },
