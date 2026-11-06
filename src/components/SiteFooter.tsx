@@ -19,37 +19,41 @@ const siteLinks = [
   { label: "Sitemap", href: "/sitemap.xml" },
 ];
 
+const linkClass = "text-muted-foreground transition-colors duration-150 hover:text-foreground";
+
+/** The colophon: who, where, when, and the links, under an ink rule. */
 const SiteFooter = () => {
   const year = new Date(BUILD_DATE).getFullYear();
 
   return (
-    <footer className="border-t border-border/60 bg-background/80">
-      <div className="container mx-auto px-6 py-10">
-        <div className="max-w-6xl mx-auto flex flex-col gap-8 md:flex-row md:items-start md:justify-between text-sm text-muted-foreground">
-          <div className="space-y-2 max-w-md">
-            <p className="text-foreground font-semibold">
-              {PERSON.name} <span className="font-normal text-muted-foreground">(also written Tursak)</span>
-            </p>
-            <p>
+    <footer className="mt-16 lg:mt-24">
+      <div className="container">
+        <div className="flex flex-col gap-10 border-t border-foreground pb-12 pt-10 text-sm md:flex-row md:justify-between">
+          <div className="max-w-md space-y-2">
+            <p className="font-serif text-2xl leading-8 text-foreground">{PERSON.name}</p>
+            <p className="text-faint">Also written Tursak</p>
+            <p className="pt-2 text-muted-foreground">
               {PERSON.headline}, {PERSON.location.city}, {PERSON.location.country}. Founder of Tursoft.
             </p>
-            <p>
-              © {year} {PERSON.name}. Last updated <time dateTime={BUILD_DATE}>{BUILD_DATE}</time>.
+            <p className="tnum text-faint">
+              © {year} {PERSON.name}. Last updated <time dateTime={BUILD_DATE}>{BUILD_DATE}</time>
             </p>
           </div>
 
-          <nav aria-label="Site links" className="grid grid-cols-2 gap-x-10 gap-y-2 sm:grid-cols-2">
+          <nav aria-label="Site links" className="grid grid-cols-2 gap-x-12 gap-y-2">
             <ul className="space-y-2">
               {siteLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="hover:text-primary transition-colors">{link.label}</a>
+                  <a href={link.href} className={linkClass}>
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
             <ul className="space-y-2">
               {profileLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} rel="me noopener noreferrer" target="_blank" className="hover:text-primary transition-colors">
+                  <a href={link.href} rel="me noopener noreferrer" target="_blank" className={linkClass}>
                     {link.label}
                   </a>
                 </li>

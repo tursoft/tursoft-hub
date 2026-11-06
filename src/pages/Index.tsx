@@ -19,12 +19,12 @@ import ReferencesSection from "@/components/references/ReferencesSection";
 import ContactSection from "@/components/contact/ContactSection";
 import Reveal from "@/components/ui/reveal";
 import { ArrowUp } from "lucide-react";
-import profilePhoto from "@/assets/profile-photo-80.webp";
 
 // Heavy sections (Leaflet map, timeline) load in their own chunks after the first paint.
 const MapSection = lazy(() => import("@/components/map/MapSection"));
 const TimelineSection = lazy(() => import("@/components/timeline/TimelineSection"));
 
+// Same order as SECTIONS in src/lib/sections.ts, which numbers them.
 const sections = [
   AboutSection,
   ExperienceSection,
@@ -67,37 +67,15 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground">
       <Seo title={DEFAULT_TITLE} description={DEFAULT_DESCRIPTION} path="/" jsonLd={homeJsonLd()} />
 
-      {/* Fixed Profile & Name in Top Left - Only visible after hero */}
-      <div className={`fixed top-4 left-4 z-[100] transition-all duration-500 transform ${
-        isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
-      }`}>
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center gap-2 glass rounded-full pr-4 py-1 pl-1 hover:border-primary/50 hover:shadow-[var(--shadow-glow)] transition-all duration-300"
-          aria-label="Back to top"
-        >
-          <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary/40 transition-all duration-300">
-            <img loading="lazy" decoding="async"
-              src={profilePhoto}
-              alt=""
-              width={40}
-              height={40}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <span className="text-sm font-semibold text-foreground uppercase tracking-wider">Muhammet Turşak</span>
-        </button>
-      </div>
-
-      {/* Scroll to top */}
+      {/* Back to top: a quiet square on the paper, after the hero */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`fixed bottom-6 right-6 z-[100] glass rounded-full p-3 text-muted-foreground hover:text-primary hover:border-primary/50 hover:shadow-[var(--shadow-glow)] hover:-translate-y-1 transition-all duration-300 ${
-          isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+        className={`fixed bottom-6 right-6 z-[100] flex h-10 w-10 items-center justify-center rounded-md border border-input bg-card text-muted-foreground transition-[opacity,transform,color,background-color] duration-150 ease-dossier hover:bg-secondary hover:text-foreground ${
+          isScrolled ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-2 opacity-0"
         }`}
-        aria-label="Scroll to top"
+        aria-label="Back to top"
       >
-        <ArrowUp className="h-5 w-5" />
+        <ArrowUp className="h-4 w-4" strokeWidth={1.5} />
       </button>
 
       <Navigation />
@@ -105,7 +83,6 @@ const Index = () => {
         <HeroSection />
         {sections.map((Section, index) => (
           <div key={index}>
-            <hr className="section-divider" />
             {/* section-boundary: the prerender step adds React's Suspense markers here */}
             <Reveal threshold={0.05} className="section-boundary">
               <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>

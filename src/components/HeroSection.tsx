@@ -1,120 +1,105 @@
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Github, Linkedin, Mail, Phone, Download, ExternalLink, ChevronDown, FileText, FileDown } from "lucide-react";
+import { Github, Linkedin, Mail, Phone, Download, ArrowRight, ChevronDown, FileText, FileDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useEffect, useRef, useState } from "react";
-import Typewriter from "@/components/ui/typewriter";
+import type { CSSProperties, ReactNode } from "react";
 import { PERSON } from "@/lib/site";
+import { sectionLabel, sectionNumber } from "@/lib/sections";
 import { scrollToSection } from "@/lib/section-settle";
-
-// Decorative background (30% opacity), served unhashed from /assets.
-const heroImage = "/assets/hero-bg.webp";
 import cvData from "@/data/cv.json";
+import portrait from "@/assets/people/muhammet.tursak.jpg";
 
-const HeroSection = () => {
-  // The hero's ambient animations (aurora, gradient name, typewriter) are about half of the
-  // page's main-thread work; pause them while the hero is scrolled out of view.
-  const heroRef = useRef<HTMLElement | null>(null);
-  const [inView, setInView] = useState(true);
-  useEffect(() => {
-    const el = heroRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
-    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+const contacts = [
+  { icon: Github, label: "GitHub", value: "github.com/tursoft", href: PERSON.profiles.github },
+  { icon: Linkedin, label: "LinkedIn", value: "in/tursoft", href: PERSON.profiles.linkedin },
+  { icon: Mail, label: "Email", value: PERSON.email, href: `mailto:${PERSON.email}` },
+  { icon: Phone, label: "Call", value: "+90 554 200 78 29", href: "tel:+905542007829" },
+];
 
-  const socialLinks = [{
-    icon: Github,
-    href: "https://github.com/tursoft",
-    label: "GitHub"
-  }, {
-    icon: Linkedin,
-    href: "https://www.linkedin.com/in/tursoft/",
-    label: "LinkedIn"
-  }, {
-    icon: Mail,
-    href: "mailto:tursoft@gmail.com",
-    label: "Email"
-  }, {
-    icon: Phone,
-    href: "tel:+905542007829",
-    label: "Phone"
-  }];
+const facts = [
+  { term: "Available for", detail: PERSON.availability },
+  { term: "Specialties", detail: "AI agentic development, .NET, Node.js, Azure, React, SaaS" },
+  { term: "Domains", detail: "Healthcare IT (HL7 FHIR), construction IT, e-learning, e-commerce, games" },
+];
 
-  const roles = [
-    "AI-Enabled Software Architect",
-    "Senior Software Architect",
-    "Director of Technology",
-    ".NET & Web Expert",
-    "Cloud & SaaS Solution Builder",
-  ];
+// Footnotes back the claims in the hero, as in a printed profile.
+const notes = [
+  { id: "fn1", text: "First role in May 2000, as webmaster for the Informatics Association of Turkey, youth branch" },
+  {
+    id: "fn2",
+    text: "Director of Technology & Senior Software Architect at Gamyte, Sep 2019 –⁠ Dec 2022, and Jengai, Dec 2022 –⁠ Apr 2026, both based in New York",
+  },
+  {
+    id: "fn3",
+    text: "Since May 2026. Building BestJobFinder, an AI job search SaaS with web, desktop, Chrome extension and admin clients, and Account Manager for Claude, an open-source VS Code extension",
+  },
+];
 
-  return (
-    <section ref={heroRef} id="hero" data-paused={inView ? undefined : ""} className="min-h-screen relative flex items-center justify-center overflow-hidden">
-      {/* Background photo, kept very subtle under the aurora */}
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      />
+const Note = ({ n }: { n: number }) => (
+  <sup className="fn-ref">
+    <a href={`#fn${n}`} aria-label={`Note ${n}`}>
+      {n}
+    </a>
+  </sup>
+);
 
-      {/* Overlay + aurora blobs + grid */}
-      <div className="absolute inset-0 hero-overlay" />
-      <div className="aurora aurora-1" />
-      <div className="aurora aurora-2" />
-      <div className="aurora aurora-3" />
-      <div className="absolute inset-0 bg-grid" />
+/** One entrance on load: each block rises 8px, 50ms after the one before it. */
+const rise = (step: number): CSSProperties => ({ "--rise-delay": `${step * 50}ms` }) as CSSProperties;
 
-      {/* Content */}
-      <div className="relative z-20 container mx-auto px-6 text-center">
-        <div className="max-w-4xl mx-auto hero-rise">
-          {/* Availability badge */}
-          <Badge className="mb-8 px-4 py-2 text-xs font-semibold glass text-foreground border-success/30 hover:border-success/60 hover:scale-105 transition-all duration-300">
-            <span className="relative flex h-2.5 w-2.5 mr-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--success))] opacity-60" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[hsl(var(--success))]" />
-            </span>
-            Available for New Opportunities
-          </Badge>
+const CvMenu = ({ children }: { children: ReactNode }) => (
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
+    <DropdownMenuContent align="start">
+      <DropdownMenuItem onClick={() => window.open(cvData.general.compactDownloadUrl, "_blank")} className="cursor-pointer">
+        <FileDown className="mr-2 h-4 w-4" />
+        Compact version
+      </DropdownMenuItem>
+      <DropdownMenuItem onClick={() => window.open(cvData.general.downloadUrl, "_blank")} className="cursor-pointer">
+        <FileText className="mr-2 h-4 w-4" />
+        Detailed version
+      </DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+);
 
-          {/* Main Heading */}
-          <h1 className="text-5xl lg:text-7xl mb-6 leading-tight tracking-tight">
-            <span className="block text-foreground font-light">MUHAMMET</span>
-            <span className="block font-extrabold text-gradient-animated">TURŞAK</span>
-          </h1>
+const HeroSection = () => (
+  <section id="hero" className="flex min-h-[100svh] flex-col pt-14 md:pt-[72px]">
+    <div className="container flex flex-1 items-center py-10 md:py-12">
+      <div className="hero-grid">
+        <p className="kicker hero-kicker hero-rise" style={rise(0)}>
+          <span className="kicker-num">{sectionNumber("hero")}</span>
+          {sectionLabel("hero")}
+        </p>
 
-          {/* Static positioning line: crawlers and screen readers get the full statement */}
-          <p className="text-base lg:text-lg text-foreground/85 mb-3 font-medium tracking-wide">
-            {PERSON.headline} · {PERSON.yearsOfExperience} years
+        <h1 className="hero-name hero-rise" style={rise(1)}>
+          {PERSON.name}
+        </h1>
+
+        <p className="hero-title hero-rise" style={rise(2)}>
+          {PERSON.headline}
+          <span className="px-1.5 text-faint md:px-2.5" aria-hidden="true">
+            ·
+          </span>
+          <span className="sr-only">, </span>
+          <span className="tnum">{PERSON.yearsOfExperience}</span>&nbsp;years
+          <Note n={1} />
+        </p>
+
+        <div className="hero-dek hero-rise" style={rise(3)}>
+          <p className="max-w-[36em] text-base leading-[26px] text-muted-foreground [text-wrap:pretty] md:text-[19px] md:leading-[30px]">
+            I design cloud and SaaS systems and build them with AI coding agents, from design specs and
+            implementation plans to test-driven code, review and release. I have led enterprise projects with
+            teams across Europe, the Middle East and the United States, and was Director of Technology for two
+            New York companies
+            <Note n={2} /> before founding Tursoft
+            <Note n={3} />.
           </p>
-
-          {/* Rotating role */}
-          <p className="text-xl lg:text-2xl text-muted-foreground mb-8 font-light min-h-[2.25rem]">
-            <Typewriter phrases={roles} className="text-foreground/90" paused={!inView} />
-          </p>
-
-          {/* Description */}
-          <p className="text-lg text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            With <span className="text-gradient font-semibold">25+ years</span> in technology, I architect <span className="text-primary font-semibold">cloud-based</span> and <span className="text-primary font-semibold">SaaS</span> products and build them with <span className="text-accent font-semibold">AI agents</span> across the whole development lifecycle, pairing <span className="text-accent font-semibold">prompt and context engineering</span> with enterprise-grade architecture and scalability.
-          </p>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button
-              asChild
-              size="lg"
-              className="btn-shine bg-gradient-to-r from-[hsl(var(--primary-variant))] via-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground border-0 px-8 py-3 text-lg hover:scale-[1.03] hover:shadow-[var(--shadow-glow)] transition-all duration-300"
-            >
+          <div className="mt-6 flex gap-3 md:mt-9">
+            <Button asChild size="lg" className="min-w-0 flex-1 basis-0 gap-2 px-3 sm:flex-none sm:basis-auto sm:gap-2.5 sm:px-5">
               <a
                 href="#portfolio"
                 onClick={(e) => {
@@ -122,65 +107,73 @@ const HeroSection = () => {
                   scrollToSection("portfolio");
                 }}
               >
-                View My Portfolio
-                <ExternalLink className="ml-2 h-5 w-5" />
+                View portfolio
+                <ArrowRight />
               </a>
             </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="glass border-primary/40 text-foreground hover:border-primary hover:bg-primary/10 hover:scale-[1.03] px-8 py-3 text-lg transition-all duration-300"
+            <CvMenu>
+              <Button size="lg" variant="outline" className="min-w-0 flex-1 basis-0 gap-2 px-3 sm:flex-none sm:basis-auto sm:gap-2.5 sm:px-5">
+                <Download />
+                Download CV
+                <ChevronDown className="-ml-0.5 text-faint" />
+              </Button>
+            </CvMenu>
+          </div>
+        </div>
+
+        <dl className="hero-facts hero-rise" style={rise(4)}>
+          {facts.map((fact, index) => (
+            <div key={fact.term} className={index === 0 ? "pb-3" : "border-t border-border py-3"}>
+              <dt className="text-xs tracking-[0.01em] text-faint">{fact.term}</dt>
+              <dd className="mt-1 text-sm text-foreground [text-wrap:pretty]">{fact.detail}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <figure className="hero-portrait hero-rise" style={rise(3)}>
+          <img
+            src={portrait}
+            width={320}
+            height={320}
+            alt="Muhammet Turşak, head and shoulders, in a dark suit against a light grey studio background"
+            fetchPriority="high"
+            className="print-photo aspect-square w-full max-w-[320px] object-cover"
+          />
+          <figcaption className="mt-3 max-w-[320px] text-[13px] leading-5 text-muted-foreground [text-wrap:pretty]">
+            <span className="font-medium text-foreground">{PERSON.name}</span>, founder of Tursoft, based in{" "}
+            {PERSON.location.city}, {PERSON.location.country}. An alumnus of {PERSON.alumniOf.name}.
+          </figcaption>
+          <ul aria-label="Contact" className="mt-6 grid max-w-[320px] gap-1 border-t border-border pt-4">
+            {contacts.map((contact) => (
+              <li key={contact.label}>
+                <a
+                  href={contact.href}
+                  target={contact.href.startsWith("http") ? "_blank" : undefined}
+                  rel={contact.href.startsWith("http") ? "me noopener noreferrer" : undefined}
+                  className="group flex h-7 items-center gap-2.5 text-[13px] leading-5 text-muted-foreground transition-colors duration-150 hover:text-foreground"
                 >
-                  <Download className="mr-2 h-5 w-5" />
-                  Download CV
-                  <ChevronDown className="ml-2 h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="glass">
-                <DropdownMenuItem onClick={() => window.open(cvData.general.compactDownloadUrl, "_blank")} className="cursor-pointer">
-                  <FileDown className="mr-2 h-4 w-4" />
-                  Compact Version
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => window.open(cvData.general.downloadUrl, "_blank")} className="cursor-pointer">
-                  <FileText className="mr-2 h-4 w-4" />
-                  Detailed Version
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-
-          {/* Social Links */}
-          <div className="flex justify-center gap-3">
-            {socialLinks.map((social, index) => (
-              <a
-                key={index}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass rounded-full p-3 text-muted-foreground hover:text-primary hover:border-primary/50 hover:-translate-y-1 hover:shadow-[var(--shadow-glow)] transition-all duration-300"
-                aria-label={social.label}
-              >
-                <social.icon className="h-5 w-5" />
-              </a>
+                  <contact.icon className="h-4 w-4 text-faint transition-colors duration-150 group-hover:text-foreground" strokeWidth={1.5} />
+                  <span className="w-16 text-faint">{contact.label}</span>
+                  <span className="tnum truncate">{contact.value}</span>
+                </a>
+              </li>
             ))}
-          </div>
-        </div>
+          </ul>
+        </figure>
       </div>
+    </div>
 
-      {/* Scroll Indicator */}
-      <button
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer"
-        onClick={() => scrollToSection("about")}
-        aria-label="Scroll to About section"
-      >
-        <div className="w-6 h-10 border-2 border-primary/60 rounded-full flex justify-center hover:border-primary transition-colors duration-300">
-          <div className="w-1 h-3 bg-gradient-to-b from-[hsl(var(--primary))] to-[hsl(var(--accent))] rounded-full mt-2 animate-pulse" />
-        </div>
-      </button>
-    </section>
-  );
-};
+    <footer aria-label="Notes" className="container footnote-rule pb-7">
+      <ol className="grid gap-y-2 md:grid-cols-3 md:gap-x-12">
+        {notes.map((note, index) => (
+          <li key={note.id} id={note.id} className="footnote">
+            <span className="footnote-num">{index + 1}</span>
+            <span>{note.text}</span>
+          </li>
+        ))}
+      </ol>
+    </footer>
+  </section>
+);
 
 export default HeroSection;

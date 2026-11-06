@@ -1,0 +1,31 @@
+/* About, experience and education.
+   Owned by the career pass. Moved verbatim from index.css (Midnight Aurora); restyle for the dossier. */
+@layer components {
+  /* Education section subtle textured background */
+  .education-bg {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .education-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/assets/backgrounds/education-bg.svg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.28;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .education-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, hsl(var(--background) / 0.94), rgba(0, 0, 0, 0) 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}

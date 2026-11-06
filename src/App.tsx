@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import BackgroundAnimation from "./components/BackgroundAnimation";
 import { HelmetProvider } from "react-helmet-async";
 
 // Pages other than the homepage load on demand, so the homepage bundle stays small.
@@ -30,8 +29,7 @@ const App = () => (
   <HelmetProvider>
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <div className="dark">
-        <BackgroundAnimation />
+      <div>
         <Toaster />
         <Sonner />
         <BrowserRouter>
