@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useSnapshotState, type SnapshotCodec } from '@/hooks/use-snapshot-state';
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Calendar, Briefcase, GraduationCap, Code, ChevronRight, List, BarChart3, ZoomIn, ZoomOut } from "lucide-react";
+import SectionHeader from '@/components/SectionHeader';
+import { Button } from '@/components/ui/button';
+import { ChevronDown, List, ChartNoAxesGantt, ZoomIn, ZoomOut } from 'lucide-react';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { experienceRepo } from '@/repositories/ExperienceRepo';
 import { educationRepo } from '@/repositories/EducationRepo';
@@ -15,7 +14,7 @@ import type { ProjectEntry } from '@/models/Project';
 import type { Experience } from '@/models/Experience';
 import type { Education } from '@/models/Education';
 import { parseDate } from '@/lib/datetimeutils';
-import { getEntityColors, getEntityHexColor } from '@/lib/colors';
+import { cn } from '@/lib/utils';
 
 type TimelineItemType = 'project' | 'experience' | 'education';
 type ViewMode = 'list' | 'timeline';
@@ -25,6 +24,7 @@ interface TimelineItem {
   id: string;
   type: TimelineItemType;
   title: string;
+  /** Company or school name */
   subtitle?: string;
   description?: string;
   startDate: string;
@@ -32,30 +32,21 @@ interface TimelineItem {
   dateObj: Date;
   endDateObj: Date | null;
   category?: string;
-  icon: typeof Briefcase;
-  color: string;
-  logoUrl?: string;
   data: ProjectEntry | Experience | Education;
 }
 
-const TIMELINE_ICONS: Record<TimelineItemType, typeof Briefcase> = {
-  project: Code,
-  experience: Briefcase,
-  education: GraduationCap,
-};
-
-type EncodedTimelineItem = Omit<TimelineItem, 'icon' | 'dateObj' | 'endDateObj'> & {
+type EncodedTimelineItem = Omit<TimelineItem, 'dateObj' | 'endDateObj'> & {
   dateObj: string;
   endDateObj: string | null;
 };
 
-// Timeline items hold Date objects and icon components. The prerender snapshot stores
-// the dates as ISO strings and rebuilds the icon from the item type. The full record in
-// `data` is only needed by the detail dialogs and arrives with the live data right after
-// load, so it is left out of the snapshot to keep the page small.
+// Timeline items hold Date objects. The prerender snapshot stores the dates as ISO
+// strings. The full record in `data` is only needed by the detail dialogs and arrives
+// with the live data right after load, so it is left out of the snapshot to keep the
+// page small.
 const timelineCodec: SnapshotCodec<TimelineItem[]> = {
   encode: (items) =>
-    items.map(({ icon, dateObj, endDateObj, data, ...rest }): EncodedTimelineItem => ({
+    items.map(({ dateObj, endDateObj, data, ...rest }): EncodedTimelineItem => ({
       ...rest,
       data: null as unknown as TimelineItem['data'],
       dateObj: dateObj.toISOString(),
@@ -64,11 +55,57 @@ const timelineCodec: SnapshotCodec<TimelineItem[]> = {
   decode: (data) =>
     (data as EncodedTimelineItem[]).map((it) => ({
       ...it,
-      icon: TIMELINE_ICONS[it.type] ?? Calendar,
       dateObj: new Date(it.dateObj),
       endDateObj: it.endDateObj ? new Date(it.endDateObj) : null,
     })),
 };
+
+const TYPE_LABEL: Record<TimelineItemType, string> = {
+  project: 'Project',
+  experience: 'Experience',
+  education: 'Education',
+};
+
+const CATEGORIES = [
+  { value: 'All', label: 'All' },
+  { value: 'project', label: 'Projects' },
+  { value: 'experience', label: 'Experience' },
+  { value: 'education', label: 'Education' },
+] as const;
+
+const ZOOM_LABEL: Record<ZoomLevel, string> = { year: 'Years', month: 'Months', day: 'Days' };
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/** "01.05.2026" becomes "May 2026" */
+const formatMonth = (value: string): string => {
+  const date = parseDate(value);
+  return date ? `${MONTHS[date.getMonth()]} ${date.getFullYear()}` : value;
+};
+
+/** "May 2026 – present", "Sep 2012 – Feb 2013", or one month when it starts and ends in it */
+const formatDateRange = (startDate: string, endDate: string | null): string => {
+  const start = formatMonth(startDate);
+  const end = endDate ? formatMonth(endDate) : 'present';
+  return start === end ? start : `${start} – ${end}`;
+};
+
+/** The position held now: the one entry printed in red. */
+const isCurrent = (item: TimelineItem) => item.type === 'experience' && !item.endDate;
+
+// Chart geometry: the year axis, then one lane per type (education, experience, projects),
+// each with as many rows as its overlapping entries need
+const START_YEAR = 1995;
+const AXIS_H = 32;
+const ROW_H = 20;
+const BAR_H = 16;
+const LANE_GAP = 16;
+const LANES: { type: TimelineItemType; label: string }[] = [
+  { type: 'education', label: 'Education' },
+  { type: 'experience', label: 'Experience' },
+  { type: 'project', label: 'Projects' },
+];
+const PX_PER_YEAR: Record<ZoomLevel, number> = { year: 100, month: 600, day: 730 };
 
 const TimelineSection = () => {
   const [items, setItems] = useSnapshotState<TimelineItem[]>('timeline.items', [], timelineCodec);
@@ -78,6 +115,8 @@ const TimelineSection = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('timeline');
   const [zoomLevel, setZoomLevel] = useState<ZoomLevel>('year');
   const timelineRef = useRef<HTMLDivElement>(null);
+  // Where the middle of the chart sat before a zoom, as a share of its width
+  const zoomAnchor = useRef<number | null>(null);
 
   // Dialog states
   const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
@@ -86,13 +125,6 @@ const TimelineSection = () => {
   const [isExperienceDialogOpen, setIsExperienceDialogOpen] = useState(false);
   const [selectedEducation, setSelectedEducation] = useState<Education | null>(null);
   const [isEducationDialogOpen, setIsEducationDialogOpen] = useState(false);
-
-  const categories = [
-    { value: 'All', label: 'All', icon: Calendar },
-    { value: 'project', label: 'Projects', icon: Code },
-    { value: 'experience', label: 'Experience', icon: Briefcase },
-    { value: 'education', label: 'Education', icon: GraduationCap },
-  ];
 
   useEffect(() => {
     const loadData = async () => {
@@ -105,47 +137,41 @@ const TimelineSection = () => {
 
         const timelineItems: TimelineItem[] = [];
 
-        // Collect all company codes
+        // Company and school names, printed under each entry
         const companyCodes = new Set<string>();
-        experiences.forEach(exp => {
-          if (exp.companyCode) companyCodes.add(exp.companyCode);
-        });
-        educations.forEach(edu => {
-          if (edu.companyCode) companyCodes.add(edu.companyCode);
+        [...projects, ...experiences, ...educations].forEach((entry) => {
+          if (entry.companyCode) companyCodes.add(entry.companyCode);
         });
 
-        // Load company data
-        const companyLogos: { [key: string]: string } = {};
+        const companyTitles: { [key: string]: string } = {};
         await Promise.all(
           Array.from(companyCodes).map(async (code) => {
             const company = await companiesRepo.getByCode(code);
-            if (company?.photoUrl) {
-              companyLogos[code] = company.photoUrl;
+            if (company?.title) {
+              companyTitles[code] = company.title;
             }
           })
         );
+        const companyName = (code?: string | null) => (code ? companyTitles[code] || code : undefined);
 
         // Add projects
         projects.forEach((project) => {
           if (project.datePeriod?.startDate) {
             const startDate = parseDate(project.datePeriod.startDate);
             const endDate = project.datePeriod.endDate ? parseDate(project.datePeriod.endDate) : null;
-            
+
             if (startDate) {
               timelineItems.push({
                 id: `project-${project.code}`,
                 type: 'project',
                 title: project.title || '',
-                subtitle: project.companyCode,
+                subtitle: companyName(project.companyCode),
                 description: project.summary,
                 startDate: project.datePeriod.startDate,
                 endDate: project.datePeriod.endDate || null,
                 dateObj: startDate,
                 endDateObj: endDate || new Date(),
                 category: project.group,
-                icon: Code,
-                color: getEntityColors('project').text,
-                logoUrl: project.photoUrl,
                 data: project,
               });
             }
@@ -158,21 +184,18 @@ const TimelineSection = () => {
             if (position.startDate) {
               const startDate = parseDate(position.startDate);
               const endDate = position.endDate ? parseDate(position.endDate) : null;
-              
+
               if (startDate) {
                 timelineItems.push({
                   id: `experience-${experience.companyCode}-${index}`,
                   type: 'experience',
                   title: position.title || '',
-                  subtitle: experience.companyCode,
+                  subtitle: companyName(experience.companyCode),
                   description: position.summary,
                   startDate: position.startDate,
                   endDate: position.endDate || null,
                   dateObj: startDate,
                   endDateObj: endDate || new Date(),
-                  icon: Briefcase,
-                  color: getEntityColors('experience').text,
-                  logoUrl: companyLogos[experience.companyCode || ''],
                   data: experience,
                 });
               }
@@ -185,22 +208,19 @@ const TimelineSection = () => {
           if (education.datePeriod?.startDate) {
             const startDate = parseDate(education.datePeriod.startDate);
             const endDate = education.datePeriod.endDate ? parseDate(education.datePeriod.endDate) : null;
-            
+
             if (startDate) {
               timelineItems.push({
                 id: `education-${education.code}`,
                 type: 'education',
                 title: education.department || '',
-                subtitle: education.companyCode,
+                subtitle: companyName(education.companyCode),
                 description: education.summary,
                 startDate: education.datePeriod.startDate,
                 endDate: education.datePeriod.endDate || null,
                 dateObj: startDate,
                 endDateObj: endDate || new Date(),
                 category: education.level,
-                icon: GraduationCap,
-                color: getEntityColors('education').text,
-                logoUrl: companyLogos[education.companyCode || ''],
                 data: education,
               });
             }
@@ -238,41 +258,9 @@ const TimelineSection = () => {
     });
   };
 
-  const formatDateRange = (startDate: string, endDate: string | null) => {
-    const start = startDate.split('.')[2] || startDate;
-    const end = endDate ? (endDate.split('.')[2] || endDate) : 'Present';
-    return start === end ? start : `${start} - ${end}`;
-  };
-
   const getCategoryCount = (category: string) => {
     if (category === 'All') return items.length;
     return items.filter((item) => item.type === category).length;
-  };
-
-  const getTypeLabel = (type: TimelineItemType) => {
-    switch (type) {
-      case 'project':
-        return 'Project';
-      case 'experience':
-        return 'Experience';
-      case 'education':
-        return 'Education';
-      default:
-        return type;
-    }
-  };
-
-  const getTypeBadgeVariant = (type: TimelineItemType): "default" | "secondary" | "destructive" | "outline" => {
-    switch (type) {
-      case 'project':
-        return 'default';
-      case 'experience':
-        return 'secondary';
-      case 'education':
-        return 'outline';
-      default:
-        return 'outline';
-    }
   };
 
   const handleItemClick = (item: TimelineItem) => {
@@ -293,466 +281,360 @@ const TimelineSection = () => {
     }
   };
 
-  // Timeline mode calculations
-  const getTimelineMetrics = () => {
-    const startYear = 1995;
-    const currentDate = new Date();
-    const endYear = currentDate.getFullYear();
-    const totalYears = endYear - startYear + 1;
-
-    let pixelsPerUnit = 100; // Base pixels per year
-    let timeUnit = 'year';
-    let unitCount = totalYears;
-
-    if (zoomLevel === 'month') {
-      pixelsPerUnit = 50; // pixels per month
-      timeUnit = 'month';
-      unitCount = totalYears * 12;
-    } else if (zoomLevel === 'day') {
-      pixelsPerUnit = 2; // pixels per day
-      timeUnit = 'day';
-      unitCount = totalYears * 365;
+  // The chronology: entries grouped under the year they started, most recent first
+  const yearGroups = useMemo(() => {
+    const groups: { year: number; entries: TimelineItem[] }[] = [];
+    for (const item of filteredItems) {
+      const year = item.dateObj.getFullYear();
+      const last = groups[groups.length - 1];
+      if (last && last.year === year) last.entries.push(item);
+      else groups.push({ year, entries: [item] });
     }
+    return groups;
+  }, [filteredItems]);
 
-    const totalWidth = pixelsPerUnit * unitCount;
-
-    return {
-      startYear,
-      endYear,
-      totalYears,
-      pixelsPerUnit,
-      timeUnit,
-      unitCount,
-      totalWidth,
-      startDate: new Date(startYear, 0, 1),
-      endDate: currentDate,
-    };
-  };
-
-  const calculateItemPosition = (item: TimelineItem, metrics: ReturnType<typeof getTimelineMetrics>) => {
-    const startTime = item.dateObj.getTime();
-    const endTime = item.endDateObj ? item.endDateObj.getTime() : new Date().getTime();
-    const timelineStart = metrics.startDate.getTime();
-    const timelineEnd = metrics.endDate.getTime();
-
-    const totalTimelineMs = timelineEnd - timelineStart;
-    const itemStartMs = startTime - timelineStart;
-    const itemDurationMs = endTime - startTime;
-
-    const left = (itemStartMs / totalTimelineMs) * metrics.totalWidth;
-    const width = Math.max((itemDurationMs / totalTimelineMs) * metrics.totalWidth, 20); // Minimum 20px
-
-    return { left, width };
-  };
+  // One scale for the axis and the bars: 1 Jan 1995 to the end of this year
+  const metrics = useMemo(() => {
+    const endYear = new Date().getFullYear();
+    const totalYears = endYear - START_YEAR + 1;
+    const start = new Date(START_YEAR, 0, 1).getTime();
+    const end = new Date(endYear + 1, 0, 1).getTime();
+    const totalWidth = PX_PER_YEAR[zoomLevel] * totalYears;
+    const x = (time: number) => ((time - start) / (end - start)) * totalWidth;
+    return { endYear, totalWidth, x };
+  }, [zoomLevel]);
 
   const renderTimelineAxis = () => {
-    const metrics = getTimelineMetrics();
-    const markers: JSX.Element[] = [];
-
-    if (zoomLevel === 'year') {
-      for (let year = metrics.startYear; year <= metrics.endYear; year++) {
-        const position = ((year - metrics.startYear) / metrics.totalYears) * metrics.totalWidth;
-        markers.push(
-          <div
-            key={`year-${year}`}
-            className="absolute top-0 h-full border-l border-border/30"
-            style={{ left: `${position}px` }}
-          >
-            <div className="absolute -top-6 left-1 text-xs text-muted-foreground font-medium">
-              {year}
-            </div>
-          </div>
-        );
-      }
-    } else if (zoomLevel === 'month') {
-      for (let year = metrics.startYear; year <= metrics.endYear; year++) {
-        for (let month = 0; month < 12; month++) {
-          const totalMonths = (year - metrics.startYear) * 12 + month;
-          const position = (totalMonths / metrics.unitCount) * metrics.totalWidth;
-          
-          if (month === 0) {
-            markers.push(
-              <div
-                key={`month-${year}-${month}`}
-                className="absolute top-0 h-full border-l border-border"
-                style={{ left: `${position}px` }}
-              >
-                <div className="absolute -top-6 left-1 text-xs text-muted-foreground font-bold">
-                  {year}
-                </div>
-              </div>
-            );
-          } else {
-            markers.push(
-              <div
-                key={`month-${year}-${month}`}
-                className="absolute top-0 h-full border-l border-border/20"
-                style={{ left: `${position}px` }}
-              />
-            );
-          }
+    const ticks: JSX.Element[] = [];
+    for (let year = START_YEAR; year <= metrics.endYear; year++) {
+      ticks.push(
+        <div
+          key={`year-${year}`}
+          className={cn('tl-tick', year % 10 === 0 && 'is-decade')}
+          style={{ left: `${metrics.x(new Date(year, 0, 1).getTime())}px` }}
+        >
+          <span className="tl-year">{year}</span>
+        </div>
+      );
+      if (zoomLevel !== 'year') {
+        for (let month = 1; month < 12; month++) {
+          ticks.push(
+            <div
+              key={`month-${year}-${month}`}
+              className="tl-tick is-minor"
+              style={{ left: `${metrics.x(new Date(year, month, 1).getTime())}px`, top: `${AXIS_H}px` }}
+            />
+          );
         }
       }
-    } else if (zoomLevel === 'day') {
-      // Show only year markers for day view (too many to show all)
-      for (let year = metrics.startYear; year <= metrics.endYear; year++) {
-        const totalDays = (year - metrics.startYear) * 365;
-        const position = (totalDays / metrics.unitCount) * metrics.totalWidth;
-        markers.push(
-          <div
-            key={`day-${year}`}
-            className="absolute top-0 h-full border-l border-border"
-            style={{ left: `${position}px` }}
-          >
-            <div className="absolute -top-6 left-1 text-xs text-muted-foreground font-bold">
-              {year}
-            </div>
-          </div>
-        );
+    }
+    return ticks;
+  };
+
+  // Bars: each entry takes the first row of its lane where it overlaps nothing, so no bar
+  // is printed over another; lanes without entries (under a filter) are left out.
+  const chart = useMemo(() => {
+    type Pos = { left: number; width: number };
+    const overlaps = (a: Pos, b: Pos) => !(a.left + a.width <= b.left || b.left + b.width <= a.left);
+
+    const bars: { item: TimelineItem; top: number; left: number; width: number }[] = [];
+    const lanes: { type: TimelineItemType; label: string; top: number }[] = [];
+    const rules: number[] = [];
+    let top = AXIS_H + 12;
+
+    for (const lane of LANES) {
+      const entries = filteredItems.filter((item) => item.type === lane.type);
+      if (!entries.length) continue;
+      if (lanes.length) {
+        rules.push(top - LANE_GAP / 2 - (ROW_H - BAR_H) / 2);
       }
+      const rows: Pos[][] = [];
+      for (const item of entries) {
+        const left = metrics.x(item.dateObj.getTime());
+        const end = item.endDateObj ? item.endDateObj.getTime() : Date.now();
+        const pos = { left, width: Math.max(metrics.x(end) - left, 20) }; // Minimum 20px
+        let row = rows.findIndex((occupied) => !occupied.some((other) => overlaps(pos, other)));
+        if (row < 0) row = rows.push([]) - 1;
+        rows[row].push(pos);
+        bars.push({ item, top: top + row * ROW_H, ...pos });
+      }
+      lanes.push({ type: lane.type, label: lane.label, top });
+      top += rows.length * ROW_H + LANE_GAP;
     }
 
-    return markers;
+    const height = Math.max(top - LANE_GAP - (ROW_H - BAR_H) + 16, AXIS_H + 48);
+    return { bars, lanes, rules, height };
+  }, [filteredItems, metrics]);
+
+  // The chart opens on the latest years (the scroller runs right to left, see below);
+  // after a zoom, the date that was in the middle stays in the middle.
+  useLayoutEffect(() => {
+    const el = timelineRef.current;
+    const anchor = zoomAnchor.current;
+    zoomAnchor.current = null;
+    if (!el || anchor === null) return;
+    const leftEdge = anchor * el.scrollWidth - el.clientWidth / 2;
+    el.scrollLeft = leftEdge - (el.scrollWidth - el.clientWidth);
+  }, [zoomLevel]);
+
+  const changeZoom = (next: ZoomLevel) => {
+    const el = timelineRef.current;
+    if (el) {
+      const leftEdge = el.scrollWidth - el.clientWidth + el.scrollLeft;
+      zoomAnchor.current = (leftEdge + el.clientWidth / 2) / el.scrollWidth;
+    }
+    setZoomLevel(next);
   };
 
   const handleZoomIn = () => {
-    if (zoomLevel === 'year') setZoomLevel('month');
-    else if (zoomLevel === 'month') setZoomLevel('day');
+    if (zoomLevel === 'year') changeZoom('month');
+    else if (zoomLevel === 'month') changeZoom('day');
   };
 
   const handleZoomOut = () => {
-    if (zoomLevel === 'day') setZoomLevel('month');
-    else if (zoomLevel === 'month') setZoomLevel('year');
+    if (zoomLevel === 'day') changeZoom('month');
+    else if (zoomLevel === 'month') changeZoom('year');
   };
+
+  const firstYear = items.length ? items[items.length - 1].dateObj.getFullYear() : START_YEAR;
+
+  const header = (
+    <SectionHeader
+      id="timeline"
+      title="Career, education and projects"
+      description="A chronological overview of my professional journey, education and key projects."
+      aside={
+        isLoading ? undefined : (
+          <>
+            <span className="tabular-nums">
+              {items.length} entries since {firstYear}
+            </span>
+            <div className="pl-seg" role="group" aria-label="View">
+              <button type="button" className="pl-seg-btn" aria-pressed={viewMode === 'timeline'} onClick={() => setViewMode('timeline')}>
+                <ChartNoAxesGantt strokeWidth={1.5} aria-hidden="true" />
+                Timeline
+              </button>
+              <button type="button" className="pl-seg-btn" aria-pressed={viewMode === 'list'} onClick={() => setViewMode('list')}>
+                <List strokeWidth={1.5} aria-hidden="true" />
+                List
+              </button>
+            </div>
+          </>
+        )
+      }
+    />
+  );
 
   if (isLoading) {
     return (
-      <section id="timeline" className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center">Loading timeline...</div>
+      <section id="timeline" className="places py-16 lg:py-24">
+        <div className="container">
+          {header}
+          <p className="text-sm text-faint">Loading the timeline…</p>
         </div>
       </section>
     );
   }
 
   return (
-    <section id="timeline" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-12 animate-fade-in">
-          <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Career Journey</Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Professional Timeline:
-            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Career, Education and Projects</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A chronological overview of my professional journey, education, and key projects
-          </p>
-        </div>
+    <section id="timeline" className="places py-16 lg:py-24">
+      <div className="container">
+        {header}
 
-        {/* Category Filter and View Mode Toggle */}
-        <div className="max-w-5xl mx-auto mb-12">
-          <div className="flex flex-wrap gap-4 justify-between items-center ml-16">
-            {/* Category Filter - Left Aligned */}
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <Button
-                  key={category.value}
-                  variant={selectedCategory === category.value ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setSelectedCategory(category.value)}
-                  className="gap-2"
-                >
-                  <category.icon className="w-4 h-4" />
-                  {category.label}
-                  <Badge variant={selectedCategory === category.value ? 'secondary' : 'outline'}>
-                    {getCategoryCount(category.value)}
-                  </Badge>
-                </Button>
-              ))}
-            </div>
-
-            {/* View Mode Toggle and Zoom Controls - Right Aligned */}
-            <div className="flex flex-wrap gap-2 items-center">
-              {/* Zoom Controls (only visible in timeline mode) */}
-              {viewMode === 'timeline' && (
-                <>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleZoomOut}
-                    disabled={zoomLevel === 'year'}
-                    className="gap-2"
-                  >
-                    <ZoomOut className="w-4 h-4" />
-                    Zoom Out
-                  </Button>
-                  <Badge variant="secondary" className="px-4 py-2">
-                    View: {zoomLevel === 'year' ? 'Years' : zoomLevel === 'month' ? 'Months' : 'Days'}
-                  </Badge>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleZoomIn}
-                    disabled={zoomLevel === 'day'}
-                    className="gap-2"
-                  >
-                    <ZoomIn className="w-4 h-4" />
-                    Zoom In
-                  </Button>
-                  <div className="w-px h-6 bg-border mx-1" />
-                </>
-              )}
-              
-              {/* View Mode Toggle */}
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="gap-2"
+        {/* Type filter, and the scale of the chart */}
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+          <div className="pl-seg" role="group" aria-label="Show">
+            {CATEGORIES.map((category) => (
+              <button
+                key={category.value}
+                type="button"
+                className="pl-seg-btn"
+                aria-pressed={selectedCategory === category.value}
+                onClick={() => setSelectedCategory(category.value)}
+                data-cat={category.value === 'All' ? undefined : category.value}
               >
-                <List className="w-4 h-4" />
-                List View
-              </Button>
-              <Button
-                variant={viewMode === 'timeline' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setViewMode('timeline')}
-                className="gap-2"
-              >
-                <BarChart3 className="w-4 h-4" />
-                Timeline View
-              </Button>
-            </div>
+                {category.value !== 'All' && <span className="cat-dot" aria-hidden="true" />}
+                {category.label}
+                <span className="pl-seg-count">{getCategoryCount(category.value)}</span>
+              </button>
+            ))}
           </div>
+
+          {viewMode === 'timeline' && (
+            <div className="flex items-center gap-1" role="group" aria-label="Scale">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={handleZoomOut}
+                disabled={zoomLevel === 'year'}
+                aria-label="Zoom out"
+                className="h-8 w-8"
+              >
+                <ZoomOut strokeWidth={1.5} />
+              </Button>
+              <span className="w-16 text-center text-[13px] leading-5 text-muted-foreground" aria-live="polite">
+                {ZOOM_LABEL[zoomLevel]}
+              </span>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={handleZoomIn}
+                disabled={zoomLevel === 'day'}
+                aria-label="Zoom in"
+                className="h-8 w-8"
+              >
+                <ZoomIn strokeWidth={1.5} />
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* Content - List or Timeline View */}
         {viewMode === 'list' ? (
-          // LIST VIEW
-          <div className="max-w-5xl mx-auto">
-            <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent" />
-
-              {/* Timeline items */}
-              <div className="space-y-8">
-                {filteredItems.map((item, index) => {
-                  const isExpanded = expandedItems.has(item.id);
-                  const Icon = item.icon;
-
-                  return (
-                    <div
-                      key={item.id}
-                      className="relative animate-slide-in"
-                      style={{ animationDelay: `${index * 0.05}s` }}
-                    >
-                      {/* Timeline dot */}
-                      <div className="absolute left-8 -translate-x-1/2 w-4 h-4 rounded-full bg-background border-2 border-primary z-10" />
-
-                      {/* Content card */}
-                      <div className="ml-16">
-                        <Card 
-                          className="group hover:border-primary/50 transition-all duration-300 hover:shadow-lg cursor-pointer"
-                          onClick={() => handleItemClick(item)}
-                        >
-                          <CardContent className="p-6">
-                            <div className="flex items-start gap-4">
-                              {/* Logo or Icon */}
-                              {item.logoUrl ? (
-                                <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden flex items-center justify-center">
-                                  <img loading="lazy" decoding="async" 
-                                    src={item.logoUrl} 
-                                    alt={item.title}
-                                    className="w-full h-full object-contain"
-                                    onError={(e) => {
-                                      e.currentTarget.style.display = 'none';
-                                    }}
-                                  />
-                                </div>
-                              ) : (
-                                <div className={`flex-shrink-0 w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center ${item.color}`}>
-                                  <Icon className="w-8 h-8" />
-                                </div>
-                              )}
-
-                              {/* Content */}
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-start justify-between gap-4 mb-2">
-                                  <div className="flex-1">
-                                    <div className="flex items-center gap-2 mb-1">
-                                      <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                                        {item.title}
-                                      </h3>
-                                      <Badge variant={getTypeBadgeVariant(item.type)} className="text-xs">
-                                        {getTypeLabel(item.type)}
-                                      </Badge>
-                                    </div>
-                                    {item.subtitle && (
-                                      <p className="text-sm text-muted-foreground">{item.subtitle}</p>
-                                    )}
-                                  </div>
-                                  <div className="flex items-center gap-2 flex-shrink-0">
-                                    <Badge variant="outline" className="text-xs whitespace-nowrap">
-                                      <Calendar className="w-3 h-3 mr-1" />
-                                      {formatDateRange(item.startDate, item.endDate)}
-                                    </Badge>
-                                    {item.category && (
-                                      <Badge variant="secondary" className="text-xs">
-                                        {item.category}
-                                      </Badge>
-                                    )}
-                                  </div>
-                                </div>
-
-                                {item.description && (
-                                  <>
-                                    <p className={`text-sm text-muted-foreground mt-2 ${isExpanded ? '' : 'line-clamp-2'}`}>
-                                      {item.description}
-                                    </p>
-                                    {item.description.length > 150 && (
-                                      <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onClick={() => toggleExpand(item.id)}
-                                        className="mt-2 h-auto p-0 text-primary hover:text-primary/80"
-                                      >
-                                        {isExpanded ? 'Show less' : 'Show more'}
-                                        <ChevronRight className={`w-4 h-4 ml-1 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
-                                      </Button>
-                                    )}
-                                  </>
-                                )}
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {filteredItems.length === 0 && (
-                <div className="text-center py-12 text-muted-foreground">
-                  No items found for the selected category.
-                </div>
-              )}
+          // LIST VIEW: a printed chronology
+          <div className="chrono max-w-[960px]">
+            <div className="chrono-now">
+              <span className="col-start-2 text-[13px] font-medium leading-4 text-primary md:col-start-1">Now</span>
             </div>
-          </div>
-        ) : (
-          // TIMELINE VIEW
-          <div className="w-full">
-            <div
-              ref={timelineRef}
-              className="relative overflow-x-auto overflow-y-hidden bg-card rounded-lg border border-border p-8"
-              style={{ height: '400px' }}
-            >
-              <div className="relative" style={{ width: `${getTimelineMetrics().totalWidth}px`, height: '100%' }}>
-                {/* Timeline axis */}
-                <div className="absolute top-8 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary to-primary" />
-                {renderTimelineAxis()}
-
-                {/* Timeline items */}
-                <div className="absolute top-20 left-0 right-0">
-                  {(() => {
-                    // Separate items by type
-                    const educationItems = filteredItems.filter(item => item.type === 'education');
-                    const experienceItems = filteredItems.filter(item => item.type === 'experience');
-                    const projectItems = filteredItems.filter(item => item.type === 'project');
-                    
-                    // Helper function to check if two items overlap
-                    const doItemsOverlap = (item1Pos: { left: number; width: number }, item2Pos: { left: number; width: number }) => {
-                      const item1End = item1Pos.left + item1Pos.width;
-                      const item2End = item2Pos.left + item2Pos.width;
-                      return !(item1End <= item2Pos.left || item2End <= item1Pos.left);
-                    };
-
-                    // Helper function to find the best row for an item
-                    const findBestRow = (itemPos: { left: number; width: number }, rowsOccupied: Array<Array<{ left: number; width: number }>>, startRow: number, maxRows: number) => {
-                      for (let row = startRow; row < startRow + maxRows; row++) {
-                        const itemsInRow = rowsOccupied[row] || [];
-                        const hasOverlap = itemsInRow.some(occupiedItem => doItemsOverlap(itemPos, occupiedItem));
-                        
-                        if (!hasOverlap) {
-                          return row;
-                        }
-                      }
-                      // If all rows are occupied, use the last row anyway
-                      return startRow + maxRows - 1;
-                    };
-
-                    const metrics = getTimelineMetrics();
-                    const rowsOccupied: Array<Array<{ left: number; width: number }>> = [];
-                    
-                    // Process items and assign rows intelligently
-                    const itemsWithRows = [...educationItems, ...experienceItems, ...projectItems].map((item) => {
-                      const { left, width } = calculateItemPosition(item, metrics);
-                      const itemPos = { left, width };
-                      
-                      let row = 0;
-                      if (item.type === 'education') {
-                        row = findBestRow(itemPos, rowsOccupied, 0, 1); // Only row 0 for education
-                      } else if (item.type === 'experience') {
-                        row = findBestRow(itemPos, rowsOccupied, 1, 1); // Only row 1 for experience
-                      } else if (item.type === 'project') {
-                        row = findBestRow(itemPos, rowsOccupied, 2, 3); // Rows 2, 3, 4 for projects
-                      }
-                      
-                      // Mark this position as occupied in the assigned row
-                      if (!rowsOccupied[row]) {
-                        rowsOccupied[row] = [];
-                      }
-                      rowsOccupied[row].push(itemPos);
-                      
-                      return { item, row, left, width };
-                    });
-                    
-                    return itemsWithRows.map(({ item, row, left, width }) => {
-                      // Build tooltip content
-                      const tooltipContent = [
-                        item.title,
-                        item.subtitle ? `(${item.subtitle})` : '',
-                        formatDateRange(item.startDate, item.endDate),
-                        item.category ? `Category: ${item.category}` : '',
-                        item.description ? `\n${item.description.substring(0, 200)}${item.description.length > 200 ? '...' : ''}` : ''
-                      ].filter(Boolean).join('\n');
+            <ol>
+              {yearGroups.map(({ year, entries }) => (
+                <li key={year}>
+                  <div className="chrono-year">
+                    <span className="col-start-2 font-serif text-[28px] leading-8 text-foreground tabular-nums md:col-start-1">
+                      {year}
+                    </span>
+                  </div>
+                  <ol>
+                    {entries.map((item) => {
+                      const isExpanded = expandedItems.has(item.id);
+                      const range = formatDateRange(item.startDate, item.endDate);
+                      const current = isCurrent(item);
+                      const meta = [item.subtitle, TYPE_LABEL[item.type], item.category].filter(Boolean).join(' · ');
 
                       return (
-                        <div
-                          key={item.id}
-                          className="absolute group cursor-pointer"
-                          style={{
-                            left: `${left}px`,
-                            width: `${width}px`,
-                            top: `${row * 40}px`,
-                          }}
-                          title={tooltipContent}
-                          onClick={() => handleItemClick(item)}
-                        >
-                          <div 
-                            className="h-5 rounded transition-all duration-300 hover:scale-y-150 hover:shadow-lg hover:z-10 border-2 flex items-center px-1 overflow-hidden"
-                            style={{
-                              backgroundColor: getEntityHexColor(item.type),
-                              borderColor: '#1e3a8a', // blue-900 for dark blue border
-                            }}
+                        <li key={item.id} className="chrono-row" data-cat={item.type} data-current={current ? '' : undefined}>
+                          <div
+                            className={cn(
+                              'hidden pt-3 text-[13px] leading-6 tabular-nums md:block',
+                              current ? 'text-foreground' : 'text-faint'
+                            )}
                           >
-                            <span className="text-[10px] font-medium text-white truncate whitespace-nowrap">
-                              {item.title}
-                            </span>
+                            {range}
                           </div>
-                        </div>
+                          <span className="chrono-dot" aria-hidden="true" />
+                          <div className="chrono-body">
+                            <div className={cn('text-[13px] leading-5 tabular-nums md:hidden', current ? 'text-foreground' : 'text-faint')}>
+                              {range}
+                            </div>
+                            <h3 className="text-[15px] font-medium leading-6 text-foreground">
+                              <button
+                                type="button"
+                                onClick={() => handleItemClick(item)}
+                                className="text-left after:absolute after:inset-0 after:rounded-[4px] after:content-[''] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-ring"
+                              >
+                                {item.title}
+                              </button>
+                            </h3>
+                            {meta && <p className="text-[13px] leading-5 text-muted-foreground">{meta}</p>}
+
+                            {item.description && (
+                              <>
+                                <p className={cn('mt-2 max-w-[44rem] text-sm leading-[22px] text-muted-foreground', !isExpanded && 'line-clamp-2')}>
+                                  {item.description}
+                                </p>
+                                {item.description.length > 150 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleExpand(item.id)}
+                                    aria-expanded={isExpanded}
+                                    className="relative z-10 mt-1 inline-flex items-center gap-1 text-[13px] leading-5 text-muted-foreground underline decoration-foreground/30 underline-offset-4 transition-colors duration-150 ease-dossier hover:text-foreground hover:decoration-foreground"
+                                  >
+                                    {isExpanded ? 'Show less' : 'Show more'}
+                                    <ChevronDown
+                                      className={cn('h-4 w-4 text-faint transition-transform duration-150 ease-dossier', isExpanded && 'rotate-180')}
+                                      strokeWidth={1.5}
+                                      aria-hidden="true"
+                                    />
+                                  </button>
+                                )}
+                              </>
+                            )}
+                          </div>
+                        </li>
                       );
-                    });
-                  })()}
+                    })}
+                  </ol>
+                </li>
+              ))}
+            </ol>
+
+            {filteredItems.length === 0 && (
+              <p className="py-12 text-center text-sm text-muted-foreground">No entries of this type</p>
+            )}
+          </div>
+        ) : (
+          // TIMELINE VIEW: the same entries on a printed time scale
+          <div>
+            <div className="tl-chart">
+              <div className="tl-lanes" style={{ height: `${chart.height}px` }}>
+                <div className="tl-rule" style={{ top: `${AXIS_H}px` }} />
+                {chart.lanes.map((lane) => (
+                  <div key={lane.type} className="tl-lane" style={{ top: `${lane.top}px` }} data-cat={lane.type}>
+                    <span className="cat-dot" aria-hidden="true" />
+                    {lane.label}
+                  </div>
+                ))}
+                {chart.rules.map((y) => (
+                  <div key={y} className="tl-rule" style={{ top: `${y}px` }} />
+                ))}
+              </div>
+
+              {/* Right to left, so the chart opens on the latest years even before scripts run */}
+              <div ref={timelineRef} className="tl-scroll" dir="rtl" tabIndex={0} aria-label="Timeline chart, scroll for earlier years">
+                <div dir="ltr" className="relative" style={{ width: `${metrics.totalWidth}px`, height: `${chart.height}px` }}>
+                  {renderTimelineAxis()}
+                  <div className="tl-rule" style={{ top: `${AXIS_H}px` }} />
+                  {chart.rules.map((y) => (
+                    <div key={y} className="tl-rule" style={{ top: `${y}px` }} />
+                  ))}
+
+                  {chart.bars.map(({ item, top, left, width }) => {
+                    // Build tooltip content
+                    const tooltipContent = [
+                      item.title,
+                      item.subtitle ? `(${item.subtitle})` : '',
+                      formatDateRange(item.startDate, item.endDate),
+                      item.category ? `Category: ${item.category}` : '',
+                      item.description ? `\n${item.description.substring(0, 200)}${item.description.length > 200 ? '...' : ''}` : '',
+                    ]
+                      .filter(Boolean)
+                      .join('\n');
+
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        className="tl-bar"
+                        data-cat={item.type}
+                        data-current={isCurrent(item) ? '' : undefined}
+                        style={{ left: `${left}px`, width: `${width}px`, top: `${top}px` }}
+                        title={tooltipContent}
+                        onClick={() => handleItemClick(item)}
+                      >
+                        <span>{item.title}</span>
+                      </button>
+                    );
+                  })}
+
+                  <div className="tl-now" style={{ left: `${metrics.x(Date.now())}px` }} aria-hidden="true">
+                    <span>Now</span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {filteredItems.length === 0 && (
-              <div className="text-center py-12 text-muted-foreground">
-                No items found for the selected category.
-              </div>
+              <p className="py-12 text-center text-sm text-muted-foreground">No entries of this type</p>
             )}
           </div>
         )}

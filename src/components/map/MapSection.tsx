@@ -1,27 +1,27 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
-import { Card } from '../ui/card'
-import { Badge } from '../ui/badge'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '../ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
-import { Map, Grid, Maximize2, Minimize2, Briefcase, GraduationCap, Users, Handshake } from 'lucide-react'
+import { LogoPlate } from '../ui/logo-plate'
+import SectionHeader from '../SectionHeader'
+import { Map as MapIcon, Table2, Maximize2, Minimize2 } from 'lucide-react'
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog'
 import EducationDetailDialog from '../educations/EducationDetailDialog'
 import CustomerDetailDialog from '../customers/CustomerDetailDialog'
 import PartnerDetailDialog from '../partners/PartnerDetailDialog'
 import MapPlaceholder from './MapPlaceholder'
-import type { MapMarker } from './MapCanvas'
+import { MAP_TYPE_LABEL, type MapItemType, type MapMarker } from './mapTypes'
 import { isPrerender } from '@/lib/prerender'
+import { parseDate } from '@/lib/datetimeutils'
+import { PERSON } from '@/lib/site'
+import { cn } from '@/lib/utils'
 
 // Leaflet, its CSS and the map tiles load only when the map is about to be seen.
 const MapCanvas = lazy(() => import('./MapCanvas'))
 
 // Import specific interfaces from models for type safety
 import type { Education } from '@/models/Education'
-import type { Experience, Position } from '@/models/Experience'
+import type { Experience } from '@/models/Experience'
 import type { Customer } from '@/models/Customer'
 import type { Partner } from '@/models/Partner'
-
 
 // Import data
 import experiencesData from '@/data/experiences.json'
@@ -36,7 +36,7 @@ const companies = companiesData as CompaniesData
 
 export interface MapItem {
   uid: string
-  type: 'education' | 'experience' | 'customer' | 'partner'
+  type: MapItemType
   title: string
   coordinate: { lat: number; lng: number }
   logoUrl?: string
@@ -47,6 +47,23 @@ export interface MapItem {
   daterange: { start: string; end?: string }
 }
 
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+/** "01.05.2026" becomes "May 2026"; anything unparseable is shown as it is. */
+const formatMonth = (value?: string | null): string => {
+  if (!value) return ''
+  const date = parseDate(value)
+  return date ? `${MONTHS[date.getMonth()]} ${date.getFullYear()}` : value
+}
+
+/** "May 2026 – present", or an empty string when the place has no dates. */
+const formatPeriod = ({ start, end }: MapItem['daterange']): string => {
+  const from = formatMonth(start)
+  if (!from) return ''
+  return `${from} – ${end ? formatMonth(end) : 'present'}`
+}
+
+const startTime = (value?: string | null) => parseDate(value)?.getTime() ?? 0
 
 // Helper functions to transform data into MapItem objects
 const transformExperienceToMapItem = (experience: Experience, index: number): MapItem | null => {
@@ -54,9 +71,10 @@ const transformExperienceToMapItem = (experience: Experience, index: number): Ma
   const company = companies.items.find(c => c.code === experience.companyCode)
   if (!company || !company.coordinates) return null
 
-  const latestPosition = experience.positions?.sort((a, b) => 
-    new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
-  )?.[0]
+  // The latest position names the place; copy before sorting so the data stays untouched.
+  const latestPosition = [...(experience.positions ?? [])].sort(
+    (a, b) => startTime(b.startDate) - startTime(a.startDate)
+  )[0]
 
   const logoUrl = company.photoUrl || undefined
 
@@ -95,8 +113,8 @@ const transformEducationToMapItem = (school: Education, index: number): MapItem 
     city: company.city || '',
     country: company.country || '',
     daterange: {
-      start: school.period?.split(' - ')[0] || school.datePeriod?.startDate || '',
-      end: school.period?.split(' - ')[1] || school.datePeriod?.endDate
+      start: school.datePeriod?.startDate || school.period?.split(' - ')[0] || '',
+      end: school.datePeriod?.endDate || school.period?.split(' - ')[1]
     }
   }
 }
@@ -106,10 +124,11 @@ const transformCustomerToMapItem = (customer: Customer, index: number): MapItem 
   const company = companies.items.find(c => c.code === customer.companyCode)
   if (!company || !company.coordinates) return null
 
-  // Parse location if available (format: "City, Country")
+  // The mark sits at the company's coordinates, so its city and country name the place;
+  // the free-form location ("Cincinnati, Ohio, USA", "Eastern USA") is the fallback.
   const locationParts = customer.location?.split(',').map(s => s.trim()) || []
-  const city = locationParts[0] || company.city
-  const country = locationParts[1] || company.country
+  const city = company.city || locationParts[0]
+  const country = company.country || locationParts[locationParts.length - 1]
 
   return {
     uid: `customer.${customer.code}.${index}`,
@@ -150,39 +169,63 @@ const transformPartnerToMapItem = (partner: Partner, index: number): MapItem | n
   }
 }
 
-// Utility function to create all MapItems from data sources
-const createMapItemsFromData = (filters: string[] = ['experience', 'education', 'customer', 'partner']): MapItem[] => {
+// Every place from the data sources, in category order
+const createMapItemsFromData = (): MapItem[] => {
   const result: MapItem[] = []
 
-  if (filters.includes('experience')) {
-    experiencesData.items.forEach((company, index) => {
-      const mapItem = transformExperienceToMapItem(company as Experience, index)
-      if (mapItem) result.push(mapItem)
-    })
-  }
+  experiencesData.items.forEach((company, index) => {
+    const mapItem = transformExperienceToMapItem(company as Experience, index)
+    if (mapItem) result.push(mapItem)
+  })
 
-  if (filters.includes('education')) {
-    educationData.items.forEach((school, index) => {
-      const mapItem = transformEducationToMapItem(school as Education, index)
-      if (mapItem) result.push(mapItem)
-    })
-  }
+  educationData.items.forEach((school, index) => {
+    const mapItem = transformEducationToMapItem(school as Education, index)
+    if (mapItem) result.push(mapItem)
+  })
 
-  if (filters.includes('customer')) {
-    customersData.items.forEach((customer, index) => {
-      const mapItem = transformCustomerToMapItem(customer as Customer, index)
-      if (mapItem) result.push(mapItem)
-    })
-  }
+  customersData.items.forEach((customer, index) => {
+    const mapItem = transformCustomerToMapItem(customer as Customer, index)
+    if (mapItem) result.push(mapItem)
+  })
 
-  if (filters.includes('partner')) {
-    partnersData.items.forEach((partner, index) => {
-      const mapItem = transformPartnerToMapItem(partner as Partner, index)
-      if (mapItem) result.push(mapItem)
-    })
-  }
+  partnersData.items.forEach((partner, index) => {
+    const mapItem = transformPartnerToMapItem(partner as Partner, index)
+    if (mapItem) result.push(mapItem)
+  })
 
   return result
+}
+
+const ALL_MAP_ITEMS = createMapItemsFromData()
+const CITY_COUNT = new Set(ALL_MAP_ITEMS.map((item) => `${item.city}|${item.country}`)).size
+
+// The legend doubles as the filter: one entry and one color per category.
+const CATEGORIES: { type: MapItemType; label: string; count: number }[] = (
+  [
+    { type: 'experience', label: 'Experience' },
+    { type: 'education', label: 'Education' },
+    { type: 'customer', label: 'Customers' },
+    { type: 'partner', label: 'Partners' },
+  ] as const
+).map((category) => ({
+  ...category,
+  count: ALL_MAP_ITEMS.filter((item) => item.type === category.type).length,
+}))
+
+/** The full record behind a place, for its detail dialog. uid format: {type}.{code}.{index} */
+const findOriginalData = (item: MapItem): unknown => {
+  const code = item.uid.split('.')[1]
+  switch (item.type) {
+    case 'experience':
+      return experiencesData.items.find((exp) => exp.companyCode === code)
+    case 'education':
+      return educationData.items.find((edu) => edu.code === code)
+    case 'customer':
+      return customersData.items.find((cust) => cust.code === code)
+    case 'partner':
+      // For partners, we pass the partner object (not company) so the dialog can access description
+      return partnersData.items.find((p) => p.partnerCode === code)
+  }
 }
 
 export default function MapSection() {
@@ -210,7 +253,17 @@ export default function MapSection() {
     io.observe(el)
     return () => io.disconnect()
   }, [mapActive, viewMode])
-  
+
+  // Escape leaves the maximized plate
+  useEffect(() => {
+    if (!isMaximized) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && !document.querySelector('[role="dialog"]')) setIsMaximized(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [isMaximized])
+
   // Dialog state management
   const [selectedExperience, setSelectedExperience] = useState<unknown | null>(null)
   const [selectedEducation, setSelectedEducation] = useState<unknown | null>(null)
@@ -221,317 +274,148 @@ export default function MapSection() {
   const [isCustomerDialogOpen, setIsCustomerDialogOpen] = useState(false)
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false)
 
+  // The places in the selected categories
+  const mapItems = useMemo(
+    () => ALL_MAP_ITEMS.filter((item) => selectedFilters.includes(item.type)),
+    [selectedFilters]
+  )
 
-  // Function to add small offset to avoid overlapping markers
-  const addOffset = (lat: number, lng: number, index: number) => {
-    const offset = 0.01 * (index % 8) // Small offset based on index
-    const angle = (index * 45) % 360 // Different angle for each marker
-    const radians = (angle * Math.PI) / 180
-    return [
-      lat + offset * Math.sin(radians),
-      lng + offset * Math.cos(radians)
-    ] as [number, number]
-  }
-
-  // Generate MapItems from all data sources
-  const mapItems = useMemo(() => {
-    const result: MapItem[] = []
-
-    // Transform Experience data to MapItems
-    if (selectedFilters.includes('experience')) {
-      experiencesData.items.forEach((company, index) => {
-        const mapItem = transformExperienceToMapItem(company as Experience, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    // Transform Education data to MapItems
-    if (selectedFilters.includes('education')) {
-      educationData.items.forEach((school, index) => {
-        const mapItem = transformEducationToMapItem(school as Education, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    // Transform Customer data to MapItems
-    if (selectedFilters.includes('customer')) {
-      customersData.items.forEach((customer, index) => {
-        const mapItem = transformCustomerToMapItem(customer as Customer, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    // Transform Partner data to MapItems
-    if (selectedFilters.includes('partner')) {
-      partnersData.items.forEach((partner, index) => {
-        const mapItem = transformPartnerToMapItem(partner as Partner, index)
-        if (mapItem) result.push(mapItem)
-      })
-    }
-
-    return result
-  }, [selectedFilters])
-
-  // Convert MapItems to MapMarkers for rendering
-  const markers = useMemo(() => {
-    const result: MapMarker[] = []
-    const coordinateCount: { [key: string]: number } = {} // Track how many markers at each coordinate
-
-    mapItems.forEach((mapItem, index) => {
-      // Create coordinate key and count markers at same location
-      const coordKey = `${mapItem.coordinate.lat}-${mapItem.coordinate.lng}`
-      const offsetIndex = coordinateCount[coordKey] || 0
-      coordinateCount[coordKey] = offsetIndex + 1
-
-      // Find original data object for dialogs by extracting code from uid
-      let originalData: unknown = null
-      if (mapItem.type === 'experience') {
-        // uid format: experience.{companyCode}.{index}
-        const companyCode = mapItem.uid.split('.')[1]
-        originalData = experiencesData.items.find(item => item.companyCode === companyCode)
-      } else if (mapItem.type === 'education') {
-        // uid format: education.{code}.{index}
-        const code = mapItem.uid.split('.')[1]
-        originalData = educationData.items.find(item => item.code === code)
-      } else if (mapItem.type === 'customer') {
-        // uid format: customer.{code}.{index}
-        const code = mapItem.uid.split('.')[1]
-        originalData = customersData.items.find(item => item.code === code)
-      } else if (mapItem.type === 'partner') {
-        // uid format: partner.{partnerCode}.{index}
-        const partnerCode = mapItem.uid.split('.')[1]
-        const partner = partnersData.items.find(item => item.partnerCode === partnerCode)
-        // For partners, we pass the partner object (not company) so the dialog can access description
-        originalData = partner
-      }
-
-      const period = mapItem.daterange.end 
-        ? `${mapItem.daterange.start} - ${mapItem.daterange.end}`
-        : `${mapItem.daterange.start} - Present`
-
-      result.push({
+  // Convert MapItems to MapMarkers for rendering. Places that share a spot are grouped
+  // into one numbered mark by the map itself, so every marker keeps its true position.
+  const markers = useMemo(
+    () =>
+      mapItems.map((mapItem): MapMarker => ({
         id: mapItem.uid,
-        position: addOffset(mapItem.coordinate.lat, mapItem.coordinate.lng, offsetIndex),
+        position: [mapItem.coordinate.lat, mapItem.coordinate.lng],
         type: mapItem.type,
         title: mapItem.title,
         subtitle: mapItem.category,
         description: mapItem.summarytext,
         location: `${mapItem.city}, ${mapItem.country}`,
-        period,
+        city: mapItem.city,
+        country: mapItem.country,
+        period: formatPeriod(mapItem.daterange) || undefined,
         technologies: [], // Technologies would need to be extracted from original data if needed
         logo: mapItem.logoUrl, // Keep full path as is
-        data: originalData
-      })
-    })
-
-    return result
-  }, [mapItems])
+        home: mapItem.city === PERSON.location.city,
+        data: findOriginalData(mapItem),
+      })),
+    [mapItems]
+  )
 
   const toggleFilter = (filter: string) => {
-    setSelectedFilters(prev => 
+    setSelectedFilters(prev =>
       prev.includes(filter)
         ? prev.filter(f => f !== filter)
         : [...prev, filter]
     )
   }
 
+  const openRecord = useCallback((type: MapItemType, data: unknown) => {
+    switch (type) {
+      case 'experience':
+        setSelectedExperience(data)
+        setIsExperienceDialogOpen(true)
+        break
+      case 'education':
+        setSelectedEducation(data)
+        setIsEducationDialogOpen(true)
+        break
+      case 'customer':
+        setSelectedCustomer(data)
+        setIsCustomerDialogOpen(true)
+        break
+      case 'partner':
+        setSelectedPartner(data)
+        setIsPartnerDialogOpen(true)
+        break
+    }
+  }, [])
+
   // Handle marker click to open appropriate dialog
-  const handleMarkerClick = (marker: MapMarker) => {
-    switch (marker.type) {
-      case 'experience':
-        setSelectedExperience(marker.data)
-        setIsExperienceDialogOpen(true)
-        break
-      case 'education':
-        setSelectedEducation(marker.data)
-        setIsEducationDialogOpen(true)
-        break
-      case 'customer':
-        setSelectedCustomer(marker.data)
-        setIsCustomerDialogOpen(true)
-        break
-      case 'partner':
-        setSelectedPartner(marker.data)
-        setIsPartnerDialogOpen(true)
-        break
-    }
-  }
+  const handleMarkerClick = useCallback((marker: MapMarker) => openRecord(marker.type, marker.data), [openRecord])
 
-  // Handle grid row click to open appropriate dialog
-  const handleRowClick = (item: MapItem) => {
-    // Find the original data object for dialogs by extracting code from uid
-    let originalData: unknown = null
-    if (item.type === 'experience') {
-      // uid format: experience.{companyCode}.{index}
-      const companyCode = item.uid.split('.')[1]
-      originalData = experiencesData.items.find(exp => exp.companyCode === companyCode)
-    } else if (item.type === 'education') {
-      // uid format: education.{code}.{index}
-      const code = item.uid.split('.')[1]
-      originalData = educationData.items.find(edu => edu.code === code)
-    } else if (item.type === 'customer') {
-      // uid format: customer.{code}.{index}
-      const code = item.uid.split('.')[1]
-      originalData = customersData.items.find(cust => cust.code === code)
-    } else if (item.type === 'partner') {
-      // uid format: partner.{partnerCode}.{index}
-      const partnerCode = item.uid.split('.')[1]
-      const partner = partnersData.items.find(p => p.partnerCode === partnerCode)
-      // For partners, we pass the partner object (not company) so the dialog can access description
-      originalData = partner
-    }
+  // Handle table row click to open appropriate dialog
+  const handleRowClick = (item: MapItem) => openRecord(item.type, findOriginalData(item))
 
-    switch (item.type) {
-      case 'experience':
-        setSelectedExperience(originalData)
-        setIsExperienceDialogOpen(true)
-        break
-      case 'education':
-        setSelectedEducation(originalData)
-        setIsEducationDialogOpen(true)
-        break
-      case 'customer':
-        setSelectedCustomer(originalData)
-        setIsCustomerDialogOpen(true)
-        break
-      case 'partner':
-        setSelectedPartner(originalData)
-        setIsPartnerDialogOpen(true)
-        break
-    }
-  }
+  const viewModes = [
+    { value: 'map', label: 'Map', icon: MapIcon },
+    { value: 'grid', label: 'Table', icon: Table2 },
+  ] as const
 
   return (
-    <section id="map" className="py-20 bg-gradient-to-b from-background via-secondary/50 to-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Global Presence</Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            Global Footprint:
-            <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Projects in 14 Countries</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Explore the worldwide locations of companies I've worked with, institutions where I've studied, 
-            and clients I've served throughout my career.
-          </p>
-        </div>
+    <section id="map" className="places py-16 lg:py-24">
+      <div className="container">
+        <SectionHeader
+          id="map"
+          title="Projects in 14 countries"
+          description="The companies I've worked with, the institutions where I've studied and the clients and partners I've served, placed on the map."
+          aside={
+            <>
+              <span className="tabular-nums">
+                {ALL_MAP_ITEMS.length} places in {CITY_COUNT} cities
+              </span>
+              <div className="pl-seg" role="group" aria-label="View">
+                {viewModes.map(({ value, label, icon: Icon }) => (
+                  <button
+                    key={value}
+                    type="button"
+                    className="pl-seg-btn"
+                    aria-pressed={viewMode === value}
+                    onClick={() => setViewMode(value)}
+                  >
+                    <Icon strokeWidth={1.5} aria-hidden="true" />
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </>
+          }
+        />
 
-        {/* Combined Filters and View Mode Toggle */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-          {/* Category Filters - Left Side */}
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() => toggleFilter('experience')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                selectedFilters.includes('experience')
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-secondary text-muted-foreground hover:bg-blue-100'
-              }`}
-            >
-              <Briefcase className="w-4 h-4" />
-              Experience ({experiencesData.items.length})
-            </button>
-            <button
-              onClick={() => toggleFilter('education')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                selectedFilters.includes('education')
-                  ? 'bg-green-600 text-white'
-                  : 'bg-secondary text-muted-foreground hover:bg-green-100'
-              }`}
-            >
-              <GraduationCap className="w-4 h-4" />
-              Education ({educationData.items.length})
-            </button>
-            <button
-              onClick={() => toggleFilter('customer')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                selectedFilters.includes('customer')
-                  ? 'bg-red-600 text-white'
-                  : 'bg-secondary text-muted-foreground hover:bg-red-100'
-              }`}
-            >
-              <Users className="w-4 h-4" />
-              Customers ({customersData.items.length})
-            </button>
-            <button
-              onClick={() => toggleFilter('partner')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                selectedFilters.includes('partner')
-                  ? 'bg-orange-500 text-white'
-                  : 'bg-secondary text-muted-foreground hover:bg-orange-100'
-              }`}
-            >
-              <Handshake className="w-4 h-4" />
-              Partners ({partnersData.items.length})
-            </button>
+        {/* Legend and filter in one: each category switches on and off */}
+        <div className="mb-4 flex flex-wrap items-center gap-x-2 gap-y-2">
+          <div className="-ml-2 flex flex-wrap items-center gap-x-1 gap-y-1" role="group" aria-label="Categories on the map">
+            {CATEGORIES.map(({ type, label, count }) => (
+              <button
+                key={type}
+                type="button"
+                className="map-key"
+                data-cat={type}
+                aria-pressed={selectedFilters.includes(type)}
+                onClick={() => toggleFilter(type)}
+              >
+                <span className="cat-dot" aria-hidden="true" />
+                {label}
+                <span className="text-faint tabular-nums">{count}</span>
+              </button>
+            ))}
           </div>
-
-          {/* View Mode Toggle - Right Side */}
-          <TooltipProvider>
-            <div className="flex bg-secondary rounded-lg p-1">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant={viewMode === 'map' ? 'default' : 'ghost'}
-                    size="sm"
-                    onClick={() => setViewMode('map')}
-                    aria-label="Map view"
-                    aria-pressed={viewMode === 'map'}
-                    className="flex items-center"
-                  >
-                    <Map className="w-4 h-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Map View</p>
-                </TooltipContent>
-              </Tooltip>
-              
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                    size="sm"
-                    onClick={() => setViewMode('grid')}
-                    aria-label="Grid view"
-                    aria-pressed={viewMode === 'grid'}
-                    className="flex items-center"
-                  >
-                    <Grid className="w-4 h-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Grid View</p>
-                </TooltipContent>
-              </Tooltip>
-            </div>
-          </TooltipProvider>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsMaximized(true)}
+            className="ml-auto h-8 px-2 text-[13px]"
+          >
+            <Maximize2 strokeWidth={1.5} aria-hidden="true" />
+            Maximize
+          </Button>
         </div>
 
-        {/* Map or Grid View */}
-        <Card className={`overflow-hidden relative ${isMaximized ? 'fixed inset-0 z-50 rounded-none' : ''}`}>
-          {/* Maximize/Minimize Button */}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsMaximized(!isMaximized)}
-            className="absolute top-4 right-4 z-10 bg-background/80 backdrop-blur-sm hover:bg-background"
-          >
-            {isMaximized ? (
-              <>
-                <Minimize2 className="w-4 h-4 mr-2" />
+        {/* The plate: the printed map or the table of places */}
+        <div className={cn('map-plate', isMaximized && 'is-max')}>
+          {isMaximized && (
+            <div className="flex h-14 flex-none items-center justify-between gap-4 border-b border-border bg-card px-4 md:px-6">
+              <p className="min-w-0 truncate font-serif text-xl leading-7 text-foreground">Projects in 14 countries</p>
+              <Button variant="outline" size="sm" onClick={() => setIsMaximized(false)} className="h-8 px-3 text-[13px]">
+                <Minimize2 strokeWidth={1.5} aria-hidden="true" />
                 Minimize
-              </>
-            ) : (
-              <>
-                <Maximize2 className="w-4 h-4 mr-2" />
-                Maximize
-              </>
-            )}
-          </Button>
-          
+              </Button>
+            </div>
+          )}
+
           {viewMode === 'map' ? (
-            <div ref={mapBoxRef} className={isMaximized ? 'h-screen w-full' : 'h-[600px] w-full'}>
+            <div ref={mapBoxRef} className={isMaximized ? 'min-h-0 w-full flex-1' : 'h-[440px] w-full md:h-[600px]'}>
               {mapActive ? (
                 <Suspense fallback={<MapPlaceholder items={mapItems} loading />}>
                   <MapCanvas markers={markers} onMarkerClick={handleMarkerClick} />
@@ -541,113 +425,74 @@ export default function MapSection() {
               )}
             </div>
           ) : (
-            <div className={isMaximized ? 'h-screen overflow-auto' : 'max-h-[600px] overflow-auto'}>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Date Range</TableHead>
-                    <TableHead>Country</TableHead>
-                    <TableHead>City</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {mapItems.map((item) => {
-                    const typeColors = {
-                      experience: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-                      education: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-                      customer: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-                      partner: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
-                    }
-                    
-                    const dateRange = item.daterange.end 
-                      ? `${item.daterange.start} - ${item.daterange.end}`
-                      : `${item.daterange.start} - Present`
-
-                    // Get logo URL for the item
-                    const getLogoUrl = (item: MapItem) => {
-                      if (item.logoUrl) {
-                        return item.logoUrl
-                      }
-                      return null
-                    }
-
-                    const logoUrl = getLogoUrl(item)
-
-                    return (
-                      <TableRow 
-                        key={item.uid} 
-                        className="hover:bg-muted/50 cursor-pointer"
-                        onClick={() => handleRowClick(item)}
-                      >
-                        <TableCell className="font-medium">
-                          <div className="flex items-center gap-3">
-                            {logoUrl ? (
-                              <img loading="lazy" decoding="async" 
-                                src={logoUrl}
-                                alt={`${item.title} logo`}
-                                className="w-6 h-6 object-contain rounded flex-shrink-0"
-                                onError={(e) => {
-                                  const target = e.target as HTMLImageElement;
-                                  target.style.display = 'none';
-                                }}
-                              />
-                            ) : (
-                              <div className="w-6 h-6 bg-muted rounded flex items-center justify-center flex-shrink-0">
-                                <span className="text-xs text-muted-foreground font-medium">
-                                  {item.type.charAt(0).toUpperCase()}
-                                </span>
-                              </div>
-                            )}
-                            <span>{item.title}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <Badge className={typeColors[item.type]}>
-                            {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="text-muted-foreground">{dateRange}</TableCell>
-                        <TableCell>{item.country}</TableCell>
-                        <TableCell>{item.city}</TableCell>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
+            <div className={isMaximized ? 'min-h-0 flex-1 overflow-auto' : 'max-h-[600px] overflow-auto'}>
+              <table className="places-table w-full min-w-[720px] border-collapse">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Period</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">City</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {mapItems.map((item) => (
+                    <tr
+                      key={item.uid}
+                      tabIndex={0}
+                      onClick={() => handleRowClick(item)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault()
+                          handleRowClick(item)
+                        }
+                      }}
+                    >
+                      <td>
+                        <div className="flex items-center gap-3">
+                          <LogoPlate
+                            src={item.logoUrl}
+                            alt={`${item.title} logo`}
+                            className="h-8 w-8 flex-none p-0.5"
+                            fallback={item.title.charAt(0)}
+                          />
+                          <span className="text-sm leading-5 text-foreground">{item.title}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="inline-flex items-center gap-2 whitespace-nowrap" data-cat={item.type}>
+                          <span className="cat-dot" aria-hidden="true" />
+                          {MAP_TYPE_LABEL[item.type]}
+                        </span>
+                      </td>
+                      <td className="whitespace-nowrap text-faint tabular-nums">{formatPeriod(item.daterange)}</td>
+                      <td>{item.country}</td>
+                      <td>{item.city}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
               {mapItems.length === 0 && (
-                <div className="p-8 text-center text-muted-foreground">
-                  No items match the selected filters.
-                </div>
+                <p className="p-8 text-center text-sm text-muted-foreground">No places in the selected categories</p>
               )}
             </div>
           )}
-        </Card>
+        </div>
 
-        {/* Statistics */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-blue-500 mb-2">{experiencesData.items.length}</div>
-            <div className="text-muted-foreground">Companies Worked With</div>
-          </Card>
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">{educationData.items.length}</div>
-            <div className="text-muted-foreground">Educational Institutions</div>
-          </Card>
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-red-600 mb-2">
-              {customersData.items.length}
-            </div>
-            <div className="text-muted-foreground">Clients Served</div>
-          </Card>
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-orange-500 mb-2">
-              {partnersData.items.length}
-            </div>
-            <div className="text-muted-foreground">Strategic Partners</div>
-          </Card>
-        </div> */}
+        {/* Caption under the plate, as under a printed map */}
+        {viewMode === 'map' && (
+          <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] leading-5 text-faint">
+            <span className="inline-flex items-center gap-2">
+              <span className="map-symbol" aria-hidden="true" />
+              Number of places close together
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <span className="map-symbol is-home" aria-hidden="true" />
+              {PERSON.location.city}, where I am based
+            </span>
+          </div>
+        )}
 
         {/* Detail Dialogs */}
         <ExperienceDetailDialog
@@ -658,7 +503,7 @@ export default function MapSection() {
             setSelectedExperience(null)
           }}
         />
-        
+
         <EducationDetailDialog
           education={selectedEducation as never}
           isOpen={isEducationDialogOpen}
@@ -668,7 +513,7 @@ export default function MapSection() {
           }}
           educationIcon={(selectedEducation as Record<string, unknown>)?.icon as string}
         />
-        
+
         <CustomerDetailDialog
           customer={selectedCustomer as never}
           isOpen={isCustomerDialogOpen}
@@ -678,7 +523,7 @@ export default function MapSection() {
           }}
           customerLogo={(selectedCustomer as Record<string, unknown>)?.logoPath as string}
         />
-        
+
         <PartnerDetailDialog
           partner={selectedPartner as Partner}
           isOpen={isPartnerDialogOpen}

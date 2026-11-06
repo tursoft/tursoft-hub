@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { Globe2, MapPin } from 'lucide-react'
 import { Button } from '../ui/button'
 import type { MapItem } from './MapSection'
 
@@ -12,49 +11,56 @@ interface MapPlaceholderProps {
 }
 
 /**
- * Light stand-in for the Leaflet map: the countries and cities of every location.
- * It is what the prerendered page and crawlers see, and what visitors see until the
- * map loads as they scroll near it.
+ * Light stand-in for the Leaflet map, set like the index of an atlas: every country with
+ * its cities and the number of places. It is what the prerendered page and crawlers see,
+ * and what visitors see until the map loads as they scroll near it.
  */
 export default function MapPlaceholder({ items, onActivate, loading = false }: MapPlaceholderProps) {
   const countries = useMemo(() => {
-    const byCountry = new Map<string, Set<string>>()
+    const byCountry = new Map<string, { cities: Set<string>; places: number }>()
     for (const item of items) {
       const country = item.country || 'Other'
-      if (!byCountry.has(country)) byCountry.set(country, new Set())
-      if (item.city) byCountry.get(country)!.add(item.city)
+      if (!byCountry.has(country)) byCountry.set(country, { cities: new Set(), places: 0 })
+      const entry = byCountry.get(country)!
+      entry.places += 1
+      if (item.city) entry.cities.add(item.city)
     }
     return [...byCountry.entries()]
-      .map(([country, cities]) => ({ country, cities: [...cities].sort() }))
+      .map(([country, { cities, places }]) => ({ country, places, cities: [...cities].sort() }))
       .sort((a, b) => b.cities.length - a.cities.length || a.country.localeCompare(b.country))
   }, [items])
 
   return (
-    <div className="h-full w-full overflow-auto bg-secondary/30 p-6 flex flex-col items-center justify-center gap-6 text-center">
-      <div className="flex items-center gap-3 text-muted-foreground">
-        <Globe2 className="h-6 w-6 text-primary" aria-hidden="true" />
-        <p className="text-sm">
-          {items.length} locations in {countries.length} countries
-        </p>
-      </div>
-      <ul className="flex flex-wrap justify-center gap-2 max-w-3xl" aria-label="Countries and cities">
-        {countries.map(({ country, cities }) => (
-          <li
-            key={country}
-            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/70 px-3 py-1 text-xs text-foreground"
-          >
-            <MapPin className="h-3 w-3 text-primary" aria-hidden="true" />
-            <span className="font-medium">{country}</span>
-            {cities.length > 0 && <span className="text-muted-foreground">· {cities.join(', ')}</span>}
+    <div className="flex h-full w-full flex-col overflow-auto p-6 md:p-8">
+      <p className="text-[13px] leading-5 text-faint tabular-nums">
+        {items.length} locations in {countries.length} countries
+      </p>
+      <ul
+        className="mt-4 columns-1 gap-x-12 border-t border-border sm:columns-2 lg:columns-3"
+        aria-label="Countries and cities"
+      >
+        {countries.map(({ country, cities, places }) => (
+          <li key={country} className="break-inside-avoid border-b border-border py-3">
+            <div className="flex items-baseline justify-between gap-4">
+              <span className="text-sm font-medium leading-5 text-foreground">{country}</span>
+              <span className="text-xs leading-4 text-faint tabular-nums">{places}</span>
+            </div>
+            {cities.length > 0 && (
+              <div className="mt-0.5 text-[13px] leading-5 text-muted-foreground">{cities.join(', ')}</div>
+            )}
           </li>
         ))}
       </ul>
-      {onActivate && (
-        <Button variant="outline" size="sm" onClick={onActivate}>
-          Show the interactive map
-        </Button>
+      {(onActivate || loading) && (
+        <div className="mt-auto flex items-center gap-4 pt-6">
+          {onActivate && (
+            <Button variant="outline" size="sm" onClick={onActivate}>
+              Show the interactive map
+            </Button>
+          )}
+          {loading && <p className="text-[13px] leading-5 text-faint">Loading the map…</p>}
+        </div>
       )}
-      {loading && <p className="text-xs text-muted-foreground">Loading the map…</p>}
     </div>
   )
 }

@@ -1,4 +1,624 @@
 /* Map and timeline.
    Owned by the places pass. Put any component CSS for these sections here, inside the layer. */
 @layer components {
+  /* ---------- Category inks ----------
+     The map and the timeline are the two data pictures on the page, so they may carry a
+     small muted set of colors, one per category, toned to sit on the paper beside the red.
+     Set `data-cat` on an element and it (and its children) get `--cat`. */
+  .places {
+    --cat-experience: 213 30% 41%; /* slate blue #4a6688 */
+    --cat-education: 101 23% 40%; /* moss #5d7d4e */
+    --cat-customer: 39 45% 47%; /* ochre #b58a3c */
+    --cat-partner: 312 19% 45%; /* plum #895e81 */
+    --cat-project: 34 10% 39%; /* faint ink #6f665a */
+  }
+
+  .places [data-cat="experience"] { --cat: var(--cat-experience); }
+  .places [data-cat="education"] { --cat: var(--cat-education); }
+  .places [data-cat="customer"] { --cat: var(--cat-customer); }
+  .places [data-cat="partner"] { --cat: var(--cat-partner); }
+  .places [data-cat="project"] { --cat: var(--cat-project); }
+  .places [data-cat][data-current] { --cat: var(--primary); }
+
+  /* A legend dot: one category, one color */
+  .cat-dot {
+    display: inline-block;
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: hsl(var(--cat, var(--faint)));
+    transition: background-color 150ms var(--ease), box-shadow 150ms var(--ease);
+  }
+
+  /* ---------- Segmented switch (view modes, single-choice filters) ---------- */
+  .pl-seg {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid hsl(var(--foreground) / 0.08);
+    border-radius: 6px;
+    background: hsl(var(--secondary));
+  }
+
+  .pl-seg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+    color: hsl(var(--muted-foreground));
+    white-space: nowrap;
+    transition: background-color 150ms var(--ease), color 150ms var(--ease), box-shadow 150ms var(--ease);
+  }
+
+  .pl-seg-btn svg {
+    width: 16px;
+    height: 16px;
+    color: hsl(var(--faint));
+  }
+
+  .pl-seg-btn:hover {
+    color: hsl(var(--foreground));
+  }
+
+  .pl-seg-btn[aria-pressed="true"] {
+    background: hsl(var(--card));
+    color: hsl(var(--foreground));
+    box-shadow: 0 1px 2px hsl(var(--foreground) / 0.06), inset 0 0 0 1px hsl(var(--foreground) / 0.08);
+  }
+
+  .pl-seg-btn[aria-pressed="true"] svg {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .pl-seg-btn:disabled {
+    pointer-events: none;
+    opacity: 0.45;
+  }
+
+  .pl-seg-count {
+    font-weight: 400;
+    color: hsl(var(--faint));
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 767px) {
+    .pl-seg-btn {
+      padding: 0 10px;
+      gap: 6px;
+    }
+  }
+
+  /* ---------- Map legend: each entry switches its category on or off ---------- */
+  .map-key {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 32px;
+    padding: 0 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 16px;
+    color: hsl(var(--foreground));
+    white-space: nowrap;
+    transition: background-color 150ms var(--ease), color 150ms var(--ease);
+  }
+
+  .map-key:hover {
+    background: hsl(var(--secondary));
+  }
+
+  .map-key[aria-pressed="false"] {
+    color: hsl(var(--faint));
+  }
+
+  /* Off: the dot is printed as an outline only */
+  .map-key[aria-pressed="false"] .cat-dot {
+    background: transparent;
+    box-shadow: inset 0 0 0 1.5px hsl(var(--cat));
+  }
+
+  /* ---------- The map plate: printed into the page ---------- */
+  .map-plate {
+    position: relative;
+    isolation: isolate;
+    border: 1px solid hsl(var(--input));
+    background: hsl(var(--card));
+  }
+
+  .map-plate.is-max {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    border: 0;
+  }
+
+  .map-plate .leaflet-container {
+    background: hsl(var(--secondary));
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  /* OpenStreetMap tiles, printed: warm greyscale, lifted a little toward the paper */
+  .map-plate .leaflet-tile-pane {
+    filter: grayscale(1) sepia(0.22) contrast(0.92) brightness(1.04);
+    opacity: 0.82;
+  }
+
+  /* Zoom: two quiet keys on the paper */
+  .map-plate .leaflet-container .leaflet-bar {
+    overflow: hidden;
+    border: 1px solid hsl(var(--input));
+    border-radius: 4px;
+    background: hsl(var(--card));
+    box-shadow: none;
+  }
+
+  .map-plate .leaflet-container .leaflet-bar a {
+    width: 32px;
+    height: 32px;
+    border-bottom: 1px solid hsl(var(--border));
+    border-radius: 0;
+    background: hsl(var(--card));
+    color: hsl(var(--foreground));
+    font: 400 18px/32px theme("fontFamily.sans");
+    text-indent: 0;
+    transition: background-color 150ms var(--ease), color 150ms var(--ease);
+  }
+
+  .map-plate .leaflet-container .leaflet-bar a:last-child {
+    border-bottom: 0;
+  }
+
+  .map-plate .leaflet-container .leaflet-bar a:hover,
+  .map-plate .leaflet-container .leaflet-bar a:focus-visible {
+    background: hsl(var(--secondary));
+  }
+
+  .map-plate .leaflet-container .leaflet-bar a.leaflet-disabled {
+    background: hsl(var(--card));
+    color: hsl(var(--foreground) / 0.3);
+  }
+
+  .map-plate .leaflet-container .leaflet-top .leaflet-control {
+    margin-top: 12px;
+  }
+
+  .map-plate .leaflet-container .leaflet-left .leaflet-control {
+    margin-left: 12px;
+  }
+
+  /* Attribution: a credit line set on the paper */
+  .map-plate .leaflet-container .leaflet-control-attribution {
+    padding: 2px 8px;
+    background: hsl(var(--card) / 0.88);
+    color: hsl(var(--faint));
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .map-plate .leaflet-container .leaflet-control-attribution a {
+    color: hsl(var(--muted-foreground));
+    text-decoration: none;
+  }
+
+  .map-plate .leaflet-container .leaflet-control-attribution a:hover {
+    color: hsl(var(--foreground));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Popups: paper sheets with a hairline and a small, soft shadow */
+  .map-plate .leaflet-container .leaflet-popup-content-wrapper,
+  .map-plate .leaflet-container .leaflet-popup-tip {
+    background: hsl(var(--card));
+    color: hsl(var(--foreground));
+    box-shadow: 0 1px 2px hsl(var(--foreground) / 0.06), 0 8px 24px hsl(var(--foreground) / 0.08);
+  }
+
+  .map-plate .leaflet-container .leaflet-popup-content-wrapper {
+    padding: 0;
+    border: 1px solid hsl(var(--border));
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .map-plate .leaflet-container .leaflet-popup-tip {
+    border: 1px solid hsl(var(--border));
+  }
+
+  .map-plate .leaflet-container .leaflet-popup-content {
+    width: auto !important;
+    margin: 0;
+    font-size: 13px;
+    line-height: 20px;
+  }
+
+  /* No room above the mark: the sheet hangs below it, without the tip */
+  .map-plate .leaflet-container .leaflet-popup.is-below .leaflet-popup-tip-container {
+    display: none;
+  }
+
+  /* ---------- Marks on the map ---------- */
+  .map-icon {
+    background: none;
+    border: 0;
+  }
+
+  .map-icon:focus-visible {
+    outline: none;
+  }
+
+  /* One place: a category dot with an ink ring, cut out of the map by a paper edge */
+  .map-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .map-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    background: hsl(var(--cat));
+    box-shadow: 0 0 0 2px hsl(var(--card)), 0 0 0 3px hsl(var(--foreground) / 0.6);
+    transition: box-shadow 150ms var(--ease);
+  }
+
+  /* Places close together: an ink disc with the count, paper numerals */
+  .map-cluster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size);
+    height: var(--size);
+    margin: 2px;
+    border-radius: 9999px;
+    background: hsl(var(--foreground));
+    color: hsl(var(--card));
+    box-shadow: 0 0 0 2px hsl(var(--card));
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition: box-shadow 150ms var(--ease);
+  }
+
+  /* Ankara, where he is based: the one mark in printer's red */
+  .map-cluster.is-home {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+
+  /* The place whose sheet is open */
+  .map-icon.is-selected .map-dot,
+  .map-icon:focus-visible .map-dot {
+    box-shadow: 0 0 0 2px hsl(var(--card)), 0 0 0 4px hsl(var(--foreground));
+  }
+
+  .map-icon.is-selected .map-cluster,
+  .map-icon:focus-visible .map-cluster {
+    box-shadow: 0 0 0 2px hsl(var(--card)), 0 0 0 3.5px hsl(var(--foreground));
+  }
+
+  /* Static symbols for the caption under the plate */
+  .map-symbol {
+    display: inline-block;
+    flex: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    background: hsl(var(--foreground));
+  }
+
+  .map-symbol.is-home {
+    background: hsl(var(--primary));
+  }
+
+  /* ---------- Table of places ---------- */
+  .places-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    height: 40px;
+    padding: 0 16px;
+    border-bottom: 1px solid hsl(var(--border));
+    background: hsl(var(--card));
+    color: hsl(var(--faint));
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .places-table td {
+    height: 52px;
+    padding: 0 16px;
+    border-bottom: 1px solid hsl(var(--border));
+    color: hsl(var(--muted-foreground));
+    font-size: 13px;
+    line-height: 20px;
+    vertical-align: middle;
+  }
+
+  .places-table tbody tr {
+    cursor: pointer;
+    transition: background-color 150ms var(--ease);
+  }
+
+  .places-table tbody tr:hover {
+    background: hsl(var(--secondary));
+  }
+
+  .places-table tbody tr:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: -2px;
+  }
+
+  .places-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  /* ---------- Chronology (timeline list) ----------
+     A date column, one ink spine with a dot per entry, and the entries as rows. */
+  .chrono {
+    --date-col: 152px;
+    --spine-x: calc(var(--date-col) + 16px);
+    position: relative;
+  }
+
+  .chrono::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: 0;
+    left: var(--spine-x);
+    width: 1px;
+    background: hsl(var(--foreground));
+  }
+
+  .chrono-now,
+  .chrono-year,
+  .chrono-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--date-col) 32px minmax(0, 1fr);
+  }
+
+  /* Year marks: tabular figures in the date column, a short ink tick on the spine */
+  .chrono-year {
+    align-items: end;
+    padding-top: 32px;
+    padding-bottom: 8px;
+  }
+
+  .chrono-year::after {
+    content: "";
+    position: absolute;
+    bottom: 24px;
+    left: calc(var(--spine-x) - 6px);
+    width: 13px;
+    border-top: 1px solid hsl(var(--foreground));
+  }
+
+  .chrono-now::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: calc(var(--spine-x) - 6px);
+    width: 13px;
+    border-top: 1px solid hsl(var(--primary));
+  }
+
+  .chrono-dot {
+    position: absolute;
+    top: 20px;
+    left: calc(var(--spine-x) - 4px);
+    width: 9px;
+    height: 9px;
+    border-radius: 9999px;
+    background: hsl(var(--cat));
+    box-shadow: 0 0 0 3px hsl(var(--background));
+  }
+
+  /* The entry; its title button stretches over it, so the whole row opens the record */
+  .chrono-body {
+    position: relative;
+    grid-column: 3;
+    min-width: 0;
+    padding: 12px 12px 16px;
+    margin: 0 -12px;
+    border-radius: 4px;
+    transition: background-color 150ms var(--ease);
+  }
+
+  .chrono-row + .chrono-row .chrono-body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12px;
+    right: 12px;
+    border-top: 1px solid hsl(var(--border));
+  }
+
+  .chrono-row:hover .chrono-body {
+    background: hsl(var(--secondary));
+  }
+
+  @media (max-width: 767px) {
+    .chrono {
+      --date-col: 0px;
+      --spine-x: 4px;
+    }
+
+    .chrono-now,
+    .chrono-year,
+    .chrono-row {
+      grid-template-columns: 24px minmax(0, 1fr);
+    }
+
+    .chrono-body {
+      grid-column: 2;
+    }
+
+    .chrono-dot {
+      left: 0;
+    }
+
+    .chrono-year::after,
+    .chrono-now::after {
+      left: -2px;
+    }
+  }
+
+  /* ---------- Timeline chart: a printed Gantt of the same entries ---------- */
+  .tl-chart {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    border-top: 1px solid hsl(var(--foreground));
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .tl-lanes {
+    position: relative;
+    border-right: 1px solid hsl(var(--border));
+  }
+
+  .tl-lane {
+    position: absolute;
+    left: 0;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 16px;
+    font-size: 13px;
+    line-height: 16px;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .tl-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+  }
+
+  .tl-tick {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-left: 1px solid hsl(var(--border));
+  }
+
+  .tl-tick.is-minor {
+    border-left-color: hsl(var(--border) / 0.5);
+  }
+
+  .tl-tick.is-decade {
+    border-left-color: hsl(var(--foreground) / 0.28);
+  }
+
+  .tl-year {
+    position: absolute;
+    top: 8px;
+    left: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    color: hsl(var(--faint));
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .tl-tick.is-decade .tl-year {
+    color: hsl(var(--foreground));
+    font-weight: 500;
+  }
+
+  .tl-rule {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px solid hsl(var(--border));
+  }
+
+  .tl-now {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-left: 1px solid hsl(var(--primary));
+  }
+
+  .tl-now span {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    color: hsl(var(--primary));
+    white-space: nowrap;
+  }
+
+  /* One entry: a tinted bar with a solid category edge, its name set inside. The tint is
+     mixed into the paper, so it stays one flat ink and never darkens where bars meet. */
+  .tl-bar {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    height: 16px;
+    padding: 0 6px 0 8px;
+    border-radius: 2px;
+    background: color-mix(in srgb, hsl(var(--cat)) 14%, hsl(var(--background)));
+    box-shadow: inset 2px 0 0 hsl(var(--cat));
+    color: hsl(var(--foreground));
+    font-size: 12px;
+    line-height: 16px;
+    text-align: left;
+    white-space: nowrap;
+    transition: background-color 150ms var(--ease);
+  }
+
+  .tl-bar:hover,
+  .tl-bar:focus-visible {
+    background: color-mix(in srgb, hsl(var(--cat)) 26%, hsl(var(--background)));
+  }
+
+  .tl-bar:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 1px;
+  }
+
+  /* The name rides along the bar's start, so a long bar stays named while it is in view */
+  .tl-bar > span {
+    position: sticky;
+    left: 8px;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 767px) {
+    .tl-chart {
+      grid-template-columns: 96px minmax(0, 1fr);
+    }
+
+    .tl-lane {
+      font-size: 12px;
+    }
+  }
 }
