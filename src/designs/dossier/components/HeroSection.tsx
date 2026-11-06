@@ -27,14 +27,14 @@ const facts = [
 ];
 
 // Footnotes back the claims in the hero, as in a printed profile: 1 the years, 2 the two
-// New York companies, 3 Tursoft. One short phrase each, no closing period. The word joiner
+// New York companies, 3 BestJobFinder. One short phrase each, no closing period. The word joiner
 // (U+2060) after each dash keeps a year range on one line.
 const notes = [
   { id: "fn1", text: "Professional career since 2000, starting with web technologies" },
   { id: "fn2", text: "Gamyte (2019–\u20602022) and Jengai (2022–\u20602026), as Director of Technology and Senior Software Architect" },
   {
     id: "fn3",
-    text: "Since May 2026, building BestJobFinder, an AI job search SaaS with web, desktop and Chrome extension clients",
+    text: "Built under Tursoft since May 2026, with web, desktop and Chrome extension clients",
   },
 ];
 
@@ -90,11 +90,11 @@ const HeroSection = () => (
 
         <div className="hero-dek hero-rise" style={rise(3)}>
           <p className="max-w-[36em] text-base leading-[26px] text-muted-foreground [text-wrap:pretty] md:text-[19px] md:leading-[30px]">
-            I design cloud and SaaS systems and build them with AI coding agents, from design specs and
-            implementation plans to test-driven code, review and release. I have led enterprise projects with
-            teams across Europe, the Middle East and the United States, and was Director of Technology for two
+            I architect cloud and SaaS platforms and ship them with AI coding agents, owning the full lifecycle
+            from specification to release. I have led enterprise programs across Europe, the Middle East, and
+            the&nbsp;U.S., and served as Director of Technology at two
             New York companies
-            <Note n={2} /> before founding Tursoft
+            <Note n={2} />. I currently lead the development of BestJobFinder, an AI-powered job search platform
             <Note n={3} />.
           </p>
           <div className="mt-6 flex gap-3 md:mt-9">
