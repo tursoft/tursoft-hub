@@ -105,7 +105,7 @@ const EducationSection = () => {
   const header = (description?: ReactNode, aside?: ReactNode) => (
     <SectionHeader
       id="education"
-      title="Education at Middle East Technical University"
+      title="Education"
       description={description}
       aside={aside}
     />

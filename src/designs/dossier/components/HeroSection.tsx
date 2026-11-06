@@ -23,7 +23,7 @@ const contacts = [
 const facts = [
   { term: "Available for", detail: PERSON.availability },
   { term: "Specialties", detail: "AI agentic development, .NET, Node.js, Azure, React, SaaS" },
-  { term: "Domains", detail: "Healthcare IT (HL7 FHIR), construction IT, e-learning, e-commerce, games" },
+  { term: "Domains", detail: "Healthcare, Construction, E-Learning, E-Commerce" },
 ];
 
 // Footnotes back the claims in the hero, as in a printed profile: 1 the years, 2 the two
