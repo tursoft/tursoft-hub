@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-import { FolderKanban, Building2, GraduationCap } from 'lucide-react';
 import type { SkillRelations } from '@/components/skills/useSkillRelations';
 import type { Company } from '@/models/Companies';
 
@@ -18,26 +16,35 @@ interface Row {
   image?: string | null;
 }
 
-const Group = ({ icon, label, rows, total }: { icon: ReactNode; label: string; rows: Row[]; total: number }) => {
+const Group = ({ label, rows, total }: { label: string; rows: Row[]; total: number }) => {
   if (rows.length === 0) return null;
   return (
     <div>
-      <h4 className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground mb-2.5">
-        {icon}
+      <h4 className="flex items-baseline justify-between gap-3 text-[13px] leading-5 text-muted-foreground">
         {label}
-        {total > rows.length && <span className="font-normal normal-case tracking-normal">· top {rows.length} of {total}</span>}
+        {total > rows.length && (
+          <span className="tnum text-xs text-faint">
+            {rows.length} of {total}
+          </span>
+        )}
       </h4>
-      <ul className="space-y-1.5">
+      <ul className="mt-2 border-t border-border">
         {rows.map((row) => (
-          <li key={row.key} className="flex items-center gap-2 min-w-0">
+          <li key={row.key} className="flex min-w-0 items-center gap-3 border-b border-border py-2">
             {row.image ? (
-              <img loading="lazy" decoding="async" src={row.image} alt="" className="w-5 h-5 rounded object-contain bg-background/60 flex-shrink-0" />
+              <img
+                loading="lazy"
+                decoding="async"
+                src={row.image}
+                alt=""
+                className="h-5 w-5 flex-shrink-0 object-contain mix-blend-multiply"
+              />
             ) : (
-              <span className="w-5 h-5 rounded bg-muted flex-shrink-0" />
+              <span className="h-5 w-5 flex-shrink-0 rounded-sm bg-secondary" aria-hidden="true" />
             )}
             <div className="min-w-0">
-              <p className="text-xs font-medium leading-tight truncate">{row.title}</p>
-              {row.subtitle && <p className="text-[11px] text-muted-foreground truncate">{row.subtitle}</p>}
+              <p className="truncate text-[13px] font-medium leading-5 text-foreground">{row.title}</p>
+              {row.subtitle && <p className="truncate text-xs leading-4 text-faint">{row.subtitle}</p>}
             </div>
           </li>
         ))}
@@ -74,10 +81,10 @@ export const SkillRelatedSummary = ({ relations, getCompany, limit = 3, classNam
 
   return (
     <div className={className}>
-      <div className="space-y-7">
-        <Group icon={<FolderKanban className="w-3.5 h-3.5" />} label="Projects" rows={projects} total={relations.projects.length} />
-        <Group icon={<Building2 className="w-3.5 h-3.5" />} label="Companies" rows={companies} total={relations.companies.length} />
-        <Group icon={<GraduationCap className="w-3.5 h-3.5" />} label="Education" rows={educations} total={relations.educations.length} />
+      <div className="space-y-6">
+        <Group label="Projects" rows={projects} total={relations.projects.length} />
+        <Group label="Companies" rows={companies} total={relations.companies.length} />
+        <Group label="Education" rows={educations} total={relations.educations.length} />
       </div>
     </div>
   );

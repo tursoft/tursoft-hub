@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -11,21 +12,10 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Building2, 
-  Globe, 
-  MapPin, 
-  Briefcase,
-  ExternalLink,
-  Rocket,
-  Maximize2,
-  Minimize2,
-  Info,
-  FolderKanban
-} from "lucide-react";
+import { ArrowUpRight, Globe, Linkedin, Maximize2, Minimize2 } from "lucide-react";
+import { cn } from '@/lib/utils';
+import { sheet } from '@/components/domains/sheet';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
 import ProjectDetailDialog from '../projects/ProjectDetailDialog';
@@ -132,159 +122,134 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className={`${isMaximized ? 'max-w-full max-h-full w-full h-full rounded-none' : 'max-w-full max-h-full w-full h-full rounded-none sm:max-w-[35vw] sm:max-h-[90vh] sm:w-[35vw] sm:h-auto sm:rounded-lg'} overflow-hidden`}>
-        <DialogHeader className="pb-6 pl-6">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsMaximized(!isMaximized)}
-            className="absolute top-4 right-12 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
-          >
-            {isMaximized ? (
-              <Minimize2 className="w-4 h-4" />
-            ) : (
-              <Maximize2 className="w-4 h-4" />
+      <DialogContent
+        className={cn(
+          sheet.content,
+          'h-full max-h-full w-full max-w-full rounded-none',
+          !isMaximized && 'sm:h-auto sm:max-h-[90vh] sm:max-w-[36rem] sm:rounded-lg',
+        )}
+      >
+        {/* Header: kicker, logo on its plate, serif title, place */}
+        <DialogHeader className={sheet.head}>
+          <p className={sheet.kicker}>Partner</p>
+          <div className="mt-3 flex items-start gap-4">
+            {partnerLogo && (
+              <div className="logo-plate h-14 w-20 flex-shrink-0 p-2">
+                <img loading="lazy" decoding="async"
+                  src={partnerLogo}
+                  alt={`${companyTitle || partner.companyCode} logo`}
+                  className="logo-plate-img"
+                  onError={(e) => {
+                    // Try with /src/assets/ prefix for development fallback
+                    const currentSrc = e.currentTarget.src;
+                    if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
+                      e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
+                    } else {
+                      // Hide image if it fails to load even with fallback
+                      e.currentTarget.style.display = 'none';
+                    }
+                  }}
+                />
+              </div>
             )}
-          </Button>
-          {/* Logo positioned on the far left */}
-          {partnerLogo && (
-            <div className="absolute top-4 left-8 z-10 w-16 h-16">
-              <img loading="lazy" decoding="async" 
-                src={partnerLogo} 
-                alt={`${companyTitle || partner.companyCode} logo`}
-                className="w-full h-full object-contain rounded-lg"
-                onError={(e) => {
-                  // Try with /src/assets/ prefix for development fallback
-                  const currentSrc = e.currentTarget.src;
-                  if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
-                    e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
-                  } else {
-                    // Hide image if it fails to load even with fallback
-                    e.currentTarget.style.display = 'none';
-                  }
-                }}
-              />
-            </div>
-          )}
-          <div className="flex items-start gap-4 pl-24">
-            <div className="flex-1 min-w-0">
-              <DialogTitle className="text-2xl font-bold text-foreground mb-2">
+            <div className="min-w-0 flex-1">
+              <DialogTitle className={sheet.title}>
                 {companyTitle || companyData?.title || partner.companyCode}
               </DialogTitle>
-              <div className="text-base text-muted-foreground">
-                {companyData?.city && companyData?.country && (
-                  <div className="flex items-center gap-2 mb-2">
-                    <MapPin className="w-4 h-4" />
-                    <span>{companyData.city}, {companyData.country}</span>
-                  </div>
-                )}
-              </div>
+              {companyData?.city && companyData?.country && (
+                <DialogDescription className={cn(sheet.meta, 'mt-1')}>
+                  {companyData.city}, {companyData.country}
+                </DialogDescription>
+              )}
             </div>
           </div>
         </DialogHeader>
 
-        {/* Type badge positioned below action buttons */}
-        <div className="absolute top-14 right-4 z-10">
-          <Badge variant="outline" className="text-xs bg-orange-500/10 text-orange-500 border-orange-500/20">
-            Partner
-          </Badge>
-        </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsMaximized(!isMaximized)}
+          className={sheet.cornerButton}
+          aria-label={isMaximized ? 'Restore size' : 'Maximize'}
+        >
+          {isMaximized ? <Minimize2 strokeWidth={1.5} /> : <Maximize2 strokeWidth={1.5} />}
+        </Button>
 
-        <Tabs defaultValue="overview" className="w-full pt-2">
-          <TabsList className="grid w-full grid-cols-2">
+        <Tabs defaultValue="overview" className={sheet.tabs}>
+          <TabsList className={sheet.tabList}>
             <TabsTrigger value="overview">
-              <span className="flex items-center gap-2">
-                <Info className="w-4 h-4" />
-                Overview
-              </span>
+              Overview
             </TabsTrigger>
             <TabsTrigger value="projects">
-              <span className="flex items-center gap-2">
-                <FolderKanban className="w-4 h-4" />
-                Projects
-                {partnerProjects.length > 0 && (
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {partnerProjects.length}
-                  </Badge>
-                )}
-              </span>
+              Projects
+              {partnerProjects.length > 0 && <span className={sheet.tabCount}>{partnerProjects.length}</span>}
             </TabsTrigger>
           </TabsList>
 
-          {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-4 h-full overflow-y-auto">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Building2 className="w-5 h-5" />
-                  About Partnership
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
+          <div className={cn(sheet.body, 'sm:max-h-[60vh]')}>
+            {/* Overview Tab */}
+            <TabsContent value="overview" className="mt-0 space-y-8 pt-5">
+              <section>
+                <h3 className={sheet.sectionTitle}>About the partnership</h3>
                 {partner.description && (
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="mt-3 text-[15px] leading-6 text-foreground [text-wrap:pretty]">
                     {partner.description}
                   </p>
                 )}
+              </section>
 
-                {companyData && (
-                  <div className="space-y-3 pt-4 border-t">
-                    <h4 className="font-semibold text-sm">Partner Information</h4>
-                    
+              {companyData && (companyData.websiteUrl || companyData.linkedinUrl) && (
+                <section>
+                  <h4 className={cn(sheet.sectionTitle, 'border-t border-border pt-4')}>Partner information</h4>
+                  <ul className="mt-3 space-y-2">
                     {companyData.websiteUrl && (
-                      <a
-                        href={companyData.websiteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm text-primary hover:underline"
-                      >
-                        <Globe className="w-4 h-4" />
-                        <span>Visit Website</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
+                      <li>
+                        <a
+                          href={companyData.websiteUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group inline-flex items-center gap-2 text-sm"
+                        >
+                          <Globe className="h-4 w-4 text-faint" strokeWidth={1.5} aria-hidden="true" />
+                          <span className="ink-link">Visit website</span>
+                          <ArrowUpRight className="h-4 w-4 text-faint transition-colors duration-150 ease-dossier group-hover:text-foreground" strokeWidth={1.5} aria-hidden="true" />
+                        </a>
+                      </li>
                     )}
-
                     {companyData.linkedinUrl && (
-                      <a
-                        href={companyData.linkedinUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm text-primary hover:underline"
-                      >
-                        <Briefcase className="w-4 h-4" />
-                        <span>LinkedIn Profile</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
+                      <li>
+                        <a
+                          href={companyData.linkedinUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group inline-flex items-center gap-2 text-sm"
+                        >
+                          <Linkedin className="h-4 w-4 text-faint" strokeWidth={1.5} aria-hidden="true" />
+                          <span className="ink-link">LinkedIn profile</span>
+                          <ArrowUpRight className="h-4 w-4 text-faint transition-colors duration-150 ease-dossier group-hover:text-foreground" strokeWidth={1.5} aria-hidden="true" />
+                        </a>
+                      </li>
                     )}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
+                  </ul>
+                </section>
+              )}
+            </TabsContent>
 
-          {/* Projects Tab */}
-          <TabsContent value="projects" className="space-y-4 h-full overflow-y-auto">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Rocket className="w-5 h-5" />
-                  Collaborative Projects
-                </CardTitle>
-                <CardDescription>
-                  Projects we've worked on together with this partner
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {partnerProjects.length === 0 ? (
-                  <p className="text-sm text-muted-foreground text-center py-8">
-                    No projects found for this partnership yet.
-                  </p>
-                ) : (
-                  <div className="space-y-3">
-                    {partnerProjects.map((project) => (
-                      <div
-                        key={project.code}
-                        className="flex items-start gap-3 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors cursor-pointer"
+            {/* Projects Tab */}
+            <TabsContent value="projects" className="mt-0 pt-5">
+              <h3 className={sheet.sectionTitle}>Collaborative projects</h3>
+              <p className="mt-1 text-[13px] leading-5 text-muted-foreground">
+                Projects we&apos;ve worked on together with this partner
+              </p>
+              {partnerProjects.length === 0 ? (
+                <p className={sheet.empty}>No projects found for this partnership yet</p>
+              ) : (
+                <ul className="mt-4 divide-y divide-border border-y border-border">
+                  {partnerProjects.map((project) => (
+                    <li key={project.code}>
+                      <button
+                        type="button"
+                        className="flex w-full items-start gap-3 px-2 py-4 text-left transition-colors duration-150 ease-dossier hover:bg-secondary/60"
                         onClick={() => {
                           if (onOpenProject) {
                             onOpenProject(project);
@@ -295,45 +260,43 @@ const PartnerDetailDialog: React.FC<PartnerDetailDialogProps> = ({
                         }}
                       >
                         {projectLogos[project.code] && (
-                          <div className="w-12 h-12 flex-shrink-0">
-                            <img loading="lazy" decoding="async"
-                              src={projectLogos[project.code]}
-                              alt={project.title}
-                              className="w-full h-full object-contain rounded"
-                              onError={(e) => {
-                                const currentSrc = e.currentTarget.src;
-                                if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
-                                  e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
-                                } else {
-                                  e.currentTarget.style.display = 'none';
-                                }
-                              }}
-                            />
-                          </div>
+                          <img loading="lazy" decoding="async"
+                            src={projectLogos[project.code]}
+                            alt=""
+                            className="h-10 w-10 flex-shrink-0 rounded-sm object-contain"
+                            onError={(e) => {
+                              const currentSrc = e.currentTarget.src;
+                              if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
+                                e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
+                              } else {
+                                e.currentTarget.style.display = 'none';
+                              }
+                            }}
+                          />
                         )}
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-semibold text-sm mb-1">
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-sm font-medium leading-5 text-foreground">
                             {project.title}
-                          </h4>
+                          </span>
                           {project.summary && (
-                            <p className="text-xs text-muted-foreground line-clamp-2">
+                            <span className="mt-1 line-clamp-2 block text-[13px] leading-5 text-muted-foreground">
                               {project.summary}
-                            </p>
+                            </span>
                           )}
                           {project.datePeriod && (
-                            <p className="text-xs text-muted-foreground mt-2">
-                              {formatDate(project.datePeriod.startDate)} 
-                              {project.datePeriod.endDate ? ` - ${formatDate(project.datePeriod.endDate)}` : ' - Present'}
-                            </p>
+                            <span className="mt-1 block text-xs leading-4 text-faint tnum">
+                              {formatDate(project.datePeriod.startDate)}
+                              {project.datePeriod.endDate ? ` – ${formatDate(project.datePeriod.endDate)}` : ' – Present'}
+                            </span>
                           )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </TabsContent>
+          </div>
         </Tabs>
       </DialogContent>
 

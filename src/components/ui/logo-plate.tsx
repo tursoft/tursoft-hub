@@ -11,9 +11,9 @@ interface LogoPlateProps {
 }
 
 /**
- * A light "plate" that company logos sit on. Most logos are drawn for white paper,
- * so putting them straight on the dark card leaves ragged white boxes of different
- * sizes; the plate gives every logo the same frame, tone and padding.
+ * A plain sheet that company logos sit on: card paper with a hairline. The logo is
+ * multiplied into the sheet (see .logo-plate in styles/expertise.css), so logos drawn on
+ * white boxes of different sizes all read as printed on the same paper.
  */
 export function LogoPlate({ src, alt, className, imgClassName, fallback }: LogoPlateProps) {
   return (
@@ -30,7 +30,9 @@ export function LogoPlate({ src, alt, className, imgClassName, fallback }: LogoP
           }}
         />
       ) : (
-        <span className="logo-plate-fallback">{fallback ?? alt.charAt(0)}</span>
+        <span className="logo-plate-fallback" aria-hidden="true">
+          {fallback ?? alt.charAt(0)}
+        </span>
       )}
     </div>
   );

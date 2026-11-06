@@ -11,7 +11,18 @@ interface SkillStatsProps {
 
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
-/** Years of experience, competency bar, project/job counts and the derived score. */
+/** One figure set large in the serif, its label underneath. */
+const Figure = ({ label, value, unit }: { label: string; value: number; unit?: string }) => (
+  <div>
+    <dt className="text-xs leading-4 text-faint">{label}</dt>
+    <dd className="mt-1 font-serif text-[28px] leading-8 text-foreground tnum">
+      {value}
+      {unit && <span className="ml-1.5 font-sans text-[13px] text-muted-foreground">{unit}</span>}
+    </dd>
+  </div>
+);
+
+/** Years of experience, competency as a thin ink bar, project/job counts and the derived score. */
 export const SkillStats = ({ skill, compact = false, className }: SkillStatsProps) => {
   const competency = Math.max(0, Math.min(100, skill.competency ?? 0));
   const years = skill.yearsOfExperience ?? 0;
@@ -21,34 +32,26 @@ export const SkillStats = ({ skill, compact = false, className }: SkillStatsProp
 
   return (
     <div className={className}>
-      <div className="flex items-center justify-between text-sm mb-1.5">
+      <div className="flex items-baseline justify-between text-[13px] leading-5">
         <span className="text-muted-foreground">Competency</span>
-        <span className="font-semibold tabular-nums">{competency}%</span>
+        <span className="tnum text-foreground">{competency}%</span>
       </div>
-      <Progress value={competency} className="h-2" aria-label={`Competency ${competency}%`} />
+      <Progress
+        value={competency}
+        className="mt-1.5 h-0.5 rounded-none bg-secondary-hover [&>div]:bg-foreground"
+        aria-label={`Competency ${competency}%`}
+      />
 
       {compact ? (
-        <p className="mt-2 text-xs text-muted-foreground">
+        <p className="mt-3 text-[13px] leading-5 text-muted-foreground tnum">
           {plural(years, 'year')} · {plural(projects, 'project')} · {plural(jobs, 'job')} · score {score}
         </p>
       ) : (
-        <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
-          <div>
-            <dt className="text-xs text-muted-foreground">Experience</dt>
-            <dd className="font-semibold tabular-nums">{plural(years, 'year')}</dd>
-          </div>
-          <div>
-            <dt className="text-xs text-muted-foreground">Projects</dt>
-            <dd className="font-semibold tabular-nums">{projects}</dd>
-          </div>
-          <div>
-            <dt className="text-xs text-muted-foreground">Jobs</dt>
-            <dd className="font-semibold tabular-nums">{jobs}</dd>
-          </div>
-          <div>
-            <dt className="text-xs text-muted-foreground">Score</dt>
-            <dd className="font-semibold tabular-nums">{score}</dd>
-          </div>
+        <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-4">
+          <Figure label="Experience" value={years} unit={years === 1 ? 'year' : 'years'} />
+          <Figure label="Projects" value={projects} />
+          <Figure label="Jobs" value={jobs} />
+          <Figure label="Score" value={score} />
         </dl>
       )}
     </div>

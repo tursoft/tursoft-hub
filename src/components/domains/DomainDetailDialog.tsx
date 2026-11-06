@@ -13,15 +13,10 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import ListViewer from "@/components/ui/listviewer";
-import {
-  Maximize2,
-  Minimize2,
-  Briefcase,
-  FolderKanban
-} from "lucide-react";
+import { Maximize2, Minimize2 } from "lucide-react";
+import { cn } from '@/lib/utils';
 import type { Domain } from '@/models/Domain';
 import { experienceRepo } from '@/repositories/ExperienceRepo';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
@@ -30,6 +25,7 @@ import type { Experience } from '@/models/Experience';
 import type { ProjectEntry } from '@/models/Project';
 import type { Company } from '@/models/Companies';
 import { calculateDuration } from '@/lib/datetimeutils';
+import { sheet } from './sheet';
 
 interface DomainDetailDialogProps {
   domain: Domain | null;
@@ -39,9 +35,11 @@ interface DomainDetailDialogProps {
   onOpenProject?: (project: ProjectEntry) => void;
 }
 
-const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({ 
-  domain, 
-  isOpen, 
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+
+const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
+  domain,
+  isOpen,
   onClose,
   onOpenExperience,
   onOpenProject
@@ -54,19 +52,19 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
 
   const loadRelatedData = async () => {
     if (!domain) return;
-    
+
     setIsLoadingData(true);
     try {
       // Load experiences in this domain
       const allExperiences = await experienceRepo.getList();
-      const filteredExperiences = allExperiences.filter(exp => 
+      const filteredExperiences = allExperiences.filter(exp =>
         exp.positions?.some(pos => pos.domainCodes?.includes(domain.code || ''))
       );
       setExperiences(filteredExperiences);
 
       // Load projects in this domain
       const allProjects = await projectsRepo.getList();
-      const filteredProjects = allProjects.filter(project => 
+      const filteredProjects = allProjects.filter(project =>
         project.domainCodes?.includes(domain.code || '')
       );
       setProjects(filteredProjects);
@@ -110,156 +108,120 @@ const DomainDetailDialog: React.FC<DomainDetailDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent 
-        className={`transition-all duration-300 ${
-          isMaximized 
-            ? 'max-w-[95vw] h-[95vh]' 
-            : 'max-w-4xl max-h-[90vh]'
-        } overflow-hidden flex flex-col z-[100] h-[80%]`}
+      <DialogContent
+        className={cn(
+          sheet.content,
+          'z-[100]',
+          'h-full max-h-full w-full max-w-full rounded-none sm:rounded-lg',
+          isMaximized ? 'sm:h-[95vh] sm:max-h-[95vh] sm:max-w-[95vw]' : 'sm:h-[80vh] sm:max-h-[90vh] sm:max-w-4xl',
+        )}
       >
-        {/* Icon */}
-        <div className="absolute top-4 left-8 z-10">
-          <DomainIcon code={domain.code} title={domain.title} photoUrl={domain.photoUrl} size="sm" />
-        </div>
-
-        {/* Header */}
-        <DialogHeader className="flex-shrink-0 pl-24">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1 min-w-0">
-              <DialogTitle className="text-2xl font-bold pr-4">
-                {domain.title}
-              </DialogTitle>
-              <DialogDescription className="mt-2 text-base">
-                {domain.code}
-              </DialogDescription>
-            </div>
+        {/* Header: kicker, line icon and serif title, counts */}
+        <DialogHeader className={sheet.head}>
+          <p className={sheet.kicker}>Domain</p>
+          <div className="mt-3 flex items-center gap-3">
+            <DomainIcon code={domain.code} title={domain.title} photoUrl={domain.photoUrl} size="md" />
+            <DialogTitle className={sheet.title}>{domain.title}</DialogTitle>
           </div>
+          <DialogDescription className={cn(sheet.meta, 'tnum mt-2')}>
+            {isLoadingData
+              ? 'Loading projects and experiences'
+              : `${plural(projects.length, 'project')} and ${plural(experiences.length, 'experience')}`}
+          </DialogDescription>
         </DialogHeader>
 
-        {/* Action Buttons */}
-        {/* Action Buttons */}
-        <div className="absolute top-4 right-16 flex gap-2 z-20">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsMaximized(!isMaximized)}
-            className="h-8 w-8 hover:bg-accent"
-          >
-            {isMaximized ? (
-              <Minimize2 className="h-4 w-4" />
-            ) : (
-              <Maximize2 className="h-4 w-4" />
-            )}
-          </Button>
-        </div>
-
-        {/* Type Badge - positioned below buttons */}
-        <div className="absolute top-14 right-4 z-10">
-          <Badge variant="outline" className="text-xs bg-amber-500/10 text-amber-500 border-amber-500/20">
-            Domain
-          </Badge>
-        </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsMaximized(!isMaximized)}
+          className={sheet.cornerButton}
+          aria-label={isMaximized ? 'Restore size' : 'Maximize'}
+        >
+          {isMaximized ? <Minimize2 strokeWidth={1.5} /> : <Maximize2 strokeWidth={1.5} />}
+        </Button>
 
         {/* Content */}
-        <div className="flex-1 overflow-hidden pl-2 pt-2">
-          <Tabs defaultValue="projects" className="h-full flex flex-col">
-            <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-2">
-              <TabsTrigger value="projects">
-                <span className="flex items-center gap-2">
-                  <FolderKanban className="w-4 h-4" />
-                  Projects
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {projects.length}
-                  </Badge>
-                </span>
-              </TabsTrigger>
+        <Tabs defaultValue="projects" className={sheet.tabs}>
+          <TabsList className={sheet.tabList}>
+            <TabsTrigger value="projects">
+              Projects
+              <span className={sheet.tabCount}>{projects.length}</span>
+            </TabsTrigger>
+            <TabsTrigger value="experiences">
+              Experiences
+              <span className={sheet.tabCount}>{experiences.length}</span>
+            </TabsTrigger>
+          </TabsList>
 
-              <TabsTrigger value="experiences">
-                <span className="flex items-center gap-2">
-                  <Briefcase className="w-4 h-4" />
-                  Experiences
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {experiences.length}
-                  </Badge>
-                </span>
-              </TabsTrigger>
+          <div className={sheet.body}>
+            <TabsContent value="experiences" className="mt-0">
+              {isLoadingData ? (
+                <p className={sheet.empty}>Loading experiences</p>
+              ) : experiences.length > 0 ? (
+                <ListViewer<Experience>
+                  data={experiences}
+                  defaultViewMode="list"
+                  enabledModes={['list']}
+                  onItemClick={(experience) => onOpenExperience?.(experience)}
+                  fieldMapping={{
+                    code: (e) => e.companyCode || '',
+                    title: (e: Experience) => companies[e.companyCode || '']?.title || e.companyCode,
+                    subtitle: (e: Experience) => e.positions && e.positions.length > 0 ? e.positions[0].title : '',
+                    description: () => '',
+                    image: (e) => companies[e.companyCode || '']?.photoUrl || '',
+                    date: () => ''
+                  }}
+                  imageRounded={false}
+                />
+              ) : (
+                <p className={sheet.empty}>No experiences in this domain</p>
+              )}
+            </TabsContent>
 
-            </TabsList>
+            <TabsContent value="projects" className="mt-0">
+              {isLoadingData ? (
+                <p className={sheet.empty}>Loading projects</p>
+              ) : projects.length > 0 ? (
+                <ListViewer<ProjectEntry>
+                  data={projects}
+                  defaultViewMode="list"
+                  enabledModes={['list']}
+                  onItemClick={(project) => onOpenProject?.(project)}
+                  fieldMapping={{
+                    code: (p) => p.code || '',
+                    title: (p) => p.title || '',
+                    subtitle: (project) => {
+                      const company = companies[project.companyCode || ''];
+                      return company?.title || '';
+                    },
+                    description: () => '',
+                    image: (project) => project.photoUrl || '',
+                    date: (project) => {
+                      if (project.datePeriod) {
+                        const start = project.datePeriod.startDate || '';
+                        const end = project.datePeriod.endDate || 'Present';
+                        const dateRange = start && end ? `${start} – ${end}` : '';
 
-            <div className="flex-1 overflow-y-auto">
-              <TabsContent value="experiences" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
-                <div className="px-4 py-2">
-                  {isLoadingData ? (
-                    <div className="text-center text-muted-foreground py-8">Loading experiences...</div>
-                  ) : experiences.length > 0 ? (
-                    <ListViewer<Experience> 
-                      data={experiences}
-                      defaultViewMode="list"
-                      enabledModes={['list']}
-                      onItemClick={(experience) => onOpenExperience?.(experience)}
-                      fieldMapping={{
-                        code: (e) => e.companyCode || '',
-                        title: (e: Experience) => companies[e.companyCode || '']?.title || e.companyCode,
-                        subtitle: (e: Experience) => e.positions && e.positions.length > 0 ? e.positions[0].title : '',
-                        description: (e) => '',
-                        image: (e) => companies[e.companyCode || '']?.photoUrl || '',
-                        date: (e) => ''
-                      }}
-                      imageRounded={false}
-                    />
-                  ) : (
-                    <p className="text-muted-foreground">No experiences found.</p>
-                  )}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="projects" className="space-y-3 min-h-[400px] mt-0 h-full overflow-y-auto">
-                <div className="px-4 py-2">
-                  {isLoadingData ? (
-                    <div className="text-center text-muted-foreground py-8">Loading projects...</div>
-                  ) : projects.length > 0 ? (
-                    <ListViewer<ProjectEntry>
-                      data={projects}
-                      defaultViewMode="list"
-                      enabledModes={['list']}
-                      onItemClick={(project) => onOpenProject?.(project)}
-                      fieldMapping={{
-                        code: (p) => p.code || '',
-                        title: (p) => p.title || '',
-                        subtitle: (project) => {
-                          const company = companies[project.companyCode || ''];
-                          return company?.title || '';
-                        },
-                        description: (project) => '',
-                        image: (project) => project.photoUrl || '',
-                        date: (project) => {
-                          if (project.datePeriod) {
-                            const start = project.datePeriod.startDate || '';
-                            const end = project.datePeriod.endDate || 'Present';
-                            const dateRange = start && end ? `${start} - ${end}` : '';
-                            
-                            if (dateRange && project.datePeriod.startDate) {
-                              const duration = calculateDuration([{
-                                startDate: project.datePeriod.startDate,
-                                endDate: project.datePeriod.endDate
-                              }]);
-                              return duration ? `${dateRange}\n${duration}` : dateRange;
-                            }
-                            return dateRange;
-                          }
-                          return '';
-                        },
-                      }}
-                      imageRounded={false}
-                    />
-                  ) : (
-                    <p className="text-muted-foreground">No projects found.</p>
-                  )}
-                </div>
-              </TabsContent>
-            </div>
-          </Tabs>
-        </div>
+                        if (dateRange && project.datePeriod.startDate) {
+                          const duration = calculateDuration([{
+                            startDate: project.datePeriod.startDate,
+                            endDate: project.datePeriod.endDate
+                          }]);
+                          return duration ? `${dateRange}\n${duration}` : dateRange;
+                        }
+                        return dateRange;
+                      }
+                      return '';
+                    },
+                  }}
+                  imageRounded={false}
+                />
+              ) : (
+                <p className={sheet.empty}>No projects in this domain</p>
+              )}
+            </TabsContent>
+          </div>
+        </Tabs>
       </DialogContent>
     </Dialog>
   );

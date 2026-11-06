@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -11,16 +12,12 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { SkillStats } from "@/components/skills/SkillStats";
 import { Button } from "@/components/ui/button";
-import {
-  Maximize2,
-  Minimize2,
-  Briefcase,
-  FolderKanban,
-  GraduationCap
-} from "lucide-react";
+import { LogoPlate } from "@/components/ui/logo-plate";
+import { Maximize2, Minimize2 } from "lucide-react";
+import { cn } from '@/lib/utils';
+import { sheet } from '@/components/domains/sheet';
 import type SkillItem from '@/models/Skills';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
@@ -261,110 +258,68 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent 
-        className={`transition-all duration-300 ${
-          isMaximized 
-            ? 'max-w-[95vw] h-[95vh]' 
-            : 'max-w-4xl max-h-[90vh]'
-        } overflow-hidden flex flex-col z-[100] h-[80%]`}
+      <DialogContent
+        className={cn(
+          sheet.content,
+          'z-[100]',
+          'h-full max-h-full w-full max-w-full rounded-none sm:rounded-lg',
+          isMaximized ? 'sm:h-[95vh] sm:max-h-[95vh] sm:max-w-[95vw]' : 'sm:h-[80vh] sm:max-h-[90vh] sm:max-w-4xl',
+        )}
       >
-        {/* Top Panel - Logo and Header */}
-        <div className="flex-shrink-0 min-h-[80px] relative">
-          {/* Logo */}
-          {logoPath && (
-            <div className="absolute top-4 left-4 z-10 w-16 h-16">
-              <img loading="lazy" decoding="async" 
-                src={logoPath} 
-                alt={`${skill.title} logo`} 
-                className="w-full h-full object-contain rounded-lg"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            </div>
-          )}
-
-          {/* Header */}
-          <DialogHeader className="pl-24 pr-16 pt-4">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1 min-w-0">
-                <DialogTitle className="text-2xl font-bold pr-4">
-                  {skill.title}
-                </DialogTitle>
-                {totalExperience && (
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Total Experience: {totalExperience}
-                  </p>
-                )}
-                <SkillStats skill={skill} compact className="mt-3 max-w-sm" />
-              </div>
-            </div>
-          </DialogHeader>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="absolute top-4 right-16 flex gap-2 z-20">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsMaximized(!isMaximized)}
-            className="h-8 w-8 hover:bg-accent"
-          >
-            {isMaximized ? (
-              <Minimize2 className="h-4 w-4" />
-            ) : (
-              <Maximize2 className="h-4 w-4" />
+        {/* Header: kicker, logo and serif title, total experience, competency */}
+        <DialogHeader className={sheet.head}>
+          <p className={sheet.kicker}>
+            Skill{skill.group ? ` · ${String(skill.group)}` : ''}
+          </p>
+          <div className="mt-3 flex items-start gap-4">
+            {logoPath && (
+              <LogoPlate src={logoPath} alt={`${skill.title} logo`} className="h-14 w-14 flex-shrink-0 p-2" />
             )}
-          </Button>
-        </div>
+            <div className="min-w-0 flex-1">
+              <DialogTitle className={sheet.title}>{skill.title}</DialogTitle>
+              <DialogDescription className={cn(sheet.meta, 'tnum mt-1', !totalExperience && 'sr-only')}>
+                {totalExperience
+                  ? `Total experience ${totalExperience}`
+                  : `Projects, experiences and education with ${skill.title}`}
+              </DialogDescription>
+              <SkillStats skill={skill} compact className="mt-4 max-w-sm" />
+            </div>
+          </div>
+        </DialogHeader>
 
-        {/* Type Badge - positioned below buttons */}
-        <div className="absolute top-14 right-4 flex gap-2 flex-wrap justify-end z-10">
-          <Badge variant="outline" className="text-xs bg-indigo-500/10 text-indigo-500 border-indigo-500/20">
-            Skill
-          </Badge>
-        </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsMaximized(!isMaximized)}
+          className={sheet.cornerButton}
+          aria-label={isMaximized ? 'Restore size' : 'Maximize'}
+        >
+          {isMaximized ? <Minimize2 strokeWidth={1.5} /> : <Maximize2 strokeWidth={1.5} />}
+        </Button>
 
         {/* Content */}
-        <div className="flex-1 pt-2">
-          <Tabs defaultValue="projects" className="h-full flex flex-col">
-            <TabsList className="flex-shrink-0 mb-4 grid w-full grid-cols-3">
+        <Tabs defaultValue="projects" className={sheet.tabs}>
+          <TabsList className={sheet.tabList}>
+            <TabsTrigger value="projects">
+              Projects
+              <span className={sheet.tabCount}>{projects.length}</span>
+            </TabsTrigger>
+            <TabsTrigger value="experiences">
+              Experiences
+              <span className={sheet.tabCount}>{experiences.length}</span>
+            </TabsTrigger>
+            <TabsTrigger value="educations">
+              Education
+              <span className={sheet.tabCount}>{educations.length}</span>
+            </TabsTrigger>
+          </TabsList>
 
-              <TabsTrigger value="projects">
-                <span className="flex items-center gap-2">
-                  <FolderKanban className="w-4 h-4" />
-                  Projects
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {projects.length}
-                  </Badge>
-                </span>
-              </TabsTrigger>
-              <TabsTrigger value="experiences">
-                <span className="flex items-center gap-2">
-                  <Briefcase className="w-4 h-4" />
-                  Experiences
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {experiences.length}
-                  </Badge>
-                </span>
-              </TabsTrigger>
-              <TabsTrigger value="educations">
-                <span className="flex items-center gap-2">
-                  <GraduationCap className="w-4 h-4" />
-                  Educations
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {educations.length}
-                  </Badge>
-                </span>
-              </TabsTrigger>
-            </TabsList>
-
-            <div>
-              <TabsContent value="projects" className="max-h-[60vh] overflow-y-auto">
+            <div className={sheet.body}>
+              <TabsContent value="projects" className="mt-0">
                 <ListViewer<ProjectEntry>
                   data={projects}
                   isLoading={isLoadingData}
-                  loadingMessage="Loading projects..."
+                  loadingMessage="Loading projects"
                   emptyMessage=""
                   defaultViewMode="list"
                   enabledModes={['list']}
@@ -375,13 +330,13 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                       const company = companies[project.companyCode || ''];
                       return company?.title || '';
                     },
-                    description: (project) => '',
+                    description: () => '',
                     image: (project) => project.photoUrl || '',
                     date: (project) => {
                       if (project.datePeriod) {
                         const start = project.datePeriod.startDate || '';
                         const end = project.datePeriod.endDate || 'Present';
-                        const dateRange = start && end ? `${start} - ${end}` : '';
+                        const dateRange = start && end ? `${start} – ${end}` : '';
                         
                         if (dateRange && project.datePeriod.startDate) {
                           const duration = calculateDuration([{
@@ -399,11 +354,11 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                 />
               </TabsContent>
 
-              <TabsContent value="experiences" className="max-h-[60vh] overflow-y-auto">
+              <TabsContent value="experiences" className="mt-0">
                 <ListViewer<Experience>
                   data={experiences}
                   isLoading={isLoadingData}
-                  loadingMessage="Loading experiences..."
+                  loadingMessage="Loading experiences"
                   emptyMessage=""
                   defaultViewMode="list"
                   enabledModes={['list']}
@@ -419,7 +374,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                       }
                       return '';
                     },
-                    description: (exp) => '',
+                    description: () => '',
                     image: (exp) => {
                       const company = companies[exp.companyCode || ''];
                       return company?.photoUrl || '';
@@ -429,7 +384,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                         const position = exp.positions[0];
                         const start = position.startDate || '';
                         const end = position.endDate || 'Present';
-                        const dateRange = start && end ? `${start} - ${end}` : '';
+                        const dateRange = start && end ? `${start} – ${end}` : '';
                         
                         if (dateRange && position.startDate) {
                           const duration = calculateDuration([{
@@ -447,11 +402,11 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                 />
               </TabsContent>
 
-              <TabsContent value="educations" className="max-h-[60vh] overflow-y-auto">
+              <TabsContent value="educations" className="mt-0">
                 <ListViewer<Education>
                   data={educations}
                   isLoading={isLoadingData}
-                  loadingMessage="Loading educations..."
+                  loadingMessage="Loading education"
                   emptyMessage=""
                   defaultViewMode="list"
                   enabledModes={['list']}
@@ -462,7 +417,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                       return company?.title || edu.companyCode || '';
                     },
                     subtitle: (edu) => edu.department || '',
-                    description: (edu) => '',
+                    description: () => '',
                     image: (edu) => {
                       const company = companies[edu.companyCode || ''];
                       return company?.photoUrl || '';
@@ -472,7 +427,7 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
                       if (edu.datePeriod) {
                         const start = edu.datePeriod.startDate || '';
                         const end = edu.datePeriod.endDate || '';
-                        const dateRange = start && end ? `${start} - ${end}` : edu.period || '';
+                        const dateRange = start && end ? `${start} – ${end}` : edu.period || '';
                         
                         if (dateRange && edu.datePeriod.startDate) {
                           const duration = calculateDuration([{
@@ -491,7 +446,6 @@ const SkillDetailDialog: React.FC<SkillDetailDialogProps> = ({
               </TabsContent>
             </div>
           </Tabs>
-        </div>
       </DialogContent>
     </Dialog>
   );

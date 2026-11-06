@@ -12,25 +12,10 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Building2, 
-  Globe, 
-  MapPin, 
-  Briefcase,
-  Star,
-  ExternalLink,
-  Phone,
-  Mail,
-  Clock,
-  Maximize2,
-  Minimize2,
-  Info,
-  Wrench,
-  Cog
-} from "lucide-react";
+import { Maximize2, Minimize2 } from "lucide-react";
+import { cn } from '@/lib/utils';
+import { sheet } from '@/components/domains/sheet';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
@@ -186,203 +171,168 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
     const startFormatted = formatDate(customer.partnership.startDate);
     
     if (!customer.partnership.endDate) {
-      return `${startFormatted} - Present`;
+      return `${startFormatted} – Present`;
     }
     
     const endFormatted = formatDate(customer.partnership.endDate);
-    return `${startFormatted} - ${endFormatted}`;
+    return `${startFormatted} – ${endFormatted}`;
   };
+
+  /** "healthcare-information-systems" -> "Healthcare information systems" */
+  const serviceLabel = (code: string) => {
+    const words = code.replace(/[-_]+/g, ' ').trim();
+    return words.charAt(0).toUpperCase() + words.slice(1);
+  };
+
+  const meta = [customer.location, customer.partnership ? formatPartnershipPeriod() : '']
+    .filter(Boolean)
+    .join(' · ');
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className={`${isMaximized ? 'max-w-full max-h-full w-full h-full rounded-none' : 'max-w-full max-h-full w-full h-full rounded-none sm:max-w-[35vw] sm:max-h-[90vh] sm:w-[35vw] sm:h-auto sm:rounded-lg'} overflow-hidden`}>
-        <DialogHeader className="pb-6 pl-6">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsMaximized(!isMaximized)}
-            className="absolute top-4 right-12 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
-          >
-            {isMaximized ? (
-              <Minimize2 className="w-4 h-4" />
-            ) : (
-              <Maximize2 className="w-4 h-4" />
+      <DialogContent
+        className={cn(
+          sheet.content,
+          'h-full max-h-full w-full max-w-full rounded-none',
+          !isMaximized && 'sm:h-auto sm:max-h-[90vh] sm:max-w-[36rem] sm:rounded-lg',
+        )}
+      >
+        {/* Header: kicker, logo on its plate, serif title, place and period */}
+        <DialogHeader className={sheet.head}>
+          <p className={sheet.kicker}>
+            Customer{customer.category ? ` · ${customer.category}` : ''}
+          </p>
+          <div className="mt-3 flex items-start gap-4">
+            {customerLogo && (
+              <div className="logo-plate h-14 w-20 flex-shrink-0 p-2">
+                <img loading="lazy" decoding="async"
+                  src={customerLogo}
+                  alt={`${companyTitle || customer.companyCode} logo`}
+                  className="logo-plate-img"
+                  onError={(e) => {
+                    // Try with /src/assets/ prefix for development fallback
+                    const currentSrc = e.currentTarget.src;
+                    if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
+                      e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
+                    } else {
+                      // Hide image if it fails to load even with fallback
+                      e.currentTarget.style.display = 'none';
+                    }
+                  }}
+                />
+              </div>
             )}
-          </Button>
-          {/* Logo positioned on the far left */}
-          {customerLogo && (
-            <div className="absolute top-4 left-8 z-10 w-16 h-16">
-              <img loading="lazy" decoding="async" 
-                src={customerLogo} 
-                alt={`${companyTitle || customer.companyCode} logo`}
-                className="w-full h-full object-contain rounded-lg"
-                onError={(e) => {
-                  // Try with /src/assets/ prefix for development fallback
-                  const currentSrc = e.currentTarget.src;
-                  if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
-                    e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
-                  } else {
-                    // Hide image if it fails to load even with fallback
-                    e.currentTarget.style.display = 'none';
-                  }
-                }}
-              />
-            </div>
-          )}
-          <div className="flex items-start gap-4 pl-24">
-            <div className="flex-1 min-w-0">
-              <DialogTitle className="text-2xl font-bold text-foreground mb-2">
+            <div className="min-w-0 flex-1">
+              <DialogTitle className={sheet.title}>
                 {companyTitle || customer.companyCode || customer.code}
               </DialogTitle>
-              <div className="text-base text-muted-foreground">
-                {customer.location && (
-                  <div className="flex items-center gap-2 mb-2">
-                    <MapPin className="w-4 h-4" />
-                    <span>{customer.location}</span>
-                  </div>
-                )}
-                {customer.partnership && (
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4" />
-                    <span>{formatPartnershipPeriod()}</span>
-                  </div>
-                )}
-              </div>
+              {meta && <DialogDescription className={cn(sheet.meta, 'tnum mt-1')}>{meta}</DialogDescription>}
             </div>
           </div>
         </DialogHeader>
 
-        {/* Type badges positioned below action buttons */}
-        <div className="absolute top-14 right-4 flex gap-2 flex-wrap justify-end z-10">
-          <Badge variant="outline" className="text-xs bg-green-500/10 text-green-500 border-green-500/20">
-            Customer
-          </Badge>
-          {customer.category && (
-            <Badge variant="outline" className="text-xs">
-              {customer.category}
-            </Badge>
-          )}
-        </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsMaximized(!isMaximized)}
+          className={sheet.cornerButton}
+          aria-label={isMaximized ? 'Restore size' : 'Maximize'}
+        >
+          {isMaximized ? <Minimize2 strokeWidth={1.5} /> : <Maximize2 strokeWidth={1.5} />}
+        </Button>
 
-        <Tabs defaultValue="overview" className="w-full pt-2">
-          <TabsList className="grid w-full grid-cols-3">
+        <Tabs defaultValue="overview" className={sheet.tabs}>
+          <TabsList className={sheet.tabList}>
             <TabsTrigger value="overview">
-              <span className="flex items-center gap-2">
-                <Info className="w-4 h-4" />
-                Overview
-                {(customer.projectCodes && customer.projectCodes.length > 0) && (
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {customer.projectCodes.length}
-                  </Badge>
-                )}
-              </span>
+              Overview
+              {(customer.projectCodes && customer.projectCodes.length > 0) && (
+                <span className={sheet.tabCount}>{customer.projectCodes.length}</span>
+              )}
             </TabsTrigger>
             <TabsTrigger value="technologies">
-              <span className="flex items-center gap-2">
-                <Wrench className="w-4 h-4" />
-                Skills
-                {customer.skillCodes && (
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {customer.skillCodes.length}
-                  </Badge>
-                )}
-              </span>
+              Skills
+              {customer.skillCodes && <span className={sheet.tabCount}>{customer.skillCodes.length}</span>}
             </TabsTrigger>
             <TabsTrigger value="services">
-              <span className="flex items-center gap-2">
-                <Cog className="w-4 h-4" />
-                Services
-                {customer.serviceCodes && (
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {customer.serviceCodes.length}
-                  </Badge>
-                )}
-              </span>
+              Services
+              {customer.serviceCodes && <span className={sheet.tabCount}>{customer.serviceCodes.length}</span>}
             </TabsTrigger>
           </TabsList>
 
-          <div className="max-h-[60vh] overflow-y-auto mt-4">
-            <TabsContent value="overview" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
+          <div className={cn(sheet.body, 'sm:max-h-[60vh]')}>
+            <TabsContent value="overview" className="mt-0 space-y-8 pt-5">
               {/* Customer Description */}
               {customer.description && (
-                <div className="px-4 py-2">
-                  <CardDescription 
-                    className="text-sm leading-relaxed text-foreground"
-                    dangerouslySetInnerHTML={{ __html: customer.description }}
-                  />
-                </div>
+                <div
+                  className="text-[15px] leading-6 text-foreground [text-wrap:pretty]"
+                  dangerouslySetInnerHTML={{ __html: customer.description }}
+                />
               )}
 
-              {/* Industry & Category */}
+              {/* Industry & relationship */}
               {(customer.industry || customer.relationship) && (
-                <div className="px-4 py-2">
-                  <div className="flex flex-wrap gap-3">
-                    {customer.industry && (
-                      <Badge variant="outline">{customer.industry}</Badge>
-                    )}
-                    {customer.relationship && (
-                      <Badge variant="outline">{customer.relationship}</Badge>
-                    )}
-                  </div>
-                </div>
-              )}              
+                <dl className="grid grid-cols-2 gap-x-6 border-t border-border pt-4">
+                  {customer.industry && (
+                    <div>
+                      <dt className="text-xs leading-4 text-faint">Industry</dt>
+                      <dd className="mt-1 text-sm leading-5 text-foreground">{customer.industry}</dd>
+                    </div>
+                  )}
+                  {customer.relationship && (
+                    <div>
+                      <dt className="text-xs leading-4 text-faint">Relationship</dt>
+                      <dd className="mt-1 text-sm leading-5 text-foreground">{customer.relationship}</dd>
+                    </div>
+                  )}
+                </dl>
+              )}
 
               {/* Testimonials Section */}
               {customerReferences.length > 0 && (
-                <Card className="mx-4">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-base">
-                      <Star className="w-4 h-4 text-yellow-500" />
-                      Testimonials
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
+                <section>
+                  <h4 className={cn(sheet.sectionTitle, 'border-t border-border pt-4')}>Testimonials</h4>
+                  <div className="mt-4 space-y-6">
                     {customerReferences.map((reference, index) => (
-                      <div key={index} className="space-y-2">
-                        <blockquote 
-                          className="text-sm italic text-muted-foreground leading-relaxed"
-                          dangerouslySetInnerHTML={{ __html: `"${reference.testimonial}"` }}
+                      <figure key={index} className={cn(index > 0 && 'border-t border-border pt-6')}>
+                        <blockquote
+                          className="font-serif text-[17px] leading-7 text-foreground [text-wrap:pretty]"
+                          dangerouslySetInnerHTML={{ __html: `“${reference.testimonial}”` }}
                         />
-                        <div className="flex items-center gap-2 pt-2">
+                        <figcaption className="mt-3 flex items-center gap-3">
                           {reference.photoUrl && (
-                            <img loading="lazy" decoding="async" 
+                            <img loading="lazy" decoding="async"
                               src={reference.photoUrl}
                               alt={reference.title}
-                              className="w-8 h-8 rounded-full object-cover"
+                              className="print-photo h-8 w-8 rounded-full object-cover"
                             />
                           )}
-                          <div className="text-sm">
-                            <div className="font-semibold">{reference.title}</div>
-                            <div className="text-muted-foreground text-xs">{reference.position} at {reference.company}</div>
-                          </div>
-                        </div>
-                        {index < customerReferences.length - 1 && (
-                          <div className="border-b border-border/50 mt-3"></div>
-                        )}
-                      </div>
+                          <span className="min-w-0">
+                            <span className="block text-[13px] font-medium leading-5 text-foreground">{reference.title}</span>
+                            <span className="block text-xs leading-4 text-faint">{reference.position} at {reference.company}</span>
+                          </span>
+                        </figcaption>
+                      </figure>
                     ))}
-                  </CardContent>
-                </Card>
+                  </div>
+                </section>
               )}
 
               {/* Related Projects */}
               {customer.projectCodes && customer.projectCodes.length > 0 && (
-                <div className="px-4 py-2">
-                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                    <Briefcase className="w-4 h-4" />
-                    <span>Related Projects</span>
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {customer.projectCodes.length}
-                    </Badge>
+                <section>
+                  <h4 className={cn(sheet.sectionTitle, 'flex items-baseline justify-between border-t border-border pt-4')}>
+                    Related projects
+                    <span className={sheet.tabCount}>{customer.projectCodes.length}</span>
                   </h4>
-                  <div className="space-y-3">
+                  <ul className="mt-3 divide-y divide-border border-y border-border">
                     {projects.map((project) => {
-                        const logoPath = project.photoUrl || "";
-                        
-                        return (
-                          <div 
-                            key={project.code} 
-                            className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors"
+                      const logoPath = project.photoUrl || "";
+
+                      return (
+                        <li key={project.code}>
+                          <button
+                            type="button"
+                            className="flex w-full items-center gap-3 px-2 py-3 text-left transition-colors duration-150 ease-dossier hover:bg-secondary/60"
                             onClick={() => {
                               setSelectedProject(project);
                               setIsProjectDialogOpen(true);
@@ -390,112 +340,78 @@ const CustomerDetailDialog: React.FC<CustomerDetailDialogProps> = ({
                           >
                             {/* Project Logo */}
                             {logoPath && (
-                              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
-                                <img loading="lazy" decoding="async" 
-                                  src={logoPath}
-                                  alt={`${project.title} logo`}
-                                  className="w-7 h-7 object-contain rounded"
-                                  onError={(e) => {
-                                    e.currentTarget.style.display = 'none';
-                                  }}
-                                />
-                              </div>
-                            )}
-                            
-                            {/* Project Details */}
-                            <div className="flex-1 min-w-0">
-                              <div className="text-sm font-medium text-foreground truncate">
-                                {project.title}
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                  </div>
-                </div>
-              )}
-            </TabsContent>
-
-            <TabsContent value="services" className="space-y-6 min-h-[400px] h-full overflow-y-auto">
-              <div className="p-4">
-                {customer.serviceCodes && customer.serviceCodes.length > 0 ? (
-                  <>
-                    <div className="flex items-center gap-2 mb-4">
-                      <Briefcase className="w-5 h-5" />
-                      <h3 className="text-lg font-semibold">Services Provided</h3>
-                    </div>
-                    <div className="grid grid-cols-1 gap-3">
-                      {customer.serviceCodes.map((serviceCode, index) => (
-                        <div key={index} className="p-3 bg-muted/30 rounded-lg border border-border/50">
-                          <div className="text-sm font-medium text-foreground">{serviceCode}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <Card>
-                    <CardContent className="p-8 text-center">
-                      <Briefcase className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                      <p className="text-muted-foreground">No service information available.</p>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="technologies" className="space-y-2 min-h-[400px] h-full overflow-y-auto">
-              {skills.length > 0 ? (
-                <div className="px-4 py-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                    {skills.map((skill, index) => {
-                      const logoPath = skill.photoUrl || "";
-                      const isEven = index % 2 === 0;
-                      const isLastInColumn = index === skills.length - 1 || 
-                        (isEven && index === skills.length - 2 && skills.length % 2 === 0);
-                      
-                      return (
-                        <div key={skill.code}>
-                          <div 
-                            className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-pointer"
-                            onClick={() => {
-                              setSelectedSkill(skill);
-                              setIsSkillDialogOpen(true);
-                            }}
-                          >
-                            {/* Technology Logo */}
-                            {logoPath && (
-                              <img loading="lazy" decoding="async" 
+                              <img loading="lazy" decoding="async"
                                 src={logoPath}
-                                alt={`${skill.title} logo`}
-                                className="w-5 h-5 object-contain flex-shrink-0"
+                                alt=""
+                                className="h-7 w-7 flex-shrink-0 rounded-sm object-contain"
                                 onError={(e) => {
                                   e.currentTarget.style.display = 'none';
                                 }}
                               />
                             )}
-                            
-                            {/* Technology Name */}
-                            <span className="text-sm font-medium text-foreground">
-                              {skill.title}
+                            <span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground">
+                              {project.title}
                             </span>
-                          </div>
-                          {!isLastInColumn && (
-                            <div className="border-b border-dashed border-border/50 mx-4"></div>
-                          )}
-                        </div>
+                          </button>
+                        </li>
                       );
                     })}
-                  </div>
-                </div>
+                  </ul>
+                </section>
+              )}
+            </TabsContent>
+
+            <TabsContent value="services" className="mt-0 pt-5">
+              {customer.serviceCodes && customer.serviceCodes.length > 0 ? (
+                <section>
+                  <h3 className={sheet.sectionTitle}>Services provided</h3>
+                  <ul className="mt-3 divide-y divide-border border-y border-border">
+                    {customer.serviceCodes.map((serviceCode, index) => (
+                      <li key={index} className="px-2 py-3 text-sm leading-5 text-foreground">
+                        {serviceLabel(serviceCode)}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
               ) : (
-                <div className="p-4">
-                  <Card>
-                    <CardContent className="p-8 text-center">
-                      <Star className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                      <p className="text-muted-foreground">No technology information available.</p>
-                    </CardContent>
-                  </Card>
-                </div>
+                <p className={sheet.empty}>No service information available</p>
+              )}
+            </TabsContent>
+
+            <TabsContent value="technologies" className="mt-0 pt-5">
+              {skills.length > 0 ? (
+                <ul className="grid grid-cols-1 gap-x-6 border-t border-border sm:grid-cols-2">
+                  {skills.map((skill) => {
+                    const logoPath = skill.photoUrl || "";
+                    return (
+                      <li key={skill.code} className="border-b border-border">
+                        <button
+                          type="button"
+                          className="flex w-full items-center gap-3 px-2 py-3 text-left transition-colors duration-150 ease-dossier hover:bg-secondary/60"
+                          onClick={() => {
+                            setSelectedSkill(skill);
+                            setIsSkillDialogOpen(true);
+                          }}
+                        >
+                          {/* Technology Logo */}
+                          {logoPath && (
+                            <img loading="lazy" decoding="async"
+                              src={logoPath}
+                              alt=""
+                              className="h-5 w-5 flex-shrink-0 object-contain"
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                              }}
+                            />
+                          )}
+                          <span className="truncate text-sm font-medium text-foreground">{skill.title}</span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : (
+                <p className={sheet.empty}>No technology information available</p>
               )}
             </TabsContent>
           </div>
