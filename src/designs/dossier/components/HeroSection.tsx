@@ -26,16 +26,15 @@ const facts = [
   { term: "Domains", detail: "Healthcare IT (HL7 FHIR), construction IT, e-learning, e-commerce, games" },
 ];
 
-// Footnotes back the claims in the hero, as in a printed profile.
+// Footnotes back the claims in the hero, as in a printed profile: 1 the years, 2 the two
+// New York companies, 3 Tursoft. One short phrase each, no closing period. The word joiner
+// (U+2060) after each dash keeps a year range on one line.
 const notes = [
-  { id: "fn1", text: "First role in May 2000, as webmaster for the Informatics Association of Turkey, youth branch" },
-  {
-    id: "fn2",
-    text: "Director of Technology & Senior Software Architect at Gamyte, Sep 2019 –⁠ Dec 2022, and Jengai, Dec 2022 –⁠ Apr 2026, both based in New York",
-  },
+  { id: "fn1", text: "Since May 2000, starting as webmaster for the youth branch of the Informatics Association of Turkey" },
+  { id: "fn2", text: "Gamyte (2019–\u20602022) and Jengai (2022–\u20602026), as Director of Technology and Senior Software Architect" },
   {
     id: "fn3",
-    text: "Since May 2026. Building BestJobFinder, an AI job search SaaS with web, desktop, Chrome extension and admin clients, and Account Manager for Claude, an open-source VS Code extension",
+    text: "Since May 2026, building BestJobFinder (AI job search) and Account Manager for Claude (VS Code extension)",
   },
 ];
 
