@@ -12,24 +12,17 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription } from "@/components/ui/card";
+import { LogoPlate } from "@/components/ui/logo-plate";
 import {
-  Building2,
-  User,
-  Clock,
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
   Linkedin,
   Maximize2,
   Minimize2,
-  Info,
-  Wrench,
-  Users,
-  UserCheck,
-  Image,
-  ChevronLeft,
-  ChevronRight,
-  ShieldCheck
+  ShieldCheck,
+  User,
 } from "lucide-react";
 import { skillsRepo } from '@/repositories/SkillsRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
@@ -37,11 +30,15 @@ import { peopleRepo } from '@/repositories/PeopleRepo';
 import { partnersRepo } from '@/repositories/PartnersRepo';
 import { experienceRepo } from '@/repositories/ExperienceRepo';
 import { projectFilesRepo } from '@/repositories/ProjectFilesRepo';
+import { projectsRepo } from '@/repositories/ProjectsRepo';
+import { domainsRepo } from '@/repositories/DomainsRepo';
 import SkillDetailDialog from '../skills/SkillDetailDialog';
 import PartnerDetailDialog from '../partners/PartnerDetailDialog';
 import ExperienceDetailDialog from '../experiences/ExperienceDetailDialog';
 import PeopleDetailDialog from '../people/PeopleDetailDialog';
 import ListViewer from '@/components/ui/listviewer';
+import ProjectLogo from './ProjectLogo';
+import { cn } from '@/lib/utils';
 import type { ProjectEntry } from '@/models/Project';
 import type { Person } from '@/models/People';
 import type SkillItem from '@/models/Skills';
@@ -67,6 +64,41 @@ interface ProjectDetailDialogProps {
   projectIcon?: string;
 }
 
+type TabValue = 'overview' | 'technologies' | 'customers' | 'team' | 'screenshots' | 'partners';
+
+/** "Feb 2015 – Sep 2019", or "Feb 2015 – present" when the project has no end date. */
+const formatDatePeriod = (datePeriod?: { startDate?: string; endDate?: string | null }) => {
+  if (!datePeriod?.startDate) return '';
+
+  const formatDate = (dateStr: string) => {
+    const [day, month, year] = dateStr.split('.');
+    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  };
+
+  const startFormatted = formatDate(datePeriod.startDate);
+  if (!datePeriod.endDate) return `${startFormatted} – present`;
+  return `${startFormatted} – ${formatDate(datePeriod.endDate)}`;
+};
+
+/** Data-driven text may carry target=_blank links; make sure they carry rel=noopener. */
+const withSafeLinks = (html: string) =>
+  html.replace(/<a\s(?![^>]*\brel=)([^>]*target=['"]_blank['"][^>]*)>/gi, '<a rel="noopener noreferrer" $1>');
+
+const screenshotSrc = (shot: ScreenshotItem) => shot.file_small || shot.file_big || '/placeholder.svg';
+
+// One label and a quiet count per tab; the shared Tabs component draws the segment
+const TabLabel = ({ label, count }: { label: string; count?: number }) => (
+  <span className="inline-flex items-baseline gap-1.5">
+    {label}
+    {count !== undefined && <span className="tnum font-normal text-faint">{count}</span>}
+  </span>
+);
+
+// A row inside the sheet that opens another dialog: hairline under it, raised paper on hover
+const rowButton =
+  'group flex w-full items-center gap-3 rounded-md px-2 py-2.5 text-left transition-colors duration-150 ease-dossier hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
+
 const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
   project,
   isOpen,
@@ -75,7 +107,6 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 }) => {
   const [customersData, setCustomersData] = useState<Customer[]>([]);
   const [isLoadingCustomers, setIsLoadingCustomers] = useState(false);
-  const [technologyLogos, setTechnologyLogos] = useState<Record<string, string>>({});
   const [companyName, setCompanyName] = useState<string>('');
   const [teamMembers, setTeamMembers] = useState<Array<{ person: Person | null; position: string; personCode: string }>>([]);
   const [isMaximized, setIsMaximized] = useState(false);
@@ -95,6 +126,14 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
   const [selectedScreenshot, setSelectedScreenshot] = useState<string | null>(null);
   const [currentScreenshotIndex, setCurrentScreenshotIndex] = useState<number>(0);
   const [isScreenshotFullscreen, setIsScreenshotFullscreen] = useState(false);
+  const [groupTitle, setGroupTitle] = useState<string>('');
+  const [domainTitles, setDomainTitles] = useState<string[]>([]);
+  const [tab, setTab] = useState<TabValue>('overview');
+
+  // Every project opens on its overview
+  useEffect(() => {
+    if (isOpen) setTab('overview');
+  }, [isOpen, project?.code]);
 
   // Load company name from companyCode
   useEffect(() => {
@@ -111,6 +150,39 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
     }
   }, [project?.companyCode]);
 
+  // Category name from the project groups ("RD" reads "Research")
+  useEffect(() => {
+    if (!project?.group) {
+      setGroupTitle('');
+      return;
+    }
+    const group = project.group;
+    setGroupTitle(group);
+    projectsRepo
+      .getFullData()
+      .then((data) => {
+        const match = data?.general?.groups?.find((g) => g.code === group);
+        if (match?.title) setGroupTitle(match.title);
+      })
+      .catch(() => {});
+  }, [project?.group]);
+
+  // Domain names for the facts ("healthcareit" reads "Healthcare IT")
+  useEffect(() => {
+    const codes = project?.domainCodes ?? [];
+    setDomainTitles(codes);
+    if (codes.length === 0) return;
+    let cancelled = false;
+    Promise.all(codes.map((code) => domainsRepo.getByCode(code).catch(() => null)))
+      .then((domains) => {
+        if (!cancelled) setDomainTitles(codes.map((code, i) => domains[i]?.title || code));
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [project?.domainCodes]);
+
   // Load customers data when dialog opens
   useEffect(() => {
     if (isOpen && project?.customerCodes && project.customerCodes.length > 0) {
@@ -119,14 +191,14 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
         try {
           const response = await fetch('/data/customers.json');
           const data = await response.json();
-          
+
           // Filter customers by customer codes
-          const projectCustomers = data.items.filter((customer: Customer & { code: string }) => 
-            project.customerCodes?.some(customerCode => 
+          const projectCustomers = data.items.filter((customer: Customer & { code: string }) =>
+            project.customerCodes?.some(customerCode =>
               customer.code?.toLowerCase() === customerCode.toLowerCase()
             )
           );
-          
+
           setCustomersData(projectCustomers);
         } catch (error) {
           console.error('Failed to load customers:', error);
@@ -142,32 +214,27 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
     }
   }, [isOpen, project?.customerCodes]);
 
-  // Fetch technology logos and skill objects when project changes
+  // Fetch skill objects when project changes
   useEffect(() => {
     const fetchSkills = async () => {
       if (!project?.skillCodes) return;
-      
-      const logos: Record<string, string> = {};
+
       const skillItems: SkillItem[] = [];
-      
+
       for (const skillCode of project.skillCodes) {
         if (skillCode) {
           const skill = await skillsRepo.getByCode(skillCode);
-          if (skill) {
-            skillItems.push(skill);
-            if (skill.photoUrl) {
-              logos[skillCode] = skill.photoUrl;
-            }
-          }
+          if (skill) skillItems.push(skill);
         }
       }
-      
+
       setSkills(skillItems);
-      setTechnologyLogos(logos);
     };
 
     if (project?.skillCodes && project.skillCodes.length > 0) {
       fetchSkills();
+    } else {
+      setSkills([]);
     }
   }, [project?.skillCodes]);
 
@@ -175,10 +242,10 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
   useEffect(() => {
     const fetchPartners = async () => {
       if (!project?.partnerCodes) return;
-      
+
       const partnerItems: Partner[] = [];
       const companies: { [key: string]: Company } = {};
-      
+
       for (const partnerCode of project.partnerCodes) {
         if (partnerCode) {
           const partner = await partnersRepo.getByCode(partnerCode);
@@ -194,13 +261,16 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
           }
         }
       }
-      
+
       setPartners(partnerItems);
       setPartnerCompanies(companies);
     };
 
     if (project?.partnerCodes && project.partnerCodes.length > 0) {
       fetchPartners();
+    } else {
+      setPartners([]);
+      setPartnerCompanies({});
     }
   }, [project?.partnerCodes]);
 
@@ -214,13 +284,13 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
       const resolvedTeam = await Promise.all(
         project.team.map(async (member) => {
-          const person = member.personCode 
+          const person = member.personCode
             ? await peopleRepo.getByCode(member.personCode)
             : null;
-          
+
           return {
             person,
-            position: member.position || 'Team Member',
+            position: member.position || 'Team member',
             personCode: member.personCode || 'Unknown'
           };
         })
@@ -244,7 +314,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
       try {
         // Fetch all experiences
         const allExperiences = await experienceRepo.getList();
-        
+
         // Find the experience that matches the project's companyCode
         const matchedExperience = allExperiences.find(
           exp => exp.companyCode?.toLowerCase() === project.companyCode?.toLowerCase()
@@ -252,7 +322,7 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
         if (matchedExperience) {
           setExperience(matchedExperience);
-          
+
           // Fetch the company details
           if (matchedExperience.companyCode) {
             const company = await companiesRepo.getByCode(matchedExperience.companyCode);
@@ -281,7 +351,10 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
       }
 
       try {
-        const projectFiles = await projectFilesRepo.getByProjectCode(project.code);
+        // The files are keyed by project code in its own case ("HIS2x"); match without case
+        const all = await projectFilesRepo.getAllProjects();
+        const key = Object.keys(all).find((k) => k.toUpperCase() === project.code.toUpperCase());
+        const projectFiles = key ? all[key] : null;
         if (projectFiles?.screenshoots) {
           // Sort by orderindex
           const sorted = [...projectFiles.screenshoots].sort(
@@ -324,556 +397,502 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
 
   if (!project) return null;
 
-  // Helper function to format date period
-  const formatDatePeriod = (datePeriod?: { startDate?: string; endDate?: string }) => {
-    if (!datePeriod?.startDate) return '';
-    
-    const formatDate = (dateStr: string) => {
-      const [day, month, year] = dateStr.split('.');
-      const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-      return date.toLocaleDateString('en-US', { 
-        month: 'long', 
-        year: 'numeric' 
-      });
-    };
-    
-    const startFormatted = formatDate(datePeriod.startDate);
-    
-    if (!datePeriod.endDate) {
-      return `${startFormatted} - Present`;
-    }
-    
-    const endFormatted = formatDate(datePeriod.endDate);
-    return `${startFormatted} - ${endFormatted}`;
+  const period = formatDatePeriod(project.datePeriod);
+  const logo = projectIcon || project.photoUrl || '';
+  const hasCustomers = !!project.customerCodes && project.customerCodes.length > 0;
+  const screenshotTitle = (shot: ScreenshotItem) => shot.title || `Screenshot ${screenshots.indexOf(shot) + 1}`;
+
+  const openScreenshot = (index: number) => {
+    const shot = screenshots[index];
+    if (!shot) return;
+    setCurrentScreenshotIndex(index);
+    setSelectedScreenshot(shot.file_big || shot.file_small || '');
+    setIsScreenshotFullscreen(true);
   };
+
+  const stepScreenshot = (delta: 1 | -1) => openScreenshot(currentScreenshotIndex + delta);
+
+  const facts = [
+    { term: 'Company', detail: companyName || project.companyCode },
+    { term: 'Period', detail: period },
+    { term: 'Category', detail: groupTitle },
+    { term: domainTitles.length === 1 ? 'Domain' : 'Domains', detail: domainTitles.join(', ') },
+  ].filter((fact) => fact.detail);
+
+  const fulltext = project.fulltext
+    ? Array.isArray(project.fulltext) ? project.fulltext.join('') : project.fulltext
+    : '';
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className={`transition-all duration-300 ${isMaximized ? 'max-w-[95vw] h-[95vh]' : 'max-w-4xl max-h-[90vh]'} overflow-hidden flex flex-col z-[100] h-[80%]`}>
-        <DialogHeader className="pb-6 pl-6">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsMaximized(!isMaximized)}
-            className="absolute top-4 right-16 z-10 h-8 w-8 p-0 rounded-md hover:bg-accent hover:text-accent-foreground"
-          >
-            {isMaximized ? (
-              <Minimize2 className="w-4 h-4" />
-            ) : (
-              <Maximize2 className="w-4 h-4" />
+      <DialogContent
+        // The sheet itself takes focus on open, so no control starts out ringed
+        onOpenAutoFocus={(e) => {
+          e.preventDefault();
+          (e.currentTarget as HTMLElement | null)?.focus();
+        }}
+        className={cn(
+          'z-[100] flex flex-col gap-0 overflow-hidden p-0 focus-visible:outline-none',
+          isMaximized ? 'h-[95vh] max-h-[95vh] max-w-[95vw]' : 'h-[88vh] max-h-[88vh] max-w-5xl',
+        )}
+      >
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsMaximized(!isMaximized)}
+          aria-label={isMaximized ? 'Restore size' : 'Maximize'}
+          className="absolute right-14 top-4 z-10 hidden h-8 w-8 text-faint sm:inline-flex"
+        >
+          {isMaximized ? <Minimize2 strokeWidth={1.5} /> : <Maximize2 strokeWidth={1.5} />}
+        </Button>
+
+        {/* Title block: the project's logo plate, the kicker and the serif title */}
+        <DialogHeader className="flex-none space-y-0 px-5 pb-5 pt-6 text-left sm:px-8 sm:pb-6 sm:pt-8">
+          <div className="flex items-start gap-4 pr-10 sm:gap-5 sm:pr-24">
+            {logo && (
+              <ProjectLogo src={logo} alt={`${project.title} logo`} className="h-14 w-14 flex-none p-1.5 sm:h-16 sm:w-16" />
             )}
-          </Button>
-          {/* Logo positioned on the far left */}
-          {(projectIcon || project.photoUrl) && (
-            <div className="absolute top-4 left-8 z-10 w-16 h-16">
-              <img loading="lazy" decoding="async" 
-                src={projectIcon || project.photoUrl} 
-                alt={`${project.title} logo`}
-                className="w-full h-full object-contain rounded-lg"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            </div>
-          )}
-          <div className="flex items-start gap-4 pl-24">
-            <div className="flex-1 min-w-0">
-              <DialogTitle className="text-2xl font-bold text-foreground mb-2">
+            <div className="min-w-0 flex-1">
+              <p className="text-[13px] leading-4 text-muted-foreground">
+                Project
+                {groupTitle && (
+                  <>
+                    <span className="px-1.5 text-faint" aria-hidden="true">·</span>
+                    {groupTitle}
+                  </>
+                )}
+              </p>
+              <DialogTitle className="mt-2 text-[28px] leading-8 tracking-[-0.01em] [text-wrap:balance] sm:text-[34px] sm:leading-10">
                 {project.title}
               </DialogTitle>
-              <div className="text-base text-muted-foreground">
-                {companyName && (
-                  <div className="flex items-center gap-2 mb-2">
-                    <Building2 className="w-4 h-4" />
-                    <span>{companyName}</span>
-                  </div>
-                )}
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  <span>{formatDatePeriod(project.datePeriod)}</span>
-                </div>
-              </div>
+              {/* Company and period are in the facts on the overview; read out with the title */}
+              <DialogDescription className="sr-only">
+                {[companyName || project.companyCode, period].filter(Boolean).join(', ')}
+              </DialogDescription>
+              {project.code === 'AMELBOOK' && (
+                <a
+                  href="/privacy/amelbook"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ink-link mt-2 inline-flex items-center gap-1.5 text-sm"
+                >
+                  <ShieldCheck className="h-4 w-4 text-faint" strokeWidth={1.5} aria-hidden="true" />
+                  Privacy policy
+                </a>
+              )}
             </div>
           </div>
         </DialogHeader>
 
-        {/* Type badges positioned below action buttons */}
-        <div className="absolute top-14 right-4 flex gap-2 flex-wrap justify-end z-10">
-          <Badge variant="outline" className="text-xs bg-cyan-500/10 text-cyan-500 border-cyan-500/20">
-            Project
-          </Badge>
-          <Badge variant="outline" className="text-xs">
-            {project.group}
-          </Badge>
-          {project.code === 'AMELBOOK' && (
-            <a href="/privacy/amelbook" target="_blank" rel="noopener noreferrer">
-              <Badge variant="outline" className="text-xs bg-emerald-500/10 text-emerald-400 border-emerald-500/20 flex items-center gap-1 cursor-pointer hover:bg-emerald-500/20 transition-colors">
-                <ShieldCheck className="w-3 h-3" />
-                Privacy Policy
-              </Badge>
-            </a>
-          )}
-        </div>
-
-        <Tabs defaultValue="overview" className="w-full pt-2">
-          <TabsList className={`grid w-full ${
-            screenshots.length > 0 
-              ? (project.customerCodes && project.customerCodes.length > 0 ? 'grid-cols-5' : 'grid-cols-4')
-              : (project.customerCodes && project.customerCodes.length > 0 ? 'grid-cols-4' : 'grid-cols-3')
-          }`}>
-            <TabsTrigger value="overview">
-              <span className="flex items-center gap-2">
-                <Info className="w-4 h-4" />
-                Overview
-              </span>
-            </TabsTrigger>
-            <TabsTrigger value="technologies">
-              <span className="flex items-center gap-2">
-                <Wrench className="w-4 h-4" />
-                Skills
-                <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                  {project.skillCodes?.length || 0}
-                </Badge>
-              </span>
-            </TabsTrigger>
-            {project.customerCodes && project.customerCodes.length > 0 && (
-              <TabsTrigger value="customers">
-                <span className="flex items-center gap-2">
-                  <Users className="w-4 h-4" />
-                  Customers
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {project.customerCodes.length}
-                  </Badge>
-                </span>
+        <Tabs value={tab} onValueChange={(value) => setTab(value as TabValue)} className="flex min-h-0 flex-1 flex-col">
+          <div className="flex-none border-b border-border px-5 pb-4 sm:px-8">
+            <TabsList className="max-w-full justify-start overflow-x-auto [scrollbar-width:none]">
+              <TabsTrigger value="overview">
+                <TabLabel label="Overview" />
               </TabsTrigger>
-            )}
-            <TabsTrigger value="team">
-              <span className="flex items-center gap-2">
-                <UserCheck className="w-4 h-4" />
-                Team
-                <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                  {project.team?.length || 0}
-                </Badge>
-              </span>
-            </TabsTrigger>
-            {screenshots.length > 0 && (
-              <TabsTrigger value="screenshots">
-                <span className="flex items-center gap-2">
-                  <Image className="w-4 h-4" />
-                  Screenshots
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {screenshots.length}
-                  </Badge>
-                </span>
+              <TabsTrigger value="technologies">
+                <TabLabel label="Skills" count={project.skillCodes?.length || 0} />
               </TabsTrigger>
-            )}
-            {partners.length > 0 && (
-              <TabsTrigger value="partners">
-                <span className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4" />
-                  Partners
-                  <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                    {partners.length}
-                  </Badge>
-                </span>
-              </TabsTrigger>
-            )}
-          </TabsList>
-
-          <div className="max-h-[60vh] overflow-y-auto mt-4">
-            <TabsContent value="overview" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
-              {/* Project Summary */}
-              <div className="px-4 py-2">
-                <CardDescription 
-                  className="text-sm leading-relaxed text-foreground"
-                  dangerouslySetInnerHTML={{ __html: project.summary }}
-                />
-              </div>
-
-              {/* Experience/Company Box */}
-              {experience && experienceCompany && (
-                <div className="px-4 py-2">
-                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                    <Building2 className="w-4 h-4" />
-                    <span>Experience</span>
-                  </h4>
-                  <div 
-                    className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-pointer border border-border/50"
-                    onClick={() => setIsExperienceDialogOpen(true)}
-                  >
-                    {experienceCompany.photoUrl && (
-                      <img loading="lazy" decoding="async" 
-                        src={experienceCompany.photoUrl} 
-                        alt={`${experienceCompany.title} logo`} 
-                        className="w-10 h-10 object-contain flex-shrink-0 rounded" 
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium text-foreground">
-                        {experienceCompany.title}
-                      </div>
-                      {experience.positions && experience.positions.length > 0 && (
-                        <div className="text-xs text-muted-foreground mt-1">
-                          {experience.positions.length} position{experience.positions.length > 1 ? 's' : ''}
-                        </div>
-                      )}
-                    </div>
-                    <Badge variant="outline" className="text-xs bg-blue-500/10 text-blue-500 border-blue-500/20">
-                      Experience
-                    </Badge>
-                  </div>
-                </div>
+              {hasCustomers && (
+                <TabsTrigger value="customers">
+                  <TabLabel label="Customers" count={project.customerCodes?.length || 0} />
+                </TabsTrigger>
               )}
+              <TabsTrigger value="team">
+                <TabLabel label="Team" count={project.team?.length || 0} />
+              </TabsTrigger>
+              {screenshots.length > 0 && (
+                <TabsTrigger value="screenshots">
+                  <TabLabel label="Screenshots" count={screenshots.length} />
+                </TabsTrigger>
+              )}
+              {partners.length > 0 && (
+                <TabsTrigger value="partners">
+                  <TabLabel label="Partners" count={partners.length} />
+                </TabsTrigger>
+              )}
+            </TabsList>
+          </div>
 
-              {/* Modules */}
-              {project.modules && project.modules.length > 0 && (
-                <div className="px-4 py-2">
-                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                    <span>Modules</span>
-                    <Badge variant="secondary" className="text-xs px-1.5 py-0.5">
-                      {project.modules.length}
-                    </Badge>
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                    {project.modules.map((module, index) => {
-                      const isEven = index % 2 === 0;
-                      const isLastInColumn = index === project.modules.length - 1 || 
-                        (isEven && index === project.modules.length - 2 && project.modules.length % 2 === 0);
-                      
-                      return (
-                        <div key={`${module}-${index}`}>
-                          <div className="flex items-start gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-default">
-                            <div className="w-2 h-2 bg-primary/60 rounded-full flex-shrink-0 mt-2" />
-                            <span className="text-sm text-foreground leading-relaxed">
-                              {module}
+          <div className="min-h-0 flex-1 overflow-y-auto px-5 py-6 sm:px-8 sm:py-8">
+            <TabsContent value="overview" className="mt-0">
+              <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_14rem] md:gap-12 lg:grid-cols-[minmax(0,1fr)_16rem]">
+                {/* Facts: hairline-ruled, first on phones, a side column from md up */}
+                <aside className="space-y-8 md:order-2">
+                  {facts.length > 0 && (
+                    <dl className="grid grid-cols-2 gap-x-6 border-t border-foreground md:grid-cols-1">
+                      {facts.map((fact) => (
+                        <div key={fact.term} className="border-b border-border py-3">
+                          <dt className="text-xs leading-4 text-faint">{fact.term}</dt>
+                          <dd className="tnum mt-1 text-sm leading-5 text-foreground [text-wrap:pretty]">{fact.detail}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
+
+                  {experience && experienceCompany && (
+                    <section>
+                      <h3 className="sheet-heading">Experience</h3>
+                      <button type="button" className={cn(rowButton, '-mx-2 w-[calc(100%+1rem)]')} onClick={() => setIsExperienceDialogOpen(true)}>
+                        <LogoPlate
+                          src={experienceCompany.photoUrl || undefined}
+                          alt={`${experienceCompany.title} logo`}
+                          className="h-10 w-10 flex-none p-1"
+                        />
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-sm font-medium leading-5 text-foreground">{experienceCompany.title}</span>
+                          {experience.positions && experience.positions.length > 0 && (
+                            <span className="tnum block text-[13px] leading-5 text-faint">
+                              {experience.positions.length} position{experience.positions.length > 1 ? 's' : ''}
                             </span>
-                          </div>
-                          {!isLastInColumn && (
-                            <div className="border-b border-dashed border-border/50 mx-4"></div>
                           )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
+                        </span>
+                        <ArrowUpRight className="h-4 w-4 flex-none text-faint transition-colors duration-150 group-hover:text-foreground" strokeWidth={1.5} aria-hidden="true" />
+                      </button>
+                    </section>
+                  )}
+                </aside>
 
-              {/* Full Description */}
-              {project.fulltext && (
-                <div className="px-4 py-2">
-                  <div 
-                    className="prose prose-sm max-w-none text-foreground prose-headings:text-foreground prose-p:text-foreground prose-li:text-foreground prose-strong:text-foreground prose-a:text-primary hover:prose-a:text-primary/80"
-                    dangerouslySetInnerHTML={{ 
-                      __html: Array.isArray(project.fulltext) 
-                        ? project.fulltext.join('') 
-                        : project.fulltext 
-                    }}
-                  />
-                </div>
-              )}
+                <div className="min-w-0 space-y-10">
+                  {/* Project Summary */}
+                  {project.summary && (
+                    <p
+                      className="max-w-[68ch] text-base leading-[26px] text-foreground [text-wrap:pretty] sm:text-[17px] sm:leading-7"
+                      dangerouslySetInnerHTML={{ __html: withSafeLinks(project.summary) }}
+                    />
+                  )}
 
-              {/* Domains */}
-              {project.domainCodes && project.domainCodes.length > 0 && (
-                <div className="px-4 py-2">
-                  <div className="flex flex-wrap gap-2">
-                    {project.domainCodes.map((domainCode, index) => (
-                      <Badge key={domainCode} variant="secondary">
-                        {domainCode}
-                      </Badge>
-                    ))}
-                  </div>
+                  {/* The first plates of the gallery, each opens full size */}
+                  {screenshots.length > 0 && (
+                    <section aria-label="Screenshots">
+                      <div className="grid grid-cols-3 gap-3">
+                        {screenshots.slice(0, 3).map((shot, index) => (
+                          <button
+                            key={screenshotSrc(shot)}
+                            type="button"
+                            onClick={() => openScreenshot(index)}
+                            aria-label={`Open screenshot ${index + 1}: ${screenshotTitle(shot)}`}
+                            className="group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                          >
+                            <span className="work-plate aspect-[4/3] w-full p-1.5">
+                              <img
+                                loading="lazy"
+                                decoding="async"
+                                src={screenshotSrc(shot)}
+                                alt=""
+                                className="h-full w-full object-contain"
+                                onError={(e) => {
+                                  e.currentTarget.src = '/placeholder.svg';
+                                }}
+                              />
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                      <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                        <p className="work-caption min-w-0">
+                          <span className="font-medium text-foreground">
+                            Fig. {screenshots.length > 1 ? `1–${Math.min(3, screenshots.length)}` : '1'}
+                          </span>
+                          {screenshots.length > 3 && ` of ${screenshots.length}`}
+                          <span className="px-1.5" aria-hidden="true">·</span>
+                          Select a screenshot to view it full size
+                        </p>
+                        {screenshots.length > 3 && (
+                          <button type="button" onClick={() => setTab('screenshots')} className="ink-link tnum flex-none text-sm">
+                            All {screenshots.length} screenshots
+                          </button>
+                        )}
+                      </div>
+                    </section>
+                  )}
+
+                  {/* Full Description */}
+                  {fulltext && (
+                    <div className="sheet-prose" dangerouslySetInnerHTML={{ __html: withSafeLinks(fulltext) }} />
+                  )}
+
+                  {/* Modules */}
+                  {project.modules && project.modules.length > 0 && (
+                    <section>
+                      <h3 className="sheet-heading">
+                        Modules
+                        <span className="tnum font-normal text-faint">{project.modules.length}</span>
+                      </h3>
+                      <ul className="grid gap-x-8 sm:grid-cols-2">
+                        {project.modules.map((module, index) => (
+                          <li key={`${module}-${index}`} className="border-b border-border py-2.5 text-[15px] leading-6 text-foreground">
+                            {module}
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
                 </div>
-              )}
+              </div>
             </TabsContent>
 
-            <TabsContent value="technologies" className="space-y-2 min-h-[400px] h-full overflow-y-auto">
-              <div className="px-4 py-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
-                  {skills.map((skill, index) => {
-                    const logoPath = skill.photoUrl || "";
-                    const isEven = index % 2 === 0;
-                    const isLastInColumn = index === skills.length - 1 || 
-                      (isEven && index === skills.length - 2 && skills.length % 2 === 0);
-                    
-                    return (
-                      <div key={skill.code}>
-                        <div 
-                          className="flex items-center gap-3 py-3 px-4 rounded-lg transition-all duration-200 hover:bg-muted/30 hover:shadow-sm cursor-pointer"
-                          onClick={() => {
-                            setSelectedSkill(skill);
-                            setIsSkillDialogOpen(true);
-                          }}
-                        >
-                          {logoPath && (
-                            <img loading="lazy" decoding="async" 
-                              src={logoPath} 
-                              alt={`${skill.title} logo`} 
-                              className="w-5 h-5 object-contain flex-shrink-0" 
+            <TabsContent value="technologies" className="mt-0">
+              {skills.length > 0 ? (
+                <ul className="grid gap-x-8 sm:grid-cols-2">
+                  {skills.map((skill) => (
+                    <li key={skill.code} className="border-b border-border py-1">
+                      <button
+                        type="button"
+                        className={cn(rowButton, '-mx-2 w-[calc(100%+1rem)]')}
+                        onClick={() => {
+                          setSelectedSkill(skill);
+                          setIsSkillDialogOpen(true);
+                        }}
+                      >
+                        <span className="flex h-5 w-5 flex-none items-center justify-center">
+                          {skill.photoUrl && (
+                            <img
+                              loading="lazy"
+                              decoding="async"
+                              src={skill.photoUrl}
+                              alt=""
+                              className="max-h-full max-w-full object-contain mix-blend-multiply"
                               onError={(e) => {
                                 e.currentTarget.style.display = 'none';
                               }}
                             />
                           )}
-                          <span className="text-sm font-medium text-foreground">
-                            {skill.title}
-                          </span>
-                        </div>
-                        {!isLastInColumn && (
-                          <div className="border-b border-dashed border-border/50 mx-4"></div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+                        </span>
+                        <span className="min-w-0 flex-1 truncate text-[15px] leading-6 text-foreground">{skill.title}</span>
+                        <ArrowUpRight className="h-4 w-4 flex-none text-faint opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100" strokeWidth={1.5} aria-hidden="true" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm text-muted-foreground">No skills listed for this project.</p>
+              )}
             </TabsContent>
 
-            {project.customerCodes && project.customerCodes.length > 0 && (
-              <TabsContent value="customers" className="space-y-2 min-h-[400px] h-full overflow-y-auto">
-                <div className="px-4 py-2">
-                  {isLoadingCustomers ? (
-                    <div className="flex items-center justify-center py-8">
-                      <p className="text-muted-foreground">Loading customers...</p>
-                    </div>
-                  ) : customersData.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {customersData.map((customer, index) => (
-                        <div key={customer.code} className="flex items-center gap-3 p-4 bg-muted/20 rounded-lg border border-border/30 hover:bg-muted/30 hover:shadow-sm transition-all duration-200">
-                          {/* Customer Logo */}
-                          {customer.logoPath && (
-                            <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
-                              <img loading="lazy" decoding="async" 
-                                src={customer.logoPath}
-                                alt={`${customer.title} logo`}
-                                className="w-10 h-10 object-contain rounded"
-                                onError={(e) => {
-                                  // Try with /src/assets/ prefix for development fallback
-                                  const currentSrc = e.currentTarget.src;
-                                  if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
-                                    e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
-                                  } else {
-                                    // Hide image if it fails to load
-                                    e.currentTarget.style.display = 'none';
-                                  }
-                                }}
-                              />
-                            </div>
-                          )}
-                          
-                          {/* Customer Info */}
-                          <div className="flex-1 min-w-0">
-                            <div className="font-medium text-sm text-foreground truncate">
-                              {customer.title}
-                            </div>
-                            {customer.location && (
-                              <div className="text-xs text-muted-foreground truncate">
-                                {customer.location}
-                              </div>
-                            )}
-                            {customer.industry && (
-                              <Badge variant="outline" className="text-xs mt-1">
-                                {customer.industry}
-                              </Badge>
-                            )}
+            {hasCustomers && (
+              <TabsContent value="customers" className="mt-0">
+                {isLoadingCustomers ? (
+                  <p className="text-sm text-muted-foreground">Loading customers…</p>
+                ) : customersData.length > 0 ? (
+                  <ul className="grid gap-x-8 sm:grid-cols-2">
+                    {customersData.map((customer) => (
+                      <li key={customer.code} className="flex items-center gap-3 border-b border-border py-3">
+                        {customer.logoPath && (
+                          <div className="logo-plate h-11 w-11 flex-none p-1">
+                            <img
+                              loading="lazy"
+                              decoding="async"
+                              src={customer.logoPath}
+                              alt={`${customer.title} logo`}
+                              className="logo-plate-img"
+                              onError={(e) => {
+                                // Try with /src/assets/ prefix for development fallback
+                                const currentSrc = e.currentTarget.src;
+                                if (currentSrc.includes('/assets/') && !currentSrc.includes('/src/assets/')) {
+                                  e.currentTarget.src = currentSrc.replace('/assets/', '/src/assets/');
+                                } else {
+                                  // Hide image if it fails to load
+                                  e.currentTarget.style.display = 'none';
+                                }
+                              }}
+                            />
                           </div>
+                        )}
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-[15px] leading-6 text-foreground">{customer.title}</p>
+                          {(customer.location || customer.industry) && (
+                            <p className="truncate text-[13px] leading-5 text-faint">
+                              {[customer.location, customer.industry].filter(Boolean).join(' · ')}
+                            </p>
+                          )}
                         </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <Card>
-                      <CardContent className="p-8 text-center">
-                        <Building2 className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                        <p className="text-muted-foreground">No customer information available.</p>
-                      </CardContent>
-                    </Card>
-                  )}
-                </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-sm text-muted-foreground">No customer information available.</p>
+                )}
               </TabsContent>
             )}
 
-            <TabsContent value="team" className="space-y-6 min-h-[400px] h-full overflow-y-auto">
-              <div className="p-4">
+            <TabsContent value="team" className="mt-0">
+              {teamMembers.length > 0 ? (
+                <ul className="grid gap-x-8 sm:grid-cols-2">
+                  {teamMembers.map((member, index) => {
+                    // Find LinkedIn contact if available
+                    const linkedinContact = member.person?.contacts?.find(
+                      contact => contact.code === 'linkedin'
+                    );
+                    const name = member.person?.title || member.personCode;
+                    const openPerson = () => {
+                      if (member.person) {
+                        setSelectedPerson(member.person);
+                        setIsPeopleDialogOpen(true);
+                      }
+                    };
 
-                {teamMembers.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {teamMembers.map((member, index) => {
-                      // Find LinkedIn contact if available
-                      const linkedinContact = member.person?.contacts?.find(
-                        contact => contact.code === 'linkedin'
-                      );
-                      
-                      return (
-                        <div 
-                          key={member.personCode || index} 
-                          className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 hover:shadow-md transition-all duration-200 hover:border-primary/50 border border-transparent"
-                          onClick={() => {
-                            if (member.person) {
-                              setSelectedPerson(member.person);
-                              setIsPeopleDialogOpen(true);
+                    return (
+                      <li key={member.personCode || index} className="border-b border-border py-1">
+                        <div
+                          role={member.person ? 'button' : undefined}
+                          tabIndex={member.person ? 0 : undefined}
+                          className={cn(rowButton, '-mx-2 w-[calc(100%+1rem)]', member.person ? 'cursor-pointer' : 'cursor-default hover:bg-transparent')}
+                          onClick={openPerson}
+                          onKeyDown={(e) => {
+                            if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) {
+                              e.preventDefault();
+                              openPerson();
                             }
                           }}
                         >
                           {member.person?.photoUrl ? (
-                            <div className="w-10 h-10 flex-shrink-0 relative">
-                              <img loading="lazy" decoding="async"
+                            <div className="h-10 w-10 flex-none">
+                              <img
+                                loading="lazy"
+                                decoding="async"
                                 src={member.person.photoUrl}
                                 alt={member.person.title}
-                                className="w-full h-full object-cover rounded-full border-2 border-primary/20"
+                                className="print-photo h-full w-full rounded-full object-cover"
                                 onError={(e) => {
                                   // Replace with fallback User icon if image fails to load
                                   const parent = e.currentTarget.parentElement;
                                   if (parent) {
-                                    parent.innerHTML = '<div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>';
+                                    parent.innerHTML = '<div class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-faint"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>';
                                   }
                                 }}
                               />
                             </div>
                           ) : (
-                            <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                              <User className="w-5 h-5 text-primary" />
+                            <div className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-secondary text-faint">
+                              <User className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
                             </div>
                           )}
-                          <div className="flex-1">
-                            <div className="font-medium">
-                              {member.person?.title || member.personCode}
-                            </div>
-                            <div className="text-sm text-muted-foreground">{member.position}</div>
+                          <div className="min-w-0 flex-1">
+                            <p className="truncate text-[15px] font-medium leading-6 text-foreground">{name}</p>
+                            <p className="truncate text-[13px] leading-5 text-muted-foreground">{member.position}</p>
                           </div>
                           {linkedinContact?.value && (
                             <a
                               href={linkedinContact.value}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
-                              title="LinkedIn Profile"
+                              className="flex h-8 w-8 flex-none items-center justify-center rounded-md text-faint transition-colors duration-150 ease-dossier hover:bg-secondary-hover hover:text-foreground"
+                              title="LinkedIn profile"
+                              aria-label={`${name} on LinkedIn`}
                               onClick={(e) => e.stopPropagation()}
                             >
-                              <Linkedin className="w-4 h-4" />
+                              <Linkedin className="h-4 w-4" strokeWidth={1.5} />
                             </a>
                           )}
                         </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <p className="text-muted-foreground">No team information available.</p>
-                )}
-              </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : (
+                <p className="text-sm text-muted-foreground">No team information available.</p>
+              )}
             </TabsContent>
 
             {/* Partners Tab */}
             {partners.length > 0 && (
-              <TabsContent value="partners" className="space-y-3 min-h-[400px] h-full overflow-y-auto">
-                <div className="px-4 py-2">
-                  <div className="space-y-3">
-                    {partners.map((partner) => {
-                      const company = partnerCompanies[partner.code || ''];
-                      const logoPath = company?.photoUrl || "";
-                      
-                      return (
-                        <Card 
-                          key={partner.code}
-                          className="cursor-pointer hover:shadow-md transition-all duration-200 hover:border-primary/50"
+              <TabsContent value="partners" className="mt-0">
+                <ul className="max-w-3xl">
+                  {partners.map((partner) => {
+                    const company = partnerCompanies[partner.code || ''];
+                    return (
+                      <li key={partner.code} className="border-b border-border py-1">
+                        <button
+                          type="button"
+                          className={cn(rowButton, '-mx-2 w-[calc(100%+1rem)] items-start py-3')}
                           onClick={() => {
                             setSelectedPartner(partner);
                             setIsPartnerDialogOpen(true);
                           }}
                         >
-                          <CardContent className="p-4">
-                            <div className="flex items-start gap-4">
-                              {logoPath && (
-                                <div className="w-12 h-12 flex-shrink-0 bg-background rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                  <img loading="lazy" decoding="async" 
-                                    src={logoPath} 
-                                    alt={`${company?.title} logo`} 
-                                    className="w-full h-full object-contain p-1"
-                                    onError={(e) => {
-                                      e.currentTarget.style.display = 'none';
-                                    }}
-                                  />
-                                </div>
-                              )}
-                              <div className="flex-1 min-w-0">
-                                <h3 className="font-semibold text-foreground mb-1">
-                                  {company?.title || partner.code}
-                                </h3>
-                                {partner.description && (
-                                  <CardDescription className="text-sm line-clamp-2">
-                                    {partner.description}
-                                  </CardDescription>
-                                )}
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      );
-                    })}
-                  </div>
-                </div>
+                          <LogoPlate
+                            src={company?.photoUrl || undefined}
+                            alt={`${company?.title || partner.code} logo`}
+                            className="h-12 w-12 flex-none p-1"
+                          />
+                          <span className="min-w-0 flex-1">
+                            <span className="block text-[15px] font-medium leading-6 text-foreground">
+                              {company?.title || partner.code}
+                            </span>
+                            {partner.description && (
+                              <span className="mt-0.5 line-clamp-2 block text-sm leading-[22px] text-muted-foreground">
+                                {partner.description}
+                              </span>
+                            )}
+                          </span>
+                          <ArrowUpRight className="mt-1 h-4 w-4 flex-none text-faint transition-colors duration-150 group-hover:text-foreground" strokeWidth={1.5} aria-hidden="true" />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
               </TabsContent>
             )}
 
-            {/* Screenshots Tab */}
+            {/* Screenshots Tab: the gallery, every screenshot as a captioned plate */}
             {screenshots.length > 0 && (
-              <TabsContent value="screenshots" className="h-full overflow-y-auto">
+              <TabsContent value="screenshots" className="mt-0">
                 <ListViewer<ScreenshotItem>
                   data={screenshots}
                   defaultViewMode="card"
                   enabledModes={['card', 'list']}
                   fieldMapping={{
                     code: (item) => item.file_small || item.file_big || `screenshot-${screenshots.indexOf(item)}`,
-                    title: (item) => item.title || `Screenshot ${screenshots.indexOf(item) + 1}`,
-                    image: (item) => item.file_small || item.file_big || '/placeholder.svg',
+                    title: (item) => screenshotTitle(item),
+                    image: (item) => screenshotSrc(item),
                     description: (item) => item.title ? '' : 'Click to view full size',
                   }}
                   gridCols={{ sm: 1, md: 2, lg: 3 }}
-                  onItemClick={(screenshot) => {
-                    const index = screenshots.indexOf(screenshot);
-                    setCurrentScreenshotIndex(index);
-                    setSelectedScreenshot(screenshot.file_big || screenshot.file_small || '');
-                    setIsScreenshotFullscreen(true);
-                  }}
+                  onItemClick={(screenshot) => openScreenshot(screenshots.indexOf(screenshot))}
                   renderCardContent={(screenshot) => (
-                    <div className="cursor-pointer group">
-                      <div className="relative aspect-video bg-muted overflow-hidden">
-                        <img loading="lazy" decoding="async" 
-                          src={screenshot.file_small || screenshot.file_big || '/placeholder.svg'} 
-                          alt={screenshot.title || 'Screenshot'}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                    <figure className="group p-3">
+                      <div className="work-plate aspect-[16/10] w-full p-1.5">
+                        <img
+                          loading="lazy"
+                          decoding="async"
+                          src={screenshotSrc(screenshot)}
+                          alt={screenshotTitle(screenshot)}
+                          className="h-full w-full object-contain"
                           onError={(e) => {
                             e.currentTarget.src = '/placeholder.svg';
                           }}
                         />
-                        {screenshot.title && (
-                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-2">
-                            <p className="text-white text-xs line-clamp-1">{screenshot.title}</p>
-                          </div>
-                        )}
                       </div>
-                    </div>
+                      <figcaption className="mt-3 flex gap-2 text-[13px] leading-5">
+                        <span className="tnum flex-none font-medium text-foreground">Fig. {screenshots.indexOf(screenshot) + 1}</span>
+                        <span className="line-clamp-2 text-muted-foreground">{screenshot.title || 'Click to view full size'}</span>
+                      </figcaption>
+                    </figure>
                   )}
                   renderListContent={(screenshot) => (
-                    <div className="flex items-center gap-4 cursor-pointer">
-                      <div className="w-32 h-20 flex-shrink-0 bg-muted rounded overflow-hidden">
-                        <img loading="lazy" decoding="async" 
-                          src={screenshot.file_small || screenshot.file_big || '/placeholder.svg'} 
-                          alt={screenshot.title || 'Screenshot'}
-                          className="w-full h-full object-cover"
+                    <figure className="group flex items-center gap-4 p-3">
+                      <div className="work-plate h-20 w-32 flex-none p-1">
+                        <img
+                          loading="lazy"
+                          decoding="async"
+                          src={screenshotSrc(screenshot)}
+                          alt={screenshotTitle(screenshot)}
+                          className="h-full w-full object-contain"
                           onError={(e) => {
                             e.currentTarget.src = '/placeholder.svg';
                           }}
                         />
                       </div>
-                      <div className="flex-1">
-                        <h4 className="font-semibold text-sm">
-                          {screenshot.title || `Screenshot ${screenshots.indexOf(screenshot) + 1}`}
-                        </h4>
-                        <p className="text-xs text-muted-foreground mt-1">Click to view full size</p>
-                      </div>
-                    </div>
+                      <figcaption className="min-w-0 flex-1">
+                        <p className="text-[15px] leading-6 text-foreground">{screenshotTitle(screenshot)}</p>
+                        <p className="work-caption mt-0.5">
+                          Fig. {screenshots.indexOf(screenshot) + 1}
+                          <span className="px-1.5" aria-hidden="true">·</span>
+                          Click to view full size
+                        </p>
+                      </figcaption>
+                    </figure>
                   )}
                 />
               </TabsContent>
@@ -882,123 +901,65 @@ const ProjectDetailDialog: React.FC<ProjectDetailDialogProps> = ({
         </Tabs>
       </DialogContent>
 
-      {/* Fullscreen Screenshot Modal */}
+      {/* Full size screenshot: a plate on the paper with its caption and next/back */}
       {isScreenshotFullscreen && selectedScreenshot && (
         <Dialog open={isScreenshotFullscreen} onOpenChange={setIsScreenshotFullscreen}>
-          <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-black/95">
-            <div className="relative w-full h-full flex flex-col items-center justify-center">
-              {/* Project Info at Top */}
-              {project && (
-                <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 via-black/60 to-transparent p-6 pb-12 z-10">
-                  <div className="flex flex-col items-center justify-center gap-3">
-                    <div className="flex items-center gap-4">
-                      {projectIcon && (
-                        <div className="w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-white/10 border border-white/20">
-                          <img loading="lazy" decoding="async" 
-                            src={projectIcon} 
-                            alt={project.title}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              e.currentTarget.src = '/placeholder.svg';
-                            }}
-                          />
-                        </div>
-                      )}
-                      <h2 className="text-white text-2xl font-bold">
-                        {project.title}
-                      </h2>
-                    </div>
-                    {/* Company and Date Range */}
-                    <div className="flex items-center gap-3 text-white/80 text-sm">
-                      {companyName && (
-                        <div className="flex items-center gap-2">
-                          <Building2 className="w-4 h-4" />
-                          <span>{companyName}</span>
-                        </div>
-                      )}
-                      {project.datePeriod && (project.datePeriod.startDate || project.datePeriod.endDate) && (
-                        <>
-                          {companyName && <span className="text-white/40">•</span>}
-                          <div className="flex items-center gap-2">
-                            <Clock className="w-4 h-4" />
-                            <span>
-                              {project.datePeriod.startDate || '...'}
-                              {' - '}
-                              {project.datePeriod.endDate || 'Present'}
-                            </span>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
+          <DialogContent className="flex h-[95vh] max-h-[95vh] w-[95vw] max-w-[95vw] flex-col gap-0 overflow-hidden p-0">
+            <DialogHeader className="flex-none flex-row items-center gap-3 space-y-0 border-b border-border px-5 py-4 pr-16 text-left">
+              {logo && <ProjectLogo src={logo} alt="" className="h-10 w-10 flex-none p-1" />}
+              <div className="min-w-0">
+                <DialogTitle className="truncate text-xl leading-7">{project.title}</DialogTitle>
+                <DialogDescription className="tnum truncate text-[13px] leading-5 text-faint">
+                  {[companyName, period].filter(Boolean).join(' · ')}
+                </DialogDescription>
+              </div>
+            </DialogHeader>
 
-              {/* Close Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsScreenshotFullscreen(false)}
-                className="absolute top-4 right-4 z-20 h-10 w-10 rounded-full bg-black/50 hover:bg-black/70 text-white"
-              >
-                <Minimize2 className="h-6 w-6" />
-              </Button>
-
-              {/* Previous Button */}
-              {screenshots.length > 1 && currentScreenshotIndex > 0 && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => {
-                    const newIndex = currentScreenshotIndex - 1;
-                    setCurrentScreenshotIndex(newIndex);
-                    setSelectedScreenshot(screenshots[newIndex].file_big || screenshots[newIndex].file_small || '');
-                  }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-black/50 hover:bg-black/70 text-white"
-                >
-                  <ChevronLeft className="h-8 w-8" />
-                </Button>
-              )}
-
-              {/* Next Button */}
-              {screenshots.length > 1 && currentScreenshotIndex < screenshots.length - 1 && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => {
-                    const newIndex = currentScreenshotIndex + 1;
-                    setCurrentScreenshotIndex(newIndex);
-                    setSelectedScreenshot(screenshots[newIndex].file_big || screenshots[newIndex].file_small || '');
-                  }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-black/50 hover:bg-black/70 text-white"
-                >
-                  <ChevronRight className="h-8 w-8" />
-                </Button>
-              )}
-
-              {/* Image */}
-              <img loading="lazy" decoding="async" 
-                src={selectedScreenshot} 
-                alt="Full screen screenshot"
-                className="max-w-full max-h-[75vh] object-contain"
+            <div className="flex min-h-0 flex-1 items-center justify-center bg-background p-4 sm:p-8">
+              <img
+                decoding="async"
+                src={selectedScreenshot}
+                alt={screenshots[currentScreenshotIndex] ? screenshotTitle(screenshots[currentScreenshotIndex]) : 'Screenshot'}
+                className="max-h-full max-w-full border border-border object-contain"
                 onClick={(e) => e.stopPropagation()}
               />
+            </div>
 
-              {/* Screenshot Title and Counter */}
-              {(screenshots[currentScreenshotIndex]?.title || screenshots.length > 1) && (
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent p-6 pt-12">
-                  <div className="text-center">
-                    {screenshots[currentScreenshotIndex]?.title && (
-                      <h3 className="text-white text-xl font-semibold mb-2">
-                        {screenshots[currentScreenshotIndex].title}
-                      </h3>
-                    )}
-                    {screenshots.length > 1 && (
-                      <p className="text-white/70 text-sm">
-                        {currentScreenshotIndex + 1} / {screenshots.length}
-                      </p>
-                    )}
-                  </div>
+            <div className="flex flex-none items-center gap-4 border-t border-border px-5 py-3">
+              <p className="min-w-0 flex-1 text-sm leading-5">
+                <span className="tnum font-medium text-foreground">
+                  Fig. {currentScreenshotIndex + 1}
+                  {screenshots.length > 1 && <span className="font-normal text-faint"> of {screenshots.length}</span>}
+                </span>
+                {screenshots[currentScreenshotIndex]?.title && (
+                  <>
+                    <span className="px-2 text-faint" aria-hidden="true">·</span>
+                    <span className="text-muted-foreground">{screenshots[currentScreenshotIndex].title}</span>
+                  </>
+                )}
+              </p>
+              {screenshots.length > 1 && (
+                <div className="flex flex-none gap-2">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-9 w-9"
+                    onClick={() => stepScreenshot(-1)}
+                    disabled={currentScreenshotIndex === 0}
+                    aria-label="Previous screenshot"
+                  >
+                    <ChevronLeft strokeWidth={1.5} />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-9 w-9"
+                    onClick={() => stepScreenshot(1)}
+                    disabled={currentScreenshotIndex === screenshots.length - 1}
+                    aria-label="Next screenshot"
+                  >
+                    <ChevronRight strokeWidth={1.5} />
+                  </Button>
                 </div>
               )}
             </div>

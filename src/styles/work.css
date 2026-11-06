@@ -1,87 +1,318 @@
-/* Portfolio, project dialog, case studies and the standalone pages.
-   Owned by the work pass. Moved verbatim from index.css (Midnight Aurora); restyle for the dossier. */
+/* Portfolio, project dialog, case studies and the standalone pages (404, privacy policy).
+   Owned by the work pass. Dossier: plates and captions as in print, rules instead of cards. */
 @layer components {
-  /* ---------- Portfolio Card Hover Effects ---------- */
-  .portfolio-card {
+  /* ---------- Printed plate: a picture mounted on the page inside a hairline frame ---------- */
+  .work-plate {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid hsl(var(--border));
+    border-radius: 2px;
+    background: hsl(var(--background));
+    transition: border-color 150ms var(--ease);
   }
 
-  .portfolio-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
+  /* :where keeps this at class weight, so size utilities on the image still apply */
+  .work-plate > :where(img) {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  /* Logos are multiplied into the paper, so a logo drawn on a white box reads as printed */
+  .work-plate-logo {
+    mix-blend-mode: multiply;
+  }
+
+  /* White-on-transparent logos (src/lib/logos.ts) print on an ink plate, as .logo-plate.is-ink does */
+  .work-plate.is-ink,
+  .group:hover .work-plate.is-ink {
+    border-color: hsl(var(--foreground));
+    background: hsl(var(--foreground));
+  }
+
+  .work-plate.is-ink .work-plate-logo {
+    mix-blend-mode: normal;
+  }
+
+  .group:hover .work-plate,
+  .group:focus-visible .work-plate {
+    border-color: hsl(var(--input));
+  }
+
+  /* Caption line under a plate: who, when, what, in tabular figures */
+  .work-caption {
+    font-size: 13px;
+    line-height: 20px;
+    color: hsl(var(--faint));
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Small heading over a group inside a sheet: an ink rule, then the label */
+  .sheet-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding-top: 12px;
+    margin-bottom: 12px;
+    border-top: 1px solid hsl(var(--foreground));
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+  }
+
+  /* Running text from the data files (project descriptions with <br>, <b> and links) */
+  .sheet-prose {
+    max-width: 68ch;
+    font-size: 15px;
+    line-height: 26px;
+    color: hsl(var(--foreground));
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  .sheet-prose b,
+  .sheet-prose strong {
+    font-weight: 600;
+  }
+
+  .sheet-prose a,
+  .feature-body a,
+  .doc a {
+    color: hsl(var(--foreground));
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: hsl(var(--foreground) / 0.3);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 150ms var(--ease);
+  }
+
+  .sheet-prose a:hover,
+  .feature-body a:hover,
+  .doc a:hover {
+    text-decoration-color: hsl(var(--foreground));
+  }
+
+  /* ---------- Long-form feature: the case study pages ---------- */
+  .feature-title {
+    margin-left: -2px; /* optical: the serif's side bearing */
+    font-family: theme("fontFamily.serif");
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 52px;
+    line-height: 56px;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .feature-dek {
+    font-family: theme("fontFamily.serif");
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 32px;
+    color: hsl(var(--muted-foreground));
+    text-wrap: pretty;
+  }
+
+  .feature-body {
+    max-width: 68ch;
+    font-size: 17px;
+    line-height: 28px;
+    color: hsl(var(--foreground));
+    text-wrap: pretty;
+  }
+
+  .feature-body h2 {
+    margin-top: 48px;
+    margin-bottom: 16px;
+    font-family: theme("fontFamily.serif");
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .feature-body > section:first-child > h2 {
+    margin-top: 0;
+  }
+
+  .feature-body p + p,
+  .feature-body p + ul,
+  .feature-body p + ol {
+    margin-top: 20px;
+  }
+
+  .feature-body ul,
+  .feature-body ol {
+    display: grid;
+    gap: 10px;
+    padding-inline-start: 24px;
+  }
+
+  .feature-body ul {
+    list-style: disc;
+  }
+
+  .feature-body ol {
+    list-style: decimal;
+  }
+
+  .feature-body li::marker {
+    color: hsl(var(--faint));
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Lists that are not running text: the technology labels and the links */
+  .feature-body .feature-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-inline-start: 0;
+    list-style: none;
+  }
+
+  .feature-body .feature-links {
+    gap: 4px;
+    padding-inline-start: 0;
+    list-style: none;
+  }
+
+  /* ---------- Plain document: the privacy policy, set from Markdown ---------- */
+  .doc {
+    font-size: 17px;
+    line-height: 28px;
+    color: hsl(var(--foreground));
+    text-wrap: pretty;
+  }
+
+  .doc h1 {
+    margin-bottom: 8px;
+    font-family: theme("fontFamily.serif");
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 48px;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .doc h2 {
+    margin-top: 40px;
+    margin-bottom: 12px;
+    padding-top: 16px;
+    border-top: 1px solid hsl(var(--border));
+    font-size: 19px;
+    line-height: 28px;
+    font-weight: 500;
+  }
+
+  .doc h3 {
+    margin-top: 28px;
+    margin-bottom: 8px;
+    font-size: 17px;
+    line-height: 28px;
+    font-weight: 500;
+  }
+
+  .doc p + p,
+  .doc p + ul,
+  .doc p + ol,
+  .doc ul + p,
+  .doc ol + p {
+    margin-top: 16px;
+  }
+
+  .doc ul,
+  .doc ol {
+    display: grid;
+    gap: 8px;
+    padding-inline-start: 24px;
+  }
+
+  .doc ul {
+    list-style: disc;
+  }
+
+  .doc ol {
+    list-style: decimal;
+  }
+
+  .doc li::marker {
+    color: hsl(var(--faint));
+  }
+
+  .doc strong,
+  .doc b {
+    font-weight: 600;
+  }
+
+  /* The "Last updated" line is set in italics in the Markdown; here it is quiet meta */
+  .doc em {
+    font-style: normal;
+    font-size: 14px;
+    color: hsl(var(--faint));
+    font-variant-numeric: tabular-nums;
+  }
+
+  .doc hr {
+    margin: 40px 0;
+    border: 0;
+    border-top: 1px solid hsl(var(--border));
+  }
+
+  .doc table {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), hsl(var(--accent) / 0.1), transparent);
-    transition: left 0.6s ease;
-    z-index: 1;
+    margin-top: 16px;
+    border-collapse: collapse;
+    font-size: 15px;
+    line-height: 24px;
   }
 
-  .portfolio-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(45deg, transparent, hsl(var(--primary) / 0.35), hsl(var(--accent) / 0.25), transparent);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
-    -webkit-mask-composite: xor;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: 0;
+  .doc th,
+  .doc td {
+    padding: 8px 12px 8px 0;
+    border-bottom: 1px solid hsl(var(--border));
+    text-align: start;
+    vertical-align: top;
   }
 
-  .portfolio-card:hover::before {
-    left: 100%;
+  .doc th {
+    font-weight: 500;
   }
 
-  .portfolio-card:hover::after {
-    opacity: 1;
-  }
-
-  .portfolio-card:hover {
-    transform: translateY(-8px);
-    box-shadow:
-      0 25px 50px -12px hsl(var(--primary) / 0.25),
-      0 0 0 1px hsl(var(--primary) / 0.1),
-      inset 0 1px 0 hsl(var(--primary) / 0.1);
-  }
-
-  .portfolio-glow-pulse:hover {
-    animation: portfolio-glow-pulse 1.5s ease-in-out;
-  }
-
-  @keyframes portfolio-glow-pulse {
-    0%, 100% {
-      box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
-    }
-    50% {
-      box-shadow: 0 0 40px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--accent) / 0.2);
+  @media (max-width: 1023px) {
+    .feature-title {
+      font-size: 44px;
+      line-height: 48px;
     }
   }
 
-  .portfolio-light-streak {
-    position: relative;
-  }
+  @media (max-width: 767px) {
+    .feature-title {
+      font-size: 34px;
+      line-height: 40px;
+    }
 
-  .portfolio-light-streak::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.15), transparent);
-    transition: left 0.5s ease;
-    z-index: 1;
-    pointer-events: none;
-  }
+    .feature-dek {
+      font-size: 19px;
+      line-height: 28px;
+    }
 
-  .portfolio-light-streak:hover::after {
-    left: 100%;
+    .feature-body h2 {
+      margin-top: 40px;
+      font-size: 24px;
+      line-height: 30px;
+    }
+
+    .doc h1 {
+      font-size: 34px;
+      line-height: 40px;
+    }
   }
 }

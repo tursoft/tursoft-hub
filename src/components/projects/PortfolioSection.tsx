@@ -2,14 +2,35 @@ import { useState, useEffect } from 'react';
 import { useSnapshotState } from '@/hooks/use-snapshot-state';
 import ProjectDetailDialog from './ProjectDetailDialog';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
+import { companiesRepo } from '@/repositories/CompaniesRepo';
 import type { ProjectEntry } from '@/models/Project';
+import type { Company } from '@/models/Companies';
 import ListViewer from '@/components/ui/listviewer';
 import AnimatedCounter from '@/components/ui/animated-counter';
+import SectionHeader from '@/components/SectionHeader';
+import ProjectLogo from './ProjectLogo';
 
 interface ProjectWithIcon extends ProjectEntry {
   icon: string;
   formattedYears: string;
+  companyName: string;
 }
+
+/** Years only, "2015 – 2019", or one year when the project starts and ends in it (or has no end). */
+const formatDateToYears = (datePeriod: { startDate?: string; endDate?: string | null } | undefined) => {
+  if (!datePeriod?.startDate) return '';
+  const startYear = datePeriod.startDate.split('.')[2];
+  if (!datePeriod.endDate) return startYear;
+  const endYear = datePeriod.endDate.split('.')[2];
+  return startYear === endYear ? startYear : `${startYear} – ${endYear}`;
+};
+
+/** Summaries come from the data files with <br/> tags; a card shows them as one paragraph. */
+const inlineSummary = (html = '') => html.replace(/<br\s*\/?>/gi, ' ');
+
+/** Data-driven summaries may carry target=_blank links; make sure they carry rel=noopener. */
+const withSafeLinks = (html: string) =>
+  html.replace(/<a\s(?![^>]*\brel=)([^>]*target=['"]_blank['"][^>]*)>/gi, '<a rel="noopener noreferrer" $1>');
 
 const PortfolioSection = () => {
   const [projects, setProjects] = useSnapshotState<ProjectWithIcon[]>('portfolio.projects', []);
@@ -17,47 +38,33 @@ const PortfolioSection = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectEntry | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [categoryOrder, setCategoryOrder] = useSnapshotState<string[]>('portfolio.categoryOrder', []);
-
-  // Helper function to format date period to years only
-  const formatDateToYears = (datePeriod: { startDate?: string; endDate?: string } | undefined) => {
-    if (!datePeriod?.startDate) return '';
-    
-    const startYear = datePeriod.startDate.split('.')[2];
-    
-    if (!datePeriod.endDate) {
-      return startYear;
-    }
-    
-    const endYear = datePeriod.endDate.split('.')[2];
-    
-    if (startYear === endYear) {
-      return startYear;
-    }
-    
-    return `${startYear} - ${endYear}`;
-  };
+  const [categoryLabels, setCategoryLabels] = useSnapshotState<Record<string, string>>('portfolio.categoryLabels', {});
 
   // Load project data
   useEffect(() => {
     const loadData = async () => {
       try {
-        // Load full data to get groups with orderIndex
-        const fullData = await projectsRepo.getFullData();
-        const data = await projectsRepo.getList();
+        // Full data for the groups (order and names), companies for the caption lines
+        const [fullData, data, companies] = await Promise.all([
+          projectsRepo.getFullData(),
+          projectsRepo.getList(),
+          companiesRepo.getList().catch((): Company[] => []),
+        ]);
 
-        // Sort groups by orderIndex and extract their codes
         if (fullData?.general?.groups) {
-          const sortedGroups = [...fullData.general.groups]
-            .sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0))
-            .map(group => group.code);
-          setCategoryOrder(sortedGroups);
+          const sortedGroups = [...fullData.general.groups].sort((a, b) => (a.orderIndex || 0) - (b.orderIndex || 0));
+          setCategoryOrder(sortedGroups.map((group) => group.code));
+          setCategoryLabels(Object.fromEntries(sortedGroups.map((group) => [group.code, group.title || group.code])));
         }
 
-        // Process projects with icons and formatted years
+        const companyNames = new Map<string, string>(
+          companies.map((company): [string, string] => [(company.code || '').toLowerCase(), company.title]),
+        );
         const processedProjects = data.map((project) => ({
           ...project,
           icon: project.photoUrl || '',
           formattedYears: formatDateToYears(project.datePeriod),
+          companyName: companyNames.get((project.companyCode || '').toLowerCase()) || project.companyCode || '',
         }));
 
         setProjects(processedProjects);
@@ -70,50 +77,117 @@ const PortfolioSection = () => {
     };
 
     loadData();
-  }, [setCategoryOrder, setIsLoading, setProjects]);
+  }, [setCategoryLabels, setCategoryOrder, setIsLoading, setProjects]);
 
   // Get unique groups for statistics
-  const groups = [...new Set(projects.map(p => p.group).filter(Boolean))];
+  const groups = [...new Set(projects.map((p) => p.group).filter(Boolean))];
 
-  // Handle project click
   const handleProjectClick = (project: ProjectWithIcon) => {
     setSelectedProject(project);
     setIsDialogOpen(true);
   };
 
+  const groupLabel = (project: ProjectWithIcon) => (project.group ? categoryLabels[project.group] || project.group : '');
+
+  /**
+   * Company, years and category on one quiet line, like the caption under a printed plate.
+   * Each separator travels with the part after it, so a wrapped line never ends on a dot.
+   */
+  const captionLine = (project: ProjectWithIcon) =>
+    [project.companyName, project.formattedYears, groupLabel(project)].filter(Boolean).map((part, i) =>
+      i === 0 ? (
+        <span key={i}>{part}</span>
+      ) : (
+        <span key={i} className="whitespace-nowrap">
+          <span className="px-1.5" aria-hidden="true">·</span>
+          <span className="sr-only">, </span>
+          {part}
+        </span>
+      ),
+    );
+
+  /** The project's logo, mounted on the paper inside a hairline frame. */
+  const renderPlate = (project: ProjectWithIcon, className: string) => (
+    <ProjectLogo src={project.icon} alt={`${project.title} logo`} className={className} />
+  );
+
+  const renderSummary = (project: ProjectWithIcon, className: string) =>
+    project.summary ? (
+      <p className={className} dangerouslySetInnerHTML={{ __html: withSafeLinks(inlineSummary(project.summary)) }} />
+    ) : null;
+
+  const renderCard = (project: ProjectWithIcon) => (
+    <figure className="group flex h-full flex-col p-4">
+      {renderPlate(project, 'aspect-[2/1] w-full p-6 sm:aspect-[3/2] sm:p-8')}
+      <figcaption className="mt-4 flex flex-1 flex-col">
+        <h3 className="text-[17px] font-medium leading-6 text-foreground [text-wrap:balance]">{project.title}</h3>
+        <p className="work-caption mt-1">{captionLine(project)}</p>
+        {renderSummary(project, 'mt-3 line-clamp-3 text-sm leading-[22px] text-muted-foreground')}
+      </figcaption>
+    </figure>
+  );
+
+  const renderListRow = (project: ProjectWithIcon) => (
+    <figure className="group flex gap-4 p-4 sm:gap-6">
+      {renderPlate(project, 'aspect-[4/3] w-24 flex-none p-3 sm:w-32 sm:p-4')}
+      <figcaption className="min-w-0 flex-1">
+        <h3 className="text-[17px] font-medium leading-6 text-foreground">{project.title}</h3>
+        <p className="work-caption mt-1">{captionLine(project)}</p>
+        {renderSummary(project, 'mt-2 line-clamp-3 max-w-[68ch] text-sm leading-[22px] text-muted-foreground')}
+      </figcaption>
+    </figure>
+  );
+
+  const renderCarouselCard = (project: ProjectWithIcon) => (
+    <figure className="group flex h-full flex-col p-5">
+      {renderPlate(project, 'aspect-[3/2] w-full p-10')}
+      <figcaption className="mt-4 flex min-h-0 flex-1 flex-col">
+        <h3 className="text-lg font-medium leading-7 text-foreground [text-wrap:balance]">{project.title}</h3>
+        <p className="work-caption mt-1">{captionLine(project)}</p>
+        {renderSummary(project, 'mt-3 line-clamp-4 text-sm leading-[22px] text-muted-foreground')}
+      </figcaption>
+    </figure>
+  );
+
   return (
-    <section id="portfolio" className="py-20 bg-background/50">
-      <div className="container mx-auto px-4">
+    <section id="portfolio" className="py-16 lg:py-24">
+      <div className="container">
+        <SectionHeader
+          id="portfolio"
+          title="Software projects, from enterprise systems to AI-native products"
+          description="Delivered and managed over 25 years, from national-scale healthcare systems to AI-native SaaS products. Open a project for its screenshots, team, customers and technology."
+          aside={
+            !isLoading && (
+            <dl className="flex gap-8 text-left md:gap-10">
+              <div className="flex flex-col-reverse">
+                <dt className="text-[13px] leading-5 text-faint">Projects</dt>
+                <dd className="tnum font-serif text-[32px] leading-10 text-foreground">
+                  <AnimatedCounter end={projects.length} suffix="+" />
+                </dd>
+              </div>
+              <div className="flex flex-col-reverse">
+                <dt className="text-[13px] leading-5 text-faint">Categories</dt>
+                <dd className="tnum font-serif text-[32px] leading-10 text-foreground">
+                  <AnimatedCounter end={groups.length} />
+                </dd>
+              </div>
+              <div className="flex flex-col-reverse">
+                <dt className="text-[13px] leading-5 text-faint">Technologies</dt>
+                <dd className="tnum font-serif text-[32px] leading-10 text-foreground">
+                  <AnimatedCounter end={50} suffix="+" />
+                </dd>
+              </div>
+            </dl>
+            )
+          }
+        />
+
         {/* listviewer with built-in filters */}
         <ListViewer<ProjectWithIcon>
           data={projects}
           isLoading={isLoading}
-          loadingMessage="Loading projects..."
-          emptyMessage="No projects found."
-          title='Software Projects:<span class="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Enterprise Systems and AI-Native Products</span>'
-          subtitle="A showcase of innovative solutions and successful implementations across various domains and technologies"
-          summary={
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 text-center">
-              <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  <AnimatedCounter end={projects.length} suffix="+" />
-                </div>
-                <div className="text-sm text-muted-foreground">Total Projects</div>
-              </div>
-              <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  <AnimatedCounter end={groups.length} />
-                </div>
-                <div className="text-sm text-muted-foreground">Categories</div>
-              </div>
-              <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  <AnimatedCounter end={50} suffix="+" />
-                </div>
-                <div className="text-sm text-muted-foreground">Technologies</div>
-              </div>
-            </div>
-          }
+          loadingMessage="Loading projects…"
+          emptyMessage="No projects found"
           defaultViewMode="card"
           enabledModes={['card', 'list', 'carousel']}
           enableShowMore={true}
@@ -121,20 +195,24 @@ const PortfolioSection = () => {
           enableCategoryFilter={true}
           categoryField="group"
           categoryOrder={categoryOrder}
+          categoryLabels={categoryLabels}
           enableSearch={true}
-          searchFields={['title', 'summary', 'group']}
-          searchPlaceholder="Search projects, technologies, or categories..."
+          searchFields={['title', 'summary', 'group', 'companyName']}
+          searchPlaceholder="Search projects"
           fieldMapping={{
             code: 'code',
             title: 'title',
-            subtitle: (project) => project.companyCode || '',
+            subtitle: (project) => project.companyName || project.companyCode || '',
             description: (project) => project.summary || '',
             image: 'icon',
-            badge: 'group',
+            badge: (project) => groupLabel(project),
             date: 'formattedYears',
-            actions: [
-            ],
+            actions: [],
           }}
+          renderCardContent={renderCard}
+          renderListContent={renderListRow}
+          renderCarouselContent={renderCarouselCard}
+          carouselLabel="Projects"
           gridCols={{ sm: 1, md: 2, lg: 3, xl: 4 }}
           carouselHeight="550px"
           carouselCardWidth="400px"

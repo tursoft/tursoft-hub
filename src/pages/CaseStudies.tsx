@@ -6,6 +6,7 @@ import SiteFooter from "@/components/SiteFooter";
 import { CASE_STUDIES, CASE_STUDIES_PATH, caseStudyPath } from "@/lib/case-studies";
 import { breadcrumbJsonLd, PERSON, SITE_URL } from "@/lib/site";
 
+/** The contents page of the case studies: a ruled list, one feature per row. */
 const CaseStudies = () => (
   <div className="min-h-screen bg-background text-foreground">
     <Seo
@@ -28,28 +29,42 @@ const CaseStudies = () => (
     />
     <PageHeader />
 
-    <main className="container mx-auto px-6 py-14">
-      <div className="max-w-4xl mx-auto">
-        <p className="text-xs uppercase tracking-widest text-primary-readable mb-3">Case studies</p>
-        <h1 className="text-3xl lg:text-5xl font-bold leading-tight mb-5">How I architect and build software</h1>
-        <p className="text-xl text-muted-foreground leading-relaxed mb-12 max-w-3xl">
-          Three recent projects in depth: the problem, the architecture, the role AI agents played and what came out of it.
-        </p>
+    <main className="container pt-10 md:pt-16">
+      <div className="mx-auto max-w-[1040px]">
+        <header className="max-w-[48rem]">
+          <p className="kicker">Case studies</p>
+          <h1 className="feature-title mt-4">How I architect and build software</h1>
+          <p className="feature-dek mt-5">
+            Three recent projects in depth: the problem, the architecture, the role AI agents played and what came out of it.
+          </p>
+        </header>
 
-        <ul className="grid gap-6">
-          {CASE_STUDIES.map((c) => (
-            <li key={c.slug}>
-              <Link to={caseStudyPath(c.slug)} className="group block glass rounded-xl p-6 hover:border-primary/50 transition-colors">
-                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">{c.company} · {c.period}</p>
-                <h2 className="text-2xl font-semibold mb-2 group-hover:text-primary transition-colors">{c.title}</h2>
-                <p className="text-muted-foreground leading-relaxed mb-4">{c.dek}</p>
-                <span className="inline-flex items-center gap-1 text-sm text-primary-readable">
-                  Read the case study <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </span>
+        <ol className="mt-12 border-t border-foreground md:mt-16">
+          {CASE_STUDIES.map((c, i) => (
+            <li key={c.slug} className="border-b border-border">
+              <Link
+                to={caseStudyPath(c.slug)}
+                className="group grid gap-x-12 gap-y-3 py-8 outline-offset-4 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] md:py-10"
+              >
+                <div className="work-caption flex flex-wrap gap-x-3 md:flex-col md:gap-1">
+                  <span className="text-foreground">{String(i + 1).padStart(2, "0")}</span>
+                  <span>{c.company}</span>
+                  <span>{c.period}</span>
+                </div>
+                <div className="max-w-[44rem]">
+                  <h2 className="font-serif text-[26px] font-normal leading-8 tracking-[-0.01em] text-foreground underline decoration-transparent decoration-1 underline-offset-[6px] transition-colors duration-150 ease-dossier [text-wrap:balance] group-hover:decoration-foreground/40 md:text-[32px] md:leading-10">
+                    {c.title}
+                  </h2>
+                  <p className="mt-3 text-[17px] leading-7 text-muted-foreground [text-wrap:pretty]">{c.dek}</p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm text-foreground">
+                    Read the case study
+                    <ArrowRight className="h-4 w-4 text-faint transition-colors duration-150 group-hover:text-foreground" strokeWidth={1.5} aria-hidden="true" />
+                  </span>
+                </div>
               </Link>
             </li>
           ))}
-        </ul>
+        </ol>
       </div>
     </main>
 

@@ -1,6 +1,10 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { ArrowLeft } from "lucide-react";
 import Seo from "@/components/Seo";
+import PageHeader from "@/components/PageHeader";
+import SiteFooter from "@/components/SiteFooter";
+import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
   const location = useLocation();
@@ -10,23 +14,37 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
       <Seo
         title="Page not found | Muhammet Turşak"
         description="The page you requested does not exist on tursoft.net."
         path={location.pathname}
         noindex
       />
-      <div className="text-center px-6">
-        <p className="text-sm uppercase tracking-widest text-primary mb-4">Error 404</p>
-        <h1 className="mb-4 text-4xl font-bold">Page not found</h1>
-        <p className="mb-6 text-lg text-muted-foreground">
-          The address <code className="text-foreground">{location.pathname}</code> does not exist on this site.
-        </p>
-        <a href="/" className="text-primary underline underline-offset-4 hover:text-primary/80">
-          Return to the homepage
-        </a>
-      </div>
+      <PageHeader />
+
+      <main className="container flex-1 pt-16 md:pt-24">
+        <div className="max-w-[40rem]">
+          <p className="kicker">
+            <span className="kicker-num">404</span>
+            Error
+          </p>
+          <h1 className="feature-title mt-4">Page not found</h1>
+          <p className="mt-5 text-[17px] leading-7 text-muted-foreground [text-wrap:pretty]">
+            The address{" "}
+            <code className="break-all rounded-sm bg-secondary px-1.5 py-0.5 font-sans text-[15px] text-foreground">{location.pathname}</code>{" "}
+            does not exist on this site.
+          </p>
+          <Button asChild size="lg" className="mt-8">
+            <a href="/">
+              <ArrowLeft strokeWidth={1.5} aria-hidden="true" />
+              Return to the homepage
+            </a>
+          </Button>
+        </div>
+      </main>
+
+      <SiteFooter />
     </div>
   );
 };
