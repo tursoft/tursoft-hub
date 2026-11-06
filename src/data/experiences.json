@@ -187,6 +187,46 @@
     },
     {
       "orderIndex": 4,
+      "companyCode": "INFRION",
+      "positions": [
+        {
+          "orderIndex": 1,
+          "title": "Senior Software Architect",
+          "startDate": "15.05.2021",
+          "endDate": "20.07.2022",
+          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+          "domainCodes": [
+            "healthcareit",
+            "certifications"
+          ],
+          "skillCodes": [
+            "Nodejs",
+            "Fastify",
+            "VS Code",
+            "Google Cloud",
+            "Gitlab",
+            "Git",
+            "npm",
+            "React",
+            "StencilJS",
+            "Typescript",
+            "Postgres",
+            "HTML5",
+            "JS",
+            "CSS",
+            "OAuth",
+            "JWT",
+            "Json",
+            "Google Analytics"
+          ],
+          "projectCodes": [
+            "CERTIFY.HEALTH"
+          ]
+        }
+      ]
+    },
+    {
+      "orderIndex": 5,
       "companyCode": "ERC",
       "positions": [
         {
@@ -299,7 +339,7 @@
       ]
     },
     {
-      "orderIndex": 5,
+      "orderIndex": 6,
       "companyCode": "DATASEL",
       "positions": [
         {
@@ -428,7 +468,7 @@
       ]
     },
     {
-      "orderIndex": 6,
+      "orderIndex": 7,
       "companyCode": "FONET",
       "positions": [
         {
@@ -506,7 +546,7 @@
       ]
     },
     {
-      "orderIndex": 7,
+      "orderIndex": 8,
       "companyCode": "JANDARMA",
       "positions": [
         {
@@ -528,7 +568,7 @@
       ]
     },
     {
-      "orderIndex": 8,
+      "orderIndex": 9,
       "companyCode": "HALICI",
       "positions": [
         {
@@ -635,7 +675,7 @@
       ]
     },
     {
-      "orderIndex": 9,
+      "orderIndex": 10,
       "companyCode": "MILLIYET.BILISIM",
       "positions": [
         {
@@ -650,7 +690,7 @@
       ]
     },
     {
-      "orderIndex": 10,
+      "orderIndex": 11,
       "companyCode": "METU.II",
       "positions": [
         {
@@ -694,7 +734,7 @@
       ]
     },
     {
-      "orderIndex": 11,
+      "orderIndex": 12,
       "companyCode": "LABRIS",
       "positions": [
         {
@@ -721,7 +761,7 @@
       ]
     },
     {
-      "orderIndex": 12,
+      "orderIndex": 13,
       "companyCode": "METU.CEIT",
       "positions": [
         {
@@ -755,7 +795,7 @@
       ]
     },
     {
-      "orderIndex": 13,
+      "orderIndex": 14,
       "companyCode": "METU.IEEE",
       "positions": [
         {
@@ -779,7 +819,7 @@
       ]
     },
     {
-      "orderIndex": 14,
+      "orderIndex": 15,
       "companyCode": "NETTEYIM",
       "positions": [
         {
@@ -803,7 +843,7 @@
       ]
     },
     {
-      "orderIndex": 15,
+      "orderIndex": 16,
       "companyCode": "TBD.GENC",
       "positions": [
         {

@@ -9,6 +9,8 @@ export interface Person extends IBaseModelAdvanced {
   id: number;
   company?: string;
   contacts?: PersonContact[];
+  /** Companies whose experience shows on this person even without a shared project. */
+  experienceCompanyCodes?: string[];
 }
 
 export interface PeopleData {

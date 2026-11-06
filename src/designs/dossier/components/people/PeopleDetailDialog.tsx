@@ -114,6 +114,7 @@ const PeopleDetailDialog: React.FC<PeopleDetailDialogProps> = ({
         personProjects.forEach(project => {
           if (project.companyCode) companyCodes.add(project.companyCode);
         });
+        person.experienceCompanyCodes?.forEach(code => companyCodes.add(code));
 
         // Fetch all experiences and filter by company codes from person's projects
         const allExperiences = await experienceRepo.getList();
