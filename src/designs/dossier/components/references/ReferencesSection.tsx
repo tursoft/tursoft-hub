@@ -1,4 +1,13 @@
-import { useEffect, useMemo, useState, type ComponentType, type CSSProperties, type MouseEvent } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ComponentType,
+  type CSSProperties,
+  type FocusEvent,
+  type MouseEvent,
+} from "react";
 import { useSnapshotState } from "@/hooks/use-snapshot-state";
 import { Button } from "@design/components/ui/button";
 import {
@@ -11,9 +20,12 @@ import {
   Globe,
   MessageSquare,
   ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
   type LucideProps,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { isPrerender } from "@/lib/prerender";
 import { referencesRepo } from "@/repositories/ReferencesRepo";
 import { peopleRepo } from "@/repositories/PeopleRepo";
 import type { Reference } from "@/models/Reference";
@@ -28,18 +40,89 @@ interface ReferenceWithPhoto extends Reference {
 }
 
 /**
- * The client line set large in grid mode, with its footnote (the dossier's signature).
- * The excerpt is quoted word for word from the testimonial (it must stay a substring of it,
- * or the letter shows without the pull quote); the note gives the writer's context from the
- * data. Hero notes are 1 to 3, so this is 4.
+ * The lines set large beside the letters in grid mode (the dossier's signature), one per
+ * testimonial, shown in list order. Each excerpt is quoted word for word from its testimonial;
+ * a line that is no longer a substring of the letter drops out of the rotation. The note gives
+ * the writer's context, from the letter itself or the data, and an English reading of a Turkish
+ * line. Hero notes are 1 to 3, so this is 4.
  */
-const PULL_QUOTE = {
-  code: "andonisphilippidis",
-  excerpt: "Muhammet is a person of trust and a person to count on when things need to be done.",
-  note: "As CEO of DataSel, where Muhammet was senior software architect and group leader, 2011\u00a0–\u00a02013",
-  noteNumber: 4,
+const PULL_QUOTES: Record<string, { excerpt: string; note?: string }> = {
+  andonisphilippidis: {
+    excerpt: "Muhammet is a person of trust and a person to count on when things need to be done.",
+    note: "As CEO of DataSel, where Muhammet was senior software architect and group leader, 2011 – 2013",
+  },
+  aslakfelin: {
+    excerpt: "He consistently demonstrated an ability to deliver high-quality results with impressive speed",
+    note: "As CEO of Infrion, a health tech start-up, where Muhammet was lead programmer",
+  },
+  johansellstrom: {
+    excerpt: "Muhammet is one of the best and most efficient developer I worked with.",
+  },
+  mehmetalpkarabas: {
+    excerpt: "Muhammet is one of the most intelligent, hardworking and disciplined person I have ever met",
+  },
+  kostaskarkaletsis: {
+    excerpt: "Muhammet is a very efficient, collaborative and experienced Senior Software Architect.",
+    note: "Together on integrating the DM4All solution in Turkey, Italy, Portugal and Spain",
+  },
+  alexanderberler: {
+    excerpt: "Muhammet is an important cornerstone of our project.",
+    note: "Fellow members of the DM4ALL consortium on the ProEmpower PCP project",
+  },
+  uweweimer: {
+    excerpt: "Muhammet is one of the best Senior Software Architect and Team Leader I ever met.",
+  },
+  velibicer: {
+    excerpt: "He shows all the skills that a complete engineer should have",
+  },
+  davutgurbuz: {
+    excerpt: "He shares his know-how & knowledge generously.",
+  },
+  myasarozden: {
+    excerpt: "Çalışkan, bilgili, işten kaçmayan, disiplinli",
+    note: "Taught Muhammet as an undergraduate. In English: “Hardworking, knowledgeable, never shies away from work, disciplined”",
+  },
+  cetinbalanuye: {
+    excerpt: "I have no reservation in recommending Muhammet for high quality IT projects",
+    note: "Led the instructional software development team where Muhammet was chief developer",
+  },
+  kursatcagiltay: {
+    excerpt: "It was always a pleasure to work with Muhammet.",
+    note: "Taught Muhammet as an undergraduate at METU",
+  },
+  eleftheriapolychronidou: {
+    excerpt: "Software Architecture expert is the phrase that comes to mind when I think about Muhammet.",
+    note: "Together on the ProEmpower EU project for two years",
+  },
+  mesutdemirer: {
+    excerpt: "I recommend him to every employee who wants to work with a friendly and skilled employer.",
+  },
+  umuthuseyinoglu: {
+    excerpt: "He was always punctual, businesslike and very disciplined.",
+    note: "Muhammet's direct supervisor on the e-Ders project at the METU Informatics Institute",
+  },
+  erolozcelik: {
+    excerpt: "Muhammet Turşak has demonstrated excellent programming and analytical skills.",
+  },
+  firatozerden: {
+    excerpt: "I have rarely come across such a focused and competent Software-Architect leading a project.",
+    note: "Together on a major project in Turkey, 2015 – 2017",
+  },
+  gulpembeergin: {
+    excerpt: "Sen hayal et Muhammet yazsın. Sonunda çıkan ürün senin hayalinin ötesindedir.",
+    note: "Together on the Vaka Karması software project. In English: “You imagine it, Muhammet writes it. The product goes beyond what you imagined”",
+  },
 };
-const PULL_NOTE_ID = `fn${PULL_QUOTE.noteNumber}`;
+const PULL_NOTE_NUMBER = 4;
+const PULL_NOTE_ID = `fn${PULL_NOTE_NUMBER}`;
+/** How long each line stays before the next one comes in. */
+const PULL_INTERVAL_MS = 30_000;
+
+interface PullQuoteItem {
+  reference: ReferenceWithPhoto;
+  excerpt: string;
+  note?: string;
+}
 
 /** Letters sit in three columns beside the pull quote on wide screens. */
 const LETTER_COLUMNS = 3;
@@ -159,7 +242,7 @@ const ContactLinks = ({
 
 /**
  * Opens the person dialog with the whole testimonial. The click reaches the item's own
- * handler in ListViewer; as a button it also gives keyboard users a way in.
+ * handler in ListViewer (or the pull quote's); as a button it also gives keyboard users a way in.
  */
 const FullLink = ({ label = "Full testimonial", className }: { label?: string; className?: string }) => (
   <button type="button" className={cn("ref-full", className)}>
@@ -198,35 +281,161 @@ const Signature = ({ reference, size = 40 }: { reference: ReferenceWithPhoto; si
   </div>
 );
 
-/** Grid mode: the client line set large, signed, with its footnote under it. */
-const PullQuote = ({ reference }: { reference: ReferenceWithPhoto }) => (
-  <figure className="ref-pull">
-    <blockquote lang={reference.lang || undefined}>
-      <p className="ref-pull-text">
-        <span className="ref-pull-hang">“</span>
-        {PULL_QUOTE.excerpt}”
-        <sup className="fn-ref">
-          <a href={`#${PULL_NOTE_ID}`} aria-label={`Note ${PULL_QUOTE.noteNumber}`} onClick={stop}>
-            {PULL_QUOTE.noteNumber}
-          </a>
-        </sup>
-      </p>
-    </blockquote>
-    <figcaption className="mt-8">
-      <Signature reference={reference} size={48} />
-      <div className="mt-2 flex flex-wrap items-center gap-x-4 pl-16">
-        <ContactLinks reference={reference} max={3} />
-        <FullLink className="ml-auto" />
+/** One pull quote: the line set large, signed, with its footnote under it. */
+const PullSlide = ({ quote, active, label }: { quote: PullQuoteItem; active: boolean; label: string }) => {
+  const { reference, excerpt, note } = quote;
+  return (
+    <figure
+      className={cn("ref-pull-slide", active && "is-active")}
+      role="group"
+      aria-roledescription="slide"
+      aria-label={label}
+    >
+      <blockquote lang={reference.lang || undefined}>
+        <p className="ref-pull-text">
+          <span className="ref-pull-hang">“</span>
+          {excerpt}”
+          {note && (
+            <sup className="fn-ref">
+              <a href={`#${PULL_NOTE_ID}`} aria-label={`Note ${PULL_NOTE_NUMBER}`} onClick={stop}>
+                {PULL_NOTE_NUMBER}
+              </a>
+            </sup>
+          )}
+        </p>
+      </blockquote>
+      <figcaption className="mt-8">
+        <Signature reference={reference} size={48} />
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 pl-16">
+          <ContactLinks reference={reference} max={3} />
+          <FullLink className="ml-auto" />
+        </div>
+      </figcaption>
+      {note && (
+        <div className="footnote-rule mt-8">
+          {/* Only the line on show carries the note's id, so the numeral always lands on it */}
+          <p id={active ? PULL_NOTE_ID : undefined} className="footnote">
+            <span className="footnote-num">{PULL_NOTE_NUMBER}</span>
+            <span>{note}</span>
+          </p>
+        </div>
+      )}
+    </figure>
+  );
+};
+
+/**
+ * Grid mode: one line from every testimonial in turn, in list order. The next comes in after
+ * 30 seconds while the quote is on screen and not hovered, focused from the keyboard or behind
+ * the person dialog, the tab is visible and the visitor has not asked for reduced motion; the
+ * hairline in the pager fills as the time runs and its animation's end turns the page, so a
+ * pause holds the time left. All lines share one grid cell, so the tallest sets the height and
+ * the letters never move when the line changes.
+ */
+const PullQuotes = ({
+  quotes,
+  held,
+  onOpen,
+}: {
+  quotes: PullQuoteItem[];
+  held: boolean;
+  onOpen: (reference: ReferenceWithPhoto) => void;
+}) => {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [index, setIndex] = useState(0);
+  const [autoplay, setAutoplay] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const count = quotes.length;
+  const active = Math.min(index, count - 1);
+
+  // Autoplay starts after hydration (the prerendered page shows the first line), never under
+  // reduced motion, and follows the setting if it changes.
+  useEffect(() => {
+    if (isPrerender || count < 2 || typeof matchMedia !== "function") return;
+    const query = matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setAutoplay(!query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, [count]);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!autoplay || !root || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.4 });
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, [autoplay]);
+
+  useEffect(() => {
+    if (!autoplay) return;
+    const update = () => setPageVisible(document.visibilityState === "visible");
+    update();
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, [autoplay]);
+
+  const running = autoplay && inView && pageVisible && !hovered && !focused && !held;
+  const go = (step: number) => setIndex((current) => (current + step + count) % count);
+
+  // A mouse click leaves focus on the button without :focus-visible, so only keyboard focus holds the line
+  const onFocus = (event: FocusEvent<HTMLDivElement>) => setFocused(event.target.matches(":focus-visible"));
+  const onBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false);
+  };
+
+  return (
+    <div
+      ref={rootRef}
+      className="ref-pull"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Lines from the testimonials"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={onFocus}
+      onBlur={onBlur}
+    >
+      <div
+        className="ref-pull-stage"
+        aria-live={running ? "off" : "polite"}
+        onClick={() => onOpen(quotes[active].reference)}
+      >
+        {quotes.map((quote, i) => (
+          <PullSlide key={quote.reference.code} quote={quote} active={i === active} label={`${i + 1} of ${count}`} />
+        ))}
       </div>
-    </figcaption>
-    <div className="footnote-rule mt-8">
-      <p id={PULL_NOTE_ID} className="footnote">
-        <span className="footnote-num">{PULL_QUOTE.noteNumber}</span>
-        <span>{PULL_QUOTE.note}</span>
-      </p>
+
+      {/* Pager: the count, the hairline that fills over the 30 seconds, back and next */}
+      {count > 1 && (
+        <div className="ref-pull-pager">
+          <span className="tnum min-w-[52px] text-[13px] leading-5 text-faint">
+            {active + 1} / {count}
+          </span>
+          <span className="ref-pull-timer" aria-hidden="true">
+            {autoplay && (
+              <span
+                key={active}
+                className="ref-pull-timer-fill"
+                style={{ animationDuration: `${PULL_INTERVAL_MS}ms`, animationPlayState: running ? "running" : "paused" }}
+                onAnimationEnd={() => go(1)}
+              />
+            )}
+          </span>
+          <button type="button" onClick={() => go(-1)} aria-label="Previous line" className="carousel-nav">
+            <ChevronLeft className="h-4 w-4" strokeWidth={1.5} />
+          </button>
+          <button type="button" onClick={() => go(1)} aria-label="Next line" className="carousel-nav">
+            <ChevronRight className="h-4 w-4" strokeWidth={1.5} />
+          </button>
+        </div>
+      )}
     </div>
-  </figure>
-);
+  );
+};
 
 /** Grid mode: one letter in a narrow column. */
 const Letter = ({ reference }: { reference: ReferenceWithPhoto }) => (
@@ -339,15 +548,15 @@ const ReferencesSection = () => {
     loadReferences();
   }, [setIsLoading, setReferences]);
 
-  // The pull quote's author leads every view, so the letters page reads in DOM order.
-  const { items, hasPullQuote } = useMemo(() => {
-    const featured = references.find(
-      (ref) => ref.code === PULL_QUOTE.code && plainText(quoteHtml(ref)).includes(PULL_QUOTE.excerpt),
-    );
-    return featured
-      ? { items: [featured, ...references.filter((ref) => ref !== featured)], hasPullQuote: true }
-      : { items: references, hasPullQuote: false };
-  }, [references]);
+  // The pull quote's lines, in list order; a line no longer found in its letter is left out
+  const pullQuotes = useMemo(
+    () =>
+      references.flatMap((reference): PullQuoteItem[] => {
+        const quote = PULL_QUOTES[reference.code];
+        return quote && plainText(quoteHtml(reference)).includes(quote.excerpt) ? [{ reference, ...quote }] : [];
+      }),
+    [references],
+  );
 
   // "18 testimonials, 2013 – 2024", from the data
   const meta = useMemo(() => {
@@ -357,11 +566,29 @@ const ReferencesSection = () => {
     if (years.length === 0) return `${references.length} ${noun}`;
     const first = Math.min(...years);
     const last = Math.max(...years);
-    return `${references.length} ${noun}, ${first === last ? first : `${first}\u00a0–\u00a0${last}`}`;
+    return `${references.length} ${noun}, ${first === last ? first : `${first} – ${last}`}`;
   }, [references]);
 
   // Rows the pull quote spans beside the letters (grid mode, wide screens)
-  const letterRows = Math.max(1, Math.ceil((items.length - (hasPullQuote ? 1 : 0)) / LETTER_COLUMNS));
+  const letterRows = Math.max(1, Math.ceil(references.length / LETTER_COLUMNS));
+
+  const openPerson = async (ref: ReferenceWithPhoto) => {
+    try {
+      const person = await peopleRepo.getByCode(ref.code);
+      if (person) {
+        setSelectedPerson(person);
+        setSelectedTestimonial({
+          html: quoteHtml(ref),
+          role: roleLine(ref),
+          date: ref.date,
+          lang: ref.lang,
+        });
+        setIsPeopleDialogOpen(true);
+      }
+    } catch (error) {
+      console.error("Failed to load person:", error);
+    }
+  };
 
   return (
     <section
@@ -378,7 +605,7 @@ const ReferencesSection = () => {
         />
 
         <ListViewer<ReferenceWithPhoto>
-          data={items}
+          data={references}
           isLoading={isLoading}
           loadingMessage="Loading references…"
           emptyMessage="No references available"
@@ -392,31 +619,20 @@ const ReferencesSection = () => {
           carouselCardClassName="rounded-lg border-border bg-card shadow-[var(--shadow-card)]"
           carouselAutoplayMs={9000}
           renderCarouselContent={(ref) => <TestimonialSlide reference={ref} />}
-          renderCardContent={(ref) =>
-            hasPullQuote && ref.code === PULL_QUOTE.code ? <PullQuote reference={ref} /> : <Letter reference={ref} />
+          cardLead={
+            pullQuotes.length > 0 ? (
+              <div>
+                <PullQuotes quotes={pullQuotes} held={isPeopleDialogOpen} onOpen={openPerson} />
+              </div>
+            ) : undefined
           }
+          renderCardContent={(ref) => <Letter reference={ref} />}
           renderListContent={(ref) => <TestimonialRow reference={ref} />}
           renderSplitItem={(ref) => <ReferenceEntry reference={ref} />}
           renderSplitDetail={(ref) => <TestimonialDetail reference={ref} />}
           splitHeight="34rem"
           gridCols={{ sm: 1, md: 2, lg: 3, xl: 3 }}
-          onItemClick={async (ref) => {
-            try {
-              const person = await peopleRepo.getByCode(ref.code);
-              if (person) {
-                setSelectedPerson(person);
-                setSelectedTestimonial({
-                  html: quoteHtml(ref),
-                  role: roleLine(ref),
-                  date: ref.date,
-                  lang: ref.lang,
-                });
-                setIsPeopleDialogOpen(true);
-              }
-            } catch (error) {
-              console.error("Failed to load person:", error);
-            }
-          }}
+          onItemClick={openPerson}
           fieldMapping={{
             code: "code",
             title: "title",

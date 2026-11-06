@@ -115,6 +115,7 @@ export interface ListViewerProps<T = Record<string, unknown>> {
   
   // Rendering customization
   renderCardContent?: (item: T) => ReactNode;
+  cardLead?: ReactNode; // Card view only: the grid's first cell, before the items
   renderListContent?: (item: T) => ReactNode;
   renderCarouselContent?: (item: T) => ReactNode;
   renderSmallCardContent?: (item: T) => ReactNode;
@@ -190,6 +191,7 @@ const ListViewer = <T = any>({
   searchFields,
   searchPlaceholder = 'Search',
   renderCardContent,
+  cardLead,
   renderListContent,
   renderCarouselContent,
   renderSmallCardContent,
@@ -1018,6 +1020,7 @@ const ListViewer = <T = any>({
         {viewMode === 'card' && (
           <>
             <div className={getGridClasses()}>
+              {cardLead}
               {filteredData.map((item, index) => withCollapse(item, index, renderCard))}
             </div>
             {showMore}

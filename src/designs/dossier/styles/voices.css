@@ -2,7 +2,8 @@
    Quotes in Newsreader, signatures in Instrument Sans, hairline rules between letters. */
 
 /* ---------- References grid mode: ListViewer's card frames ----------
-   ListViewer renders <grid> > <Card> > our content. The letters page needs the cards to be plain
+   ListViewer renders <grid> > <Card> > our content, and the pull quote as <grid> > <div> > .ref-pull
+   (its cardLead). The letters page needs the cards to be plain
    paper and the grid to take the page's columns, so both are reached from our content with
    :has(). Plain CSS (outside @layer) so Tailwind keeps these structural selectors. They can go
    once ListViewer takes a grid class and an item class for card mode. */
@@ -97,7 +98,7 @@
   .ref-full:hover svg,
   .ref-letter:hover .ref-full,
   .ref-letter:hover .ref-full svg,
-  .ref-pull:hover .ref-full,
+  .ref-pull-stage:hover .ref-full,
   .ref-row:hover .ref-full,
   .ref-row:hover .ref-full svg,
   .ref-slide:hover .ref-full,
@@ -129,6 +130,78 @@
   .ref-pull-text .fn-ref {
     padding-left: 2px;
     font-size: 16px;
+  }
+
+  /* The lines share one cell, so the tallest sets the height and nothing below moves. The line
+     on show fades out; the next rises 8px into place as it fades in. */
+  .ref-pull-stage {
+    display: grid;
+    cursor: pointer;
+  }
+
+  .ref-pull-slide {
+    grid-area: 1 / 1;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 300ms var(--ease),
+      transform 0s linear 300ms,
+      visibility 0s linear 300ms;
+  }
+
+  .ref-pull-slide.is-active {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 700ms var(--ease) 200ms,
+      transform 900ms var(--ease) 200ms,
+      visibility 0s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ref-pull-slide,
+    .ref-pull-slide.is-active {
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Pager: the count, a hairline that fills over the 30 seconds, back and next */
+  .ref-pull-pager {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .ref-pull-timer {
+    position: relative;
+    flex: 1;
+    height: 1px;
+    overflow: hidden;
+    background: hsl(var(--border));
+  }
+
+  .ref-pull-timer-fill {
+    position: absolute;
+    inset: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background: hsl(var(--foreground) / 0.55);
+    animation-name: ref-pull-timer;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes ref-pull-timer {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
   }
 
   @media (min-width: 768px) {
