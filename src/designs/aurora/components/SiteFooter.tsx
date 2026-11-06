@@ -14,7 +14,6 @@ const siteLinks = [
   { label: "Case studies", href: "/case-studies/" },
   { label: "FAQ", href: "/#faq" },
   { label: "Contact", href: "/#contact" },
-  { label: "AmelBook privacy policy", href: "/privacy/amelbook/" },
   { label: "llms.txt", href: "/llms.txt" },
   { label: "Sitemap", href: "/sitemap.xml" },
 ];
