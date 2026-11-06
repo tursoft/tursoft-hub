@@ -1,5 +1,6 @@
 import { IBaseModel } from "@/models/base/IBaseModel";
 import { IBaseRepoAdvanced } from "./IBaseRepoAdvanced";
+import { trackLoadEnd, trackLoadStart } from "@/lib/prerender";
 
 export default abstract class BaseRepo<TItem extends IBaseModel, TData extends { items: TItem[] } = { items: TItem[] }>
 implements IBaseRepoAdvanced
@@ -19,6 +20,7 @@ implements IBaseRepoAdvanced
 
     this.loadingPromise = (async () => {
       try {
+        trackLoadStart();
         const resp = await fetch(this.jsonPath);
         if (!resp.ok) throw new Error(`Failed to load ${this.jsonPath}: ${resp.status}`);
         const json = (await resp.json()) as TData;
@@ -30,6 +32,7 @@ implements IBaseRepoAdvanced
         console.error(`BaseRepo: error loading ${this.jsonPath}`, err);
       } finally {
         this.loadingPromise = null;
+        trackLoadEnd();
       }
     })();
 

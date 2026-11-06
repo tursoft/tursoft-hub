@@ -1,0 +1,311 @@
+/* ListViewer chrome for the dossier: view-mode switch, carousel and split (list + detail)
+   views. Paper, ink and hairlines; one easing curve; nothing glows or loops. */
+@layer components {
+  /* ---------- Built-in header (standalone use) ---------- */
+  /* Legacy titles carry gradient spans in their HTML; print them as plain ink */
+  .lv-head .section-title span {
+    display: inline;
+    margin: 0;
+    background: none;
+    color: inherit;
+    -webkit-text-fill-color: currentColor;
+  }
+
+  /* ---------- View-mode switch: segmented control on a raised track ---------- */
+  /* Equal segments, so the active surface moves by index alone (--seg-index, --seg-count). */
+  .lv-seg {
+    position: relative;
+    display: inline-grid;
+    flex: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid hsl(var(--foreground) / 0.08);
+    border-radius: 6px;
+    background: hsl(var(--secondary));
+  }
+
+  .lv-seg-thumb {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    width: calc((100% - 6px - (var(--seg-count) - 1) * 2px) / var(--seg-count));
+    border-radius: 4px;
+    background: hsl(var(--card));
+    box-shadow:
+      0 1px 2px hsl(var(--foreground) / 0.06),
+      inset 0 0 0 1px hsl(var(--foreground) / 0.08);
+    transform: translateX(calc(var(--seg-index) * (100% + 2px)));
+    transition: transform 180ms var(--ease);
+    pointer-events: none;
+  }
+
+  .lv-seg-btn {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: hsl(var(--muted-foreground));
+    transition: color 150ms var(--ease);
+  }
+
+  .lv-seg-btn svg {
+    color: hsl(var(--faint));
+    transition: color 150ms var(--ease);
+  }
+
+  .lv-seg-btn:hover,
+  .lv-seg-btn[aria-pressed='true'] {
+    color: hsl(var(--foreground));
+  }
+
+  .lv-seg-btn[aria-pressed='true'] svg {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .lv-seg-btn:focus-visible {
+    outline-offset: 0;
+  }
+
+  /* Phones: the track spans the column and the segments carry their words only */
+  @media (max-width: 639px) {
+    .lv-seg {
+      display: grid;
+      width: 100%;
+    }
+
+    .lv-seg-btn {
+      padding: 0 8px;
+    }
+
+    .lv-seg-btn svg {
+      display: none;
+    }
+  }
+
+  /* ---------- Carousel ---------- */
+  .carousel-stage {
+    touch-action: pan-y;
+    outline: none;
+    isolation: isolate;
+  }
+
+  .carousel-stage:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* The card in front sits on the paper with a soft neutral shadow */
+  .carousel-stage .is-active {
+    box-shadow:
+      0 1px 2px hsl(var(--foreground) / 0.06),
+      0 24px 48px -28px hsl(var(--foreground) / 0.32);
+  }
+
+  .carousel-nav,
+  .split-nav {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid hsl(var(--input));
+    background: hsl(var(--card));
+    color: hsl(var(--muted-foreground));
+    transition:
+      color 150ms var(--ease),
+      background-color 150ms var(--ease),
+      transform 150ms var(--ease);
+  }
+
+  .carousel-nav:hover,
+  .split-nav:hover {
+    color: hsl(var(--foreground));
+    background: hsl(var(--secondary));
+  }
+
+  .carousel-nav:active,
+  .split-nav:active {
+    transform: scale(0.98);
+  }
+
+  /* Dots as small ink bars; the active one is longer. The button is taller than the bar
+     so it stays easy to hit. */
+  .carousel-dot {
+    position: relative;
+    width: 12px;
+    height: 16px;
+    transition: width 180ms var(--ease);
+  }
+
+  .carousel-dot::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    border-radius: 1px;
+    background: hsl(var(--foreground) / 0.18);
+    transition: background-color 150ms var(--ease);
+  }
+
+  .carousel-dot:hover::before {
+    background: hsl(var(--foreground) / 0.45);
+  }
+
+  .carousel-dot.is-active {
+    width: 28px;
+  }
+
+  .carousel-dot.is-active::before {
+    background: hsl(var(--foreground));
+  }
+
+  .carousel-dot:focus-visible {
+    outline-offset: 0;
+  }
+
+  .carousel-dots-dense .carousel-dot {
+    width: 6px;
+  }
+
+  .carousel-dots-dense .carousel-dot.is-active {
+    width: 16px;
+  }
+
+  /* ---------- Split view (list + detail) ---------- */
+  /* Phones: the list is a row that scrolls sideways, with a slim ink scrollbar */
+  .split-list {
+    overscroll-behavior-x: contain;
+  }
+
+  .split-list::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .split-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .split-list::-webkit-scrollbar-thumb {
+    border: 0;
+    border-radius: 2px;
+    background: hsl(var(--foreground) / 0.2);
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    .split-list {
+      scrollbar-width: thin;
+      scrollbar-color: hsl(var(--foreground) / 0.2) transparent;
+    }
+  }
+
+  /* An entry: quiet text; the selected one is raised paper with an ink bar at its left edge */
+  .split-item {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px 8px 14px;
+    border-radius: 0 4px 4px 0;
+    text-align: left;
+    color: hsl(var(--muted-foreground));
+    scroll-margin-block: 6rem 1.5rem;
+    transition:
+      background-color 150ms var(--ease),
+      color 150ms var(--ease);
+  }
+
+  .split-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background: hsl(var(--foreground));
+    opacity: 0;
+    transform: scaleY(0.4);
+    transition:
+      opacity 180ms var(--ease),
+      transform 180ms var(--ease);
+  }
+
+  .split-item:hover {
+    background: hsl(var(--secondary) / 0.6);
+    color: hsl(var(--foreground));
+  }
+
+  .split-item:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px hsl(var(--ring));
+  }
+
+  .split-item.is-active {
+    background: hsl(var(--secondary));
+    color: hsl(var(--foreground));
+  }
+
+  .split-item.is-active::before {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* A plain hairline between the columns */
+  .split-divider {
+    flex-shrink: 0;
+    background: hsl(var(--border));
+  }
+
+  .split-detail-enter {
+    animation: split-detail-in 0.4s var(--ease) both;
+  }
+
+  .split-detail-enter > * {
+    flex-grow: 1;
+  }
+
+  .split-nav {
+    width: 36px;
+    height: 36px;
+  }
+
+  @keyframes split-detail-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* md+: the whole list is part of the page (no scroll inside a scroll); the detail stays
+     in view beside it while the page scrolls */
+  @media (min-width: 768px) {
+    .split-detail {
+      position: sticky;
+      top: 5rem;
+      align-self: flex-start;
+      /* Below the fixed nav and above the back-to-top button in the bottom-right corner */
+      min-height: min(var(--split-height), calc(100vh - 11rem));
+    }
+  }
+}

@@ -1,13 +1,80 @@
 {
   "general": {
     "title": "Experiences",
-    "summary": "Throughout 25 years of my professional career, I have work in various companies. There were national, international projects, while some of them are customer projects, the other ones were Research and Development projects. I have mostly undertook managerial and leading positions within projects teams.",
+    "summary": "Throughout a professional career of 25 years I have worked at national and international companies on customer projects as well as research and development projects, mostly in leadership roles as architect, group leader, R&D director and director of technology. Since 2023 I have rebuilt the way I deliver software around AI: coding agents across the whole lifecycle, prompt and context engineering, and agent teams that I design and manage.",
     "total_years": 25,
     "prop_subitems": "positions"
   },
   "items": [
     {
       "orderIndex": 1,
+      "companyCode": "Tursoft",
+      "positions": [
+        {
+          "orderIndex": 1,
+          "title": "Founder & AI-Enabled Software Architect",
+          "startDate": "01.05.2026",
+          "endDate": null,
+          "summary": "Building AI-native products end to end as a founder, with AI agents multiplying a small team: BestJobFinder, an AI-powered job search SaaS with web, desktop (Electron), Chrome extension and admin frontends on a Node.js microservice backend, and Account Manager for Claude, an open-source VS Code extension published on the VS Code Marketplace and Open VSX.<br/>Running the full software development lifecycle with AI coding agents (Claude Code, Codex, GitHub Copilot, OpenCode): requirements and design specs, implementation plans, test-driven implementation, code review, documentation and release engineering.<br/>Designing and managing agent teams: specialized sub-agents for planning, implementation, review and browser-based testing, orchestrated with reusable skills, MCP tools (Playwright, code knowledge graphs) and isolated git worktrees, with human review gates between stages.<br/>Applying prompt and context engineering both to product features and to the development workflow: structured outputs and tool use, model routing across Anthropic, Google, OpenRouter and local models (Ollama, LM Studio), and curated project context (instructions, skills, memory) that keeps agents accurate on a large codebase.<br/>Shipping LLM-powered product features: job-to-profile match scoring, tailored cover letters, CV improvement suggestions and automatic answering of application forms from CV data.",
+          "domainCodes": [],
+          "skillCodes": [
+            "Typescript",
+            "JS",
+            "React",
+            "Nodejs",
+            "nextjs",
+            "electron",
+            "chrome-extension",
+            "HTML5",
+            "CSS3",
+            "Postgres",
+            "pgbouncer",
+            "Docker",
+            "docker-compose",
+            "traefik",
+            "prometheus",
+            "grafana",
+            "cloudflare",
+            "OAuth",
+            "JWT",
+            "owasp",
+            "rbac",
+            "VS Code",
+            "claudecode",
+            "codex",
+            "copilot",
+            "opencode",
+            "claudedesktop",
+            "ChatGPT",
+            "gemini",
+            "anthropic-sdk",
+            "google-genai-sdk",
+            "openrouter",
+            "ollama",
+            "lmstudio",
+            "llama3.3",
+            "qwen3.5",
+            "deepseek",
+            "playwright-mcp",
+            "graphify",
+            "obsidian",
+            "prompt-engineering",
+            "context-engineering",
+            "agent-orchestration",
+            "ai-sdlc",
+            "llm-app-dev",
+            "mcp",
+            "spec-driven-development"
+          ],
+          "projectCodes": [
+            "BESTJOBFINDER",
+            "ACCOUNTMANAGERFORCLAUDE"
+          ]
+        }
+      ]
+    },
+    {
+      "orderIndex": 2,
       "companyCode": "JENGAI",
       "positions": [
         {
@@ -15,7 +82,7 @@
           "title": "Director of Technology & Senior Software Architect",
           "startDate": "01.12.2022",
           "endDate": "30.04.2026",
-          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+          "summary": "Led the end-to-end architecture and engineering delivery of Jengai, a cloud-native, multi-tenant AI CRM, estimation and pricing suite for commercial specialty contractors, as Director of Technology and Senior Software Architect.<br/>Designed the AI document pipeline that extracts structured cost data from unstructured construction PDFs (Azure AI Document Intelligence and Computer Vision, Python and .NET services on an event-driven Azure Service Bus backbone), cutting pre-estimation turnaround by more than 60% and enabling parallel multi-team estimation.<br/>Embedded AI coding agents (Claude Code, GitHub Copilot, Cursor) into the team's daily development lifecycle for code authoring, refactoring, test generation and technical documentation, with prompt and context conventions that kept their output consistent with the platform's architecture and coding standards.<br/>Enforced enterprise-grade security (OAuth2, JWT, Azure AD B2C) and formal REST API design across the multi-tenant architecture; established a multi-layered testing strategy and CI/CD on Azure DevOps.<br/>Delivered integrations with Salesforce CRM, Zoho CRM, Autodesk Construction Cloud and Microsoft Graph; led, mentored and consulted the product and engineering teams and managed research and development projects.",
           "domainCodes": [
             "constructionit"
           ],
@@ -48,7 +115,19 @@
             "OAuth",
             "JWT",
             "Json",
-            "Google Analytics"
+            "Google Analytics",
+            "cursor",
+            "claudecode",
+            "claudedesktop",
+            "copilot",
+            "azure-document-intelligence",
+            "azure-computer-vision",
+            "azure-servicebus",
+            "prompt-engineering",
+            "context-engineering",
+            "agent-orchestration",
+            "ai-sdlc",
+            "llm-app-dev"
           ],
           "projectCodes": [
             "JENGAIAPP"
@@ -57,7 +136,7 @@
       ]
     },
     {
-      "orderIndex": 2,
+      "orderIndex": 3,
       "companyCode": "GAMYTE",
       "positions": [
         {
@@ -65,7 +144,7 @@
           "title": "Director of Technology & Senior Software Architect",
           "startDate": "04.09.2019",
           "endDate": "01.12.2022",
-          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+          "summary": "Defined and executed the company's technology strategy and led architecture decisions for the Gamyte SaaS platform, balancing high performance and scalability with fast, high-quality business delivery.<br/>Established cloud architecture governance, formal API design specifications and web application frameworks that enforced engineering consistency and long-term maintainability across product teams.<br/>Designed asynchronous, message-based integration infrastructure and relational database standards for an event-driven service landscape.<br/>Led, mentored and consulted the engineering team; managed research and development projects and framework development.",
           "domainCodes": [
             "constructionit"
           ],
@@ -115,7 +194,7 @@
           "title": "Senior Software Architect and Group Leader",
           "startDate": "20.05.2013",
           "endDate": "03.09.2019",
-          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+          "summary": "Designed and engineered the Avicenna PDFW web framework (.NET and Angular), the core platform of more than 10 enterprise products, which reduced average project delivery time by roughly 70%.<br/>Directed architecture and cross-functional delivery of EU-funded international healthcare platforms deployed in four national health systems (Turkey, Italy, Spain and Portugal) with GDPR-compliant data handling.<br/>Architected the AHIN healthcare integration middleware for HL7/FHIR interoperability with national eHealth infrastructures.<br/>Delivered cross-platform mobile applications (Ionic, Cordova) for patient-facing clinical use; led, mentored and consulted software teams and managed research and development projects.",
           "domainCodes": [
             "healthcareit"
           ],
@@ -228,7 +307,7 @@
           "title": "Senior Software Architect and Group Leader",
           "startDate": "01.01.2012",
           "endDate": "20.05.2013",
-          "summary": "Major Responsibilities: Architectural Design and Development, Leading Research and Development Projects, Software Project Management, Framework Development, Leading, Mentoring and Consultancy",
+          "summary": "Led the internal research and development team and contributed to the core framework of the Avicenna hospital information system, used by major hospital groups in Turkey, Saudi Arabia, Albania and Palestine.<br/>Architected Avicenna Case-Mix (VKBS), a national DRG costing platform deployed in more than 80 hospitals that processed over 50 million clinical and financial records and produced Turkey's first nationally validated DRG cost weights; finalist in the XI. Technology Awards (TÜBİTAK/TÜSİAD).<br/>Engineered telemedicine platforms for international healthcare clients including the Ministry of Interior of Saudi Arabia and Eczacıbaşı Healthcare.",
           "domainCodes": [
             "healthcareit",
             "ecommerce",
@@ -261,7 +340,7 @@
             "WPF",
             "XAML",
             "MVVM",
-            "Telerik UI for Silverlight",            
+            "Telerik UI for Silverlight",
             "Fiddler",
             "ASP.NET",
             "ASP.NET Core",
@@ -308,7 +387,7 @@
           "title": "Senior Software Developer",
           "startDate": "16.08.2011",
           "endDate": "01.01.2012",
-          "summary": "Full-Stack Development (Frontend and Backend), Leading, Mentoring and Technical Consultancy, Development of Research and Development Projects, Framework Development",
+          "summary": "Full-stack development (frontend and backend) on healthcare and e-commerce products; leading, mentoring and technical consultancy; research and development projects; framework development.",
           "domainCodes": [
             "healthcareit",
             "ecommerce"
@@ -357,7 +436,7 @@
           "title": "Research & Development Director",
           "startDate": "01.01.2010",
           "endDate": "13.08.2011",
-          "summary": "Management of R&D Team, Framework Development.",
+          "summary": "Managed the research and development team. Conceived, architected and delivered the Fonet RAD framework and Fonet Studio, a visual form designer IDE and rapid application development platform for healthcare applications, with a multi-database abstraction layer across Oracle, SQL Server and MySQL.",
           "domainCodes": [
             "healthcareit"
           ],
@@ -393,7 +472,7 @@
           "title": "Software Team Leader",
           "startDate": "16.09.2009",
           "endDate": "01.01.2010",
-          "summary": "Framework Development",
+          "summary": "Led the framework development team for the Fonet healthcare product line.",
           "domainCodes": [
             "healthcareit"
           ],
@@ -435,7 +514,7 @@
           "title": "Lieutenant",
           "startDate": "15.09.2008",
           "endDate": "15.09.2009",
-          "summary": "I have executed my compulsory military service. During this period I also developed 2 software for my departments: Document Management System, Military Student Perforamance Tracking Database",
+          "summary": "Completed compulsory military service as a lieutenant. During this period I also developed two applications for my department: a document management system and a military student performance tracking database.",
           "skillCodes": [
             "VB Script",
             "MS Access",
@@ -457,7 +536,7 @@
           "title": "Software Production and Planning Director",
           "startDate": "01.01.2007",
           "endDate": "01.09.2008",
-          "summary": "Production Planning, Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Hal\u0131c\u0131 LMS, Hal\u0131c\u0131 Enterprise Portal System, Hal\u0131c\u0131 EDIS - SCORM Content Authoring Tool, Hal\u0131c\u0131 Frizbi",
+          "summary": "Production planning, management of all software projects, technical consultancy, design and implementation of software project architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
           "domainCodes": [
             "elearning",
             "ecommerce",
@@ -490,7 +569,7 @@
           "title": "Project Manager and System Analyst",
           "startDate": "01.01.2005",
           "endDate": "01.01.2007",
-          "summary": "Management of all Software Projects, Technical Consultancy, Design & Imlementation of Software Project Architectures.<br/>Major Projects: Hal\u0131c\u0131 LMS, Hal\u0131c\u0131 Enterprise Portal System, Hal\u0131c\u0131 EDIS - SCORM Content Authoring Tool, Hal\u0131c\u0131 Frizbi",
+          "summary": "Management of all software projects, technical consultancy, design and implementation of software project architectures.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
           "domainCodes": [
             "elearning",
             "ecommerce",
@@ -525,7 +604,7 @@
           "title": ".NET Application Developer",
           "startDate": "01.01.2004",
           "endDate": "01.01.2005",
-          "summary": "Design & Imlementation of Software Project Architectures.<br/> Tool, Hal\u0131c\u0131 Frizbi",
+          "summary": "Design and implementation of software project architectures as a .NET application developer.<br/>Major Projects: Halıcı LMS, Halıcı Enterprise Portal System, Halıcı EDIS - SCORM Content Authoring Tool, Halıcı Frizbi",
           "domainCodes": [
             "elearning",
             "cms"

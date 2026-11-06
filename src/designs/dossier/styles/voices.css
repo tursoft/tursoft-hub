@@ -1,0 +1,454 @@
+/* References, people, FAQ and contact: the voices of the dossier.
+   Quotes in Newsreader, signatures in Instrument Sans, hairline rules between letters. */
+
+/* ---------- References grid mode: ListViewer's card frames ----------
+   ListViewer renders <grid> > <Card> > our content, and the pull quote as <grid> > <div> > .ref-pull
+   (its cardLead). The letters page needs the cards to be plain
+   paper and the grid to take the page's columns, so both are reached from our content with
+   :has(). Plain CSS (outside @layer) so Tailwind keeps these structural selectors. They can go
+   once ListViewer takes a grid class and an item class for card mode. */
+#references :has(> .ref-letter),
+#references :has(> .ref-pull) {
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Grid mode: the letters page */
+#references :has(> * > .ref-letter) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+@media (min-width: 768px) {
+  #references :has(> * > .ref-letter) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+
+  #references :has(> .ref-pull) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  #references :has(> * > .ref-letter) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Wide screens: the pull quote takes the first column beside all the letters and stays in
+   view while they scroll past (--ref-rows is set on #references from the data) */
+@media (min-width: 1280px) {
+  #references :has(> * > .ref-pull) {
+    grid-template-columns: minmax(0, 3fr) repeat(3, minmax(0, 2fr));
+  }
+
+  #references :has(> .ref-pull) {
+    grid-column: 1;
+    grid-row: 1 / span var(--ref-rows, 6);
+    padding-right: 8px;
+  }
+}
+
+@layer components {
+  /* ---------- References ---------- */
+
+  /* Quiet contact icons and the "Full testimonial" link under every quote */
+  .ref-contact {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 20px;
+    color: hsl(var(--faint));
+    transition: color 150ms var(--ease), background-color 150ms var(--ease);
+  }
+
+  .ref-contact:hover {
+    color: hsl(var(--foreground));
+    background: hsl(var(--secondary));
+  }
+
+  .ref-full {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 4px;
+    height: 32px;
+    font-size: 13px;
+    line-height: 20px;
+    color: hsl(var(--muted-foreground));
+    white-space: nowrap;
+    transition: color 150ms var(--ease);
+  }
+
+  .ref-full svg {
+    color: hsl(var(--faint));
+    transition: color 150ms var(--ease);
+  }
+
+  .ref-full:hover,
+  .ref-full:hover svg,
+  .ref-letter:hover .ref-full,
+  .ref-letter:hover .ref-full svg,
+  .ref-pull-stage:hover .ref-full,
+  .ref-row:hover .ref-full,
+  .ref-row:hover .ref-full svg,
+  .ref-slide:hover .ref-full,
+  .ref-detail:hover .ref-full {
+    color: hsl(var(--foreground));
+  }
+
+  /* The opening quote mark hangs into the margin, as in print */
+  .ref-pull-hang {
+    margin-left: -0.4em;
+  }
+
+  /* Pull quote: one client line in Newsreader, footnoted */
+  .ref-pull {
+    padding-bottom: 40px;
+  }
+
+  .ref-pull-text {
+    font-family: theme("fontFamily.serif");
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 38px;
+    letter-spacing: -0.015em;
+    color: hsl(var(--foreground));
+    text-wrap: pretty;
+  }
+
+  .ref-pull-text .fn-ref {
+    padding-left: 2px;
+    font-size: 16px;
+  }
+
+  /* The lines share one cell, so the tallest sets the height and nothing below moves. The line
+     on show fades out; the next rises 8px into place as it fades in. */
+  .ref-pull-stage {
+    display: grid;
+    cursor: pointer;
+  }
+
+  .ref-pull-slide {
+    grid-area: 1 / 1;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 300ms var(--ease),
+      transform 0s linear 300ms,
+      visibility 0s linear 300ms;
+  }
+
+  .ref-pull-slide.is-active {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 700ms var(--ease) 200ms,
+      transform 900ms var(--ease) 200ms,
+      visibility 0s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ref-pull-slide,
+    .ref-pull-slide.is-active {
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Pager: the count, a hairline that fills over the 30 seconds, back and next */
+  .ref-pull-pager {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .ref-pull-timer {
+    position: relative;
+    flex: 1;
+    height: 1px;
+    overflow: hidden;
+    background: hsl(var(--border));
+  }
+
+  .ref-pull-timer-fill {
+    position: absolute;
+    inset: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background: hsl(var(--foreground) / 0.55);
+    animation-name: ref-pull-timer;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes ref-pull-timer {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .ref-pull {
+      max-width: 44rem;
+      padding-bottom: 48px;
+    }
+
+    .ref-pull-text {
+      max-width: 15em;
+      font-size: 44px;
+      line-height: 50px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .ref-pull {
+      position: sticky;
+      top: calc(var(--masthead-height) + 32px);
+      max-width: none;
+      padding-bottom: 0;
+    }
+
+    .ref-pull-text {
+      max-width: none;
+      font-size: clamp(40px, 3.34vw, 48px);
+      line-height: 1.125;
+    }
+  }
+
+  /* Letters: sans 14/22 in narrow columns, hairline rules between the columns */
+  .ref-letter {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 24px 0 32px;
+    border-top: 1px solid hsl(var(--border));
+  }
+
+  @media (min-width: 768px) {
+    .ref-letter {
+      padding: 0 0 40px 24px;
+      border-top: 0;
+      border-left: 1px solid hsl(var(--border));
+    }
+
+  }
+
+  .ref-letter-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 22px;
+    color: hsl(var(--foreground));
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    hyphenate-limit-chars: 12 5 5;
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 768px) {
+    .ref-letter-text {
+      -webkit-line-clamp: 8;
+      line-clamp: 8;
+    }
+  }
+
+  /* Quotes in Newsreader where the quote is the focus: list, carousel, split detail */
+  .ref-serif-quote {
+    font-family: theme("fontFamily.serif");
+    font-optical-sizing: auto;
+    font-weight: 400;
+    color: hsl(var(--foreground));
+    text-wrap: pretty;
+  }
+
+  /* A clamped quote clips at its padding box, so the hanging mark gets room in the padding */
+  .ref-row-quote,
+  .ref-slide-quote {
+    margin-left: -0.4em;
+    padding-left: 0.4em;
+  }
+
+  /* List mode: ListViewer draws the hairlines and the hover step; the row sets the index */
+  .ref-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 16px;
+    padding: 24px 16px;
+  }
+
+  .ref-row-quote {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  @media (min-width: 1024px) {
+    .ref-row {
+      grid-template-columns: 280px minmax(0, 1fr) auto;
+      column-gap: 40px;
+      align-items: start;
+      padding: 28px 16px;
+    }
+
+    .ref-row-quote {
+      max-width: 44rem;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+    }
+  }
+
+  /* Carousel: a sheet on the paper, the quote first and the signature at the foot */
+  .ref-slide {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding: 24px;
+  }
+
+  .ref-slide-quote {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 9;
+    line-clamp: 9;
+    overflow: hidden;
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  @media (min-width: 640px) {
+    .ref-slide {
+      padding: 32px 40px;
+    }
+
+    .ref-slide-quote {
+      -webkit-line-clamp: 8;
+      line-clamp: 8;
+      font-size: 22px;
+      line-height: 32px;
+    }
+  }
+
+  /* Split view detail: the whole letter */
+  .ref-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 0;
+  }
+
+  .ref-detail-quote {
+    max-width: 36em;
+    font-size: 19px;
+    line-height: 30px;
+  }
+
+  @media (min-width: 1024px) {
+    .ref-detail {
+      padding: 24px 0;
+    }
+
+    .ref-detail-quote {
+      font-size: 22px;
+      line-height: 34px;
+    }
+  }
+
+  /* ---------- FAQ: hairline rows that open in place ---------- */
+  .faq-list {
+    max-width: 56rem;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .faq-item {
+    border-top: 1px solid hsl(var(--border));
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none;
+    border-radius: 2px;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question-text {
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+    text-wrap: pretty;
+  }
+
+  .faq-icon {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
+    color: hsl(var(--faint));
+    transition: transform 200ms var(--ease), color 150ms var(--ease);
+  }
+
+  .faq-question:hover .faq-icon,
+  .faq-item[open] .faq-icon {
+    color: hsl(var(--foreground));
+  }
+
+  .faq-item[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    max-width: 40rem;
+    padding: 0 40px 24px 0;
+    font-size: 16px;
+    line-height: 26px;
+    color: hsl(var(--muted-foreground));
+    text-wrap: pretty;
+  }
+
+  .faq-item[open] .faq-answer {
+    animation: faq-open 240ms var(--ease);
+  }
+
+  @keyframes faq-open {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

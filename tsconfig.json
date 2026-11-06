@@ -4,7 +4,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@design/*": ["./src/designs/aurora/*"]
     },
     "noImplicitAny": false,
     "noUnusedParameters": false,

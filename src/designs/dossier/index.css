@@ -1,0 +1,620 @@
+/* Section styles live next to the sections they serve, one file per area. */
+@import "./styles/listviewer.css";
+@import "./styles/career.css";
+@import "./styles/expertise.css";
+@import "./styles/work.css";
+@import "./styles/voices.css";
+@import "./styles/places.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Dossier
+   A printed profile in a serious business magazine: warm paper,
+   black ink, one red ink. Newsreader for headlines and quotes,
+   Instrument Sans for everything else. Rules instead of glows.
+   ============================================================ */
+
+@layer base {
+  :root {
+    /* Paper and ink */
+    --background: 40 36% 95%; /* page #f7f4ee */
+    --foreground: 33 17% 10%; /* ink #1f1b16 */
+
+    --card: 40 60% 98%; /* sheet #fdfbf7 */
+    --card-foreground: 33 17% 10%;
+    --card-hover: 38 33% 91%;
+
+    --popover: 40 60% 98%;
+    --popover-foreground: 33 17% 10%;
+
+    /* Printer's red: primary action, section numbers, footnote numerals. Used rarely. */
+    --primary: 3 71% 41%; /* #b3261e */
+    --primary-foreground: 0 0% 100%;
+    --primary-dark: 3 70% 35%; /* #96201a */
+
+    /* Raised paper: quiet surfaces, hover steps, selected segments */
+    --secondary: 38 33% 91%; /* #efe9df */
+    --secondary-foreground: 33 17% 10%;
+    --secondary-hover: 38 26% 86%;
+
+    --muted: 38 33% 91%;
+    --muted-foreground: 33 12% 33%; /* secondary text #5e554a */
+    --faint: 34 10% 39%; /* muted text, meta #6f665a */
+
+    /* "Accent" is ink-2 here: shadcn uses it for text and soft fills, never for color */
+    --accent: 33 12% 33%;
+    --accent-foreground: 40 36% 95%;
+
+    /* Legacy Midnight Aurora names, mapped onto the dossier palette so nothing glows */
+    --primary-glow: 3 71% 41%;
+    --primary-variant: 3 70% 35%;
+    --primary-light: 33 12% 33%;
+    --navy-deep: 33 17% 10%;
+    --accent-glow: 33 12% 33%;
+
+    --destructive: 3 71% 41%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 140 28% 32%;
+    --warning: 35 75% 38%;
+
+    /* Rules: hairline (ink at ~10% on paper) and control edge (ink at ~20%) */
+    --border: 40 13% 86%;
+    --input: 40 8% 78%;
+    --ring: 33 17% 10%;
+
+    --radius: 0.375rem;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Legacy tokens kept flat: no hue gradients, no colored shadows */
+    --gradient-primary: hsl(var(--primary));
+    --gradient-hero: hsl(var(--background));
+    --gradient-card: hsl(var(--card));
+    --gradient-accent: hsl(var(--accent));
+    --gradient-logo: hsl(var(--foreground));
+    --shadow-elegant: 0 1px 2px hsl(33 17% 10% / 0.06), 0 8px 24px -16px hsl(33 17% 10% / 0.18);
+    --shadow-glow: 0 0 0 0 transparent;
+    --shadow-card: 0 1px 2px hsl(33 17% 10% / 0.05);
+    --shadow-card-hover: 0 1px 2px hsl(33 17% 10% / 0.06), 0 12px 28px -18px hsl(33 17% 10% / 0.24);
+    --transition-smooth: color 150ms var(--ease), background-color 150ms var(--ease), border-color 150ms var(--ease);
+    --transition-bounce: color 150ms var(--ease), background-color 150ms var(--ease), border-color 150ms var(--ease);
+
+    --masthead-height: 72px;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: hsl(var(--background));
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.16);
+    color: hsl(var(--foreground));
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 3px solid hsl(var(--background));
+    border-radius: 9999px;
+    background: hsl(var(--foreground) / 0.22);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--foreground) / 0.4);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* ---------- The column: 16 / 32 / 48px margins, capped at 1440px (tailwind.config.ts) ---------- */
+  @media (min-width: 768px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+
+  /* ---------- Dossier vocabulary ---------- */
+
+  /* Kicker: red section number + label, above a section headline */
+  .kicker {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .kicker-num {
+    color: hsl(var(--primary));
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Section opener: ink rule, kicker, serif headline, description, hairline */
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px 48px;
+    padding-top: 48px;
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+    border-top: 1px solid hsl(var(--foreground));
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .section-title {
+    margin-top: 16px;
+    margin-left: -2px; /* optical: the serif's side bearing */
+    font-family: theme("fontFamily.serif");
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 52px;
+    line-height: 56px;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .section-desc {
+    margin-top: 12px;
+    max-width: 44rem;
+    font-size: 16px;
+    line-height: 24px;
+    color: hsl(var(--muted-foreground));
+    text-wrap: pretty;
+  }
+
+  .section-aside {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    color: hsl(var(--faint));
+    font-size: 13px;
+    line-height: 20px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 1023px) {
+    .section-title {
+      font-size: 44px;
+      line-height: 48px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .section-head {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 40px;
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      line-height: 40px;
+    }
+
+    .section-aside {
+      align-items: flex-start;
+    }
+  }
+
+  /* Footnote numerals: the signature. Red, small, after a claim; resolved in .footnotes */
+  .fn-ref {
+    padding-left: 1px;
+    font-size: 12px;
+    line-height: 0;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+    vertical-align: super;
+  }
+
+  .fn-ref a {
+    color: hsl(var(--primary));
+    transition: color 150ms var(--ease);
+  }
+
+  .fn-ref a:hover {
+    color: hsl(var(--primary-dark));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .footnote {
+    display: grid;
+    grid-template-columns: 16px minmax(0, 1fr);
+    font-size: 12px;
+    line-height: 18px;
+    color: hsl(var(--muted-foreground));
+    text-wrap: pretty;
+    scroll-margin-top: calc(var(--masthead-height) + 24px);
+    border-radius: 2px;
+  }
+
+  .footnote-num {
+    color: hsl(var(--primary));
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* A footnote reached from its numeral steps to raised paper, then fades back */
+  .footnote:target {
+    animation: footnote-flash 1.2s var(--ease);
+  }
+
+  @keyframes footnote-flash {
+    from {
+      background: hsl(var(--secondary));
+    }
+    to {
+      background: transparent;
+    }
+  }
+
+  /* Short ink rule that opens a footnote block, as in print */
+  .footnote-rule::before {
+    content: "";
+    display: block;
+    width: 96px;
+    margin-bottom: 12px;
+    border-top: 1px solid hsl(var(--foreground));
+  }
+
+  /* Photographs printed on the paper: warm greyscale, multiplied into the stock */
+  .print-photo {
+    background: hsl(var(--secondary));
+    filter: grayscale(1) sepia(0.12) contrast(1.05) brightness(1.03);
+    mix-blend-mode: multiply;
+  }
+
+  /* Text link in running copy: ink with a hairline underline that darkens on hover */
+  .ink-link {
+    color: hsl(var(--foreground));
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: hsl(var(--foreground) / 0.3);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 150ms var(--ease);
+  }
+
+  .ink-link:hover {
+    text-decoration-color: hsl(var(--foreground));
+  }
+
+  /* ---------- Masthead ---------- */
+  .mast-link {
+    font-size: 14px;
+    line-height: 20px;
+    color: hsl(var(--muted-foreground));
+    white-space: nowrap;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 6px;
+    transition: color 150ms var(--ease), text-decoration-color 150ms var(--ease);
+  }
+
+  .mast-link:hover {
+    color: hsl(var(--foreground));
+  }
+
+  .mast-link[aria-current] {
+    color: hsl(var(--foreground));
+    text-decoration-color: hsl(var(--foreground));
+  }
+
+  @media (max-width: 1279px) {
+    .mast-link {
+      font-size: 13px;
+    }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero-grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) 264px 369px;
+    grid-template-rows: auto auto auto 1fr;
+    grid-template-areas:
+      "kicker kicker fig"
+      "name   name   fig"
+      "title  title  fig"
+      "dek    facts  fig";
+    column-gap: 48px;
+  }
+
+  .hero-kicker { grid-area: kicker; }
+  .hero-dek { grid-area: dek; }
+  .hero-facts { grid-area: facts; }
+
+  .hero-name {
+    grid-area: name;
+    margin-top: 20px;
+    margin-left: -6px; /* optical: the serif M's side bearing lines the stem up with the kicker */
+    font-family: theme("fontFamily.serif");
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: min(108px, calc((100vw - 520px) / 8.4));
+    line-height: 1;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+  }
+
+  .hero-title {
+    grid-area: title;
+    margin-top: 28px;
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid hsl(var(--border));
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 500;
+  }
+
+  .hero-portrait {
+    grid-area: fig;
+    padding-left: 48px;
+    border-left: 1px solid hsl(var(--border));
+  }
+
+  @media (max-width: 1199px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      grid-template-areas: "kicker" "name" "title" "dek" "fig" "facts";
+      column-gap: 0;
+    }
+
+    .hero-name {
+      font-size: 72px;
+      white-space: normal;
+    }
+
+    .hero-portrait {
+      margin-top: 40px;
+      padding-top: 32px;
+      padding-left: 0;
+      border-left: 0;
+      border-top: 1px solid hsl(var(--border));
+    }
+
+    .hero-facts {
+      margin-top: 32px;
+      max-width: 36em;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero-name {
+      margin-top: 16px;
+      margin-left: -2px;
+      font-size: 42px;
+      line-height: 48px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title {
+      margin-top: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      font-size: 17px;
+      line-height: 24px;
+    }
+  }
+
+  /* ---------- Legacy class names, kept harmless while sections move to the dossier ---------- */
+  .glass {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .gradient-bg {
+    background: hsl(var(--background));
+  }
+
+  .gradient-card {
+    background: hsl(var(--card));
+  }
+
+  .text-gradient,
+  .text-gradient-animated {
+    color: inherit;
+  }
+
+  .link-hover {
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 150ms var(--ease);
+  }
+
+  .link-hover:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .card-hover {
+    transition: border-color 150ms var(--ease), box-shadow 150ms var(--ease), background-color 150ms var(--ease);
+  }
+
+  .card-hover:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .section-divider {
+    height: 1px;
+    border: 0;
+    background: hsl(var(--border));
+  }
+}
+
+@layer utilities {
+  /* ---------- List viewer: items past "Show All" stay in the HTML ---------- */
+  .lv-collapsed {
+    display: none !important;
+  }
+
+  /* ---------- Entrance: rises in without starting invisible, so the text counts as
+     painted from the first frame (it is the Largest Contentful Paint element) ---------- */
+  .hero-rise {
+    animation: hero-rise 0.5s var(--ease) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+
+  @keyframes hero-rise {
+    from {
+      opacity: 0.35;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-rise {
+      animation: none;
+    }
+  }
+
+  .text-primary-readable {
+    color: hsl(var(--primary));
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Homepage sections: skip layout and paint until they near the viewport ---------- */
+  .section-boundary {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
+  }
+
+  /* After load (or before a jump to a section) every section is laid out at its real
+     size, so anchors land exactly; see src/lib/section-settle.ts. */
+  .cv-settled .section-boundary {
+    content-visibility: visible;
+  }
+
+  /* ---------- Scroll Reveal: a short rise, like a page settling ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    transition-delay: var(--reveal-delay, 0s);
+    will-change: opacity, transform;
+  }
+
+  .reveal-left {
+    transform: translateX(-24px);
+  }
+
+  .reveal-right {
+    transform: translateX(24px);
+  }
+
+  .reveal-scale {
+    transform: scale(0.97);
+  }
+
+  .is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* ---------- Line clamp utilities ---------- */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

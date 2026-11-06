@@ -1,0 +1,92 @@
+/* About, experience and education: the career pages of the dossier.
+   Owned by the career pass. Columns and rows are ruled with hairlines, never boxed. */
+@layer components {
+  /* ---------- About: a profile page in columns ----------
+     Phones read the facts first, then the biography, then positions and contact.
+     From lg the biography takes the wide left column and the facts, positions and
+     contact lines sit in a right column ruled off with a hairline, as in the hero. */
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "glance"
+      "story"
+      "more";
+    row-gap: 48px;
+  }
+
+  .about-glance { grid-area: glance; }
+  .about-story { grid-area: story; }
+  .about-more { grid-area: more; }
+
+  @media (min-width: 1024px) {
+    .about-grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        "story glance"
+        "story more";
+      column-gap: 48px;
+      row-gap: 0;
+    }
+
+    .about-glance,
+    .about-more {
+      padding-left: 48px;
+      border-left: 1px solid hsl(var(--border));
+    }
+
+    .about-more {
+      padding-top: 48px;
+    }
+  }
+
+  /* ---------- Career record: one row per employer or school ----------
+     Phones: dates, then the name, with the logo plate beside them; the entry below.
+     From md: dates in a left column, the entry in the middle, the plate on the right. */
+  .career-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    grid-template-areas:
+      "when logo"
+      "head logo"
+      "body body";
+    column-gap: 16px;
+  }
+
+  .career-when { grid-area: when; }
+  .career-head { grid-area: head; }
+  .career-body { grid-area: body; }
+  .career-logo { grid-area: logo; }
+
+  @media (min-width: 768px) {
+    .career-row {
+      grid-template-columns: 10rem minmax(0, 1fr) 64px;
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        "when head logo"
+        "when body logo";
+      column-gap: 32px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .career-row {
+      grid-template-columns: 12rem minmax(0, 1fr) 64px;
+      column-gap: 48px;
+    }
+  }
+
+  /* The employer or school name takes a hairline underline while its row is hovered */
+  .career-name {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 150ms var(--ease);
+  }
+
+  .career-row:hover .career-name {
+    text-decoration-color: hsl(var(--foreground) / 0.4);
+  }
+}

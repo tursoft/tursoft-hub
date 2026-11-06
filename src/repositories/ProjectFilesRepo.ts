@@ -30,8 +30,10 @@ class ProjectFilesRepo {
   async getByProjectCode(projectCode: string): Promise<ProjectFileEntry | null> {
     try {
       const data = await this.loadData();
-      const upperCode = projectCode.toUpperCase();
-      return data.general[upperCode] || null;
+      // Keys in project_files.json are mixed case (HIS2x, ProEmpower), so match without case.
+      const wanted = projectCode.toUpperCase();
+      const key = Object.keys(data.general).find((k) => k.toUpperCase() === wanted);
+      return key ? data.general[key] : null;
     } catch (error) {
       console.error(`Error getting project files for ${projectCode}:`, error);
       return null;

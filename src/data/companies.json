@@ -257,11 +257,14 @@
       "orderIndex": 33,
       "title": "Tursoft",
       "photoUrl": "/assets/companies/tursoft.logo.png",
-      "city": null,
-      "country": null,
-      "websiteUrl": null,
+      "city": "Ankara",
+      "country": "Turkey",
+      "websiteUrl": "https://tursoft.net",
       "linkedinUrl": null,
-      "coordinates": null
+      "coordinates": {
+        "lat": 39.9334,
+        "lng": 32.8597
+      }
     },
     {
       "code": "MOH.TR",
@@ -687,7 +690,7 @@
       "code": "KTL",
       "orderIndex": 2,
       "title": "Kocaeli Technical High School",
-      "photoUrl": "/assets/companies/ktl.logo.png",
+      "photoUrl": "/assets/companies/meb.logo.png",
       "city": "Kocaeli",
       "country": "Turkey",
       "websiteUrl": "http://izmiteml.meb.k12.tr/",
@@ -701,7 +704,7 @@
       "code": "ATL",
       "orderIndex": 1,
       "title": "Atatürk Mesleki ve Teknik Anadolu Lisesi",
-      "photoUrl": "/assets/companies/atl.logo.png",
+      "photoUrl": "/assets/companies/meb.logo.png",
       "city": "Kocaeli",
       "country": "Turkey",
       "websiteUrl": "http://ataturkmtal.meb.k12.tr/",

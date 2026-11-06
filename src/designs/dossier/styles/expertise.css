@@ -1,0 +1,63 @@
+/* Domains, skills, customers and partners: the practice index, the skills reference and the
+   client list, set like tables and lists in a printed dossier. Owned by the expertise pass. */
+@layer components {
+  /* ---------- Logo plates ----------
+     A plain sheet with a hairline. Logos are multiplied into the sheet, so the white boxes
+     most of them were drawn on disappear and every logo reads as printed on the same paper. */
+  .logo-plate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid hsl(var(--border));
+    border-radius: 4px;
+    background: hsl(var(--card));
+    isolation: isolate;
+    transition: border-color 150ms var(--ease);
+  }
+
+  .logo-plate-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  .logo-plate-fallback {
+    font-family: theme("fontFamily.serif");
+    font-size: 24px;
+    line-height: 1;
+    color: hsl(var(--faint));
+  }
+
+  .group:hover .logo-plate,
+  .group:focus-visible .logo-plate {
+    border-color: hsl(var(--input));
+  }
+
+  /* White-on-transparent logos (src/lib/logos.ts) print on an ink plate instead */
+  .logo-plate.is-ink {
+    border-color: hsl(var(--foreground));
+    background: hsl(var(--foreground));
+  }
+
+  .logo-plate.is-ink .logo-plate-img {
+    mix-blend-mode: normal;
+  }
+
+  /* ---------- Thin ink bar (skill competency) ---------- */
+  .ink-bar {
+    position: relative;
+    height: 2px;
+    overflow: hidden;
+    background: hsl(var(--secondary-hover));
+  }
+
+  .ink-bar > span {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: hsl(var(--foreground));
+  }
+}

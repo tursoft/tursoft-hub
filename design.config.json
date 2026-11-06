@@ -1,0 +1,4 @@
+{
+  "//": "The site design to build and deploy: a folder name under src/designs. Change it here, or override it for one build with SITE_DESIGN=<name> (see docs/design/README.md).",
+  "design": "dossier"
+}

@@ -1,0 +1,25 @@
+{
+  "extends": "../../../tsconfig.app.json",
+  "compilerOptions": {
+    "baseUrl": "../../..",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@design/*": [
+        "./src/designs/aurora/*"
+      ]
+    }
+  },
+  "include": [
+    "../../main.tsx",
+    "../../vite-env.d.ts",
+    "../../lib",
+    "../../hooks",
+    "../../shared",
+    "../../models",
+    "../../repositories",
+    "."
+  ],
+  "exclude": []
+}

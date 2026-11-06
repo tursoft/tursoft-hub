@@ -26,3 +26,6 @@ dist-ssr
 # Claude Code superpowers scratch files
 # Brainstorm visual companion sessions
 .superpowers/
+
+# Build caches (prerender SPA shell)
+.cache/

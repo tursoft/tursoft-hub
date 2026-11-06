@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>tursoft.net SEO &amp; GEO Audit v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky top bar with view tabs and a search box; one centred column (max 1120px);
+   findings as a filterable list of severity-striped cards; action plan as phase tables with
+   checkboxes persisted per browser; appendix code blocks with copy buttons. */
+:root {
+  color-scheme: light;
+  --bg: #f3f4f7;
+  --surface: #ffffff;
+  --surface-2: #e9ebf0;
+  --line: #d5d8e0;
+  --line-strong: #b8bcc8;
+  --fg: #15181f;
+  --fg-2: #474d5c;
+  --fg-3: #6f7686;
+  --accent: #1d5bd0;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2eafb;
+  --sev-critical: #d93f3e;
+  --sev-high: #e2783f;
+  --sev-medium: #d79a0a;
+  --sev-low: #6b7a99;
+  --sev-critical-tint: #fbe6e6;
+  --sev-high-tint: #fbeadf;
+  --sev-medium-tint: #faf0d2;
+  --sev-low-tint: #e6e9f1;
+  --code-bg: #eef0f4;
+  --ok: #1a8a3a;
+  --ok-tint: #e3f3e8;
+  --shadow: 0 1px 2px rgba(20, 24, 40, .06), 0 4px 16px rgba(20, 24, 40, .05);
+  --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #111318; --surface: #181b22; --surface-2: #20242d; --line: #2c313c; --line-strong: #3b4150;
+    --fg: #e7e9ef; --fg-2: #b3b9c7; --fg-3: #828a9b;
+    --accent: #6a9bf2; --accent-ink: #0d1526; --accent-soft: #1b2a47;
+    --sev-critical: #ef6b6a; --sev-high: #f0945f; --sev-medium: #e8b23a; --sev-low: #8d9ab8;
+    --sev-critical-tint: #3a1f20; --sev-high-tint: #3a2a1c; --sev-medium-tint: #3a3118; --sev-low-tint: #262b38;
+    --code-bg: #0f1115; --ok: #4ec46f; --ok-tint: #17301f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 4px 16px rgba(0, 0, 0, .3);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111318; --surface: #181b22; --surface-2: #20242d; --line: #2c313c; --line-strong: #3b4150;
+  --fg: #e7e9ef; --fg-2: #b3b9c7; --fg-3: #828a9b;
+  --accent: #6a9bf2; --accent-ink: #0d1526; --accent-soft: #1b2a47;
+  --sev-critical: #ef6b6a; --sev-high: #f0945f; --sev-medium: #e8b23a; --sev-low: #8d9ab8;
+  --sev-critical-tint: #3a1f20; --sev-high-tint: #3a2a1c; --sev-medium-tint: #3a3118; --sev-low-tint: #262b38;
+  --code-bg: #0f1115; --ok: #4ec46f; --ok-tint: #17301f;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 4px 16px rgba(0, 0, 0, .3);
+}
+
+* { box-sizing: border-box; }
+html { height: 100%; }
+body {
+  margin: 0; min-height: 100%;
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-ui); font-size: 15px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--surface); z-index: 10; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button { font: inherit; color: inherit; }
+code, pre, .mono { font-family: var(--font-mono); }
+code { background: var(--code-bg); padding: .1em .35em; border-radius: 4px; font-size: .92em; }
+pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; overflow-x: auto; margin: 0; font-size: 13px; line-height: 1.5; }
+pre code { background: none; padding: 0; font-size: inherit; }
+h1, h2, h3, h4 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h2 { font-size: 1.45rem; font-weight: 700; letter-spacing: -.01em; }
+h3 { font-size: 1.1rem; font-weight: 600; }
+h4 { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-3); }
+p { margin: 0; }
+.stack > * + * { margin-top: 12px; }
+.prose { max-width: 70ch; }
+.prose p + p { margin-top: 10px; }
+ul, ol { margin: 0; padding-left: 1.3em; }
+li + li { margin-top: 4px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--fg-3); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.table-wrap { overflow-x: auto; max-width: 100%; }
+.muted { color: var(--fg-3); }
+.small { font-size: .85rem; }
+.eyebrow { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-3); font-weight: 600; }
+
+/* Top bar */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 10px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
+}
+.brand { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.brand strong { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+.brand span { color: var(--fg-3); font-size: .85rem; white-space: nowrap; }
+.tabs { display: flex; gap: 2px; flex-wrap: wrap; }
+.tab {
+  background: none; border: 1px solid transparent; border-radius: 999px; padding: 6px 12px; cursor: pointer;
+  color: var(--fg-2); font-weight: 500; font-size: .9rem; text-decoration: none;
+}
+.tab:hover { background: var(--surface-2); color: var(--fg); }
+.tab[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
+.tools { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+.search {
+  display: flex; align-items: center; gap: 6px; background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 999px; padding: 4px 10px; min-width: 0;
+}
+.search input { border: 0; background: none; outline: none; font: inherit; color: var(--fg); width: 180px; max-width: 45vw; }
+.search input::placeholder { color: var(--fg-3); }
+.iconbtn {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 5px 11px; cursor: pointer;
+  font-size: .85rem; color: var(--fg-2); white-space: nowrap;
+}
+.iconbtn:hover { background: var(--surface-2); color: var(--fg); }
+
+/* Page */
+.page {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+.view { display: none; }
+.view.is-active { display: block; }
+.view-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin-bottom: 20px; }
+.section + .section { margin-top: 36px; }
+.section > h3 { margin-bottom: 12px; }
+
+/* Overview */
+.hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.hero h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -.02em; margin-bottom: 12px; }
+.meta-grid { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; font-size: .9rem; }
+.meta-grid dt { color: var(--fg-3); white-space: nowrap; }
+.meta-grid dd { margin: 0; min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
+.tile {
+  text-align: left; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--sev); border-radius: var(--radius);
+  padding: 14px 16px; cursor: pointer; display: grid; gap: 2px;
+}
+.tile:hover { border-color: var(--line-strong); border-left-color: var(--sev); box-shadow: var(--shadow); }
+.tile .n { font-size: 2rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.tile .l { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-3); font-weight: 600; }
+.tile .ids { font-family: var(--font-mono); font-size: .75rem; color: var(--fg-2); margin-top: 6px; line-height: 1.5; }
+.grade { display: inline-block; min-width: 2.1em; text-align: center; font-weight: 700; font-family: var(--font-mono); padding: 2px 6px; border-radius: 4px; background: var(--surface-2); }
+.grade[data-g="F"], .grade[data-g="D"] { background: var(--sev-critical-tint); color: var(--sev-critical); }
+.grade[data-g="C"] { background: var(--sev-medium-tint); color: var(--sev-medium); }
+.grade[data-g="B-"] { background: var(--ok-tint); color: var(--ok); }
+.first-five { counter-reset: step; display: grid; gap: 10px; }
+.first-five li { list-style: none; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; }
+.first-five li::before { counter-increment: step; content: counter(step); font-family: var(--font-mono); font-weight: 600; color: var(--accent); background: var(--accent-soft); border-radius: 999px; width: 26px; height: 26px; display: inline-grid; place-items: center; font-size: .85rem; }
+
+/* Chips and filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 16px; }
+.chipgroup { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chipgroup .eyebrow { margin-right: 4px; }
+.chip {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 4px 11px; cursor: pointer;
+  font-size: .85rem; color: var(--fg-2); display: inline-flex; align-items: center; gap: 6px;
+}
+.chip:hover { border-color: var(--line-strong); color: var(--fg); }
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--fg); }
+.chip .dot { width: 9px; height: 9px; border-radius: 2px; background: var(--sev); display: inline-block; }
+.chip .cnt { font-family: var(--font-mono); font-size: .75rem; color: var(--fg-3); }
+.filters .spacer { flex: 1; }
+.resultcount { font-size: .85rem; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+
+/* Findings */
+.findings { display: grid; gap: 10px; }
+.finding { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.finding.is-open { box-shadow: var(--shadow); border-color: var(--line-strong); }
+.finding-head {
+  width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+  display: grid; grid-template-columns: 4px auto auto minmax(0, 1fr) auto; align-items: center; gap: 12px;
+  padding: 0 14px 0 0;
+}
+.finding-head:hover { background: var(--surface-2); }
+.finding-head .stripe { align-self: stretch; background: var(--sev); }
+.finding-head .fid { font-family: var(--font-mono); font-size: .8rem; color: var(--fg-3); padding-block: 12px; }
+.finding-head .ftitle { font-weight: 600; padding-block: 12px; min-width: 0; }
+.finding-head .ftitle small { display: block; font-weight: 400; color: var(--fg-3); font-size: .8rem; margin-top: 2px; }
+.finding-head .chev { color: var(--fg-3); transition: transform .2s; }
+.finding.is-open .chev { transform: rotate(180deg); }
+.pill { display: inline-block; font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; padding: 2px 8px; border-radius: 999px; background: var(--sev-tint); color: var(--fg); white-space: nowrap; }
+.pill::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--sev); margin-right: 6px; vertical-align: 1px; }
+[data-sev="critical"] { --sev: var(--sev-critical); --sev-tint: var(--sev-critical-tint); }
+[data-sev="high"] { --sev: var(--sev-high); --sev-tint: var(--sev-high-tint); }
+[data-sev="medium"] { --sev: var(--sev-medium); --sev-tint: var(--sev-medium-tint); }
+[data-sev="low"] { --sev: var(--sev-low); --sev-tint: var(--sev-low-tint); }
+.finding-body { border-top: 1px solid var(--line); padding: 16px 18px 18px 22px; display: grid; gap: 14px; }
+.finding-body .block > h4 { margin-bottom: 6px; }
+.finding-body .block { max-width: 80ch; }
+.finding-body .block.wide { max-width: none; }
+.finding-body table { margin-top: 6px; }
+.finding-foot { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: .82rem; color: var(--fg-3); border-top: 1px dashed var(--line); padding-top: 10px; }
+.finding-foot .planref { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.planref a, .fixref a { font-family: var(--font-mono); font-size: .78rem; background: var(--surface-2); border-radius: 4px; padding: 1px 6px; text-decoration: none; color: var(--fg-2); }
+.planref a:hover, .fixref a:hover { background: var(--accent-soft); color: var(--fg); }
+.empty { padding: 32px; text-align: center; color: var(--fg-3); border: 1px dashed var(--line); border-radius: var(--radius); }
+
+/* Plan */
+.phase { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.phase + .phase { margin-top: 18px; }
+.phase-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.phase-head h3 { flex: 1 1 260px; min-width: 0; }
+.phase-head .when { color: var(--fg-3); font-size: .85rem; }
+.progress { display: flex; align-items: center; gap: 10px; min-width: 200px; font-size: .82rem; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+.bar { flex: 1; height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--accent); width: 0; transition: width .3s; }
+.bar.done > span { background: var(--ok); }
+.phase table th:first-child, .phase table td:first-child { width: 34px; padding-right: 0; }
+.phase td.idcell { font-family: var(--font-mono); font-size: .8rem; color: var(--fg-3); white-space: nowrap; }
+.phase input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; margin: 2px 0 0; }
+.phase tr.done td { color: var(--fg-3); }
+.phase tr.done td.action { text-decoration: line-through; text-decoration-color: var(--line-strong); }
+.overall { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-bottom: 18px; }
+.overall .progress { flex: 1 1 260px; }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); padding: 6px 12px; cursor: pointer; font-size: .85rem; color: var(--fg-2); }
+.btn:hover { background: var(--surface-2); color: var(--fg); }
+.btn.danger[data-armed="true"] { border-color: var(--sev-critical); color: var(--sev-critical); }
+
+/* Code blocks with copy */
+.codeblock { position: relative; }
+.codeblock .copy { position: absolute; top: 8px; right: 8px; }
+.codeblock pre { padding-top: 38px; }
+.codeblock .label { position: absolute; top: 10px; left: 14px; font-family: var(--font-mono); font-size: .75rem; color: var(--fg-3); }
+.copy { border: 1px solid var(--line); background: var(--surface); border-radius: 4px; padding: 3px 9px; cursor: pointer; font-size: .78rem; color: var(--fg-2); }
+.copy:hover { background: var(--surface-2); color: var(--fg); }
+.copy[data-state="done"] { color: var(--ok); border-color: var(--ok); }
+.copy[data-state="fail"] { color: var(--sev-critical); border-color: var(--sev-critical); }
+.appendix-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 10px 14px; border-radius: 0 var(--radius) var(--radius) 0; font-size: .92rem; }
+.callout.warn { border-left-color: var(--sev-high); background: var(--sev-high-tint); }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .finding-head { grid-template-columns: 4px minmax(0, 1fr) auto; grid-template-areas: "s title chev" "s meta chev"; row-gap: 0; }
+  .finding-head .stripe { grid-area: s; }
+  .finding-head .ftitle { grid-area: title; padding-bottom: 2px; }
+  .finding-head .chev { grid-area: chev; }
+  .finding-head .fmeta { grid-area: meta; display: flex; gap: 10px; align-items: center; padding-bottom: 12px; }
+  .finding-head .fid { padding-block: 0; }
+  .finding-body { padding-left: 16px; }
+  .tools { margin-left: 0; width: 100%; }
+  .search { flex: 1; }
+  .search input { width: 100%; max-width: none; }
+}
+@media (min-width: 861px) {
+  .finding-head .fmeta { display: contents; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+@media print {
+  .topbar, .filters, .copy, .btn, .tile { box-shadow: none; }
+  .topbar .tools, .filters, .copy, .btn { display: none !important; }
+  .view { display: block !important; page-break-before: always; }
+  .view:first-of-type { page-break-before: auto; }
+  .finding-body[hidden] { display: grid !important; }
+  body { background: #fff; color: #000; }
+}
+.grade[data-g="A"], .grade[data-g="A-"], .grade[data-g="B+"], .grade[data-g="B"] { background: var(--ok-tint); color: var(--ok); }
+
+
+/* ---- v2 additions: status encoding, comparison tables ---- */
+.tile[data-status="resolved"] { --sev: var(--ok); }
+.tile[data-status="partial"]  { --sev: var(--sev-medium); }
+.tile[data-status="open"]     { --sev: var(--sev-high); }
+.tile[data-status="new"]      { --sev: var(--accent); }
+[data-status="resolved"] { --st: var(--ok); --st-tint: var(--ok-tint); }
+[data-status="partial"]  { --st: var(--sev-medium); --st-tint: var(--sev-medium-tint); }
+[data-status="open"]     { --st: var(--sev-high); --st-tint: var(--sev-high-tint); }
+[data-status="new"]      { --st: var(--accent); --st-tint: var(--accent-soft); }
+.spill { display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .03em; padding: 2px 8px; border-radius: 4px; background: var(--st-tint); color: var(--fg); border: 1px solid var(--st); white-space: nowrap; }
+.chip[data-status] .dot { background: var(--st); border-radius: 50%; }
+.finding-head { grid-template-columns: 4px auto auto auto minmax(0, 1fr) auto; }
+@media (max-width: 860px) {
+  .finding-head { grid-template-columns: 4px minmax(0, 1fr) auto; }
+  .finding-head .fmeta { flex-wrap: wrap; }
+}
+.statusnote { border-left: 3px solid var(--st); background: var(--st-tint); padding: 10px 14px; border-radius: 0 var(--radius) var(--radius) 0; max-width: 80ch; }
+.statusnote h4 { margin-bottom: 4px; }
+td.delta { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.delta[data-dir="better"] { color: var(--ok); font-weight: 600; }
+td.delta[data-dir="worse"] { color: var(--sev-critical); font-weight: 600; }
+td.hl, th.hl { background: var(--accent-soft); }
+.twocol { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+@media (max-width: 860px) { .twocol { grid-template-columns: 1fr; } }
+textarea.src { display: none; }
+.vlink { font-size: .85rem; color: var(--fg-3); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+.vlink:hover { color: var(--fg); border-color: var(--line-strong); }
+.brand { flex-wrap: wrap; row-gap: 4px; }
+.tile .ids span { white-space: nowrap; }
+
+/* ---- v3 additions: deployment statuses ---- */
+.tile[data-status="live"] { --sev: var(--ok); }
+.tile[data-status="v3"]   { --sev: var(--accent); }
+[data-status="live"] { --st: var(--ok); --st-tint: var(--ok-tint); }
+[data-status="v3"]   { --st: var(--accent); --st-tint: var(--accent-soft); }
+.lh-table td.big { font-weight: 700; font-variant-numeric: tabular-nums; }
+.needs { counter-reset: need; display: grid; gap: 10px; }
+.needs li { list-style: none; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; }
+.needs li::before { counter-increment: need; content: counter(need); font-family: var(--font-mono); font-weight: 600; color: var(--sev-high); background: var(--sev-high-tint); border-radius: 999px; width: 26px; height: 26px; display: inline-grid; place-items: center; font-size: .85rem; }
+.changes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 860px) { .changes { grid-template-columns: 1fr; } }
+.changes .panel h4 { margin-bottom: 8px; }
+.changes .panel ul { font-size: .92rem; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><strong>tursoft.net SEO &amp; GEO Audit v3</strong><span>28 Oct 2026</span><a class="vlink" href="seo-geo-report-v2.html">v2 report</a><a class="vlink" href="seo-geo-report.html">v1 report</a></div>
+    <nav class="tabs" aria-label="Report sections">
+      <a class="tab" href="#overview" data-view="overview">Overview</a>
+      <a class="tab" href="#findings" data-view="findings">Findings <span class="mono small" id="tab-count"></span></a>
+      <a class="tab" href="#measurements" data-view="measurements">Measurements</a>
+      <a class="tab" href="#plan" data-view="plan">Action plan</a>
+      <a class="tab" href="#verify" data-view="verify">Verify</a>
+      <a class="tab" href="#appendix" data-view="appendix">Appendix</a>
+    </nav>
+    <div class="tools">
+      <label class="search" for="q"><span class="muted small">Search</span><input id="q" type="search" placeholder="Findings, IDs, notes…" autocomplete="off"></label>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch theme">Theme: system</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+<!-- ============================ OVERVIEW ============================ -->
+<section class="view" id="view-overview" aria-labelledby="h-overview">
+  <div class="hero">
+    <div class="prose stack">
+      <p class="eyebrow">Executive summary, v3</p>
+      <h1 id="h-overview">v2 is live, v3 is ready: Performance 28 → 71, accessibility 100</h1>
+      <p>Deploying v2 put prerendered HTML, structured data, the sitemap, the social card and llms-full.txt in front of search engines and AI crawlers. v3 fixes every new finding from v2 and every partially fixed item that can be fixed in code.</p>
+      <ul>
+        <li><strong>The main-thread stall is gone.</strong> The skills cloud no longer animates off screen, and hero animations pause once the visitor scrolls past them. Style work at the top of the page fell from 8.8 s to 1.4 s per 10 s on a throttled phone; under reduced motion the page is fully idle.</li>
+        <li><strong>Real hydration.</strong> React attaches to the prerendered page instead of rebuilding it: no content flash, and all 86 projects stay in the page for Googlebot.</li>
+        <li><strong>15 indexable URLs instead of 2.</strong> Three case studies and an index with Article and breadcrumb schema, and the AmelBook privacy policy in ten languages with hreflang.</li>
+        <li><strong>Accessibility 100 on every page type.</strong></li>
+      </ul>
+    </div>
+    <aside class="panel">
+      <p class="eyebrow" style="margin-bottom:10px">Scope and method</p>
+      <dl class="meta-grid">
+        <dt>Site</dt><dd>https://tursoft.net (GitHub Pages behind Cloudflare)</dd>
+        <dt>Date</dt><dd>2026-10-28</dd>
+        <dt>Live</dt><dd>The v2 build: commit <code>efd92a5</code>, merged into <code>prod</code> as <code>61e011d</code> and deployed during this session</dd>
+        <dt>v3</dt><dd>Uncommitted working tree on <code>prod</code>, built, prerendered and served locally with gzip</dd>
+        <dt>Method</dt><dd>Live probes; crawler view with JavaScript off; Lighthouse 12.6.1 mobile (homepage median of 3); Chrome metrics and traces at 4× CPU; hydration and section-jump probes</dd>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="tiles" id="tiles" aria-label="Findings by status. Click a tile to filter the findings list."></div>
+
+  <div class="section" style="margin-top:36px">
+    <h3>Lighthouse mobile, homepage</h3>
+    <div class="table-wrap">
+      <table class="lh-table">
+        <thead><tr><th>Metric</th><th class="num">v1, old SPA (27 Oct)</th><th class="num">Live now, v2 build</th><th class="num hl">v3 build, median of 3</th></tr></thead>
+        <tbody>
+          <tr><td>Performance</td><td class="num">31</td><td class="num">28</td><td class="num hl big">71</td></tr>
+          <tr><td>Accessibility</td><td class="num">92</td><td class="num">97</td><td class="num hl big">100</td></tr>
+          <tr><td>Best practices</td><td class="num">96</td><td class="num">100</td><td class="num hl big">100</td></tr>
+          <tr><td>SEO</td><td class="num">100</td><td class="num">100</td><td class="num hl big">100</td></tr>
+          <tr><td>Total Blocking Time</td><td class="num">119.5 s</td><td class="num">115.1 s</td><td class="num hl big">0.54 s</td></tr>
+          <tr><td>Time to Interactive</td><td class="num">147.8 s</td><td class="num">149.8 s</td><td class="num hl big">4.2 s</td></tr>
+          <tr><td>Speed Index</td><td class="num">32.4 s</td><td class="num">34.5 s</td><td class="num hl big">3.2 s</td></tr>
+          <tr><td>First Contentful Paint</td><td class="num">3.3 s</td><td class="num">4.1 s</td><td class="num hl big">1.3 s</td></tr>
+          <tr><td>Largest Contentful Paint</td><td class="num">6.7 s</td><td class="num">7.1 s</td><td class="num hl big">4.2 s <span class="small muted">(observed 1.3 s)</span></td></tr>
+          <tr><td>Total transfer</td><td class="num">6,656 KiB</td><td class="num">766 KiB</td><td class="num hl big">474 KiB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>What needs you</h3>
+    <ol class="needs">
+      <li><strong>Deploy v3.</strong> Commit the working tree (ideally on a branch), merge into <code>prod</code> and push. Until then the live site keeps the v2 stall.</li>
+      <li><strong>Decide on the phone number</strong> (<a href="#F-34">F-34</a>). It is in the static HTML twice.</li>
+      <li><strong>Two Cloudflare redirect rules</strong> (<a href="#F-05">F-05</a>): <code>www</code> and slash-less directory URLs still pass through plain <code>http://</code>.</li>
+      <li><strong>A cache rule for hashed assets</strong> (<a href="#F-26">F-26</a>), and optionally a Referrer-Policy header (<a href="#F-28">F-28</a>).</li>
+      <li><strong>Search Console and Bing Webmaster Tools</strong> (<a href="#F-06">F-06</a>): submit the 15-URL sitemap.</li>
+      <li><strong>Profile bios</strong> (<a href="#F-31">F-31</a>): suggested texts in <a href="#appendix-c">Appendix C</a>.</li>
+      <li><strong>Two data questions:</strong> AHIN is filed under DataSel with the e-commerce domain, while your experience places it at ERC Group; an AHIN case study needs more source material.</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h3>What changed in v3</h3>
+    <div class="changes">
+      <div class="panel">
+        <h4>Performance</h4>
+        <ul>
+          <li>Skills cloud: runs only on screen, rests after 12 s, ~25 fps, static under reduced motion.</li>
+          <li>Hero animations pause off screen; the hero text no longer fades in from transparent.</li>
+          <li>Particle background: 30 fps, fewer particles on phones, paused in hidden tabs.</li>
+          <li>Leaflet map loads near the viewport; a list of countries stands in until then.</li>
+          <li><code>content-visibility</code> on sections, with exact section jumps.</li>
+          <li>Vendor chunks restored; subpages on demand; 173 KB gzipped initial JavaScript.</li>
+          <li>WebP hero (134 → 77 KB) and avatar (8 → 2 KB).</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>Hydration</h4>
+        <ul>
+          <li>Data sections record their state during prerender; the page carries it inline or as a preloaded <code>state.json</code>.</li>
+          <li><code>hydrateRoot</code> with server-rendering markers added at capture time.</li>
+          <li>Animated components start final and animate after mount.</li>
+          <li>Lists keep every item; extras render as compact hidden text.</li>
+          <li>No content drop and no hydration warnings on any page type.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>New pages</h4>
+        <ul>
+          <li><code>/case-studies/</code> and three studies: Jengai AI pipeline, BestJobFinder, Account Manager for Claude.</li>
+          <li>Article, BreadcrumbList and CollectionPage schema.</li>
+          <li>AmelBook privacy in ten languages: hreflang, <code>lang</code>, <code>dir</code>, <code>og:locale</code>, localized titles.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>SEO and GEO plumbing</h4>
+        <ul>
+          <li>Sitemap: 15 URLs, 110 hreflang links, lastmod from git.</li>
+          <li>llms-full.txt with titles instead of codes, plus case studies; llms.txt date from git.</li>
+          <li>Unlinked CV PDFs removed from the build.</li>
+          <li>Referrer policy meta tag; accessibility fixes on every page type.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FINDINGS ============================ -->
+<section class="view" id="view-findings" aria-labelledby="h-findings">
+  <div class="view-head">
+    <h2 id="h-findings">Findings</h2>
+    <p class="muted small">All 41 findings from v1 and v2 with their status after v3. Each links to its original write-up.</p>
+  </div>
+  <div class="filters">
+    <div class="chipgroup" id="status-chips"><span class="eyebrow">Status</span></div>
+    <div class="chipgroup" id="sev-chips"><span class="eyebrow">Severity</span></div>
+    <div class="chipgroup" id="area-chips"><span class="eyebrow">Area</span></div>
+    <span class="spacer"></span>
+    <span class="resultcount" id="resultcount"></span>
+    <button class="btn" type="button" id="expand-all">Expand all</button>
+    <button class="btn" type="button" id="collapse-all">Collapse all</button>
+  </div>
+  <div class="findings" id="findings"></div>
+</section>
+
+<!-- ============================ MEASUREMENTS ============================ -->
+<section class="view" id="view-measurements" aria-labelledby="h-measure">
+  <div class="view-head">
+    <h2 id="h-measure">Measurements</h2>
+    <p class="muted small">v3 build served locally with gzip; live numbers from production through Cloudflare.</p>
+  </div>
+
+  <div class="section">
+    <h3>Lighthouse mobile, every page type (v3 build)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Page</th><th class="num">Perf.</th><th class="num">A11y</th><th class="num">Best pr.</th><th class="num">SEO</th><th class="num">FCP</th><th class="num">LCP</th><th class="num">TBT</th></tr></thead>
+        <tbody>
+          <tr><td>Homepage (median of 3)</td><td class="num">71</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">1.3 s</td><td class="num">4.2 s</td><td class="num">535 ms</td></tr>
+          <tr><td>Case study</td><td class="num">98</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">0.9 s</td><td class="num">2.3 s</td><td class="num">90 ms</td></tr>
+          <tr><td>Case studies index</td><td class="num">98</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">0.9 s</td><td class="num">2.3 s</td><td class="num">60 ms</td></tr>
+          <tr><td>Privacy (English)</td><td class="num">94</td><td class="num">100</td><td class="num">100</td><td class="num">100</td><td class="num">0.9 s</td><td class="num">2.8 s</td><td class="num">140 ms</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:14px">
+      <strong>How to read the homepage numbers.</strong> The 4.2 s LCP is mostly simulation: in the same trace the observed LCP equals the observed FCP, 1.3 s, because the hero text is the LCP element and is in the HTML. Blocking time varied from 260 to 620 ms across this session's runs on nearly identical builds; the final median, 535 ms, is within the v2 target of under 600 ms. The Performance target of 80 was not reached; see Next opportunities below.
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Main-thread work (10 s at 4× CPU, mobile viewport)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Situation</th><th class="num">Style recalculation</th><th class="num">Total main-thread work</th></tr></thead>
+        <tbody>
+          <tr><td>v2 build, top of the page (cloud off screen but animating)</td><td class="num">8.8 s</td><td class="num">10.1 s</td></tr>
+          <tr><td>v3 build, top of the page (hero effects visible, by design)</td><td class="num">1.4 s</td><td class="num">9.1 s</td></tr>
+          <tr><td>v3 build, scrolled past the hero</td><td class="num">0.16 s</td><td class="num">4.3 s <span class="small muted">(8.5 s before the hero pause)</span></td></tr>
+          <tr><td>v3 build, skills cloud in view, first 10 s while it turns</td><td class="num">6.6 s</td><td class="num">–</td></tr>
+          <tr><td>v3 build, skills cloud in view, after the 12 s idle window</td><td class="num">0.6 s</td><td class="num">–</td></tr>
+          <tr><td>v3 build, reduced motion, skills cloud in view</td><td class="num">0 s</td><td class="num">0 s</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="twocol section">
+    <div>
+      <h3>Hydration probe (homepage)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th class="num">v2 build</th><th class="num hl">v3 build</th></tr></thead>
+          <tbody>
+            <tr><td>Lowest point after load</td><td class="num">6,536 chars <span class="small muted">(−87% at 656 ms)</span></td><td class="num hl">no drop</td></tr>
+            <tr><td>Text after data loads</td><td class="num">39,274</td><td class="num hl">50,598</td></tr>
+            <tr><td>Projects in the page</td><td class="num">21 of 86</td><td class="num hl">86 of 86</td></tr>
+            <tr><td>Hydration warnings</td><td class="num">full re-render</td><td class="num hl">none</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h3>Crawler view (JavaScript disabled)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Live, v2</th><th class="hl">v3</th></tr></thead>
+          <tbody>
+            <tr><td>HTML, gzipped</td><td>78 KB</td><td class="hl">73 KB + 53 KB state</td></tr>
+            <tr><td>Text</td><td>49,019 chars</td><td class="hl">50,610 chars</td></tr>
+            <tr><td>Headings</td><td>12 h2, 144 h3</td><td class="hl">13 h2, 156 h3</td></tr>
+            <tr><td>Subpage schema</td><td>none</td><td class="hl">Article, Breadcrumb</td></tr>
+            <tr><td>Map tile images</td><td>40</td><td class="hl">0</td></tr>
+            <tr><td>Indexable URLs</td><td>2</td><td class="hl">15</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Live configuration today</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Check</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>AI crawlers (GPTBot, ClaudeBot, Google-Extended, PerplexityBot)</td><td><span class="spill" data-status="live">200, allowed</span></td></tr>
+          <tr><td><code>http://tursoft.net/</code></td><td><span class="spill" data-status="live">301 → https</span></td></tr>
+          <tr><td><code>https://www.tursoft.net/</code></td><td><span class="spill" data-status="open">301 → http://tursoft.net/ → https (two hops)</span></td></tr>
+          <tr><td><code>https://tursoft.net/privacy/amelbook</code></td><td><span class="spill" data-status="open">301 → http://…/privacy/amelbook/ → https</span></td></tr>
+          <tr><td>HSTS</td><td><span class="spill" data-status="partial">30 days, includeSubDomains, preload</span></td></tr>
+          <tr><td>X-Content-Type-Options</td><td><span class="spill" data-status="live">nosniff</span></td></tr>
+          <tr><td>Referrer-Policy header</td><td><span class="spill" data-status="v3">meta tag in v3</span></td></tr>
+          <tr><td>Cache-Control on hashed assets</td><td><span class="spill" data-status="open">max-age=600</span></td></tr>
+          <tr><td>Deployed build</td><td><span class="spill" data-status="partial">v2: prerendered, with the stall</span></td></tr>
+          <tr><td>Outdated CV v48</td><td><span class="spill" data-status="v3">still 200; removed in v3</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Next opportunities</h3>
+    <ul>
+      <li><strong>The skills cloud while it turns.</strong> Each rotating frame restyles about 227 elements, roughly 8 ms on a desktop CPU and 30 ms on a phone. Compositor-driven CSS 3D would make it free; that is a redesign of the component.</li>
+      <li><strong>Parsing a large page.</strong> The full content in the HTML costs a 380 ms layout task at 4× CPU. Hydrating lower sections only near the viewport and loading detail dialogs on demand would cut the remaining 54 KiB of unused JavaScript and some long tasks.</li>
+      <li><strong>Field data.</strong> After deploy, Search Console's Core Web Vitals report shows real-user LCP and INP, which matter more than the lab score.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ PLAN ============================ -->
+<section class="view" id="view-plan" aria-labelledby="h-plan">
+  <div class="view-head">
+    <h2 id="h-plan">Action plan v3</h2>
+    <p class="muted small">Tick tasks as you finish them. Progress is saved in this browser only.</p>
+  </div>
+  <div class="overall">
+    <div class="progress"><span id="overall-text">0 of 0 done</span><div class="bar" id="overall-bar"><span></span></div></div>
+    <button class="btn danger" type="button" id="reset-progress" data-armed="false">Reset progress</button>
+  </div>
+  <div id="phases"></div>
+</section>
+
+<!-- ============================ VERIFY ============================ -->
+<section class="view" id="view-verify" aria-labelledby="h-verify">
+  <div class="view-head">
+    <h2 id="h-verify">Verification checklist</h2>
+    <p class="muted small">Run against the live site after deploying v3. Expected results are in the comments.</p>
+  </div>
+  <div id="verify-blocks" class="stack"></div>
+  <div class="section">
+    <h3>Console checks</h3>
+    <ul>
+      <li>PageSpeed Insights mobile on the homepage: <a href="https://pagespeed.web.dev/analysis?url=https://tursoft.net/" target="_blank" rel="noopener">pagespeed.web.dev</a>. Expect Performance near 70 and TBT under 600 ms, against 28 today.</li>
+      <li>Rich Results Test on a case study: <a href="https://search.google.com/test/rich-results?url=https://tursoft.net/case-studies/jengai-ai-document-pipeline/" target="_blank" rel="noopener">search.google.com/test/rich-results</a>. Expect Article and Breadcrumbs.</li>
+      <li>Search Console URL Inspection on <code>/</code>: the rendered page lists all 86 projects.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ APPENDIX ============================ -->
+<section class="view" id="view-appendix" aria-labelledby="h-appendix">
+  <div class="view-head">
+    <h2 id="h-appendix">Appendix</h2>
+    <p class="muted small">Changed files, settings outside the repo, profile texts and the evidence log.</p>
+  </div>
+  <nav class="appendix-nav" aria-label="Appendix sections">
+    <a class="chip" href="#appendix-a">A · files changed</a>
+    <a class="chip" href="#appendix-b">B · Cloudflare and GitHub</a>
+    <a class="chip" href="#appendix-c">C · profile texts</a>
+    <a class="chip" href="#appendix-d">D · evidence log</a>
+  </nav>
+
+  <div class="section" id="appendix-a">
+    <h3>A. Files changed in v3</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Area</th><th>Files</th></tr></thead>
+        <tbody>
+          <tr><td>Hydration</td><td><code>src/main.tsx</code>, <code>src/lib/prerender.ts</code>, <code>src/hooks/use-snapshot-state.ts</code> (new), eight data sections, <code>scripts/prerender.mjs</code></td></tr>
+          <tr><td>Animated components</td><td><code>ui/item-cloud.tsx</code>, <code>BackgroundAnimation.tsx</code>, <code>ui/typewriter.tsx</code>, <code>ui/reveal.tsx</code>, <code>ui/animated-counter.tsx</code>, <code>HeroSection.tsx</code></td></tr>
+          <tr><td>Map</td><td><code>map/MapSection.tsx</code>, <code>map/MapCanvas.tsx</code> (new), <code>map/MapPlaceholder.tsx</code> (new)</td></tr>
+          <tr><td>Lists and jumps</td><td><code>ui/listviewer.tsx</code>, <code>src/lib/section-settle.ts</code> (new), <code>Navigation.tsx</code>, <code>pages/Index.tsx</code>, <code>index.css</code></td></tr>
+          <tr><td>Case studies</td><td><code>src/data/case-studies.json</code>, <code>src/lib/case-studies.ts</code>, <code>pages/CaseStudy.tsx</code>, <code>pages/CaseStudies.tsx</code>, <code>case-studies/CaseStudiesSection.tsx</code>, <code>PageHeader.tsx</code> (all new)</td></tr>
+          <tr><td>Privacy languages</td><td><code>pages/AmelBookPrivacy.tsx</code>, <code>content/privacy/amelbook/languages.json</code> (new), <code>src/App.tsx</code></td></tr>
+          <tr><td>SEO plumbing</td><td><code>components/Seo.tsx</code>, <code>src/lib/site.ts</code>, <code>index.html</code></td></tr>
+          <tr><td>Build</td><td><code>scripts/routes.mjs</code>, <code>generate-sitemap.mjs</code>, <code>generate-llms-full.mjs</code>, <code>prune-assets.mjs</code>, <code>postbuild.mjs</code>, <code>verify-dist.mjs</code>, <code>convert-images.mjs</code> (new), <code>vite.config.ts</code>, <code>deploy.yml</code>, <code>package.json</code></td></tr>
+          <tr><td>Assets and content</td><td><code>hero-bg.webp</code>, <code>profile-photo-80.webp</code>, <code>public/llms.txt</code>, <code>ui/badge.tsx</code>, <code>README.md</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="appendix-b">
+    <h3>B. Cloudflare and GitHub settings</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Setting</th><th>Where</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td><code>www</code> redirect</td><td>Rules → Redirect Rules</td><td><code>http*://www.tursoft.net/*</code> → <code>https://tursoft.net/${2}</code>, 301, preserve query string</td></tr>
+          <tr><td>Trailing-slash redirect</td><td>Rules → Redirect Rules</td><td>Path without a trailing <code>/</code> and without a file extension → <code>concat("https://tursoft.net", http.request.uri.path, "/")</code>, 301</td></tr>
+          <tr><td>Cache for hashed assets</td><td>Caching → Cache Rules</td><td>Hashed <code>/assets/*-*.js</code> and <code>*-*.css</code>: edge and browser TTL one year</td></tr>
+          <tr><td>Referrer-Policy (optional)</td><td>Rules → Transform Rules → Response headers</td><td><code>strict-origin-when-cross-origin</code></td></tr>
+          <tr><td>HSTS</td><td>SSL/TLS → Edge Certificates</td><td>one month without <code>preload</code>, or 12 months before submitting to hstspreload.org</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted" style="margin-top:10px">The slash-less redirect goes through <code>http://</code> because GitHub Pages builds it without knowing the visitor used HTTPS. Internal links and the sitemap already use the trailing slash; this matters for outside links such as app store listings.</p>
+  </div>
+
+  <div class="section" id="appendix-c">
+    <h3>C. Profile texts (F-31)</h3>
+    <p class="small muted" style="margin-bottom:12px">Use the same identity sentence everywhere and link back to the site.</p>
+    <div class="stack">
+      <div data-code="bio-linkedin-headline" data-label="LinkedIn headline"></div>
+      <div data-code="bio-linkedin-about" data-label="LinkedIn About, first paragraph"></div>
+      <div data-code="bio-github" data-label="GitHub bio (160 characters max)"></div>
+      <div data-code="bio-so" data-label="Stack Overflow About"></div>
+    </div>
+  </div>
+
+  <div class="section" id="appendix-d">
+    <h3>D. Evidence log (2026-10-28)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Check</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Deployed commit</td><td><code>efd92a5</code> (v2 state) via <code>61e011d</code> on <code>prod</code>; v3 work uncommitted on <code>prod</code></td></tr>
+          <tr><td>Live Lighthouse mobile</td><td>Performance 28, Accessibility 97, Best practices 100, SEO 100; TBT 115,050 ms; transfer 766 KiB</td></tr>
+          <tr><td>v3 homepage, three runs</td><td>Performance 71 / 70 / 74; TBT 540 / 580 / 460 ms; FCP 1.3 s; LCP 4.2 s (observed 1.3 s)</td></tr>
+          <tr><td>v3 other pages</td><td>Case study 98/100/100/100; index 98/100/100/100; privacy (en) 94/100/100/100</td></tr>
+          <tr><td>v3 homepage HTML</td><td>723,442 bytes raw, 72,550 gzipped; <code>state.json</code> 281,963 raw, 52,730 gzipped</td></tr>
+          <tr><td>v3 JavaScript, gzipped</td><td>app 95 KB, React 45 KB, Radix 33 KB; on demand: map 17 KB, Leaflet 46 KB, timeline 5 KB, privacy 27 KB, case studies 3 KB</td></tr>
+          <tr><td>Routes verified in Chrome</td><td>15 of 15: one title, description, canonical and h1 each; no page errors</td></tr>
+          <tr><td>Section jumps</td><td>Navigation: within 30 px. Deep links on mobile: within 4 px. Footer link to FAQ: 39 px</td></tr>
+          <tr><td>Hydration</td><td>No text drop on the homepage, a case study or the Arabic privacy page; no warnings</td></tr>
+          <tr><td>Sitemap</td><td>15 URLs, 110 hreflang links; privacy lastmod 2026-03-11 from git</td></tr>
+          <tr><td>Lint and types</td><td>Unchanged baseline: 2 errors and 7 warnings in untouched shadcn files; 3 pre-existing type errors in models</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Raw text for copy blocks -->
+<textarea class="src" id="bio-linkedin-headline">AI-Enabled Senior Software Architect · Founder, Tursoft · .NET, Node.js, Azure, SaaS · AI agentic development</textarea>
+<textarea class="src" id="bio-linkedin-about">Muhammet Turşak (Tursak) is a Senior Software Architect in Ankara, Turkey, with 25+ years in .NET, Node.js, Azure and SaaS. Founder of Tursoft; previously Director of Technology at Jengai and Gamyte in New York. Case studies and CV: https://tursoft.net</textarea>
+<textarea class="src" id="bio-github">AI-enabled Senior Software Architect · Founder of Tursoft · .NET, Node.js, Azure, SaaS · AI agentic development · tursoft.net</textarea>
+<textarea class="src" id="bio-so">Senior Software Architect in Ankara, Turkey, with 25+ years in .NET, Node.js, Azure and SaaS, now building with AI coding agents. More at https://tursoft.net</textarea>
+
+<textarea class="src" id="verify-1">for p in / /case-studies/ /case-studies/jengai-ai-document-pipeline/ /case-studies/bestjobfinder-ai-native-saas/ \
+         /case-studies/account-manager-for-claude/ /privacy/amelbook/ /privacy/amelbook/en/ /privacy/amelbook/ar/ \
+         /sitemap.xml /llms.txt /llms-full.txt /og-image.jpg; do
+  printf "%-48s " "$p"; curl -s -o /dev/null -w "%{http_code}\n" "https://tursoft.net$p"
+done                                                                   # expect 200 for all</textarea>
+<textarea class="src" id="verify-2">curl -s https://tursoft.net/ | grep -o '<meta name="prerender-state"[^>]*>'      # one meta tag
+curl -s https://tursoft.net/ | grep -c 'application/ld+json'                      # 2
+curl -s https://tursoft.net/case-studies/jengai-ai-document-pipeline/ | grep -o '"@type":"Article"'</textarea>
+<textarea class="src" id="verify-3">curl -s https://tursoft.net/sitemap.xml | grep -c "<url>"                         # 15
+curl -s https://tursoft.net/privacy/amelbook/ar/ | grep -oE '<html[^>]*>'          # lang="ar" dir="rtl"</textarea>
+<textarea class="src" id="verify-4">curl -s -o /dev/null -w "%{http_code}\n" https://tursoft.net/assets/files/downloads/CV_MuhammetTursak_v48.20190529-Summary.pdf   # 404
+curl -s https://tursoft.net/ | grep -c "tile.openstreetmap.org"                    # 0</textarea>
+<textarea class="src" id="verify-5">curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" https://www.tursoft.net/            # 301 https://tursoft.net/
+curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" https://tursoft.net/privacy/amelbook  # 301 https://tursoft.net/privacy/amelbook/</textarea>
+
+<script>
+(function () {
+  'use strict';
+
+  const SEV = { critical: { label: 'Critical', order: 0 }, high: { label: 'High', order: 1 }, medium: { label: 'Medium', order: 2 }, low: { label: 'Low', order: 3 } };
+  const AREAS = { crawl: 'Crawling & indexing', meta: 'Metadata & social', schema: 'Structured data', content: 'Content & semantics', perf: 'Performance', geo: 'GEO' };
+  const STATUS = {
+    open:    { label: 'Open, needs you', order: 0 },
+    partial: { label: 'Partial', order: 1 },
+    v3:      { label: 'Ready in v3', order: 2 },
+    live:    { label: 'Resolved live', order: 3 }
+  };
+
+  // [id, severity, area, title, status, note]
+  const F = [
+    ['F-01', 'critical', 'crawl', 'All content depends on JavaScript', 'live', 'Prerendered HTML is deployed; v3 adds hydration so it is kept after load.'],
+    ['F-02', 'critical', 'crawl', 'Cloudflare blocks AI crawlers', 'live', 'All AI crawlers get HTTP 200.'],
+    ['F-03', 'critical', 'crawl', 'Every non-root URL returns 404', 'live', '/privacy/amelbook/ returns 200. Slash-less URLs redirect via http, see F-05.'],
+    ['F-04', 'high', 'crawl', 'No sitemap', 'live', 'Live sitemap has 2 URLs; v3 has 15 with hreflang and lastmod from git.'],
+    ['F-05', 'high', 'crawl', 'HTTP not redirected, www to HTTP, no HSTS', 'partial', 'HTTP→HTTPS and HSTS are live. https://www and slash-less directory URLs (/privacy/amelbook) still redirect through http://. HSTS preload with a 30-day max-age does not qualify for the preload list. Two Cloudflare redirect rules fix it (Appendix B).'],
+    ['F-06', 'high', 'crawl', 'Search engine presence unverified', 'open', 'Verify in Search Console and Bing Webmaster Tools, submit the 15-URL sitemap, request indexing of the case studies.'],
+    ['F-07', 'high', 'crawl', 'Most content never enters the DOM', 'v3', 'All 86 projects stay in the DOM after hydration, so Googlebot sees them too.'],
+    ['F-08', 'medium', 'crawl', 'No crawlable internal links', 'live', ''],
+    ['F-09', 'medium', 'crawl', 'Reveal hides content', 'live', 'v3: content on screen stays visible after hydration; the rest animates in on scroll.'],
+    ['F-10', 'critical', 'meta', 'Open Graph image returns 404', 'live', ''],
+    ['F-11', 'high', 'meta', 'One meta set for every route', 'live', ''],
+    ['F-12', 'medium', 'meta', 'Title and description issues', 'live', ''],
+    ['F-13', 'low', 'meta', 'No icons or manifest', 'live', ''],
+    ['F-14', 'low', 'meta', 'Mixed language signals', 'v3', 'Ten privacy URLs with hreflang (x-default English), html lang and dir, og:locale and localized titles.'],
+    ['F-15', 'low', 'meta', '404 page title and style', 'live', ''],
+    ['F-16', 'high', 'schema', 'No JSON-LD', 'live', 'v3 adds Article, BreadcrumbList and CollectionPage on the new pages.'],
+    ['F-17', 'medium', 'content', 'Headings are slogans', 'live', ''],
+    ['F-18', 'medium', 'content', 'Positioning statement is animated', 'live', ''],
+    ['F-19', 'medium', 'content', 'Facts disagree across surfaces', 'live', ''],
+    ['F-20', 'high', 'content', 'One indexable URL for 400+ entities', 'partial', '13 new URLs (case studies and privacy languages). Project and domain detail pages are still open; scripts/routes.mjs supports them the same way.'],
+    ['F-21', 'medium', 'content', 'No freshness or authority signals', 'v3', 'Three case studies with dates and Article schema. An AHIN study needs more source material.'],
+    ['F-22', 'low', 'content', 'Image alt text', 'v3', 'Redundant alt texts removed; flags marked decorative.'],
+    ['F-23', 'high', 'perf', 'One large JavaScript chunk', 'v3', 'Vendor chunks restored; subpages, map and Leaflet on demand. Initial JavaScript 173 KB gzipped (251 KB in v1).'],
+    ['F-24', 'medium', 'perf', 'Images not optimized', 'v3', 'WebP hero (134 → 77 KB) and avatar (8 → 2 KB). Lighthouse image audits pass.'],
+    ['F-25', 'medium', 'perf', 'Data waterfall after the bundle', 'v3', 'The first client render uses the recorded state; no refetch before content shows.'],
+    ['F-26', 'low', 'perf', 'Short cache headers', 'open', 'Needs a Cloudflare cache rule for hashed assets (Lighthouse estimates 268 KiB saved on repeat visits).'],
+    ['F-27', 'low', 'perf', 'Deploy payload', 'live', ''],
+    ['F-28', 'low', 'perf', 'Security headers', 'partial', 'HSTS and nosniff are live. v3 sends the Referrer-Policy as a meta tag; the header is optional.'],
+    ['F-29', 'medium', 'geo', 'llms.txt incomplete', 'live', 'v3 refinements in N-06 and N-07.'],
+    ['F-30', 'medium', 'geo', 'No answer-ready content', 'live', ''],
+    ['F-31', 'medium', 'geo', 'Entity corroboration across the web', 'open', 'Update LinkedIn, GitHub and Stack Overflow with the texts in Appendix C.'],
+    ['F-32', 'high', 'geo', 'Old documents crawlable', 'v3', 'The build removes every CV PDF that cv.json does not link. The live site still serves v48 until v3 deploys.'],
+    ['F-33', 'low', 'geo', 'No analytics', 'live', ''],
+    ['F-34', 'medium', 'geo', 'Personal data in page text', 'open', 'The phone number is in the static HTML twice. Your decision.'],
+    ['N-01', 'critical', 'perf', 'Skills cloud stalls the browser', 'v3', 'Runs only on screen, rests after 12 s, ~25 fps, static under reduced motion. Style work at the top of the page: 8.8 s → 1.4 s per 10 s at 4× CPU.'],
+    ['N-02', 'high', 'crawl', 'Prerendered HTML discarded on load', 'v3', 'hydrateRoot with recorded state and server-rendering markers. No content drop, no hydration warnings.'],
+    ['N-03', 'medium', 'perf', 'Particle background always animating', 'v3', '30 fps, 28 particles on phones, paused in hidden tabs. Hero animations also pause off screen (8.5 → 4.3 s main-thread work per 10 s).'],
+    ['N-04', 'medium', 'perf', 'Heavy prerendered homepage', 'v3', 'No map tiles in the HTML, compact collapsed items (DOM 5,598 → 4,929), content-visibility with exact section jumps. The DOM stays above 1,400 because the content is kept on purpose.'],
+    ['N-05', 'low', 'content', 'Two accessibility failures', 'v3', 'Accessibility 100 on every page type.'],
+    ['N-06', 'low', 'geo', 'Codes in llms-full.txt', 'v3', 'Titles instead of codes; case studies included. Data questions about AHIN remain for you.'],
+    ['N-07', 'low', 'geo', 'Freshness dates wrong by design', 'v3', 'Sitemap lastmod and the llms.txt date come from git.']
+  ].map(([id, sev, area, title, status, note]) => ({ id, sev, area, title, status, note }));
+
+  const PHASES = [
+    { id: 'a', name: 'Phase A: Ship v3', when: 'Today', rows: [
+      { id: 'A.1', action: 'Decide on the phone number in About and Contact', fixes: ['F-34'], verify: 'grep for the number in the built HTML' },
+      { id: 'A.2', action: 'Move the working-tree changes to a branch, commit, merge into prod and push', fixes: ['N-01', 'N-02', 'F-14', 'F-21'], verify: 'Live homepage has the prerender-state meta tag' },
+      { id: 'A.3', action: 'Run the verification checklist against the live site', fixes: [], verify: 'All expectations in the Verify tab met' },
+      { id: 'A.4', action: 'Submit the sitemap in Search Console and Bing; request indexing of the case studies', fixes: ['F-06'], verify: 'Sitemap read, 15 URLs discovered' },
+      { id: 'A.5', action: 'Rich Results Test on the homepage and one case study', fixes: ['F-16'], verify: 'ProfilePage, Article and Breadcrumbs detected' }
+    ]},
+    { id: 'b', name: 'Phase B: Cloudflare and GitHub', when: 'About 30 minutes', rows: [
+      { id: 'B.1', action: 'Redirect rule: www.tursoft.net/* → https://tursoft.net/${1}, 301', fixes: ['F-05'], verify: 'https://www.tursoft.net/ → 301 https://tursoft.net/ in one hop' },
+      { id: 'B.2', action: 'Redirect rule: paths without extension and trailing slash → https + slash, 301', fixes: ['F-05'], verify: '/privacy/amelbook → 301 https://tursoft.net/privacy/amelbook/' },
+      { id: 'B.3', action: 'Cache rule: hashed /assets/*.js and *.css, one year', fixes: ['F-26'], verify: 'curl -I on index-*.js shows a long max-age' },
+      { id: 'B.4', action: 'Optional: Referrer-Policy header; HSTS preload decision', fixes: ['F-28', 'F-05'], verify: 'curl -I shows the headers' }
+    ]},
+    { id: 'c', name: 'Phase C: Off-site', when: 'About 1 hour', rows: [
+      { id: 'C.1', action: 'Update LinkedIn, GitHub and Stack Overflow with the texts in Appendix C', fixes: ['F-31'], verify: 'All three show the same title and link to tursoft.net' },
+      { id: 'C.2', action: 'Answer the AHIN data questions; supply material for an AHIN case study', fixes: ['N-06', 'F-21'], verify: 'projects.json corrected' }
+    ]},
+    { id: 'd', name: 'Phase D: Content depth', when: 'Month 1 to 2', rows: [
+      { id: 'D.1', action: 'Detail pages for the 10 to 15 major projects and the 6 domains via scripts/routes.mjs', fixes: ['F-20'], verify: 'Each route returns 200 with its own title; listed in the sitemap' },
+      { id: 'D.2', action: 'One new case study per quarter', fixes: ['F-21'], verify: 'Page, sitemap entry and llms.txt link appear automatically' }
+    ]},
+    { id: 'e', name: 'Phase E: Performance headroom', when: 'Optional', rows: [
+      { id: 'E.1', action: 'Skills cloud on compositor-driven CSS 3D', fixes: ['N-01'], verify: 'No main-thread cost while it turns' },
+      { id: 'E.2', action: 'Lazy-hydrate lower sections; load detail dialogs on demand', fixes: ['F-23'], verify: 'Lighthouse Performance 80 or higher' },
+      { id: 'E.3', action: 'Review Core Web Vitals in Search Console 28 days after deploy', fixes: [], verify: 'LCP < 2.5 s and INP < 200 ms in the field' }
+    ]}
+  ];
+
+  const VERIFY = [
+    { title: 'Every page returns 200', src: 'verify-1' },
+    { title: 'Hydration state and structured data', src: 'verify-2' },
+    { title: 'Sitemap and language pages', src: 'verify-3' },
+    { title: 'Old CV gone, no map tiles', src: 'verify-4' },
+    { title: 'Redirects after Phase B', src: 'verify-5' }
+  ];
+
+  /* ---------------------------------------------------------------- helpers */
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+  const byId = {}; F.forEach(f => { byId[f.id] = f; });
+  const planRefs = {};
+  PHASES.forEach(p => p.rows.forEach(r => r.fixes.forEach(id => { (planRefs[id] = planRefs[id] || []).push(r.id); })));
+  F.forEach(f => { f.text = [f.id, f.title, f.note, STATUS[f.status].label, SEV[f.sev].label, AREAS[f.area]].join(' ').toLowerCase(); });
+  const escapeHtml = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  function store(key, val) { try { if (val === undefined) return localStorage.getItem(key); localStorage.setItem(key, val); } catch (e) { return null; } }
+  const originalLink = id => id.startsWith('N-') ? 'seo-geo-report-v2.html#' + id : 'seo-geo-report.html#' + id;
+
+  function copyText(btn, text, pre) {
+    const done = ok => { btn.dataset.state = ok ? 'done' : 'fail'; btn.textContent = ok ? 'Copied' : 'Select and copy'; setTimeout(() => { btn.dataset.state = ''; btn.textContent = 'Copy'; }, 1800); };
+    const fallback = () => {
+      const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      let ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; } done(ok);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => done(true), fallback); else fallback();
+  }
+  function codeBlock(label, code) {
+    const wrap = document.createElement('div'); wrap.className = 'codeblock';
+    const pre = document.createElement('pre'); const c = document.createElement('code'); c.textContent = code; pre.appendChild(c);
+    pre.style.whiteSpace = 'pre-wrap';
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'copy'; btn.textContent = 'Copy';
+    btn.addEventListener('click', () => copyText(btn, code, pre));
+    if (label) { const l = document.createElement('span'); l.className = 'label'; l.textContent = label; wrap.appendChild(l); }
+    wrap.appendChild(btn); wrap.appendChild(pre);
+    return wrap;
+  }
+  const srcText = id => (document.getElementById(id) || {}).value || '';
+  const fixLinks = ids => ids.length ? '<span class="fixref">' + ids.map(id => '<a href="#' + id + '" title="' + escapeHtml(byId[id] ? byId[id].title : '') + '">' + id + '</a>').join(' ') + '</span>' : '<span class="muted">–</span>';
+
+  /* ------------------------------------------------------------------ tiles */
+  const counts = {}; Object.keys(STATUS).forEach(s => counts[s] = F.filter(f => f.status === s));
+  const tileOrder = ['live', 'v3', 'partial', 'open'];
+  const tileLabels = { live: 'Resolved live', v3: 'Ready in v3', partial: 'Partially resolved', open: 'Open, needs you' };
+  const tiles = $('#tiles');
+  tileOrder.forEach(s => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'tile'; b.dataset.status = s;
+    b.innerHTML = '<span class="n">' + counts[s].length + '</span><span class="l">' + tileLabels[s] + '</span><span class="ids">' + counts[s].map(f => '<span>' + f.id + '</span>').join(' · ') + '</span>';
+    b.addEventListener('click', () => { state.status = new Set([s]); state.sev.clear(); state.area.clear(); state.q = ''; $('#q').value = ''; syncChips(); location.hash = 'findings'; render(); });
+    tiles.appendChild(b);
+  });
+  $('#tab-count').textContent = '(' + F.length + ')';
+
+  /* --------------------------------------------------------------- findings */
+  const state = { status: new Set(), sev: new Set(), area: new Set(), q: '', open: new Set() };
+  function chip(container, key, value, label, count, extra) {
+    const c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.dataset[key] = value; c.setAttribute('aria-pressed', 'false');
+    if (extra) Object.assign(c.dataset, extra);
+    c.innerHTML = (key !== 'area' ? '<span class="dot"></span>' : '') + label + ' <span class="cnt">' + count + '</span>';
+    c.addEventListener('click', () => { const set = state[key === 'statusf' ? 'status' : key]; if (set.has(value)) set.delete(value); else set.add(value); syncChips(); render(); });
+    container.appendChild(c);
+  }
+  Object.keys(STATUS).forEach(s => chip($('#status-chips'), 'statusf', s, STATUS[s].label, counts[s].length, { status: s }));
+  Object.keys(SEV).forEach(s => chip($('#sev-chips'), 'sev', s, SEV[s].label, F.filter(f => f.sev === s).length));
+  Object.keys(AREAS).forEach(a => chip($('#area-chips'), 'area', a, AREAS[a], F.filter(f => f.area === a).length));
+  function syncChips() {
+    $$('.chip[data-statusf]').forEach(c => c.setAttribute('aria-pressed', String(state.status.has(c.dataset.statusf))));
+    $$('.chip[data-sev]').forEach(c => c.setAttribute('aria-pressed', String(state.sev.has(c.dataset.sev))));
+    $$('.chip[data-area]').forEach(c => c.setAttribute('aria-pressed', String(state.area.has(c.dataset.area))));
+  }
+
+  const list = $('#findings');
+  const sorted = F.slice().sort((a, b) => STATUS[a.status].order - STATUS[b.status].order || SEV[a.sev].order - SEV[b.sev].order || a.id.localeCompare(b.id));
+  sorted.forEach(f => {
+    const art = document.createElement('article'); art.className = 'finding'; art.id = f.id; art.dataset.sev = f.sev;
+    const refs = planRefs[f.id] || [];
+    const from = f.id.startsWith('N-') ? 'from v2' : 'from v1';
+    const body =
+      '<div class="statusnote" data-status="' + f.status + '"><h4>Status after v3: ' + STATUS[f.status].label + '</h4><p>' + escapeHtml(f.note || 'No further action.') + '</p></div>' +
+      '<p class="small"><a href="' + originalLink(f.id) + '">Original evidence, impact and fix (' + from + ')</a></p>';
+    art.innerHTML =
+      '<button class="finding-head" type="button" aria-expanded="false" aria-controls="body-' + f.id + '">' +
+        '<span class="stripe"></span>' +
+        '<span class="fmeta"><span class="fid">' + f.id + '</span><span class="pill" data-sev="' + f.sev + '">' + SEV[f.sev].label + '</span><span class="spill" data-status="' + f.status + '">' + STATUS[f.status].label + '</span></span>' +
+        '<span class="ftitle">' + escapeHtml(f.title) + '<small>' + escapeHtml(AREAS[f.area] + ' · ' + from) + '</small></span>' +
+        '<span class="chev" aria-hidden="true">▾</span>' +
+      '</button>' +
+      '<div class="finding-body" id="body-' + f.id + '" hidden>' + body +
+        '<div class="finding-foot"><a href="#' + f.id + '">Link to this finding</a>' +
+          (refs.length ? '<span class="planref">Action plan: ' + refs.map(r => '<a href="#plan" data-task="' + r + '">' + r + '</a>').join(' ') + '</span>' : (f.status === 'live' ? '<span>No further action</span>' : '<span>Ships with v3</span>')) +
+        '</div>' +
+      '</div>';
+    art.querySelector('.finding-head').addEventListener('click', () => setOpen(f.id, !state.open.has(f.id)));
+    list.appendChild(art);
+  });
+  function setOpen(id, open) {
+    const art = document.getElementById(id); if (!art) return;
+    if (open) state.open.add(id); else state.open.delete(id);
+    art.classList.toggle('is-open', open);
+    art.querySelector('.finding-head').setAttribute('aria-expanded', String(open));
+    art.querySelector('.finding-body').hidden = !open;
+  }
+  function render() {
+    let shown = 0;
+    sorted.forEach(f => {
+      const ok = (!state.status.size || state.status.has(f.status)) && (!state.sev.size || state.sev.has(f.sev)) && (!state.area.size || state.area.has(f.area)) && (!state.q || f.text.indexOf(state.q) !== -1);
+      document.getElementById(f.id).hidden = !ok; if (ok) shown++;
+    });
+    $('#resultcount').textContent = shown + ' of ' + F.length + ' shown';
+    let empty = document.getElementById('findings-empty');
+    if (!shown) { if (!empty) { empty = document.createElement('div'); empty.id = 'findings-empty'; empty.className = 'empty'; empty.textContent = 'No findings match these filters.'; list.appendChild(empty); } }
+    else if (empty) empty.remove();
+  }
+  $('#q').addEventListener('input', e => { state.q = e.target.value.trim().toLowerCase(); if (state.q && currentView() !== 'findings') location.hash = 'findings'; render(); });
+  $('#expand-all').addEventListener('click', () => sorted.forEach(f => { if (!document.getElementById(f.id).hidden) setOpen(f.id, true); }));
+  $('#collapse-all').addEventListener('click', () => sorted.forEach(f => setOpen(f.id, false)));
+
+  /* ------------------------------------------------------------------- plan */
+  const PLAN_KEY = 'tursoft-seo-plan-progress-v3';
+  let done = new Set(); try { done = new Set(JSON.parse(store(PLAN_KEY) || '[]')); } catch (e) { done = new Set(); }
+  const phasesEl = $('#phases');
+  PHASES.forEach(p => {
+    const sec = document.createElement('section'); sec.className = 'phase'; sec.id = 'phase-' + p.id;
+    sec.innerHTML =
+      '<div class="phase-head"><h3>' + p.name + '</h3><span class="when">' + p.when + '</span><div class="progress"><span class="ptext"></span><div class="bar"><span></span></div></div></div>' +
+      '<div class="table-wrap"><table><thead><tr><th><span class="muted">Done</span></th><th>#</th><th>Action</th><th>Fixes</th><th>Verify</th></tr></thead><tbody>' +
+      p.rows.map(r => {
+        const cid = 'task-' + r.id.replace('.', '-');
+        return '<tr id="row-' + r.id + '"><td><input type="checkbox" id="' + cid + '" data-task="' + r.id + '" aria-label="Done: ' + r.id + '"></td>' +
+          '<td class="idcell"><label for="' + cid + '">' + r.id + '</label></td><td class="action"><label for="' + cid + '">' + escapeHtml(r.action) + '</label></td>' +
+          '<td>' + fixLinks(r.fixes) + '</td><td class="small muted">' + escapeHtml(r.verify) + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
+    phasesEl.appendChild(sec);
+  });
+  $$('#phases input[type="checkbox"]').forEach(cb => {
+    cb.checked = done.has(cb.dataset.task);
+    cb.addEventListener('change', () => { if (cb.checked) done.add(cb.dataset.task); else done.delete(cb.dataset.task); store(PLAN_KEY, JSON.stringify(Array.from(done))); updateProgress(); });
+  });
+  function updateProgress() {
+    let total = 0, n = 0;
+    PHASES.forEach(p => {
+      const t = p.rows.length, d = p.rows.filter(r => done.has(r.id)).length; total += t; n += d;
+      const sec = document.getElementById('phase-' + p.id);
+      sec.querySelector('.ptext').textContent = d + ' of ' + t;
+      const bar = sec.querySelector('.bar'); bar.classList.toggle('done', d === t); bar.querySelector('span').style.width = (t ? d / t * 100 : 0) + '%';
+      p.rows.forEach(r => document.getElementById('row-' + r.id).classList.toggle('done', done.has(r.id)));
+    });
+    $('#overall-text').textContent = n + ' of ' + total + ' done';
+    const ob = $('#overall-bar'); ob.classList.toggle('done', n === total); ob.querySelector('span').style.width = (total ? n / total * 100 : 0) + '%';
+  }
+  updateProgress();
+  const resetBtn = $('#reset-progress'); let armTimer = null;
+  const disarm = () => { clearTimeout(armTimer); resetBtn.dataset.armed = 'false'; resetBtn.textContent = 'Reset progress'; };
+  resetBtn.addEventListener('click', () => {
+    if (resetBtn.dataset.armed !== 'true') { resetBtn.dataset.armed = 'true'; resetBtn.textContent = 'Click again to clear all ticks'; armTimer = setTimeout(disarm, 4000); return; }
+    done = new Set(); store(PLAN_KEY, '[]'); $$('#phases input[type="checkbox"]').forEach(cb => cb.checked = false); updateProgress(); disarm();
+  });
+
+  /* ---------------------------------------------------- verify and appendix */
+  const vb = $('#verify-blocks');
+  VERIFY.forEach(v => { const sec = document.createElement('div'); sec.className = 'section'; const h = document.createElement('h3'); h.textContent = v.title; sec.appendChild(h); sec.appendChild(codeBlock('', srcText(v.src))); vb.appendChild(sec); });
+  $$('[data-code]').forEach(slot => slot.replaceWith(codeBlock(slot.dataset.label, srcText(slot.dataset.code))));
+
+  /* ---------------------------------------------------------------- routing */
+  const VIEWS = ['overview', 'findings', 'measurements', 'plan', 'verify', 'appendix'];
+  function currentView() { const v = $('.view.is-active'); return v ? v.id.replace('view-', '') : 'overview'; }
+  function showView(v) {
+    VIEWS.forEach(name => document.getElementById('view-' + name).classList.toggle('is-active', name === v));
+    $$('.tab').forEach(t => { if (t.dataset.view === v) t.setAttribute('aria-current', 'page'); else t.removeAttribute('aria-current'); });
+  }
+  const scrollTo = id => requestAnimationFrame(() => { const el = document.getElementById(id); if (el) el.scrollIntoView({ block: 'start', behavior: 'smooth' }); });
+  function route() {
+    const h = (location.hash || '#overview').slice(1);
+    if (/^[FN]-\d{2}$/.test(h) && byId[h]) {
+      showView('findings');
+      if (document.getElementById(h).hidden) { state.status.clear(); state.sev.clear(); state.area.clear(); state.q = ''; $('#q').value = ''; syncChips(); render(); }
+      setOpen(h, true); scrollTo(h); return;
+    }
+    if (/^appendix-[a-d]$/.test(h)) { showView('appendix'); scrollTo(h); return; }
+    if (/^phase-[a-e]$/.test(h)) { showView('plan'); scrollTo(h); return; }
+    showView(VIEWS.indexOf(h) !== -1 ? h : 'overview');
+    window.scrollTo({ top: 0 });
+  }
+  window.addEventListener('hashchange', route);
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[data-task]'); if (!a) return;
+    e.preventDefault(); location.hash = 'plan';
+    requestAnimationFrame(() => { const row = document.getElementById('row-' + a.dataset.task); if (row) { row.scrollIntoView({ block: 'center', behavior: 'smooth' }); row.style.outline = '2px solid var(--accent)'; setTimeout(() => { row.style.outline = ''; }, 1600); } });
+  });
+
+  /* ------------------------------------------------------------------ theme */
+  const THEME_KEY = 'tursoft-seo-report-theme';
+  const themeBtn = $('#theme');
+  function applyTheme(t) {
+    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+    themeBtn.textContent = 'Theme: ' + (t === 'light' ? 'light' : t === 'dark' ? 'dark' : 'system');
+  }
+  let theme = store(THEME_KEY) || 'system'; applyTheme(theme);
+  themeBtn.addEventListener('click', () => { theme = theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system'; store(THEME_KEY, theme); applyTheme(theme); });
+
+  render();
+  route();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Social card source</title>
+<style>
+  /* Rendered by scripts/generate-og-image.mjs into public/og-image.jpg (1200×630) and
+     public/apple-touch-icon.png (180×180). Colours mirror src/index.css. */
+  :root {
+    --bg: hsl(244 35% 5%);
+    --primary: hsl(254 92% 66%);
+    --primary-variant: hsl(246 80% 58%);
+    --accent: hsl(190 95% 55%);
+    --fg: hsl(220 20% 96%);
+    --muted: hsl(220 12% 72%);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--fg); font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif; }
+  .card {
+    position: relative; width: 1200px; height: 630px; overflow: hidden;
+    display: grid; grid-template-columns: 420px 1fr; align-items: center; padding: 0 84px 0 72px;
+    background:
+      radial-gradient(640px 420px at 12% 18%, hsl(254 92% 66% / .38), transparent 70%),
+      radial-gradient(520px 420px at 92% 92%, hsl(190 95% 55% / .28), transparent 70%),
+      var(--bg);
+  }
+  .grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(hsl(220 20% 96% / .05) 1px, transparent 1px), linear-gradient(90deg, hsl(220 20% 96% / .05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, #000 40%, transparent 85%);
+  }
+  .photo {
+    position: relative; width: 300px; height: 300px; border-radius: 50%; overflow: hidden;
+    box-shadow: 0 0 0 6px hsl(244 35% 5%), 0 0 0 10px hsl(254 92% 66% / .7), 0 30px 80px hsl(254 92% 66% / .35);
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .text { position: relative; }
+  .eyebrow { font-size: 19px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 18px; }
+  .name { font-size: 76px; font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+  .name .last {
+    display: block; background: linear-gradient(90deg, var(--primary-variant), var(--primary) 50%, var(--accent));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .role { font-size: 30px; font-weight: 500; margin-top: 22px; color: var(--fg); }
+  .stack { font-size: 24px; color: var(--muted); margin-top: 14px; }
+  .footer { position: absolute; left: 72px; right: 84px; bottom: 40px; display: flex; justify-content: space-between; font-size: 22px; color: var(--muted); }
+  .footer b { color: var(--fg); font-weight: 600; }
+
+  .icon {
+    width: 180px; height: 180px; border-radius: 38px; overflow: hidden; display: grid; place-items: center;
+    background: radial-gradient(140px 140px at 30% 20%, hsl(254 92% 66% / .55), transparent 70%), var(--bg);
+  }
+  .icon img { width: 180px; height: 180px; object-fit: cover; display: block; }
+</style>
+</head>
+<body>
+  <div class="card" id="og">
+    <div class="grid"></div>
+    <div class="photo"><img src="../src/assets/people/muhammet.tursak.jpg" alt=""></div>
+    <div class="text">
+      <div class="eyebrow">AI-Enabled Senior Software Architect</div>
+      <div class="name">Muhammet<span class="last">Turşak</span></div>
+      <div class="role">Enterprise architecture, built with AI agent teams</div>
+      <div class="stack">AI Agentic Development · .NET · Node.js · Azure · SaaS</div>
+    </div>
+    <div class="footer"><span><b>tursoft.net</b></span><span>Ankara, Turkey · 25+ years</span></div>
+  </div>
+  <div class="icon" id="icon"><img src="../src/assets/people/muhammet.tursak.jpg" alt=""></div>
+</body>
+</html>
