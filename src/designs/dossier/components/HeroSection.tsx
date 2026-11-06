@@ -30,11 +30,11 @@ const facts = [
 // New York companies, 3 Tursoft. One short phrase each, no closing period. The word joiner
 // (U+2060) after each dash keeps a year range on one line.
 const notes = [
-  { id: "fn1", text: "Since May 2000, starting as webmaster for the youth branch of the Informatics Association of Turkey" },
+  { id: "fn1", text: "Professional career since 2000, starting with web technologies" },
   { id: "fn2", text: "Gamyte (2019–\u20602022) and Jengai (2022–\u20602026), as Director of Technology and Senior Software Architect" },
   {
     id: "fn3",
-    text: "Since May 2026, building BestJobFinder (AI job search) and Account Manager for Claude (VS Code extension)",
+    text: "Since May 2026, building BestJobFinder, an AI job search SaaS with web, desktop and Chrome extension clients",
   },
 ];
 
