@@ -1,6 +1,99 @@
-/* ListViewer chrome: carousel and split (list + detail) views.
-   Owned by the shared-UI pass. Moved verbatim from index.css (Midnight Aurora); restyle for the dossier. */
+/* ListViewer chrome for the dossier: view-mode switch, carousel and split (list + detail)
+   views. Paper, ink and hairlines; one easing curve; nothing glows or loops. */
 @layer components {
+  /* ---------- Built-in header (standalone use) ---------- */
+  /* Legacy titles carry gradient spans in their HTML; print them as plain ink */
+  .lv-head .section-title span {
+    display: inline;
+    margin: 0;
+    background: none;
+    color: inherit;
+    -webkit-text-fill-color: currentColor;
+  }
+
+  /* ---------- View-mode switch: segmented control on a raised track ---------- */
+  /* Equal segments, so the active surface moves by index alone (--seg-index, --seg-count). */
+  .lv-seg {
+    position: relative;
+    display: inline-grid;
+    flex: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid hsl(var(--foreground) / 0.08);
+    border-radius: 6px;
+    background: hsl(var(--secondary));
+  }
+
+  .lv-seg-thumb {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    width: calc((100% - 6px - (var(--seg-count) - 1) * 2px) / var(--seg-count));
+    border-radius: 4px;
+    background: hsl(var(--card));
+    box-shadow:
+      0 1px 2px hsl(var(--foreground) / 0.06),
+      inset 0 0 0 1px hsl(var(--foreground) / 0.08);
+    transform: translateX(calc(var(--seg-index) * (100% + 2px)));
+    transition: transform 180ms var(--ease);
+    pointer-events: none;
+  }
+
+  .lv-seg-btn {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: hsl(var(--muted-foreground));
+    transition: color 150ms var(--ease);
+  }
+
+  .lv-seg-btn svg {
+    color: hsl(var(--faint));
+    transition: color 150ms var(--ease);
+  }
+
+  .lv-seg-btn:hover,
+  .lv-seg-btn[aria-pressed='true'] {
+    color: hsl(var(--foreground));
+  }
+
+  .lv-seg-btn[aria-pressed='true'] svg {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .lv-seg-btn:focus-visible {
+    outline-offset: 0;
+  }
+
+  /* Phones: the track spans the column and the segments carry their words only */
+  @media (max-width: 639px) {
+    .lv-seg {
+      display: grid;
+      width: 100%;
+    }
+
+    .lv-seg-btn {
+      padding: 0 8px;
+    }
+
+    .lv-seg-btn svg {
+      display: none;
+    }
+  }
+
   /* ---------- Carousel ---------- */
   .carousel-stage {
     touch-action: pan-y;
@@ -8,25 +101,16 @@
     isolation: isolate;
   }
 
-  .carousel-stage::before {
-    content: '';
-    position: absolute;
-    inset: 14% 22%;
-    border-radius: 9999px;
-    background: radial-gradient(ellipse at center, hsl(var(--primary) / 0.22), hsl(var(--accent) / 0.07) 45%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
   .carousel-stage:focus-visible {
-    box-shadow: 0 0 0 2px hsl(var(--ring) / 0.6);
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
   }
 
+  /* The card in front sits on the paper with a soft neutral shadow */
   .carousel-stage .is-active {
     box-shadow:
-      0 0 0 1px hsl(var(--primary) / 0.35),
-      0 30px 60px -24px hsl(var(--primary) / 0.45),
-      inset 0 1px 0 hsl(0 0% 100% / 0.06);
+      0 1px 2px hsl(var(--foreground) / 0.06),
+      0 24px 48px -28px hsl(var(--foreground) / 0.32);
   }
 
   .carousel-nav,
@@ -35,55 +119,77 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: 9999px;
-    border: 1px solid hsl(var(--border) / 0.8);
-    background: hsl(var(--background) / 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: hsl(var(--foreground) / 0.8);
-    box-shadow: 0 8px 24px -12px hsl(var(--background));
-    transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  }
-
-  .carousel-nav {
-    position: absolute;
-    top: 50%;
-    z-index: 20;
-    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid hsl(var(--input));
+    background: hsl(var(--card));
+    color: hsl(var(--muted-foreground));
+    transition:
+      color 150ms var(--ease),
+      background-color 150ms var(--ease),
+      transform 150ms var(--ease);
   }
 
   .carousel-nav:hover,
-  .carousel-nav:focus-visible,
-  .split-nav:hover,
-  .split-nav:focus-visible {
-    color: hsl(var(--primary-light));
-    border-color: hsl(var(--primary) / 0.6);
-    background: hsl(var(--card) / 0.9);
-    box-shadow: 0 0 24px hsl(var(--primary) / 0.35);
-    outline: none;
+  .split-nav:hover {
+    color: hsl(var(--foreground));
+    background: hsl(var(--secondary));
   }
 
+  .carousel-nav:active,
+  .split-nav:active {
+    transform: scale(0.98);
+  }
+
+  /* Dots as small ink bars; the active one is longer. The button is taller than the bar
+     so it stays easy to hit. */
   .carousel-dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 9999px;
-    background: hsl(var(--border));
-    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+    position: relative;
+    width: 12px;
+    height: 16px;
+    transition: width 180ms var(--ease);
   }
 
-  .carousel-dot:hover {
-    background: hsl(var(--primary) / 0.5);
+  .carousel-dot::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    border-radius: 1px;
+    background: hsl(var(--foreground) / 0.18);
+    transition: background-color 150ms var(--ease);
+  }
+
+  .carousel-dot:hover::before {
+    background: hsl(var(--foreground) / 0.45);
   }
 
   .carousel-dot.is-active {
-    width: 1.75rem;
-    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    width: 28px;
+  }
+
+  .carousel-dot.is-active::before {
+    background: hsl(var(--foreground));
+  }
+
+  .carousel-dot:focus-visible {
+    outline-offset: 0;
+  }
+
+  .carousel-dots-dense .carousel-dot {
+    width: 6px;
+  }
+
+  .carousel-dots-dense .carousel-dot.is-active {
+    width: 16px;
   }
 
   /* ---------- Split view (list + detail) ---------- */
-  /* Phones: the list is a row that scrolls sideways, with a slim on-theme scrollbar */
+  /* Phones: the list is a row that scrolls sideways, with a slim ink scrollbar */
   .split-list {
     overscroll-behavior-x: contain;
   }
@@ -97,94 +203,78 @@
   }
 
   .split-list::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, hsl(var(--primary) / 0.55), hsl(var(--primary-light) / 0.55));
+    border: 0;
+    border-radius: 2px;
+    background: hsl(var(--foreground) / 0.2);
   }
 
   @supports not selector(::-webkit-scrollbar) {
     .split-list {
       scrollbar-width: thin;
-      scrollbar-color: hsl(var(--primary) / 0.55) transparent;
+      scrollbar-color: hsl(var(--foreground) / 0.2) transparent;
     }
   }
 
+  /* An entry: quiet text; the selected one is raised paper with an ink bar at its left edge */
   .split-item {
     position: relative;
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.625rem 0.75rem;
-    border-radius: 0.875rem;
+    gap: 12px;
+    padding: 8px 12px 8px 14px;
+    border-radius: 0 4px 4px 0;
     text-align: left;
     color: hsl(var(--muted-foreground));
     scroll-margin-block: 6rem 1.5rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+      background-color 150ms var(--ease),
+      color 150ms var(--ease);
+  }
+
+  .split-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background: hsl(var(--foreground));
+    opacity: 0;
+    transform: scaleY(0.4);
+    transition:
+      opacity 180ms var(--ease),
+      transform 180ms var(--ease);
   }
 
   .split-item:hover {
-    background: hsl(var(--secondary) / 0.45);
+    background: hsl(var(--secondary) / 0.6);
     color: hsl(var(--foreground));
   }
 
   .split-item:focus-visible {
     outline: none;
-    box-shadow: inset 0 0 0 2px hsl(var(--ring) / 0.6);
+    box-shadow: inset 0 0 0 2px hsl(var(--ring));
   }
 
   .split-item.is-active {
-    background: linear-gradient(90deg, hsl(var(--primary) / 0.18), hsl(var(--primary-light) / 0.06) 70%, transparent);
+    background: hsl(var(--secondary));
     color: hsl(var(--foreground));
   }
 
-  .split-item .avatar-ring {
-    opacity: 0.7;
-    filter: saturate(0.6);
-    transition: opacity 0.3s ease, filter 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .split-item:hover .avatar-ring,
-  .split-item.is-active .avatar-ring {
+  .split-item.is-active::before {
     opacity: 1;
-    filter: none;
+    transform: none;
   }
 
-  .split-item.is-active .avatar-ring {
-    transform: scale(1.06);
-  }
-
-  /* A thin line of blue light between the columns, fading out at both ends */
+  /* A plain hairline between the columns */
   .split-divider {
-    position: relative;
     flex-shrink: 0;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary-light) / 0.6) 15%, hsl(var(--primary-light) / 0.6) 85%, transparent);
-  }
-
-  .split-divider::before {
-    content: '';
-    position: absolute;
-    inset: -3px 0;
-    background: inherit;
-    filter: blur(4px);
-    opacity: 0.7;
-    pointer-events: none;
-  }
-
-  .split-divider-marker {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 3px;
-    height: 4rem;
-    margin: -2rem 0 0 -1.5px;
-    border-radius: 9999px;
-    background: linear-gradient(180deg, transparent, hsl(var(--primary-light)), hsl(0 0% 100% / 0.9), hsl(var(--primary-light)), transparent);
-    box-shadow: 0 0 14px 1px hsl(var(--primary-light) / 0.75);
-    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
-    pointer-events: none;
+    background: hsl(var(--border));
   }
 
   .split-detail-enter {
-    animation: split-detail-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: split-detail-in 0.4s var(--ease) both;
   }
 
   .split-detail-enter > * {
@@ -192,14 +282,14 @@
   }
 
   .split-nav {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 36px;
+    height: 36px;
   }
 
   @keyframes split-detail-in {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(8px);
     }
     to {
       opacity: 1;
@@ -216,14 +306,6 @@
       align-self: flex-start;
       /* Below the fixed nav and above the back-to-top button in the bottom-right corner */
       min-height: min(var(--split-height), calc(100vh - 11rem));
-    }
-
-    .split-divider {
-      background: linear-gradient(180deg, transparent, hsl(var(--primary-light) / 0.6) 12%, hsl(var(--primary-light) / 0.6) 88%, transparent);
-    }
-
-    .split-divider::before {
-      inset: 0 -3px;
     }
   }
 }

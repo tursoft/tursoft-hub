@@ -36,7 +36,7 @@ const CLICK_DISTANCE = 5; // px; moving further than this turns a click into a d
 const MIN_WEIGHT_OPACITY = 0.35; // opacity of the lowest-weight item at the front
 const MIN_DEPTH_OPACITY = 0.35; // extra fade applied to items at the back
 const INITIAL_ROTATION = { x: 0.3, y: 0 };
-const GRID_FALLBACK_COLOR = '167 139 250'; // light purple, used when --primary is unavailable
+const GRID_FALLBACK_COLOR = '31 27 22'; // ink, used when --foreground is unavailable
 
 type Vec3 = { x: number; y: number; z: number };
 
@@ -185,8 +185,8 @@ export const ItemCloud = ({
     const lastZ: string[] = [];
     const lastOpacity: string[] = [];
 
-    // Wireframe canvas: sized for the device pixel ratio, tinted with the
-    // theme's primary colour (shadcn stores it as "h s% l%" in --primary).
+    // Wireframe canvas: sized for the device pixel ratio and drawn in ink, like a
+    // printed globe diagram (shadcn stores colours as "h s% l%", here --foreground).
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d') ?? null;
     const dpr = window.devicePixelRatio || 1;
@@ -195,9 +195,9 @@ export const ItemCloud = ({
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-    const primary = containerRef.current ? getComputedStyle(containerRef.current).getPropertyValue('--primary').trim() : '';
+    const ink = containerRef.current ? getComputedStyle(containerRef.current).getPropertyValue('--foreground').trim() : '';
     const gridColor = (alpha: number) =>
-      primary ? `hsl(${primary} / ${alpha})` : `rgb(${GRID_FALLBACK_COLOR} / ${alpha})`;
+      ink ? `hsl(${ink} / ${alpha})` : `rgb(${GRID_FALLBACK_COLOR} / ${alpha})`;
 
     const drawGrid = (sinX: number, cosX: number, sinY: number, cosY: number) => {
       if (!ctx) return;
@@ -205,7 +205,7 @@ export const ItemCloud = ({
       ctx.lineWidth = 1;
       ctx.setLineDash([2, 7]);
       ctx.lineCap = 'round';
-      for (const pass of [{ front: false, alpha: 0.07 }, { front: true, alpha: 0.28 }]) {
+      for (const pass of [{ front: false, alpha: 0.06 }, { front: true, alpha: 0.22 }]) {
         ctx.strokeStyle = gridColor(pass.alpha);
         ctx.beginPath();
         for (const line of GRID_LINES) {
@@ -452,8 +452,8 @@ export const ItemCloud = ({
     <div
       ref={containerRef}
       className={cn(
-        'relative w-full overflow-hidden select-none rounded-xl outline-none',
-        'focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+        'relative w-full overflow-hidden select-none rounded-lg outline-none',
+        'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         dragging ? 'cursor-grabbing' : 'cursor-grab',
       )}
       style={{ height, touchAction: 'none' }}
@@ -466,20 +466,16 @@ export const ItemCloud = ({
       onPointerCancel={(e) => endDrag(e, false)}
       onKeyDown={handleKeyDown}
     >
-      {/* Atmosphere: lit from the upper left, darker rim, soft outer glow. */}
+      {/* The globe's outline: one hairline circle, like a printed diagram */}
       {radius > 0 && (
         <div
           aria-hidden="true"
-          className="absolute rounded-full pointer-events-none"
+          className="absolute rounded-full border border-border pointer-events-none"
           style={{
             left: width / 2 - radius,
             top: height / 2 - radius,
             width: radius * 2,
             height: radius * 2,
-            background:
-              'radial-gradient(circle at 32% 28%, hsl(var(--primary) / 0.22) 0%, hsl(var(--primary) / 0.08) 45%, hsl(var(--primary) / 0.03) 70%, transparent 100%)',
-            boxShadow:
-              'inset -24px -36px 80px hsl(var(--primary) / 0.22), inset 12px 16px 48px hsl(var(--primary) / 0.06), 0 0 90px hsl(var(--primary) / 0.12)',
           }}
         />
       )}
@@ -504,11 +500,11 @@ export const ItemCloud = ({
             tabIndex={-1}
             data-cloud-code={item.code}
             className={cn(
-              'group absolute left-0 top-0 will-change-transform rounded-xl outline-none',
-              'transition-[box-shadow,background-color] duration-200',
+              'group absolute left-0 top-0 will-change-transform rounded-md outline-none',
+              'transition-[box-shadow,background-color] duration-150 ease-dossier',
               dragging ? 'cursor-grabbing' : 'cursor-pointer',
-              isSelected && 'ring-2 ring-primary bg-primary/10 shadow-lg shadow-primary/30',
-              !isSelected && isHovered && 'ring-1 ring-primary/50 bg-primary/5',
+              isSelected && 'bg-card ring-1 ring-foreground',
+              !isSelected && isHovered && 'bg-secondary/80 ring-1 ring-border',
             )}
             style={{
               width: sizes[i],
@@ -531,20 +527,16 @@ export const ItemCloud = ({
                 src={item.image}
                 alt={item.title}
                 draggable={false}
-                className={cn(
-                  'w-full h-full object-contain drop-shadow-md transition-transform duration-200',
-                  active && 'scale-110',
-                )}
+                className="h-full w-full object-contain"
               />
             ) : (
-              <div className="w-full h-full rounded-full bg-card border border-border flex items-center justify-center text-[10px] font-medium text-foreground text-center leading-tight px-1 overflow-hidden">
+              <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-full border border-border bg-card px-1 text-center text-xs font-medium leading-tight text-foreground">
                 {item.title}
               </div>
             )}
             <span
               className={cn(
-                'pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-md px-2 py-0.5 text-xs font-medium shadow-md transition-opacity duration-150',
-                isSelected ? 'bg-primary text-primary-foreground' : 'bg-popover text-popover-foreground',
+                'pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-md bg-foreground px-2 py-0.5 text-xs font-medium text-background transition-opacity duration-150 ease-dossier',
                 active ? 'opacity-100' : 'opacity-0',
               )}
             >

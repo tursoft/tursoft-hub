@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { isInViewport, isPrerender, startsStatic } from '@/lib/prerender';
+import { cn } from '@/lib/utils';
 
 interface AnimatedCounterProps {
   end: number;
@@ -73,7 +74,7 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   const shown = hasAnimated.current && !isVisible ? end : count;
 
   return (
-    <span ref={countRef} className={className}>
+    <span ref={countRef} className={cn('tabular-nums', className)}>
       {isPrerender ? end : shown}{suffix}
     </span>
   );

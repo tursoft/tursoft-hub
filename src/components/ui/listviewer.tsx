@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect, useId, ReactNode, useMemo, useCallback, type ReactElement } from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft, ChevronRight, Grid, List, RotateCcw, Grid3x3, Filter, Search, Orbit, PanelLeft } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, GalleryHorizontal, Grid3x3, LayoutGrid, List, ListFilter, Orbit, PanelLeft, Search } from "lucide-react";
 import { ItemCloud } from "@/components/ui/item-cloud";
 import { cn } from "@/lib/utils";
 import { isPrerender } from "@/lib/prerender";
@@ -14,15 +14,18 @@ const withSafeLinks = (html: string) =>
 
 export type ViewMode = 'small-card' | 'card' | 'list' | 'carousel' | 'cloud' | 'split';
 
+const iconProps = { className: 'h-4 w-4', strokeWidth: 1.5, 'aria-hidden': true } as const;
+
 const VIEW_MODE_ICONS: Record<ViewMode, ReactNode> = {
-  'small-card': <Grid3x3 className="w-4 h-4" />,
-  card: <Grid className="w-4 h-4" />,
-  list: <List className="w-4 h-4" />,
-  carousel: <RotateCcw className="w-4 h-4" />,
-  cloud: <Orbit className="w-4 h-4" />,
-  split: <PanelLeft className="w-4 h-4" />,
+  'small-card': <Grid3x3 {...iconProps} />,
+  card: <LayoutGrid {...iconProps} />,
+  list: <List {...iconProps} />,
+  carousel: <GalleryHorizontal {...iconProps} />,
+  cloud: <Orbit {...iconProps} />,
+  split: <PanelLeft {...iconProps} />,
 };
 
+// Full names, shown as the hover title of each segment
 const VIEW_MODE_LABELS: Record<ViewMode, string> = {
   'small-card': 'Compact grid',
   card: 'Cards',
@@ -30,6 +33,16 @@ const VIEW_MODE_LABELS: Record<ViewMode, string> = {
   carousel: 'Carousel',
   cloud: '3D cloud',
   split: 'List and detail',
+};
+
+// Visible segment labels; they are also each button's accessible name
+const VIEW_MODE_SHORT: Record<ViewMode, string> = {
+  'small-card': 'Compact',
+  card: 'Cards',
+  list: 'List',
+  carousel: 'Carousel',
+  cloud: 'Cloud',
+  split: 'Split',
 };
 
 const prefersReducedMotion = () =>
@@ -166,7 +179,7 @@ const ListViewer = <T = any>({
   categoryFilterLayout = 'top',
   enableSearch = false,
   searchFields,
-  searchPlaceholder = 'Search...',
+  searchPlaceholder = 'Search',
   renderCardContent,
   renderListContent,
   renderCarouselContent,
@@ -210,9 +223,7 @@ const ListViewer = <T = any>({
   const [carouselInView, setCarouselInView] = useState(false);
   const swipeRef = useRef<{ x: number; y: number; swiped: boolean } | null>(null);
   const splitListRef = useRef<HTMLDivElement>(null);
-  const splitDividerRef = useRef<HTMLDivElement>(null);
   const splitRevealRef = useRef(false);
-  const [splitMarkerY, setSplitMarkerY] = useState<number | null>(null);
   const splitId = useId();
 
   // Helper to get field value
@@ -373,32 +384,7 @@ const ListViewer = <T = any>({
   }, [isCarousel, carouselAutoplayMs, slideCount, carouselInView, carouselPaused, nextSlide, currentIndex]);
 
   // Split view: the selection is currentIndex, shared with the carousel, so switching views keeps it.
-  // A glowing marker on the divider follows the selected entry while the list scrolls.
   const isSplit = viewMode === 'split';
-  const updateSplitMarker = useCallback(() => {
-    const list = splitListRef.current;
-    const divider = splitDividerRef.current;
-    const entry = list?.children[currentIndex] as HTMLElement | undefined;
-    if (!list || !divider || !entry) return;
-    const listBox = list.getBoundingClientRect();
-    const entryBox = entry.getBoundingClientRect();
-    const centre = entryBox.top + entryBox.height / 2;
-    const visible = centre >= listBox.top && centre <= listBox.bottom;
-    setSplitMarkerY(visible ? centre - divider.getBoundingClientRect().top : null);
-  }, [currentIndex]);
-
-  useEffect(() => {
-    const list = splitListRef.current;
-    if (!isSplit || !list) return;
-    updateSplitMarker();
-    list.addEventListener('scroll', updateSplitMarker, { passive: true });
-    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(updateSplitMarker);
-    observer?.observe(list);
-    return () => {
-      list.removeEventListener('scroll', updateSplitMarker);
-      observer?.disconnect();
-    };
-  }, [isSplit, updateSplitMarker]);
 
   // Bring the selected entry into view. Next/back and the arrow keys ask for that explicitly
   // (splitRevealRef); on md+ the list is part of the page, so the page scrolls while the sticky
@@ -513,6 +499,43 @@ const ListViewer = <T = any>({
     return classes.join(' ');
   };
 
+  // A whole card is one click target: a hairline sheet whose hover is a soft shadow, never a lift
+  const cardSurface = 'cursor-pointer transition-[box-shadow,background-color] duration-150 ease-dossier hover:shadow-[var(--shadow-card-hover)]';
+  // List rows: hairlines between them (from the list), a raised-paper step on hover
+  const rowSurface = 'cursor-pointer transition-colors duration-150 ease-dossier hover:bg-secondary/60';
+
+  // Item images: people photos print on the paper (round), logos and icons sit as they are
+  const imageClass = (size: string) =>
+    cn(size, 'flex-shrink-0', imageRounded ? 'rounded-full object-cover print-photo' : 'rounded-md object-contain');
+
+  const renderActions = (item: T, code: string, max?: number) => {
+    if (!fieldMapping.actions || fieldMapping.actions.length === 0) return null;
+    const actions = max ? fieldMapping.actions.slice(0, max) : fieldMapping.actions;
+    return (
+      <div className="mt-4 flex flex-wrap gap-2">
+        {actions.map((action, idx) => {
+          const ActionIcon = action.icon;
+          const label = typeof action.label === 'function' ? action.label(item) : action.label;
+          return (
+            <Button
+              key={`${code}-action-${idx}`}
+              variant={action.variant || "outline"}
+              size="sm"
+              className="h-8 px-3 text-[13px]"
+              onClick={(e) => {
+                e.stopPropagation();
+                action.onClick(item, e);
+              }}
+            >
+              {ActionIcon && <ActionIcon className="h-4 w-4" />}
+              {label}
+            </Button>
+          );
+        })}
+      </div>
+    );
+  };
+
   // Render card view
   const renderCard = (item: T, index: number) => {
     const code = getFieldValue(item, fieldMapping.code);
@@ -525,9 +548,9 @@ const ListViewer = <T = any>({
 
     if (renderCardContent) {
       return (
-        <Card 
+        <Card
           key={code}
-          className="border-border bg-card hover:shadow-lg hover:border-primary/50 hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+          className={cardSurface}
           style={enableAnimation ? { animationDelay: `${index * 100}ms` } : undefined}
           onClick={() => onItemClick?.(item)}
         >
@@ -537,72 +560,42 @@ const ListViewer = <T = any>({
     }
 
     return (
-      <Card 
+      <Card
         key={code}
-        className="border-border bg-card hover:shadow-lg hover:border-primary/50 hover:scale-[1.02] transition-all duration-300 cursor-pointer flex flex-col"
+        className={cn(cardSurface, 'flex flex-col p-5')}
         style={enableAnimation ? { animationDelay: `${index * 100}ms` } : undefined}
         onClick={() => onItemClick?.(item)}
       >
-        <CardHeader className="pb-4">
-          <div className="flex flex-col items-center text-center">
-            {image && (
-              <div className="flex-shrink-0 mb-3">
-                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden border-background shadow-lg ${
-                  imageRounded ? 'rounded-full border-4' : 'rounded-lg'
-                }`}>
-                  <img loading="lazy" decoding="async" 
-                    src={image} 
-                    alt={title}
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-              </div>
+        <div className="flex items-start gap-4">
+          {image && (
+            <img loading="lazy" decoding="async"
+              src={image}
+              alt={title}
+              className={imageClass('h-12 w-12')}
+            />
+          )}
+          <div className="min-w-0 flex-1">
+            {badgeText && (
+              <Badge variant="secondary" className="mb-2">{badgeText}</Badge>
             )}
-            <div className="w-full">
-              {badgeText && (
-                <Badge variant="outline" className="mb-2 text-xs">{badgeText}</Badge>
-              )}
-              <h3 className="text-lg font-bold mb-1">{title}</h3>
-              {subtitle && (
-                <p className="text-primary font-semibold text-sm mb-1">{subtitle}</p>
-              )}
-              {date && (
-                <p className="text-muted-foreground text-xs">{date}</p>
-              )}
-            </div>
+            <h3 className="text-base font-medium leading-snug text-foreground">{title}</h3>
+            {subtitle && (
+              <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p>
+            )}
+            {date && (
+              <p className="mt-0.5 whitespace-pre-line text-[13px] tabular-nums text-faint">{date}</p>
+            )}
           </div>
-        </CardHeader>
-        <CardContent className="pt-0 flex flex-col flex-1">
-          <div className="flex-1">
-            <p 
-              className="text-sm leading-relaxed text-muted-foreground text-center line-clamp-4"
+        </div>
+        <div className="mt-4 flex flex-1 flex-col">
+          {description && (
+            <p
+              className="flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-4"
               dangerouslySetInnerHTML={{ __html: withSafeLinks(description) }}
             />
-          </div>
-          {fieldMapping.actions && fieldMapping.actions.length > 0 && (
-            <div className="flex flex-wrap gap-2 justify-center mt-4">
-              {fieldMapping.actions.map((action, idx) => {
-                const ActionIcon = action.icon;
-                const label = typeof action.label === 'function' ? action.label(item) : action.label;
-                return (
-                  <Button
-                    key={`${code}-action-${idx}`}
-                    variant={action.variant || "outline"}
-                    size="sm"
-                    className="text-xs"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      action.onClick(item, e);
-                    }}
-                  >
-                    {ActionIcon && <ActionIcon className="w-3 h-3 mr-1" />}
-                    {label}
-                  </Button>
-                );
-              })}
-            </div>
           )}
-        </CardContent>
+          {renderActions(item, code)}
+        </div>
       </Card>
     );
   };
@@ -619,87 +612,57 @@ const ListViewer = <T = any>({
 
     if (renderListContent) {
       return (
-        <Card 
+        <div
           key={code}
-          className="border-2 border-border/50 hover:border-primary/50 bg-card hover:shadow-lg transition-all duration-300 cursor-pointer"
+          className={rowSurface}
           style={enableAnimation ? { animationDelay: `${index * 50}ms` } : undefined}
           onClick={() => onItemClick?.(item)}
         >
           {renderListContent(item)}
-        </Card>
+        </div>
       );
     }
 
     return (
-      <Card 
+      <div
         key={code}
-        className="border-2 border-border/50 hover:border-primary/50 bg-card hover:shadow-lg transition-all duration-300 cursor-pointer"
+        className={cn(rowSurface, 'flex items-start gap-4 px-4 py-4 sm:gap-5')}
         style={enableAnimation ? { animationDelay: `${index * 50}ms` } : undefined}
         onClick={() => onItemClick?.(item)}
       >
-        <CardContent className="p-6">
-          <div className="flex gap-6 items-start">
-            {image && (
-              <div className="flex-shrink-0">
-                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden ${
-                  imageRounded ? 'rounded-full' : 'rounded-lg'
-                }`}>
-                  <img loading="lazy" decoding="async" 
-                    src={image} 
-                    alt={title}
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-              </div>
-            )}
-            <div className="flex-1 min-w-0">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                <div>
-                  {badgeText && (
-                    <Badge variant="outline" className="mb-2 text-xs">{badgeText}</Badge>
-                  )}
-                  <h3 className="text-xl font-bold mb-1">{title}</h3>
-                  {subtitle && (
-                    <p className="text-primary font-semibold text-sm">{subtitle}</p>
-                  )}
-                </div>
-                {date && (
-                  <div className="text-xs text-muted-foreground/70 font-light whitespace-pre-line text-right">
-                    {date}
-                  </div>
-                )}
-              </div>
-              <div 
-                className="text-sm leading-relaxed text-muted-foreground mb-4 pl-4 border-l-4 border-primary/30"
-                dangerouslySetInnerHTML={{ __html: withSafeLinks(description) }}
-              />
-              {fieldMapping.actions && fieldMapping.actions.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {fieldMapping.actions.map((action, idx) => {
-                    const ActionIcon = action.icon;
-                    const label = typeof action.label === 'function' ? action.label(item) : action.label;
-                    return (
-                      <Button
-                        key={`${code}-action-${idx}`}
-                        variant={action.variant || "outline"}
-                        size="sm"
-                        className="text-xs"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          action.onClick(item, e);
-                        }}
-                      >
-                        {ActionIcon && <ActionIcon className="w-3 h-3 mr-1" />}
-                        {label}
-                      </Button>
-                    );
-                  })}
-                </div>
+        {image && (
+          <img loading="lazy" decoding="async"
+            src={image}
+            alt={title}
+            className={imageClass('h-12 w-12')}
+          />
+        )}
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-col gap-1 md:flex-row md:items-start md:justify-between md:gap-6">
+            <div className="min-w-0">
+              {badgeText && (
+                <Badge variant="secondary" className="mb-1.5">{badgeText}</Badge>
+              )}
+              <h3 className="text-base font-medium leading-snug text-foreground">{title}</h3>
+              {subtitle && (
+                <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p>
               )}
             </div>
+            {date && (
+              <p className="whitespace-pre-line text-[13px] leading-5 tabular-nums text-faint md:flex-shrink-0 md:text-right">
+                {date}
+              </p>
+            )}
           </div>
-        </CardContent>
-      </Card>
+          {description && (
+            <div
+              className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground"
+              dangerouslySetInnerHTML={{ __html: withSafeLinks(description) }}
+            />
+          )}
+          {renderActions(item, code)}
+        </div>
+      </div>
     );
   };
 
@@ -729,11 +692,11 @@ const ListViewer = <T = any>({
         style={enableAnimation ? { animationDelay: `${index * 30}ms` } : undefined}
         onClick={() => onItemClick?.(item)}
       >
-        <div className="bg-card border border-border rounded-lg p-3 hover:shadow-lg hover:border-primary/50 transition-all duration-300 flex flex-col items-center justify-center">
-          <div className="w-full aspect-square flex items-center justify-center mb-2">
+        <div className="flex flex-col items-center justify-center rounded-lg border border-border bg-card p-3 transition-shadow duration-150 ease-dossier group-hover:shadow-[var(--shadow-card-hover)]">
+          <div className="mb-2 flex aspect-square w-full items-center justify-center">
             {image ? (
-              <img loading="lazy" decoding="async" 
-                src={image} 
+              <img loading="lazy" decoding="async"
+                src={image}
                 alt={title}
                 className={`${smallCardImageClassName} object-contain`}
                 onError={(e) => {
@@ -741,12 +704,12 @@ const ListViewer = <T = any>({
                 }}
               />
             ) : (
-              <div className="text-center text-xs font-medium text-muted-foreground line-clamp-2 px-1">
+              <div className="line-clamp-2 px-1 text-center text-xs font-medium text-muted-foreground">
                 {title}
               </div>
             )}
           </div>
-          <div className="text-xs text-center font-medium text-foreground line-clamp-2 w-full">
+          <div className="line-clamp-2 w-full text-center text-xs font-medium leading-4 text-foreground">
             {title}
           </div>
         </div>
@@ -764,25 +727,27 @@ const ListViewer = <T = any>({
     const badgeText = getFieldValue(item, fieldMapping.badge);
     const date = getFieldValue(item, fieldMapping.date);
     const cardStyle = getCardTransform(index);
+    const cardClass = cn(
+      'absolute flex cursor-pointer flex-col transition-[transform,opacity,box-shadow] duration-500 ease-dossier',
+      carouselCardClassName ?? 'border-border bg-card',
+      index === currentIndex && 'is-active',
+    );
+    const onCardClick = () => {
+      if (index === currentIndex) {
+        onItemClick?.(item);
+      } else {
+        goToSlide(index);
+      }
+    };
 
     if (renderCarouselContent) {
       return (
-        <Card 
+        <Card
           key={code}
-          className={cn(
-            'absolute cursor-pointer transition-all duration-500 ease-out flex flex-col',
-            carouselCardClassName ?? 'border-border bg-card',
-            index === currentIndex && 'is-active',
-          )}
+          className={cardClass}
           style={{ ...cardStyle, width: `min(${baseCardWidth}px, calc(100% - 2rem))`, height: carouselCardHeight }}
           aria-hidden={index !== currentIndex || undefined}
-          onClick={() => {
-            if (index === currentIndex) {
-              onItemClick?.(item);
-            } else {
-              goToSlide(index);
-            }
-          }}
+          onClick={onCardClick}
         >
           {renderCarouselContent(item)}
         </Card>
@@ -790,153 +755,188 @@ const ListViewer = <T = any>({
     }
 
     return (
-      <Card 
+      <Card
         key={code}
-        className={cn(
-          'absolute cursor-pointer transition-all duration-500 ease-out flex flex-col',
-          carouselCardClassName ?? 'border-border bg-card',
-          index === currentIndex && 'is-active',
-        )}
+        className={cn(cardClass, 'p-6 sm:p-8')}
         style={{ ...cardStyle, width: `min(${baseCardWidth}px, calc(100% - 2rem))`, height: carouselCardHeight }}
         aria-hidden={index !== currentIndex || undefined}
-        onClick={() => {
-          if (index === currentIndex) {
-            onItemClick?.(item);
-          } else {
-            goToSlide(index);
-          }
-        }}
+        onClick={onCardClick}
       >
-        <CardHeader className="pb-4 relative">
-          <div className="flex flex-col items-center text-center">
-            {image && (
-              <div className="flex-shrink-0 mb-2 -mt-8">
-                <div className={`h-20 w-20 flex items-center justify-center overflow-hidden border-background shadow-lg ${
-                  imageRounded ? 'rounded-full border-4' : 'rounded-lg'
-                }`}>
-                  <img loading="lazy" decoding="async" 
-                    src={image} 
-                    alt={title}
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-              </div>
+        <div className="flex items-start gap-4">
+          {image && (
+            <img loading="lazy" decoding="async"
+              src={image}
+              alt={title}
+              className={imageClass('h-14 w-14')}
+            />
+          )}
+          <div className="min-w-0 flex-1">
+            {badgeText && (
+              <Badge variant="secondary" className="mb-2">{badgeText}</Badge>
             )}
-            <div className="w-full">
-              {badgeText && (
-                <Badge variant="outline" className="mb-2 text-xs">{badgeText}</Badge>
-              )}
-              <h3 className="text-xl font-bold mb-2">{title}</h3>
-              {subtitle && (
-                <p className="text-primary font-semibold text-sm">{subtitle}</p>
-              )}
-              {date && (
-                <p className="text-muted-foreground text-xs mb-3">{date}</p>
-              )}
-            </div>
+            <h3 className="text-lg font-medium leading-snug text-foreground">{title}</h3>
+            {subtitle && (
+              <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p>
+            )}
+            {date && (
+              <p className="mt-0.5 whitespace-pre-line text-[13px] tabular-nums text-faint">{date}</p>
+            )}
           </div>
-        </CardHeader>
-        <CardContent className="pt-0 flex flex-col h-full">
-          <div className="flex-1 flex flex-col justify-center">
-            <div 
-              className="text-sm leading-relaxed text-muted-foreground text-center line-clamp-5"
+        </div>
+        <div className="mt-6 flex min-h-0 flex-1 flex-col border-t border-border pt-5">
+          {description && (
+            <div
+              className="text-[15px] leading-relaxed text-muted-foreground line-clamp-6"
               dangerouslySetInnerHTML={{ __html: withSafeLinks(description) }}
             />
-          </div>
-          {fieldMapping.actions && fieldMapping.actions.length > 0 && (
-            <div className="flex flex-wrap gap-2 justify-center mt-4">
-              {fieldMapping.actions.slice(0, 3).map((action, idx) => {
-                const ActionIcon = action.icon;
-                const label = typeof action.label === 'function' ? action.label(item) : action.label;
-                return (
-                  <Button
-                    key={`${code}-action-${idx}`}
-                    variant={action.variant || "outline"}
-                    size="sm"
-                    className="text-xs"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      action.onClick(item, e);
-                    }}
-                  >
-                    {ActionIcon && <ActionIcon className="w-3 h-3 mr-1" />}
-                    {label}
-                  </Button>
-                );
-              })}
-            </div>
           )}
-        </CardContent>
+          <div className="mt-auto">{renderActions(item, code, 3)}</div>
+        </div>
       </Card>
     );
   };
 
-  if (isLoading) {
-    return (
-      <section className="py-20 bg-background/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <p className="text-muted-foreground">{loadingMessage}</p>
-          </div>
-        </div>
+  // Standalone use (with its own title) renders a full section; inside a section or a
+  // dialog that already has its own header and column, the viewer is plain content.
+  const hasHeader = !!(title || subtitle || badge);
+  const frame = (content: ReactNode) =>
+    hasHeader ? (
+      <section className="py-16 lg:py-24">
+        <div className="container">{content}</div>
       </section>
+    ) : (
+      <div className="lv-root">{content}</div>
+    );
+
+  if (isLoading) {
+    return frame(
+      <p className="py-16 text-center text-sm text-muted-foreground">{loadingMessage}</p>
     );
   }
 
   const sideLayout = categoryFilterLayout === 'side';
   const hasCategories = enableCategoryFilter && !!categoryField && categories.length > 0;
   const categoryFilter = hasCategories ? (
-    <div className={sideLayout ? 'flex flex-col gap-2' : 'flex flex-wrap gap-2'}>
-      {categories.map((category) => (
-        <Button
-          key={category}
-          variant={selectedCategory === category ? 'default' : 'outline'}
-          size="sm"
-          onClick={() => setSelectedCategory(category)}
-          className={sideLayout ? 'gap-2 w-full justify-between' : 'gap-2 flex-1'}
-        >
-          <span className={sideLayout ? 'truncate' : undefined}>{categoryLabels?.[category] || category}</span>
-          <Badge variant={selectedCategory === category ? 'secondary' : 'outline'}>
-            {getCategoryCount(category)}
-          </Badge>
-        </Button>
-      ))}
+    <div
+      role="group"
+      aria-label="Categories"
+      className={sideLayout ? 'flex flex-col border-l border-border' : 'flex flex-wrap gap-2'}
+    >
+      {categories.map((category) => {
+        const active = selectedCategory === category;
+        const label = categoryLabels?.[category] || category;
+        const count = getCategoryCount(category);
+        if (sideLayout) {
+          return (
+            <button
+              key={category}
+              type="button"
+              aria-pressed={active}
+              onClick={() => setSelectedCategory(category)}
+              className={cn(
+                'relative flex h-9 w-full items-center justify-between gap-3 rounded-r-md pl-4 pr-3 text-left text-sm transition-colors duration-150 ease-dossier',
+                'before:absolute before:inset-y-0 before:-left-px before:w-0.5 before:bg-foreground before:transition-opacity before:duration-150',
+                active
+                  ? 'bg-secondary font-medium text-foreground before:opacity-100'
+                  : 'text-muted-foreground before:opacity-0 hover:bg-secondary/60 hover:text-foreground',
+              )}
+            >
+              <span className="truncate">{label}</span>
+              <span className="text-xs tabular-nums text-faint">{count}</span>
+            </button>
+          );
+        }
+        return (
+          <button
+            key={category}
+            type="button"
+            aria-pressed={active}
+            onClick={() => setSelectedCategory(category)}
+            className={cn(
+              'inline-flex h-8 items-center gap-2 rounded-md border px-3 text-[13px] font-medium transition-colors duration-150 ease-dossier',
+              active
+                ? 'border-foreground bg-foreground text-background'
+                : 'border-border bg-card text-muted-foreground hover:bg-secondary hover:text-foreground',
+            )}
+          >
+            <span>{label}</span>
+            <span className={cn('tabular-nums', active ? 'text-background/70' : 'text-faint')}>{count}</span>
+          </button>
+        );
+      })}
     </div>
   ) : null;
 
   if (data.length === 0) {
-    return (
-      <section className="py-20 bg-background/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <p className="text-muted-foreground">{emptyMessage}</p>
-          </div>
-        </div>
-      </section>
+    return frame(
+      emptyMessage ? <p className="py-16 text-center text-sm text-muted-foreground">{emptyMessage}</p> : null
     );
   }
 
-  return (
-    <section className={`bg-background/50 ${(title || subtitle || badge) ? 'py-20' : 'py-8'}`}>
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
-        {(title || subtitle || badge) && (
-          <div className="text-center mb-12">
-            {badge && (
-              <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">{badge}</Badge>
-            )}
-            {title && (
-              <h2 
-                className="text-4xl lg:text-5xl font-bold mb-6"
-                dangerouslySetInnerHTML={{ __html: title }}
-              />
-            )}
-            {subtitle && (
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                {subtitle}
-              </p>
-            )}
-          </div>
+  // View-mode switch: a segmented control on a raised track. Segments share one width,
+  // so the active surface slides by its index alone and renders the same on the server.
+  const activeModeIndex = enabledModes.indexOf(viewMode);
+  const viewSwitch = enabledModes.length > 1 ? (
+    <div
+      role="group"
+      aria-label="View mode"
+      className="lv-seg"
+      style={{ '--seg-count': enabledModes.length, '--seg-index': Math.max(0, activeModeIndex) } as React.CSSProperties}
+    >
+      <span aria-hidden="true" className="lv-seg-thumb" hidden={activeModeIndex < 0} />
+      {enabledModes.map((mode) => (
+        <button
+          key={mode}
+          type="button"
+          onClick={() => setViewMode(mode)}
+          title={VIEW_MODE_LABELS[mode]}
+          aria-pressed={viewMode === mode}
+          className="lv-seg-btn"
+        >
+          {VIEW_MODE_ICONS[mode]}
+          <span>{VIEW_MODE_SHORT[mode]}</span>
+        </button>
+      ))}
+    </div>
+  ) : null;
+
+  // "Show all": a quiet control on a hairline that runs across the column
+  const showMore = hasMore ? (
+    <div className="mt-8 flex items-center gap-4">
+      <span aria-hidden="true" className="h-px flex-1 bg-border" />
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => setShowAll(!showAll)}
+        aria-expanded={showAll}
+      >
+        {showAll ? 'Show less' : <>Show all <span className="tabular-nums text-faint">{filteredData.length}</span></>}
+        {showAll ? <ChevronUp className="text-faint" strokeWidth={1.5} /> : <ChevronDown className="text-faint" strokeWidth={1.5} />}
+      </Button>
+      <span aria-hidden="true" className="h-px flex-1 bg-border" />
+    </div>
+  ) : null;
+
+  return frame(
+    <>
+        {/* Section Header (standalone use): set like the dossier's SectionHeader */}
+        {hasHeader && (
+          <header className="section-head lv-head">
+            <div className="min-w-0">
+              {badge && <p className="kicker">{badge}</p>}
+              {title && (
+                <h2
+                  className="section-title"
+                  dangerouslySetInnerHTML={{ __html: title }}
+                />
+              )}
+              {subtitle && (
+                <p className="section-desc">
+                  {subtitle}
+                </p>
+              )}
+            </div>
+          </header>
         )}
 
         {/* Summary Section */}
@@ -947,7 +947,7 @@ const ListViewer = <T = any>({
         )}
 
         {/* Body: optional category sidebar + content column */}
-        <div className={sideLayout && hasCategories ? 'flex flex-col md:flex-row gap-8' : undefined}>
+        <div className={sideLayout && hasCategories ? 'flex flex-col md:flex-row gap-8 lg:gap-12' : undefined}>
         {sideLayout && hasCategories && (
           <aside className={`md:w-52 lg:w-60 flex-shrink-0 md:sticky md:top-24 self-start ${showFilters ? 'block' : 'hidden'} md:block`}>
             {categoryFilter}
@@ -959,15 +959,15 @@ const ListViewer = <T = any>({
         {(enableCategoryFilter || enableSearch) && (
           <div className="mb-8">
             {/* Mobile Filter Toggle */}
-            <div className="md:hidden flex justify-center mb-4">
+            <div className="md:hidden mb-4">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setShowFilters(!showFilters)}
-                className="gap-2"
+                aria-expanded={showFilters}
               >
-                <Filter className="w-4 h-4" />
-                {showFilters ? 'Hide Filters' : 'Show Filters'}
+                <ListFilter className="text-faint" strokeWidth={1.5} />
+                {showFilters ? 'Hide filters' : 'Show filters'}
               </Button>
             </div>
 
@@ -978,36 +978,20 @@ const ListViewer = <T = any>({
 
               {/* Search Input with View Mode Toggle */}
               {enableSearch && (
-                <div className="flex flex-row justify-center items-center gap-3 w-full">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="relative w-full sm:max-w-sm">
+                    <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" strokeWidth={1.5} aria-hidden="true" />
                     <Input
                       type="text"
                       placeholder={searchPlaceholder}
+                      aria-label="Search"
                       value={searchText}
                       onChange={(e) => setSearchText(e.target.value)}
-                      className="pl-10"
+                      className="pl-9"
                     />
                   </div>
                   {/* View Mode Toggle inline with search */}
-                  {enabledModes.length > 1 && (
-                    <div className="flex gap-1 bg-muted/30 p-1 rounded-lg flex-shrink-0">
-                      {enabledModes.map((mode) => (
-                        <Button
-                          key={mode}
-                          variant={viewMode === mode ? 'default' : 'ghost'}
-                          size="sm"
-                          onClick={() => setViewMode(mode)}
-                          className="h-8 px-3"
-                          title={VIEW_MODE_LABELS[mode]}
-                          aria-label={VIEW_MODE_LABELS[mode]}
-                          aria-pressed={viewMode === mode}
-                        >
-                          {VIEW_MODE_ICONS[mode]}
-                        </Button>
-                      ))}
-                    </div>
-                  )}
+                  {viewSwitch}
                 </div>
               )}
             </div>
@@ -1015,24 +999,9 @@ const ListViewer = <T = any>({
         )}
 
         {/* View Mode Toggle - Standalone (when search is not enabled) */}
-        {!enableSearch && enabledModes.length > 1 && (
-          <div className="flex justify-center mb-8">
-            <div className="flex gap-1 bg-muted/30 p-1 rounded-lg">
-              {enabledModes.map((mode) => (
-                <Button
-                  key={mode}
-                  variant={viewMode === mode ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => setViewMode(mode)}
-                  className="h-8 px-3"
-                  title={VIEW_MODE_LABELS[mode]}
-                  aria-label={VIEW_MODE_LABELS[mode]}
-                  aria-pressed={viewMode === mode}
-                >
-                  {VIEW_MODE_ICONS[mode]}
-                </Button>
-              ))}
-            </div>
+        {!enableSearch && viewSwitch && (
+          <div className="mb-8 flex sm:justify-end">
+            {viewSwitch}
           </div>
         )}
 
@@ -1042,39 +1011,17 @@ const ListViewer = <T = any>({
             <div className={getGridClasses()}>
               {filteredData.map((item, index) => withCollapse(item, index, renderCard))}
             </div>
-            {hasMore && (
-              <div className="flex justify-center mt-8">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() => setShowAll(!showAll)}
-                  className="transition-all duration-300 hover:scale-105"
-                >
-                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
-                </Button>
-              </div>
-            )}
+            {showMore}
           </>
         )}
 
-        {/* List View */}
+        {/* List View: rows divided by hairlines */}
         {viewMode === 'list' && (
           <>
-            <div className="space-y-4 max-w-5xl mx-auto">
+            <div className="divide-y divide-border border-y border-border">
               {filteredData.map((item, index) => withCollapse(item, index, renderListItem))}
             </div>
-            {hasMore && (
-              <div className="flex justify-center mt-8">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() => setShowAll(!showAll)}
-                  className="transition-all duration-300 hover:scale-105"
-                >
-                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
-                </Button>
-              </div>
-            )}
+            {showMore}
           </>
         )}
 
@@ -1084,18 +1031,7 @@ const ListViewer = <T = any>({
             <div className={smallCardGridClassName}>
               {filteredData.map((item, index) => withCollapse(item, index, renderSmallCard))}
             </div>
-            {hasMore && (
-              <div className="flex justify-center mt-8">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() => setShowAll(!showAll)}
-                  className="transition-all duration-300 hover:scale-105"
-                >
-                  {showAll ? 'Show Less' : `Show All (${filteredData.length})`}
-                </Button>
-              </div>
-            )}
+            {showMore}
           </>
         )}
 
@@ -1129,7 +1065,7 @@ const ListViewer = <T = any>({
                   {focusItem ? (
                     cloudHoverContent(focusItem)
                   ) : (
-                    <div className="h-full min-h-[8rem] rounded-xl border border-dashed border-border flex items-center justify-center p-6 text-center text-sm text-muted-foreground">
+                    <div className="flex h-full min-h-[8rem] items-center justify-center rounded-lg border border-border p-6 text-center text-sm text-muted-foreground">
                       Hover or click an icon to see its details. Drag to turn the sphere.
                     </div>
                   )}
@@ -1154,16 +1090,16 @@ const ListViewer = <T = any>({
               <div className="flex h-full flex-col justify-center gap-6">
                 <div className="flex items-center gap-5">
                   {image && (
-                    <img loading="lazy" decoding="async" src={image} alt="" className={cn('h-20 w-20 object-contain', imageRounded ? 'rounded-full' : 'rounded-lg')} />
+                    <img loading="lazy" decoding="async" src={image} alt="" className={imageClass('h-20 w-20')} />
                   )}
                   <div className="min-w-0">
-                    <h3 className="text-2xl font-bold">{title}</h3>
-                    {subtitle && <p className="text-primary font-semibold text-sm">{subtitle}</p>}
-                    {date && <p className="text-muted-foreground text-xs">{date}</p>}
+                    <h3 className="text-xl font-medium leading-snug text-foreground">{title}</h3>
+                    {subtitle && <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p>}
+                    {date && <p className="mt-0.5 text-[13px] tabular-nums text-faint">{date}</p>}
                   </div>
                 </div>
                 <div
-                  className="text-base leading-relaxed text-muted-foreground"
+                  className="max-w-3xl text-base leading-relaxed text-muted-foreground"
                   dangerouslySetInnerHTML={{ __html: withSafeLinks(getFieldValue(item, fieldMapping.description)) }}
                 />
               </div>
@@ -1171,7 +1107,7 @@ const ListViewer = <T = any>({
           };
           return (
             <div
-              className="flex max-w-6xl mx-auto flex-col md:flex-row md:items-stretch"
+              className="flex flex-col md:flex-row md:items-stretch"
               style={{ '--split-height': splitHeight } as React.CSSProperties}
             >
               <div
@@ -1180,7 +1116,7 @@ const ListViewer = <T = any>({
                 aria-orientation="vertical"
                 aria-label={carouselLabel}
                 onKeyDown={onSplitKeyDown}
-                className="split-list flex gap-1 overflow-x-auto pb-2 md:w-72 md:flex-shrink-0 md:flex-col md:overflow-visible md:pb-0 lg:w-80"
+                className="split-list flex gap-1 overflow-x-auto pb-2 md:w-72 md:flex-shrink-0 md:flex-col md:gap-0.5 md:overflow-visible md:pb-0 lg:w-80"
               >
                 {filteredData.map((item, index) => {
                   const code = getFieldValue(item, fieldMapping.code);
@@ -1203,10 +1139,10 @@ const ListViewer = <T = any>({
                       {renderSplitItem ? renderSplitItem(item) : (
                         <>
                           {image && (
-                            <img loading="lazy" decoding="async" src={image} alt="" className={cn('h-10 w-10 flex-shrink-0 object-contain', imageRounded ? 'rounded-full' : 'rounded-md')} />
+                            <img loading="lazy" decoding="async" src={image} alt="" className={imageClass('h-10 w-10')} />
                           )}
                           <span className="min-w-0">
-                            <span className="block truncate text-sm font-semibold">{title}</span>
+                            <span className="block truncate text-sm font-medium">{title}</span>
                             {subtitle && <span className="block truncate text-xs text-muted-foreground">{subtitle}</span>}
                           </span>
                         </>
@@ -1217,15 +1153,9 @@ const ListViewer = <T = any>({
               </div>
 
               <div
-                ref={splitDividerRef}
                 aria-hidden="true"
-                className="split-divider my-6 h-px md:my-0 md:ml-2 md:mr-8 md:h-auto md:w-px lg:ml-3 lg:mr-12"
-              >
-                <span
-                  className="split-divider-marker hidden md:block"
-                  style={{ transform: `translateY(${splitMarkerY ?? 0}px)`, opacity: splitMarkerY === null ? 0 : 1 }}
-                />
-              </div>
+                className="split-divider my-6 h-px md:my-0 md:ml-4 md:mr-8 md:h-auto md:w-px lg:ml-6 lg:mr-12"
+              />
 
               <div role="tabpanel" id={panelId} aria-labelledby={tabId(selectedCode)} className="split-detail flex min-w-0 flex-1 flex-col">
                 <div key={selectedCode} className="split-detail-enter flex flex-1 flex-col cursor-pointer" onClick={() => onItemClick?.(selected)}>
@@ -1236,15 +1166,15 @@ const ListViewer = <T = any>({
                       : renderDefaultDetail(selected)}
                 </div>
                 {slideCount > 1 && (
-                  <div className="mt-4 flex items-center justify-end gap-2">
-                    <span className="mr-1 text-xs tabular-nums text-muted-foreground">
+                  <div className="split-pager mt-6 flex items-center justify-end gap-2 border-t border-border pt-4">
+                    <span className="mr-2 text-[13px] tabular-nums text-faint">
                       {currentIndex + 1} / {slideCount}
                     </span>
                     <button type="button" onClick={() => stepSplit(-1)} aria-label="Previous" aria-controls={panelId} className="split-nav">
-                      <ChevronLeft className="w-4 h-4" />
+                      <ChevronLeft className="h-4 w-4" strokeWidth={1.5} />
                     </button>
                     <button type="button" onClick={() => stepSplit(1)} aria-label="Next" aria-controls={panelId} className="split-nav">
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="h-4 w-4" strokeWidth={1.5} />
                     </button>
                   </div>
                 )}
@@ -1256,28 +1186,6 @@ const ListViewer = <T = any>({
         {/* Carousel View */}
         {viewMode === 'carousel' && (
           <div className="relative max-w-6xl mx-auto">
-            {/* Navigation Buttons */}
-            {slideCount > 1 && (
-              <>
-                <button
-                  type="button"
-                  onClick={prevSlide}
-                  aria-label="Previous"
-                  className="carousel-nav left-1 sm:left-3"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={nextSlide}
-                  aria-label="Next"
-                  className="carousel-nav right-1 sm:right-3"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </>
-            )}
-
             {/* Stage */}
             <div
               ref={containerRef}
@@ -1285,7 +1193,7 @@ const ListViewer = <T = any>({
               aria-roledescription="carousel"
               aria-label={carouselLabel}
               tabIndex={0}
-              className="carousel-stage relative flex items-center justify-center overflow-hidden rounded-2xl"
+              className="carousel-stage relative flex items-center justify-center overflow-hidden rounded-lg"
               style={{ perspective: '1200px', height: carouselHeight }}
               onPointerDown={onStagePointerDown}
               onPointerUp={onStagePointerUp}
@@ -1302,10 +1210,28 @@ const ListViewer = <T = any>({
               {filteredData.map((item, index) => renderCarouselItem(item, index))}
             </div>
 
-            {/* Indicators */}
+            {/* Pager under the stage, so nothing covers the slides: back, the slide bars
+                (small ink bars, the active one longer), the count and next. On phones the
+                bars take their own line above the buttons. */}
             {slideCount > 1 && (
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-                <div className="flex flex-wrap justify-center gap-1.5" role="tablist" aria-label="Slides">
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:flex-nowrap">
+                <button
+                  type="button"
+                  onClick={prevSlide}
+                  aria-label="Previous"
+                  className="carousel-nav order-2 sm:order-1"
+                >
+                  <ChevronLeft className="h-4 w-4" strokeWidth={1.5} />
+                </button>
+                <div
+                  className={cn(
+                    'order-1 flex w-full min-w-0 flex-wrap justify-center sm:order-2 sm:w-auto',
+                    // Long sets get narrower bars, set like the ticks on a rule
+                    slideCount > 24 ? 'carousel-dots-dense gap-0.5' : 'gap-1',
+                  )}
+                  role="tablist"
+                  aria-label="Slides"
+                >
                   {filteredData.map((item, index) => {
                     const code = getFieldValue(item, fieldMapping.code);
                     const active = index === currentIndex;
@@ -1322,9 +1248,17 @@ const ListViewer = <T = any>({
                     );
                   })}
                 </div>
-                <span className="text-xs tabular-nums text-muted-foreground">
+                <span className="order-3 flex-shrink-0 text-[13px] tabular-nums text-faint">
                   {currentIndex + 1} / {slideCount}
                 </span>
+                <button
+                  type="button"
+                  onClick={nextSlide}
+                  aria-label="Next"
+                  className="carousel-nav order-4"
+                >
+                  <ChevronRight className="h-4 w-4" strokeWidth={1.5} />
+                </button>
               </div>
             )}
           </div>
@@ -1338,8 +1272,7 @@ const ListViewer = <T = any>({
             {footer}
           </div>
         )}
-      </div>
-    </section>
+    </>
   );
 };
 
