@@ -135,7 +135,8 @@ const HeroSection = () => (
             width={320}
             height={320}
             alt="Muhammet Turşak, head and shoulders, in a dark suit against a light grey studio background"
-            fetchPriority="high"
+            // React 18 knows only the lowercase attribute; fetchPriority (React 19) warns.
+            {...{ fetchpriority: "high" }}
             className="print-photo aspect-square w-full max-w-[320px] object-cover"
           />
           <figcaption className="mt-3 max-w-[320px] text-[13px] leading-5 text-muted-foreground [text-wrap:pretty]">
