@@ -1,206 +1,152 @@
+import type { ComponentType } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, Globe, MapPin, Github, Linkedin, Twitter, FileText, FileDown } from "lucide-react";
+import SectionHeader from "@/components/SectionHeader";
+import { Mail, Phone, Globe, MapPin, Github, Linkedin, Twitter, FileText, FileDown, type LucideProps } from "lucide-react";
+import { PERSON, TWITTER_HANDLE } from "@/lib/site";
 import cvData from "@/data/cv.json";
 
-const ContactSection = () => {
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "tursoft@gmail.com",
-      href: "mailto:tursoft@gmail.com",
-      primary: true
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: "+90 554 200 78 29",
-      href: "tel:+905542007829"
-    },
-    {
-      icon: Globe,
-      label: "Website",
-      value: "tursoft.net",
-      href: "https://tursoft.net"
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: "Turkey",
-      href: null
-    }
-  ];
+interface ContactRow {
+  icon: ComponentType<LucideProps>;
+  label: string;
+  value: string;
+  href: string | null;
+}
 
-  const socialLinks = [
-    {
-      icon: Linkedin,
-      name: "LinkedIn",
-      href: "https://www.linkedin.com/in/tursoft/",
-      color: "text-blue-600"
-    },
-    {
-      icon: Github,
-      name: "GitHub", 
-      href: "https://github.com/tursoft",
-      color: "text-gray-800 dark:text-gray-200"
-    },
-    {
-      icon: Twitter,
-      name: "Twitter",
-      href: "https://x.com/muhammettursak",
-      color: "text-blue-400"
-    }
-  ];
+const contactInfo: ContactRow[] = [
+  { icon: Mail, label: "Email", value: "tursoft@gmail.com", href: "mailto:tursoft@gmail.com" },
+  { icon: Phone, label: "Phone", value: "+90 554 200 78 29", href: "tel:+905542007829" },
+  { icon: Globe, label: "Website", value: "tursoft.net", href: "https://tursoft.net" },
+  { icon: MapPin, label: "Location", value: `${PERSON.location.city}, ${PERSON.location.country}`, href: null },
+];
 
+const socialLinks: ContactRow[] = [
+  { icon: Linkedin, label: "LinkedIn", value: "in/tursoft", href: "https://www.linkedin.com/in/tursoft/" },
+  { icon: Github, label: "GitHub", value: "github.com/tursoft", href: "https://github.com/tursoft" },
+  { icon: Twitter, label: "Twitter", value: TWITTER_HANDLE, href: "https://x.com/muhammettursak" },
+];
+
+const projectKinds = [
+  "Architect enterprise-grade software solutions",
+  "Lead development teams and establish best practices",
+  "Modernize legacy systems and improve performance",
+  "Implement scalable cloud-native architectures",
+];
+
+/** One labelled row: faint icon and label, the value in ink. Links step to a raised surface. */
+const Row = ({ row }: { row: ContactRow }) => {
+  const external = row.href?.startsWith("http");
+  const content = (
+    <>
+      <row.icon className="h-4 w-4 text-faint transition-colors duration-150 group-hover:text-foreground" strokeWidth={1.5} aria-hidden="true" />
+      <span className="text-[13px] leading-5 text-faint">{row.label}</span>
+      <span className="tnum truncate text-[15px] leading-6 text-foreground">{row.value}</span>
+    </>
+  );
+  const grid = "grid min-h-12 grid-cols-[16px_88px_minmax(0,1fr)] items-center gap-x-3 sm:grid-cols-[16px_112px_minmax(0,1fr)]";
   return (
-    <section id="contact" className="py-20 bg-background">
-      <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16 animate-fade-in">
-            <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Get In Touch</Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Contact Muhammet Turşak:
-              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Let's Work Together</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              I'm always interested in discussing new opportunities, innovative projects, 
-              and collaborations in enterprise software development.
-            </p>
+    <li className="border-b border-border">
+      {row.href ? (
+        <a
+          href={row.href}
+          target={external ? "_blank" : undefined}
+          rel={external ? "me noopener noreferrer" : undefined}
+          className={`group -mx-3 rounded-md px-3 transition-colors duration-150 ease-dossier hover:bg-secondary ${grid}`}
+        >
+          {content}
+        </a>
+      ) : (
+        <div className={grid}>{content}</div>
+      )}
+    </li>
+  );
+};
+
+const ContactSection = () => (
+  <section id="contact" className="py-16 lg:py-24">
+    <div className="container">
+      <SectionHeader
+        id="contact"
+        title="Contact Muhammet Turşak"
+        description="Let’s work together. I’m always interested in discussing new opportunities, innovative projects, and collaborations in enterprise software development."
+      />
+
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-0">
+        {/* Ways to reach him */}
+        <div className="grid content-start gap-10 lg:col-span-7 lg:pr-12">
+          <div>
+            <h3 className="border-b border-foreground pb-3 text-[15px] font-medium leading-6 text-foreground">Contact information</h3>
+            <ul>
+              {contactInfo.map((row) => (
+                <Row key={row.label} row={row} />
+              ))}
+            </ul>
           </div>
-
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Information */}
-            <div className="animate-slide-in">
-              <h3 className="text-2xl font-bold mb-8 text-foreground">Contact Information</h3>
-              
-              <div className="space-y-6">
-                {contactInfo.map((contact, index) => (
-                  <div key={index} className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                      contact.primary ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'
-                    }`}>
-                      <contact.icon className="h-5 w-5" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm text-muted-foreground">{contact.label}</p>
-                      {contact.href ? (
-                        <a 
-                          href={contact.href}
-                          className="text-foreground font-medium hover:text-primary transition-colors link-hover"
-                          target={contact.href.startsWith('http') ? '_blank' : undefined}
-                          rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        >
-                          {contact.value}
-                        </a>
-                      ) : (
-                        <p className="text-foreground font-medium">{contact.value}</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Social Links */}
-              <div className="mt-12">
-                <h4 className="text-lg font-semibold mb-6 text-foreground">Follow Me</h4>
-                <div className="flex flex-wrap gap-4">
-                  {socialLinks.map((social, index) => (
-                    <a
-                      key={index}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary transition-all duration-300 hover:scale-105"
-                    >
-                      <social.icon className={`h-5 w-5 ${social.color}`} />
-                      <span className="text-sm font-medium text-foreground">{social.name}</span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* CTA Section */}
-            <div className="animate-scale-in">
-              <Card className="gradient-card border-border">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold mb-6 text-foreground">Ready to Start a Project?</h3>
-                  
-                  <div className="space-y-6">
-                    <p className="text-muted-foreground leading-relaxed">
-                      I'm currently available for consulting, architectural reviews, and 
-                      senior development roles. Whether you're looking to:
-                    </p>
-                    
-                    <ul className="space-y-3">
-                      {[
-                        "Architect enterprise-grade software solutions",
-                        "Lead development teams and establish best practices", 
-                        "Modernize legacy systems and improve performance",
-                        "Implement scalable cloud-native architectures"
-                      ].map((item, index) => (
-                        <li key={index} className="flex items-start">
-                          <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0" />
-                          <span className="text-muted-foreground">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="pt-6 space-y-4">
-                      <Button 
-                        className="w-full bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] hover:scale-105 text-primary-foreground glow-on-hover transition-all duration-300"
-                        onClick={() => window.location.href = 'mailto:tursoft@gmail.com?subject=Project Inquiry'}
-                      >
-                        <Mail className="mr-2 h-4 w-4" />
-                        Start a Conversation
-                      </Button>
-                      
-                      <Button
-                        variant="outline"
-                        className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                        onClick={() => window.open(cvData.general.compactDownloadUrl, '_blank')}
-                      >
-                        <FileDown className="mr-2 h-4 w-4" />
-                        CV - Compact
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                        onClick={() => window.open(cvData.general.downloadUrl, '_blank')}
-                      >
-                        <FileText className="mr-2 h-4 w-4" />
-                        CV - Detailed
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+          <div>
+            <h4 className="border-b border-foreground pb-3 text-[15px] font-medium leading-6 text-foreground">Follow me</h4>
+            <ul>
+              {socialLinks.map((row) => (
+                <Row key={row.label} row={row} />
+              ))}
+            </ul>
           </div>
+        </div>
 
-          {/* Availability Status */}
-          <div className="mt-16 text-center animate-fade-in">
-            <Card className="gradient-card border-border max-w-md mx-auto">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                  <Badge variant="outline" className="border-green-500 text-green-500">
-                    Available
-                  </Badge>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  Currently accepting new projects and consulting opportunities
-                </p>
-              </CardContent>
-            </Card>
+        {/* Availability and the one call to action */}
+        <div className="lg:col-span-5 lg:border-l lg:border-border lg:pl-12">
+          <p className="flex items-center gap-2 text-[15px] font-medium leading-6 text-foreground">
+            <span className="h-2 w-2 rounded-full bg-success" aria-hidden="true" />
+            Available
+          </p>
+          <p className="mt-1 text-sm leading-[22px] text-muted-foreground">
+            Currently accepting new projects and consulting opportunities
+          </p>
+
+          <h3 className="mt-10 text-xl font-medium leading-7 text-foreground">Ready to start a project?</h3>
+          <p className="mt-3 max-w-[34rem] text-base leading-[26px] text-muted-foreground [text-wrap:pretty]">
+            I’m currently available for consulting, architectural reviews, and senior development roles. Whether you’re
+            looking to:
+          </p>
+          <ul className="mt-4 max-w-[34rem]">
+            {projectKinds.map((item) => (
+              <li
+                key={item}
+                className="grid grid-cols-[16px_minmax(0,1fr)] gap-x-3 border-t border-border py-3 text-[15px] leading-6 text-foreground last:border-b"
+              >
+                <span className="text-faint" aria-hidden="true">
+                  –
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          {/* The one primary action, then the two CVs side by side */}
+          <div className="mt-8">
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <a href="mailto:tursoft@gmail.com?subject=Project%20Inquiry">
+                <Mail strokeWidth={1.5} aria-hidden="true" />
+                Start a conversation
+              </a>
+            </Button>
+            <div className="mt-3 grid grid-cols-2 gap-3 sm:flex">
+              <Button asChild variant="outline">
+                <a href={cvData.general.compactDownloadUrl} target="_blank" rel="noopener noreferrer">
+                  <FileDown className="text-faint" strokeWidth={1.5} aria-hidden="true" />
+                  Compact CV
+                </a>
+              </Button>
+              <Button asChild variant="outline">
+                <a href={cvData.general.downloadUrl} target="_blank" rel="noopener noreferrer">
+                  <FileText className="text-faint" strokeWidth={1.5} aria-hidden="true" />
+                  Detailed CV
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default ContactSection;
