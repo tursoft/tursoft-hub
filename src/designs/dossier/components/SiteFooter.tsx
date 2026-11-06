@@ -33,7 +33,7 @@ const SiteFooter = () => {
             <p className="font-serif text-2xl leading-8 text-foreground">{PERSON.name}</p>
             <p className="text-faint">Also written Tursak</p>
             <p className="pt-2 text-muted-foreground">
-              {PERSON.headline}, {PERSON.location.city}, {PERSON.location.country}. Founder of Tursoft.
+              {PERSON.headline}, {PERSON.location.city}, {PERSON.location.country}.
             </p>
             <p className="tnum text-faint">
               © {year} {PERSON.name}. Last updated <time dateTime={BUILD_DATE}>{BUILD_DATE}</time>

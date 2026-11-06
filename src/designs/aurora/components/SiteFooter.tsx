@@ -31,7 +31,7 @@ const SiteFooter = () => {
               {PERSON.name} <span className="font-normal text-muted-foreground">(also written Tursak)</span>
             </p>
             <p>
-              {PERSON.headline}, {PERSON.location.city}, {PERSON.location.country}. Founder of Tursoft.
+              {PERSON.headline}, {PERSON.location.city}, {PERSON.location.country}.
             </p>
             <p>
               © {year} {PERSON.name}. Last updated <time dateTime={BUILD_DATE}>{BUILD_DATE}</time>.

@@ -29,7 +29,7 @@ export const PERSON = {
   email: "tursoft@gmail.com",
   location: { city: "Ankara", country: "Turkey", countryCode: "TR" },
   yearsOfExperience: "25+",
-  currentRole: "Founder & AI-Enabled Software Architect, Tursoft",
+  currentRole: "AI-Enabled Software Architect, Tursoft",
   previousRoles: "Director of Technology at Jengai and Gamyte (New York)",
   availability: "Consulting, architecture reviews and senior engineering leadership roles",
   worksFor: { name: "Tursoft", url: SITE_URL },

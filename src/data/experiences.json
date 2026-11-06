@@ -12,7 +12,7 @@
       "positions": [
         {
           "orderIndex": 1,
-          "title": "Founder & AI-Enabled Software Architect",
+          "title": "AI-Enabled Software Architect",
           "startDate": "01.05.2026",
           "endDate": null,
           "summary": "Building AI-native products end to end as a founder, with AI agents multiplying a small team: BestJobFinder, an AI-powered job search SaaS with web, desktop (Electron), Chrome extension and admin frontends on a Node.js microservice backend, and Account Manager for Claude, an open-source VS Code extension published on the VS Code Marketplace and Open VSX.<br/>Running the full software development lifecycle with AI coding agents (Claude Code, Codex, GitHub Copilot, OpenCode): requirements and design specs, implementation plans, test-driven implementation, code review, documentation and release engineering.<br/>Designing and managing agent teams: specialized sub-agents for planning, implementation, review and browser-based testing, orchestrated with reusable skills, MCP tools (Playwright, code knowledge graphs) and isolated git worktrees, with human review gates between stages.<br/>Applying prompt and context engineering both to product features and to the development workflow: structured outputs and tool use, model routing across Anthropic, Google, OpenRouter and local models (Ollama, LM Studio), and curated project context (instructions, skills, memory) that keeps agents accurate on a large codebase.<br/>Shipping LLM-powered product features: job-to-profile match scoring, tailored cover letters, CV improvement suggestions and automatic answering of application forms from CV data.",
