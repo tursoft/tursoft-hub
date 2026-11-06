@@ -1,6 +1,6 @@
 # Dossier: design system for tursoft.net
 
-Branch `template/dossier`. The site reads like a printed profile in a serious business magazine, or a consultant's bound dossier: warm paper, black ink, one red ink. It came out of an unslop review of the Midnight Aurora theme (gradient text, aurora blobs, glows, uppercase tracked labels, highlighted words). Method: the unslop skill in `.claude/skills/unslop/` (`SKILL.md`, `references/tokens.md`, `references/signs.md`); its rules apply in full.
+Folder `src/designs/dossier` (switch designs with `design.config.json`, see README.md). The site reads like a printed profile in a serious business magazine, or a consultant's bound dossier: warm paper, black ink, one red ink. It came out of an unslop review of the Midnight Aurora theme (gradient text, aurora blobs, glows, uppercase tracked labels, highlighted words). Method: the unslop skill in `.claude/skills/unslop/` (`SKILL.md`, `references/tokens.md`, `references/signs.md`); its rules apply in full.
 
 ## Direction
 
@@ -38,10 +38,10 @@ Red is rare: the one primary button in a view, section numbers (SectionHeader do
 
 ## Shared pieces (already built, do not edit; ask the lead for changes)
 
-- `src/components/SectionHeader.tsx`: `<SectionHeader id="references" title="What colleagues say" description="…" aside={…} />`. Renders the ink rule, the red section number and label from `src/lib/sections.ts`, the serif `h2`, the description, and an optional right column (`aside`) for quiet meta and controls such as the view-mode switch.
-- `src/components/ui/button.tsx`: `default` = red primary, `outline` = paper with ink edge, `secondary`, `ghost`, `link`. Sizes `sm` 36, `default` 40, `lg` 48. 4px radius, press scale 0.98.
-- `src/components/ui/badge.tsx`: quiet labels on raised paper, 2px radius.
-- CSS vocabulary in `src/index.css`: `.kicker` / `.kicker-num`, `.section-head` (SectionHeader), `.fn-ref` + `.footnote` + `.footnote-num` + `.footnote-rule` (footnotes), `.print-photo` (people photographs printed on the paper: warm greyscale, multiplied), `.ink-link` (text link in running copy), `.tnum`, `.hero-rise` (one entrance with `--rise-delay`), `Reveal` classes.
+- `src/designs/dossier/components/SectionHeader.tsx`: `<SectionHeader id="references" title="What colleagues say" description="…" aside={…} />`. Renders the ink rule, the red section number and label from `src/designs/dossier/lib/sections.ts`, the serif `h2`, the description, and an optional right column (`aside`) for quiet meta and controls such as the view-mode switch.
+- `src/designs/dossier/components/ui/button.tsx`: `default` = red primary, `outline` = paper with ink edge, `secondary`, `ghost`, `link`. Sizes `sm` 36, `default` 40, `lg` 48. 4px radius, press scale 0.98.
+- `src/designs/dossier/components/ui/badge.tsx`: quiet labels on raised paper, 2px radius.
+- CSS vocabulary in `src/designs/dossier/index.css`: `.kicker` / `.kicker-num`, `.section-head` (SectionHeader), `.fn-ref` + `.footnote` + `.footnote-num` + `.footnote-rule` (footnotes), `.print-photo` (people photographs printed on the paper: warm greyscale, multiplied), `.ink-link` (text link in running copy), `.tnum`, `.hero-rise` (one entrance with `--rise-delay`), `Reveal` classes.
 - `ease-dossier` timing class = cubic-bezier(0.22, 1, 0.36, 1).
 
 ## Section anatomy

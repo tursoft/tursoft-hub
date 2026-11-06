@@ -4,16 +4,16 @@
   "rsc": false,
   "tsx": true,
   "tailwind": {
-    "config": "tailwind.config.ts",
-    "css": "src/index.css",
+    "config": "src/designs/aurora/tailwind.config.ts",
+    "css": "src/designs/aurora/index.css",
     "baseColor": "slate",
     "cssVariables": true,
     "prefix": ""
   },
   "aliases": {
-    "components": "@/components",
+    "components": "@design/components",
     "utils": "@/lib/utils",
-    "ui": "@/components/ui",
+    "ui": "@design/components/ui",
     "lib": "@/lib",
     "hooks": "@/hooks"
   }

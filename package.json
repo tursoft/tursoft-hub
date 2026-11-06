@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:aurora": "node scripts/design.mjs run aurora -- vite",
+    "dev:dossier": "node scripts/design.mjs run dossier -- vite",
     "build": "vite build && node scripts/postbuild.mjs",
+    "build:aurora": "node scripts/design.mjs run aurora -- npm run build",
+    "build:dossier": "node scripts/design.mjs run dossier -- npm run build",
     "build:fast": "vite build",
     "build:dev": "vite build --mode development",
     "prerender": "node scripts/postbuild.mjs",
@@ -13,7 +17,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "verify:dist": "node scripts/verify-dist.mjs",
-    "images": "node scripts/convert-images.mjs"
+    "images": "node scripts/convert-images.mjs",
+    "design": "node scripts/design.mjs",
+    "typecheck": "node scripts/design.mjs typecheck"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

@@ -122,6 +122,19 @@ project => modules
 * go
 
 
+## Site designs
+
+The site has interchangeable designs in `src/designs/<name>` (`aurora`, `dossier`) that all read the same JSON data. `design.config.json` picks the one that builds and deploys:
+
+```sh
+npm run design                 # list designs, show the active one
+npm run design -- use dossier  # switch the deployed design (commit design.config.json)
+npm run build:aurora           # one-off build of another design (also dev:aurora, dev:dossier)
+npm run typecheck              # type-check every design
+```
+
+Details, the shared/design split and how to add a design: [docs/design/README.md](docs/design/README.md).
+
 ## Build, prerendering and SEO
 
 `npm run build` runs `vite build` and then `scripts/postbuild.mjs`, which:

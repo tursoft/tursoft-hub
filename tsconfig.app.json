@@ -23,8 +23,11 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@design/*": ["./src/designs/aurora/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  // Each design is checked with its own src/designs/<name>/tsconfig.json (npm run typecheck)
+  "exclude": ["src/designs"]
 }

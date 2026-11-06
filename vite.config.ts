@@ -1,8 +1,44 @@
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import { readFileSync, writeFileSync, existsSync } from "fs";
+import { createRequire } from "module";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { pruneAssets } from "./scripts/prune-assets.mjs";
+
+// Loaded at run time (not bundled into the config), because it is CommonJS shared with
+// tailwind.config.ts and the postbuild scripts.
+const { resolveDesign } = createRequire(import.meta.url)(
+  "./scripts/design-resolve.cjs",
+) as typeof import("./scripts/design-resolve.cjs");
+
+// The site design to build: design.config.json, or SITE_DESIGN for one build. The app
+// imports it as @design (src/designs/<name>); the data, models, SEO and helpers in src/
+// are shared by every design. See docs/design/README.md.
+const design = resolveDesign();
+
+// Puts the design's <head> extras (theme color, fonts) into index.html, tags <html> with
+// the design name, and writes the design's colors into the deployed web manifest.
+const siteDesign = (): Plugin => ({
+  name: "site-design",
+  configResolved(config) {
+    config.logger.info(`\n  site design: ${design.name} (${design.meta.label}, from ${design.source})\n`);
+  },
+  transformIndexHtml(html) {
+    const head = readFileSync(path.join(design.dir, "head.html"), "utf8").trim();
+    return html
+      .replace(/<!-- design:head[\s\S]*?-->/, head)
+      .replace(/<html lang="en">/, `<html lang="en" data-design="${design.name}">`);
+  },
+  closeBundle() {
+    const manifest = path.resolve(__dirname, "dist/manifest.webmanifest");
+    if (!existsSync(manifest)) return;
+    const data = JSON.parse(readFileSync(manifest, "utf8"));
+    data.theme_color = design.meta.themeColor ?? data.theme_color;
+    data.background_color = design.meta.backgroundColor ?? data.background_color;
+    writeFileSync(manifest, `${JSON.stringify(data, null, 2)}\n`);
+  },
+});
 
 // Injected into the app (footer "last updated", ProfilePage.dateModified) and reused by
 // scripts/postbuild.mjs for sitemap lastmod. CI may pin it with the BUILD_DATE env var.
@@ -36,6 +72,7 @@ export default defineConfig(() => ({
   base: "/",
   define: {
     "import.meta.env.VITE_BUILD_DATE": JSON.stringify(buildDate),
+    "import.meta.env.VITE_SITE_DESIGN": JSON.stringify(design.name),
   },
   server: {
     host: "::",
@@ -63,9 +100,11 @@ export default defineConfig(() => ({
     }),
     pruneCopiedAssets(),
     lowPriorityScripts(),
+    siteDesign(),
   ],
   resolve: {
     alias: {
+      "@design": design.dir,
       "@": path.resolve(__dirname, "./src"),
     },
   },

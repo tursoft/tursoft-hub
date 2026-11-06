@@ -52,7 +52,11 @@ jobs:
 
       # vite build, then scripts/postbuild.mjs: sitemap.xml, llms-full.txt and
       # static prerendering of every route (fails the build on an empty page).
+      # The site design comes from design.config.json; a repository variable SITE_DESIGN
+      # (Settings > Secrets and variables > Actions > Variables) overrides it when set.
       - name: Build and prerender
+        env:
+          SITE_DESIGN: ${{ vars.SITE_DESIGN }}
         run: npm run build
 
       - name: Verify prerendered output

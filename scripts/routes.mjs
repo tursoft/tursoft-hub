@@ -6,6 +6,11 @@
  * of the route. `alternates` are hreflang language versions.
  */
 import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
+
+// Page markup comes from the site design being built (design.config.json or SITE_DESIGN).
+const { resolveDesign } = createRequire(import.meta.url)("./design-resolve.cjs");
+const DESIGN = `src/designs/${resolveDesign().name}`;
 
 export const SITE_URL = "https://tursoft.net";
 
@@ -25,19 +30,19 @@ export const ROUTES = [
     priority: "1.0",
     waitForData: true, // the homepage loads its sections from /data/*.json
     minText: 20000,
-    sources: ["src/data", "src/components", "src/pages/Index.tsx", "src/lib/site.ts"],
+    sources: ["src/data", `${DESIGN}/components`, `${DESIGN}/pages/Index.tsx`, "src/lib/site.ts"],
   },
   {
     path: "/case-studies/",
     changefreq: "monthly",
     priority: "0.8",
-    sources: ["src/data/case-studies.json", "src/pages/CaseStudies.tsx"],
+    sources: ["src/data/case-studies.json", `${DESIGN}/pages/CaseStudies.tsx`],
   },
   ...caseStudies.map((c) => ({
     path: `/case-studies/${c.slug}/`,
     changefreq: "monthly",
     priority: "0.8",
-    sources: ["src/data/case-studies.json", "src/pages/CaseStudy.tsx"],
+    sources: ["src/data/case-studies.json", `${DESIGN}/pages/CaseStudy.tsx`],
   })),
   ...privacyLanguages.map((l) => ({
     path: privacyPath(l.code),

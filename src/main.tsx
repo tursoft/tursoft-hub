@@ -1,6 +1,8 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
+// @design is the site design chosen for this build (design.config.json or SITE_DESIGN);
+// see vite.config.ts and docs/design/README.md. Only that design is bundled.
+import App from "@design/App";
+import "@design/index.css";
 import { isHydrating, loadPrerenderState } from "@/lib/prerender";
 
 const container = document.getElementById("root")!;
