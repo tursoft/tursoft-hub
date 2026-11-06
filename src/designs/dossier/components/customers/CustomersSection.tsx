@@ -177,7 +177,7 @@ const CustomersSection = () => {
       <div className="container">
         <SectionHeader
           id="customers"
-          title="Clients and customers in healthcare, government and enterprise"
+          title="Clients and customers"
           description="Organizations and institutions that have trusted us with their technology needs across healthcare, government and enterprise sectors"
         />
 
