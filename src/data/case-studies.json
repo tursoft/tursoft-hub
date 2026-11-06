@@ -1,65 +1,6 @@
 {
   "items": [
     {
-      "slug": "jengai-ai-document-pipeline",
-      "projectCode": "JENGAIAPP",
-      "title": "Jengai: an AI document pipeline for construction estimating",
-      "shortTitle": "Jengai AI document pipeline",
-      "dek": "How a multi-tenant SaaS for commercial specialty contractors turns unstructured construction PDFs into structured cost and scope data.",
-      "description": "Case study: the AI document pipeline behind Jengai, a multi-tenant CRM, bidding and estimation SaaS for specialty contractors on .NET, Python and Azure AI.",
-      "role": "Director of Technology & Senior Software Architect",
-      "company": "Jengai, New York, USA",
-      "period": "Dec 2022 – Apr 2026",
-      "datePublished": "2026-10-28",
-      "outcome": "Pre-estimation turnaround cut by more than 60%",
-      "stack": [".NET", "Angular", "Python", "Azure App Services", "Azure Functions", "Azure SQL", "Azure Blob Storage", "Entra ID / Azure AD B2C", "Azure AI Document Intelligence", "Azure Computer Vision", "Azure Service Bus", "Azure DevOps"],
-      "sections": [
-        {
-          "heading": "The problem",
-          "paragraphs": [
-            "Commercial specialty contractors estimate and bid from construction documents that arrive as unstructured PDFs. Extracting cost and scope information from them by hand is slow, and it is the step every estimate waits for."
-          ]
-        },
-        {
-          "heading": "What was built",
-          "paragraphs": [
-            "Jengai is a cloud-native, multi-tenant SaaS platform that combines CRM, bidding and estimation in one suite, with modules for CRM, bidding, integrations, background jobs and document analysis.",
-            "At its core is an AI document pipeline. Azure AI Document Intelligence and Azure Computer Vision read the PDFs, Python and .NET services turn them into structured cost and scope data, and Azure Service Bus connects the services so processing runs asynchronously and event-driven."
-          ]
-        },
-        {
-          "heading": "Architecture decisions",
-          "bullets": [
-            "Enterprise-grade security across tenants with OAuth2, JWT and Azure AD B2C, and formal REST API design throughout the multi-tenant architecture.",
-            "Event-driven processing on Azure Service Bus between the .NET platform services and the Python AI services.",
-            "Integrations with Salesforce CRM, Zoho CRM, Autodesk Construction Cloud and Microsoft Graph.",
-            "A multi-layered testing strategy and CI/CD on Azure DevOps."
-          ]
-        },
-        {
-          "heading": "AI in the engineering process",
-          "paragraphs": [
-            "AI coding agents (Claude Code, GitHub Copilot and Cursor) became part of the team's daily development lifecycle for code authoring, refactoring, test generation and technical documentation. Prompt and context conventions kept their output consistent with the platform's architecture and coding standards."
-          ]
-        },
-        {
-          "heading": "Outcome",
-          "paragraphs": [
-            "Pre-estimation turnaround dropped by more than 60%, and several estimating teams can now work in parallel on the same project."
-          ]
-        },
-        {
-          "heading": "My role",
-          "paragraphs": [
-            "As Director of Technology and Senior Software Architect, I owned the end-to-end architecture and engineering delivery, designed the AI document pipeline, led and mentored the product and engineering teams, and managed the research and development projects."
-          ]
-        }
-      ],
-      "links": [
-        { "label": "Jengai website", "href": "https://www.jengai.com" }
-      ]
-    },
-    {
       "slug": "bestjobfinder-ai-native-saas",
       "projectCode": "BESTJOBFINDER",
       "title": "BestJobFinder: an AI-native SaaS built with agent teams",
@@ -119,6 +60,65 @@
         }
       ],
       "links": []
+    },
+    {
+      "slug": "jengai-ai-document-pipeline",
+      "projectCode": "JENGAIAPP",
+      "title": "Jengai: an AI document pipeline for construction estimating",
+      "shortTitle": "Jengai AI document pipeline",
+      "dek": "How a multi-tenant SaaS for commercial specialty contractors turns unstructured construction PDFs into structured cost and scope data.",
+      "description": "Case study: the AI document pipeline behind Jengai, a multi-tenant CRM, bidding and estimation SaaS for specialty contractors on .NET, Python and Azure AI.",
+      "role": "Director of Technology & Senior Software Architect",
+      "company": "Jengai, New York, USA",
+      "period": "Dec 2022 – Apr 2026",
+      "datePublished": "2026-10-28",
+      "outcome": "Pre-estimation turnaround cut by more than 60%",
+      "stack": [".NET", "Angular", "Python", "Azure App Services", "Azure Functions", "Azure SQL", "Azure Blob Storage", "Entra ID / Azure AD B2C", "Azure AI Document Intelligence", "Azure Computer Vision", "Azure Service Bus", "Azure DevOps"],
+      "sections": [
+        {
+          "heading": "The problem",
+          "paragraphs": [
+            "Commercial specialty contractors estimate and bid from construction documents that arrive as unstructured PDFs. Extracting cost and scope information from them by hand is slow, and it is the step every estimate waits for."
+          ]
+        },
+        {
+          "heading": "What was built",
+          "paragraphs": [
+            "Jengai is a cloud-native, multi-tenant SaaS platform that combines CRM, bidding and estimation in one suite, with modules for CRM, bidding, integrations, background jobs and document analysis.",
+            "At its core is an AI document pipeline. Azure AI Document Intelligence and Azure Computer Vision read the PDFs, Python and .NET services turn them into structured cost and scope data, and Azure Service Bus connects the services so processing runs asynchronously and event-driven."
+          ]
+        },
+        {
+          "heading": "Architecture decisions",
+          "bullets": [
+            "Enterprise-grade security across tenants with OAuth2, JWT and Azure AD B2C, and formal REST API design throughout the multi-tenant architecture.",
+            "Event-driven processing on Azure Service Bus between the .NET platform services and the Python AI services.",
+            "Integrations with Salesforce CRM, Zoho CRM, Autodesk Construction Cloud and Microsoft Graph.",
+            "A multi-layered testing strategy and CI/CD on Azure DevOps."
+          ]
+        },
+        {
+          "heading": "AI in the engineering process",
+          "paragraphs": [
+            "AI coding agents (Claude Code, GitHub Copilot and Cursor) became part of the team's daily development lifecycle for code authoring, refactoring, test generation and technical documentation. Prompt and context conventions kept their output consistent with the platform's architecture and coding standards."
+          ]
+        },
+        {
+          "heading": "Outcome",
+          "paragraphs": [
+            "Pre-estimation turnaround dropped by more than 60%, and several estimating teams can now work in parallel on the same project."
+          ]
+        },
+        {
+          "heading": "My role",
+          "paragraphs": [
+            "As Director of Technology and Senior Software Architect, I owned the end-to-end architecture and engineering delivery, designed the AI document pipeline, led and mentored the product and engineering teams, and managed the research and development projects."
+          ]
+        }
+      ],
+      "links": [
+        { "label": "Jengai website", "href": "https://www.jengai.com" }
+      ]
     },
     {
       "slug": "account-manager-for-claude",

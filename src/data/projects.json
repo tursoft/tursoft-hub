@@ -55,63 +55,8 @@
   },
   "items": [
     {
-      "code": "ACCOUNTMANAGERFORCLAUDE",
-      "orderIndex": 1,
-      "title": "Account Manager for Claude",
-      "photoUrl": "/assets/projects/_logos/account-manager-for-claude.png",
-      "companyCode": "Tursoft",
-      "group": "Misc",
-      "value": 900,
-      "summary": "VS Code extension to use several Claude subscriptions in Claude Code and switch between them with one click. It shows every account's usage limits at a glance, proposes which account to use next, and adds usage analytics and an availability calendar.",
-      "fulltext": "Account Manager for Claude is an open-source Visual Studio Code extension for people who use several Claude subscriptions in Claude Code. It lets you save and add accounts, switch between them in one click from the accounts panel, the status bar or the command palette, and see each account's live usage limits (5-hour, weekly and model-specific windows) together with the time until each limit resets.<br/><br/>The extension proposes the best next account by ranking accounts on how much capacity would be lost soonest, and proposes the next accounts automatically when the active account's limit runs out. It keeps logins valid by refreshing tokens the same way Claude Code does, supports browser login without the CLI, independent VS Code windows per account, and password-protected (AES-256) backup and restore of the account list.<br/><br/>With usage history turned on, the <b>usage analytics</b> page charts each limit over time, measures capacity utilization per limit and per account, and groups it by weekday, hour, week or month. The <b>availability calendar</b> shows, for a week or a single day, when each account and each of its limits can be used, projecting the future from the latest reading and reset times.<br/><br/>The extension itself was built with an AI-driven lifecycle: Claude Code agents working from written specs and implementation plans, with review and testing stages before each release.<br/><br/>The extension collects no telemetry; saved accounts are kept in VS Code's encrypted SecretStorage and network requests go only to Anthropic. It is developed with TypeScript and Node.js, with webview-based UI pages, and builds on the original account-switching core of <a href='https://github.com/KrzysztofZander/claude-account-switcher' target='_blank'>claude-account-switcher</a> by Krzysztof Zander.<br/><br/>VS Code Marketplace: <a href='https://marketplace.visualstudio.com/items?itemName=tursoft.account-manager-for-claude' target='_blank'>https://marketplace.visualstudio.com/items?itemName=tursoft.account-manager-for-claude</a><br/>Open VSX: <a href='https://open-vsx.org/extension/tursoft/account-manager-for-claude' target='_blank'>https://open-vsx.org/extension/tursoft/account-manager-for-claude</a><br/>Source code: <a href='https://github.com/tursoft/account-manager-for-claude' target='_blank'>https://github.com/tursoft/account-manager-for-claude</a>",
-      "domainCodes": [],
-      "customerCodes": [],
-      "partnerCodes": [],
-      "skillCodes": [
-        "Typescript",
-        "JS",
-        "Nodejs",
-        "HTML5",
-        "CSS3",
-        "VS Code",
-        "claudecode",
-        "OAuth",
-        "ai-sdlc",
-        "agent-orchestration",
-        "context-engineering",
-        "spec-driven-development"
-      ],
-      "datePeriod": {
-        "startDate": "13.10.2026",
-        "endDate": null
-      },
-      "props": [
-        {
-          "code": "platforms",
-          "title": "VS Code Extension"
-        }
-      ],
-      "team": [
-        {
-          "orderIndex": 0,
-          "personCode": "muhammettursak",
-          "position": "Software Architect & Developer"
-        }
-      ],
-      "modules": [
-        "Accounts Panel",
-        "Account Switching",
-        "Usage Limits Tracking",
-        "Account Proposals",
-        "Token Handling",
-        "Usage Analytics",
-        "Availability Calendar",
-        "Backup & Restore"
-      ]
-    },
-    {
       "code": "BESTJOBFINDER",
-      "orderIndex": 2,
+      "orderIndex": 1,
       "title": "BestJobFinder",
       "photoUrl": "/assets/projects/_logos/bestjobfinder.png",
       "companyCode": "Tursoft",
@@ -208,7 +153,7 @@
     },
     {
       "code": "JENGAIAPP",
-      "orderIndex": 3,
+      "orderIndex": 2,
       "title": "Jengai",
       "photoUrl": "/assets/projects/_logos/jengai.app.png",
       "companyCode": "JENGAI",
@@ -297,7 +242,7 @@
     },
     {
       "code": "GAMYTEAPP",
-      "orderIndex": 4,
+      "orderIndex": 3,
       "title": "Gamyte",
       "photoUrl": "/assets/projects/_logos/gamyte.app.png",
       "companyCode": "GAMYTE",
@@ -381,7 +326,7 @@
     },
     {
       "code": "CERTIFY.HEALTH",
-      "orderIndex": 5,
+      "orderIndex": 4,
       "title": "Certify Health",
       "photoUrl": "/assets/projects/_logos/certify.health.png",
       "companyCode": "INFRION",
@@ -474,84 +419,8 @@
       ]
     },
     {
-      "code": "HIS2x",
-      "orderIndex": 6,
-      "title": "Avicenna Hospital Information System",
-      "photoUrl": "/assets/projects/_logos/HIS2x.png",
-      "companyCode": "DATASEL",
-      "group": "HIS",
-      "value": 100,
-      "summary": "Enterprise Level Hospital Information System having multi-organization support, multiple languages. <br/>It is still used by national level in 2 countries: Kosovo and Palestine.",
-      "domainCodes": [
-        "healthcareit"
-      ],
-      "customerCodes": [
-        "MOH.PAL",
-        "IBNISINA"
-      ],
-      "skillCodes": [
-        "java",
-        "maven",
-        "spring",
-        "oracle",
-        "db2",
-        "plsql",
-        "oop"
-      ],
-      "datePeriod": {
-        "startDate": "01.01.2015",
-        "endDate": "03.09.2019"
-      },
-      "props": [
-        {
-          "code": "platforms",
-          "title": "Web, Desktop"
-        },
-        {
-          "code": "db",
-          "title": "Multi Database Support"
-        },
-        {
-          "code": "lang",
-          "title": "Multi Language Support (Turkish, English, Arabic, Albanian)"
-        }
-      ],
-      "team": [
-        {
-          "orderIndex": 0,
-          "personCode": "nuraliunal",
-          "position": "CEO"
-        },
-        {
-          "orderIndex": 1,
-          "personCode": "muhammettursak",
-          "position": "Software Group Leader"
-        },
-        {
-          "orderIndex": 2,
-          "personCode": "uguresmer",
-          "position": "Software Group Leader"
-        },
-        {
-          "orderIndex": 2,
-          "personCode": "mesutdemirer",
-          "position": "Project Manager"
-        },
-        {
-          "orderIndex": 4,
-          "personCode": "davutgurbuz",
-          "position": "Senior Software Developer"
-        },
-        {
-          "orderIndex": 5,
-          "personCode": "duranturemis",
-          "position": "Software Developer"
-        }
-      ]
-    },
-    {
       "code": "ProEmpower",
-      "orderIndex": 7,
+      "orderIndex": 5,
       "title": "ProEmpower - DM4All",
       "photoUrl": "/assets/projects/_logos/ProEmpower.png",
       "companyCode": "ERC",
@@ -662,8 +531,84 @@
       ]
     },
     {
+      "code": "HIS2x",
+      "orderIndex": 6,
+      "title": "Avicenna Hospital Information System",
+      "photoUrl": "/assets/projects/_logos/HIS2x.png",
+      "companyCode": "DATASEL",
+      "group": "HIS",
+      "value": 100,
+      "summary": "Enterprise Level Hospital Information System having multi-organization support, multiple languages. <br/>It is still used by national level in 2 countries: Kosovo and Palestine.",
+      "domainCodes": [
+        "healthcareit"
+      ],
+      "customerCodes": [
+        "MOH.PAL",
+        "IBNISINA"
+      ],
+      "skillCodes": [
+        "java",
+        "maven",
+        "spring",
+        "oracle",
+        "db2",
+        "plsql",
+        "oop"
+      ],
+      "datePeriod": {
+        "startDate": "01.01.2015",
+        "endDate": "03.09.2019"
+      },
+      "props": [
+        {
+          "code": "platforms",
+          "title": "Web, Desktop"
+        },
+        {
+          "code": "db",
+          "title": "Multi Database Support"
+        },
+        {
+          "code": "lang",
+          "title": "Multi Language Support (Turkish, English, Arabic, Albanian)"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "nuraliunal",
+          "position": "CEO"
+        },
+        {
+          "orderIndex": 1,
+          "personCode": "muhammettursak",
+          "position": "Software Group Leader"
+        },
+        {
+          "orderIndex": 2,
+          "personCode": "uguresmer",
+          "position": "Software Group Leader"
+        },
+        {
+          "orderIndex": 2,
+          "personCode": "mesutdemirer",
+          "position": "Project Manager"
+        },
+        {
+          "orderIndex": 4,
+          "personCode": "davutgurbuz",
+          "position": "Senior Software Developer"
+        },
+        {
+          "orderIndex": 5,
+          "personCode": "duranturemis",
+          "position": "Software Developer"
+        }
+      ]
+    },
+    {
       "code": "AHIN",
-      "orderIndex": 8,
+      "orderIndex": 7,
       "title": "Avicenna Health Integration Network",
       "photoUrl": "/assets/projects/_logos/AHIN.png",
       "companyCode": "DATASEL",
@@ -706,6 +651,61 @@
           "personCode": "muhammettursak",
           "position": "Team Leader"
         }
+      ]
+    },
+    {
+      "code": "ACCOUNTMANAGERFORCLAUDE",
+      "orderIndex": 8,
+      "title": "Account Manager for Claude",
+      "photoUrl": "/assets/projects/_logos/account-manager-for-claude.png",
+      "companyCode": "Tursoft",
+      "group": "Misc",
+      "value": 900,
+      "summary": "VS Code extension to use several Claude subscriptions in Claude Code and switch between them with one click. It shows every account's usage limits at a glance, proposes which account to use next, and adds usage analytics and an availability calendar.",
+      "fulltext": "Account Manager for Claude is an open-source Visual Studio Code extension for people who use several Claude subscriptions in Claude Code. It lets you save and add accounts, switch between them in one click from the accounts panel, the status bar or the command palette, and see each account's live usage limits (5-hour, weekly and model-specific windows) together with the time until each limit resets.<br/><br/>The extension proposes the best next account by ranking accounts on how much capacity would be lost soonest, and proposes the next accounts automatically when the active account's limit runs out. It keeps logins valid by refreshing tokens the same way Claude Code does, supports browser login without the CLI, independent VS Code windows per account, and password-protected (AES-256) backup and restore of the account list.<br/><br/>With usage history turned on, the <b>usage analytics</b> page charts each limit over time, measures capacity utilization per limit and per account, and groups it by weekday, hour, week or month. The <b>availability calendar</b> shows, for a week or a single day, when each account and each of its limits can be used, projecting the future from the latest reading and reset times.<br/><br/>The extension itself was built with an AI-driven lifecycle: Claude Code agents working from written specs and implementation plans, with review and testing stages before each release.<br/><br/>The extension collects no telemetry; saved accounts are kept in VS Code's encrypted SecretStorage and network requests go only to Anthropic. It is developed with TypeScript and Node.js, with webview-based UI pages, and builds on the original account-switching core of <a href='https://github.com/KrzysztofZander/claude-account-switcher' target='_blank'>claude-account-switcher</a> by Krzysztof Zander.<br/><br/>VS Code Marketplace: <a href='https://marketplace.visualstudio.com/items?itemName=tursoft.account-manager-for-claude' target='_blank'>https://marketplace.visualstudio.com/items?itemName=tursoft.account-manager-for-claude</a><br/>Open VSX: <a href='https://open-vsx.org/extension/tursoft/account-manager-for-claude' target='_blank'>https://open-vsx.org/extension/tursoft/account-manager-for-claude</a><br/>Source code: <a href='https://github.com/tursoft/account-manager-for-claude' target='_blank'>https://github.com/tursoft/account-manager-for-claude</a>",
+      "domainCodes": [],
+      "customerCodes": [],
+      "partnerCodes": [],
+      "skillCodes": [
+        "Typescript",
+        "JS",
+        "Nodejs",
+        "HTML5",
+        "CSS3",
+        "VS Code",
+        "claudecode",
+        "OAuth",
+        "ai-sdlc",
+        "agent-orchestration",
+        "context-engineering",
+        "spec-driven-development"
+      ],
+      "datePeriod": {
+        "startDate": "13.10.2026",
+        "endDate": null
+      },
+      "props": [
+        {
+          "code": "platforms",
+          "title": "VS Code Extension"
+        }
+      ],
+      "team": [
+        {
+          "orderIndex": 0,
+          "personCode": "muhammettursak",
+          "position": "Software Architect & Developer"
+        }
+      ],
+      "modules": [
+        "Accounts Panel",
+        "Account Switching",
+        "Usage Limits Tracking",
+        "Account Proposals",
+        "Token Handling",
+        "Usage Analytics",
+        "Availability Calendar",
+        "Backup & Restore"
       ]
     },
     {
@@ -4189,7 +4189,7 @@
     },
     {
       "code": "TursoftWebsite2025",
-      "orderIndex": 78,
+      "orderIndex": 79,
       "title": "Tursoft Website 2025",
       "photoUrl": "/assets/projects/_logos/tursoft.logo.png",
       "companyCode": "Tursoft",
@@ -4228,7 +4228,7 @@
     },
     {
       "code": "TursoftPackman",
-      "orderIndex": 79,
+      "orderIndex": 80,
       "title": "Tursoft Packman",
       "photoUrl": "/assets/projects/_logos/tursoft.packman.png",
       "companyCode": "Tursoft",
@@ -4262,7 +4262,7 @@
     },
     {
       "code": "TursoftTetris",
-      "orderIndex": 80,
+      "orderIndex": 81,
       "title": "Tursoft Tetris",
       "photoUrl": "/assets/projects/_logos/tursoft.tetris.jpg",
       "companyCode": "Tursoft",
@@ -4296,7 +4296,7 @@
     },
     {
       "code": "TursoftAnimMaker",
-      "orderIndex": 81,
+      "orderIndex": 82,
       "title": "Tursoft Animation Maker",
       "photoUrl": "/assets/projects/_logos/tursoft.animmaker.png",
       "companyCode": "Tursoft",
@@ -4320,7 +4320,7 @@
     },
     {
       "code": "TursoftPaint",
-      "orderIndex": 82,
+      "orderIndex": 83,
       "title": "Tursoft Paint",
       "photoUrl": "/assets/projects/_logos/tursoft.paint.png",
       "companyCode": "Tursoft",
@@ -4344,7 +4344,7 @@
     },
     {
       "code": "TursoftStock",
-      "orderIndex": 83,
+      "orderIndex": 84,
       "title": "Stock Tracking System",
       "photoUrl": "/assets/projects/_logos/tursoft.stock.png",
       "companyCode": "Tursoft",
@@ -4380,7 +4380,7 @@
     },
     {
       "code": "Frizbi",
-      "orderIndex": 84,
+      "orderIndex": 85,
       "title": "Frizbi - Interactive Educational Game",
       "photoUrl": "/assets/projects/_logos/frizbi.jpg",
       "companyCode": "Halici",
@@ -4454,7 +4454,7 @@
     },
     {
       "code": "AMELBOOK",
-      "orderIndex": 85,
+      "orderIndex": 86,
       "title": "AmelBook",
       "photoUrl": "/assets/projects/_logos/amelbook.png",
       "companyCode": "",
