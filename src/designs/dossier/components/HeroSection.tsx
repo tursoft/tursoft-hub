@@ -140,7 +140,7 @@ const HeroSection = () => (
             className="print-photo aspect-square w-full max-w-[320px] object-cover"
           />
           <figcaption className="mt-3 max-w-[320px] text-[13px] leading-5 text-muted-foreground [text-wrap:pretty]">
-            <span className="font-medium text-foreground">{PERSON.name}</span>, founder of Tursoft, based in{" "}
+            <span className="font-medium text-foreground">{PERSON.name}</span>, based in{" "}
             {PERSON.location.city}, {PERSON.location.country}. An alumnus of {PERSON.alumniOf.name}.
           </figcaption>
           <ul aria-label="Contact" className="mt-6 grid max-w-[320px] gap-1 border-t border-border pt-4">
