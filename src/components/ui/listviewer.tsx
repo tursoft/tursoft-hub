@@ -16,6 +16,15 @@ export type ViewMode = 'small-card' | 'card' | 'list' | 'carousel' | 'cloud' | '
 
 const iconProps = { className: 'h-4 w-4', strokeWidth: 1.5, 'aria-hidden': true } as const;
 
+// Grid column classes written out in full: Tailwind only generates classes it can see in the
+// source, so `md:grid-cols-${n}` built at run time would silently collapse to one column.
+const GRID_COLS: Record<'base' | 'md' | 'lg' | 'xl', Record<number, string>> = {
+  base: { 1: 'grid-cols-1', 2: 'grid-cols-2', 3: 'grid-cols-3', 4: 'grid-cols-4', 5: 'grid-cols-5', 6: 'grid-cols-6' },
+  md: { 1: 'md:grid-cols-1', 2: 'md:grid-cols-2', 3: 'md:grid-cols-3', 4: 'md:grid-cols-4', 5: 'md:grid-cols-5', 6: 'md:grid-cols-6' },
+  lg: { 1: 'lg:grid-cols-1', 2: 'lg:grid-cols-2', 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5', 6: 'lg:grid-cols-6' },
+  xl: { 1: 'xl:grid-cols-1', 2: 'xl:grid-cols-2', 3: 'xl:grid-cols-3', 4: 'xl:grid-cols-4', 5: 'xl:grid-cols-5', 6: 'xl:grid-cols-6' },
+};
+
 const VIEW_MODE_ICONS: Record<ViewMode, ReactNode> = {
   'small-card': <Grid3x3 {...iconProps} />,
   card: <LayoutGrid {...iconProps} />,
@@ -492,10 +501,10 @@ const ListViewer = <T = any>({
   // Grid column classes
   const getGridClasses = () => {
     const classes = ['grid', 'gap-6'];
-    if (gridCols.sm) classes.push(`grid-cols-${gridCols.sm}`);
-    if (gridCols.md) classes.push(`md:grid-cols-${gridCols.md}`);
-    if (gridCols.lg) classes.push(`lg:grid-cols-${gridCols.lg}`);
-    if (gridCols.xl) classes.push(`xl:grid-cols-${gridCols.xl}`);
+    if (gridCols.sm) classes.push(GRID_COLS.base[gridCols.sm] ?? '');
+    if (gridCols.md) classes.push(GRID_COLS.md[gridCols.md] ?? '');
+    if (gridCols.lg) classes.push(GRID_COLS.lg[gridCols.lg] ?? '');
+    if (gridCols.xl) classes.push(GRID_COLS.xl[gridCols.xl] ?? '');
     return classes.join(' ');
   };
 

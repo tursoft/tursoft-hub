@@ -86,7 +86,7 @@ export const ItemCloud = ({
   onItemClick,
   onHoverChange,
   selectedCode,
-  height = 560,
+  height: maxHeight = 560,
   minSize = 26,
   maxSize = 88,
 }: ItemCloudProps) => {
@@ -101,6 +101,9 @@ export const ItemCloud = ({
   // Measured width; prerendered pages start from the width captured at build time so the
   // first client render matches the HTML, then the ResizeObserver takes over.
   const [width, setWidth] = useSnapshotState('item-cloud.width', 0);
+  // On narrow screens the sphere is as wide as the screen; the stage follows it so there are
+  // no empty bands above and below. Derived from the measured width, so it matches the HTML.
+  const height = width ? Math.min(maxHeight, Math.round(width + maxSize / 2)) : maxHeight;
   const kickRef = useRef<(() => void) | null>(null);
   const [dragging, setDragging] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);

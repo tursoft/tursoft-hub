@@ -1,8 +1,5 @@
 import { cn } from "@/lib/utils";
-
-// Logos drawn in white on a transparent ground (made for the old dark theme). On paper they
-// vanish, so they are printed on an ink plate instead. Measured from the logo files.
-const WHITE_LOGOS = ["/jengai.logo.png", "/jengai.app.png", "/DarkRoom.png"];
+import { isWhiteLogo } from "@/lib/logos";
 
 interface CareerPlateProps {
   src: string;
@@ -13,7 +10,7 @@ interface CareerPlateProps {
 
 /** A logo on a plain paper plate ruled with a hairline, as the dossier sets logos. */
 const CareerPlate = ({ src, alt, className }: CareerPlateProps) => {
-  const onInk = WHITE_LOGOS.some((name) => src.endsWith(name));
+  const onInk = isWhiteLogo(src);
   return (
     <div
       className={cn(

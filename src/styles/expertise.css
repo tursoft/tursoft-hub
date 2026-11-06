@@ -37,6 +37,16 @@
     border-color: hsl(var(--input));
   }
 
+  /* White-on-transparent logos (src/lib/logos.ts) print on an ink plate instead */
+  .logo-plate.is-ink {
+    border-color: hsl(var(--foreground));
+    background: hsl(var(--foreground));
+  }
+
+  .logo-plate.is-ink .logo-plate-img {
+    mix-blend-mode: normal;
+  }
+
   /* ---------- Thin ink bar (skill competency) ---------- */
   .ink-bar {
     position: relative;

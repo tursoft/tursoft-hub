@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { isWhiteLogo } from "@/lib/logos";
 
 interface LogoPlateProps {
   src?: string;
@@ -17,7 +18,7 @@ interface LogoPlateProps {
  */
 export function LogoPlate({ src, alt, className, imgClassName, fallback }: LogoPlateProps) {
   return (
-    <div className={cn("logo-plate", className)}>
+    <div className={cn("logo-plate", isWhiteLogo(src) && "is-ink", className)}>
       {src ? (
         <img
           src={src}
