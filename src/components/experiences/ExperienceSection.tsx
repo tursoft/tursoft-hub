@@ -1,49 +1,121 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, type MouseEvent, type ReactNode } from 'react';
 import { useSnapshotState } from '@/hooks/use-snapshot-state';
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CalendarDays, MapPin, Building, ExternalLink, Linkedin } from "lucide-react";
+import { ArrowUpRight, Globe, Linkedin } from "lucide-react";
+import SectionHeader from "@/components/SectionHeader";
 import ExperienceDetailDialog from './ExperienceDetailDialog';
-import { experienceRepo } from '@/repositories/ExperienceRepo';
 import { companiesRepo } from '@/repositories/CompaniesRepo';
 import { projectsRepo } from '@/repositories/ProjectsRepo';
+import { skillsRepo } from '@/repositories/SkillsRepo';
 import AnimatedCounter from '@/components/ui/animated-counter';
-import type { 
-  Experience, 
-  ExperiencesData, 
-  Position
-} from '@/models/Experience';
+import CareerPlate from './CareerPlate';
+import { formatDuration, formatRange, parseDate } from './career-dates';
+import type { Experience, ExperiencesData } from '@/models/Experience';
+
+interface ProcessedPosition {
+  title: string;
+  /** "Dec 2022 – Apr 2026" */
+  range: string;
+  /** "3 years 4 months" */
+  duration: string;
+  /** The summary, split into its paragraphs */
+  description: string[];
+  /** Up to six skills, by title */
+  skills: string[];
+  current: boolean;
+  startDate: string;
+}
+
+interface ProcessedExperience {
+  companyCode: string;
+  company: string;
+  logo?: string;
+  websiteUrl?: string;
+  linkedinUrl?: string;
+  positions: ProcessedPosition[];
+  location: string;
+  /** The whole stay at the company */
+  range: string;
+  duration: string;
+  current: boolean;
+}
+
+const byStartDesc = (a: { startDate: string }, b: { startDate: string }) =>
+  parseDate(b.startDate).getTime() - parseDate(a.startDate).getTime();
+
+// Durations count to today, so they are worked out here (in an effect) and kept in snapshot
+// state; the render reads only stored strings and matches the prerendered HTML.
+async function processExperiences(data: ExperiencesData): Promise<ProcessedExperience[]> {
+  const results = await Promise.all(
+    data.items.map(async (item) => {
+      const positions = await Promise.all(
+        item.positions.map(async (position): Promise<ProcessedPosition> => {
+          const skills = await Promise.all(
+            (position.skillCodes || []).slice(0, 6).map(async (code) => (await skillsRepo.getByCode(code))?.title || code),
+          );
+          return {
+            title: position.title,
+            range: formatRange(position.startDate, position.endDate),
+            duration: formatDuration(position.startDate, position.endDate),
+            description: position.summary.split('<br/>').map((part) => part.trim()).filter(Boolean),
+            skills,
+            current: !position.endDate,
+            startDate: position.startDate,
+          };
+        }),
+      );
+      positions.sort(byStartDesc);
+
+      const company = item.companyCode ? await companiesRepo.getByCode(item.companyCode) : null;
+      const current = item.positions.some((position) => !position.endDate);
+      const start = item.positions.reduce(
+        (earliest, position) => (parseDate(position.startDate) < parseDate(earliest) ? position.startDate : earliest),
+        item.positions[0].startDate,
+      );
+      const end = current
+        ? null
+        : item.positions.reduce<string>(
+            (latest, position) =>
+              position.endDate && parseDate(position.endDate) > parseDate(latest) ? position.endDate : latest,
+            item.positions[0].endDate as string,
+          );
+
+      return {
+        companyCode: item.companyCode || '',
+        company: company?.title || item.companyCode || 'Unknown',
+        logo: company?.photoUrl || undefined,
+        websiteUrl: company?.websiteUrl || undefined,
+        linkedinUrl: company?.linkedinUrl || undefined,
+        positions,
+        location: company?.city && company?.country ? `${company.city}, ${company.country}` : 'Turkey',
+        range: formatRange(start, end),
+        duration: formatDuration(start, end),
+        current,
+      };
+    }),
+  );
+
+  // Most recent first, by the latest position's start date
+  return results.sort((a, b) => byStartDesc(a.positions[0], b.positions[0]));
+}
+
+/** Whole years since the first position started. */
+function yearsSinceFirstRole(data: ExperiencesData): number {
+  const starts = data.items.flatMap((item) => item.positions.map((position) => parseDate(position.startDate).getTime()));
+  if (!starts.length) return 0;
+  return Math.floor((Date.now() - Math.min(...starts)) / (1000 * 60 * 60 * 24 * 365));
+}
+
+const stopRowClick = (event: MouseEvent) => event.stopPropagation();
 
 const ExperienceSection = () => {
   const [experiencesData, setExperiencesData] = useSnapshotState<ExperiencesData | null>('experience.experiencesData', null);
   const [isLoading, setIsLoading] = useSnapshotState('experience.isLoading', true);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [totalProjects, setTotalProjects] = useSnapshotState('experience.totalProjects', 0);
+  const [careerYears, setCareerYears] = useSnapshotState('experience.careerYears', 0);
+  const [processedExperiences, setProcessedExperiences] = useSnapshotState<ProcessedExperience[]>('experience.processedExperiences', []);
   const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [totalProjects, setTotalProjects] = useSnapshotState('experience.totalProjects', 0);
-  
-  // State for processed experiences
-  interface ProcessedPosition {
-    title: string;
-    duration: string;
-    years: string;
-    description: string[];
-    skillCodes: string[];
-    current: boolean;
-    startDate: string;
-  }
-
-  interface ProcessedExperience {
-    companyCode: string;
-    company: string;
-    logo?: string;
-    websiteUrl?: string;
-    linkedinUrl?: string;
-    positions: ProcessedPosition[];
-    location: string;
-  }
-  
-  const [processedExperiences, setProcessedExperiences] = useSnapshotState<ProcessedExperience[]>('experience.processedExperiences', []);
 
   const handleExperienceClick = (experience: Experience) => {
     setSelectedExperience(experience);
@@ -71,7 +143,7 @@ const ExperienceSection = () => {
 
     loadExperiencesData();
   }, [setExperiencesData, setIsLoading]);
-  
+
   // Load total projects count
   useEffect(() => {
     const loadProjectsCount = async () => {
@@ -85,372 +157,173 @@ const ExperienceSection = () => {
 
     loadProjectsCount();
   }, [setTotalProjects]);
-  
+
   // Process experiences when data is loaded
   useEffect(() => {
-    const processExperiences = async () => {
-      if (!experiencesData) return;
-      
-      const experiences = await getProcessedExperiences();
+    if (!experiencesData) return;
+    let cancelled = false;
+    processExperiences(experiencesData).then((experiences) => {
+      if (cancelled) return;
       setProcessedExperiences(experiences);
-    };
-    
-    processExperiences();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [experiencesData]);
-
-  // Helper function to format date ranges and calculate duration
-  const formatDateRange = (startDate: string, endDate: string | null) => {
-    const start = new Date(startDate.split('.').reverse().join('-'));
-    const end = endDate ? new Date(endDate.split('.').reverse().join('-')) : new Date();
-    
-    const startMonth = start.toLocaleString('en', { month: 'short' });
-    const startYear = start.getFullYear();
-    
-    if (!endDate) {
-      return {
-        range: `${startMonth} ${startYear} - Present`,
-        duration: (() => {
-          const totalMonths = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 30.44));
-          const years = Math.floor(totalMonths / 12);
-          if (years >= 1) return `${years}+ years`;
-          return `${Math.max(totalMonths, 1)} month${totalMonths > 1 ? 's' : ''}`;
-        })(),
-        current: true
-      };
-    }
-    
-    const endMonth = end.toLocaleString('en', { month: 'short' });
-    const endYear = end.getFullYear();
-    
-    const years = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 365));
-    const months = Math.floor(((end.getTime() - start.getTime()) % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
-    
-    let duration = '';
-    if (years > 0) duration += `${years} year${years > 1 ? 's' : ''}`;
-    if (months > 0) duration += `${duration ? ' ' : ''}${months} month${months > 1 ? 's' : ''}`;
-    
-    return {
-      range: `${startMonth} ${startYear} - ${endMonth} ${endYear}`,
-      duration: duration || '< 1 month',
-      current: false
-    };
-  };
-
-  // Process experiences to group positions by company
-  const getProcessedExperiences = async () => {
-    if (!experiencesData) return [];
-
-    interface ProcessedPosition {
-      title: string;
-      duration: string;
-      years: string;
-      description: string[];
-      skillCodes: string[];
-      current: boolean;
-      startDate: string;
-    }
-
-    interface ProcessedExperience {
-      companyCode: string;
-      company: string;
-      logo?: string;
-      websiteUrl?: string;
-      linkedinUrl?: string;
-      positions: ProcessedPosition[];
-      location: string;
-    }
-
-    const processedExperiences: ProcessedExperience[] = [];
-    
-    // Use async forEach to load company data
-    const promises = experiencesData.items.map(async (expItem) => {
-      const positions: ProcessedPosition[] = [];
-      
-      expItem.positions.forEach(position => {
-        const dateInfo = formatDateRange(position.startDate, position.endDate);
-        
-        // Process description - handle both HTML and plain text
-        let description: string[] = [];
-        if (position.summary.includes('<br/>')) {
-          description = position.summary.split('<br/>').map(item => item.trim()).filter(item => item);
-        } else {
-          description = [position.summary];
-        }
-        
-        positions.push({
-          title: position.title,
-          duration: dateInfo.range,
-          years: dateInfo.duration,
-          description: description,
-          skillCodes: (position.skillCodes || []).slice(0, 6),
-          current: dateInfo.current,
-          startDate: position.startDate
-        });
-      });
-
-      // Sort positions by start date (most recent first)
-      positions.sort((a, b) => new Date(b.startDate.split('.').reverse().join('-')).getTime() - new Date(a.startDate.split('.').reverse().join('-')).getTime());
-      
-      // Get company details from repository
-      const companyData = expItem.companyCode ? await companiesRepo.getByCode(expItem.companyCode) : null;
-      
-      return {
-        companyCode: expItem.companyCode || '',
-        company: companyData?.title || expItem.companyCode || 'Unknown',
-        logo: companyData?.photoUrl,
-        websiteUrl: companyData?.websiteUrl || undefined,
-        linkedinUrl: companyData?.linkedinUrl || undefined,
-        positions: positions,
-        location: companyData?.city && companyData?.country ? `${companyData.city}, ${companyData.country}` : "Turkey"
-      };
+      setCareerYears(yearsSinceFirstRole(experiencesData));
     });
+    return () => {
+      cancelled = true;
+    };
+  }, [experiencesData, setProcessedExperiences, setCareerYears]);
 
-    // Wait for all promises to resolve
-    const results = await Promise.all(promises);
-    processedExperiences.push(...results);
-
-    // Sort companies by the most recent position's start date
-    return processedExperiences.sort((a, b) => {
-      const aLatest = new Date(a.positions[0].startDate.split('.').reverse().join('-'));
-      const bLatest = new Date(b.positions[0].startDate.split('.').reverse().join('-'));
-      return bLatest.getTime() - aLatest.getTime();
-    });
-  };
+  const header = (aside?: ReactNode) => (
+    <SectionHeader
+      id="experience"
+      title="25+ years of enterprise software leadership"
+      description="Enterprise software development, team leadership and architecture, now delivered with AI agent teams."
+      aside={aside}
+    />
+  );
 
   if (isLoading || !experiencesData) {
     return (
-      <section id="experience" className="py-20 gradient-bg">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center">
-              <div className="animate-pulse">Loading experiences...</div>
-            </div>
-          </div>
+      <section id="experience" className="py-16 lg:py-24">
+        <div className="container">
+          {header()}
+          <p className="text-sm text-faint">Loading experience…</p>
         </div>
       </section>
     );
   }
 
+  const figures = [
+    { label: 'Companies', value: processedExperiences.length },
+    { label: 'Positions', value: processedExperiences.reduce((total, exp) => total + exp.positions.length, 0) },
+    { label: 'Years', value: careerYears, suffix: '+' },
+    { label: 'Projects', value: totalProjects },
+  ];
+
+  const openExperience = (exp: ProcessedExperience, index: number) => {
+    // Find the original experience item by companyCode
+    const matchingExperience = experiencesData.items.find((item) => item.companyCode === exp.companyCode);
+    handleExperienceClick(matchingExperience || experiencesData.items[index]);
+  };
+
   return (
-    <section id="experience" className="py-20 gradient-bg">
-      <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16 animate-fade-in">
-            <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">Professional Experience</Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              25+ Years of
-              <span className="bg-gradient-to-r from-[hsl(var(--navy-deep))] via-[hsl(var(--primary))] to-[hsl(var(--primary-light))] bg-clip-text text-transparent block lg:inline lg:ml-4">Enterprise Software Leadership</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A journey through enterprise software development, team leadership and architectural excellence, now delivered with AI agent teams
-            </p>
-          </div>
+    <section id="experience" className="py-16 lg:py-24">
+      <div className="container">
+        {header(
+          <dl className="grid grid-cols-4 gap-x-6 sm:gap-x-10">
+            {figures.map((figure) => (
+              <div key={figure.label} className="flex flex-col-reverse">
+                <dt className="mt-1 text-[13px] leading-5 text-faint">{figure.label}</dt>
+                <dd className="tnum font-serif text-[32px] leading-9 text-foreground">
+                  <AnimatedCounter end={figure.value} suffix={figure.suffix} />
+                </dd>
+              </div>
+            ))}
+          </dl>,
+        )}
 
-          {/* Statistics Boxes */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
-            <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 text-center">
-              <div className="text-3xl font-bold text-primary mb-2">
-                <AnimatedCounter end={processedExperiences.length} />
-              </div>
-              <div className="text-sm text-muted-foreground">Companies</div>
-            </div>
-            <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 text-center">
-              <div className="text-3xl font-bold text-primary mb-2">
-                <AnimatedCounter end={processedExperiences.reduce((total, exp) => total + exp.positions.length, 0)} />
-              </div>
-              <div className="text-sm text-muted-foreground">Positions</div>
-            </div>
-            <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 text-center">
-              <div className="text-3xl font-bold text-primary mb-2">
-                <AnimatedCounter 
-                  end={(() => {
-                    if (processedExperiences.length === 0) return 0;
-                    const allStartDates = processedExperiences.flatMap(exp => 
-                      exp.positions.map(pos => new Date(pos.startDate.split('.').reverse().join('-')))
-                    );
-                    const earliestStart = new Date(Math.min(...allStartDates.map(d => d.getTime())));
-                    const now = new Date();
-                    const years = Math.floor((now.getTime() - earliestStart.getTime()) / (1000 * 60 * 60 * 24 * 365));
-                    return years;
-                  })()}
-                  suffix="+"
-                />
-              </div>
-              <div className="text-sm text-muted-foreground">Years</div>
-            </div>
-            <div className="p-6 rounded-lg bg-card border border-border/50 hover:border-primary/50 transition-all duration-300 text-center">
-              <div className="text-3xl font-bold text-primary mb-2">
-                <AnimatedCounter end={totalProjects} />
-              </div>
-              <div className="text-sm text-muted-foreground">Projects</div>
-            </div>
-          </div>
+        {/* The record: one row per employer, most recent first */}
+        <ol>
+          {processedExperiences.map((exp, index) => (
+            <li key={exp.companyCode || index} className="border-b border-border">
+              <div
+                className="career-row group -mx-4 cursor-pointer px-4 py-6 transition-colors duration-150 ease-dossier hover:bg-card md:-mx-6 md:px-6 md:py-8"
+                onClick={() => openExperience(exp, index)}
+              >
+                <div className="career-when flex flex-wrap items-baseline gap-x-2 md:block">
+                  <p className="tnum text-sm leading-5 text-foreground">{exp.range}</p>
+                  <p className="tnum text-[13px] leading-5 text-faint md:mt-1">
+                    <span aria-hidden="true" className="pr-2 md:hidden">·</span>
+                    {exp.duration}
+                  </p>
+                </div>
 
-          {/* Experience Timeline */}
-          <div className="space-y-8 pl-6">
-            {processedExperiences.map((exp, index) => {
-              const hasCurrent = exp.positions.some(pos => pos.current);
-              const isHovered = hoveredCard === index;
-              
-              // Calculate total years and date range for the company
-              const sortedPositions = [...exp.positions].sort((a, b) => 
-                new Date(a.startDate.split('.').reverse().join('-')).getTime() - 
-                new Date(b.startDate.split('.').reverse().join('-')).getTime()
-              );
-              const firstPosition = sortedPositions[0];
-              const lastPosition = sortedPositions[sortedPositions.length - 1];
-              
-              const companyStartDate = firstPosition.startDate;
-              const companyEndDate = lastPosition.current ? null : lastPosition.duration.split(' - ')[1];
-              const companyDateInfo = formatDateRange(companyStartDate, companyEndDate);
-              
-              return (
-                <Card 
-                  key={index} 
-                  className={`portfolio-card portfolio-light-streak portfolio-glow-pulse gradient-card hover:border-l-4 hover:border-l-primary transition-all duration-300 relative ${
-                    hasCurrent ? 'ring-2 ring-primary/20' : ''
-                  } cursor-pointer`}
-                  onMouseEnter={() => setHoveredCard(index)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                  onClick={() => {
-                    // Find the original experience item by companyCode
-                    const matchingExperience = experiencesData.items.find(item => item.companyCode === exp.companyCode);
-                    const experienceToShow = matchingExperience || experiencesData.items[index];
-                    handleExperienceClick(experienceToShow);
-                  }}
-                >
-                  {/* Company Logo - Horizontally centered based on years/daterange cells */}
-                  <div className="absolute top-4 right-4 w-24 flex flex-col items-center">
-                    <div className="w-16 h-16 flex items-center justify-center p-1 mb-2">
-                      <img loading="lazy" decoding="async" 
-                        src={exp.logo} 
-                        alt={`${exp.company} logo`}
-                        className="max-w-full max-h-full object-contain"
-                      />
-                    </div>
-                    
-                    {/* Total Years - Show in compact view, hide in full view */}
-                    <div className={`flex flex-col items-center gap-1 text-xs transition-all duration-300 ${
-                      isHovered ? 'opacity-0 max-h-0' : 'opacity-100 max-h-32'
-                    }`}>
-                      <Badge variant="secondary" className="text-xs px-2 py-1 whitespace-nowrap">
-                        {companyDateInfo.duration}
-                      </Badge>
-                    </div>
+                <div className="career-head mt-3 md:mt-0">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <h3 className="career-name text-lg font-medium leading-7 text-foreground">{exp.company}</h3>
+                    {exp.current && <Badge>Current</Badge>}
                   </div>
+                  <div className="mt-1 flex flex-wrap items-center gap-x-3 text-[13px] leading-5 text-muted-foreground">
+                    <span>{exp.location}</span>
+                    {(exp.websiteUrl || exp.linkedinUrl) && (
+                      <span className="flex items-center gap-1">
+                        {exp.websiteUrl && (
+                          <a
+                            href={exp.websiteUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={stopRowClick}
+                            className="inline-flex h-6 w-6 items-center justify-center rounded-md text-faint transition-colors duration-150 ease-dossier hover:text-foreground"
+                            title="Visit website"
+                            aria-label={`${exp.company} website`}
+                          >
+                            <Globe className="h-4 w-4" strokeWidth={1.5} />
+                          </a>
+                        )}
+                        {exp.linkedinUrl && (
+                          <a
+                            href={exp.linkedinUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={stopRowClick}
+                            className="inline-flex h-6 w-6 items-center justify-center rounded-md text-faint transition-colors duration-150 ease-dossier hover:text-foreground"
+                            title="Visit LinkedIn"
+                            aria-label={`${exp.company} on LinkedIn`}
+                          >
+                            <Linkedin className="h-4 w-4" strokeWidth={1.5} />
+                          </a>
+                        )}
+                      </span>
+                    )}
+                  </div>
+                </div>
 
-                  <CardHeader className="pb-4 pr-32">
-                    <div className="flex items-center gap-3 mb-4">
-                      <Building className="h-5 w-5 text-primary" />
-                      <h3 className="text-xl font-bold text-foreground uppercase">{exp.company}</h3>
-                      {hasCurrent && (
-                        <Badge variant="default">
-                          Current
-                        </Badge>
-                      )}
-                    </div>
-                    
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                      <div className="flex items-center gap-1">
-                        <MapPin className="h-4 w-4" />
-                        <span>{exp.location}</span>
+                <div className="career-body mt-4 max-w-[46rem]">
+                  <div className="space-y-5">
+                    {exp.positions.map((position, posIndex) => (
+                      <div key={`${position.title}-${posIndex}`}>
+                        <h4 className="text-[15px] leading-6 text-foreground">{position.title}</h4>
+                        {exp.positions.length > 1 && (
+                          <p className="tnum text-[13px] leading-5 text-faint">
+                            {position.range}
+                            <span aria-hidden="true" className="px-1.5">·</span>
+                            {position.duration}
+                          </p>
+                        )}
+                        <p className="mt-1.5 line-clamp-3 text-sm leading-[22px] text-muted-foreground [text-wrap:pretty]">
+                          {position.description.join(' ')}
+                        </p>
+                        {position.skills.length > 0 && (
+                          <p className="mt-2 text-[13px] leading-5 text-faint">{position.skills.join(', ')}</p>
+                        )}
                       </div>
-                      
-                      {/* Company Links */}
-                      {(exp.websiteUrl || exp.linkedinUrl) && (
-                        <div className="flex items-center gap-2">
-                          {exp.websiteUrl && (
-                            <a 
-                              href={exp.websiteUrl} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-muted-foreground hover:text-primary transition-colors"
-                              title="Visit Website"
-                              aria-label={`${exp.company} website`}
-                            >
-                              <ExternalLink className="h-4 w-4" />
-                            </a>
-                          )}
-                          {exp.linkedinUrl && (
-                            <a 
-                              href={exp.linkedinUrl} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-muted-foreground hover:text-primary transition-colors"
-                              title="Visit LinkedIn"
-                              aria-label={`${exp.company} on LinkedIn`}
-                            >
-                              <Linkedin className="h-4 w-4" />
-                            </a>
-                          )}
-                        </div>
-                      )}
-                    </div>
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    aria-label={`Full record, ${exp.company}`}
+                    className="mt-4 inline-flex items-center gap-1 rounded-sm text-[13px] leading-5 text-muted-foreground transition-colors duration-150 ease-dossier group-hover:text-foreground"
+                  >
+                    Full record
+                    <ArrowUpRight className="h-4 w-4 text-faint transition-colors duration-150 ease-dossier group-hover:text-foreground" strokeWidth={1.5} />
+                  </button>
+                </div>
 
-                    {/* Multiple Positions */}
-                    <div className="space-y-6 relative">
-                      {exp.positions.map((position, posIndex) => (
-                        <div key={posIndex} className={`${posIndex > 0 ? 'pt-6 border-t border-border/50' : ''} relative`}>
-                          {/* Position Duration Box - Vertically centered in position area */}
-                          <div className={`absolute -right-28 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 transition-all duration-300 ${
-                            isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
-                          }`}>
-                            <Badge variant="secondary" className="text-xs px-2 py-1 whitespace-nowrap">
-                              {position.years}
-                            </Badge>
-                            <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                              <CalendarDays className="h-3 w-3" />
-                              <span className="text-xs leading-tight text-center">{position.duration}</span>
-                            </div>
-                          </div>
-                          
-                          <div className={`transition-all duration-300 ${isHovered ? 'mb-3' : 'mb-0'}`}>
-                            <h4 className="text-lg font-semibold text-primary">{position.title}</h4>
-                          </div>
+                <div className="career-logo">
+                  {exp.logo && (
+                    <CareerPlate src={exp.logo} alt={`${exp.company} logo`} className="aspect-square w-full p-1.5 md:p-2" />
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
 
-                          {/* Description - Hidden in compact view */}
-                          <div className={`overflow-hidden transition-all duration-300 ${
-                            isHovered ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0 mb-0'
-                          }`}>
-                            <div className="space-y-2">
-                              {position.description.map((item, i) => (
-                                <p key={i} className="text-muted-foreground text-sm">
-                                  {item}
-                                </p>
-                              ))}
-                            </div>
-                          </div>
-
-                          {/* Technologies - Hidden in compact view */}
-                          <div className={`overflow-hidden transition-all duration-300 ${
-                            isHovered ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'
-                          }`}>
-                            <div className="flex flex-wrap gap-2">
-                              {position.skillCodes.map((tech, i) => (
-                                <Badge key={i} variant="outline" className="text-xs">
-                                  {tech}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </div>
-
-          {/* Experience Detail Dialog */}
-          <ExperienceDetailDialog
-            experience={selectedExperience}
-            isOpen={isDialogOpen}
-            onClose={handleDialogClose}
-          />
-        </div>
+        {/* Experience Detail Dialog */}
+        <ExperienceDetailDialog
+          experience={selectedExperience}
+          isOpen={isDialogOpen}
+          onClose={handleDialogClose}
+        />
       </div>
     </section>
   );

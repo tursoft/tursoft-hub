@@ -1,165 +1,150 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Bot, Sparkles, Award, Briefcase, Mail, Phone, Globe } from "lucide-react";
+import { Mail, Phone, Globe } from "lucide-react";
 import Reveal from "@/components/ui/reveal";
+import SectionHeader from "@/components/SectionHeader";
 import { PERSON } from "@/lib/site";
 
-const AboutSection = () => {
-  const highlights = [
-    {
-      icon: Briefcase,
-      title: "25+ Years Experience",
-      description: "Leading enterprise software projects worldwide, from national healthcare systems to AI-native SaaS"
-    },
-    {
-      icon: Sparkles,
-      title: "AI-Driven Lifecycle",
-      description: "AI coding agents across the whole SDLC: specs, plans, implementation, review, tests and docs"
-    },
-    {
-      icon: Bot,
-      title: "Agent Teams",
-      description: "Designing and managing multi-agent workflows with prompt and context engineering"
-    },
-    {
-      icon: Award,
-      title: "Enterprise Architecture",
-      description: ".NET, Node.js, Cloud, SaaS"
-    }
-  ];
+const highlights = [
+  {
+    title: "25+ years of experience",
+    description: "Leading enterprise software projects worldwide, from national healthcare systems to AI-native SaaS",
+  },
+  {
+    title: "AI-driven lifecycle",
+    description: "AI coding agents across the whole SDLC: specs, plans, implementation, review, tests and docs",
+  },
+  {
+    title: "Agent teams",
+    description: "Designing and managing multi-agent workflows with prompt and context engineering",
+  },
+  {
+    title: "Enterprise architecture",
+    description: ".NET, Node.js, cloud, SaaS",
+  },
+];
 
-  const roles = [
-    "AI-Enabled Software Architect",
-    "Director of Technology",
-    "Software Group Director",
-    "Research & Development Director",
-    "Software Team Leader"
-  ];
+const roles = [
+  "AI-Enabled Software Architect",
+  "Director of Technology",
+  "Software Group Director",
+  "Research & Development Director",
+  "Software Team Leader",
+];
 
-  const contacts = [
-    { icon: Mail, label: "Email", value: "tursoft@gmail.com", href: "mailto:tursoft@gmail.com" },
-    { icon: Phone, label: "Phone", value: "+90 554 200 78 29", href: "tel:+905542007829" },
-    { icon: Globe, label: "Website", value: "tursoft.net", href: "https://tursoft.net" },
-  ];
+const contacts = [
+  { icon: Mail, label: "Email", value: "tursoft@gmail.com", href: "mailto:tursoft@gmail.com" },
+  { icon: Phone, label: "Phone", value: "+90 554 200 78 29", href: "tel:+905542007829" },
+  { icon: Globe, label: "Website", value: "tursoft.net", href: "https://tursoft.net" },
+];
 
-  // The facts search engines and AI assistants quote; kept in sync with llms.txt and the JSON-LD.
-  const glance = [
-    { label: "Name", value: `${PERSON.name} (also written Tursak)` },
-    { label: "Title", value: PERSON.headline },
-    { label: "Based in", value: `${PERSON.location.city}, ${PERSON.location.country}` },
-    { label: "Experience", value: `${PERSON.yearsOfExperience} years in enterprise software` },
-    { label: "Current", value: PERSON.currentRole },
-    { label: "Previously", value: PERSON.previousRoles },
-    { label: "Specialties", value: "AI agentic development, .NET, Node.js, Azure, React, SaaS" },
-    { label: "Available for", value: PERSON.availability },
-  ];
+// The facts search engines and AI assistants quote; kept in sync with llms.txt and the JSON-LD.
+const glance = [
+  { label: "Name", value: `${PERSON.name} (also written Tursak)` },
+  { label: "Title", value: PERSON.headline },
+  { label: "Based in", value: `${PERSON.location.city}, ${PERSON.location.country}` },
+  { label: "Experience", value: `${PERSON.yearsOfExperience} years in enterprise software` },
+  { label: "Current", value: PERSON.currentRole },
+  { label: "Previously", value: PERSON.previousRoles },
+  { label: "Specialties", value: "AI agentic development, .NET, Node.js, Azure, React, SaaS" },
+  { label: "Available for", value: PERSON.availability },
+];
 
-  return (
-    <section id="about" className="py-20 bg-background relative">
-      <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <Reveal className="text-center mb-16">
-            <Badge variant="outline" className="mb-4 border-primary/40 text-primary uppercase tracking-widest">About Me</Badge>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Senior Software Architect
-              <span className="text-gradient block lg:inline lg:ml-4">Building the AI-Native Way</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              I lead the development of enterprise systems that deliver world-class functionality and performance, and I build them the AI-native way: coding agents across the whole lifecycle, engineered prompts and context, and agent teams that I design and manage.
-            </p>
-          </Reveal>
+/** Column head inside a section, set like a label in a printed profile. */
+const ColumnHead = ({ children }: { children: string }) => (
+  <h3 className="text-[13px] font-medium leading-4 text-muted-foreground">{children}</h3>
+);
 
-          {/* At a glance */}
-          <Reveal className="mb-16">
-            <div className="glass rounded-xl p-6 lg:p-8">
-              <h3 className="text-lg font-semibold mb-5 text-foreground">At a glance</h3>
-              <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4 text-sm">
-                {glance.map((fact) => (
-                  <div key={fact.label}>
-                    <dt className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{fact.label}</dt>
-                    <dd className="text-foreground">{fact.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </Reveal>
+const AboutSection = () => (
+  <section id="about" className="py-16 lg:py-24">
+    <div className="container">
+      <SectionHeader
+        id="about"
+        title="Senior software architect building the AI-native way"
+        description="I lead the development of enterprise systems and build them the AI-native way: coding agents across the whole lifecycle, engineered prompts and context, and agent teams that I design and manage."
+      />
 
-          {/* Main Content */}
-          <div className="grid lg:grid-cols-2 gap-12 mb-16">
-            {/* Left Column - Story */}
-            <Reveal direction="left">
-              <h3 className="text-2xl font-semibold mb-6 text-foreground">My Journey</h3>
-              <div className="space-y-6 text-muted-foreground leading-relaxed">
-                <p>
-                  Throughout my professional career, I have taken the <span className="text-primary font-semibold">leadership</span> of various <span className="text-primary font-semibold">enterprise projects</span> within software companies that are significant players
-                  in their sectors. As part of <span className="text-primary font-semibold">international companies</span>, we have completed <span className="text-primary font-semibold">multi-million dollar</span> software projects all over the world.
-                </p>
-                <p>
-                  Since 2023 I have rebuilt the way I deliver software around AI. I run the whole <span className="text-primary font-semibold">development lifecycle with AI coding agents</span>, from specs and plans to implementation, review, tests and documentation, apply <span className="text-primary font-semibold">prompt and context engineering</span> to keep them accurate on large codebases, and <span className="text-primary font-semibold">design and manage agent teams</span> that work alongside human engineers.
-                </p>
-                <p>
-                  After leading technology at <span className="text-primary font-semibold">Jengai</span> and <span className="text-primary font-semibold">Gamyte</span>, I now build <span className="text-primary font-semibold">AI-native products</span> under Tursoft, such as BestJobFinder and Account Manager for Claude, and help engineering teams make the same transition: the specs, context, tooling and guardrails that let humans and AI agents deliver together.
-                </p>
+      <div className="about-grid">
+        {/* At a glance: the facts, as a ruled two-column list */}
+        <Reveal className="about-glance">
+          <ColumnHead>At a glance</ColumnHead>
+          <dl className="mt-3 divide-y divide-border">
+            {glance.map((fact) => (
+              <div key={fact.label} className="grid grid-cols-[7rem_minmax(0,1fr)] gap-x-4 py-3 first:pt-0 sm:grid-cols-[8rem_minmax(0,1fr)]">
+                <dt className="text-[13px] leading-5 text-faint">{fact.label}</dt>
+                <dd className="text-sm leading-5 text-foreground [text-wrap:pretty]">{fact.value}</dd>
               </div>
-
-              {/* Contact Info */}
-              <div className="mt-8 p-6 glass rounded-xl">
-                <h4 className="text-lg font-semibold mb-4">Get In Touch</h4>
-                <div className="space-y-3 text-sm">
-                  {contacts.map((contact) => (
-                    <a
-                      key={contact.label}
-                      href={contact.href}
-                      className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-300 group"
-                    >
-                      <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                        <contact.icon className="h-4 w-4 text-primary" />
-                      </span>
-                      <span>{contact.value}</span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-
-            {/* Right Column - Leadership Roles */}
-            <Reveal direction="right" delay={120}>
-              <h3 className="text-2xl font-semibold mb-6 text-foreground">Positions</h3>
-              <div className="space-y-4">
-                {roles.map((role, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center p-4 gradient-card rounded-xl border border-border card-hover hover:border-primary/40 group"
-                  >
-                    <div className="w-2 h-2 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] rounded-full mr-4 flex-shrink-0 group-hover:scale-150 transition-transform duration-300" />
-                    <span className="text-foreground font-medium">{role}</span>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Highlights Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {highlights.map((highlight, index) => (
-              <Reveal key={index} direction="scale" delay={index * 100}>
-                <Card className="gradient-card border-border card-hover hover:border-primary/40 h-full group">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[hsl(var(--primary)/0.18)] to-[hsl(var(--accent)/0.18)] ring-1 ring-primary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:ring-primary/50 transition-all duration-300">
-                      <highlight.icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <h4 className="text-lg font-semibold mb-2 text-foreground">{highlight.title}</h4>
-                    <p className="text-sm text-muted-foreground">{highlight.description}</p>
-                  </CardContent>
-                </Card>
-              </Reveal>
             ))}
+          </dl>
+        </Reveal>
+
+        {/* The biography and what it adds up to */}
+        <Reveal className="about-story" delay={60}>
+          <ColumnHead>My journey</ColumnHead>
+          <div className="mt-4 max-w-[36em] space-y-5 text-base leading-[26px] text-foreground [text-wrap:pretty] md:text-[17px] md:leading-7">
+            <p>
+              Throughout my professional career, I have taken the leadership of various enterprise projects within
+              software companies that are significant players in their sectors. As part of international companies,
+              we have completed multi-million dollar software projects all over the world.
+            </p>
+            <p>
+              Since 2023 I have rebuilt the way I deliver software around AI. I run the whole development lifecycle
+              with AI coding agents, from specs and plans to implementation, review, tests and documentation, apply
+              prompt and context engineering to keep them accurate on large codebases, and design and manage agent
+              teams that work alongside human engineers.
+            </p>
+            <p>
+              After leading technology at Jengai and Gamyte, I now build AI-native products under Tursoft, such as
+              BestJobFinder and Account Manager for Claude, and help engineering teams make the same transition: the
+              specs, context, tooling and guardrails that let humans and AI agents deliver together.
+            </p>
           </div>
-        </div>
+
+          <ul className="mt-12 grid gap-x-12 sm:grid-cols-2">
+            {highlights.map((highlight) => (
+              <li key={highlight.title} className="border-t border-border pb-6 pt-4">
+                <h4 className="text-[15px] font-medium leading-6 text-foreground">{highlight.title}</h4>
+                <p className="mt-1 text-sm leading-[22px] text-muted-foreground [text-wrap:pretty]">
+                  {highlight.description}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+
+        {/* Positions held and how to reach me */}
+        <Reveal className="about-more" delay={120}>
+          <ColumnHead>Positions</ColumnHead>
+          <ol className="mt-3 divide-y divide-border">
+            {roles.map((role) => (
+              <li key={role} className="py-2.5 text-[15px] leading-6 text-foreground first:pt-0">
+                {role}
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-10">
+            <h4 className="text-[13px] font-medium leading-4 text-muted-foreground">Get in touch</h4>
+            <ul aria-label="Contact" className="mt-3 grid gap-1">
+              {contacts.map((contact) => (
+                <li key={contact.label}>
+                  <a
+                    href={contact.href}
+                    className="group flex h-7 items-center gap-2.5 text-sm leading-5 text-muted-foreground transition-colors duration-150 ease-dossier hover:text-foreground"
+                  >
+                    <contact.icon
+                      className="h-4 w-4 text-faint transition-colors duration-150 ease-dossier group-hover:text-foreground"
+                      strokeWidth={1.5}
+                    />
+                    <span className="w-16 text-[13px] text-faint">{contact.label}</span>
+                    <span className="tnum truncate">{contact.value}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default AboutSection;
