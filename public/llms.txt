@@ -61,7 +61,7 @@ Since 2023 he has rebuilt the way he delivers software around AI. He works as an
 Ankara, Turkey. Building AI-native products end to end with AI agent teams: BestJobFinder (AI-powered job search SaaS) and Account Manager for Claude (open-source VS Code extension).
 
 **Jengai** — Director of Technology & Senior Software Architect (Dec 2022 – Apr 2026)
-New York, USA. Led architecture and delivery of the Jengai App, an AI-powered CRM, estimation and pricing suite for commercial contractors; designed its AI document pipeline (Azure AI Document Intelligence, Computer Vision, Service Bus) and embedded AI coding agents into the team's development lifecycle.
+New York, USA. Led architecture and delivery of the Jengai, an AI-powered CRM, estimation and pricing suite for commercial contractors; designed its AI document pipeline (Azure AI Document Intelligence, Computer Vision, Service Bus) and embedded AI coding agents into the team's development lifecycle.
 
 **Gamyte** — Director of Technology & Senior Software Architect (Sep 2019 – Dec 2022)
 New York, USA. Defined technology strategy, cloud architecture governance and API standards for the Gamyte App, a construction IT platform for commercial contractors.
@@ -113,9 +113,9 @@ Undergraduate. Score: 3.80 / 4.00. Graduation project: 3D educational game devel
 
 **Account Manager for Claude** — Open-source VS Code extension to manage several Claude subscriptions in Claude Code: one-click switching, live usage limits, next-account proposals, usage analytics and an availability calendar. Published on the VS Code Marketplace and Open VSX.
 
-**Jengai App** — AI-powered CRM, estimation and pricing suite for commercial contractors with an AI document pipeline that extracts structured cost data from construction PDFs. Developed for Jengai, New York.
+**Jengai** — AI-powered CRM, estimation and pricing suite for commercial contractors with an AI document pipeline that extracts structured cost data from construction PDFs. Developed for Jengai, New York.
 
-**Gamyte App** — Construction IT management platform for commercial contractors. Predecessor scope to Jengai App.
+**Gamyte** — Construction IT management platform for commercial contractors. Predecessor scope to Jengai.
 
 **Avicenna Hospital Information System (HIS2x)** — Enterprise-level hospital information system deployed in Kosovo and Palestine.
 

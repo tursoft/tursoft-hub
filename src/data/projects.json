@@ -209,7 +209,7 @@
     {
       "code": "JENGAIAPP",
       "orderIndex": 3,
-      "title": "Jengai App",
+      "title": "Jengai",
       "photoUrl": "/assets/projects/_logos/jengai.app.png",
       "companyCode": "JENGAI",
       "group": "SaaS",
@@ -298,7 +298,7 @@
     {
       "code": "GAMYTEAPP",
       "orderIndex": 4,
-      "title": "Gamyte App",
+      "title": "Gamyte",
       "photoUrl": "/assets/projects/_logos/gamyte.app.png",
       "companyCode": "GAMYTE",
       "group": "SaaS",
