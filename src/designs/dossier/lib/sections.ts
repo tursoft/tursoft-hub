@@ -4,27 +4,27 @@
  * lists the ones marked `nav`. Keep this in the same order as `sections` in pages/Index.tsx.
  *
  * `tone` sets the printing of a section's band (styles/tones.css): paper (the default),
- * wash (pale blue stock, blue ink) or ink (the reverse, a blue band). The rhythm runs
- * wash, paper, ink, paper, so no two neighbours share a printing.
+ * tint (the same paper printed in orange) or orange (the reverse, an orange band). The rhythm runs
+ * tint, paper, orange, paper, so no two neighbours share a printing.
  */
 export const SECTIONS = [
   { id: "hero", label: "Profile", nav: "Home" },
-  { id: "about", label: "About me", nav: "About me", tone: "wash" },
+  { id: "about", label: "About me", nav: "About me", tone: "tint" },
   { id: "experience", label: "Experience", nav: "Experience" },
-  { id: "domains", label: "Domains", nav: "Domains", tone: "ink" },
+  { id: "domains", label: "Domains", nav: "Domains", tone: "orange" },
   { id: "skills", label: "Skills", nav: "Skills" },
-  { id: "portfolio", label: "Portfolio", nav: "Portfolio", tone: "wash" },
-  { id: "case-studies", label: "Case studies", tone: "ink" },
+  { id: "portfolio", label: "Portfolio", nav: "Portfolio", tone: "tint" },
+  { id: "case-studies", label: "Case studies", tone: "orange" },
   { id: "customers", label: "Customers", nav: "Customers" },
-  { id: "references", label: "References", nav: "References", tone: "wash" },
-  { id: "education", label: "Education", nav: "Education", tone: "ink" },
+  { id: "references", label: "References", nav: "References", tone: "tint" },
+  { id: "education", label: "Education", nav: "Education", tone: "orange" },
   { id: "map", label: "Map", nav: "Map" },
-  { id: "timeline", label: "Timeline", nav: "Timeline", tone: "wash" },
+  { id: "timeline", label: "Timeline", nav: "Timeline", tone: "tint" },
   { id: "faq", label: "Questions" },
-  { id: "contact", label: "Contact", nav: "Contact", tone: "ink" },
+  { id: "contact", label: "Contact", nav: "Contact", tone: "orange" },
 ] as const;
 
-export type SectionTone = "paper" | "wash" | "ink";
+export type SectionTone = "paper" | "tint" | "orange";
 
 export type SectionId = (typeof SECTIONS)[number]["id"];
 
