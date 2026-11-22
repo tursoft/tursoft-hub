@@ -5,6 +5,7 @@
 @import "./styles/work.css";
 @import "./styles/voices.css";
 @import "./styles/places.css";
+@import "./styles/tones.css";
 
 @tailwind base;
 @tailwind components;

@@ -1,0 +1,111 @@
+@layer base {
+  /* ---------- Section tones ----------
+     The homepage alternates three printings so the long page does not read as one sheet:
+       paper  the default: warm paper, black ink, printer's red (the :root tokens)
+       wash   a pale blue stock; the second ink, Prussian blue, takes red's place
+       ink    the reverse: a Prussian blue band, paper-colored type, vermilion for red
+     Every component reads the same tokens, so a tone only redefines them for its band.
+     Set per section in src/designs/dossier/lib/sections.ts; pages/Index.tsx paints the band. */
+
+  [data-tone="wash"] {
+    --background: 210 30% 94%; /* blue stock #ecf0f4 */
+    --foreground: 215 28% 13%; /* blue-black ink #181f2b */
+
+    --card: 210 40% 98%;
+    --card-foreground: 215 28% 13%;
+    --card-hover: 210 26% 90%;
+    --popover: 210 40% 98%;
+    --popover-foreground: 215 28% 13%;
+
+    /* Prussian blue: the second ink, in the places red would take */
+    --primary: 212 58% 32%; /* #225081 */
+    --primary-foreground: 0 0% 100%;
+    --primary-dark: 212 60% 25%;
+    --primary-glow: 212 58% 32%;
+    --primary-variant: 212 60% 25%;
+
+    --secondary: 210 26% 90%;
+    --secondary-foreground: 215 28% 13%;
+    --secondary-hover: 210 22% 85%;
+    --muted: 210 26% 90%;
+    --muted-foreground: 213 16% 32%;
+    --faint: 213 11% 40%;
+    --accent: 213 16% 32%;
+    --accent-foreground: 210 30% 94%;
+    --primary-light: 213 16% 32%;
+    --accent-glow: 213 16% 32%;
+    --navy-deep: 215 28% 13%;
+
+    --border: 210 18% 84%;
+    --input: 211 14% 74%;
+    --ring: 215 28% 13%;
+  }
+
+  [data-tone="ink"] {
+    color-scheme: dark;
+
+    --background: 214 45% 16%; /* Prussian band #16253b */
+    --foreground: 40 36% 95%; /* paper-colored type */
+
+    --card: 214 40% 20%;
+    --card-foreground: 40 36% 95%;
+    --card-hover: 214 34% 24%;
+    --popover: 214 40% 20%;
+    --popover-foreground: 40 36% 95%;
+
+    /* Red does not carry on blue, so the reverse prints in vermilion */
+    --primary: 18 82% 62%; /* #ef7f50 */
+    --primary-foreground: 214 45% 12%;
+    --primary-dark: 18 86% 69%;
+    --primary-glow: 18 82% 62%;
+    --primary-variant: 18 86% 69%;
+
+    --secondary: 214 34% 24%;
+    --secondary-foreground: 40 36% 95%;
+    --secondary-hover: 214 30% 29%;
+    --muted: 214 34% 24%;
+    --muted-foreground: 38 22% 80%;
+    --faint: 36 14% 67%;
+    --accent: 38 22% 80%;
+    --accent-foreground: 214 45% 16%;
+    --primary-light: 38 22% 80%;
+    --accent-glow: 38 22% 80%;
+    --navy-deep: 214 45% 12%;
+
+    --success: 140 30% 62%;
+    --warning: 38 70% 62%;
+    --destructive: 18 82% 62%;
+    --destructive-foreground: 214 45% 12%;
+
+    --border: 214 26% 29%;
+    --input: 214 20% 42%;
+    --ring: 40 36% 95%;
+
+    --shadow-card: 0 1px 2px hsl(214 60% 4% / 0.3);
+    --shadow-card-hover: 0 1px 2px hsl(214 60% 4% / 0.3), 0 12px 28px -18px hsl(214 60% 4% / 0.7);
+    --shadow-elegant: 0 1px 2px hsl(214 60% 4% / 0.3), 0 8px 24px -16px hsl(214 60% 4% / 0.6);
+  }
+
+  /* Logo plates stay paper on the blue band: logos are drawn for a light ground and
+     multiplied into it. White logos keep their black plate (bg-foreground = ink here). */
+  [data-tone="ink"] :is(.logo-plate, .work-plate, .career-plate) {
+    --card: 40 60% 98%;
+    --foreground: 33 17% 10%;
+    --secondary: 38 33% 91%;
+    --faint: 34 10% 39%;
+    --border: 40 13% 86%;
+    --input: 40 8% 78%;
+  }
+}
+
+@layer components {
+  .section-tone {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  /* Photographs are multiplied into light stock; on the blue band they print as they are */
+  [data-tone="ink"] .print-photo {
+    mix-blend-mode: normal;
+  }
+}

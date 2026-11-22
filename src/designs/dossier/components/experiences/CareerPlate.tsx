@@ -14,7 +14,7 @@ const CareerPlate = ({ src, alt, className }: CareerPlateProps) => {
   return (
     <div
       className={cn(
-        "flex flex-shrink-0 items-center justify-center rounded-md border",
+        "career-plate flex flex-shrink-0 items-center justify-center rounded-md border",
         onInk ? "border-foreground bg-foreground" : "border-border bg-card",
         className,
       )}

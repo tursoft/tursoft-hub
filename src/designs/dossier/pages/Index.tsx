@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense, type ComponentType } from "react";
 import Navigation from "@design/components/Navigation";
 import HeroSection from "@design/components/HeroSection";
 import AboutSection from "@design/components/AboutSection";
@@ -19,26 +19,28 @@ import ReferencesSection from "@design/components/references/ReferencesSection";
 import ContactSection from "@design/components/contact/ContactSection";
 import Reveal from "@design/components/ui/reveal";
 import { ArrowUp } from "lucide-react";
+import { sectionTone, type SectionId } from "@design/lib/sections";
 
 // Heavy sections (Leaflet map, timeline) load in their own chunks after the first paint.
 const MapSection = lazy(() => import("@design/components/map/MapSection"));
 const TimelineSection = lazy(() => import("@design/components/timeline/TimelineSection"));
 
 // Same order as SECTIONS in src/lib/sections.ts, which numbers them.
-const sections = [
-  AboutSection,
-  ExperienceSection,
-  DomainsSection,
-  SkillsSection,
-  PortfolioSection,
-  CaseStudiesSection,
-  CustomersSection,
-  ReferencesSection,
-  EducationSection,
-  MapSection,
-  TimelineSection,
-  FaqSection,
-  ContactSection,
+// Each section prints on its own band; the tone comes from SECTIONS (styles/tones.css).
+const sections: [SectionId, ComponentType][] = [
+  ["about", AboutSection],
+  ["experience", ExperienceSection],
+  ["domains", DomainsSection],
+  ["skills", SkillsSection],
+  ["portfolio", PortfolioSection],
+  ["case-studies", CaseStudiesSection],
+  ["customers", CustomersSection],
+  ["references", ReferencesSection],
+  ["education", EducationSection],
+  ["map", MapSection],
+  ["timeline", TimelineSection],
+  ["faq", FaqSection],
+  ["contact", ContactSection],
 ];
 
 const Index = () => {
@@ -81,8 +83,8 @@ const Index = () => {
       <Navigation />
       <main>
         <HeroSection />
-        {sections.map((Section, index) => (
-          <div key={index}>
+        {sections.map(([id, Section]) => (
+          <div key={id} data-tone={sectionTone(id)} className="section-tone">
             {/* section-boundary: the prerender step adds React's Suspense markers here */}
             <Reveal threshold={0.05} className="section-boundary">
               <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>
