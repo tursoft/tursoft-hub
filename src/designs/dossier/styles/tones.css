@@ -4,7 +4,7 @@
        paper   the default: warm paper, black ink, printer's red (the :root tokens)
        tint    the same paper, printed with the second ink: orange in red's place,
                warmer surfaces and rules
-       orange  the reverse: a full orange band with black ink type
+       orange  the reverse: a deep orange band with white type and pale gold accents
      Every component reads the same tokens, so a tone only redefines them for its band.
      Set per section in src/designs/dossier/lib/sections.ts; pages/Index.tsx paints the band. */
 
@@ -30,42 +30,48 @@
   }
 
   [data-tone="orange"] {
-    --background: 24 85% 58%; /* orange band #ef8239 */
-    --foreground: 33 17% 10%; /* black ink, as on the paper */
+    color-scheme: dark;
 
-    --card: 28 90% 66%;
-    --card-foreground: 33 17% 10%;
-    --card-hover: 23 78% 53%;
-    --popover: 28 90% 66%;
-    --popover-foreground: 33 17% 10%;
+    --background: 21 85% 35%; /* deep orange band #a54213 */
+    --foreground: 0 0% 100%; /* white type */
 
-    /* Red does not carry on orange, so the band prints its accents in black ink */
-    --primary: 33 17% 10%;
-    --primary-foreground: 40 36% 95%;
-    --primary-dark: 25 30% 22%;
-    --primary-glow: 33 17% 10%;
-    --primary-variant: 25 30% 22%;
+    --card: 21 72% 40%;
+    --card-foreground: 0 0% 100%;
+    --card-hover: 21 80% 31%;
+    --popover: 21 72% 40%;
+    --popover-foreground: 0 0% 100%;
 
-    --secondary: 23 78% 53%;
-    --secondary-foreground: 33 17% 10%;
-    --secondary-hover: 22 75% 49%;
-    --muted: 23 78% 53%;
-    --muted-foreground: 20 45% 16%;
-    --faint: 20 40% 22%;
-    --accent: 20 45% 16%;
-    --accent-foreground: 24 85% 58%;
-    --primary-light: 20 45% 16%;
-    --accent-glow: 20 45% 16%;
-    --navy-deep: 33 17% 10%;
+    /* Red does not carry on orange, so the band prints its accents in a pale gold */
+    --primary: 42 100% 80%; /* #ffe099 */
+    --primary-foreground: 21 85% 24%;
+    --primary-dark: 42 100% 87%;
+    --primary-glow: 42 100% 80%;
+    --primary-variant: 42 100% 87%;
 
-    --success: 140 45% 20%;
-    --warning: 33 17% 10%;
-    --destructive: 33 17% 10%;
-    --destructive-foreground: 40 36% 95%;
+    --secondary: 21 80% 31%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-hover: 21 80% 27%;
+    --muted: 21 80% 31%;
+    --muted-foreground: 32 75% 90%;
+    --faint: 30 65% 85%;
+    --accent: 32 75% 90%;
+    --accent-foreground: 21 85% 35%;
+    --primary-light: 32 75% 90%;
+    --accent-glow: 32 75% 90%;
+    --navy-deep: 21 85% 24%;
 
-    --border: 22 60% 46%;
-    --input: 20 50% 34%;
-    --ring: 33 17% 10%;
+    --success: 140 60% 80%;
+    --warning: 42 100% 80%;
+    --destructive: 42 100% 80%;
+    --destructive-foreground: 21 85% 24%;
+
+    --border: 24 58% 50%;
+    --input: 28 70% 70%;
+    --ring: 0 0% 100%;
+
+    --shadow-card: 0 1px 2px hsl(21 90% 12% / 0.3);
+    --shadow-card-hover: 0 1px 2px hsl(21 90% 12% / 0.3), 0 12px 28px -18px hsl(21 90% 12% / 0.6);
+    --shadow-elegant: 0 1px 2px hsl(21 90% 12% / 0.3), 0 8px 24px -16px hsl(21 90% 12% / 0.5);
   }
 
   /* Logo plates stay paper on the orange band: logos are drawn for a light ground and
